@@ -596,16 +596,10 @@ public record TextOptions
   /// </summary>
   public bool UseDashNames { get; set; } = true;
 
-
   /// <summary>
   /// Convert text to string using format character names.
   /// </summary>
   public bool UseFormatCharNames { get; set; } = true;
-
-  /// <summary>
-  /// Convert text to string using accent character names.
-  /// </summary>
-  public bool UseAccentCharNames { get; set; } = true;
 
   /// <summary>
   /// Convert text to string using superscript/subscript character names.
@@ -616,6 +610,16 @@ public record TextOptions
   /// Convert text to string using roman character names.
   /// </summary>
   public bool UseRomanCharNames { get; set; } = true;
+
+  /// <summary>
+  /// Convert text to string using other character names.
+  /// </summary>
+  public bool UseOtherCharNames { get; set; } = true;
+
+  /// <summary>
+  /// Convert text to string using character functions (where possible).
+  /// </summary>
+  public bool UseCharFunctions { get; set; } = true;
 
   /// <summary>
   /// Convert text to string using Html entities.

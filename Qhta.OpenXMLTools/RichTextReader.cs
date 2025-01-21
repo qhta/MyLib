@@ -43,6 +43,8 @@ public class RichTextReader: OpenXmlTextReader
   public string ReadCharStr()
   {
     var str = (char)base.ReadChar();
+    if (str==' ')
+      Debug.Assert(true);
     if (str== '\\')
     {
       if (Peek() == '\\')
@@ -101,7 +103,7 @@ public class RichTextReader: OpenXmlTextReader
         foreach (var ch1 in param)
         {
           var seq = charName + "{" + ch1 + "}";
-          if (CharNames.TryGetValue(seq, out var cp))
+          if (CharNames.TryFindFunction(seq, out var cp))
             sb.Append((char)cp);
           else
             throw new InvalidOperationException($"Invalid \\{charName} parameter \"{param}\"");
@@ -110,7 +112,7 @@ public class RichTextReader: OpenXmlTextReader
       }
       else
       {
-        if (CharNames.TryGetValue(charName, out var cp))
+        if (CharNames.TryFindName(charName, out var cp))
           return new string((char)cp, 1);
         throw new InvalidOperationException("Invalid character name.");
       }
@@ -121,7 +123,7 @@ public class RichTextReader: OpenXmlTextReader
   private bool TryReadUnicodeHex(out char ch)
   {
     ch = (char)0;
-    if (Peek() == 'u')
+    if (Peek() == '\'')
     {
       base.ReadChar();
       if (!IsHexDigit(Peek()))

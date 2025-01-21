@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>Qhta.OpenXmlTools</id>
+    <id>Qhta.OpenXMLTools</id>
     <version>2.0.0</version>
     <authors>Yarreck Qhta</authors>
     <license type="expression">MIT</license>
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>OpenXmlTools is a library for working with OpenXml documents.</description>
-    <repository type="git" commit="6d923cdc5aab474f09b22cc37ec4b3fd3c082c70" />
+    <repository type="git" commit="cc5b51e5f657d26dcbc3c2e3f27c56272b94c895" />
     <dependencies>
       <group targetFramework=".NETStandard2.0">
         <dependency id="DocumentFormat.OpenXml" version="3.2.0" exclude="Build,Analyzers" />
@@ -20,9 +20,9 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\pl\Qhta.OpenXmlTools.resources.dll" target="lib\netstandard2.0\pl\Qhta.OpenXmlTools.resources.dll" />
-    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.OpenXmlTools.dll" target="lib\netstandard2.0\Qhta.OpenXmlTools.dll" />
-    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.OpenXmlTools.xml" target="lib\netstandard2.0\Qhta.OpenXmlTools.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\pl\Qhta.OpenXMLTools.resources.dll" target="lib\netstandard2.0\pl\Qhta.OpenXMLTools.resources.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.OpenXMLTools.dll" target="lib\netstandard2.0\Qhta.OpenXMLTools.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.OpenXMLTools.xml" target="lib\netstandard2.0\Qhta.OpenXMLTools.xml" />
     <file src="D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\docs\readme.md" target="\readme.md" />
   </files>
 </package>

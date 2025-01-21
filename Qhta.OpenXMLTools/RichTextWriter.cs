@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
 
 namespace Qhta.OpenXmlTools;
 
@@ -25,11 +22,26 @@ public class RichTextWriter : OpenXmlTextWriter
   private bool wasBackslash = false;
 
   /// <summary>
+  /// Clear the buffer and reset the state.
+  /// </summary>
+  public override void Clear()
+  {
+    base.Clear();
+    wasBackslash = false;
+  }
+
+  /// <summary>
   /// Write a single char.
   /// </summary>
   /// <param name="ch"></param>
   public override void Write(char ch)
   {
+    if (Options.UseCharFunctions)
+    {
+      if (TryUseCharFunctions(ch))
+        return;
+    }
+
     var ctg = Char.GetUnicodeCategory(ch);
     if (ctg == UnicodeCategory.SpaceSeparator || ctg == UnicodeCategory.ParagraphSeparator || ctg == UnicodeCategory.LineSeparator)
       WriteSeparatorChar(ch);
@@ -53,97 +65,114 @@ public class RichTextWriter : OpenXmlTextWriter
       WriteRomanChar(ch);
     else
     {
-      if (wasBackslash)
-      {
-        base.Write(' ');
-        wasBackslash = false;
-      }
-      base.Write(ch);
+      WriteOtherChar(ch);
     }
+  }
+
+  private bool TryUseCharFunctions(char ch)
+  {
+    if (CharNames.CharFunctions.TryGetValue(ch, out var seq))
+    {
+      base.Write("\\" + seq);
+      wasBackslash = false;
+      return true;
+    }
+    return false;
+  }
+
+  private void WriteControlCharName(string controlCharName)
+  {
+    base.Write(@"\" + controlCharName);
+    wasBackslash = controlCharName.Last() != '}';
+  }
+
+  private void WriteUnicodeChar(char ch)
+  {
+    base.Write($@"\'{((int)ch):X4}");
+    wasBackslash = true;
   }
 
   private void WriteControlChar(char ch)
   {
     if (Options.UseEscapeSequences && CharNames.EscapeMapping.TryGetValue(ch, out var seq))
-      base.Write("\\"+seq);
+      WriteControlCharName(seq);
     else
-    if (Options.UseControlCharNames && CharNames.TryGetValue(ch, out var controlCharName))
-      base.Write(@"\" + controlCharName);
+    if (Options.UseControlCharNames && CharNames.TryGetName(ch, out var controlCharName))
+      WriteControlCharName(controlCharName);
     else
-      base.Write($@"\u{((int)ch):X4}");
-    wasBackslash = true;
+      WriteUnicodeChar(ch);
   }
 
   private void WriteSeparatorChar(char ch)
   {
     if (ch == ' ')
-    {
-      base.Write(ch);
-      wasBackslash = false;
-      return;
-    }
-    if (Options.UseSpaceNames && CharNames.TryGetValue(ch, out var controlCharName))
-      base.Write(@"\" + controlCharName);
+      WriteOtherChar(ch);
     else
-      base.Write($@"\u{((int)ch):X4}");
-    wasBackslash = true;
+    if (Options.UseSpaceNames && CharNames.TryGetName(ch, out var controlCharName))
+      WriteControlCharName(controlCharName);
+    else
+      WriteUnicodeChar(ch);
   }
 
   private void WriteDashOrHyphen(char ch)
   {
     if (ch == '-')
-    {
-      base.Write(ch);
-      wasBackslash = false;
-      return;
-    }
-    if (Options.UseDashNames && CharNames.TryGetValue(ch, out var controlCharName))
-      base.Write(@"\" + controlCharName);
+      WriteOtherChar(ch);
     else
-      base.Write($@"\u{((int)ch):X4}");
-    wasBackslash = true;
+    if (Options.UseDashNames && CharNames.TryGetName(ch, out var controlCharName))
+      WriteControlCharName(controlCharName);
+    else
+      WriteUnicodeChar(ch);
   }
 
   private void WriteFormatChar(char ch)
   {
-    if (Options.UseFormatCharNames && CharNames.TryGetValue(ch, out var controlCharName))
-      base.Write(@"\" + controlCharName);
+    if (Options.UseFormatCharNames && CharNames.TryGetName(ch, out var controlCharName))
+      WriteControlCharName(controlCharName);
     else
-      base.Write($@"\u{((int)ch):X4}");
-    wasBackslash = true;
+      WriteUnicodeChar(ch);
 
   }
 
   private void WriteAccentChar(char ch)
   {
-    if (Options.UseFormatCharNames && CharNames.TryGetValue(ch, out var controlCharName))
-      base.Write(@"\" + controlCharName);
+    if (Options.UseFormatCharNames && CharNames.TryGetName(ch, out var controlCharName))
+      WriteControlCharName(controlCharName);
     else
-      base.Write($@"\u{((int)ch):X4}");
-    wasBackslash = true;
+      WriteUnicodeChar(ch);
   }
 
   private void WriteSupSubChar(char ch)
   {
-    if (Options.UseSupSubCharNames && CharNames.TryGetValue(ch, out var controlCharName))
-    {
-      base.Write(@"\" + controlCharName);
-      wasBackslash = controlCharName.Last() != '}';
-    }
+    if (Options.UseSupSubCharNames && CharNames.TryGetName(ch, out var controlCharName))
+      WriteControlCharName(controlCharName);
     else
-    {
-      base.Write($@"\u{((int)ch):X4}");
-      wasBackslash = true;
-    }
+      WriteUnicodeChar(ch);
   }
 
   private void WriteRomanChar(char ch)
   {
-    if (Options.UseRomanCharNames && CharNames.TryGetValue(ch, out var controlCharName))
-      base.Write(@"\" + controlCharName);
+    if (Options.UseRomanCharNames && CharNames.TryGetName(ch, out var controlCharName))
+      WriteControlCharName(controlCharName);
     else
-      base.Write($@"\u{((int)ch):X4}");
-    wasBackslash = true;
+      WriteUnicodeChar(ch);
   }
 
+  private void WriteOtherChar(char ch)
+  {
+    if (Options.UseOtherCharNames && CharNames.TryGetName(ch, out var controlCharName))
+      WriteControlCharName(controlCharName);
+    else
+      WriteOnlyChar(ch);
+  }
+
+  private void WriteOnlyChar(char ch)
+  {
+    if (wasBackslash)
+    {
+      base.Write(' ');
+      wasBackslash = false;
+    }
+    base.Write(ch);
+  }
 }

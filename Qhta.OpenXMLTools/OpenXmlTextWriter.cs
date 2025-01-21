@@ -47,4 +47,11 @@ public abstract class OpenXmlTextWriter
     return sb.ToString();
   }
 
+  /// <summary>
+  /// Clear the buffer.
+  /// </summary>
+  public virtual void Clear()
+  {
+    sb.Clear();
+  }
 }

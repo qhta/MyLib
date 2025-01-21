@@ -17,18 +17,18 @@ public static class CharNames
   /// <param name="cp"></param>
   /// <param name="name"></param>
   /// <returns></returns>
-  public static bool TryGetValue(int cp, out string name)
+  public static bool TryGetName(int cp, out string name)
   {
     return CharMapping.TryGetValue(cp, out name);
   }
 
   /// <summary>
-  /// Try to get the name for a character code point  
+  /// Try to get a character code point for the name.
   /// </summary>
   /// <param name="cp"></param>
   /// <param name="name"></param>
   /// <returns></returns>
-  public static bool TryGetValue(string name, out int cp)
+  public static bool TryFindName(string name, out int cp)
   {
     if (name.Length == 1)
     {
@@ -36,6 +36,29 @@ public static class CharNames
     }
     return CharMapping.TryGetValue1(name, out cp);
   }
+
+  /// <summary>
+  /// Try to get the function for a character code point.
+  /// </summary>
+  /// <param name="cp"></param>
+  /// <param name="function"></param>
+  /// <returns></returns>
+  public static bool TryGetFunction(int cp, out string function)
+  {
+    return CharFunctions.TryGetValue(cp, out function);
+  }
+
+  /// <summary>
+  /// Try to get a character code point for the function.
+  /// </summary>
+  /// <param name="cp"></param>
+  /// <param name="function"></param>
+  /// <returns></returns>
+  public static bool TryFindFunction(string function, out int cp)
+  {
+    return CharFunctions.TryGetValue1(function, out cp);
+  }
+
 
   /// <summary>
   /// Registered escape sequences for characters
@@ -124,264 +147,6 @@ public static class CharNames
     { 0x009D, "OSC" },
     { 0x009E, "PM" },
     { 0x009F, "APC" },
-    { 0x00A0, "nbsp" },                               // No-break space
-    { 0x2000, "enquad" },                             // En quad
-    { 0x2001, "emquad" },                             // Em quad
-    { 0x2002, "ensp" },                               // En space
-    { 0x2003, "emsp" },                               // Em space
-    { 0x2004, "tpmsp" },                              // Three-per-em space
-    { 0x2005, "fpmsp" },                              // Four-per-em space
-    { 0x2006, "spmsp" },                              // Six-per-em space
-    { 0x2007, "numsp" },                              // Figure space
-    { 0x2008, "pctsp" },                              // Punctuation space
-    { 0x2009, "thinsp" },                             // Thin space
-    { 0x200A, "hairsp" },                             // Hair space
-    { 0x2028, "line" },                               // Line separator
-    { 0x2029, "par" },                                // Paragraph separator
-    { 0x202F, "nnbsp" },                              // Narrow no-break space
-    { 0x205F, "mmsp" },                               // Medium mathematical space
-    { 0x3000, "idsp" },                               // Ideographic space
-    { 0x2010, "hp" },                                 // Hyphen
-    { 0x2011, "nbhp" },                               // Non-breaking hyphen
-    { 0x2012, "fdash" },                              // Figure dash
-    { 0x2013, "endash" },                             // En dash
-    { 0x2014, "emdash" },                             // Em dash
-    { 0x2015, "longdash" },                           // Horizontal bar
-    { 0x2027, "hpp" },                                // Hyphenation point
-    { 0x2043, "hpb" },                                // Hyphen bullet
-    { 0x2E17, "hpdo" },                               // Double oblique hyphen
-    { 0x2E1A, "hpdi" },                               // Hyphen with dieresis
-    { 0x2E40, "hpd" },                                // Double hyphen
-    { 0x301C, "wdash" },                              // Wave dash
-    { 0x2030, "wwdash" },                             // Wavy dash
-    { 0x00AD, "sh" },                                 // Soft hyphen
-    { 0x200B, "zwsp" },                               // Zero width space
-    { 0x200C, "zwnj" },                               // Zero width non-joiner
-    { 0x200D, "zwj" },                                // Zero width joiner
-    { 0x200E, "ltr" },                                // Left-to-right mark
-    { 0x200F, "rtl" },                                // Right-to-left mark
-    { 0x202A, "ltre" },                               // Left-to-right embedding
-    { 0x202B, "rtle" },                               // Right-to-left embedding
-    { 0x202C, "pdf" },                                // Pop directional formatting
-    { 0x202D, "ltro" },                               // Left-to-right override
-    { 0x202E, "rtlo" },                               // Right-to-left override
-    { 0x2060, "wj" },                                 // Word joiner
-    { 0x2061, "fa" },                                 // Function application
-    { 0x2062, "nvtimes" },                            // Invisible times
-    { 0x2063, "nvsep" },                              // Invisible separator
-    { 0x2064, "nvplus" },                             // Invisible plus
-    { 0x2066, "ltri" },                               // Left-to-right isolate
-    { 0x2067, "rtli" },                               // Right-to-left isolate
-    { 0x2068, "fsi" },                                // First strong isolate
-    { 0x2069, "pdi" },                                // Pop directional isolate
-    { 0x206A, "ssi" },                                // Inhibit symmetric swapping
-    { 0x206B, "ssa" },                                // Activate symmetric swapping
-    { 0x206C, "afsi" },                               // Inhibit Arabic form shaping
-    { 0x206D, "afsa" },                               // Activate Arabic form shaping
-    { 0x206E, "nds" },                                // National digit shapes
-    { 0x206F, "mds" },                                // Nominal digit shapes
-    { 0xFEFF, "zwnbsp" },                             // Zero width no-break space
-    { 0xFFF9, "iaa" },                                // Interlinear annotation anchor
-    { 0xFFFA, "ias" },                                // Interlinear annotation separator
-    { 0xFFFB, "iat" },                                // Interlinear annotation terminator
-    { 0x005E, "circumflex" },                         // Circumflex accent
-    { 0x0060, "grave" },                              // Grave accent
-    { 0x00A8, "dieresis" },                           // Diaeresis
-    { 0x00AF, "macron" },                             // Macron
-    { 0x00B4, "acute" },                              // Acute accent
-    { 0x00B8, "cedilla" },                            // Cedilla
-    { 0x02C2, "arrowheadleft" },                      // Modifier letter left arrowhead
-    { 0x02C3, "arrowheadright" },                     // Modifier letter right arrowhead
-    { 0x02C4, "arrowheadup" },                        // Modifier letter up arrowhead
-    { 0x02C5, "arrowheaddown" },                      // Modifier letter down arrowhead
-    { 0x02D2, "ringrighthalfcenter" },                // Modifier letter centred right half ring
-    { 0x02D3, "ringlefthalfsup" },                    // Modifier letter centred left half ring
-    { 0x02D4, "tackupmid" },                          // Modifier letter up tack
-    { 0x02D5, "tackdownmid" },                        // Modifier letter down tack
-    { 0x02D6, "plusmod" },                            // Modifier letter plus sign
-    { 0x02D7, "minusmod" },                           // Modifier letter minus sign
-    { 0x02D8, "breve" },                              // Breve
-    { 0x02D9, "dotaccent" },                          // Dot above
-    { 0x02DA, "ring" },                               // Ring above
-    { 0x02DB, "ogonek" },                             // Ogonek
-    { 0x02DC, "tilde" },                              // Small tilde
-    { 0x02DD, "hungarumlaut" },                       // Double acute accent
-    { 0x02DE, "rhotichook" },                         // Modifier letter rhotic hook
-    { 0x02DF, "qofdagesh" },                          // Modifier letter cross accent
-    { 0x02E5, "toneextrahigh" },                      // Modifier letter extra-high tone bar
-    { 0x02E6, "tonehigh" },                           // Modifier letter high tone bar
-    { 0x02E7, "tonemid" },                            // Modifier letter mid tone bar
-    { 0x02E8, "tonelow" },                            // Modifier letter low tone bar
-    { 0x02E9, "toneextralow" },                       // Modifier letter extra-low tone bar
-    { 0x02EA, "ltrmark" },                            // Modifier letter yin departing tone mark
-    { 0x02EB, "rtlmark" },                            // Modifier letter yang departing tone mark
-    { 0x02ED, "unaspirated" },                        // Modifier letter unaspirated
-    { 0x02EF, "arrowheadlowdown" },                   // Modifier letter low down arrowhead
-    { 0x02F0, "arrowheadlowup" },                     // Modifier letter low up arrowhead
-    { 0x02F1, "arrowheadlowleft" },                   // Modifier letter low left arrowhead
-    { 0x02F2, "arrowheadlowright" },                  // Modifier letter low right arrowhead
-    { 0x02F3, "lowring" },                            // Modifier letter low ring
-    { 0x02F4, "midgrave" },                           // Modifier letter middle grave accent
-    { 0x02F5, "middgrave" },                          // Modifier letter middle double grave accent
-    { 0x02F6, "middacute" },                          // Modifier letter middle double acute accent
-    { 0x02F7, "lowtilde" },                           // Modifier letter low tilde
-    { 0x02F8, "raisecolon" },                         // Modifier letter raised colon
-    { 0x02F9, "hightonestart" },                      // Modifier letter begin high tone
-    { 0x02FA, "hightoneend" },                        // Modifier letter end high tone
-    { 0x02FB, "lowtonestart" },                       // Modifier letter begin low tone
-    { 0x02FC, "lowtoneend" },                         // Modifier letter end low tone
-    { 0x02FD, "shelf" },                              // Modifier letter shelf
-    { 0x02FE, "openshelf" },                          // Modifier letter open shelf
-    { 0x02FF, "lowarrowleft" },                       // Modifier letter low left arrow
-    { 0x0300, "gravenosp" },                          // Combining grave accent
-    { 0x0301, "acutenosp" },                          // Combining acute accent
-    { 0x0302, "circumflexnosp" },                     // Combining circumflex accent
-    { 0x0303, "tildenosp" },                          // Combining tilde
-    { 0x0304, "macronnosp" },                         // Combining macron
-    { 0x0305, "overscorenosp" },                      // Combining overline
-    { 0x0306, "brevenosp" },                          // Combining breve
-    { 0x0307, "dotnosp" },                            // Combining dot above
-    { 0x0308, "dieresisnosp" },                       // Combining diaeresis
-    { 0x0309, "hooksupnosp" },                        // Combining hook above
-    { 0x030A, "ringnosp" },                           // Combining ring above
-    { 0x030B, "acutedblnosp" },                       // Combining double acute accent
-    { 0x030C, "haceknosp" },                          // Combining caron
-    { 0x030D, "linevertnosp" },                       // Combining vertical line above
-    { 0x030E, "linevertdblnosp" },                    // Combining double vertical line above
-    { 0x030F, "gravedblnosp" },                       // Combining double grave accent
-    { 0x0310, "candrabindunosp" },                    // Combining candrabindu
-    { 0x0311, "breveinvnosp" },                       // Combining inverted breve
-    { 0x0312, "commaturnsupnosp" },                   // Combining turned comma above
-    { 0x0313, "apostrophesupnosp" },                  // Combining comma above
-    { 0x0314, "commasuprevnosp" },                    // Combining reversed comma above
-    { 0x0315, "commasuprightnosp" },                  // Combining comma above right
-    { 0x0316, "gravesubnosp" },                       // Combining grave accent below
-    { 0x0317, "acutesubnosp" },                       // Combining acute accent below
-    { 0x0318, "tackleftsubnosp" },                    // Combining left tack below
-    { 0x0319, "tackrightsubnosp" },                   // Combining right tack below
-    { 0x031A, "anglesupnosp" },                       // Combining left angle above
-    { 0x031B, "hornnosp" },                           // Combining horn
-    { 0x031C, "ringlefthalfsubnosp" },                // Combining left half ring below
-    { 0x031D, "tackupsubnosp" },                      // Combining up tack below
-    { 0x031E, "tackdownsubnosp" },                    // Combining down tack below
-    { 0x031F, "plussubnosp" },                        // Combining plus sign below
-    { 0x0320, "minussubnosp" },                       // Combining minus sign below
-    { 0x0321, "hooksubpalatnosp" },                   // Combining palatalized hook below
-    { 0x0322, "hooksubretronosp" },                   // Combining retroflex hook below
-    { 0x0323, "dotsubnosp" },                         // Combining dot below
-    { 0x0324, "dotdblsubnosp" },                      // Combining diaeresis below
-    { 0x0325, "ringsubnosp" },                        // Combining ring below
-    { 0x0326, "commasubnosp" },                       // Combining comma below
-    { 0x0327, "cedillanosp" },                        // Combining cedilla
-    { 0x0328, "ogoneknosp" },                         // Combining ogonek
-    { 0x0329, "linevertsubnosp" },                    // Combining vertical line below
-    { 0x032A, "bridgesubnosp" },                      // Combining bridge below
-    { 0x032B, "archdblsubnosp" },                     // Combining inverted double arch below
-    { 0x032C, "haceksubnosp" },                       // Combining caron below
-    { 0x032D, "circumflexsubnosp" },                  // Combining circumflex accent below
-    { 0x032E, "brevesubnosp" },                       // Combining breve below
-    { 0x032F, "breveinvsubnosp" },                    // Combining inverted breve below
-    { 0x0330, "tildesubnosp" },                       // Combining tilde below
-    { 0x0331, "macronsubnosp" },                      // Combining macron below
-    { 0x0332, "underscorenosp" },                     // Combining low line
-    { 0x0333, "underscoredblnosp" },                  // Combining double low line
-    { 0x0334, "tildemidnosp" },                       // Combining tilde overlay
-    { 0x0335, "barmidshortnosp" },                    // Combining short stroke overlay
-    { 0x0336, "barmidlongnosp" },                     // Combining long stroke overlay
-    { 0x0337, "slashshortnosp" },                     // Combining short solidus overlay
-    { 0x0338, "slashlongnosp" },                      // Combining long solidus overlay
-    { 0x0339, "ringrighthalfsubnosp" },               // Combining right half ring below
-    { 0x033A, "bridgeinvsubnosp" },                   // Combining inverted bridge below
-    { 0x033B, "squaresubnosp" },                      // Combining square below
-    { 0x033C, "seagullsubnosp" },                     // Combining seagull below
-    { 0x033D, "xsupnosp" },                           // Combining x above
-    { 0x033E, "tildevertsupnosp" },                   // Combining vertical tilde
-    { 0x033F, "overscoredblnosp" },                   // Combining double overline
-    { 0x0340, "graveleftnosp" },                      // Combining grave tone mark
-    { 0x0341, "acuterightnosp" },                     // Combining acute tone mark
-    { 0x0342, "perispomenigreekcmb" },                // Combining greek perispomeni
-    { 0x0343, "koroniscmb" },                         // Combining greek koronis
-    { 0x0344, "diaeresistonosnosp" },                 // Combining greek dialytika tonos
-    { 0x0345, "iotasubnosp" },                        // Combining greek ypogegrammeni
-    { 0x2070, "zerosuperior" },                       // Superscript zero
-    { 0x00B9, "onesuperior" },                        // Superscript one
-    { 0x00B2, "twosuperior" },                        // Superscript two
-    { 0x00B3, "threesuperior" },                      // Superscript three
-    { 0x2074, "foursuperior" },                       // Superscript four
-    { 0x2075, "fivesuperior" },                       // Superscript five
-    { 0x2076, "sixsuperior" },                        // Superscript six
-    { 0x2077, "sevensuperior" },                      // Superscript seven
-    { 0x2078, "eightsuperior" },                      // Superscript eight
-    { 0x2079, "ninesuperior" },                       // Superscript nine
-    { 0x207A, "plussuperior" },                       // Superscript plus sign
-    { 0x207B, "minussuperior" },                      // Superscript minus
-    { 0x207C, "equalsuperior" },                      // Superscript equals sign
-    { 0x207D, "parenleftsuperior" },                  // Superscript left parenthesis
-    { 0x207E, "parenrightsuperior" },                 // Superscript right parenthesis
-    { 0x2071, "isuperior" },                          // Superscript latin small letter I
-    { 0x207F, "nsuperior" },                          // Superscript latin small letter N
-    { 0x2080, "zerosub" },                            // Subscript zero
-    { 0x2081, "onesub" },                             // Subscript one
-    { 0x2082, "twosub" },                             // Subscript two
-    { 0x2083, "threesub" },                           // Subscript three
-    { 0x2084, "foursub" },                            // Subscript four
-    { 0x2085, "fivesub" },                            // Subscript five
-    { 0x2086, "sixsub" },                             // Subscript six
-    { 0x2087, "sevensub" },                           // Subscript seven
-    { 0x2088, "eightsub" },                           // Subscript eight
-    { 0x2089, "ninesub" },                            // Subscript nine
-    { 0x208A, "plussub" },                            // Subscript plus sign
-    { 0x208B, "minussub" },                           // Subscript minus
-    { 0x208C, "equalsub" },                           // Subscript equals sign
-    { 0x208D, "parenleftsub" },                       // Subscript left parenthesis
-    { 0x208E, "parenrightsub" },                      // Subscript right parenthesis
-    { 0x2090, "asub" },                               // Latin subscript small letter A
-    { 0x2091, "esub" },                               // Latin subscript small letter E
-    { 0x2092, "osub" },                               // Latin subscript small letter O
-    { 0x2093, "xsub" },                               // Latin subscript small letter X
-    { 0x2094, "schwasub" },                           // Latin subscript small letter schwa
-    { 0x2095, "hsub" },                               // Latin subscript small letter H
-    { 0x2096, "ksub" },                               // Latin subscript small letter K
-    { 0x2097, "lsub" },                               // Latin subscript small letter L
-    { 0x2098, "msub" },                               // Latin subscript small letter M
-    { 0x2099, "nsub" },                               // Latin subscript small letter N
-    { 0x209A, "psub" },                               // Latin subscript small letter P
-    { 0x209B, "ssub" },                               // Latin subscript small letter S
-    { 0x209C, "tsub" },                               // Latin subscript small letter T
-    { 0x2C7C, "jsub" },                               // Latin subscript small letter J
-    { 0x2160, "romanOne" },                           // Roman numeral one
-    { 0x2161, "romanTwo" },                           // Roman numeral two
-    { 0x2162, "romanThree" },                         // Roman numeral three
-    { 0x2163, "romanFour" },                          // Roman numeral four
-    { 0x2164, "romanFive" },                          // Roman numeral five
-    { 0x2165, "romanSix" },                           // Roman numeral six
-    { 0x2166, "romanSeven" },                         // Roman numeral seven
-    { 0x2167, "romanEight" },                         // Roman numeral eight
-    { 0x2168, "romanNine" },                          // Roman numeral nine
-    { 0x2169, "romanTen" },                           // Roman numeral ten
-    { 0x216A, "romanEleven" },                        // Roman numeral eleven
-    { 0x216B, "romanTwelve" },                        // Roman numeral twelve
-    { 0x216C, "romanFifty" },                         // Roman numeral fifty
-    { 0x216D, "romanHundred" },                       // Roman numeral one hundred
-    { 0x216E, "romanFivehundred" },                   // Roman numeral five hundred
-    { 0x216F, "romanThousand" },                      // Roman numeral one thousand
-    { 0x2170, "romanone" },                           // Small roman numeral one
-    { 0x2171, "romantwo" },                           // Small roman numeral two
-    { 0x2172, "romanthree" },                         // Small roman numeral three
-    { 0x2173, "romanfour" },                          // Small roman numeral four
-    { 0x2174, "romanfive" },                          // Small roman numeral five
-    { 0x2175, "romansix" },                           // Small roman numeral six
-    { 0x2176, "romanseven" },                         // Small roman numeral seven
-    { 0x2177, "romaneight" },                         // Small roman numeral eight
-    { 0x2178, "romannine" },                          // Small roman numeral nine
-    { 0x2179, "romanten" },                           // Small roman numeral ten
-    { 0x217A, "romaneleven" },                        // Small roman numeral eleven
-    { 0x217B, "romantwelve" },                        // Small roman numeral twelve
-    { 0x217C, "romanfifty" },                         // Small roman numeral fifty
-    { 0x217D, "romanhundred" },                       // Small roman numeral one hundred
-    { 0x217E, "romanfivehundred" },                   // Small roman numeral five hundred
-    { 0x217F, "romanthousand" },                      // Small roman numeral one thousand
-    { 0x0020, "space" },                              // Space
     { 0x0021, "exclam" },                             // Exclamation mark
     { 0x0022, "quotedbl" },                           // Quotation mark
     { 0x0023, "numbersign" },                         // Number sign
@@ -424,7 +189,7 @@ public static class CharNames
     { 0x007C, "verticalbar" },                        // Vertical line
     { 0x007D, "braceright" },                         // Right curly bracket
     { 0x007E, "tilde" },                              // Tilde
-    { 0x00A0, "nbspace" },                            // No-break space
+    { 0x00A0, "nbsp" },                               // No-break space
     { 0x00A1, "exclamdown" },                         // Inverted exclamation mark
     { 0x00A2, "cent" },                               // Cent sign
     { 0x00A3, "sterling" },                           // Pound sign
@@ -456,37 +221,37 @@ public static class CharNames
     { 0x00BD, "onehalf" },                            // Vulgar fraction one half
     { 0x00BE, "threequarters" },                      // Vulgar fraction three quarters
     { 0x00BF, "questiondown" },                       // Inverted question mark
-    { 0x00C0, "Agrave" },                             // Latin Capital Letter A With Grave
-    { 0x00C1, "Aacute" },                             // Latin Capital Letter A With Acute
-    { 0x00C2, "Acircumflex" },                        // Latin Capital Letter A With Circumflex
-    { 0x00C3, "Atilde" },                             // Latin Capital Letter A With Tilde
-    { 0x00C4, "Adieresis" },                          // Latin Capital Letter A With Diaeresis
-    { 0x00C5, "Aring" },                              // Latin Capital Letter A With Ring Above
-    { 0x00C6, "AE" },                                 // Latin Capital Letter Ae
-    { 0x00C7, "Ccedilla" },                           // Latin Capital Letter C With Cedilla
-    { 0x00C8, "Egrave" },                             // Latin Capital Letter E With Grave
-    { 0x00C9, "Eacute" },                             // Latin Capital Letter E With Acute
-    { 0x00CA, "Ecircumflex" },                        // Latin Capital Letter E With Circumflex
-    { 0x00CB, "Edieresis" },                          // Latin Capital Letter E With Diaeresis
-    { 0x00CC, "Igrave" },                             // Latin Capital Letter I With Grave
-    { 0x00CD, "Iacute" },                             // Latin Capital Letter I With Acute
-    { 0x00CE, "Icircumflex" },                        // Latin Capital Letter I With Circumflex
-    { 0x00CF, "Idieresis" },                          // Latin Capital Letter I With Diaeresis
-    { 0x00D0, "Eth" },                                // Latin Capital Letter Eth
-    { 0x00D1, "Ntilde" },                             // Latin Capital Letter N With Tilde
-    { 0x00D2, "Ograve" },                             // Latin Capital Letter O With Grave
-    { 0x00D3, "Oacute" },                             // Latin Capital Letter O With Acute
-    { 0x00D4, "Ocircumflex" },                        // Latin Capital Letter O With Circumflex
-    { 0x00D5, "Otilde" },                             // Latin Capital Letter O With Tilde
-    { 0x00D6, "Odieresis" },                          // Latin Capital Letter O With Diaeresis
+    { 0x00C0, "Agrave" },                             // Latin capital letter a with grave
+    { 0x00C1, "Aacute" },                             // Latin capital letter a with acute
+    { 0x00C2, "Acircumflex" },                        // Latin capital letter a with circumflex
+    { 0x00C3, "Atilde" },                             // Latin capital letter a with tilde
+    { 0x00C4, "Adieresis" },                          // Latin capital letter a with diaeresis
+    { 0x00C5, "Aring" },                              // Latin capital letter a with ring above
+    { 0x00C6, "AE" },                                 // Latin capital letter ae
+    { 0x00C7, "Ccedilla" },                           // Latin capital letter c with cedilla
+    { 0x00C8, "Egrave" },                             // Latin capital letter e with grave
+    { 0x00C9, "Eacute" },                             // Latin capital letter e with acute
+    { 0x00CA, "Ecircumflex" },                        // Latin capital letter e with circumflex
+    { 0x00CB, "Edieresis" },                          // Latin capital letter e with diaeresis
+    { 0x00CC, "Igrave" },                             // Latin capital letter i with grave
+    { 0x00CD, "Iacute" },                             // Latin capital letter i with acute
+    { 0x00CE, "Icircumflex" },                        // Latin capital letter i with circumflex
+    { 0x00CF, "Idieresis" },                          // Latin capital letter i with diaeresis
+    { 0x00D0, "Eth" },                                // Latin capital letter eth
+    { 0x00D1, "Ntilde" },                             // Latin capital letter n with tilde
+    { 0x00D2, "Ograve" },                             // Latin capital letter o with grave
+    { 0x00D3, "Oacute" },                             // Latin capital letter o with acute
+    { 0x00D4, "Ocircumflex" },                        // Latin capital letter o with circumflex
+    { 0x00D5, "Otilde" },                             // Latin capital letter o with tilde
+    { 0x00D6, "Odieresis" },                          // Latin capital letter o with diaeresis
     { 0x00D7, "times" },                              // Multiplication sign
-    { 0x00D8, "Oslash" },                             // Latin Capital Letter O With Stroke
-    { 0x00D9, "Ugrave" },                             // Latin Capital Letter U With Grave
-    { 0x00DA, "Uacute" },                             // Latin Capital Letter U With Acute
-    { 0x00DB, "Ucircumflex" },                        // Latin Capital Letter U With Circumflex
-    { 0x00DC, "Udieresis" },                          // Latin Capital Letter U With Diaeresis
-    { 0x00DD, "Yacute" },                             // Latin Capital Letter Y With Acute
-    { 0x00DE, "Thorn" },                              // Latin Capital Letter Thorn
+    { 0x00D8, "Oslash" },                             // Latin capital letter o with stroke
+    { 0x00D9, "Ugrave" },                             // Latin capital letter u with grave
+    { 0x00DA, "Uacute" },                             // Latin capital letter u with acute
+    { 0x00DB, "Ucircumflex" },                        // Latin capital letter u with circumflex
+    { 0x00DC, "Udieresis" },                          // Latin capital letter u with diaeresis
+    { 0x00DD, "Yacute" },                             // Latin capital letter y with acute
+    { 0x00DE, "Thorn" },                              // Latin capital letter thorn
     { 0x00DF, "germandbls" },                         // Latin small letter sharp s
     { 0x00E0, "agrave" },                             // Latin small letter a with grave
     { 0x00E1, "aacute" },                             // Latin small letter a with acute
@@ -520,195 +285,195 @@ public static class CharNames
     { 0x00FD, "yacute" },                             // Latin small letter y with acute
     { 0x00FE, "thorn" },                              // Latin small letter thorn
     { 0x00FF, "ydieresis" },                          // Latin small letter y with diaeresis
-    { 0x0100, "Amacron" },                            // Latin Capital Letter A With Macron
+    { 0x0100, "Amacron" },                            // Latin capital letter a with macron
     { 0x0101, "amacron" },                            // Latin small letter a with macron
-    { 0x0102, "Abreve" },                             // Latin Capital Letter A With Breve
+    { 0x0102, "Abreve" },                             // Latin capital letter a with breve
     { 0x0103, "abreve" },                             // Latin small letter a with breve
-    { 0x0104, "Aogonek" },                            // Latin Capital Letter A With Ogonek
+    { 0x0104, "Aogonek" },                            // Latin capital letter a with ogonek
     { 0x0105, "aogonek" },                            // Latin small letter a with ogonek
-    { 0x0106, "Cacute" },                             // Latin Capital Letter C With Acute
+    { 0x0106, "Cacute" },                             // Latin capital letter c with acute
     { 0x0107, "cacute" },                             // Latin small letter c with acute
-    { 0x0108, "Ccircumflex" },                        // Latin Capital Letter C With Circumflex
+    { 0x0108, "Ccircumflex" },                        // Latin capital letter c with circumflex
     { 0x0109, "ccircumflex" },                        // Latin small letter c with circumflex
-    { 0x010A, "Cdotaccent" },                         // Latin Capital Letter C With Dot Above
+    { 0x010A, "Cdotaccent" },                         // Latin capital letter c with dot above
     { 0x010B, "cdotaccent" },                         // Latin small letter c with dot above
-    { 0x010C, "Ccaron" },                             // Latin Capital Letter C With Caron
+    { 0x010C, "Ccaron" },                             // Latin capital letter c with caron
     { 0x010D, "ccaron" },                             // Latin small letter c with caron
-    { 0x010E, "Dcaron" },                             // Latin Capital Letter D With Caron
+    { 0x010E, "Dcaron" },                             // Latin capital letter d with caron
     { 0x010F, "dcaron" },                             // Latin small letter d with caron
-    { 0x0110, "Dstroke" },                            // Latin Capital Letter D With Stroke
+    { 0x0110, "Dstroke" },                            // Latin capital letter d with stroke
     { 0x0111, "dstroke" },                            // Latin small letter d with stroke
-    { 0x0112, "Emacron" },                            // Latin Capital Letter E With Macron
+    { 0x0112, "Emacron" },                            // Latin capital letter e with macron
     { 0x0113, "emacron" },                            // Latin small letter e with macron
-    { 0x0114, "Ebreve" },                             // Latin Capital Letter E With Breve
+    { 0x0114, "Ebreve" },                             // Latin capital letter e with breve
     { 0x0115, "ebreve" },                             // Latin small letter e with breve
-    { 0x0116, "Edotaccent" },                         // Latin Capital Letter E With Dot Above
+    { 0x0116, "Edotaccent" },                         // Latin capital letter e with dot above
     { 0x0117, "edotaccent" },                         // Latin small letter e with dot above
-    { 0x0118, "Eogonek" },                            // Latin Capital Letter E With Ogonek
+    { 0x0118, "Eogonek" },                            // Latin capital letter e with ogonek
     { 0x0119, "eogonek" },                            // Latin small letter e with ogonek
-    { 0x011A, "Ecaron" },                             // Latin Capital Letter E With Caron
+    { 0x011A, "Ecaron" },                             // Latin capital letter e with caron
     { 0x011B, "ecaron" },                             // Latin small letter e with caron
-    { 0x011C, "Gcircumflex" },                        // Latin Capital Letter G With Circumflex
+    { 0x011C, "Gcircumflex" },                        // Latin capital letter g with circumflex
     { 0x011D, "gcircumflex" },                        // Latin small letter g with circumflex
-    { 0x011E, "Gbreve" },                             // Latin Capital Letter G With Breve
+    { 0x011E, "Gbreve" },                             // Latin capital letter g with breve
     { 0x011F, "gbreve" },                             // Latin small letter g with breve
-    { 0x0120, "Gdotaccent" },                         // Latin Capital Letter G With Dot Above
+    { 0x0120, "Gdotaccent" },                         // Latin capital letter g with dot above
     { 0x0121, "gdotaccent" },                         // Latin small letter g with dot above
-    { 0x0122, "Gcedilla" },                           // Latin Capital Letter G With Cedilla
+    { 0x0122, "Gcedilla" },                           // Latin capital letter g with cedilla
     { 0x0123, "gcedilla" },                           // Latin small letter g with cedilla
-    { 0x0124, "Hcircumflex" },                        // Latin Capital Letter H With Circumflex
+    { 0x0124, "Hcircumflex" },                        // Latin capital letter h with circumflex
     { 0x0125, "hcircumflex" },                        // Latin small letter h with circumflex
-    { 0x0126, "Hbar" },                               // Latin Capital Letter H With Stroke
+    { 0x0126, "Hbar" },                               // Latin capital letter h with stroke
     { 0x0127, "hbar" },                               // Latin small letter h with stroke
-    { 0x0128, "Itilde" },                             // Latin Capital Letter I With Tilde
+    { 0x0128, "Itilde" },                             // Latin capital letter i with tilde
     { 0x0129, "itilde" },                             // Latin small letter i with tilde
-    { 0x012A, "Imacron" },                            // Latin Capital Letter I With Macron
+    { 0x012A, "Imacron" },                            // Latin capital letter i with macron
     { 0x012B, "imacron" },                            // Latin small letter i with macron
-    { 0x012C, "Ibreve" },                             // Latin Capital Letter I With Breve
+    { 0x012C, "Ibreve" },                             // Latin capital letter i with breve
     { 0x012D, "ibreve" },                             // Latin small letter i with breve
-    { 0x012E, "Iogonek" },                            // Latin Capital Letter I With Ogonek
+    { 0x012E, "Iogonek" },                            // Latin capital letter i with ogonek
     { 0x012F, "iogonek" },                            // Latin small letter i with ogonek
-    { 0x0130, "Idotaccent" },                         // Latin Capital Letter I With Dot Above
+    { 0x0130, "Idotaccent" },                         // Latin capital letter i with dot above
     { 0x0131, "dotlessi" },                           // Latin small letter dotless i
-    { 0x0132, "IJ" },                                 // Latin Capital Ligature Ij
+    { 0x0132, "IJ" },                                 // Latin capital ligature ij
     { 0x0133, "ij" },                                 // Latin small ligature ij
-    { 0x0134, "Jcircumflex" },                        // Latin Capital Letter J With Circumflex
+    { 0x0134, "Jcircumflex" },                        // Latin capital letter j with circumflex
     { 0x0135, "jcircumflex" },                        // Latin small letter j with circumflex
-    { 0x0136, "Kcedilla" },                           // Latin Capital Letter K With Cedilla
+    { 0x0136, "Kcedilla" },                           // Latin capital letter k with cedilla
     { 0x0137, "kcedilla" },                           // Latin small letter k with cedilla
     { 0x0138, "kgreenlandic" },                       // Latin small letter kra
-    { 0x0139, "Lacute" },                             // Latin Capital Letter L With Acute
+    { 0x0139, "Lacute" },                             // Latin capital letter l with acute
     { 0x013A, "lacute" },                             // Latin small letter l with acute
-    { 0x013B, "Lcedilla" },                           // Latin Capital Letter L With Cedilla
+    { 0x013B, "Lcedilla" },                           // Latin capital letter l with cedilla
     { 0x013C, "lcedilla" },                           // Latin small letter l with cedilla
-    { 0x013D, "Lcaron" },                             // Latin Capital Letter L With Caron
+    { 0x013D, "Lcaron" },                             // Latin capital letter l with caron
     { 0x013E, "lcaron" },                             // Latin small letter l with caron
-    { 0x013F, "Ldotaccent" },                         // Latin Capital Letter L With Middle Dot
+    { 0x013F, "Ldotaccent" },                         // Latin capital letter l with middle dot
     { 0x0140, "ldotaccent" },                         // Latin small letter l with middle dot
-    { 0x0141, "Lslash" },                             // Latin Capital Letter L With Stroke
+    { 0x0141, "Lslash" },                             // Latin capital letter l with stroke
     { 0x0142, "lslash" },                             // Latin small letter l with stroke
-    { 0x0143, "Nacute" },                             // Latin Capital Letter N With Acute
+    { 0x0143, "Nacute" },                             // Latin capital letter n with acute
     { 0x0144, "nacute" },                             // Latin small letter n with acute
-    { 0x0145, "Ncedilla" },                           // Latin Capital Letter N With Cedilla
+    { 0x0145, "Ncedilla" },                           // Latin capital letter n with cedilla
     { 0x0146, "ncedilla" },                           // Latin small letter n with cedilla
-    { 0x0147, "Ncaron" },                             // Latin Capital Letter N With Caron
+    { 0x0147, "Ncaron" },                             // Latin capital letter n with caron
     { 0x0148, "ncaron" },                             // Latin small letter n with caron
     { 0x0149, "quoten" },                             // Latin small letter n preceded by apostrophe
-    { 0x014A, "Eng" },                                // Latin Capital Letter Eng
+    { 0x014A, "Eng" },                                // Latin capital letter eng
     { 0x014B, "eng" },                                // Latin small letter eng
-    { 0x014C, "Omacron" },                            // Latin Capital Letter O With Macron
+    { 0x014C, "Omacron" },                            // Latin capital letter o with macron
     { 0x014D, "omacron" },                            // Latin small letter o with macron
-    { 0x014E, "Obreve" },                             // Latin Capital Letter O With Breve
+    { 0x014E, "Obreve" },                             // Latin capital letter o with breve
     { 0x014F, "obreve" },                             // Latin small letter o with breve
-    { 0x0150, "Ohungarumlaut" },                      // Latin Capital Letter O With Double Acute
+    { 0x0150, "Ohungarumlaut" },                      // Latin capital letter o with double acute
     { 0x0151, "ohungarumlaut" },                      // Latin small letter o with double acute
-    { 0x0152, "OE" },                                 // Latin Capital Ligature Oe
+    { 0x0152, "OE" },                                 // Latin capital ligature oe
     { 0x0153, "oe" },                                 // Latin small ligature oe
-    { 0x0154, "Racute" },                             // Latin Capital Letter R With Acute
+    { 0x0154, "Racute" },                             // Latin capital letter r with acute
     { 0x0155, "racute" },                             // Latin small letter r with acute
-    { 0x0156, "Rcedilla" },                           // Latin Capital Letter R With Cedilla
+    { 0x0156, "Rcedilla" },                           // Latin capital letter r with cedilla
     { 0x0157, "rcedilla" },                           // Latin small letter r with cedilla
-    { 0x0158, "Rcaron" },                             // Latin Capital Letter R With Caron
+    { 0x0158, "Rcaron" },                             // Latin capital letter r with caron
     { 0x0159, "rcaron" },                             // Latin small letter r with caron
-    { 0x015A, "Sacute" },                             // Latin Capital Letter S With Acute
+    { 0x015A, "Sacute" },                             // Latin capital letter s with acute
     { 0x015B, "sacute" },                             // Latin small letter s with acute
-    { 0x015C, "Scircumflex" },                        // Latin Capital Letter S With Circumflex
+    { 0x015C, "Scircumflex" },                        // Latin capital letter s with circumflex
     { 0x015D, "scircumflex" },                        // Latin small letter s with circumflex
-    { 0x015E, "Scedilla" },                           // Latin Capital Letter S With Cedilla
+    { 0x015E, "Scedilla" },                           // Latin capital letter s with cedilla
     { 0x015F, "scedilla" },                           // Latin small letter s with cedilla
-    { 0x0160, "Scaron" },                             // Latin Capital Letter S With Caron
+    { 0x0160, "Scaron" },                             // Latin capital letter s with caron
     { 0x0161, "scaron" },                             // Latin small letter s with caron
-    { 0x0162, "Tcedilla" },                           // Latin Capital Letter T With Cedilla
+    { 0x0162, "Tcedilla" },                           // Latin capital letter t with cedilla
     { 0x0163, "tcedilla" },                           // Latin small letter t with cedilla
-    { 0x0164, "Tcaron" },                             // Latin Capital Letter T With Caron
+    { 0x0164, "Tcaron" },                             // Latin capital letter t with caron
     { 0x0165, "tcaron" },                             // Latin small letter t with caron
-    { 0x0166, "Tbar" },                               // Latin Capital Letter T With Stroke
+    { 0x0166, "Tbar" },                               // Latin capital letter t with stroke
     { 0x0167, "tbar" },                               // Latin small letter t with stroke
-    { 0x0168, "Utilde" },                             // Latin Capital Letter U With Tilde
+    { 0x0168, "Utilde" },                             // Latin capital letter u with tilde
     { 0x0169, "utilde" },                             // Latin small letter u with tilde
-    { 0x016A, "Umacron" },                            // Latin Capital Letter U With Macron
+    { 0x016A, "Umacron" },                            // Latin capital letter u with macron
     { 0x016B, "umacron" },                            // Latin small letter u with macron
-    { 0x016C, "Ubreve" },                             // Latin Capital Letter U With Breve
+    { 0x016C, "Ubreve" },                             // Latin capital letter u with breve
     { 0x016D, "ubreve" },                             // Latin small letter u with breve
-    { 0x016E, "Uring" },                              // Latin Capital Letter U With Ring Above
+    { 0x016E, "Uring" },                              // Latin capital letter u with ring above
     { 0x016F, "uring" },                              // Latin small letter u with ring above
-    { 0x0170, "Uhungarumlaut" },                      // Latin Capital Letter U With Double Acute
+    { 0x0170, "Uhungarumlaut" },                      // Latin capital letter u with double acute
     { 0x0171, "uhungarumlaut" },                      // Latin small letter u with double acute
-    { 0x0172, "Uogonek" },                            // Latin Capital Letter U With Ogonek
+    { 0x0172, "Uogonek" },                            // Latin capital letter u with ogonek
     { 0x0173, "uogonek" },                            // Latin small letter u with ogonek
-    { 0x0174, "Wcircumflex" },                        // Latin Capital Letter W With Circumflex
+    { 0x0174, "Wcircumflex" },                        // Latin capital letter w with circumflex
     { 0x0175, "wcircumflex" },                        // Latin small letter w with circumflex
-    { 0x0176, "Ycircumflex" },                        // Latin Capital Letter Y With Circumflex
+    { 0x0176, "Ycircumflex" },                        // Latin capital letter y with circumflex
     { 0x0177, "ycircumflex" },                        // Latin small letter y with circumflex
-    { 0x0178, "Ydieresis" },                          // Latin Capital Letter Y With Diaeresis
-    { 0x0179, "Zacute" },                             // Latin Capital Letter Z With Acute
+    { 0x0178, "Ydieresis" },                          // Latin capital letter y with diaeresis
+    { 0x0179, "Zacute" },                             // Latin capital letter z with acute
     { 0x017A, "zacute" },                             // Latin small letter z with acute
-    { 0x017B, "Zdotaccent" },                         // Latin Capital Letter Z With Dot Above
+    { 0x017B, "Zdotaccent" },                         // Latin capital letter z with dot above
     { 0x017C, "zdotaccent" },                         // Latin small letter z with dot above
-    { 0x017D, "Zcaron" },                             // Latin Capital Letter Z With Caron
+    { 0x017D, "Zcaron" },                             // Latin capital letter z with caron
     { 0x017E, "zcaron" },                             // Latin small letter z with caron
     { 0x017F, "slong" },                              // Latin small letter long s
     { 0x0180, "bstroke" },                            // Latin small letter b with stroke
-    { 0x0181, "Bhook" },                              // Latin Capital Letter B With Hook
-    { 0x0182, "Btopbar" },                            // Latin Capital Letter B With Topbar
+    { 0x0181, "Bhook" },                              // Latin capital letter b with hook
+    { 0x0182, "Btopbar" },                            // Latin capital letter b with topbar
     { 0x0183, "btopbar" },                            // Latin small letter b with topbar
-    { 0x0184, "Tonesix" },                            // Latin Capital Letter Tone Six
+    { 0x0184, "Tonesix" },                            // Latin capital letter tone six
     { 0x0185, "tonesix" },                            // Latin small letter tone six
-    { 0x0186, "Oopen" },                              // Latin Capital Letter Open O
-    { 0x0187, "Chook" },                              // Latin Capital Letter C With Hook
+    { 0x0186, "Oopen" },                              // Latin capital letter open o
+    { 0x0187, "Chook" },                              // Latin capital letter c with hook
     { 0x0188, "chook" },                              // Latin small letter c with hook
-    { 0x0189, "Dafrican" },                           // Latin Capital Letter African D
-    { 0x018A, "Dhook" },                              // Latin Capital Letter D With Hook
-    { 0x018B, "Dtopbar" },                            // Latin Capital Letter D With Topbar
+    { 0x0189, "Dafrican" },                           // Latin capital letter african d
+    { 0x018A, "Dhook" },                              // Latin capital letter d with hook
+    { 0x018B, "Dtopbar" },                            // Latin capital letter d with topbar
     { 0x018C, "dtopbar" },                            // Latin small letter d with topbar
     { 0x018D, "deltaturn" },                          // Latin small letter turned delta
-    { 0x018E, "Eturn" },                              // Latin Capital Letter Reversed E
-    { 0x018F, "Schwa" },                              // Latin Capital Letter Schwa
-    { 0x0190, "Eopen" },                              // Latin Capital Letter Open E
-    { 0x0191, "Fhook" },                              // Latin Capital Letter F With Hook
+    { 0x018E, "Eturn" },                              // Latin capital letter reversed e
+    { 0x018F, "Schwa" },                              // Latin capital letter schwa
+    { 0x0190, "Eopen" },                              // Latin capital letter open e
+    { 0x0191, "Fhook" },                              // Latin capital letter f with hook
     { 0x0192, "florin" },                             // Latin small letter f with hook
-    { 0x0193, "Ghook" },                              // Latin Capital Letter G With Hook
-    { 0x0194, "Gammaafrican" },                       // Latin Capital Letter Gamma
+    { 0x0193, "Ghook" },                              // Latin capital letter g with hook
+    { 0x0194, "Gammaafrican" },                       // Latin capital letter gamma
     { 0x0195, "hv" },                                 // Latin small letter hv
-    { 0x0196, "Iotaafrican" },                        // Latin Capital Letter Iota
-    { 0x0197, "Istroke" },                            // Latin Capital Letter I With Stroke
-    { 0x0198, "Khook" },                              // Latin Capital Letter K With Hook
+    { 0x0196, "Iotaafrican" },                        // Latin capital letter iota
+    { 0x0197, "Istroke" },                            // Latin capital letter i with stroke
+    { 0x0198, "Khook" },                              // Latin capital letter k with hook
     { 0x0199, "khook" },                              // Latin small letter k with hook
     { 0x019A, "lbar" },                               // Latin small letter l with bar
     { 0x019B, "lambdastroke" },                       // Latin small letter lambda with stroke
-    { 0x019C, "Mturned" },                            // Latin Capital Letter Turned M
-    { 0x019D, "Nhook" },                              // Latin Capital Letter N With Left Hook
+    { 0x019C, "Mturned" },                            // Latin capital letter turned m
+    { 0x019D, "Nhook" },                              // Latin capital letter n with left hook
     { 0x019E, "nleg" },                               // Latin small letter n with long right leg
-    { 0x019F, "Ocenteredtilde" },                     // Latin Capital Letter O With Middle Tilde
-    { 0x01A0, "Ohorn" },                              // Latin Capital Letter O With Horn
+    { 0x019F, "Ocenteredtilde" },                     // Latin capital letter o with middle tilde
+    { 0x01A0, "Ohorn" },                              // Latin capital letter o with horn
     { 0x01A1, "ohorn" },                              // Latin small letter o with horn
-    { 0x01A2, "OI" },                                 // Latin Capital Letter Oi
+    { 0x01A2, "OI" },                                 // Latin capital letter oi
     { 0x01A3, "oi" },                                 // Latin small letter oi
-    { 0x01A4, "Phook" },                              // Latin Capital Letter P With Hook
+    { 0x01A4, "Phook" },                              // Latin capital letter p with hook
     { 0x01A5, "phook" },                              // Latin small letter p with hook
     { 0x01A6, "YR" },                                 // Latin letter yr
-    { 0x01A7, "Tonetwo" },                            // Latin Capital Letter Tone Two
+    { 0x01A7, "Tonetwo" },                            // Latin capital letter tone two
     { 0x01A8, "tonetwo" },                            // Latin small letter tone two
-    { 0x01A9, "Esh" },                                // Latin Capital Letter Esh
+    { 0x01A9, "Esh" },                                // Latin capital letter esh
     { 0x01AA, "eshlooprev" },                         // Latin letter reversed esh loop
     { 0x01AB, "tpalatalhook" },                       // Latin small letter t with palatal hook
-    { 0x01AC, "Thook" },                              // Latin Capital Letter T With Hook
+    { 0x01AC, "Thook" },                              // Latin capital letter t with hook
     { 0x01AD, "thook" },                              // Latin small letter t with hook
-    { 0x01AE, "Trthook" },                            // Latin Capital Letter T With Retroflex Hook
-    { 0x01AF, "Uhorn" },                              // Latin Capital Letter U With Horn
+    { 0x01AE, "Trthook" },                            // Latin capital letter t with retroflex hook
+    { 0x01AF, "Uhorn" },                              // Latin capital letter u with horn
     { 0x01B0, "uhorn" },                              // Latin small letter u with horn
-    { 0x01B1, "Upsilonafrican" },                     // Latin Capital Letter Upsilon
-    { 0x01B2, "Vhook" },                              // Latin Capital Letter V With Hook
-    { 0x01B3, "Yhook" },                              // Latin Capital Letter Y With Hook
+    { 0x01B1, "Upsilonafrican" },                     // Latin capital letter upsilon
+    { 0x01B2, "Vhook" },                              // Latin capital letter v with hook
+    { 0x01B3, "Yhook" },                              // Latin capital letter y with hook
     { 0x01B4, "yhook" },                              // Latin small letter y with hook
-    { 0x01B5, "Zstroke" },                            // Latin Capital Letter Z With Stroke
+    { 0x01B5, "Zstroke" },                            // Latin capital letter z with stroke
     { 0x01B6, "zstroke" },                            // Latin small letter z with stroke
-    { 0x01B7, "Ezh" },                                // Latin Capital Letter Ezh
-    { 0x01B8, "Ezhreversed" },                        // Latin Capital Letter Ezh Reversed
+    { 0x01B7, "Ezh" },                                // Latin capital letter ezh
+    { 0x01B8, "Ezhreversed" },                        // Latin capital letter ezh reversed
     { 0x01B9, "ezhreversed" },                        // Latin small letter ezh reversed
     { 0x01BA, "ezhtail" },                            // Latin small letter ezh with tail
     { 0x01BB, "twostroke" },                          // Latin letter two with stroke
-    { 0x01BC, "Tonefive" },                           // Latin Capital Letter Tone Five
+    { 0x01BC, "Tonefive" },                           // Latin capital letter tone five
     { 0x01BD, "tonefive" },                           // Latin small letter tone five
     { 0x01BE, "glottalinvertedstroke" },              // Latin letter inverted glottal stop with stroke
     { 0x01BF, "wynn" },                               // Latin letter wynn
@@ -716,99 +481,99 @@ public static class CharNames
     { 0x01C1, "clicklateral" },                       // Latin letter lateral click
     { 0x01C2, "clickalveolar" },                      // Latin letter alveolar click
     { 0x01C3, "clickretroflex" },                     // Latin letter retroflex click
-    { 0x01C4, "DZcaron" },                            // Latin Capital Letter Dz With Caron
-    { 0x01C5, "Dzcaron" },                            // Latin Capital Letter D With small letter z with caron
+    { 0x01C4, "DZcaron" },                            // Latin capital letter dz with caron
+    { 0x01C5, "Dzcaron" },                            // Latin capital letter d with small letter z with caron
     { 0x01C6, "dzcaron" },                            // Latin small letter dz with caron
-    { 0x01C7, "LJ" },                                 // Latin Capital Letter Lj
-    { 0x01C8, "Lj" },                                 // Latin Capital Letter L With small letter j
+    { 0x01C7, "LJ" },                                 // Latin capital letter lj
+    { 0x01C8, "Lj" },                                 // Latin capital letter l with small letter j
     { 0x01C9, "lj" },                                 // Latin small letter lj
-    { 0x01CA, "NJ" },                                 // Latin Capital Letter Nj
-    { 0x01CB, "Nj" },                                 // Latin Capital Letter N With small letter j
+    { 0x01CA, "NJ" },                                 // Latin capital letter nj
+    { 0x01CB, "Nj" },                                 // Latin capital letter n with small letter j
     { 0x01CC, "nj" },                                 // Latin small letter nj
-    { 0x01CD, "Acaron" },                             // Latin Capital Letter A With Caron
+    { 0x01CD, "Acaron" },                             // Latin capital letter a with caron
     { 0x01CE, "acaron" },                             // Latin small letter a with caron
-    { 0x01CF, "Icaron" },                             // Latin Capital Letter I With Caron
+    { 0x01CF, "Icaron" },                             // Latin capital letter i with caron
     { 0x01D0, "icaron" },                             // Latin small letter i with caron
-    { 0x01D1, "Ocaron" },                             // Latin Capital Letter O With Caron
+    { 0x01D1, "Ocaron" },                             // Latin capital letter o with caron
     { 0x01D2, "ocaron" },                             // Latin small letter o with caron
-    { 0x01D3, "Ucaron" },                             // Latin Capital Letter U With Caron
+    { 0x01D3, "Ucaron" },                             // Latin capital letter u with caron
     { 0x01D4, "ucaron" },                             // Latin small letter u with caron
-    { 0x01D5, "Udieresismacron" },                    // Latin Capital Letter U With Diaeresis And Macron
+    { 0x01D5, "Udieresismacron" },                    // Latin capital letter u with diaeresis and macron
     { 0x01D6, "udieresismacron" },                    // Latin small letter u with diaeresis and macron
-    { 0x01D7, "Udieresisacute" },                     // Latin Capital Letter U With Diaeresis And Acute
+    { 0x01D7, "Udieresisacute" },                     // Latin capital letter u with diaeresis and acute
     { 0x01D8, "udieresisacute" },                     // Latin small letter u with diaeresis and acute
-    { 0x01D9, "Udieresiscaron" },                     // Latin Capital Letter U With Diaeresis And Caron
+    { 0x01D9, "Udieresiscaron" },                     // Latin capital letter u with diaeresis and caron
     { 0x01DA, "udieresiscaron" },                     // Latin small letter u with diaeresis and caron
-    { 0x01DB, "Udieresisgrave" },                     // Latin Capital Letter U With Diaeresis And Grave
+    { 0x01DB, "Udieresisgrave" },                     // Latin capital letter u with diaeresis and grave
     { 0x01DC, "udieresisgrave" },                     // Latin small letter u with diaeresis and grave
     { 0x01DD, "eturn" },                              // Latin small letter turned e
-    { 0x01DE, "Adieresismacron" },                    // Latin Capital Letter A With Diaeresis And Macron
+    { 0x01DE, "Adieresismacron" },                    // Latin capital letter a with diaeresis and macron
     { 0x01DF, "adieresismacron" },                    // Latin small letter a with diaeresis and macron
-    { 0x01E0, "Adotmacron" },                         // Latin Capital Letter A With Dot Above And Macron
+    { 0x01E0, "Adotmacron" },                         // Latin capital letter a with dot above and macron
     { 0x01E1, "adotmacron" },                         // Latin small letter a with dot above and macron
-    { 0x01E2, "AEmacron" },                           // Latin Capital Letter Ae With Macron
+    { 0x01E2, "AEmacron" },                           // Latin capital letter ae with macron
     { 0x01E3, "aemacron" },                           // Latin small letter ae with macron
-    { 0x01E4, "Gstroke" },                            // Latin Capital Letter G With Stroke
+    { 0x01E4, "Gstroke" },                            // Latin capital letter g with stroke
     { 0x01E5, "gbar" },                               // Latin small letter g with stroke
-    { 0x01E6, "Gcaron" },                             // Latin Capital Letter G With Caron
+    { 0x01E6, "Gcaron" },                             // Latin capital letter g with caron
     { 0x01E7, "gcaron" },                             // Latin small letter g with caron
-    { 0x01E8, "Kcaron" },                             // Latin Capital Letter K With Caron
+    { 0x01E8, "Kcaron" },                             // Latin capital letter k with caron
     { 0x01E9, "kcaron" },                             // Latin small letter k with caron
-    { 0x01EA, "Oogonek" },                            // Latin Capital Letter O With Ogonek
+    { 0x01EA, "Oogonek" },                            // Latin capital letter o with ogonek
     { 0x01EB, "oogonek" },                            // Latin small letter o with ogonek
-    { 0x01EC, "Oogonekmacron" },                      // Latin Capital Letter O With Ogonek And Macron
+    { 0x01EC, "Oogonekmacron" },                      // Latin capital letter o with ogonek and macron
     { 0x01ED, "oogonekmacron" },                      // Latin small letter o with ogonek and macron
-    { 0x01EE, "Ezhcaron" },                           // Latin Capital Letter Ezh With Caron
+    { 0x01EE, "Ezhcaron" },                           // Latin capital letter ezh with caron
     { 0x01EF, "ezhcaron" },                           // Latin small letter ezh with caron
     { 0x01F0, "jcaron" },                             // Latin small letter j with caron
-    { 0x01F1, "DZ" },                                 // Latin Capital Letter Dz
-    { 0x01F2, "Dz" },                                 // Latin Capital Letter D With small letter z
+    { 0x01F1, "DZ" },                                 // Latin capital letter dz
+    { 0x01F2, "Dz" },                                 // Latin capital letter d with small letter z
     { 0x01F3, "dz" },                                 // Latin small letter dz
-    { 0x01F4, "Gacute" },                             // Latin Capital Letter G With Acute
+    { 0x01F4, "Gacute" },                             // Latin capital letter g with acute
     { 0x01F5, "gacute" },                             // Latin small letter g with acute
-    { 0x01F8, "Ngrave" },                             // Latin Capital Letter N With Grave
+    { 0x01F8, "Ngrave" },                             // Latin capital letter n with grave
     { 0x01F9, "ngrave" },                             // Latin small letter n with grave
-    { 0x01FA, "Aringacute" },                         // Latin Capital Letter A With Ring Above And Acute
+    { 0x01FA, "Aringacute" },                         // Latin capital letter a with ring above and acute
     { 0x01FB, "aringacute" },                         // Latin small letter a with ring above and acute
-    { 0x01FC, "AEacute" },                            // Latin Capital Letter Ae With Acute
+    { 0x01FC, "AEacute" },                            // Latin capital letter ae with acute
     { 0x01FD, "aeacute" },                            // Latin small letter ae with acute
-    { 0x01FE, "Ostrokeacute" },                       // Latin Capital Letter O With Stroke And Acute
+    { 0x01FE, "Ostrokeacute" },                       // Latin capital letter o with stroke and acute
     { 0x01FF, "ostrokeacute" },                       // Latin small letter o with stroke and acute
-    { 0x0200, "Adblgrave" },                          // Latin Capital Letter A With Double Grave
+    { 0x0200, "Adblgrave" },                          // Latin capital letter a with double grave
     { 0x0201, "adblgrave" },                          // Latin small letter a with double grave
-    { 0x0202, "Ainvbreve" },                          // Latin Capital Letter A With Inverted Breve
+    { 0x0202, "Ainvbreve" },                          // Latin capital letter a with inverted breve
     { 0x0203, "ainvbreve" },                          // Latin small letter a with inverted breve
-    { 0x0204, "Edblgrave" },                          // Latin Capital Letter E With Double Grave
+    { 0x0204, "Edblgrave" },                          // Latin capital letter e with double grave
     { 0x0205, "edblgrave" },                          // Latin small letter e with double grave
-    { 0x0206, "Einvbreve" },                          // Latin Capital Letter E With Inverted Breve
+    { 0x0206, "Einvbreve" },                          // Latin capital letter e with inverted breve
     { 0x0207, "einvbreve" },                          // Latin small letter e with inverted breve
-    { 0x0208, "Idblgrave" },                          // Latin Capital Letter I With Double Grave
+    { 0x0208, "Idblgrave" },                          // Latin capital letter i with double grave
     { 0x0209, "idblgrave" },                          // Latin small letter i with double grave
-    { 0x020A, "Iinvbreve" },                          // Latin Capital Letter I With Inverted Breve
+    { 0x020A, "Iinvbreve" },                          // Latin capital letter i with inverted breve
     { 0x020B, "iinvbreve" },                          // Latin small letter i with inverted breve
-    { 0x020C, "Odblgrave" },                          // Latin Capital Letter O With Double Grave
+    { 0x020C, "Odblgrave" },                          // Latin capital letter o with double grave
     { 0x020D, "odblgrave" },                          // Latin small letter o with double grave
-    { 0x020E, "Oinvbreve" },                          // Latin Capital Letter O With Inverted Breve
+    { 0x020E, "Oinvbreve" },                          // Latin capital letter o with inverted breve
     { 0x020F, "oinvbreve" },                          // Latin small letter o with inverted breve
-    { 0x0210, "Rdblgrave" },                          // Latin Capital Letter R With Double Grave
+    { 0x0210, "Rdblgrave" },                          // Latin capital letter r with double grave
     { 0x0211, "rdblgrave" },                          // Latin small letter r with double grave
-    { 0x0212, "Rinvbreve" },                          // Latin Capital Letter R With Inverted Breve
+    { 0x0212, "Rinvbreve" },                          // Latin capital letter r with inverted breve
     { 0x0213, "rinvbreve" },                          // Latin small letter r with inverted breve
-    { 0x0214, "Udblgrave" },                          // Latin Capital Letter U With Double Grave
+    { 0x0214, "Udblgrave" },                          // Latin capital letter u with double grave
     { 0x0215, "udblgrave" },                          // Latin small letter u with double grave
-    { 0x0216, "Uinvbreve" },                          // Latin Capital Letter U With Inverted Breve
+    { 0x0216, "Uinvbreve" },                          // Latin capital letter u with inverted breve
     { 0x0217, "uinvbreve" },                          // Latin small letter u with inverted breve
-    { 0x0218, "Scommasub" },                          // Latin Capital Letter S With Comma Below
+    { 0x0218, "Scommasub" },                          // Latin capital letter s with comma below
     { 0x0219, "scommasub" },                          // Latin small letter s with comma below
-    { 0x0228, "Ecedilla" },                           // Latin Capital Letter E With Cedilla
+    { 0x0228, "Ecedilla" },                           // Latin capital letter e with cedilla
     { 0x0229, "ecedilla" },                           // Latin small letter e with cedilla
-    { 0x022A, "Odieresismacron" },                    // Latin Capital Letter O With Diaeresis And Macron
+    { 0x022A, "Odieresismacron" },                    // Latin capital letter o with diaeresis and macron
     { 0x022B, "odieresismacron" },                    // Latin small letter o with diaeresis and macron
-    { 0x022C, "Otildemacron" },                       // Latin Capital Letter O With Tilde And Macron
+    { 0x022C, "Otildemacron" },                       // Latin capital letter o with tilde and macron
     { 0x022D, "otildemacron" },                       // Latin small letter o with tilde and macron
-    { 0x0230, "Odotmacron" },                         // Latin Capital Letter O With Dot Above And Macron
+    { 0x0230, "Odotmacron" },                         // Latin capital letter o with dot above and macron
     { 0x0231, "odotmacron" },                         // Latin small letter o with dot above and macron
-    { 0x0232, "Ymacron" },                            // Latin Capital Letter Y With Macron
+    { 0x0232, "Ymacron" },                            // Latin capital letter y with macron
     { 0x0233, "ymacron" },                            // Latin small letter y with macron
     { 0x0250, "aturn" },                              // Latin small letter turned a
     { 0x0251, "ascript" },                            // Latin small letter alpha
@@ -828,7 +593,7 @@ public static class CharNames
     { 0x025F, "jdotlessstroke" },                     // Latin small letter dotless j with stroke
     { 0x0260, "ghook" },                              // Latin small letter g with hook
     { 0x0261, "gcursive" },                           // Latin small letter script g
-    { 0x0262, "Gsmallcap" },                          // Latin letter small Capital G
+    { 0x0262, "Gsmallcap" },                          // Latin letter small capital g
     { 0x0263, "gammalatinsmall" },                    // Latin small letter gamma
     { 0x0264, "ramshorn" },                           // Latin small letter rams horn
     { 0x0265, "hturn" },                              // Latin small letter turned h
@@ -836,7 +601,7 @@ public static class CharNames
     { 0x0267, "henghook" },                           // Latin small letter heng with hook
     { 0x0268, "istroke" },                            // Latin small letter i with stroke
     { 0x0269, "iotalatin" },                          // Latin small letter iota
-    { 0x026A, "Ismallcap" },                          // Latin letter small Capital I
+    { 0x026A, "Ismallcap" },                          // Latin letter small capital i
     { 0x026B, "lmidtilde" },                          // Latin small letter l with middle tilde
     { 0x026C, "lbelt" },                              // Latin small letter l with belt
     { 0x026D, "lrthook" },                            // Latin small letter l with retroflex hook
@@ -846,9 +611,9 @@ public static class CharNames
     { 0x0271, "mhook" },                              // Latin small letter m with hook
     { 0x0272, "nlftlfthook" },                        // Latin small letter n with left hook
     { 0x0273, "nrthook" },                            // Latin small letter n with retroflex hook
-    { 0x0274, "Nsmallcap" },                          // Latin letter small Capital N
+    { 0x0274, "Nsmallcap" },                          // Latin letter small capital n
     { 0x0275, "obar" },                               // Latin small letter barred o
-    { 0x0276, "OEsmallcap" },                         // Latin letter small Capital Oe
+    { 0x0276, "OEsmallcap" },                         // Latin letter small capital oe
     { 0x0277, "omegaclosed" },                        // Latin small letter closed omega
     { 0x0278, "philatin" },                           // Latin small letter phi
     { 0x0279, "rturn" },                              // Latin small letter turned r
@@ -858,8 +623,8 @@ public static class CharNames
     { 0x027D, "rhook" },                              // Latin small letter r with tail
     { 0x027E, "rfishhook" },                          // Latin small letter r with fishhook
     { 0x027F, "rfishhookrev" },                       // Latin small letter reversed r with fishhook
-    { 0x0280, "Rsmallcap" },                          // Latin letter small Capital R
-    { 0x0281, "Rsmallinverted" },                     // Latin letter small Capital Inverted R
+    { 0x0280, "Rsmallcap" },                          // Latin letter small capital r
+    { 0x0281, "Rsmallinverted" },                     // Latin letter small capital inverted r
     { 0x0282, "shook" },                              // Latin small letter s with hook
     { 0x0283, "esh" },                                // Latin small letter esh
     { 0x0284, "jhookdblbar" },                        // Latin small letter dotless j with stroke and hook
@@ -873,7 +638,7 @@ public static class CharNames
     { 0x028C, "vturn" },                              // Latin small letter turned v
     { 0x028D, "wturn" },                              // Latin small letter turned w
     { 0x028E, "yturn" },                              // Latin small letter turned y
-    { 0x028F, "Ysmallcap" },                          // Latin letter small Capital Y
+    { 0x028F, "Ysmallcap" },                          // Latin letter small capital y
     { 0x0290, "zrthook" },                            // Latin small letter z with retroflex hook
     { 0x0291, "zcurl" },                              // Latin small letter z with curl
     { 0x0292, "ezh" },                                // Latin small letter ezh
@@ -883,13 +648,13 @@ public static class CharNames
     { 0x0296, "glottalstopinv" },                     // Latin letter inverted glottal stop
     { 0x0297, "cstretch" },                           // Latin letter stretched c
     { 0x0298, "bullseye" },                           // Latin letter bilabial click
-    { 0x0299, "Bsmallcap" },                          // Latin letter small Capital B
+    { 0x0299, "Bsmallcap" },                          // Latin letter small capital b
     { 0x029A, "eopenclosed" },                        // Latin small letter closed open e
-    { 0x029B, "Gsmallhook" },                         // Latin letter small Capital G With Hook
-    { 0x029C, "Hsmallcap" },                          // Latin letter small Capital H
+    { 0x029B, "Gsmallhook" },                         // Latin letter small capital g with hook
+    { 0x029C, "Hsmallcap" },                          // Latin letter small capital h
     { 0x029D, "jcrosstail" },                         // Latin small letter j with crossed-tail
     { 0x029E, "kturn" },                              // Latin small letter turned k
-    { 0x029F, "Lsmallcap" },                          // Latin letter small Capital L
+    { 0x029F, "Lsmallcap" },                          // Latin letter small capital l
     { 0x02A0, "qhook" },                              // Latin small letter q with hook
     { 0x02A1, "glottalstopbar" },                     // Latin letter glottal stop with stroke
     { 0x02A2, "glottalstopbarrev" },                  // Latin letter reversed glottal stop with stroke
@@ -908,7 +673,7 @@ public static class CharNames
     { 0x02B3, "rsuper" },                             // Modifier letter small r
     { 0x02B4, "rturnsuper" },                         // Modifier letter small turned r
     { 0x02B5, "rturnrthooksuper" },                   // Modifier letter small turned r with hook
-    { 0x02B6, "Rturnsuper" },                         // Modifier letter small Capital Inverted R
+    { 0x02B6, "Rturnsuper" },                         // Modifier letter small capital inverted r
     { 0x02B7, "wsuper" },                             // Modifier letter small w
     { 0x02B8, "ysuper" },                             // Modifier letter small y
     { 0x02B9, "primemod" },                           // Modifier letter prime
@@ -946,7 +711,7 @@ public static class CharNames
     { 0x02D9, "dotaccent" },                          // Dot above
     { 0x02DA, "ring" },                               // Ring above
     { 0x02DB, "ogonek" },                             // Ogonek
-    { 0x02DC, "tilde" },                              // Small tilde
+    { 0x02DC, "tildeaccent" },                        // Small tilde
     { 0x02DD, "hungarumlaut" },                       // Double acute accent
     { 0x02DE, "rhotichook" },                         // Modifier letter rhotic hook
     { 0x02DF, "qofdagesh" },                          // Modifier letter cross accent
@@ -962,53 +727,53 @@ public static class CharNames
     { 0x02E9, "toneextralow" },                       // Modifier letter extra-low tone bar
     { 0x02EA, "lefttorightmark" },                    // Modifier letter yin departing tone mark
     { 0x02EB, "righttoleftmark" },                    // Modifier letter yang departing tone mark
-    { 0x0370, "Heta" },                               // Greek Capital Letter Heta
+    { 0x0370, "Heta" },                               // Greek capital letter heta
     { 0x0371, "heta" },                               // Greek small letter heta
-    { 0x0372, "Sampi" },                              // Greek Capital Letter Archaic Sampi
+    { 0x0372, "Sampi" },                              // Greek capital letter archaic sampi
     { 0x0373, "sampi" },                              // Greek small letter archaic sampi
     { 0x0374, "numeralgreek" },                       // Greek numeral sign
     { 0x0375, "numeralgreeksub" },                    // Greek lower numeral sign
-    { 0x0376, "Pamphylian" },                         // Greek Capital Letter Pamphylian Digamma
+    { 0x0376, "Pamphylian" },                         // Greek capital letter pamphylian digamma
     { 0x0377, "pamphylian" },                         // Greek small letter pamphylian digamma
     { 0x037A, "iotasub" },                            // Greek ypogegrammeni
     { 0x037E, "questiongreek" },                      // Greek question mark
     { 0x0384, "tonos" },                              // Greek tonos
     { 0x0385, "dialytikatonos" },                     // Greek dialytika tonos
-    { 0x0386, "Alphaacute" },                         // Greek Capital Letter Alpha With Tonos
+    { 0x0386, "Alphaacute" },                         // Greek capital letter alpha with tonos
     { 0x0387, "anoteleia" },                          // Greek ano teleia
-    { 0x0388, "Epsilonacute" },                       // Greek Capital Letter Epsilon With Tonos
-    { 0x0389, "Etaacute" },                           // Greek Capital Letter Eta With Tonos
-    { 0x038A, "Iotaacute" },                          // Greek Capital Letter Iota With Tonos
-    { 0x038C, "Omicronacute" },                       // Greek Capital Letter Omicron With Tonos
-    { 0x038E, "Upsilonacute" },                       // Greek Capital Letter Upsilon With Tonos
-    { 0x038F, "Omegaacute" },                         // Greek Capital Letter Omega With Tonos
+    { 0x0388, "Epsilonacute" },                       // Greek capital letter epsilon with tonos
+    { 0x0389, "Etaacute" },                           // Greek capital letter eta with tonos
+    { 0x038A, "Iotaacute" },                          // Greek capital letter iota with tonos
+    { 0x038C, "Omicronacute" },                       // Greek capital letter omicron with tonos
+    { 0x038E, "Upsilonacute" },                       // Greek capital letter upsilon with tonos
+    { 0x038F, "Omegaacute" },                         // Greek capital letter omega with tonos
     { 0x0390, "iotaacutedieresis" },                  // Greek small letter iota with dialytika and tonos
-    { 0x0391, "Alpha" },                              // Greek Capital Letter Alpha
-    { 0x0392, "Beta" },                               // Greek Capital Letter Beta
-    { 0x0393, "Gamma" },                              // Greek Capital Letter Gamma
-    { 0x0394, "Delta" },                              // Greek Capital Letter Delta
-    { 0x0395, "Epsilon" },                            // Greek Capital Letter Epsilon
-    { 0x0396, "Zeta" },                               // Greek Capital Letter Zeta
-    { 0x0397, "Eta" },                                // Greek Capital Letter Eta
-    { 0x0398, "Theta" },                              // Greek Capital Letter Theta
-    { 0x0399, "Iota" },                               // Greek Capital Letter Iota
-    { 0x039A, "Kappa" },                              // Greek Capital Letter Kappa
-    { 0x039B, "Lambda" },                             // Greek Capital Letter Lamda
-    { 0x039C, "Mu" },                                 // Greek Capital Letter Mu
-    { 0x039D, "Nu" },                                 // Greek Capital Letter Nu
-    { 0x039E, "Xi" },                                 // Greek Capital Letter Xi
-    { 0x039F, "Omicron" },                            // Greek Capital Letter Omicron
-    { 0x03A0, "Pi" },                                 // Greek Capital Letter Pi
-    { 0x03A1, "Rho" },                                // Greek Capital Letter Rho
-    { 0x03A3, "Sigma" },                              // Greek Capital Letter Sigma
-    { 0x03A4, "Tau" },                                // Greek Capital Letter Tau
-    { 0x03A5, "Upsilon" },                            // Greek Capital Letter Upsilon
-    { 0x03A6, "Phi" },                                // Greek Capital Letter Phi
-    { 0x03A7, "Chi" },                                // Greek Capital Letter Chi
-    { 0x03A8, "Psi" },                                // Greek Capital Letter Psi
-    { 0x03A9, "Omega" },                              // Greek Capital Letter Omega
-    { 0x03AA, "Iotadieresis" },                       // Greek Capital Letter Iota With Dialytika
-    { 0x03AB, "Upsilondieresis" },                    // Greek Capital Letter Upsilon With Dialytika
+    { 0x0391, "Alpha" },                              // Greek capital letter alpha
+    { 0x0392, "Beta" },                               // Greek capital letter beta
+    { 0x0393, "Gamma" },                              // Greek capital letter gamma
+    { 0x0394, "Delta" },                              // Greek capital letter delta
+    { 0x0395, "Epsilon" },                            // Greek capital letter epsilon
+    { 0x0396, "Zeta" },                               // Greek capital letter zeta
+    { 0x0397, "Eta" },                                // Greek capital letter eta
+    { 0x0398, "Theta" },                              // Greek capital letter theta
+    { 0x0399, "Iota" },                               // Greek capital letter iota
+    { 0x039A, "Kappa" },                              // Greek capital letter kappa
+    { 0x039B, "Lambda" },                             // Greek capital letter lamda
+    { 0x039C, "Mu" },                                 // Greek capital letter mu
+    { 0x039D, "Nu" },                                 // Greek capital letter nu
+    { 0x039E, "Xi" },                                 // Greek capital letter xi
+    { 0x039F, "Omicron" },                            // Greek capital letter omicron
+    { 0x03A0, "Pi" },                                 // Greek capital letter pi
+    { 0x03A1, "Rho" },                                // Greek capital letter rho
+    { 0x03A3, "Sigma" },                              // Greek capital letter sigma
+    { 0x03A4, "Tau" },                                // Greek capital letter tau
+    { 0x03A5, "Upsilon" },                            // Greek capital letter upsilon
+    { 0x03A6, "Phi" },                                // Greek capital letter phi
+    { 0x03A7, "Chi" },                                // Greek capital letter chi
+    { 0x03A8, "Psi" },                                // Greek capital letter psi
+    { 0x03A9, "Omega" },                              // Greek capital letter omega
+    { 0x03AA, "Iotadieresis" },                       // Greek capital letter iota with dialytika
+    { 0x03AB, "Upsilondieresis" },                    // Greek capital letter upsilon with dialytika
     { 0x03AC, "alphaacute" },                         // Greek small letter alpha with tonos
     { 0x03AD, "epsilonacute" },                       // Greek small letter epsilon with tonos
     { 0x03AE, "etaacute" },                           // Greek small letter eta with tonos
@@ -1044,7 +809,7 @@ public static class CharNames
     { 0x03CC, "omicronacute" },                       // Greek small letter omicron with tonos
     { 0x03CD, "upsilonacute" },                       // Greek small letter upsilon with tonos
     { 0x03CE, "omegaacute" },                         // Greek small letter omega with tonos
-    { 0x03CF, "Kai" },                                // Greek Capital Kai Symbol
+    { 0x03CF, "Kai" },                                // Greek capital kai symbol
     { 0x03D0, "beta1" },                              // Greek beta symbol
     { 0x03D1, "theta1" },                             // Greek theta symbol
     { 0x03D2, "Upsilon1" },                           // Greek upsilon with hook symbol
@@ -1056,70 +821,70 @@ public static class CharNames
     { 0x03DC, "Digamma" },                            // Greek letter digamma
     { 0x03DE, "Koppa" },                              // Greek letter koppa
     { 0x03E0, "Sampigreek" },                         // Greek letter sampi
-    { 0x03E2, "Sheicoptic" },                         // Coptic Capital Letter Shei
+    { 0x03E2, "Sheicoptic" },                         // Coptic capital letter shei
     { 0x03E3, "sheicoptic" },                         // Coptic small letter shei
-    { 0x03E4, "Feicoptic" },                          // Coptic Capital Letter Fei
+    { 0x03E4, "Feicoptic" },                          // Coptic capital letter fei
     { 0x03E5, "feicoptic" },                          // Coptic small letter fei
-    { 0x03E6, "Kheicoptic" },                         // Coptic Capital Letter Khei
+    { 0x03E6, "Kheicoptic" },                         // Coptic capital letter khei
     { 0x03E7, "kheicoptic" },                         // Coptic small letter khei
-    { 0x03E8, "Horicoptic" },                         // Coptic Capital Letter Hori
+    { 0x03E8, "Horicoptic" },                         // Coptic capital letter hori
     { 0x03E9, "horicoptic" },                         // Coptic small letter hori
-    { 0x03EA, "Gangiacoptic" },                       // Coptic Capital Letter Gangia
+    { 0x03EA, "Gangiacoptic" },                       // Coptic capital letter gangia
     { 0x03EB, "gangiacoptic" },                       // Coptic small letter gangia
-    { 0x03EC, "Shimacoptic" },                        // Coptic Capital Letter Shima
+    { 0x03EC, "Shimacoptic" },                        // Coptic capital letter shima
     { 0x03ED, "shimacoptic" },                        // Coptic small letter shima
-    { 0x03EE, "Dei" },                                // Coptic Capital Letter Dei
+    { 0x03EE, "Dei" },                                // Coptic capital letter dei
     { 0x03EF, "dei" },                                // Coptic small letter dei
     { 0x03F0, "kappa1" },                             // Greek kappa symbol
     { 0x03F1, "rho1" },                               // Greek rho symbol
     { 0x03F2, "sigmalunate" },                        // Greek lunate sigma symbol
     { 0x03F3, "yotgreek" },                           // Greek letter yot
-    { 0x0401, "Io" },                                 // Cyrillic Capital Letter Io
-    { 0x0402, "Dje" },                                // Cyrillic Capital Letter Dje
-    { 0x0403, "Gje" },                                // Cyrillic Capital Letter Gje
-    { 0x0404, "Ecyril" },                             // Cyrillic Capital Letter Ukrainian Ie
-    { 0x0405, "Dze" },                                // Cyrillic Capital Letter Dze
-    { 0x0406, "Icyril" },                             // Cyrillic Capital Letter Byelorussian-ukrainian I
-    { 0x0407, "Yi" },                                 // Cyrillic Capital Letter Yi
-    { 0x0408, "Je" },                                 // Cyrillic Capital Letter Je
-    { 0x0409, "Lje" },                                // Cyrillic Capital Letter Lje
-    { 0x040A, "Nje" },                                // Cyrillic Capital Letter Nje
-    { 0x040B, "Tshe" },                               // Cyrillic Capital Letter Tshe
-    { 0x040C, "Kje" },                                // Cyrillic Capital Letter Kje
-    { 0x040E, "Ucyrilbreve" },                        // Cyrillic Capital Letter Short U
-    { 0x040F, "Dzhe" },                               // Cyrillic Capital Letter Dzhe
-    { 0x0410, "Acyril" },                             // Cyrillic Capital Letter A
-    { 0x0411, "Be" },                                 // Cyrillic Capital Letter Be
-    { 0x0412, "Ve" },                                 // Cyrillic Capital Letter Ve
-    { 0x0413, "Ge" },                                 // Cyrillic Capital Letter Ghe
-    { 0x0414, "De" },                                 // Cyrillic Capital Letter De
-    { 0x0415, "Ie" },                                 // Cyrillic Capital Letter Ie
-    { 0x0416, "Zhe" },                                // Cyrillic Capital Letter Zhe
-    { 0x0417, "Ze" },                                 // Cyrillic Capital Letter Ze
-    { 0x0418, "Ii" },                                 // Cyrillic Capital Letter I
-    { 0x0419, "Iibreve" },                            // Cyrillic Capital Letter Short I
-    { 0x041A, "Ka" },                                 // Cyrillic Capital Letter Ka
-    { 0x041B, "El" },                                 // Cyrillic Capital Letter El
-    { 0x041C, "Em" },                                 // Cyrillic Capital Letter Em
-    { 0x041D, "En" },                                 // Cyrillic Capital Letter En
-    { 0x041E, "Ocyril" },                             // Cyrillic Capital Letter O
-    { 0x041F, "Pecyril" },                            // Cyrillic Capital Letter Pe
-    { 0x0420, "Er" },                                 // Cyrillic Capital Letter Er
-    { 0x0421, "Es" },                                 // Cyrillic Capital Letter Es
-    { 0x0422, "Te" },                                 // Cyrillic Capital Letter Te
-    { 0x0423, "Ucyril" },                             // Cyrillic Capital Letter U
-    { 0x0424, "Ef" },                                 // Cyrillic Capital Letter Ef
-    { 0x0425, "Kha" },                                // Cyrillic Capital Letter Ha
-    { 0x0426, "Tse" },                                // Cyrillic Capital Letter Tse
-    { 0x0427, "Che" },                                // Cyrillic Capital Letter Che
-    { 0x0428, "Sha" },                                // Cyrillic Capital Letter Sha
-    { 0x0429, "Shcha" },                              // Cyrillic Capital Letter Shcha
-    { 0x042A, "Hard" },                               // Cyrillic Capital Letter Hard Sign
-    { 0x042B, "Yeri" },                               // Cyrillic Capital Letter Yeru
-    { 0x042C, "Soft" },                               // Cyrillic Capital Letter Soft Sign
-    { 0x042D, "Ecyrilrev" },                          // Cyrillic Capital Letter E
-    { 0x042E, "Iu" },                                 // Cyrillic Capital Letter Yu
-    { 0x042F, "Ia" },                                 // Cyrillic Capital Letter Ya
+    { 0x0401, "Io" },                                 // Cyrillic capital letter io
+    { 0x0402, "Dje" },                                // Cyrillic capital letter dje
+    { 0x0403, "Gje" },                                // Cyrillic capital letter gje
+    { 0x0404, "Ecyril" },                             // Cyrillic capital letter ukrainian ie
+    { 0x0405, "Dze" },                                // Cyrillic capital letter dze
+    { 0x0406, "Icyril" },                             // Cyrillic capital letter byelorussian-ukrainian i
+    { 0x0407, "Yi" },                                 // Cyrillic capital letter yi
+    { 0x0408, "Je" },                                 // Cyrillic capital letter je
+    { 0x0409, "Lje" },                                // Cyrillic capital letter lje
+    { 0x040A, "Nje" },                                // Cyrillic capital letter nje
+    { 0x040B, "Tshe" },                               // Cyrillic capital letter tshe
+    { 0x040C, "Kje" },                                // Cyrillic capital letter kje
+    { 0x040E, "Ucyrilbreve" },                        // Cyrillic capital letter short u
+    { 0x040F, "Dzhe" },                               // Cyrillic capital letter dzhe
+    { 0x0410, "Acyril" },                             // Cyrillic capital letter a
+    { 0x0411, "Be" },                                 // Cyrillic capital letter be
+    { 0x0412, "Ve" },                                 // Cyrillic capital letter ve
+    { 0x0413, "Ge" },                                 // Cyrillic capital letter ghe
+    { 0x0414, "De" },                                 // Cyrillic capital letter de
+    { 0x0415, "Ie" },                                 // Cyrillic capital letter ie
+    { 0x0416, "Zhe" },                                // Cyrillic capital letter zhe
+    { 0x0417, "Ze" },                                 // Cyrillic capital letter ze
+    { 0x0418, "Ii" },                                 // Cyrillic capital letter i
+    { 0x0419, "Iibreve" },                            // Cyrillic capital letter short i
+    { 0x041A, "Ka" },                                 // Cyrillic capital letter ka
+    { 0x041B, "El" },                                 // Cyrillic capital letter el
+    { 0x041C, "Em" },                                 // Cyrillic capital letter em
+    { 0x041D, "En" },                                 // Cyrillic capital letter en
+    { 0x041E, "Ocyril" },                             // Cyrillic capital letter o
+    { 0x041F, "Pecyril" },                            // Cyrillic capital letter pe
+    { 0x0420, "Er" },                                 // Cyrillic capital letter er
+    { 0x0421, "Es" },                                 // Cyrillic capital letter es
+    { 0x0422, "Te" },                                 // Cyrillic capital letter te
+    { 0x0423, "Ucyril" },                             // Cyrillic capital letter u
+    { 0x0424, "Ef" },                                 // Cyrillic capital letter ef
+    { 0x0425, "Kha" },                                // Cyrillic capital letter ha
+    { 0x0426, "Tse" },                                // Cyrillic capital letter tse
+    { 0x0427, "Che" },                                // Cyrillic capital letter che
+    { 0x0428, "Sha" },                                // Cyrillic capital letter sha
+    { 0x0429, "Shcha" },                              // Cyrillic capital letter shcha
+    { 0x042A, "Hard" },                               // Cyrillic capital letter hard sign
+    { 0x042B, "Yeri" },                               // Cyrillic capital letter yeru
+    { 0x042C, "Soft" },                               // Cyrillic capital letter soft sign
+    { 0x042D, "Ecyrilrev" },                          // Cyrillic capital letter e
+    { 0x042E, "Iu" },                                 // Cyrillic capital letter yu
+    { 0x042F, "Ia" },                                 // Cyrillic capital letter ya
     { 0x0430, "acyril" },                             // Cyrillic small letter a
     { 0x0431, "be" },                                 // Cyrillic small letter be
     { 0x0432, "ve" },                                 // Cyrillic small letter ve
@@ -1166,190 +931,190 @@ public static class CharNames
     { 0x045C, "kje" },                                // Cyrillic small letter kje
     { 0x045E, "ucyrilbreve" },                        // Cyrillic small letter short u
     { 0x045F, "dzhe" },                               // Cyrillic small letter dzhe
-    { 0x0460, "Omegacyrillic" },                      // Cyrillic Capital Letter Omega
+    { 0x0460, "Omegacyrillic" },                      // Cyrillic capital letter omega
     { 0x0461, "omegacyrillic" },                      // Cyrillic small letter omega
-    { 0x0462, "Yat" },                                // Cyrillic Capital Letter Yat
+    { 0x0462, "Yat" },                                // Cyrillic capital letter yat
     { 0x0463, "yat" },                                // Cyrillic small letter yat
-    { 0x0464, "Eiotifiedcyrillic" },                  // Cyrillic Capital Letter Iotified E
+    { 0x0464, "Eiotifiedcyrillic" },                  // Cyrillic capital letter iotified e
     { 0x0465, "eiotifiedcyrillic" },                  // Cyrillic small letter iotified e
-    { 0x0466, "Yuslittlecyrillic" },                  // Cyrillic Capital Letter Little Yus
+    { 0x0466, "Yuslittlecyrillic" },                  // Cyrillic capital letter little yus
     { 0x0467, "yuslittlecyrillic" },                  // Cyrillic small letter little yus
-    { 0x0468, "Yuslittleiotifiedcyrillic" },          // Cyrillic Capital Letter Iotified Little Yus
+    { 0x0468, "Yuslittleiotifiedcyrillic" },          // Cyrillic capital letter iotified little yus
     { 0x0469, "yuslittleiotifiedcyrillic" },          // Cyrillic small letter iotified little yus
-    { 0x046A, "Yusbig" },                             // Cyrillic Capital Letter Big Yus
+    { 0x046A, "Yusbig" },                             // Cyrillic capital letter big yus
     { 0x046B, "yusbig" },                             // Cyrillic small letter big yus
-    { 0x046C, "Yusbigiotifiedcyrillic" },             // Cyrillic Capital Letter Iotified Big Yus
+    { 0x046C, "Yusbigiotifiedcyrillic" },             // Cyrillic capital letter iotified big yus
     { 0x046D, "yusbigiotifiedcyrillic" },             // Cyrillic small letter iotified big yus
-    { 0x046E, "Ksicyrillic" },                        // Cyrillic Capital Letter Ksi
+    { 0x046E, "Ksicyrillic" },                        // Cyrillic capital letter ksi
     { 0x046F, "ksicyrillic" },                        // Cyrillic small letter ksi
-    { 0x0470, "Psicyrillic" },                        // Cyrillic Capital Letter Psi
+    { 0x0470, "Psicyrillic" },                        // Cyrillic capital letter psi
     { 0x0471, "psicyrillic" },                        // Cyrillic small letter psi
-    { 0x0472, "Fitacyrillic" },                       // Cyrillic Capital Letter Fita
+    { 0x0472, "Fitacyrillic" },                       // Cyrillic capital letter fita
     { 0x0473, "fitacyrillic" },                       // Cyrillic small letter fita
-    { 0x0474, "Izhitsacyrillic" },                    // Cyrillic Capital Letter Izhitsa
+    { 0x0474, "Izhitsacyrillic" },                    // Cyrillic capital letter izhitsa
     { 0x0475, "izhitsacyrillic" },                    // Cyrillic small letter izhitsa
-    { 0x0476, "Izhitsadblgravecyrillic" },            // Cyrillic Capital Letter Izhitsa With Double Grave Accent
+    { 0x0476, "Izhitsadblgravecyrillic" },            // Cyrillic capital letter izhitsa with double grave accent
     { 0x0477, "izhitsadblgravecyrillic" },            // Cyrillic small letter izhitsa with double grave accent
-    { 0x0478, "Ukcyrillic" },                         // Cyrillic Capital Letter Uk
+    { 0x0478, "Ukcyrillic" },                         // Cyrillic capital letter uk
     { 0x0479, "ukcyrillic" },                         // Cyrillic small letter uk
-    { 0x047A, "Omegaroundcyrillic" },                 // Cyrillic Capital Letter Round Omega
+    { 0x047A, "Omegaroundcyrillic" },                 // Cyrillic capital letter round omega
     { 0x047B, "omegaroundcyrillic" },                 // Cyrillic small letter round omega
-    { 0x047C, "Omegatitlocyrillic" },                 // Cyrillic Capital Letter Omega With Titlo
+    { 0x047C, "Omegatitlocyrillic" },                 // Cyrillic capital letter omega with titlo
     { 0x047D, "omegatitlocyrillic" },                 // Cyrillic small letter omega with titlo
-    { 0x047E, "Otcyrillic" },                         // Cyrillic Capital Letter Ot
+    { 0x047E, "Otcyrillic" },                         // Cyrillic capital letter ot
     { 0x047F, "otcyrillic" },                         // Cyrillic small letter ot
-    { 0x0480, "Koppacyrillic" },                      // Cyrillic Capital Letter Koppa
+    { 0x0480, "Koppacyrillic" },                      // Cyrillic capital letter koppa
     { 0x0481, "koppacyrillic" },                      // Cyrillic small letter koppa
     { 0x0482, "thousandcyrillic" },                   // Cyrillic thousands sign
-    { 0x0490, "Geupturn" },                           // Cyrillic Capital Letter Ghe With Upturn
+    { 0x0490, "Geupturn" },                           // Cyrillic capital letter ghe with upturn
     { 0x0491, "geupturn" },                           // Cyrillic small letter ghe with upturn
-    { 0x0492, "Gebar" },                              // Cyrillic Capital Letter Ghe With Stroke
+    { 0x0492, "Gebar" },                              // Cyrillic capital letter ghe with stroke
     { 0x0493, "gebar" },                              // Cyrillic small letter ghe with stroke
-    { 0x0494, "Gehook" },                             // Cyrillic Capital Letter Ghe With Middle Hook
+    { 0x0494, "Gehook" },                             // Cyrillic capital letter ghe with middle hook
     { 0x0495, "gehook" },                             // Cyrillic small letter ghe with middle hook
-    { 0x0496, "Zhertdes" },                           // Cyrillic Capital Letter Zhe With Descender
+    { 0x0496, "Zhertdes" },                           // Cyrillic capital letter zhe with descender
     { 0x0497, "zhertdes" },                           // Cyrillic small letter zhe with descender
-    { 0x0498, "Zecedilla" },                          // Cyrillic Capital Letter Ze With Descender
+    { 0x0498, "Zecedilla" },                          // Cyrillic capital letter ze with descender
     { 0x0499, "zecedilla" },                          // Cyrillic small letter ze with descender
-    { 0x049A, "Kartdes" },                            // Cyrillic Capital Letter Ka With Descender
+    { 0x049A, "Kartdes" },                            // Cyrillic capital letter ka with descender
     { 0x049B, "kartdes" },                            // Cyrillic small letter ka with descender
-    { 0x049C, "Kavertbar" },                          // Cyrillic Capital Letter Ka With Vertical Stroke
+    { 0x049C, "Kavertbar" },                          // Cyrillic capital letter ka with vertical stroke
     { 0x049D, "kavertbar" },                          // Cyrillic small letter ka with vertical stroke
-    { 0x049E, "Kabar" },                              // Cyrillic Capital Letter Ka With Stroke
+    { 0x049E, "Kabar" },                              // Cyrillic capital letter ka with stroke
     { 0x049F, "kabar" },                              // Cyrillic small letter ka with stroke
-    { 0x04A0, "GeKarev" },                            // Cyrillic Capital Letter Bashkir Ka
+    { 0x04A0, "GeKarev" },                            // Cyrillic capital letter bashkir ka
     { 0x04A1, "gekarev" },                            // Cyrillic small letter bashkir ka
-    { 0x04A2, "Enrtdes" },                            // Cyrillic Capital Letter En With Descender
+    { 0x04A2, "Enrtdes" },                            // Cyrillic capital letter en with descender
     { 0x04A3, "enrtdes" },                            // Cyrillic small letter en with descender
-    { 0x04A4, "EnGe" },                               // Cyrillic Capital Ligature En Ghe
+    { 0x04A4, "EnGe" },                               // Cyrillic capital ligature en ghe
     { 0x04A5, "enge" },                               // Cyrillic small ligature en ghe
-    { 0x04A6, "Pehook" },                             // Cyrillic Capital Letter Pe With Middle Hook
+    { 0x04A6, "Pehook" },                             // Cyrillic capital letter pe with middle hook
     { 0x04A7, "pehook" },                             // Cyrillic small letter pe with middle hook
-    { 0x04A8, "Ohook" },                              // Cyrillic Capital Letter Abkhasian Ha
+    { 0x04A8, "Ohook" },                              // Cyrillic capital letter abkhasian ha
     { 0x04A9, "ohook" },                              // Cyrillic small letter abkhasian ha
-    { 0x04AA, "Escedilla" },                          // Cyrillic Capital Letter Es With Descender
+    { 0x04AA, "Escedilla" },                          // Cyrillic capital letter es with descender
     { 0x04AB, "escedilla" },                          // Cyrillic small letter es with descender
-    { 0x04AC, "Tertdes" },                            // Cyrillic Capital Letter Te With Descender
+    { 0x04AC, "Tertdes" },                            // Cyrillic capital letter te with descender
     { 0x04AD, "tertdes" },                            // Cyrillic small letter te with descender
-    { 0x04AE, "Ustrt" },                              // Cyrillic Capital Letter Straight U
+    { 0x04AE, "Ustrt" },                              // Cyrillic capital letter straight u
     { 0x04AF, "ustrt" },                              // Cyrillic small letter straight u
-    { 0x04B0, "Ustrtbar" },                           // Cyrillic Capital Letter Straight U With Stroke
+    { 0x04B0, "Ustrtbar" },                           // Cyrillic capital letter straight u with stroke
     { 0x04B1, "ustrtbar" },                           // Cyrillic small letter straight u with stroke
-    { 0x04B2, "Khartdes" },                           // Cyrillic Capital Letter Ha With Descender
+    { 0x04B2, "Khartdes" },                           // Cyrillic capital letter ha with descender
     { 0x04B3, "khartdes" },                           // Cyrillic small letter ha with descender
-    { 0x04B4, "TeTse" },                              // Cyrillic Capital Ligature Te Tse
+    { 0x04B4, "TeTse" },                              // Cyrillic capital ligature te tse
     { 0x04B5, "tetse" },                              // Cyrillic small ligature te tse
-    { 0x04B6, "Chertdes" },                           // Cyrillic Capital Letter Che With Descender
+    { 0x04B6, "Chertdes" },                           // Cyrillic capital letter che with descender
     { 0x04B7, "chertdes" },                           // Cyrillic small letter che with descender
-    { 0x04B8, "Chevertbar" },                         // Cyrillic Capital Letter Che With Vertical Stroke
+    { 0x04B8, "Chevertbar" },                         // Cyrillic capital letter che with vertical stroke
     { 0x04B9, "chevertbar" },                         // Cyrillic small letter che with vertical stroke
-    { 0x04BA, "Hcyril" },                             // Cyrillic Capital Letter Shha
+    { 0x04BA, "Hcyril" },                             // Cyrillic capital letter shha
     { 0x04BB, "hcyril" },                             // Cyrillic small letter shha
-    { 0x04BC, "Iehook" },                             // Cyrillic Capital Letter Abkhasian Che
+    { 0x04BC, "Iehook" },                             // Cyrillic capital letter abkhasian che
     { 0x04BD, "iehook" },                             // Cyrillic small letter abkhasian che
-    { 0x04BE, "Iehookogonek" },                       // Cyrillic Capital Letter Abkhasian Che With Descender
+    { 0x04BE, "Iehookogonek" },                       // Cyrillic capital letter abkhasian che with descender
     { 0x04BF, "iehookogonek" },                       // Cyrillic small letter abkhasian che with descender
     { 0x04C0, "Icyril1" },                            // Cyrillic letter palochka
-    { 0x04C1, "Zhebreve" },                           // Cyrillic Capital Letter Zhe With Breve
+    { 0x04C1, "Zhebreve" },                           // Cyrillic capital letter zhe with breve
     { 0x04C2, "zhebreve" },                           // Cyrillic small letter zhe with breve
-    { 0x04C3, "Kahook" },                             // Cyrillic Capital Letter Ka With Hook
+    { 0x04C3, "Kahook" },                             // Cyrillic capital letter ka with hook
     { 0x04C4, "kahook" },                             // Cyrillic small letter ka with hook
-    { 0x04C7, "Enhook" },                             // Cyrillic Capital Letter En With Hook
+    { 0x04C7, "Enhook" },                             // Cyrillic capital letter en with hook
     { 0x04C8, "enhook" },                             // Cyrillic small letter en with hook
-    { 0x04CB, "Cheleftdes" },                         // Cyrillic Capital Letter Khakassian Che
+    { 0x04CB, "Cheleftdes" },                         // Cyrillic capital letter khakassian che
     { 0x04CC, "cheleftdes" },                         // Cyrillic small letter khakassian che
-    { 0x04D0, "Abrevecyrillic" },                     // Cyrillic Capital Letter A With Breve
+    { 0x04D0, "Abrevecyrillic" },                     // Cyrillic capital letter a with breve
     { 0x04D1, "abrevecyrillic" },                     // Cyrillic small letter a with breve
-    { 0x04D2, "Adieresiscyrillic" },                  // Cyrillic Capital Letter A With Diaeresis
+    { 0x04D2, "Adieresiscyrillic" },                  // Cyrillic capital letter a with diaeresis
     { 0x04D3, "adieresiscyrillic" },                  // Cyrillic small letter a with diaeresis
-    { 0x04D4, "Aiecyrillic" },                        // Cyrillic Capital Ligature A Ie
+    { 0x04D4, "Aiecyrillic" },                        // Cyrillic capital ligature a ie
     { 0x04D5, "aiecyrillic" },                        // Cyrillic small ligature a ie
-    { 0x04D6, "Iebrevecyrillic" },                    // Cyrillic Capital Letter Ie With Breve
+    { 0x04D6, "Iebrevecyrillic" },                    // Cyrillic capital letter ie with breve
     { 0x04D7, "iebrevecyrillic" },                    // Cyrillic small letter ie with breve
-    { 0x04D8, "Schwacyrillic" },                      // Cyrillic Capital Letter Schwa
+    { 0x04D8, "Schwacyrillic" },                      // Cyrillic capital letter schwa
     { 0x04D9, "schwacyrillic" },                      // Cyrillic small letter schwa
-    { 0x04DA, "Schwadieresiscyrillic" },              // Cyrillic Capital Letter Schwa With Diaeresis
+    { 0x04DA, "Schwadieresiscyrillic" },              // Cyrillic capital letter schwa with diaeresis
     { 0x04DB, "schwadieresiscyrillic" },              // Cyrillic small letter schwa with diaeresis
-    { 0x04DC, "Zhedieresiscyrillic" },                // Cyrillic Capital Letter Zhe With Diaeresis
+    { 0x04DC, "Zhedieresiscyrillic" },                // Cyrillic capital letter zhe with diaeresis
     { 0x04DD, "zhedieresiscyrillic" },                // Cyrillic small letter zhe with diaeresis
-    { 0x04DE, "Zedieresiscyrillic" },                 // Cyrillic Capital Letter Ze With Diaeresis
+    { 0x04DE, "Zedieresiscyrillic" },                 // Cyrillic capital letter ze with diaeresis
     { 0x04DF, "zedieresiscyrillic" },                 // Cyrillic small letter ze with diaeresis
-    { 0x04E0, "Dzeabkhasiancyrillic" },               // Cyrillic Capital Letter Abkhasian Dze
+    { 0x04E0, "Dzeabkhasiancyrillic" },               // Cyrillic capital letter abkhasian dze
     { 0x04E1, "dzeabkhasiancyrillic" },               // Cyrillic small letter abkhasian dze
-    { 0x04E2, "Imacroncyrillic" },                    // Cyrillic Capital Letter I With Macron
+    { 0x04E2, "Imacroncyrillic" },                    // Cyrillic capital letter i with macron
     { 0x04E3, "imacroncyrillic" },                    // Cyrillic small letter i with macron
-    { 0x04E4, "Idieresiscyrillic" },                  // Cyrillic Capital Letter I With Diaeresis
+    { 0x04E4, "Idieresiscyrillic" },                  // Cyrillic capital letter i with diaeresis
     { 0x04E5, "idieresiscyrillic" },                  // Cyrillic small letter i with diaeresis
-    { 0x04E6, "Odieresiscyrillic" },                  // Cyrillic Capital Letter O With Diaeresis
+    { 0x04E6, "Odieresiscyrillic" },                  // Cyrillic capital letter o with diaeresis
     { 0x04E7, "odieresiscyrillic" },                  // Cyrillic small letter o with diaeresis
-    { 0x04E8, "Obarredcyrillic" },                    // Cyrillic Capital Letter Barred O
+    { 0x04E8, "Obarredcyrillic" },                    // Cyrillic capital letter barred o
     { 0x04E9, "obarredcyrillic" },                    // Cyrillic small letter barred o
-    { 0x04EA, "Obarreddieresiscyrillic" },            // Cyrillic Capital Letter Barred O With Diaeresis
+    { 0x04EA, "Obarreddieresiscyrillic" },            // Cyrillic capital letter barred o with diaeresis
     { 0x04EB, "obarreddieresiscyrillic" },            // Cyrillic small letter barred o with diaeresis
-    { 0x04EE, "Umacroncyrillic" },                    // Cyrillic Capital Letter U With Macron
+    { 0x04EE, "Umacroncyrillic" },                    // Cyrillic capital letter u with macron
     { 0x04EF, "umacroncyrillic" },                    // Cyrillic small letter u with macron
-    { 0x04F0, "Udieresiscyrillic" },                  // Cyrillic Capital Letter U With Diaeresis
+    { 0x04F0, "Udieresiscyrillic" },                  // Cyrillic capital letter u with diaeresis
     { 0x04F1, "udieresiscyrillic" },                  // Cyrillic small letter u with diaeresis
-    { 0x04F2, "Uhungarumlautcyrillic" },              // Cyrillic Capital Letter U With Double Acute
+    { 0x04F2, "Uhungarumlautcyrillic" },              // Cyrillic capital letter u with double acute
     { 0x04F3, "uhungarumlautcyrillic" },              // Cyrillic small letter u with double acute
-    { 0x04F4, "Chedieresiscyrillic" },                // Cyrillic Capital Letter Che With Diaeresis
+    { 0x04F4, "Chedieresiscyrillic" },                // Cyrillic capital letter che with diaeresis
     { 0x04F5, "chedieresiscyrillic" },                // Cyrillic small letter che with diaeresis
-    { 0x04F8, "Yerudieresiscyrillic" },               // Cyrillic Capital Letter Yeru With Diaeresis
+    { 0x04F8, "Yerudieresiscyrillic" },               // Cyrillic capital letter yeru with diaeresis
     { 0x04F9, "yerudieresiscyrillic" },               // Cyrillic small letter yeru with diaeresis
-    { 0x0514, "Lha" },                                // Cyrillic Capital Letter Lha
+    { 0x0514, "Lha" },                                // Cyrillic capital letter lha
     { 0x0515, "lha" },                                // Cyrillic small letter lha
-    { 0x0516, "Rha" },                                // Cyrillic Capital Letter Rha
+    { 0x0516, "Rha" },                                // Cyrillic capital letter rha
     { 0x0517, "rha" },                                // Cyrillic small letter rha
-    { 0x0518, "Yae" },                                // Cyrillic Capital Letter Yae
+    { 0x0518, "Yae" },                                // Cyrillic capital letter yae
     { 0x0519, "yae" },                                // Cyrillic small letter yae
-    { 0x051A, "Qa" },                                 // Cyrillic Capital Letter Qa
+    { 0x051A, "Qa" },                                 // Cyrillic capital letter qa
     { 0x051B, "qa" },                                 // Cyrillic small letter qa
-    { 0x051C, "We" },                                 // Cyrillic Capital Letter We
+    { 0x051C, "We" },                                 // Cyrillic capital letter we
     { 0x051D, "we" },                                 // Cyrillic small letter we
-    { 0x051E, "Kaaleut" },                            // Cyrillic Capital Letter Aleut Ka
+    { 0x051E, "Kaaleut" },                            // Cyrillic capital letter aleut ka
     { 0x051F, "kaaleut" },                            // Cyrillic small letter aleut ka
-    { 0x0520, "Elmidhook" },                          // Cyrillic Capital Letter El With Middle Hook
+    { 0x0520, "Elmidhook" },                          // Cyrillic capital letter el with middle hook
     { 0x0521, "elmidhook" },                          // Cyrillic small letter el with middle hook
-    { 0x0522, "Enmidhook" },                          // Cyrillic Capital Letter En With Middle Hook
+    { 0x0522, "Enmidhook" },                          // Cyrillic capital letter en with middle hook
     { 0x0523, "enmidhook" },                          // Cyrillic small letter en with middle hook
-    { 0x0531, "Aybarmenian" },                        // Armenian Capital Letter Ayb
-    { 0x0532, "Benarmenian" },                        // Armenian Capital Letter Ben
-    { 0x0533, "Gimarmenian" },                        // Armenian Capital Letter Gim
-    { 0x0534, "Daarmenian" },                         // Armenian Capital Letter Da
-    { 0x0535, "Echarmenian" },                        // Armenian Capital Letter Ech
-    { 0x0536, "Zaarmenian" },                         // Armenian Capital Letter Za
-    { 0x0537, "Eharmenian" },                         // Armenian Capital Letter Eh
-    { 0x0538, "Etarmenian" },                         // Armenian Capital Letter Et
-    { 0x0539, "Toarmenian" },                         // Armenian Capital Letter To
-    { 0x053A, "Zhearmenian" },                        // Armenian Capital Letter Zhe
-    { 0x053B, "Iniarmenian" },                        // Armenian Capital Letter Ini
-    { 0x053C, "Liwnarmenian" },                       // Armenian Capital Letter Liwn
-    { 0x053D, "Xeharmenian" },                        // Armenian Capital Letter Xeh
-    { 0x053E, "Caarmenian" },                         // Armenian Capital Letter Ca
-    { 0x053F, "Kenarmenian" },                        // Armenian Capital Letter Ken
-    { 0x0540, "Hoarmenian" },                         // Armenian Capital Letter Ho
-    { 0x0541, "Jaarmenian" },                         // Armenian Capital Letter Ja
-    { 0x0542, "Ghadarmenian" },                       // Armenian Capital Letter Ghad
-    { 0x0543, "Cheharmenian" },                       // Armenian Capital Letter Cheh
-    { 0x0544, "Menarmenian" },                        // Armenian Capital Letter Men
-    { 0x0545, "Yiarmenian" },                         // Armenian Capital Letter Yi
-    { 0x0546, "Nowarmenian" },                        // Armenian Capital Letter Now
-    { 0x0547, "Shaarmenian" },                        // Armenian Capital Letter Sha
-    { 0x0548, "Voarmenian" },                         // Armenian Capital Letter Vo
-    { 0x0549, "Chaarmenian" },                        // Armenian Capital Letter Cha
-    { 0x054A, "Peharmenian" },                        // Armenian Capital Letter Peh
-    { 0x054B, "Jheharmenian" },                       // Armenian Capital Letter Jheh
-    { 0x054C, "Raarmenian" },                         // Armenian Capital Letter Ra
-    { 0x054D, "Seharmenian" },                        // Armenian Capital Letter Seh
-    { 0x054E, "Vewarmenian" },                        // Armenian Capital Letter Vew
-    { 0x054F, "Tiwnarmenian" },                       // Armenian Capital Letter Tiwn
-    { 0x0550, "Reharmenian" },                        // Armenian Capital Letter Reh
-    { 0x0551, "Coarmenian" },                         // Armenian Capital Letter Co
-    { 0x0552, "Yiwnarmenian" },                       // Armenian Capital Letter Yiwn
-    { 0x0553, "Piwrarmenian" },                       // Armenian Capital Letter Piwr
-    { 0x0554, "Keharmenian" },                        // Armenian Capital Letter Keh
-    { 0x0555, "Oharmenian" },                         // Armenian Capital Letter Oh
-    { 0x0556, "Feharmenian" },                        // Armenian Capital Letter Feh
+    { 0x0531, "Aybarmenian" },                        // Armenian capital letter ayb
+    { 0x0532, "Benarmenian" },                        // Armenian capital letter ben
+    { 0x0533, "Gimarmenian" },                        // Armenian capital letter gim
+    { 0x0534, "Daarmenian" },                         // Armenian capital letter da
+    { 0x0535, "Echarmenian" },                        // Armenian capital letter ech
+    { 0x0536, "Zaarmenian" },                         // Armenian capital letter za
+    { 0x0537, "Eharmenian" },                         // Armenian capital letter eh
+    { 0x0538, "Etarmenian" },                         // Armenian capital letter et
+    { 0x0539, "Toarmenian" },                         // Armenian capital letter to
+    { 0x053A, "Zhearmenian" },                        // Armenian capital letter zhe
+    { 0x053B, "Iniarmenian" },                        // Armenian capital letter ini
+    { 0x053C, "Liwnarmenian" },                       // Armenian capital letter liwn
+    { 0x053D, "Xeharmenian" },                        // Armenian capital letter xeh
+    { 0x053E, "Caarmenian" },                         // Armenian capital letter ca
+    { 0x053F, "Kenarmenian" },                        // Armenian capital letter ken
+    { 0x0540, "Hoarmenian" },                         // Armenian capital letter ho
+    { 0x0541, "Jaarmenian" },                         // Armenian capital letter ja
+    { 0x0542, "Ghadarmenian" },                       // Armenian capital letter ghad
+    { 0x0543, "Cheharmenian" },                       // Armenian capital letter cheh
+    { 0x0544, "Menarmenian" },                        // Armenian capital letter men
+    { 0x0545, "Yiarmenian" },                         // Armenian capital letter yi
+    { 0x0546, "Nowarmenian" },                        // Armenian capital letter now
+    { 0x0547, "Shaarmenian" },                        // Armenian capital letter sha
+    { 0x0548, "Voarmenian" },                         // Armenian capital letter vo
+    { 0x0549, "Chaarmenian" },                        // Armenian capital letter cha
+    { 0x054A, "Peharmenian" },                        // Armenian capital letter peh
+    { 0x054B, "Jheharmenian" },                       // Armenian capital letter jheh
+    { 0x054C, "Raarmenian" },                         // Armenian capital letter ra
+    { 0x054D, "Seharmenian" },                        // Armenian capital letter seh
+    { 0x054E, "Vewarmenian" },                        // Armenian capital letter vew
+    { 0x054F, "Tiwnarmenian" },                       // Armenian capital letter tiwn
+    { 0x0550, "Reharmenian" },                        // Armenian capital letter reh
+    { 0x0551, "Coarmenian" },                         // Armenian capital letter co
+    { 0x0552, "Yiwnarmenian" },                       // Armenian capital letter yiwn
+    { 0x0553, "Piwrarmenian" },                       // Armenian capital letter piwr
+    { 0x0554, "Keharmenian" },                        // Armenian capital letter keh
+    { 0x0555, "Oharmenian" },                         // Armenian capital letter oh
+    { 0x0556, "Feharmenian" },                        // Armenian capital letter feh
     { 0x0559, "ringhalfleftarmenian" },               // Armenian modifier letter left half ring
     { 0x055A, "apostrophearmenian" },                 // Armenian apostrophe
     { 0x055B, "emphasismarkarmenian" },               // Armenian emphasis mark
@@ -1994,155 +1759,155 @@ public static class CharNames
     { 0x0E59, "ninethai" },                           // Thai digit nine
     { 0x0E5A, "angkhankhuthai" },                     // Thai character angkhankhu
     { 0x0E5B, "khomutthai" },                         // Thai character khomut
-    { 0x1E00, "Aringbelow" },                         // Latin Capital Letter A With Ring Below
+    { 0x1E00, "Aringbelow" },                         // Latin capital letter a with ring below
     { 0x1E01, "aringbelow" },                         // Latin small letter a with ring below
-    { 0x1E02, "Bdotaccent" },                         // Latin Capital Letter B With Dot Above
+    { 0x1E02, "Bdotaccent" },                         // Latin capital letter b with dot above
     { 0x1E03, "bdotaccent" },                         // Latin small letter b with dot above
-    { 0x1E04, "Bdotbelow" },                          // Latin Capital Letter B With Dot Below
+    { 0x1E04, "Bdotbelow" },                          // Latin capital letter b with dot below
     { 0x1E05, "bdotbelow" },                          // Latin small letter b with dot below
-    { 0x1E06, "Blinebelow" },                         // Latin Capital Letter B With Line Below
+    { 0x1E06, "Blinebelow" },                         // Latin capital letter b with line below
     { 0x1E07, "blinebelow" },                         // Latin small letter b with line below
-    { 0x1E08, "Ccedillaacute" },                      // Latin Capital Letter C With Cedilla And Acute
+    { 0x1E08, "Ccedillaacute" },                      // Latin capital letter c with cedilla and acute
     { 0x1E09, "ccedillaacute" },                      // Latin small letter c with cedilla and acute
-    { 0x1E0A, "Ddotaccent" },                         // Latin Capital Letter D With Dot Above
+    { 0x1E0A, "Ddotaccent" },                         // Latin capital letter d with dot above
     { 0x1E0B, "ddotaccent" },                         // Latin small letter d with dot above
-    { 0x1E0C, "Ddotbelow" },                          // Latin Capital Letter D With Dot Below
+    { 0x1E0C, "Ddotbelow" },                          // Latin capital letter d with dot below
     { 0x1E0D, "ddotbelow" },                          // Latin small letter d with dot below
-    { 0x1E0E, "Dlinebelow" },                         // Latin Capital Letter D With Line Below
+    { 0x1E0E, "Dlinebelow" },                         // Latin capital letter d with line below
     { 0x1E0F, "dlinebelow" },                         // Latin small letter d with line below
-    { 0x1E10, "Dcedilla" },                           // Latin Capital Letter D With Cedilla
+    { 0x1E10, "Dcedilla" },                           // Latin capital letter d with cedilla
     { 0x1E11, "dcedilla" },                           // Latin small letter d with cedilla
-    { 0x1E12, "Dcircumflexbelow" },                   // Latin Capital Letter D With Circumflex Below
+    { 0x1E12, "Dcircumflexbelow" },                   // Latin capital letter d with circumflex below
     { 0x1E13, "dcircumflexbelow" },                   // Latin small letter d with circumflex below
-    { 0x1E14, "Emacrongrave" },                       // Latin Capital Letter E With Macron And Grave
+    { 0x1E14, "Emacrongrave" },                       // Latin capital letter e with macron and grave
     { 0x1E15, "emacrongrave" },                       // Latin small letter e with macron and grave
-    { 0x1E16, "Emacronacute" },                       // Latin Capital Letter E With Macron And Acute
+    { 0x1E16, "Emacronacute" },                       // Latin capital letter e with macron and acute
     { 0x1E17, "emacronacute" },                       // Latin small letter e with macron and acute
-    { 0x1E18, "Ecircumflexbelow" },                   // Latin Capital Letter E With Circumflex Below
+    { 0x1E18, "Ecircumflexbelow" },                   // Latin capital letter e with circumflex below
     { 0x1E19, "ecircumflexbelow" },                   // Latin small letter e with circumflex below
-    { 0x1E1A, "Etildebelow" },                        // Latin Capital Letter E With Tilde Below
+    { 0x1E1A, "Etildebelow" },                        // Latin capital letter e with tilde below
     { 0x1E1B, "etildebelow" },                        // Latin small letter e with tilde below
-    { 0x1E1C, "Ecedillabreve" },                      // Latin Capital Letter E With Cedilla And Breve
+    { 0x1E1C, "Ecedillabreve" },                      // Latin capital letter e with cedilla and breve
     { 0x1E1D, "ecedillabreve" },                      // Latin small letter e with cedilla and breve
-    { 0x1E1E, "Fdotaccent" },                         // Latin Capital Letter F With Dot Above
+    { 0x1E1E, "Fdotaccent" },                         // Latin capital letter f with dot above
     { 0x1E1F, "fdotaccent" },                         // Latin small letter f with dot above
-    { 0x1E20, "Gmacron" },                            // Latin Capital Letter G With Macron
+    { 0x1E20, "Gmacron" },                            // Latin capital letter g with macron
     { 0x1E21, "gmacron" },                            // Latin small letter g with macron
-    { 0x1E22, "Hdotaccent" },                         // Latin Capital Letter H With Dot Above
+    { 0x1E22, "Hdotaccent" },                         // Latin capital letter h with dot above
     { 0x1E23, "hdotaccent" },                         // Latin small letter h with dot above
-    { 0x1E24, "Hdotbelow" },                          // Latin Capital Letter H With Dot Below
+    { 0x1E24, "Hdotbelow" },                          // Latin capital letter h with dot below
     { 0x1E25, "hdotbelow" },                          // Latin small letter h with dot below
-    { 0x1E26, "Hdieresis" },                          // Latin Capital Letter H With Diaeresis
+    { 0x1E26, "Hdieresis" },                          // Latin capital letter h with diaeresis
     { 0x1E27, "hdieresis" },                          // Latin small letter h with diaeresis
-    { 0x1E28, "Hcedilla" },                           // Latin Capital Letter H With Cedilla
+    { 0x1E28, "Hcedilla" },                           // Latin capital letter h with cedilla
     { 0x1E29, "hcedilla" },                           // Latin small letter h with cedilla
-    { 0x1E2A, "Hbrevebelow" },                        // Latin Capital Letter H With Breve Below
+    { 0x1E2A, "Hbrevebelow" },                        // Latin capital letter h with breve below
     { 0x1E2B, "hbrevebelow" },                        // Latin small letter h with breve below
-    { 0x1E2C, "Itildebelow" },                        // Latin Capital Letter I With Tilde Below
+    { 0x1E2C, "Itildebelow" },                        // Latin capital letter i with tilde below
     { 0x1E2D, "itildebelow" },                        // Latin small letter i with tilde below
-    { 0x1E2E, "Idieresisacute" },                     // Latin Capital Letter I With Diaeresis And Acute
+    { 0x1E2E, "Idieresisacute" },                     // Latin capital letter i with diaeresis and acute
     { 0x1E2F, "idieresisacute" },                     // Latin small letter i with diaeresis and acute
-    { 0x1E30, "Kacute" },                             // Latin Capital Letter K With Acute
+    { 0x1E30, "Kacute" },                             // Latin capital letter k with acute
     { 0x1E31, "kacute" },                             // Latin small letter k with acute
-    { 0x1E32, "Kdotbelow" },                          // Latin Capital Letter K With Dot Below
+    { 0x1E32, "Kdotbelow" },                          // Latin capital letter k with dot below
     { 0x1E33, "kdotbelow" },                          // Latin small letter k with dot below
-    { 0x1E34, "Klinebelow" },                         // Latin Capital Letter K With Line Below
+    { 0x1E34, "Klinebelow" },                         // Latin capital letter k with line below
     { 0x1E35, "klinebelow" },                         // Latin small letter k with line below
-    { 0x1E36, "Ldotbelow" },                          // Latin Capital Letter L With Dot Below
+    { 0x1E36, "Ldotbelow" },                          // Latin capital letter l with dot below
     { 0x1E37, "ldotbelow" },                          // Latin small letter l with dot below
-    { 0x1E38, "Ldotbelowmacron" },                    // Latin Capital Letter L With Dot Below And Macron
+    { 0x1E38, "Ldotbelowmacron" },                    // Latin capital letter l with dot below and macron
     { 0x1E39, "ldotbelowmacron" },                    // Latin small letter l with dot below and macron
-    { 0x1E3A, "Llinebelow" },                         // Latin Capital Letter L With Line Below
+    { 0x1E3A, "Llinebelow" },                         // Latin capital letter l with line below
     { 0x1E3B, "llinebelow" },                         // Latin small letter l with line below
-    { 0x1E3C, "Lcircumflexbelow" },                   // Latin Capital Letter L With Circumflex Below
+    { 0x1E3C, "Lcircumflexbelow" },                   // Latin capital letter l with circumflex below
     { 0x1E3D, "lcircumflexbelow" },                   // Latin small letter l with circumflex below
-    { 0x1E3E, "Macute" },                             // Latin Capital Letter M With Acute
+    { 0x1E3E, "Macute" },                             // Latin capital letter m with acute
     { 0x1E3F, "macute" },                             // Latin small letter m with acute
-    { 0x1E40, "Mdotaccent" },                         // Latin Capital Letter M With Dot Above
+    { 0x1E40, "Mdotaccent" },                         // Latin capital letter m with dot above
     { 0x1E41, "mdotaccent" },                         // Latin small letter m with dot above
-    { 0x1E42, "Mdotbelow" },                          // Latin Capital Letter M With Dot Below
+    { 0x1E42, "Mdotbelow" },                          // Latin capital letter m with dot below
     { 0x1E43, "mdotbelow" },                          // Latin small letter m with dot below
-    { 0x1E44, "Ndotaccent" },                         // Latin Capital Letter N With Dot Above
+    { 0x1E44, "Ndotaccent" },                         // Latin capital letter n with dot above
     { 0x1E45, "ndotaccent" },                         // Latin small letter n with dot above
-    { 0x1E46, "Ndotbelow" },                          // Latin Capital Letter N With Dot Below
+    { 0x1E46, "Ndotbelow" },                          // Latin capital letter n with dot below
     { 0x1E47, "ndotbelow" },                          // Latin small letter n with dot below
-    { 0x1E48, "Nlinebelow" },                         // Latin Capital Letter N With Line Below
+    { 0x1E48, "Nlinebelow" },                         // Latin capital letter n with line below
     { 0x1E49, "nlinebelow" },                         // Latin small letter n with line below
-    { 0x1E4A, "Ncircumflexbelow" },                   // Latin Capital Letter N With Circumflex Below
+    { 0x1E4A, "Ncircumflexbelow" },                   // Latin capital letter n with circumflex below
     { 0x1E4B, "ncircumflexbelow" },                   // Latin small letter n with circumflex below
-    { 0x1E4C, "Otildeacute" },                        // Latin Capital Letter O With Tilde And Acute
+    { 0x1E4C, "Otildeacute" },                        // Latin capital letter o with tilde and acute
     { 0x1E4D, "otildeacute" },                        // Latin small letter o with tilde and acute
-    { 0x1E4E, "Otildedieresis" },                     // Latin Capital Letter O With Tilde And Diaeresis
+    { 0x1E4E, "Otildedieresis" },                     // Latin capital letter o with tilde and diaeresis
     { 0x1E4F, "otildedieresis" },                     // Latin small letter o with tilde and diaeresis
-    { 0x1E50, "Omacrongrave" },                       // Latin Capital Letter O With Macron And Grave
+    { 0x1E50, "Omacrongrave" },                       // Latin capital letter o with macron and grave
     { 0x1E51, "omacrongrave" },                       // Latin small letter o with macron and grave
-    { 0x1E52, "Omacronacute" },                       // Latin Capital Letter O With Macron And Acute
+    { 0x1E52, "Omacronacute" },                       // Latin capital letter o with macron and acute
     { 0x1E53, "omacronacute" },                       // Latin small letter o with macron and acute
-    { 0x1E54, "Pacute" },                             // Latin Capital Letter P With Acute
+    { 0x1E54, "Pacute" },                             // Latin capital letter p with acute
     { 0x1E55, "pacute" },                             // Latin small letter p with acute
-    { 0x1E56, "Pdotaccent" },                         // Latin Capital Letter P With Dot Above
+    { 0x1E56, "Pdotaccent" },                         // Latin capital letter p with dot above
     { 0x1E57, "pdotaccent" },                         // Latin small letter p with dot above
-    { 0x1E58, "Rdotaccent" },                         // Latin Capital Letter R With Dot Above
+    { 0x1E58, "Rdotaccent" },                         // Latin capital letter r with dot above
     { 0x1E59, "rdotaccent" },                         // Latin small letter r with dot above
-    { 0x1E5A, "Rdotbelow" },                          // Latin Capital Letter R With Dot Below
+    { 0x1E5A, "Rdotbelow" },                          // Latin capital letter r with dot below
     { 0x1E5B, "rdotbelow" },                          // Latin small letter r with dot below
-    { 0x1E5C, "Rdotbelowmacron" },                    // Latin Capital Letter R With Dot Below And Macron
+    { 0x1E5C, "Rdotbelowmacron" },                    // Latin capital letter r with dot below and macron
     { 0x1E5D, "rdotbelowmacron" },                    // Latin small letter r with dot below and macron
-    { 0x1E5E, "Rlinebelow" },                         // Latin Capital Letter R With Line Below
+    { 0x1E5E, "Rlinebelow" },                         // Latin capital letter r with line below
     { 0x1E5F, "rlinebelow" },                         // Latin small letter r with line below
-    { 0x1E60, "Sdotaccent" },                         // Latin Capital Letter S With Dot Above
+    { 0x1E60, "Sdotaccent" },                         // Latin capital letter s with dot above
     { 0x1E61, "sdotaccent" },                         // Latin small letter s with dot above
-    { 0x1E62, "Sdotbelow" },                          // Latin Capital Letter S With Dot Below
+    { 0x1E62, "Sdotbelow" },                          // Latin capital letter s with dot below
     { 0x1E63, "sdotbelow" },                          // Latin small letter s with dot below
-    { 0x1E64, "Sacutedotaccent" },                    // Latin Capital Letter S With Acute And Dot Above
+    { 0x1E64, "Sacutedotaccent" },                    // Latin capital letter s with acute and dot above
     { 0x1E65, "sacutedotaccent" },                    // Latin small letter s with acute and dot above
-    { 0x1E66, "Scarondotaccent" },                    // Latin Capital Letter S With Caron And Dot Above
+    { 0x1E66, "Scarondotaccent" },                    // Latin capital letter s with caron and dot above
     { 0x1E67, "scarondotaccent" },                    // Latin small letter s with caron and dot above
-    { 0x1E68, "Sdotbelowdotaccent" },                 // Latin Capital Letter S With Dot Below And Dot Above
+    { 0x1E68, "Sdotbelowdotaccent" },                 // Latin capital letter s with dot below and dot above
     { 0x1E69, "sdotbelowdotaccent" },                 // Latin small letter s with dot below and dot above
-    { 0x1E6A, "Tdotaccent" },                         // Latin Capital Letter T With Dot Above
+    { 0x1E6A, "Tdotaccent" },                         // Latin capital letter t with dot above
     { 0x1E6B, "tdotaccent" },                         // Latin small letter t with dot above
-    { 0x1E6C, "Tdotbelow" },                          // Latin Capital Letter T With Dot Below
+    { 0x1E6C, "Tdotbelow" },                          // Latin capital letter t with dot below
     { 0x1E6D, "tdotbelow" },                          // Latin small letter t with dot below
-    { 0x1E6E, "Tlinebelow" },                         // Latin Capital Letter T With Line Below
+    { 0x1E6E, "Tlinebelow" },                         // Latin capital letter t with line below
     { 0x1E6F, "tlinebelow" },                         // Latin small letter t with line below
-    { 0x1E70, "Tcircumflexbelow" },                   // Latin Capital Letter T With Circumflex Below
+    { 0x1E70, "Tcircumflexbelow" },                   // Latin capital letter t with circumflex below
     { 0x1E71, "tcircumflexbelow" },                   // Latin small letter t with circumflex below
-    { 0x1E72, "Udieresisbelow" },                     // Latin Capital Letter U With Diaeresis Below
+    { 0x1E72, "Udieresisbelow" },                     // Latin capital letter u with diaeresis below
     { 0x1E73, "udieresisbelow" },                     // Latin small letter u with diaeresis below
-    { 0x1E74, "Utildebelow" },                        // Latin Capital Letter U With Tilde Below
+    { 0x1E74, "Utildebelow" },                        // Latin capital letter u with tilde below
     { 0x1E75, "utildebelow" },                        // Latin small letter u with tilde below
-    { 0x1E76, "Ucircumflexbelow" },                   // Latin Capital Letter U With Circumflex Below
+    { 0x1E76, "Ucircumflexbelow" },                   // Latin capital letter u with circumflex below
     { 0x1E77, "ucircumflexbelow" },                   // Latin small letter u with circumflex below
-    { 0x1E78, "Utildeacute" },                        // Latin Capital Letter U With Tilde And Acute
+    { 0x1E78, "Utildeacute" },                        // Latin capital letter u with tilde and acute
     { 0x1E79, "utildeacute" },                        // Latin small letter u with tilde and acute
-    { 0x1E7A, "Umacrondieresis" },                    // Latin Capital Letter U With Macron And Diaeresis
+    { 0x1E7A, "Umacrondieresis" },                    // Latin capital letter u with macron and diaeresis
     { 0x1E7B, "umacrondieresis" },                    // Latin small letter u with macron and diaeresis
-    { 0x1E7C, "Vtilde" },                             // Latin Capital Letter V With Tilde
+    { 0x1E7C, "Vtilde" },                             // Latin capital letter v with tilde
     { 0x1E7D, "vtilde" },                             // Latin small letter v with tilde
-    { 0x1E7E, "Vdotbelow" },                          // Latin Capital Letter V With Dot Below
+    { 0x1E7E, "Vdotbelow" },                          // Latin capital letter v with dot below
     { 0x1E7F, "vdotbelow" },                          // Latin small letter v with dot below
-    { 0x1E80, "Wgrave" },                             // Latin Capital Letter W With Grave
+    { 0x1E80, "Wgrave" },                             // Latin capital letter w with grave
     { 0x1E81, "wgrave" },                             // Latin small letter w with grave
-    { 0x1E82, "Wacute" },                             // Latin Capital Letter W With Acute
+    { 0x1E82, "Wacute" },                             // Latin capital letter w with acute
     { 0x1E83, "wacute" },                             // Latin small letter w with acute
-    { 0x1E84, "Wdieresis" },                          // Latin Capital Letter W With Diaeresis
+    { 0x1E84, "Wdieresis" },                          // Latin capital letter w with diaeresis
     { 0x1E85, "wdieresis" },                          // Latin small letter w with diaeresis
-    { 0x1E86, "Wdotaccent" },                         // Latin Capital Letter W With Dot Above
+    { 0x1E86, "Wdotaccent" },                         // Latin capital letter w with dot above
     { 0x1E87, "wdotaccent" },                         // Latin small letter w with dot above
-    { 0x1E88, "Wdotbelow" },                          // Latin Capital Letter W With Dot Below
+    { 0x1E88, "Wdotbelow" },                          // Latin capital letter w with dot below
     { 0x1E89, "wdotbelow" },                          // Latin small letter w with dot below
-    { 0x1E8A, "Xdotaccent" },                         // Latin Capital Letter X With Dot Above
+    { 0x1E8A, "Xdotaccent" },                         // Latin capital letter x with dot above
     { 0x1E8B, "xdotaccent" },                         // Latin small letter x with dot above
-    { 0x1E8C, "Xdieresis" },                          // Latin Capital Letter X With Diaeresis
+    { 0x1E8C, "Xdieresis" },                          // Latin capital letter x with diaeresis
     { 0x1E8D, "xdieresis" },                          // Latin small letter x with diaeresis
-    { 0x1E8E, "Ydotaccent" },                         // Latin Capital Letter Y With Dot Above
+    { 0x1E8E, "Ydotaccent" },                         // Latin capital letter y with dot above
     { 0x1E8F, "ydotaccent" },                         // Latin small letter y with dot above
-    { 0x1E90, "Zcircumflex" },                        // Latin Capital Letter Z With Circumflex
+    { 0x1E90, "Zcircumflex" },                        // Latin capital letter z with circumflex
     { 0x1E91, "zcircumflex" },                        // Latin small letter z with circumflex
-    { 0x1E92, "Zdotbelow" },                          // Latin Capital Letter Z With Dot Below
+    { 0x1E92, "Zdotbelow" },                          // Latin capital letter z with dot below
     { 0x1E93, "zdotbelow" },                          // Latin small letter z with dot below
-    { 0x1E94, "Zlinebelow" },                         // Latin Capital Letter Z With Line Below
+    { 0x1E94, "Zlinebelow" },                         // Latin capital letter z with line below
     { 0x1E95, "zlinebelow" },                         // Latin small letter z with line below
     { 0x1E96, "hlinebelow" },                         // Latin small letter h with line below
     { 0x1E97, "tdieresis" },                          // Latin small letter t with diaeresis
@@ -2150,95 +1915,95 @@ public static class CharNames
     { 0x1E99, "yring" },                              // Latin small letter y with ring above
     { 0x1E9A, "arighthalf" },                         // Latin small letter a with right half ring
     { 0x1E9B, "slongdotaccent" },                     // Latin small letter long s with dot above
-    { 0x1EA0, "Adotbelow" },                          // Latin Capital Letter A With Dot Below
+    { 0x1EA0, "Adotbelow" },                          // Latin capital letter a with dot below
     { 0x1EA1, "adotbelow" },                          // Latin small letter a with dot below
-    { 0x1EA2, "Ahook" },                              // Latin Capital Letter A With Hook Above
+    { 0x1EA2, "Ahook" },                              // Latin capital letter a with hook above
     { 0x1EA3, "ahook" },                              // Latin small letter a with hook above
-    { 0x1EA4, "Acircumflexacute" },                   // Latin Capital Letter A With Circumflex And Acute
+    { 0x1EA4, "Acircumflexacute" },                   // Latin capital letter a with circumflex and acute
     { 0x1EA5, "acircumflexacute" },                   // Latin small letter a with circumflex and acute
-    { 0x1EA6, "Acircumflexgrave" },                   // Latin Capital Letter A With Circumflex And Grave
+    { 0x1EA6, "Acircumflexgrave" },                   // Latin capital letter a with circumflex and grave
     { 0x1EA7, "acircumflexgrave" },                   // Latin small letter a with circumflex and grave
-    { 0x1EA8, "Acircumflexhook" },                    // Latin Capital Letter A With Circumflex And Hook Above
+    { 0x1EA8, "Acircumflexhook" },                    // Latin capital letter a with circumflex and hook above
     { 0x1EA9, "acircumflexhook" },                    // Latin small letter a with circumflex and hook above
-    { 0x1EAA, "Acircumflextilde" },                   // Latin Capital Letter A With Circumflex And Tilde
+    { 0x1EAA, "Acircumflextilde" },                   // Latin capital letter a with circumflex and tilde
     { 0x1EAB, "acircumflextilde" },                   // Latin small letter a with circumflex and tilde
-    { 0x1EAC, "Acircumflexdotbelow" },                // Latin Capital Letter A With Circumflex And Dot Below
+    { 0x1EAC, "Acircumflexdotbelow" },                // Latin capital letter a with circumflex and dot below
     { 0x1EAD, "acircumflexdotbelow" },                // Latin small letter a with circumflex and dot below
-    { 0x1EAE, "Abreveacute" },                        // Latin Capital Letter A With Breve And Acute
+    { 0x1EAE, "Abreveacute" },                        // Latin capital letter a with breve and acute
     { 0x1EAF, "abreveacute" },                        // Latin small letter a with breve and acute
-    { 0x1EB0, "Abrevegrave" },                        // Latin Capital Letter A With Breve And Grave
+    { 0x1EB0, "Abrevegrave" },                        // Latin capital letter a with breve and grave
     { 0x1EB1, "abrevegrave" },                        // Latin small letter a with breve and grave
-    { 0x1EB2, "Abrevehook" },                         // Latin Capital Letter A With Breve And Hook Above
+    { 0x1EB2, "Abrevehook" },                         // Latin capital letter a with breve and hook above
     { 0x1EB3, "abrevehook" },                         // Latin small letter a with breve and hook above
-    { 0x1EB4, "Abrevetilde" },                        // Latin Capital Letter A With Breve And Tilde
+    { 0x1EB4, "Abrevetilde" },                        // Latin capital letter a with breve and tilde
     { 0x1EB5, "abrevetilde" },                        // Latin small letter a with breve and tilde
-    { 0x1EB6, "Abrevedotbelow" },                     // Latin Capital Letter A With Breve And Dot Below
+    { 0x1EB6, "Abrevedotbelow" },                     // Latin capital letter a with breve and dot below
     { 0x1EB7, "abrevedotbelow" },                     // Latin small letter a with breve and dot below
-    { 0x1EB8, "Edotbelow" },                          // Latin Capital Letter E With Dot Below
+    { 0x1EB8, "Edotbelow" },                          // Latin capital letter e with dot below
     { 0x1EB9, "edotbelow" },                          // Latin small letter e with dot below
-    { 0x1EBA, "Ehook" },                              // Latin Capital Letter E With Hook Above
+    { 0x1EBA, "Ehook" },                              // Latin capital letter e with hook above
     { 0x1EBB, "ehook" },                              // Latin small letter e with hook above
-    { 0x1EBC, "Etilde" },                             // Latin Capital Letter E With Tilde
+    { 0x1EBC, "Etilde" },                             // Latin capital letter e with tilde
     { 0x1EBD, "etilde" },                             // Latin small letter e with tilde
-    { 0x1EBE, "Ecircumflexacute" },                   // Latin Capital Letter E With Circumflex And Acute
+    { 0x1EBE, "Ecircumflexacute" },                   // Latin capital letter e with circumflex and acute
     { 0x1EBF, "ecircumflexacute" },                   // Latin small letter e with circumflex and acute
-    { 0x1EC0, "Ecircumflexgrave" },                   // Latin Capital Letter E With Circumflex And Grave
+    { 0x1EC0, "Ecircumflexgrave" },                   // Latin capital letter e with circumflex and grave
     { 0x1EC1, "ecircumflexgrave" },                   // Latin small letter e with circumflex and grave
-    { 0x1EC2, "Ecircumflexhook" },                    // Latin Capital Letter E With Circumflex And Hook Above
+    { 0x1EC2, "Ecircumflexhook" },                    // Latin capital letter e with circumflex and hook above
     { 0x1EC3, "ecircumflexhook" },                    // Latin small letter e with circumflex and hook above
-    { 0x1EC4, "Ecircumflextilde" },                   // Latin Capital Letter E With Circumflex And Tilde
+    { 0x1EC4, "Ecircumflextilde" },                   // Latin capital letter e with circumflex and tilde
     { 0x1EC5, "ecircumflextilde" },                   // Latin small letter e with circumflex and tilde
-    { 0x1EC6, "Ecircumflexdotbelow" },                // Latin Capital Letter E With Circumflex And Dot Below
+    { 0x1EC6, "Ecircumflexdotbelow" },                // Latin capital letter e with circumflex and dot below
     { 0x1EC7, "ecircumflexdotbelow" },                // Latin small letter e with circumflex and dot below
-    { 0x1EC8, "Ihook" },                              // Latin Capital Letter I With Hook Above
+    { 0x1EC8, "Ihook" },                              // Latin capital letter i with hook above
     { 0x1EC9, "ihook" },                              // Latin small letter i with hook above
-    { 0x1ECA, "Idotbelow" },                          // Latin Capital Letter I With Dot Below
+    { 0x1ECA, "Idotbelow" },                          // Latin capital letter i with dot below
     { 0x1ECB, "idotbelow" },                          // Latin small letter i with dot below
-    { 0x1ECC, "Odotbelow" },                          // Latin Capital Letter O With Dot Below
+    { 0x1ECC, "Odotbelow" },                          // Latin capital letter o with dot below
     { 0x1ECD, "odotbelow" },                          // Latin small letter o with dot below
-    { 0x1ECE, "Ohookabove" },                         // Latin Capital Letter O With Hook Above
+    { 0x1ECE, "Ohookabove" },                         // Latin capital letter o with hook above
     { 0x1ECF, "ohookabove" },                         // Latin small letter o with hook above
-    { 0x1ED0, "Ocircumflexacute" },                   // Latin Capital Letter O With Circumflex And Acute
+    { 0x1ED0, "Ocircumflexacute" },                   // Latin capital letter o with circumflex and acute
     { 0x1ED1, "ocircumflexacute" },                   // Latin small letter o with circumflex and acute
-    { 0x1ED2, "Ocircumflexgrave" },                   // Latin Capital Letter O With Circumflex And Grave
+    { 0x1ED2, "Ocircumflexgrave" },                   // Latin capital letter o with circumflex and grave
     { 0x1ED3, "ocircumflexgrave" },                   // Latin small letter o with circumflex and grave
-    { 0x1ED4, "Ocircumflexhook" },                    // Latin Capital Letter O With Circumflex And Hook Above
+    { 0x1ED4, "Ocircumflexhook" },                    // Latin capital letter o with circumflex and hook above
     { 0x1ED5, "ocircumflexhook" },                    // Latin small letter o with circumflex and hook above
-    { 0x1ED6, "Ocircumflextilde" },                   // Latin Capital Letter O With Circumflex And Tilde
+    { 0x1ED6, "Ocircumflextilde" },                   // Latin capital letter o with circumflex and tilde
     { 0x1ED7, "ocircumflextilde" },                   // Latin small letter o with circumflex and tilde
-    { 0x1ED8, "Ocircumflexdotbelow" },                // Latin Capital Letter O With Circumflex And Dot Below
+    { 0x1ED8, "Ocircumflexdotbelow" },                // Latin capital letter o with circumflex and dot below
     { 0x1ED9, "ocircumflexdotbelow" },                // Latin small letter o with circumflex and dot below
-    { 0x1EDA, "Ohornacute" },                         // Latin Capital Letter O With Horn And Acute
+    { 0x1EDA, "Ohornacute" },                         // Latin capital letter o with horn and acute
     { 0x1EDB, "ohornacute" },                         // Latin small letter o with horn and acute
-    { 0x1EDC, "Ohorngrave" },                         // Latin Capital Letter O With Horn And Grave
+    { 0x1EDC, "Ohorngrave" },                         // Latin capital letter o with horn and grave
     { 0x1EDD, "ohorngrave" },                         // Latin small letter o with horn and grave
-    { 0x1EDE, "Ohornhook" },                          // Latin Capital Letter O With Horn And Hook Above
+    { 0x1EDE, "Ohornhook" },                          // Latin capital letter o with horn and hook above
     { 0x1EDF, "ohornhook" },                          // Latin small letter o with horn and hook above
-    { 0x1EE0, "Ohorntilde" },                         // Latin Capital Letter O With Horn And Tilde
+    { 0x1EE0, "Ohorntilde" },                         // Latin capital letter o with horn and tilde
     { 0x1EE1, "ohorntilde" },                         // Latin small letter o with horn and tilde
-    { 0x1EE2, "Ohorndotbelow" },                      // Latin Capital Letter O With Horn And Dot Below
+    { 0x1EE2, "Ohorndotbelow" },                      // Latin capital letter o with horn and dot below
     { 0x1EE3, "ohorndotbelow" },                      // Latin small letter o with horn and dot below
-    { 0x1EE4, "Udotbelow" },                          // Latin Capital Letter U With Dot Below
+    { 0x1EE4, "Udotbelow" },                          // Latin capital letter u with dot below
     { 0x1EE5, "udotbelow" },                          // Latin small letter u with dot below
-    { 0x1EE6, "Uhook" },                              // Latin Capital Letter U With Hook Above
+    { 0x1EE6, "Uhook" },                              // Latin capital letter u with hook above
     { 0x1EE7, "uhook" },                              // Latin small letter u with hook above
-    { 0x1EE8, "Uhornacute" },                         // Latin Capital Letter U With Horn And Acute
+    { 0x1EE8, "Uhornacute" },                         // Latin capital letter u with horn and acute
     { 0x1EE9, "uhornacute" },                         // Latin small letter u with horn and acute
-    { 0x1EEA, "Uhorngrave" },                         // Latin Capital Letter U With Horn And Grave
+    { 0x1EEA, "Uhorngrave" },                         // Latin capital letter u with horn and grave
     { 0x1EEB, "uhorngrave" },                         // Latin small letter u with horn and grave
-    { 0x1EEC, "Uhornhook" },                          // Latin Capital Letter U With Horn And Hook Above
+    { 0x1EEC, "Uhornhook" },                          // Latin capital letter u with horn and hook above
     { 0x1EED, "uhornhook" },                          // Latin small letter u with horn and hook above
-    { 0x1EEE, "Uhorntilde" },                         // Latin Capital Letter U With Horn And Tilde
+    { 0x1EEE, "Uhorntilde" },                         // Latin capital letter u with horn and tilde
     { 0x1EEF, "uhorntilde" },                         // Latin small letter u with horn and tilde
-    { 0x1EF0, "Uhorndotbelow" },                      // Latin Capital Letter U With Horn And Dot Below
+    { 0x1EF0, "Uhorndotbelow" },                      // Latin capital letter u with horn and dot below
     { 0x1EF1, "uhorndotbelow" },                      // Latin small letter u with horn and dot below
-    { 0x1EF2, "Ygrave" },                             // Latin Capital Letter Y With Grave
+    { 0x1EF2, "Ygrave" },                             // Latin capital letter y with grave
     { 0x1EF3, "ygrave" },                             // Latin small letter y with grave
-    { 0x1EF4, "Ydotbelow" },                          // Latin Capital Letter Y With Dot Below
+    { 0x1EF4, "Ydotbelow" },                          // Latin capital letter y with dot below
     { 0x1EF5, "ydotbelow" },                          // Latin small letter y with dot below
-    { 0x1EF6, "Yhookabove" },                         // Latin Capital Letter Y With Hook Above
+    { 0x1EF6, "Yhookabove" },                         // Latin capital letter y with hook above
     { 0x1EF7, "yhookabove" },                         // Latin small letter y with hook above
-    { 0x1EF8, "Ytilde" },                             // Latin Capital Letter Y With Tilde
+    { 0x1EF8, "Ytilde" },                             // Latin capital letter y with tilde
     { 0x1EF9, "ytilde" },                             // Latin small letter y with tilde
     { 0x2000, "enquad" },                             // En quad
     { 0x2001, "emquad" },                             // Em quad
@@ -2352,7 +2117,7 @@ public static class CharNames
     { 0x20AB, "dong" },                               // Dong sign
     { 0x2100, "accountof" },                          // Account of
     { 0x2101, "addresssubject" },                     // Addressed to the subject
-    { 0x2102, "Cbb" },                                // Double-struck Capital C
+    { 0x2102, "Cbb" },                                // Double-struck capital c
     { 0x2103, "centigrade" },                         // Degree celsius
     { 0x2104, "CL" },                                 // Centre line symbol
     { 0x2105, "careof" },                             // Care of
@@ -2361,47 +2126,47 @@ public static class CharNames
     { 0x2108, "scruple" },                            // Scruple
     { 0x2109, "fahrenheit" },                         // Degree fahrenheit
     { 0x210A, "gscript" },                            // Script small g
-    { 0x210B, "Hscript" },                            // Script Capital H
-    { 0x210C, "Hfraktur" },                           // Black-letter Capital H
-    { 0x210D, "Hbb" },                                // Double-struck Capital H
+    { 0x210B, "Hscript" },                            // Script capital h
+    { 0x210C, "Hfraktur" },                           // Black-letter capital h
+    { 0x210D, "Hbb" },                                // Double-struck capital h
     { 0x210E, "planck" },                             // Planck constant
     { 0x210F, "planckover2pi" },                      // Planck constant over two pi
-    { 0x2110, "Iscript" },                            // Script Capital I
-    { 0x2111, "Ifraktur" },                           // Black-letter Capital I
-    { 0x2112, "Lscript" },                            // Script Capital L
+    { 0x2110, "Iscript" },                            // Script capital i
+    { 0x2111, "Ifraktur" },                           // Black-letter capital i
+    { 0x2112, "Lscript" },                            // Script capital l
     { 0x2113, "lsquare" },                            // Script small l
     { 0x2114, "lbbar" },                              // L b bar symbol
-    { 0x2115, "Nbb" },                                // Double-struck Capital N
+    { 0x2115, "Nbb" },                                // Double-struck capital n
     { 0x2116, "numero" },                             // Numero sign
     { 0x2117, "recordright" },                        // Sound recording copyright
-    { 0x2118, "weierstrass" },                        // Script Capital P
-    { 0x2119, "Pbb" },                                // Double-struck Capital P
-    { 0x211A, "Qbb" },                                // Double-struck Capital Q
-    { 0x211B, "Rscript" },                            // Script Capital R
-    { 0x211C, "Rfraktur" },                           // Black-letter Capital R
-    { 0x211D, "Rbb" },                                // Double-struck Capital R
+    { 0x2118, "weierstrass" },                        // Script capital p
+    { 0x2119, "Pbb" },                                // Double-struck capital p
+    { 0x211A, "Qbb" },                                // Double-struck capital q
+    { 0x211B, "Rscript" },                            // Script capital r
+    { 0x211C, "Rfraktur" },                           // Black-letter capital r
+    { 0x211D, "Rbb" },                                // Double-struck capital r
     { 0x211E, "Rx" },                                 // Prescription take
     { 0x211F, "response" },                           // Response
     { 0x2120, "servicemark" },                        // Service mark
     { 0x2121, "tel" },                                // Telephone sign
     { 0x2122, "trademark" },                          // Trade mark sign
     { 0x2123, "versicle" },                           // Versicle
-    { 0x2124, "Zbb" },                                // Double-struck Capital Z
+    { 0x2124, "Zbb" },                                // Double-struck capital z
     { 0x2125, "ounce" },                              // Ounce sign
     { 0x2126, "ohm" },                                // Ohm sign
     { 0x2127, "mho" },                                // Inverted ohm sign
-    { 0x2128, "Zfraktur" },                           // Black-letter Capital Z
+    { 0x2128, "Zfraktur" },                           // Black-letter capital z
     { 0x2129, "iotaturn" },                           // Turned greek small letter iota
     { 0x212A, "degreekelvin" },                       // Kelvin sign
     { 0x212B, "angstrom" },                           // Angstrom sign
-    { 0x212C, "Bscript" },                            // Script Capital B
-    { 0x212D, "Cfraktur" },                           // Black-letter Capital C
+    { 0x212C, "Bscript" },                            // Script capital b
+    { 0x212D, "Cfraktur" },                           // Black-letter capital c
     { 0x212E, "estimated" },                          // Estimated symbol
     { 0x212F, "escript" },                            // Script small e
-    { 0x2130, "Escript" },                            // Script Capital E
-    { 0x2131, "Fscript" },                            // Script Capital F
-    { 0x2132, "Fturn" },                              // Turned Capital F
-    { 0x2133, "Mscript" },                            // Script Capital M
+    { 0x2130, "Escript" },                            // Script capital e
+    { 0x2131, "Fscript" },                            // Script capital f
+    { 0x2132, "Fturn" },                              // Turned capital f
+    { 0x2133, "Mscript" },                            // Script capital m
     { 0x2134, "oscript" },                            // Script small o
     { 0x2135, "aleph" },                              // Alef symbol
     { 0x2136, "bethmath" },                           // Bet symbol
@@ -3050,32 +2815,32 @@ public static class CharNames
     { 0x24B3, "xparen" },                             // Parenthesized latin small letter x
     { 0x24B4, "yparen" },                             // Parenthesized latin small letter y
     { 0x24B5, "zparen" },                             // Parenthesized latin small letter z
-    { 0x24B6, "Acircle" },                            // Circled latin Capital Letter A
-    { 0x24B7, "Bcircle" },                            // Circled latin Capital Letter B
-    { 0x24B8, "Ccircle" },                            // Circled latin Capital Letter C
-    { 0x24B9, "Dcircle" },                            // Circled latin Capital Letter D
-    { 0x24BA, "Ecircle" },                            // Circled latin Capital Letter E
-    { 0x24BB, "Fcircle" },                            // Circled latin Capital Letter F
-    { 0x24BC, "Gcircle" },                            // Circled latin Capital Letter G
-    { 0x24BD, "Hcircle" },                            // Circled latin Capital Letter H
-    { 0x24BE, "Icircle" },                            // Circled latin Capital Letter I
-    { 0x24BF, "Jcircle" },                            // Circled latin Capital Letter J
-    { 0x24C0, "Kcircle" },                            // Circled latin Capital Letter K
-    { 0x24C1, "Lcircle" },                            // Circled latin Capital Letter L
-    { 0x24C2, "Mcircle" },                            // Circled latin Capital Letter M
-    { 0x24C3, "Ncircle" },                            // Circled latin Capital Letter N
-    { 0x24C4, "Ocircle" },                            // Circled latin Capital Letter O
-    { 0x24C5, "Pcircle" },                            // Circled latin Capital Letter P
-    { 0x24C6, "Qcircle" },                            // Circled latin Capital Letter Q
-    { 0x24C7, "Rcircle" },                            // Circled latin Capital Letter R
-    { 0x24C8, "Scircle" },                            // Circled latin Capital Letter S
-    { 0x24C9, "Tcircle" },                            // Circled latin Capital Letter T
-    { 0x24CA, "Ucircle" },                            // Circled latin Capital Letter U
-    { 0x24CB, "Vcircle" },                            // Circled latin Capital Letter V
-    { 0x24CC, "Wcircle" },                            // Circled latin Capital Letter W
-    { 0x24CD, "Xcircle" },                            // Circled latin Capital Letter X
-    { 0x24CE, "Ycircle" },                            // Circled latin Capital Letter Y
-    { 0x24CF, "Zcircle" },                            // Circled latin Capital Letter Z
+    { 0x24B6, "Acircle" },                            // Circled latin capital letter a
+    { 0x24B7, "Bcircle" },                            // Circled latin capital letter b
+    { 0x24B8, "Ccircle" },                            // Circled latin capital letter c
+    { 0x24B9, "Dcircle" },                            // Circled latin capital letter d
+    { 0x24BA, "Ecircle" },                            // Circled latin capital letter e
+    { 0x24BB, "Fcircle" },                            // Circled latin capital letter f
+    { 0x24BC, "Gcircle" },                            // Circled latin capital letter g
+    { 0x24BD, "Hcircle" },                            // Circled latin capital letter h
+    { 0x24BE, "Icircle" },                            // Circled latin capital letter i
+    { 0x24BF, "Jcircle" },                            // Circled latin capital letter j
+    { 0x24C0, "Kcircle" },                            // Circled latin capital letter k
+    { 0x24C1, "Lcircle" },                            // Circled latin capital letter l
+    { 0x24C2, "Mcircle" },                            // Circled latin capital letter m
+    { 0x24C3, "Ncircle" },                            // Circled latin capital letter n
+    { 0x24C4, "Ocircle" },                            // Circled latin capital letter o
+    { 0x24C5, "Pcircle" },                            // Circled latin capital letter p
+    { 0x24C6, "Qcircle" },                            // Circled latin capital letter q
+    { 0x24C7, "Rcircle" },                            // Circled latin capital letter r
+    { 0x24C8, "Scircle" },                            // Circled latin capital letter s
+    { 0x24C9, "Tcircle" },                            // Circled latin capital letter t
+    { 0x24CA, "Ucircle" },                            // Circled latin capital letter u
+    { 0x24CB, "Vcircle" },                            // Circled latin capital letter v
+    { 0x24CC, "Wcircle" },                            // Circled latin capital letter w
+    { 0x24CD, "Xcircle" },                            // Circled latin capital letter x
+    { 0x24CE, "Ycircle" },                            // Circled latin capital letter y
+    { 0x24CF, "Zcircle" },                            // Circled latin capital letter z
     { 0x24D0, "acircle" },                            // Circled latin small letter a
     { 0x24D1, "bcircle" },                            // Circled latin small letter b
     { 0x24D2, "ccircle" },                            // Circled latin small letter c
@@ -4121,7 +3886,7 @@ public static class CharNames
     { 0x33CA, "hasquare" },                           // Square ha
     { 0x33CB, "HPsquare" },                           // Square hp
     { 0x33CD, "KKsquare" },                           // Square kk
-    { 0x33CE, "squarekmcapital" },                    // Square km Capital
+    { 0x33CE, "squarekmcapital" },                    // Square km capital
     { 0x33CF, "ktsquare" },                           // Square kt
     { 0x33D0, "lmsquare" },                           // Square lm
     { 0x33D1, "squareln" },                           // Square ln
@@ -4484,6 +4249,262 @@ public static class CharNames
     { 0xFF1E, "greatermonospace" },                   // Fullwidth greater-than sign
     { 0xFF1F, "questionmonospace" },                  // Fullwidth question mark
     { 0xFF20, "atmonospace" },                        // Fullwidth commercial at
+    { 0xFF21, "Amonospace" },                         // Fullwidth latin capital letter a
+    { 0xFF22, "Bmonospace" },                         // Fullwidth latin capital letter b
+    { 0xFF23, "Cmonospace" },                         // Fullwidth latin capital letter c
+    { 0xFF24, "Dmonospace" },                         // Fullwidth latin capital letter d
+    { 0xFF25, "Emonospace" },                         // Fullwidth latin capital letter e
+    { 0xFF26, "Fmonospace" },                         // Fullwidth latin capital letter f
+    { 0xFF27, "Gmonospace" },                         // Fullwidth latin capital letter g
+    { 0xFF28, "Hmonospace" },                         // Fullwidth latin capital letter h
+    { 0xFF29, "Imonospace" },                         // Fullwidth latin capital letter i
+    { 0xFF2A, "Jmonospace" },                         // Fullwidth latin capital letter j
+    { 0xFF2B, "Kmonospace" },                         // Fullwidth latin capital letter k
+    { 0xFF2C, "Lmonospace" },                         // Fullwidth latin capital letter l
+    { 0xFF2D, "Mmonospace" },                         // Fullwidth latin capital letter m
+    { 0xFF2E, "Nmonospace" },                         // Fullwidth latin capital letter n
+    { 0xFF2F, "Omonospace" },                         // Fullwidth latin capital letter o
+    { 0xFF30, "Pmonospace" },                         // Fullwidth latin capital letter p
+    { 0xFF31, "Qmonospace" },                         // Fullwidth latin capital letter q
+    { 0xFF32, "Rmonospace" },                         // Fullwidth latin capital letter r
+    { 0xFF33, "Smonospace" },                         // Fullwidth latin capital letter s
+    { 0xFF34, "Tmonospace" },                         // Fullwidth latin capital letter t
+    { 0xFF35, "Umonospace" },                         // Fullwidth latin capital letter u
+    { 0xFF36, "Vmonospace" },                         // Fullwidth latin capital letter v
+    { 0xFF37, "Wmonospace" },                         // Fullwidth latin capital letter w
+    { 0xFF38, "Xmonospace" },                         // Fullwidth latin capital letter x
+    { 0xFF39, "Ymonospace" },                         // Fullwidth latin capital letter y
+    { 0xFF3A, "Zmonospace" },                         // Fullwidth latin capital letter z
+    { 0xFF3B, "bracketleftmonospace" },               // Fullwidth left square bracket
+    { 0xFF3C, "backslashmonospace" },                 // Fullwidth reverse solidus
+    { 0xFF3D, "bracketrightmonospace" },              // Fullwidth right square bracket
+    { 0xFF3E, "asciicircummonospace" },               // Fullwidth circumflex accent
+    { 0xFF3F, "underscoremonospace" },                // Fullwidth low line
+    { 0xFF40, "gravemonospace" },                     // Fullwidth grave accent
+    { 0xFF41, "amonospace" },                         // Fullwidth latin small letter a
+    { 0xFF42, "bmonospace" },                         // Fullwidth latin small letter b
+    { 0xFF43, "cmonospace" },                         // Fullwidth latin small letter c
+    { 0xFF44, "dmonospace" },                         // Fullwidth latin small letter d
+    { 0xFF45, "emonospace" },                         // Fullwidth latin small letter e
+    { 0xFF46, "fmonospace" },                         // Fullwidth latin small letter f
+    { 0xFF47, "gmonospace" },                         // Fullwidth latin small letter g
+    { 0xFF48, "hmonospace" },                         // Fullwidth latin small letter h
+    { 0xFF49, "imonospace" },                         // Fullwidth latin small letter i
+    { 0xFF4A, "jmonospace" },                         // Fullwidth latin small letter j
+    { 0xFF4B, "kmonospace" },                         // Fullwidth latin small letter k
+    { 0xFF4C, "lmonospace" },                         // Fullwidth latin small letter l
+    { 0xFF4D, "mmonospace" },                         // Fullwidth latin small letter m
+    { 0xFF4E, "nmonospace" },                         // Fullwidth latin small letter n
+    { 0xFF4F, "omonospace" },                         // Fullwidth latin small letter o
+    { 0xFF50, "pmonospace" },                         // Fullwidth latin small letter p
+    { 0xFF51, "qmonospace" },                         // Fullwidth latin small letter q
+    { 0xFF52, "rmonospace" },                         // Fullwidth latin small letter r
+    { 0xFF53, "smonospace" },                         // Fullwidth latin small letter s
+    { 0xFF54, "tmonospace" },                         // Fullwidth latin small letter t
+    { 0xFF55, "umonospace" },                         // Fullwidth latin small letter u
+    { 0xFF56, "vmonospace" },                         // Fullwidth latin small letter v
+    { 0xFF57, "wmonospace" },                         // Fullwidth latin small letter w
+    { 0xFF58, "xmonospace" },                         // Fullwidth latin small letter x
+    { 0xFF59, "ymonospace" },                         // Fullwidth latin small letter y
+    { 0xFF5A, "zmonospace" },                         // Fullwidth latin small letter z
+    { 0xFF5B, "braceleftmonospace" },                 // Fullwidth left curly bracket
+    { 0xFF5C, "barmonospace" },                       // Fullwidth vertical line
+    { 0xFF5D, "bracerightmonospace" },                // Fullwidth right curly bracket
+    { 0xFF5E, "asciitildemonospace" },                // Fullwidth tilde
+    { 0xFF61, "periodhalfwidth" },                    // Halfwidth ideographic full stop
+    { 0xFF62, "cornerbracketlefthalfwidth" },         // Halfwidth left corner bracket
+    { 0xFF63, "cornerbracketrighthalfwidth" },        // Halfwidth right corner bracket
+    { 0xFF64, "ideographiccommaleft" },               // Halfwidth ideographic comma
+    { 0xFF65, "middledotkatakanahalfwidth" },         // Halfwidth katakana middle dot
+    { 0xFF66, "wokatakanahalfwidth" },                // Halfwidth katakana letter wo
+    { 0xFF67, "asmallkatakanahalfwidth" },            // Halfwidth katakana letter small a
+    { 0xFF68, "ismallkatakanahalfwidth" },            // Halfwidth katakana letter small i
+    { 0xFF69, "usmallkatakanahalfwidth" },            // Halfwidth katakana letter small u
+    { 0xFF6A, "esmallkatakanahalfwidth" },            // Halfwidth katakana letter small e
+    { 0xFF6B, "osmallkatakanahalfwidth" },            // Halfwidth katakana letter small o
+    { 0xFF6C, "yasmallkatakanahalfwidth" },           // Halfwidth katakana letter small ya
+    { 0xFF6D, "yusmallkatakanahalfwidth" },           // Halfwidth katakana letter small yu
+    { 0xFF6E, "yosmallkatakanahalfwidth" },           // Halfwidth katakana letter small yo
+    { 0xFF6F, "tusmallkatakanahalfwidth" },           // Halfwidth katakana letter small tu
+    { 0xFF70, "katahiraprolongmarkhalfwidth" },       // Halfwidth katakana-hiragana prolonged sound mark
+    { 0xFF72, "ikatakanahalfwidth" },                 // Halfwidth katakana letter i
+    { 0xFF73, "ukatakanahalfwidth" },                 // Halfwidth katakana letter u
+    { 0xFF74, "ekatakanahalfwidth" },                 // Halfwidth katakana letter e
+    { 0xFF75, "okatakanahalfwidth" },                 // Halfwidth katakana letter o
+    { 0xFF76, "kakatakanahalfwidth" },                // Halfwidth katakana letter ka
+    { 0xFF77, "kikatakanahalfwidth" },                // Halfwidth katakana letter ki
+    { 0xFF78, "kukatakanahalfwidth" },                // Halfwidth katakana letter ku
+    { 0xFF79, "kekatakanahalfwidth" },                // Halfwidth katakana letter ke
+    { 0xFF7A, "kokatakanahalfwidth" },                // Halfwidth katakana letter ko
+    { 0xFF7B, "sakatakanahalfwidth" },                // Halfwidth katakana letter sa
+    { 0xFF7C, "sikatakanahalfwidth" },                // Halfwidth katakana letter si
+    { 0xFF7D, "sukatakanahalfwidth" },                // Halfwidth katakana letter su
+    { 0xFF7E, "sekatakanahalfwidth" },                // Halfwidth katakana letter se
+    { 0xFF7F, "sokatakanahalfwidth" },                // Halfwidth katakana letter so
+    { 0xFF80, "takatakanahalfwidth" },                // Halfwidth katakana letter ta
+    { 0xFF81, "tikatakanahalfwidth" },                // Halfwidth katakana letter ti
+    { 0xFF82, "tukatakanahalfwidth" },                // Halfwidth katakana letter tu
+    { 0xFF83, "tekatakanahalfwidth" },                // Halfwidth katakana letter te
+    { 0xFF84, "tokatakanahalfwidth" },                // Halfwidth katakana letter to
+    { 0xFF85, "nakatakanahalfwidth" },                // Halfwidth katakana letter na
+    { 0xFF86, "nikatakanahalfwidth" },                // Halfwidth katakana letter ni
+    { 0xFF87, "nukatakanahalfwidth" },                // Halfwidth katakana letter nu
+    { 0xFF88, "nekatakanahalfwidth" },                // Halfwidth katakana letter ne
+    { 0xFF89, "nokatakanahalfwidth" },                // Halfwidth katakana letter no
+    { 0xFF8A, "hakatakanahalfwidth" },                // Halfwidth katakana letter ha
+    { 0xFF8B, "hikatakanahalfwidth" },                // Halfwidth katakana letter hi
+    { 0xFF8C, "hukatakanahalfwidth" },                // Halfwidth katakana letter hu
+    { 0xFF8D, "hekatakanahalfwidth" },                // Halfwidth katakana letter he
+    { 0xFF8E, "hokatakanahalfwidth" },                // Halfwidth katakana letter ho
+    { 0xFF8F, "makatakanahalfwidth" },                // Halfwidth katakana letter ma
+    { 0xFF90, "mikatakanahalfwidth" },                // Halfwidth katakana letter mi
+    { 0xFF91, "mukatakanahalfwidth" },                // Halfwidth katakana letter mu
+    { 0xFF92, "mekatakanahalfwidth" },                // Halfwidth katakana letter me
+    { 0xFF93, "mokatakanahalfwidth" },                // Halfwidth katakana letter mo
+    { 0xFF94, "yakatakanahalfwidth" },                // Halfwidth katakana letter ya
+    { 0xFF95, "yukatakanahalfwidth" },                // Halfwidth katakana letter yu
+    { 0xFF96, "yokatakanahalfwidth" },                // Halfwidth katakana letter yo
+    { 0xFF97, "rakatakanahalfwidth" },                // Halfwidth katakana letter ra
+    { 0xFF98, "rikatakanahalfwidth" },                // Halfwidth katakana letter ri
+    { 0xFF99, "rukatakanahalfwidth" },                // Halfwidth katakana letter ru
+    { 0xFF9A, "rekatakanahalfwidth" },                // Halfwidth katakana letter re
+    { 0xFF9B, "rokatakanahalfwidth" },                // Halfwidth katakana letter ro
+    { 0xFF9C, "wakatakanahalfwidth" },                // Halfwidth katakana letter wa
+    { 0xFF9D, "nkatakanahalfwidth" },                 // Halfwidth katakana letter n
+    { 0xFF9E, "voicedmarkkanahalfwidth" },            // Halfwidth katakana voiced sound mark
+    { 0xFF9F, "semivoicedmarkkanahalfwidth" },        // Halfwidth katakana semi-voiced sound mark
+    { 0xFFE0, "centmonospace" },                      // Fullwidth cent sign
+    { 0xFFE1, "sterlingmonospace" },                  // Fullwidth pound sign
+    { 0xFFE3, "macronmonospace" },                    // Fullwidth macron
+    { 0xFFE5, "yenmonospace" },                       // Fullwidth yen sign
+    { 0xFFE6, "wonmonospace" },                       // Fullwidth won sign
+    { 0x1D49C, "Ascript" },                           // Mathematical script capital a
+    { 0x1D49E, "Cscript" },                           // Mathematical script capital c
+    { 0x1D49F, "Dscript" },                           // Mathematical script capital d
+    { 0x1D4A2, "Gscript" },                           // Mathematical script capital g
+    { 0x1D4A5, "Jscript" },                           // Mathematical script capital j
+    { 0x1D4A6, "Kscript" },                           // Mathematical script capital k
+    { 0x1D4A9, "Nscript" },                           // Mathematical script capital n
+    { 0x1D4AA, "Oscript" },                           // Mathematical script capital o
+    { 0x1D4AB, "Pscript" },                           // Mathematical script capital p
+    { 0x1D4AC, "Qscript" },                           // Mathematical script capital q
+    { 0x1D4AE, "Sscript" },                           // Mathematical script capital s
+    { 0x1D4AF, "Tscript" },                           // Mathematical script capital t
+    { 0x1D4B0, "UScript" },                           // Mathematical script capital u
+    { 0x1D4B1, "VScript" },                           // Mathematical script capital v
+    { 0x1D4B2, "Wscript" },                           // Mathematical script capital w
+    { 0x1D4B3, "Xscript" },                           // Mathematical script capital x
+    { 0x1D4B4, "Yscript" },                           // Mathematical script capital y
+    { 0x1D4B5, "Zscript" },                           // Mathematical script capital z
+    { 0x1D4D0, "Aboldscript" },                       // Mathematical bold script capital a
+    { 0x1D4D1, "Bboldscript" },                       // Mathematical bold script capital b
+    { 0x1D4D2, "Cboldscript" },                       // Mathematical bold script capital c
+    { 0x1D4D3, "Dboldscript" },                       // Mathematical bold script capital d
+    { 0x1D4D4, "Eboldscript" },                       // Mathematical bold script capital e
+    { 0x1D4D5, "Fboldscript" },                       // Mathematical bold script capital f
+    { 0x1D4D6, "Gboldscript" },                       // Mathematical bold script capital g
+    { 0x1D4D7, "Hboldscript" },                       // Mathematical bold script capital h
+    { 0x1D4D8, "Iboldscript" },                       // Mathematical bold script capital i
+    { 0x1D4D9, "Jboldscript" },                       // Mathematical bold script capital j
+    { 0x1D4DA, "Kboldscript" },                       // Mathematical bold script capital k
+    { 0x1D4DB, "Lboldscript" },                       // Mathematical bold script capital l
+    { 0x1D4DC, "Mboldscript" },                       // Mathematical bold script capital m
+    { 0x1D4DD, "Nboldscript" },                       // Mathematical bold script capital n
+    { 0x1D4DE, "Oboldscript" },                       // Mathematical bold script capital o
+    { 0x1D4DF, "Pboldscript" },                       // Mathematical bold script capital p
+    { 0x1D4E0, "Qboldscript" },                       // Mathematical bold script capital q
+    { 0x1D4E1, "Rboldscript" },                       // Mathematical bold script capital r
+    { 0x1D4E2, "Sboldscript" },                       // Mathematical bold script capital s
+    { 0x1D4E3, "Tboldscript" },                       // Mathematical bold script capital t
+    { 0x1D4E4, "Uboldscript" },                       // Mathematical bold script capital u
+    { 0x1D4E5, "Vboldscript" },                       // Mathematical bold script capital v
+    { 0x1D4E6, "Wboldscript" },                       // Mathematical bold script capital w
+    { 0x1D4E7, "Xboldscript" },                       // Mathematical bold script capital x
+    { 0x1D4E8, "Yboldscript" },                       // Mathematical bold script capital y
+    { 0x1D4E9, "Zboldscript" },                       // Mathematical bold script capital z
+    { 0x1D504, "Afraktur" },                          // Mathematical fraktur capital a
+    { 0x1D505, "Bfraktur" },                          // Mathematical fraktur capital b
+    { 0x1D507, "Dfraktur" },                          // Mathematical fraktur capital d
+    { 0x1D508, "Efraktur" },                          // Mathematical fraktur capital e
+    { 0x1D509, "Ffraktur" },                          // Mathematical fraktur capital f
+    { 0x1D50A, "Gfraktur" },                          // Mathematical fraktur capital g
+    { 0x1D50D, "Jfraktur" },                          // Mathematical fraktur capital j
+    { 0x1D50E, "Kfraktur" },                          // Mathematical fraktur capital k
+    { 0x1D50F, "Lfraktur" },                          // Mathematical fraktur capital l
+    { 0x1D510, "Mfraktur" },                          // Mathematical fraktur capital m
+    { 0x1D511, "Nfraktur" },                          // Mathematical fraktur capital n
+    { 0x1D512, "Ofraktur" },                          // Mathematical fraktur capital o
+    { 0x1D513, "Pfraktur" },                          // Mathematical fraktur capital p
+    { 0x1D514, "Qfraktur" },                          // Mathematical fraktur capital q
+    { 0x1D516, "Sfraktur" },                          // Mathematical fraktur capital s
+    { 0x1D517, "Tfraktur" },                          // Mathematical fraktur capital t
+    { 0x1D518, "Ufraktur" },                          // Mathematical fraktur capital u
+    { 0x1D519, "Vfraktur" },                          // Mathematical fraktur capital v
+    { 0x1D51A, "Wfraktur" },                          // Mathematical fraktur capital w
+    { 0x1D51B, "Xfraktur" },                          // Mathematical fraktur capital x
+    { 0x1D51C, "Yfraktur" },                          // Mathematical fraktur capital y
+    { 0x1D51E, "afraktur" },                          // Mathematical fraktur small a
+    { 0x1D51F, "bfraktur" },                          // Mathematical fraktur small b
+    { 0x1D520, "cfraktur" },                          // Mathematical fraktur small c
+    { 0x1D521, "dfraktur" },                          // Mathematical fraktur small d
+    { 0x1D522, "efraktur" },                          // Mathematical fraktur small e
+    { 0x1D523, "ffraktur" },                          // Mathematical fraktur small f
+    { 0x1D524, "gfraktur" },                          // Mathematical fraktur small g
+    { 0x1D525, "hfraktur" },                          // Mathematical fraktur small h
+    { 0x1D526, "ifraktur" },                          // Mathematical fraktur small i
+    { 0x1D527, "jfraktur" },                          // Mathematical fraktur small j
+    { 0x1D528, "kfraktur" },                          // Mathematical fraktur small k
+    { 0x1D529, "lfraktur" },                          // Mathematical fraktur small l
+    { 0x1D52A, "mfraktur" },                          // Mathematical fraktur small m
+    { 0x1D52B, "nfraktur" },                          // Mathematical fraktur small n
+    { 0x1D52C, "ofraktur" },                          // Mathematical fraktur small o
+    { 0x1D52D, "pfraktur" },                          // Mathematical fraktur small p
+    { 0x1D52E, "qfraktur" },                          // Mathematical fraktur small q
+    { 0x1D52F, "rfraktur" },                          // Mathematical fraktur small r
+    { 0x1D530, "sfraktur" },                          // Mathematical fraktur small s
+    { 0x1D531, "tfraktur" },                          // Mathematical fraktur small t
+    { 0x1D532, "ufraktur" },                          // Mathematical fraktur small u
+    { 0x1D533, "vfraktur" },                          // Mathematical fraktur small v
+    { 0x1D534, "wfraktur" },                          // Mathematical fraktur small w
+    { 0x1D535, "xfraktur" },                          // Mathematical fraktur small x
+    { 0x1D536, "yfraktur" },                          // Mathematical fraktur small y
+    { 0x1D537, "zfraktur" },                          // Mathematical fraktur small z
+    { 0xFEFA, "lamalefhamzabelowfinalarabic" },       // Arabic ligature lam with alef with hamza below final form
+    { 0xFEFB, "lamalefisolatedarabic" },              // Arabic ligature lam with alef isolated form
+    { 0xFEFC, "lamaleffinalarabic" },                 // Arabic ligature lam with alef final form
+    { 0xFEFF, "bom" },                                // Zero width no-break space
+    { 0xFF01, "exclammonospace" },                    // Fullwidth exclamation mark
+    { 0xFF02, "quotedblmonospace" },                  // Fullwidth quotation mark
+    { 0xFF03, "numbersignmonospace" },                // Fullwidth number sign
+    { 0xFF04, "dollarmonospace" },                    // Fullwidth dollar sign
+    { 0xFF05, "percentmonospace" },                   // Fullwidth percent sign
+    { 0xFF06, "ampersandmonospace" },                 // Fullwidth ampersand
+    { 0xFF07, "quotesinglemonospace" },               // Fullwidth apostrophe
+    { 0xFF08, "parenleftmonospace" },                 // Fullwidth left parenthesis
+    { 0xFF09, "parenrightmonospace" },                // Fullwidth right parenthesis
+    { 0xFF0A, "asteriskmonospace" },                  // Fullwidth asterisk
+    { 0xFF0B, "plusmonospace" },                      // Fullwidth plus sign
+    { 0xFF0C, "commamonospace" },                     // Fullwidth comma
+    { 0xFF0D, "hyphenmonospace" },                    // Fullwidth hyphen-minus
+    { 0xFF0E, "periodmonospace" },                    // Fullwidth full stop
+    { 0xFF0F, "slashmonospace" },                     // Fullwidth solidus
+    { 0xFF10, "zeromonospace" },                      // Fullwidth digit zero
+    { 0xFF11, "onemonospace" },                       // Fullwidth digit one
+    { 0xFF12, "twomonospace" },                       // Fullwidth digit two
+    { 0xFF13, "threemonospace" },                     // Fullwidth digit three
+    { 0xFF14, "fourmonospace" },                      // Fullwidth digit four
+    { 0xFF15, "fivemonospace" },                      // Fullwidth digit five
+    { 0xFF16, "sixmonospace" },                       // Fullwidth digit six
+    { 0xFF17, "sevenmonospace" },                     // Fullwidth digit seven
+    { 0xFF18, "eightmonospace" },                     // Fullwidth digit eight
+    { 0xFF19, "ninemonospace" },                      // Fullwidth digit nine
+    { 0xFF1A, "colonmonospace" },                     // Fullwidth colon
+    { 0xFF1B, "semicolonmonospace" },                 // Fullwidth semicolon
+    { 0xFF1C, "lessmonospace" },                      // Fullwidth less-than sign
+    { 0xFF1D, "equalmonospace" },                     // Fullwidth equals sign
+    { 0xFF1E, "greatermonospace" },                   // Fullwidth greater-than sign
+    { 0xFF1F, "questionmonospace" },                  // Fullwidth question mark
+    { 0xFF20, "atmonospace" },                        // Fullwidth commercial at
     { 0xFF21, "Amonospace" },                         // Fullwidth latin Capital Letter A
     { 0xFF22, "Bmonospace" },                         // Fullwidth latin Capital Letter B
     { 0xFF23, "Cmonospace" },                         // Fullwidth latin Capital Letter C
@@ -4705,4 +4726,59 @@ public static class CharNames
     { 0x1D536, "yfraktur" },                          // Mathematical fraktur small y
     { 0x1D537, "zfraktur" },                          // Mathematical fraktur small z
   };
+
+  /// <summary>
+  /// Registered character functions
+  /// </summary>
+  public static readonly BiDiDictionary<int, string> CharFunctions = new BiDiDictionary<int, string>()
+  {
+    { 0x2070, "sup{0}" },                             // Superscript zero
+    { 0x00B9, "sup{1}" },                             // Superscript one
+    { 0x00B2, "sup{2}" },                             // Superscript two
+    { 0x00B3, "sup{3}" },                             // Superscript three
+    { 0x2074, "sup{4}" },                             // Superscript four
+    { 0x2075, "sup{5}" },                             // Superscript five
+    { 0x2076, "sup{6}" },                             // Superscript six
+    { 0x2077, "sup{7}" },                             // Superscript seven
+    { 0x2078, "sup{8}" },                             // Superscript eight
+    { 0x2079, "sup{9}" },                             // Superscript nine
+    { 0x207A, "sup{+}" },                             // Superscript plus sign
+    { 0x207B, "sup{-}" },                             // Superscript minus
+    { 0x207C, "sup{=}" },                             // Superscript equals sign
+    { 0x207D, "sup{(}" },                             // Superscript left parenthesis
+    { 0x207E, "sup{)}" },                             // Superscript right parenthesis
+    { 0x2071, "sup{i}" },                             // Superscript latin small letter I
+    { 0x207F, "sup{n}" },                             // Superscript latin small letter N
+    { 0x2080, "sub{0}" },                             // Subscript zero
+    { 0x2081, "sub{1}" },                             // Subscript one
+    { 0x2082, "sub{2}" },                             // Subscript two
+    { 0x2083, "sub{3}" },                             // Subscript three
+    { 0x2084, "sub{4}" },                             // Subscript four
+    { 0x2085, "sub{5}" },                             // Subscript five
+    { 0x2086, "sub{6}" },                             // Subscript six
+    { 0x2087, "sub{7}" },                             // Subscript seven
+    { 0x2088, "sub{8}" },                             // Subscript eight
+    { 0x2089, "sub{9}" },                             // Subscript nine
+    { 0x208A, "sub{+}" },                             // Subscript plus sign
+    { 0x208B, "sub{-}" },                             // Subscript minus
+    { 0x208C, "sub{=}" },                             // Subscript equals sign
+    { 0x208D, "sub{(}" },                             // Subscript left parenthesis
+    { 0x208E, "sub{)}" },                             // Subscript right parenthesis
+    { 0x2090, "sub{a}" },                             // Latin subscript small letter A
+    { 0x2091, "sub{e}" },                             // Latin subscript small letter E
+    { 0x2092, "sub{o}" },                             // Latin subscript small letter O
+    { 0x2093, "sub{x}" },                             // Latin subscript small letter X
+    { 0x2094, "sub{Ə}" },                             // Latin subscript small letter schwa
+    { 0x2095, "sub{h}" },                             // Latin subscript small letter H
+    { 0x2096, "sub{k}" },                             // Latin subscript small letter K
+    { 0x2097, "sub{l}" },                             // Latin subscript small letter L
+    { 0x2098, "sub{m}" },                             // Latin subscript small letter M
+    { 0x2099, "sub{n}" },                             // Latin subscript small letter N
+    { 0x209A, "sub{p}" },                             // Latin subscript small letter P
+    { 0x209B, "sub{s}" },                             // Latin subscript small letter S
+    { 0x209C, "sub{t}" },                             // Latin subscript small letter T
+    { 0x2C7C, "sub{j}" },                             // Latin subscript small letter J
+
+  };
+
 }

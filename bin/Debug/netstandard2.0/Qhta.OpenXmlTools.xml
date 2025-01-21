@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Qhta.OpenXmlTools</name>
+        <name>Qhta.OpenXMLTools</name>
     </assembly>
     <members>
         <member name="T:Qhta.OpenXmlTools.AbstractNumTools">
@@ -241,7 +241,7 @@
             
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.CharNames.TryGetValue(System.Int32,System.String@)">
+        <member name="M:Qhta.OpenXmlTools.CharNames.TryGetName(System.Int32,System.String@)">
             <summary>
             Try to get the name for a character code point.
             </summary>
@@ -249,12 +249,28 @@
             <param name="name"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.CharNames.TryGetValue(System.String,System.Int32@)">
+        <member name="M:Qhta.OpenXmlTools.CharNames.TryFindName(System.String,System.Int32@)">
             <summary>
-            Try to get the name for a character code point  
+            Try to get a character code point for the name.
             </summary>
             <param name="cp"></param>
             <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CharNames.TryGetFunction(System.Int32,System.String@)">
+            <summary>
+            Try to get the function for a character code point.
+            </summary>
+            <param name="cp"></param>
+            <param name="function"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.CharNames.TryFindFunction(System.String,System.Int32@)">
+            <summary>
+            Try to get a character code point for the function.
+            </summary>
+            <param name="cp"></param>
+            <param name="function"></param>
             <returns></returns>
         </member>
         <member name="F:Qhta.OpenXmlTools.CharNames.EscapeMapping">
@@ -265,6 +281,11 @@
         <member name="F:Qhta.OpenXmlTools.CharNames.CharMapping">
             <summary>
             Registered character names
+            </summary>
+        </member>
+        <member name="F:Qhta.OpenXmlTools.CharNames.CharFunctions">
+            <summary>
+            Registered character functions
             </summary>
         </member>
         <member name="T:Qhta.OpenXmlTools.CharUtils">
@@ -4049,6 +4070,11 @@
             <param name="str"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlTextWriter.Clear">
+            <summary>
+            Clear the buffer.
+            </summary>
+        </member>
         <member name="T:Qhta.OpenXmlTools.PackageTools">
             <summary>
             Tools for working with OpenXml Wordprocessing Package elements.
@@ -5329,6 +5355,11 @@
             Write a string with rich text.
             </summary>
             <param name="value"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.RichTextWriter.Clear">
+            <summary>
+            Clear the buffer and reset the state.
+            </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.RichTextWriter.Write(System.Char)">
             <summary>
@@ -12233,11 +12264,6 @@
             Convert text to string using format character names.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.UseAccentCharNames">
-            <summary>
-            Convert text to string using accent character names.
-            </summary>
-        </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.UseSupSubCharNames">
             <summary>
             Convert text to string using superscript/subscript character names.
@@ -12246,6 +12272,16 @@
         <member name="P:Qhta.OpenXmlTools.TextOptions.UseRomanCharNames">
             <summary>
             Convert text to string using roman character names.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseOtherCharNames">
+            <summary>
+            Convert text to string using other character names.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseCharFunctions">
+            <summary>
+            Convert text to string using character functions (where possible).
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.UseHtmlEntities">
