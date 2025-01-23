@@ -278,7 +278,7 @@
             Registered escape sequences for characters
             </summary>
         </member>
-        <member name="F:Qhta.OpenXmlTools.CharNames.CharMapping">
+        <member name="P:Qhta.OpenXmlTools.CharNames.CharMapping">
             <summary>
             Registered character names
             </summary>

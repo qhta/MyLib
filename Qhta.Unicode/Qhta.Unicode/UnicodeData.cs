@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
+
 using Qhta.Collections;
 using Qhta.TextUtils;
 
@@ -10,11 +11,30 @@ namespace Qhta.Unicode;
 /// </summary>
 public class UnicodeData : Dictionary<int, CharInfo>
 {
-  private readonly Dictionary<string, CodePoint> NameIndex = new Dictionary<string, CodePoint>();
-  private readonly NameWordIndex NameWordIndex = new NameWordIndex();
-  private readonly CategoryIndex CategoryIndex = new CategoryIndex();
-  private readonly DecompositionIndex DecompositionIndex = new DecompositionIndex();
-  private readonly ScriptIndex ScriptIndex = new ScriptIndex();
+  /// <summary>
+  /// Original name index
+  /// </summary>
+  public readonly Dictionary<string, CodePoint> NameIndex = new Dictionary<string, CodePoint>();
+  /// <summary>
+  /// Name words index
+  /// </summary>
+  public readonly NameWordIndex NameWordIndex = new NameWordIndex();
+  /// <summary>
+  /// Short name index
+  /// </summary>
+  public readonly CharNameIndex CharNameIndex = new CharNameIndex();
+  /// <summary>
+  /// Category index
+  /// </summary>
+  public readonly CategoryIndex CategoryIndex = new CategoryIndex();
+  /// <summary>
+  /// Index of decomposition types.
+  /// </summary>
+  public readonly DecompositionIndex DecompositionIndex = new DecompositionIndex();
+  /// <summary>
+  /// Index of Scripts
+  /// </summary>
+  public readonly ScriptIndex ScriptIndex = new ScriptIndex();
 
   const string UcdFileName = "UnicodeData.txt";
   const string AliasesFileName = "NameAliases.txt";
@@ -80,10 +100,13 @@ public class UnicodeData : Dictionary<int, CharInfo>
         NameIndex.Add(charInfo.Name, charInfo.CodePoint);
       else if (!charInfo.Name.OriginalName.StartsWith("<"))
         throw new Exception("Duplicate name: " + charInfo.Name);
+      if (parts[10] != string.Empty)
+        charInfo.OldName = parts[10];
     }
     NameWordIndex.Initialize(this);
     taskB.Wait();
     LoadAliases(AliasesFileName);
+    CharNameIndex.Initialize(this);
     CategoryIndex.Initialize(this);
     DecompositionIndex.Initialize(this);
     taskC.Wait();
@@ -122,7 +145,7 @@ public class UnicodeData : Dictionary<int, CharInfo>
       if (TryGetValue(codePoint, out CharInfo? charInfo))
       {
         var aliases = charInfo.Aliases ??= new List<NameAlias>();
-        aliases.Add(new NameAlias { CodePoint = codePoint, Alias = alias!, Type = type });
+        aliases.Add(new NameAlias { CodePoint = codePoint, Name = alias!, Type = type });
       }
       NameIndex.Add(alias, codePoint);
     }
@@ -156,7 +179,7 @@ public class UnicodeData : Dictionary<int, CharInfo>
       {
         if (TryGetValue(cp, out CharInfo? charInfo))
         {
-          str = parts[1].Trim().Replace('_',' ');
+          str = parts[1].Trim().Replace('_', ' ');
           if (ScriptCodes.UcdScriptNames.TryGetValue1(str, out string script))
           {
             charInfo.Script = script;
@@ -229,7 +252,7 @@ public class UnicodeData : Dictionary<int, CharInfo>
     var result = new SortedSet<CodePoint>();
     foreach (var charInfo in this.Values)
     {
-      if (charInfo.GetAllNames().Any(name => name.OriginalName.IsLike(pattern)))
+      if (charInfo.GetAllNames().Any(name => name.IsLike(pattern)))
         result.Add(charInfo.CodePoint);
     }
     return result;
@@ -246,10 +269,11 @@ public class UnicodeData : Dictionary<int, CharInfo>
   public IEnumerable<CodePoint> SearchInCategories(string pattern)
   {
     var patterns = pattern.Split(['|'], StringSplitOptions.RemoveEmptyEntries);
-    List<CodePoint> result = new();
+    SortedSet<CodePoint> result = new();
     foreach (var pat in patterns)
     {
-      result.AddRange(SearchInCategories2(pat));
+      foreach (var cp in SearchInCategories2(pat))
+        result.Add(cp);
     }
     return result;
   }
@@ -263,9 +287,9 @@ public class UnicodeData : Dictionary<int, CharInfo>
   private IEnumerable<CodePoint> SearchInCategories2(string pattern)
   {
     pattern = pattern.Trim();
-    if (pattern.Length==1)
+    if (pattern.Length == 1)
       pattern = pattern + "*";
-    if (pattern.Length!=2)
+    if (pattern.Length != 2)
       throw new Exception("Invalid category pattern: " + pattern);
 
     if (pattern[1] == '*')
@@ -284,10 +308,11 @@ public class UnicodeData : Dictionary<int, CharInfo>
         'Z' => new UcdCategory[] { UcdCategory.Zl, UcdCategory.Zp, UcdCategory.Zs },
         _ => throw new Exception("Invalid category pattern: " + pattern),
       };
-      List<CodePoint> result = new();
+      SortedSet<CodePoint> result = new();
       foreach (var category in categories)
       {
-        result.AddRange(CategoryIndex[category]);
+        foreach (var cp in CategoryIndex[category])
+          result.Add(cp);
       }
       return result;
     }

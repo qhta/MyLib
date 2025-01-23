@@ -47,3 +47,5 @@ D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\pl\Qhta.OpenXmlTools.reso
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXmlTools\obj\Debug\netstandard2.0\pl\Qhta.OpenXmlTools.resources.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXMLTools.StylesStrings.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.OpenXMLTools.StylesStrings.pl.resources
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\ScriptCodes.txt
+D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.0\Qhta.Ope.9F435BCC.Up2Date

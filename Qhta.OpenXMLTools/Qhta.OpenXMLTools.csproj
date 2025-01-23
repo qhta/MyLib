@@ -46,6 +46,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Qhta.Unicode\Qhta.Unicode\Qhta.Unicode.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="StylesStrings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

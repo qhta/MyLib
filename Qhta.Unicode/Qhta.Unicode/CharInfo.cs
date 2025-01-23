@@ -63,6 +63,12 @@
     /// Optional script of the character (4-character ISO 15924 script code).
     /// </summary>
     public string? Script { get; set; }
+
+    /// <summary>
+    /// Optional old name
+    /// </summary>
+    public HashedName? OldName { get; set; }
+
     /// <summary>
     /// Optional alias names for the character.
     /// </summary>
@@ -76,11 +82,32 @@
     public IEnumerable<HashedName> GetAllNames()
     {
       yield return Name;
+      if (OldName != null)
+        yield return OldName;
       if (Aliases!=null)
       {
         foreach (var alias in Aliases)
         {
-          yield return alias.Alias;
+          yield return alias.Name;
+        }
+      }
+    }
+
+    /// <summary>
+    /// Enumerates all names for the character.
+    /// First is the primary name, then any aliases.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<string> GetLongNames()
+    {
+      yield return Name;
+      if (OldName != null)
+        yield return OldName;
+      if (Aliases != null)
+      {
+        foreach (var alias in Aliases)
+        {
+          yield return alias.Name;
         }
       }
     }

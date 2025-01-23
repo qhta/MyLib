@@ -14,6 +14,7 @@
           "Qhta.Collections": "4.7.0",
           "Qhta.TextUtils": "3.4.0",
           "Qhta.TypeUtils": "1.4.0",
+          "Qhta.Unicode": "1.2.1",
           "System.ComponentModel.Annotations": "5.0.0"
         },
         "runtime": {
@@ -138,6 +139,18 @@
             "fileVersion": "4.6.28619.1"
           }
         }
+      },
+      "Qhta.Unicode/1.2.1": {
+        "dependencies": {
+          "Qhta.Collections": "4.7.0",
+          "Qhta.TextUtils": "3.4.0"
+        },
+        "runtime": {
+          "Qhta.Unicode.dll": {
+            "assemblyVersion": "1.2.1",
+            "fileVersion": "1.2.1.0"
+          }
+        }
       }
     }
   },
@@ -237,6 +250,11 @@
       "sha512": "sha512-3TIsJhD1EiiT0w2CcDMN/iSSwnNnsrnbzeVHSKkaEgV85txMprmuO+Yq2AdSbeVGcg28pdNDTPK87tJhX7VFHw==",
       "path": "system.runtime.compilerservices.unsafe/4.5.3",
       "hashPath": "system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
+    },
+    "Qhta.Unicode/1.2.1": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

@@ -3,13 +3,12 @@
 /// <summary>
 /// An index of Unicode character name separate words to code points.
 /// </summary>
-public class NameWordIndex
+public class NameWordIndex: Dictionary<string, List<CodePoint>>
 {
   private UnicodeData Ucd = null!;
-  private readonly Dictionary<string, List<CodePoint>> Index = new();
 
   /// <summary>
-  /// Initializes NameStringIndex from a UnicodeData object.
+  /// Initializes index from a UnicodeData object.
   /// </summary>
   /// <param name="ucd"></param>
   public void Initialize(UnicodeData ucd)
@@ -18,6 +17,8 @@ public class NameWordIndex
     foreach (CharInfo charInfo in ucd.Values)
     {
       Add(charInfo.Name, charInfo.CodePoint);
+      if (charInfo.OldName!=null)
+        Add(charInfo.OldName, charInfo.CodePoint);
     }
   }
 
@@ -32,35 +33,16 @@ public class NameWordIndex
     for (int i = 0; i < nameItems.Length; i++)
     {
       string nameItem = nameItems[i];
-      if (Index.TryGetValue(nameItem, out var value))
+      if (this.TryGetValue(nameItem, out var value))
       {
         value.Add(codePoint);
       }
       else
       {
-        Index.Add(nameItem, [codePoint]);
+        this.Add(nameItem, [codePoint]);
       }
     }
   }
-
-  /// <summary>
-  /// Number of words in the index.
-  /// </summary>
-  public int Count => Index.Count;
-
-  /// <summary>
-  /// Get the code points for a name word.
-  /// </summary>
-  /// <param name="name"></param>
-  /// <returns></returns>
-  public List<CodePoint> this[string name] => Index.TryGetValue(name, out var value) ? value : new List<CodePoint>();
-
-  /// <summary>
-  /// Get the first count words in the index.
-  /// </summary>
-  /// <param name="count"></param>
-  /// <returns></returns>
-  public IEnumerable<KeyValuePair<string, List<CodePoint>>> Take(int count) => Index.Take(count);
 
   /// <summary>
   /// Load aliases from CharInfo entries into the index.
@@ -74,7 +56,7 @@ public class NameWordIndex
       {
         foreach (NameAlias alias in charInfo.Aliases)
         {
-          Add(alias.Alias, charInfo.CodePoint);
+          Add(alias.Name, charInfo.CodePoint);
         }
       }
     }
@@ -89,7 +71,7 @@ public class NameWordIndex
   {
     var result = new SortedSet<CodePoint>();
     var words = pattern.Split(['*', ' ', '-'], StringSplitOptions.RemoveEmptyEntries);
-    if (Index.TryGetValue(words[0], out var value))
+    if (this.TryGetValue(words[0], out var value))
     {
       foreach (var codePoint in value)
       {
@@ -112,5 +94,5 @@ public class NameWordIndex
   /// </summary>
   /// <param name="word"></param>
   /// <returns></returns>
-  public bool Contains(string word) => Index.ContainsKey(word);
+  public bool Contains(string word) => this.ContainsKey(word);
 }

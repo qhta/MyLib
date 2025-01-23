@@ -45,7 +45,7 @@ public class NameAlias
   /// <summary>
   /// 
   /// </summary>
-  public HashedName Alias { get; set; } = null!;
+  public HashedName Name { get; set; } = null!;
   /// <summary>
   /// The type of the alias
   /// </summary>

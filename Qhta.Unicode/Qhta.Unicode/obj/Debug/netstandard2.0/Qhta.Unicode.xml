@@ -131,7 +131,7 @@
         </member>
         <member name="M:Qhta.Unicode.CategoryIndex.Initialize(Qhta.Unicode.UnicodeData)">
             <summary>
-            Initializes DecompositionIndex from a UnicodeData object.
+            Initializes index from a UnicodeData object.
             </summary>
             <param name="ucd"></param>
         </member>
@@ -141,25 +141,6 @@
             </summary>
             <param name="category"></param>
             <param name="codePoint"></param>
-        </member>
-        <member name="P:Qhta.Unicode.CategoryIndex.Count">
-            <summary>
-            Number of code points in the index.
-            </summary>
-        </member>
-        <member name="P:Qhta.Unicode.CategoryIndex.Item(Qhta.Unicode.UcdCategory)">
-            <summary>
-            Get the code points for an UcdCategory.
-            </summary>
-            <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.CategoryIndex.Take(System.Int32)">
-            <summary>
-            Get the first count code points in the index.
-            </summary>
-            <param name="count"></param>
-            <returns></returns>
         </member>
         <member name="T:Qhta.Unicode.CCClass">
             <summary>
@@ -366,6 +347,11 @@
             Optional script of the character (4-character ISO 15924 script code).
             </summary>
         </member>
+        <member name="P:Qhta.Unicode.CharInfo.OldName">
+            <summary>
+            Optional old name
+            </summary>
+        </member>
         <member name="P:Qhta.Unicode.CharInfo.Aliases">
             <summary>
             Optional alias names for the character.
@@ -376,6 +362,45 @@
             Enumerates all names for the character.
             First is the primary name, then any aliases.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharInfo.GetLongNames">
+            <summary>
+            Enumerates all names for the character.
+            First is the primary name, then any aliases.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.Unicode.CharNameIndex">
+            <summary>
+            An index of codePoints with specific char name. Char name is a single-word string.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.Initialize(Qhta.Unicode.UnicodeData)">
+            <summary>
+            Initializes index.from a UnicodeData object.
+            </summary>
+            <param name="ucd"></param>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.Add(System.String,System.Int32)">
+            <summary>
+            Add a code point to the this.
+            </summary>
+            <param name="charName">Name is a single-word string</param>
+            <param name="codePoint"></param>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortName(Qhta.Unicode.CharInfo)">
+            <summary>
+            Create a short name for a character.
+            </summary>
+            <param name="charInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortNameFromString(System.String)">
+            <summary>
+            Create a short name for a long character name.
+            </summary>
+            <param name="longName"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.Unicode.CodePoint">
@@ -488,7 +513,7 @@
         </member>
         <member name="M:Qhta.Unicode.DecompositionIndex.Initialize(Qhta.Unicode.UnicodeData)">
             <summary>
-            Initializes DecompositionIndex from a UnicodeData object.
+            Initializes index from a UnicodeData object.
             </summary>
             <param name="ucd"></param>
         </member>
@@ -498,25 +523,6 @@
             </summary>
             <param name="type"></param>
             <param name="codePoint"></param>
-        </member>
-        <member name="P:Qhta.Unicode.DecompositionIndex.Count">
-            <summary>
-            Number of code points in the index.
-            </summary>
-        </member>
-        <member name="P:Qhta.Unicode.DecompositionIndex.Item(Qhta.Unicode.DecompositionType)">
-            <summary>
-            Get the code points for a DecompositionType.
-            </summary>
-            <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.DecompositionIndex.Take(System.Int32)">
-            <summary>
-            Get the first count code points in the index.
-            </summary>
-            <param name="count"></param>
-            <returns></returns>
         </member>
         <member name="T:Qhta.Unicode.DecompositionType">
             <summary>
@@ -749,7 +755,7 @@
             The code point of the character
             </summary>
         </member>
-        <member name="P:Qhta.Unicode.NameAlias.Alias">
+        <member name="P:Qhta.Unicode.NameAlias.Name">
             <summary>
             
             </summary>
@@ -766,7 +772,7 @@
         </member>
         <member name="M:Qhta.Unicode.NameWordIndex.Initialize(Qhta.Unicode.UnicodeData)">
             <summary>
-            Initializes NameStringIndex from a UnicodeData object.
+            Initializes index from a UnicodeData object.
             </summary>
             <param name="ucd"></param>
         </member>
@@ -776,25 +782,6 @@
             </summary>
             <param name="name"></param>
             <param name="codePoint"></param>
-        </member>
-        <member name="P:Qhta.Unicode.NameWordIndex.Count">
-            <summary>
-            Number of words in the index.
-            </summary>
-        </member>
-        <member name="P:Qhta.Unicode.NameWordIndex.Item(System.String)">
-            <summary>
-            Get the code points for a name word.
-            </summary>
-            <param name="name"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.NameWordIndex.Take(System.Int32)">
-            <summary>
-            Get the first count words in the index.
-            </summary>
-            <param name="count"></param>
-            <returns></returns>
         </member>
         <member name="M:Qhta.Unicode.NameWordIndex.LoadAliases(Qhta.Unicode.UnicodeData)">
             <summary>
@@ -833,7 +820,7 @@
         </member>
         <member name="M:Qhta.Unicode.ScriptIndex.Initialize(Qhta.Unicode.UnicodeData)">
             <summary>
-            Initializes ScriptIndex from a UnicodeData object.
+            Initializes index from a UnicodeData object.
             </summary>
             <param name="ucd"></param>
         </member>
@@ -843,25 +830,6 @@
             </summary>
             <param name="script">Script is a 4-character ISO 15924 script code.</param>
             <param name="codePoint"></param>
-        </member>
-        <member name="P:Qhta.Unicode.ScriptIndex.Count">
-            <summary>
-            Number of code points in the index.
-            </summary>
-        </member>
-        <member name="P:Qhta.Unicode.ScriptIndex.Item(System.String)">
-            <summary>
-            Get the code points for a specific script. Script is a 4-character ISO 15924 script code.
-            </summary>
-            <param name="script"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.ScriptIndex.Take(System.Int32)">
-            <summary>
-            Get the first count code points in the index.
-            </summary>
-            <param name="count"></param>
-            <returns></returns>
         </member>
         <member name="T:Qhta.Unicode.UcdCategory">
             <summary>
@@ -961,6 +929,36 @@
         <member name="T:Qhta.Unicode.UnicodeData">
             <summary>
             Unicode character data singleton class.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.UnicodeData.NameIndex">
+            <summary>
+            Original name index
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.UnicodeData.NameWordIndex">
+            <summary>
+            Name words index
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.UnicodeData.CharNameIndex">
+            <summary>
+            Short name index
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.UnicodeData.CategoryIndex">
+            <summary>
+            Category index
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.UnicodeData.DecompositionIndex">
+            <summary>
+            Index of decomposition types.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.UnicodeData.ScriptIndex">
+            <summary>
+            Index of Scripts
             </summary>
         </member>
         <member name="M:Qhta.Unicode.UnicodeData.#ctor">

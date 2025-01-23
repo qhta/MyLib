@@ -186,6 +186,20 @@
             "related": ".xml"
           }
         }
+      },
+      "Qhta.Unicode/1.2.1": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Qhta.Collections": "4.7.0",
+          "Qhta.TextUtils": "3.4.0"
+        },
+        "compile": {
+          "bin/placeholder/Qhta.Unicode.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.Unicode.dll": {}
+        }
       }
     }
   },
@@ -683,6 +697,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Qhta.Unicode/1.2.1": {
+      "type": "project",
+      "path": "../Qhta.Unicode/Qhta.Unicode/Qhta.Unicode.csproj",
+      "msbuildProject": "../Qhta.Unicode/Qhta.Unicode/Qhta.Unicode.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -692,6 +711,7 @@
       "Qhta.Collections >= 4.7.0",
       "Qhta.TextUtils >= 3.4.0",
       "Qhta.TypeUtils >= 1.4.0",
+      "Qhta.Unicode >= 1.2.1",
       "System.ComponentModel.Annotations >= 5.0.0"
     ]
   },
@@ -731,7 +751,11 @@
       "frameworks": {
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj": {
+              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
