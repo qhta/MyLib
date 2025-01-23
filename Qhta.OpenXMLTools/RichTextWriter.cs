@@ -86,7 +86,7 @@ public class RichTextWriter : OpenXmlTextWriter
     wasBackslash = controlCharName.Last() != '}';
   }
 
-  private void WriteUnicodeChar(char ch)
+  private void WriteCharHex(char ch)
   {
     base.Write($@"\'{((int)ch):X4}");
     wasBackslash = true;
@@ -100,7 +100,7 @@ public class RichTextWriter : OpenXmlTextWriter
     if (Options.UseControlCharNames && CharNames.TryGetName(ch, out var controlCharName))
       WriteControlCharName(controlCharName);
     else
-      WriteUnicodeChar(ch);
+      WriteCharHex(ch);
   }
 
   private void WriteSeparatorChar(char ch)
@@ -108,10 +108,10 @@ public class RichTextWriter : OpenXmlTextWriter
     if (ch == ' ')
       WriteOtherChar(ch);
     else
-    if (Options.UseSpaceNames && CharNames.TryGetName(ch, out var controlCharName))
+    if (Options.UseSeparatorNames && CharNames.TryGetName(ch, out var controlCharName))
       WriteControlCharName(controlCharName);
     else
-      WriteUnicodeChar(ch);
+      WriteCharHex(ch);
   }
 
   private void WriteDashOrHyphen(char ch)
@@ -122,7 +122,7 @@ public class RichTextWriter : OpenXmlTextWriter
     if (Options.UseDashNames && CharNames.TryGetName(ch, out var controlCharName))
       WriteControlCharName(controlCharName);
     else
-      WriteUnicodeChar(ch);
+      WriteCharHex(ch);
   }
 
   private void WriteFormatChar(char ch)
@@ -130,7 +130,7 @@ public class RichTextWriter : OpenXmlTextWriter
     if (Options.UseFormatCharNames && CharNames.TryGetName(ch, out var controlCharName))
       WriteControlCharName(controlCharName);
     else
-      WriteUnicodeChar(ch);
+      WriteCharHex(ch);
 
   }
 
@@ -139,7 +139,7 @@ public class RichTextWriter : OpenXmlTextWriter
     if (Options.UseFormatCharNames && CharNames.TryGetName(ch, out var controlCharName))
       WriteControlCharName(controlCharName);
     else
-      WriteUnicodeChar(ch);
+      WriteCharHex(ch);
   }
 
   private void WriteSupSubChar(char ch)
@@ -147,7 +147,7 @@ public class RichTextWriter : OpenXmlTextWriter
     if (Options.UseSupSubCharNames && CharNames.TryGetName(ch, out var controlCharName))
       WriteControlCharName(controlCharName);
     else
-      WriteUnicodeChar(ch);
+      WriteCharHex(ch);
   }
 
   private void WriteRomanChar(char ch)
@@ -155,18 +155,31 @@ public class RichTextWriter : OpenXmlTextWriter
     if (Options.UseRomanCharNames && CharNames.TryGetName(ch, out var controlCharName))
       WriteControlCharName(controlCharName);
     else
-      WriteUnicodeChar(ch);
+      WriteCharHex(ch);
   }
 
   private void WriteOtherChar(char ch)
   {
-    if (Options.UseOtherCharNames && CharNames.TryGetName(ch, out var controlCharName))
-      WriteControlCharName(controlCharName);
+    if (Options.UseOtherCharNames)
+    {
+      if (ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' || ch >= '0' && ch <= '9')
+      {
+        if (Options.UseAlphanumericCodes)
+          WriteCharHex(ch);
+        else
+          WriteSimpleChar(ch);
+      }
+      else
+      if (CharNames.TryGetName(ch, out var controlCharName))
+        WriteControlCharName(controlCharName);
+      else
+        WriteCharHex(ch);
+    }
     else
-      WriteOnlyChar(ch);
+      WriteSimpleChar(ch);
   }
 
-  private void WriteOnlyChar(char ch)
+  private void WriteSimpleChar(char ch)
   {
     if (wasBackslash)
     {

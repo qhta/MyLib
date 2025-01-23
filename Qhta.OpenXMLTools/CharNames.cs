@@ -147,6 +147,7 @@ public static class CharNames
     { 0x009D, "OSC" },
     { 0x009E, "PM" },
     { 0x009F, "APC" },
+    { 0x0020, "SP" },                                 // Space
     { 0x0021, "exclam" },                             // Exclamation mark
     { 0x0022, "quotedbl" },                           // Quotation mark
     { 0x0023, "numbersign" },                         // Number sign
@@ -182,9 +183,9 @@ public static class CharNames
     { 0x005B, "bracketleft" },                        // Left square bracket
     { 0x005C, "backslash" },                          // Reverse solidus
     { 0x005D, "bracketright" },                       // Right square bracket
-    { 0x005E, "circumflex" },                         // Circumflex accent
+    { 0x005E, "circumflexaccent" },                   // Circumflex accent
     { 0x005F, "underscore" },                         // Low line
-    { 0x0060, "grave" },                              // Grave accent
+    { 0x0060, "graveaccent" },                        // Grave accent
     { 0x007B, "braceleft" },                          // Left curly bracket
     { 0x007C, "verticalbar" },                        // Vertical line
     { 0x007D, "braceright" },                         // Right curly bracket
@@ -204,12 +205,12 @@ public static class CharNames
     { 0x00AC, "logicalnot" },                         // Not sign
     { 0x00AD, "softhyphen" },                         // Soft hyphen
     { 0x00AE, "registered" },                         // Registered sign
-    { 0x00AF, "macron" },                             // Macron
+    { 0x00AF, "macronaccent" },                       // Macron
     { 0x00B0, "degree" },                             // Degree sign
     { 0x00B1, "plusminus" },                          // Plus-minus sign
     { 0x00B2, "twosuperior" },                        // Superscript two
     { 0x00B3, "threesuperior" },                      // Superscript three
-    { 0x00B4, "acute" },                              // Acute accent
+    { 0x00B4, "acuteaccent" },                        // Acute accent
     { 0x00B5, "micro" },                              // Micro sign
     { 0x00B6, "paragraph" },                          // Pilcrow sign
     { 0x00B7, "mdot" },                               // Middle dot
@@ -565,6 +566,8 @@ public static class CharNames
     { 0x0217, "uinvbreve" },                          // Latin small letter u with inverted breve
     { 0x0218, "Scommasub" },                          // Latin capital letter s with comma below
     { 0x0219, "scommasub" },                          // Latin small letter s with comma below
+    { 0x021E, "Hcaron" },                             // Latin capital letter h with caron
+    { 0x021F, "hcaron" },                             // Latin small letter h with caron
     { 0x0228, "Ecedilla" },                           // Latin capital letter e with cedilla
     { 0x0229, "ecedilla" },                           // Latin small letter e with cedilla
     { 0x022A, "Odieresismacron" },                    // Latin capital letter o with diaeresis and macron
@@ -667,47 +670,46 @@ public static class CharNames
     { 0x02AA, "finalkaf" },                           // Latin small letter ls digraph
     { 0x02AD, "finalmem" },                           // Latin letter bidental percussive
     { 0x02AF, "finalnun" },                           // Latin small letter turned h with fishhook and tail
-    { 0x02B0, "hsuper" },                             // Modifier letter small h
-    { 0x02B1, "hhooksuper" },                         // Modifier letter small h with hook
-    { 0x02B2, "jsuper" },                             // Modifier letter small j
-    { 0x02B3, "rsuper" },                             // Modifier letter small r
-    { 0x02B4, "rturnsuper" },                         // Modifier letter small turned r
-    { 0x02B5, "rturnrthooksuper" },                   // Modifier letter small turned r with hook
-    { 0x02B6, "Rturnsuper" },                         // Modifier letter small capital inverted r
-    { 0x02B7, "wsuper" },                             // Modifier letter small w
-    { 0x02B8, "ysuper" },                             // Modifier letter small y
-    { 0x02B9, "primemod" },                           // Modifier letter prime
-    { 0x02BA, "dblprimemod" },                        // Modifier letter double prime
-    { 0x02BB, "quoteleftmod" },                       // Modifier letter turned comma
-    { 0x02BC, "apostrophe" },                         // Modifier letter apostrophe
-    { 0x02BD, "commareversedmod" },                   // Modifier letter reversed comma
-    { 0x02BE, "ringrighthalfsuper" },                 // Modifier letter right half ring
-    { 0x02BF, "ringlefthalfsuper" },                  // Modifier letter left half ring
-    { 0x02C0, "glottal" },                            // Modifier letter glottal stop
-    { 0x02C1, "glottalrev" },                         // Modifier letter reversed glottal stop
-    { 0x02C2, "arrowheadleftmod" },                   // Modifier letter left arrowhead
-    { 0x02C3, "arrowheadrightmod" },                  // Modifier letter right arrowhead
-    { 0x02C4, "arrowheadupmod" },                     // Modifier letter up arrowhead
-    { 0x02C5, "arrowheaddownmod" },                   // Modifier letter down arrowhead
-    { 0x02C6, "circumflex" },                         // Modifier letter circumflex accent
-    { 0x02C7, "caron" },                              // Caron
-    { 0x02C8, "linevert" },                           // Modifier letter vertical line
+    { 0x02B0, "hsup" },                               // Modifier letter small h
+    { 0x02B1, "hhooksup" },                           // Modifier letter small h with hook
+    { 0x02B2, "jsup" },                               // Modifier letter small j
+    { 0x02B3, "rsup" },                               // Modifier letter small r
+    { 0x02B4, "turnrsup" },                           // Modifier letter small turned r
+    { 0x02B5, "turnrhooksup" },                       // Modifier letter small turned r with hook
+    { 0x02B6, "invRsup" },                            // Modifier letter small capital inverted r
+    { 0x02B7, "wsup" },                               // Modifier letter small w
+    { 0x02B8, "ysup" },                               // Modifier letter small y
+    { 0x02B9, "prime" },                              // Modifier letter prime
+    { 0x02BA, "dblprime" },                           // Modifier letter double prime
+    { 0x02BB, "turncommamod" },                       // Modifier letter turned comma
+    { 0x02BC, "apostrophemod" },                      // Modifier letter apostrophe
+    { 0x02BD, "revcommadmod" },                       // Modifier letter reversed comma
+    { 0x02BE, "righthalfringmod" },                   // Modifier letter right half ring
+    { 0x02BF, "lefthalfringmod" },                    // Modifier letter left half ring
+    { 0x02C0, "glotstopmod" },                        // Modifier letter glottal stop
+    { 0x02C1, "revglotstopmod" },                     // Modifier letter reversed glottal stop
+    { 0x02C2, "arrowheadleft" },                      // Modifier letter left arrowhead
+    { 0x02C3, "arrowheadright" },                     // Modifier letter right arrowhead
+    { 0x02C4, "arrowheadup" },                        // Modifier letter up arrowhead
+    { 0x02C6, "circumflexmod" },                      // Modifier letter circumflex accent
+    { 0x02C7, "caronaccent" },                        // Caron
+    { 0x02C8, "vlinemod" },                           // Modifier letter vertical line
     { 0x02C9, "macronmod" },                          // Modifier letter macron
-    { 0x02CA, "acuteaccent" },                        // Modifier letter acute accent
-    { 0x02CB, "grave1" },                             // Modifier letter grave accent
-    { 0x02CC, "linevertsub" },                        // Modifier letter low vertical line
-    { 0x02CD, "macronsubmod" },                       // Modifier letter low macron
-    { 0x02CE, "gravesub" },                           // Modifier letter low grave accent
-    { 0x02CF, "acutesub" },                           // Modifier letter low acute accent
-    { 0x02D0, "colontriangularmod" },                 // Modifier letter triangular colon
-    { 0x02D1, "colontriangularhalfmod" },             // Modifier letter half triangular colon
-    { 0x02D2, "ringrighthalfcenter" },                // Modifier letter centred right half ring
-    { 0x02D3, "ringlefthalfsup" },                    // Modifier letter centred left half ring
-    { 0x02D4, "tackupmid" },                          // Modifier letter up tack
-    { 0x02D5, "tackdownmid" },                        // Modifier letter down tack
+    { 0x02CA, "acutemod" },                           // Modifier letter acute accent
+    { 0x02CB, "gravemod" },                           // Modifier letter grave accent
+    { 0x02CC, "vlinelow" },                           // Modifier letter low vertical line
+    { 0x02CD, "macronlow" },                          // Modifier letter low macron
+    { 0x02CE, "gravelow" },                           // Modifier letter low grave accent
+    { 0x02CF, "acutelow" },                           // Modifier letter low acute accent
+    { 0x02D0, "trcolon" },                            // Modifier letter triangular colon
+    { 0x02D1, "halftrcolon" },                        // Modifier letter half triangular colon
+    { 0x02D2, "righthalfring" },                      // Modifier letter centred right half ring
+    { 0x02D3, "lefthalfring" },                       // Modifier letter centred left half ring
+    { 0x02D4, "tackupmod" },                          // Modifier letter up tack
+    { 0x02D5, "tackdownmod" },                        // Modifier letter down tack
     { 0x02D6, "plusmod" },                            // Modifier letter plus sign
     { 0x02D7, "minusmod" },                           // Modifier letter minus sign
-    { 0x02D8, "breve" },                              // Breve
+    { 0x02D8, "breveaccent" },                        // Breve
     { 0x02D9, "dotaccent" },                          // Dot above
     { 0x02DA, "ring" },                               // Ring above
     { 0x02DB, "ogonek" },                             // Ogonek
@@ -715,11 +717,11 @@ public static class CharNames
     { 0x02DD, "hungarumlaut" },                       // Double acute accent
     { 0x02DE, "rhotichook" },                         // Modifier letter rhotic hook
     { 0x02DF, "qofdagesh" },                          // Modifier letter cross accent
-    { 0x02E0, "gammasuper" },                         // Modifier letter small gamma
-    { 0x02E1, "lsuper" },                             // Modifier letter small l
-    { 0x02E2, "ssuper" },                             // Modifier letter small s
-    { 0x02E3, "xsuper" },                             // Modifier letter small x
-    { 0x02E4, "glottalrevsuper" },                    // Modifier letter small reversed glottal stop
+    { 0x02E0, "gammalatinsmallsup" },                 // Modifier letter small gamma
+    { 0x02E1, "lsup" },                               // Modifier letter small l
+    { 0x02E2, "ssup" },                               // Modifier letter small s
+    { 0x02E3, "xsup" },                               // Modifier letter small x
+    { 0x02E4, "revglottalstopsup" },                  // Modifier letter small reversed glottal stop
     { 0x02E5, "toneextrahigh" },                      // Modifier letter extra-high tone bar
     { 0x02E6, "tonehigh" },                           // Modifier letter high tone bar
     { 0x02E7, "tonemid" },                            // Modifier letter mid tone bar
@@ -727,6 +729,123 @@ public static class CharNames
     { 0x02E9, "toneextralow" },                       // Modifier letter extra-low tone bar
     { 0x02EA, "lefttorightmark" },                    // Modifier letter yin departing tone mark
     { 0x02EB, "righttoleftmark" },                    // Modifier letter yang departing tone mark
+    { 0x02EC, "voicing" },                            // Modifier letter voicing
+    { 0x02ED, "unaspirated" },                        // Modifier letter unaspirated
+    { 0x02EE, "dblapostrophe" },                      // Modifier letter double apostrophe
+    { 0x02EF, "lowdownarrowhead" },                   // Modifier letter low down arrowhead
+    { 0x02F0, "lowuparrowhead" },                     // Modifier letter low up arrowhead
+    { 0x02F1, "lowleftarrowheadmod" },                // Modifier letter low left arrowhead
+    { 0x02F2, "lowrightarrowhead" },                  // Modifier letter low right arrowhead
+    { 0x02F3, "lowring" },                            // Modifier letter low ring
+    { 0x02F4, "midgrave" },                           // Modifier letter middle grave accent
+    { 0x02F5, "middblgrave" },                        // Modifier letter middle double grave accent
+    { 0x02F6, "middbleacute" },                       // Modifier letter middle double acute accent
+    { 0x02F7, "lowtilde" },                           // Modifier letter low tilde
+    { 0x02F8, "raisedcolon" },                        // Modifier letter raised colon
+    { 0x02F9, "beginhightone" },                      // Modifier letter begin high tone
+    { 0x02FA, "endhightone" },                        // Modifier letter end high tone
+    { 0x02FB, "beginlowtone" },                       // Modifier letter begin low tone
+    { 0x02FC, "endlowtone" },                         // Modifier letter end low tone
+    { 0x02FD, "shelf" },                              // Modifier letter shelf
+    { 0x02FE, "openshelf" },                          // Modifier letter open shelf
+    { 0x02FF, "lowleftarrow" },                       // Modifier letter low left arrow
+    { 0x0300, "graveabove" },                         // Combining grave accent
+    { 0x0301, "acuteabove" },                         // Combining acute accent
+    { 0x0302, "circumflexabove" },                    // Combining circumflex accent
+    { 0x0303, "tildeabove" },                         // Combining tilde
+    { 0x0304, "macronabove" },                        // Combining macron
+    { 0x0305, "overlineabove" },                      // Combining overline
+    { 0x0306, "breveabove" },                         // Combining breve
+    { 0x0307, "dotabove" },                           // Combining dot above
+    { 0x0308, "dieresisabove" },                      // Combining diaeresis
+    { 0x0309, "hookabove" },                          // Combining hook above
+    { 0x030A, "ringabove" },                          // Combining ring above
+    { 0x030B, "dblacuteabove" },                      // Combining double acute accent
+    { 0x030C, "caronabove" },                         // Combining caron
+    { 0x030D, "vlineabove" },                         // Combining vertical line above
+    { 0x030E, "dblvlineabove" },                      // Combining double vertical line above
+    { 0x030F, "dblgraveabove" },                      // Combining double grave accent
+    { 0x0310, "carabinduabove" },                     // Combining candrabindu
+    { 0x0311, "invbreveabove" },                      // Combining inverted breve
+    { 0x0312, "turncomaabove" },                      // Combining turned comma above
+    { 0x0313, "commaabove" },                         // Combining comma above
+    { 0x0314, "revcommaabove" },                      // Combining reversed comma above
+    { 0x0315, "commaaboveright" },                    // Combining comma above right
+    { 0x0316, "gravebelow" },                         // Combining grave accent below
+    { 0x0317, "acutebelow" },                         // Combining acute accent below
+    { 0x0318, "lefttackbelow" },                      // Combining left tack below
+    { 0x0319, "righttackbelow" },                     // Combining right tack below
+    { 0x031A, "leftangleabove" },                     // Combining left angle above
+    { 0x031B, "horn" },                               // Combining horn
+    { 0x031C, "lefthalfringbelow" },                  // Combining left half ring below
+    { 0x031D, "uptackbelow" },                        // Combining up tack below
+    { 0x031E, "downtackbelow" },                      // Combining down tack below
+    { 0x031F, "plusbelow" },                          // Combining plus sign below
+    { 0x0320, "minusbelow" },                         // Combining minus sign below
+    { 0x0321, "phoohbelow" },                         // Combining palatalized hook below
+    { 0x0322, "rhookbelow" },                         // Combining retroflex hook below
+    { 0x0323, "dotbelow" },                           // Combining dot below
+    { 0x0324, "dieresisbelow" },                      // Combining diaeresis below
+    { 0x0325, "ringbelow" },                          // Combining ring below
+    { 0x0326, "commabelow" },                         // Combining comma below
+    { 0x0327, "cedillabelow" },                       // Combining cedilla
+    { 0x0328, "ogonekbelow" },                        // Combining ogonek
+    { 0x0329, "vlinebelow" },                         // Combining vertical line below
+    { 0x032A, "bridgebelow" },                        // Combining bridge below
+    { 0x032B, "invdblarchbelow" },                    // Combining inverted double arch below
+    { 0x032C, "caronbelow" },                         // Combining caron below
+    { 0x032D, "circumflexbelow" },                    // Combining circumflex accent below
+    { 0x032E, "brevebelow" },                         // Combining breve below
+    { 0x032F, "invbrevebelow" },                      // Combining inverted breve below
+    { 0x0330, "tildebelow" },                         // Combining tilde below
+    { 0x0331, "macronlbelow" },                       // Combining macron below
+    { 0x0332, "lowlinebelow" },                       // Combining low line
+    { 0x0333, "dblowlinebelow" },                     // Combining double low line
+    { 0x0334, "tildeoverlay" },                       // Combining tilde overlay
+    { 0x0335, "shortstrokeoverlay" },                 // Combining short stroke overlay
+    { 0x0336, "longstrokeoverlay" },                  // Combining long stroke overlay
+    { 0x0337, "shortslashoverlay" },                  // Combining short solidus overlay
+    { 0x0338, "longslashoverlay" },                   // Combining long solidus overlay
+    { 0x0339, "rightringbelow" },                     // Combining right half ring below
+    { 0x033A, "invbridgebelow" },                     // Combining inverted bridge below
+    { 0x033B, "squarebelow" },                        // Combining square below
+    { 0x033C, "seagullbelow" },                       // Combining seagull below
+    { 0x033D, "xabove" },                             // Combining x above
+    { 0x033E, "vtildeabove" },                        // Combining vertical tilde
+    { 0x033F, "dbloverline" },                        // Combining double overline
+    { 0x0340, "gravetonemark" },                      // Combining grave tone mark
+    { 0x0341, "acutetonemark" },                      // Combining acute tone mark
+    { 0x0342, "perispomeni" },                        // Combining greek perispomeni
+    { 0x0343, "koronis" },                            // Combining greek koronis
+    { 0x0344, "dialtonos" },                          // Combining greek dialytika tonos
+    { 0x0345, "ypogegrammeni" },                      // Combining greek ypogegrammeni
+    { 0x0346, "bridgeabove" },                        // Combining bridge above
+    { 0x0347, "equalsbelow" },                        // Combining equals sign below
+    { 0x0348, "dblvlinebelow" },                      // Combining double vertical line below
+    { 0x0349, "leftanglebelow" },                     // Combining left angle below
+    { 0x034A, "nottildeabove" },                      // Combining not tilde above
+    { 0x034B, "homotheticabove" },                    // Combining homothetic above
+    { 0x034C, "almostequalsabove" },                  // Combining almost equal to above
+    { 0x034D, "leftrightarrowbelow" },                // Combining left right arrow below
+    { 0x034E, "uparrowbelow" },                       // Combining upwards arrow below
+    { 0x034F, "graphemejoiner" },                     // Combining grapheme joiner
+    { 0x0350, "rightarrowheadabove" },                // Combining right arrowhead above
+    { 0x0351, "lefthalfringabove" },                  // Combining left half ring above
+    { 0x0352, "fermata" },                            // Combining fermata
+    { 0x0353, "xbelow" },                             // Combining x below
+    { 0x0354, "arrowheadleftbelow" },                 // Combining left arrowhead below
+    { 0x0355, "arrowheadrightbelow" },                // Combining right arrowhead below
+    { 0x0356, "arrowheadrightupbelow" },              // Combining right arrowhead and up arrowhead below
+    { 0x0357, "righthalfringabove" },                 // Combining right half ring above
+    { 0x0359, "asteriskbelow" },                      // Combining asterisk below
+    { 0x035A, "dblringbelow" },                       // Combining double ring below
+    { 0x035B, "zigzagabove" },                        // Combining zigzag above
+    { 0x035C, "dblbrevebelow" },                      // Combining double breve below
+    { 0x035D, "dblbreve" },                           // Combining double breve
+    { 0x035E, "dblmacron" },                          // Combining double macron
+    { 0x035F, "dblmacronbelow" },                     // Combining double macron below
+    { 0x0361, "dblinvbreve" },                        // Combining double inverted breve
+    { 0x0362, "longarrowrightbelow" },                // Combining double rightwards arrow below
     { 0x0370, "Heta" },                               // Greek capital letter heta
     { 0x0371, "heta" },                               // Greek small letter heta
     { 0x0372, "Sampi" },                              // Greek capital letter archaic sampi
@@ -819,6 +938,7 @@ public static class CharNames
     { 0x03D6, "pi1" },                                // Greek pi symbol
     { 0x03DA, "Stigma" },                             // Greek letter stigma
     { 0x03DC, "Digamma" },                            // Greek letter digamma
+    { 0x03DD, "digamma" },                            // Greek small letter digamma
     { 0x03DE, "Koppa" },                              // Greek letter koppa
     { 0x03E0, "Sampigreek" },                         // Greek letter sampi
     { 0x03E2, "Sheicoptic" },                         // Coptic capital letter shei
@@ -1759,6 +1879,117 @@ public static class CharNames
     { 0x0E59, "ninethai" },                           // Thai digit nine
     { 0x0E5A, "angkhankhuthai" },                     // Thai character angkhankhu
     { 0x0E5B, "khomutthai" },                         // Thai character khomut
+    { 0x10FC, "Narsup" },                             // Modifier letter georgian nar
+    { 0x1AB0, "doubledcircumflex" },                  // Combining doubled circumflex accent
+    { 0x1AB5, "xxbelow" },                            // Combining x-x below
+    { 0x1AB6, "wlinebelow" },                         // Combining wiggly line below
+    { 0x1AB7, "openmarkbelow" },                      // Combining open mark below
+    { 0x1AB8, "dblopenmarkbelow" },                   // Combining double open mark below
+    { 0x1AB9, "lightcentrstrokelbelow" },             // Combining light centralization stroke below
+    { 0x1ABA, "strongcentrstrokebelow" },             // Combining strong centralization stroke below
+    { 0x1ABB, "parenthesesabove" },                   // Combining parentheses above
+    { 0x1ABC, "dblparenthesesabove" },                // Combining double parentheses above
+    { 0x1ABD, "parenthesesbelow" },                   // Combining parentheses below
+    { 0x1ABF, "wbelow" },                             // Combining latin small letter w below
+    { 0x1AC0, "turnwbelow" },                         // Combining latin small letter turned w below
+    { 0x1AC5, "bracketsabove" },                      // Combining square brackets above
+    { 0x1AC6, "numbersignabove" },                    // Combining number sign above
+    { 0x1AC7, "invdblarchabove" },                    // Combining inverted double arch above
+    { 0x1AC8, "plusabove" },                          // Combining plus sign above
+    { 0x1AC9, "dblplusabove" },                       // Combining double plus sign above
+    { 0x1ACA, "dblplusbelow" },                       // Combining double plus sign below
+    { 0x1ACB, "tripleacute" },                        // Combining triple acute accent
+    { 0x1D2C, "Asup" },                               // Modifier letter capital a
+    { 0x1D2D, "AEsup" },                              // Modifier letter capital ae
+    { 0x1D2E, "Bsup" },                               // Modifier letter capital b
+    { 0x1D2F, "Bbarmod" },                            // Modifier letter capital barred b
+    { 0x1D30, "Dsup" },                               // Modifier letter capital d
+    { 0x1D31, "Esup" },                               // Modifier letter capital e
+    { 0x1D32, "revEsup" },                            // Modifier letter capital reversed e
+    { 0x1D33, "Gsup" },                               // Modifier letter capital g
+    { 0x1D34, "Hsup" },                               // Modifier letter capital h
+    { 0x1D35, "Isup" },                               // Modifier letter capital i
+    { 0x1D36, "Jsup" },                               // Modifier letter capital j
+    { 0x1D37, "Ksup" },                               // Modifier letter capital k
+    { 0x1D38, "Lsup" },                               // Modifier letter capital l
+    { 0x1D39, "Msup" },                               // Modifier letter capital m
+    { 0x1D3A, "Nsup" },                               // Modifier letter capital n
+    { 0x1D3B, "revNmod" },                            // Modifier letter capital reversed n
+    { 0x1D3C, "Osup" },                               // Modifier letter capital o
+    { 0x1D3D, "OUsup" },                              // Modifier letter capital ou
+    { 0x1D3E, "Psup" },                               // Modifier letter capital p
+    { 0x1D3F, "Rsup" },                               // Modifier letter capital r
+    { 0x1D40, "Tsup" },                               // Modifier letter capital t
+    { 0x1D41, "Usup" },                               // Modifier letter capital u
+    { 0x1D42, "Wsup" },                               // Modifier letter capital w
+    { 0x1D43, "asup" },                               // Modifier letter small a
+    { 0x1D44, "turnasup" },                           // Modifier letter small turned a
+    { 0x1D45, "alphasup" },                           // Modifier letter small alpha
+    { 0x1D46, "turnaesup" },                          // Modifier letter small turned ae
+    { 0x1D47, "bsup" },                               // Modifier letter small b
+    { 0x1D48, "dsup" },                               // Modifier letter small d
+    { 0x1D49, "esup" },                               // Modifier letter small e
+    { 0x1D4A, "schwasup" },                           // Modifier letter small schwa
+    { 0x1D4B, "openesup" },                           // Modifier letter small open e
+    { 0x1D4C, "turnopenesup" },                       // Modifier letter small turned open e
+    { 0x1D4D, "gsup" },                               // Modifier letter small g
+    { 0x1D4E, "turnimod" },                           // Modifier letter small turned i
+    { 0x1D4F, "ksup" },                               // Modifier letter small k
+    { 0x1D50, "msup" },                               // Modifier letter small m
+    { 0x1D51, "engsup" },                             // Modifier letter small eng
+    { 0x1D52, "osup" },                               // Modifier letter small o
+    { 0x1D53, "openosup" },                           // Modifier letter small open o
+    { 0x1D54, "tophalfosup" },                        // Modifier letter small top half o
+    { 0x1D55, "bothalfosup" },                        // Modifier letter small bottom half o
+    { 0x1D56, "psup" },                               // Modifier letter small p
+    { 0x1D57, "tsup" },                               // Modifier letter small t
+    { 0x1D58, "usup" },                               // Modifier letter small u
+    { 0x1D59, "sidewaysusup" },                       // Modifier letter small sideways u
+    { 0x1D5A, "turnmsup" },                           // Modifier letter small turned m
+    { 0x1D5B, "vsup" },                               // Modifier letter small v
+    { 0x1D5C, "ainsup" },                             // Modifier letter small ain
+    { 0x1D5D, "betasup" },                            // Modifier letter small beta
+    { 0x1D5E, "gammasup" },                           // Modifier letter small greek gamma
+    { 0x1D5F, "deltasup" },                           // Modifier letter small delta
+    { 0x1D60, "phisup" },                             // Modifier letter small greek phi
+    { 0x1D61, "chisup" },                             // Modifier letter small chi
+    { 0x1D67, "gammasub" },                           // Greek subscript small letter gamma
+    { 0x1D78, "ncyrsup" },                            // Modifier letter cyrillic en
+    { 0x1D9B, "turnalphasup" },                       // Modifier letter small turned alpha
+    { 0x1D9C, "csup" },                               // Modifier letter small c
+    { 0x1D9D, "ccurlsup" },                           // Modifier letter small c with curl
+    { 0x1D9E, "ethsup" },                             // Modifier letter small eth
+    { 0x1D9F, "revopenesup" },                        // Modifier letter small reversed open e
+    { 0x1DA0, "fsup" },                               // Modifier letter small f
+    { 0x1DA2, "gscriptsup" },                         // Modifier letter small script g
+    { 0x1DA3, "turnhsup" },                           // Modifier letter small turned h
+    { 0x1DA4, "lstrokesup" },                         // Modifier letter small i with stroke
+    { 0x1DA5, "iotasup" },                            // Modifier letter small iota
+    { 0x1DC0, "dotgrave" },                           // Combining dotted grave accent
+    { 0x1DC1, "dotacute" },                           // Combining dotted acute accent
+    { 0x1DC2, "snakebelow" },                         // Combining snake below
+    { 0x1DC4, "macronacute" },                        // Combining macron-acute
+    { 0x1DC5, "gravemacron" },                        // Combining grave-macron
+    { 0x1DC6, "macrongrave" },                        // Combining macron-grave
+    { 0x1DC7, "acutemacron" },                        // Combining acute-macron
+    { 0x1DC8, "graveacutegrave" },                    // Combining grave-acute-grave
+    { 0x1DC9, "acutegrave" },                         // Combining acute-grave-acute
+    { 0x1DCA, "rbelow" },                             // Combining latin small letter r below
+    { 0x1DCB, "brevemacron" },                        // Combining breve-macron
+    { 0x1DCC, "macronbreve" },                        // Combining macron-breve
+    { 0x1DCD, "dblcircumflexabove" },                 // Combining double circumflex above
+    { 0x1DCE, "ogonerabove" },                        // Combining ogonek above
+    { 0x1DCF, "zigzagbelow" },                        // Combining zigzag below
+    { 0x1DD0, "ISbelow" },                            // Combining is below
+    { 0x1DD1, "URabove" },                            // Combining ur above
+    { 0x1DD2, "USabove" },                            // Combining us above
+    { 0x1DD3, "flatopenaabove" },                     // Combining latin small letter flattened open a above
+    { 0x1DF5, "uptackabove" },                        // Combining up tack above
+    { 0x1DF9, "wideinvbridgebelow" },                 // Combining wide inverted bridge below
+    { 0x1DFC, "dblinvbrevebelow" },                   // Combining double inverted breve below
+    { 0x1DFD, "almostequalsbelow" },                  // Combining almost equal to below
+    { 0x1DFE, "arrowheadleftabove" },                 // Combining left arrowhead above
+    { 0x1DFF, "arrowheadrightdownbelow" },            // Combining right arrowhead and down arrowhead below
     { 0x1E00, "Aringbelow" },                         // Latin capital letter a with ring below
     { 0x1E01, "aringbelow" },                         // Latin small letter a with ring below
     { 0x1E02, "Bdotaccent" },                         // Latin capital letter b with dot above
@@ -2005,6 +2236,12 @@ public static class CharNames
     { 0x1EF7, "yhookabove" },                         // Latin small letter y with hook above
     { 0x1EF8, "Ytilde" },                             // Latin capital letter y with tilde
     { 0x1EF9, "ytilde" },                             // Latin small letter y with tilde
+    { 0x1FB1, "alphamacron" },                        // Greek small letter alpha with macron
+    { 0x1FB9, "Alphamacron" },                        // Greek capital letter alpha with macron
+    { 0x1FD1, "iotamacron" },                         // Greek small letter iota with macron
+    { 0x1FD9, "Iotamacron" },                         // Greek capital letter iota with macron
+    { 0x1FE1, "upsilonmacron" },                      // Greek small letter upsilon with macron
+    { 0x1FE9, "Upsilonmacton" },                      // Greek capital letter upsilon with macron
     { 0x2000, "enquad" },                             // En quad
     { 0x2001, "emquad" },                             // Em quad
     { 0x2002, "enspace" },                            // En space
@@ -2115,6 +2352,19 @@ public static class CharNames
     { 0x20A9, "won" },                                // Won sign
     { 0x20AA, "sheqelhebrew" },                       // New sheqel sign
     { 0x20AB, "dong" },                               // Dong sign
+    { 0x20D0, "harpoonleftabove" },                   // Combining left harpoon above
+    { 0x20D1, "harpoonrightabove" },                  // Combining right harpoon above
+    { 0x20D4, "arrowanticlockabove" },                // Combining anticlockwise arrow above
+    { 0x20D5, "arrowclockwiseabove" },                // Combining clockwise arrow above
+    { 0x20D6, "arrowleftabove" },                     // Combining left arrow above
+    { 0x20D7, "arrowrightabove" },                    // Combining right arrow above
+    { 0x20DB, "threedotsabove" },                     // Combining three dots above
+    { 0x20DC, "fourdotsabove" },                      // Combining four dots above
+    { 0x20E1, "arrowleftrightabove" },                // Combining left right arrow above
+    { 0x20E9, "widebridgeabove" },                    // Combining wide bridge above
+    { 0x20EE, "arrowleftbelow" },                     // Combining left arrow below
+    { 0x20EF, "arrowrightbelow" },                    // Combining right arrow below
+    { 0x20F0, "asteriskabove" },                      // Combining asterisk above
     { 0x2100, "accountof" },                          // Account of
     { 0x2101, "addresssubject" },                     // Addressed to the subject
     { 0x2102, "Cbb" },                                // Double-struck capital c
@@ -3899,6 +4149,8 @@ public static class CharNames
     { 0x33DB, "srsquare" },                           // Square sr
     { 0x33DC, "svsquare" },                           // Square sv
     { 0x33DD, "wbsquare" },                           // Square wb
+    { 0xA788, "circumflexbelowmod" },                 // Modifier letter low circumflex accent
+    { 0xAB5B, "breveinvbrevemod" },                   // Modifier breve with inverted breve
     { 0xFB00, "ff" },                                 // Latin small ligature ff
     { 0xFB01, "fi" },                                 // Latin small ligature fi
     { 0xFB02, "fl" },                                 // Latin small ligature fl
@@ -4035,6 +4287,16 @@ public static class CharNames
     { 0xFD88, "lammeemhahinitialarabic" },            // Arabic ligature lam with meem with hah initial form
     { 0xFDF2, "lamlamhehisolatedarabic" },            // Arabic ligature allah isolated form
     { 0xFDFA, "sallallahoualayhewasallamarabic" },    // Arabic ligature sallallahou alayhe wasallam
+    { 0xFE24, "macronlefthalf" },                     // Combining macron left half
+    { 0xFE25, "marcontrighthalf" },                   // Combining macron right half
+    { 0xFE26, "conjoiningmacron" },                   // Combining conjoining macron
+    { 0xFE27, "ligaturelefthalfbelow" },              // Combining ligature left half below
+    { 0xFE28, "ligaturerighthalfbelow" },             // Combining ligature right half below
+    { 0xFE29, "tildelefthalfbelow" },                 // Combining tilde left half below
+    { 0xFE2A, "tilderighthalfbelow" },                // Combining tilde right half below
+    { 0xFE2B, "macronlefthalfbelow" },                // Combining macron left half below
+    { 0xFE2C, "marconrighthalfbelow" },               // Combining macron right half below
+    { 0xFE2D, "conjoiningmactonbelow" },              // Combining conjoining macron below
     { 0xFE30, "twodotleadervertical" },               // Presentation form for vertical two dot leader
     { 0xFE31, "emdashvertical" },                     // Presentation form for vertical em dash
     { 0xFE32, "endashvertical" },                     // Presentation form for vertical en dash
@@ -4378,6 +4640,7 @@ public static class CharNames
     { 0xFFE3, "macronmonospace" },                    // Fullwidth macron
     { 0xFFE5, "yenmonospace" },                       // Fullwidth yen sign
     { 0xFFE6, "wonmonospace" },                       // Fullwidth won sign
+    { 0x1133B, "bindbelow" },                         // Combining bindu below
     { 0x1D49C, "Ascript" },                           // Mathematical script capital a
     { 0x1D49E, "Cscript" },                           // Mathematical script capital c
     { 0x1D49F, "Dscript" },                           // Mathematical script capital d
@@ -4462,261 +4725,6 @@ public static class CharNames
     { 0x1D52E, "qfraktur" },                          // Mathematical fraktur small q
     { 0x1D52F, "rfraktur" },                          // Mathematical fraktur small r
     { 0x1D530, "sfraktur" },                          // Mathematical fraktur small s
-    { 0x1D531, "tfraktur" },                          // Mathematical fraktur small t
-    { 0x1D532, "ufraktur" },                          // Mathematical fraktur small u
-    { 0x1D533, "vfraktur" },                          // Mathematical fraktur small v
-    { 0x1D534, "wfraktur" },                          // Mathematical fraktur small w
-    { 0x1D535, "xfraktur" },                          // Mathematical fraktur small x
-    { 0x1D536, "yfraktur" },                          // Mathematical fraktur small y
-    { 0x1D537, "zfraktur" },                          // Mathematical fraktur small z
-    { 0xFEFA, "lamalefhamzabelowfinalarabic" },       // Arabic ligature lam with alef with hamza below final form
-    { 0xFEFB, "lamalefisolatedarabic" },              // Arabic ligature lam with alef isolated form
-    { 0xFEFC, "lamaleffinalarabic" },                 // Arabic ligature lam with alef final form
-    { 0xFEFF, "bom" },                                // Zero width no-break space
-    { 0xFF01, "exclammonospace" },                    // Fullwidth exclamation mark
-    { 0xFF02, "quotedblmonospace" },                  // Fullwidth quotation mark
-    { 0xFF03, "numbersignmonospace" },                // Fullwidth number sign
-    { 0xFF04, "dollarmonospace" },                    // Fullwidth dollar sign
-    { 0xFF05, "percentmonospace" },                   // Fullwidth percent sign
-    { 0xFF06, "ampersandmonospace" },                 // Fullwidth ampersand
-    { 0xFF07, "quotesinglemonospace" },               // Fullwidth apostrophe
-    { 0xFF08, "parenleftmonospace" },                 // Fullwidth left parenthesis
-    { 0xFF09, "parenrightmonospace" },                // Fullwidth right parenthesis
-    { 0xFF0A, "asteriskmonospace" },                  // Fullwidth asterisk
-    { 0xFF0B, "plusmonospace" },                      // Fullwidth plus sign
-    { 0xFF0C, "commamonospace" },                     // Fullwidth comma
-    { 0xFF0D, "hyphenmonospace" },                    // Fullwidth hyphen-minus
-    { 0xFF0E, "periodmonospace" },                    // Fullwidth full stop
-    { 0xFF0F, "slashmonospace" },                     // Fullwidth solidus
-    { 0xFF10, "zeromonospace" },                      // Fullwidth digit zero
-    { 0xFF11, "onemonospace" },                       // Fullwidth digit one
-    { 0xFF12, "twomonospace" },                       // Fullwidth digit two
-    { 0xFF13, "threemonospace" },                     // Fullwidth digit three
-    { 0xFF14, "fourmonospace" },                      // Fullwidth digit four
-    { 0xFF15, "fivemonospace" },                      // Fullwidth digit five
-    { 0xFF16, "sixmonospace" },                       // Fullwidth digit six
-    { 0xFF17, "sevenmonospace" },                     // Fullwidth digit seven
-    { 0xFF18, "eightmonospace" },                     // Fullwidth digit eight
-    { 0xFF19, "ninemonospace" },                      // Fullwidth digit nine
-    { 0xFF1A, "colonmonospace" },                     // Fullwidth colon
-    { 0xFF1B, "semicolonmonospace" },                 // Fullwidth semicolon
-    { 0xFF1C, "lessmonospace" },                      // Fullwidth less-than sign
-    { 0xFF1D, "equalmonospace" },                     // Fullwidth equals sign
-    { 0xFF1E, "greatermonospace" },                   // Fullwidth greater-than sign
-    { 0xFF1F, "questionmonospace" },                  // Fullwidth question mark
-    { 0xFF20, "atmonospace" },                        // Fullwidth commercial at
-    { 0xFF21, "Amonospace" },                         // Fullwidth latin Capital Letter A
-    { 0xFF22, "Bmonospace" },                         // Fullwidth latin Capital Letter B
-    { 0xFF23, "Cmonospace" },                         // Fullwidth latin Capital Letter C
-    { 0xFF24, "Dmonospace" },                         // Fullwidth latin Capital Letter D
-    { 0xFF25, "Emonospace" },                         // Fullwidth latin Capital Letter E
-    { 0xFF26, "Fmonospace" },                         // Fullwidth latin Capital Letter F
-    { 0xFF27, "Gmonospace" },                         // Fullwidth latin Capital Letter G
-    { 0xFF28, "Hmonospace" },                         // Fullwidth latin Capital Letter H
-    { 0xFF29, "Imonospace" },                         // Fullwidth latin Capital Letter I
-    { 0xFF2A, "Jmonospace" },                         // Fullwidth latin Capital Letter J
-    { 0xFF2B, "Kmonospace" },                         // Fullwidth latin Capital Letter K
-    { 0xFF2C, "Lmonospace" },                         // Fullwidth latin Capital Letter L
-    { 0xFF2D, "Mmonospace" },                         // Fullwidth latin Capital Letter M
-    { 0xFF2E, "Nmonospace" },                         // Fullwidth latin Capital Letter N
-    { 0xFF2F, "Omonospace" },                         // Fullwidth latin Capital Letter O
-    { 0xFF30, "Pmonospace" },                         // Fullwidth latin Capital Letter P
-    { 0xFF31, "Qmonospace" },                         // Fullwidth latin Capital Letter Q
-    { 0xFF32, "Rmonospace" },                         // Fullwidth latin Capital Letter R
-    { 0xFF33, "Smonospace" },                         // Fullwidth latin Capital Letter S
-    { 0xFF34, "Tmonospace" },                         // Fullwidth latin Capital Letter T
-    { 0xFF35, "Umonospace" },                         // Fullwidth latin Capital Letter U
-    { 0xFF36, "Vmonospace" },                         // Fullwidth latin Capital Letter V
-    { 0xFF37, "Wmonospace" },                         // Fullwidth latin Capital Letter W
-    { 0xFF38, "Xmonospace" },                         // Fullwidth latin Capital Letter X
-    { 0xFF39, "Ymonospace" },                         // Fullwidth latin Capital Letter Y
-    { 0xFF3A, "Zmonospace" },                         // Fullwidth latin Capital Letter Z
-    { 0xFF3B, "bracketleftmonospace" },               // Fullwidth left square bracket
-    { 0xFF3C, "backslashmonospace" },                 // Fullwidth reverse solidus
-    { 0xFF3D, "bracketrightmonospace" },              // Fullwidth right square bracket
-    { 0xFF3E, "asciicircummonospace" },               // Fullwidth circumflex accent
-    { 0xFF3F, "underscoremonospace" },                // Fullwidth low line
-    { 0xFF40, "gravemonospace" },                     // Fullwidth grave accent
-    { 0xFF41, "amonospace" },                         // Fullwidth latin small letter a
-    { 0xFF42, "bmonospace" },                         // Fullwidth latin small letter b
-    { 0xFF43, "cmonospace" },                         // Fullwidth latin small letter c
-    { 0xFF44, "dmonospace" },                         // Fullwidth latin small letter d
-    { 0xFF45, "emonospace" },                         // Fullwidth latin small letter e
-    { 0xFF46, "fmonospace" },                         // Fullwidth latin small letter f
-    { 0xFF47, "gmonospace" },                         // Fullwidth latin small letter g
-    { 0xFF48, "hmonospace" },                         // Fullwidth latin small letter h
-    { 0xFF49, "imonospace" },                         // Fullwidth latin small letter i
-    { 0xFF4A, "jmonospace" },                         // Fullwidth latin small letter j
-    { 0xFF4B, "kmonospace" },                         // Fullwidth latin small letter k
-    { 0xFF4C, "lmonospace" },                         // Fullwidth latin small letter l
-    { 0xFF4D, "mmonospace" },                         // Fullwidth latin small letter m
-    { 0xFF4E, "nmonospace" },                         // Fullwidth latin small letter n
-    { 0xFF4F, "omonospace" },                         // Fullwidth latin small letter o
-    { 0xFF50, "pmonospace" },                         // Fullwidth latin small letter p
-    { 0xFF51, "qmonospace" },                         // Fullwidth latin small letter q
-    { 0xFF52, "rmonospace" },                         // Fullwidth latin small letter r
-    { 0xFF53, "smonospace" },                         // Fullwidth latin small letter s
-    { 0xFF54, "tmonospace" },                         // Fullwidth latin small letter t
-    { 0xFF55, "umonospace" },                         // Fullwidth latin small letter u
-    { 0xFF56, "vmonospace" },                         // Fullwidth latin small letter v
-    { 0xFF57, "wmonospace" },                         // Fullwidth latin small letter w
-    { 0xFF58, "xmonospace" },                         // Fullwidth latin small letter x
-    { 0xFF59, "ymonospace" },                         // Fullwidth latin small letter y
-    { 0xFF5A, "zmonospace" },                         // Fullwidth latin small letter z
-    { 0xFF5B, "braceleftmonospace" },                 // Fullwidth left curly bracket
-    { 0xFF5C, "barmonospace" },                       // Fullwidth vertical line
-    { 0xFF5D, "bracerightmonospace" },                // Fullwidth right curly bracket
-    { 0xFF5E, "asciitildemonospace" },                // Fullwidth tilde
-    { 0xFF61, "periodhalfwidth" },                    // Halfwidth ideographic full stop
-    { 0xFF62, "cornerbracketlefthalfwidth" },         // Halfwidth left corner bracket
-    { 0xFF63, "cornerbracketrighthalfwidth" },        // Halfwidth right corner bracket
-    { 0xFF64, "ideographiccommaleft" },               // Halfwidth ideographic comma
-    { 0xFF65, "middledotkatakanahalfwidth" },         // Halfwidth katakana middle dot
-    { 0xFF66, "wokatakanahalfwidth" },                // Halfwidth katakana letter wo
-    { 0xFF67, "asmallkatakanahalfwidth" },            // Halfwidth katakana letter small a
-    { 0xFF68, "ismallkatakanahalfwidth" },            // Halfwidth katakana letter small i
-    { 0xFF69, "usmallkatakanahalfwidth" },            // Halfwidth katakana letter small u
-    { 0xFF6A, "esmallkatakanahalfwidth" },            // Halfwidth katakana letter small e
-    { 0xFF6B, "osmallkatakanahalfwidth" },            // Halfwidth katakana letter small o
-    { 0xFF6C, "yasmallkatakanahalfwidth" },           // Halfwidth katakana letter small ya
-    { 0xFF6D, "yusmallkatakanahalfwidth" },           // Halfwidth katakana letter small yu
-    { 0xFF6E, "yosmallkatakanahalfwidth" },           // Halfwidth katakana letter small yo
-    { 0xFF6F, "tusmallkatakanahalfwidth" },           // Halfwidth katakana letter small tu
-    { 0xFF70, "katahiraprolongmarkhalfwidth" },       // Halfwidth katakana-hiragana prolonged sound mark
-    { 0xFF72, "ikatakanahalfwidth" },                 // Halfwidth katakana letter i
-    { 0xFF73, "ukatakanahalfwidth" },                 // Halfwidth katakana letter u
-    { 0xFF74, "ekatakanahalfwidth" },                 // Halfwidth katakana letter e
-    { 0xFF75, "okatakanahalfwidth" },                 // Halfwidth katakana letter o
-    { 0xFF76, "kakatakanahalfwidth" },                // Halfwidth katakana letter ka
-    { 0xFF77, "kikatakanahalfwidth" },                // Halfwidth katakana letter ki
-    { 0xFF78, "kukatakanahalfwidth" },                // Halfwidth katakana letter ku
-    { 0xFF79, "kekatakanahalfwidth" },                // Halfwidth katakana letter ke
-    { 0xFF7A, "kokatakanahalfwidth" },                // Halfwidth katakana letter ko
-    { 0xFF7B, "sakatakanahalfwidth" },                // Halfwidth katakana letter sa
-    { 0xFF7C, "sikatakanahalfwidth" },                // Halfwidth katakana letter si
-    { 0xFF7D, "sukatakanahalfwidth" },                // Halfwidth katakana letter su
-    { 0xFF7E, "sekatakanahalfwidth" },                // Halfwidth katakana letter se
-    { 0xFF7F, "sokatakanahalfwidth" },                // Halfwidth katakana letter so
-    { 0xFF80, "takatakanahalfwidth" },                // Halfwidth katakana letter ta
-    { 0xFF81, "tikatakanahalfwidth" },                // Halfwidth katakana letter ti
-    { 0xFF82, "tukatakanahalfwidth" },                // Halfwidth katakana letter tu
-    { 0xFF83, "tekatakanahalfwidth" },                // Halfwidth katakana letter te
-    { 0xFF84, "tokatakanahalfwidth" },                // Halfwidth katakana letter to
-    { 0xFF85, "nakatakanahalfwidth" },                // Halfwidth katakana letter na
-    { 0xFF86, "nikatakanahalfwidth" },                // Halfwidth katakana letter ni
-    { 0xFF87, "nukatakanahalfwidth" },                // Halfwidth katakana letter nu
-    { 0xFF88, "nekatakanahalfwidth" },                // Halfwidth katakana letter ne
-    { 0xFF89, "nokatakanahalfwidth" },                // Halfwidth katakana letter no
-    { 0xFF8A, "hakatakanahalfwidth" },                // Halfwidth katakana letter ha
-    { 0xFF8B, "hikatakanahalfwidth" },                // Halfwidth katakana letter hi
-    { 0xFF8C, "hukatakanahalfwidth" },                // Halfwidth katakana letter hu
-    { 0xFF8D, "hekatakanahalfwidth" },                // Halfwidth katakana letter he
-    { 0xFF8E, "hokatakanahalfwidth" },                // Halfwidth katakana letter ho
-    { 0xFF8F, "makatakanahalfwidth" },                // Halfwidth katakana letter ma
-    { 0xFF90, "mikatakanahalfwidth" },                // Halfwidth katakana letter mi
-    { 0xFF91, "mukatakanahalfwidth" },                // Halfwidth katakana letter mu
-    { 0xFF92, "mekatakanahalfwidth" },                // Halfwidth katakana letter me
-    { 0xFF93, "mokatakanahalfwidth" },                // Halfwidth katakana letter mo
-    { 0xFF94, "yakatakanahalfwidth" },                // Halfwidth katakana letter ya
-    { 0xFF95, "yukatakanahalfwidth" },                // Halfwidth katakana letter yu
-    { 0xFF96, "yokatakanahalfwidth" },                // Halfwidth katakana letter yo
-    { 0xFF97, "rakatakanahalfwidth" },                // Halfwidth katakana letter ra
-    { 0xFF98, "rikatakanahalfwidth" },                // Halfwidth katakana letter ri
-    { 0xFF99, "rukatakanahalfwidth" },                // Halfwidth katakana letter ru
-    { 0xFF9A, "rekatakanahalfwidth" },                // Halfwidth katakana letter re
-    { 0xFF9B, "rokatakanahalfwidth" },                // Halfwidth katakana letter ro
-    { 0xFF9C, "wakatakanahalfwidth" },                // Halfwidth katakana letter wa
-    { 0xFF9D, "nkatakanahalfwidth" },                 // Halfwidth katakana letter n
-    { 0xFF9E, "voicedmarkkanahalfwidth" },            // Halfwidth katakana voiced sound mark
-    { 0xFF9F, "semivoicedmarkkanahalfwidth" },        // Halfwidth katakana semi-voiced sound mark
-    { 0xFFE0, "centmonospace" },                      // Fullwidth cent sign
-    { 0xFFE1, "sterlingmonospace" },                  // Fullwidth pound sign
-    { 0xFFE3, "macronmonospace" },                    // Fullwidth macron
-    { 0xFFE5, "yenmonospace" },                       // Fullwidth yen sign
-    { 0xFFE6, "wonmonospace" },                       // Fullwidth won sign
-    { 0x1D49C, "Ascript" },                           // Mathematical script Capital A
-    { 0x1D49E, "Cscript" },                           // Mathematical script Capital C
-    { 0x1D49F, "Dscript" },                           // Mathematical script Capital D
-    { 0x1D4A2, "Gscript" },                           // Mathematical script Capital G
-    { 0x1D4A5, "Jscript" },                           // Mathematical script Capital J
-    { 0x1D4A6, "Kscript" },                           // Mathematical script Capital K
-    { 0x1D4A9, "Nscript" },                           // Mathematical script Capital N
-    { 0x1D4AA, "Oscript" },                           // Mathematical script Capital O
-    { 0x1D4AB, "Pscript" },                           // Mathematical script Capital P
-    { 0x1D4AC, "Qscript" },                           // Mathematical script Capital Q
-    { 0x1D4AE, "Sscript" },                           // Mathematical script Capital S
-    { 0x1D4AF, "Tscript" },                           // Mathematical script Capital T
-    { 0x1D4B0, "UScript" },                           // Mathematical script Capital U
-    { 0x1D4B1, "VScript" },                           // Mathematical script Capital V
-    { 0x1D4B2, "Wscript" },                           // Mathematical script Capital W
-    { 0x1D4B3, "Xscript" },                           // Mathematical script Capital X
-    { 0x1D4B4, "Yscript" },                           // Mathematical script Capital Y
-    { 0x1D4B5, "Zscript" },                           // Mathematical script Capital Z
-    { 0x1D4D0, "Aboldscript" },                       // Mathematical bold script Capital A
-    { 0x1D4D1, "Bboldscript" },                       // Mathematical bold script Capital B
-    { 0x1D4D2, "Cboldscript" },                       // Mathematical bold script Capital C
-    { 0x1D4D3, "Dboldscript" },                       // Mathematical bold script Capital D
-    { 0x1D4D4, "Eboldscript" },                       // Mathematical bold script Capital E
-    { 0x1D4D5, "Fboldscript" },                       // Mathematical bold script Capital F
-    { 0x1D4D6, "Gboldscript" },                       // Mathematical bold script Capital G
-    { 0x1D4D7, "Hboldscript" },                       // Mathematical bold script Capital H
-    { 0x1D4D8, "Iboldscript" },                       // Mathematical bold script Capital I
-    { 0x1D4D9, "Jboldscript" },                       // Mathematical bold script Capital J
-    { 0x1D4DA, "Kboldscript" },                       // Mathematical bold script Capital K
-    { 0x1D4DB, "Lboldscript" },                       // Mathematical bold script Capital L
-    { 0x1D4DC, "Mboldscript" },                       // Mathematical bold script Capital M
-    { 0x1D4DD, "Nboldscript" },                       // Mathematical bold script Capital N
-    { 0x1D4DE, "Oboldscript" },                       // Mathematical bold script Capital O
-    { 0x1D4DF, "Pboldscript" },                       // Mathematical bold script Capital P
-    { 0x1D4E0, "Qboldscript" },                       // Mathematical bold script Capital Q
-    { 0x1D4E1, "Rboldscript" },                       // Mathematical bold script Capital R
-    { 0x1D4E2, "Sboldscript" },                       // Mathematical bold script Capital S
-    { 0x1D4E3, "Tboldscript" },                       // Mathematical bold script Capital T
-    { 0x1D4E4, "Uboldscript" },                       // Mathematical bold script Capital U
-    { 0x1D4E5, "Vboldscript" },                       // Mathematical bold script Capital V
-    { 0x1D4E6, "Wboldscript" },                       // Mathematical bold script Capital W
-    { 0x1D4E7, "Xboldscript" },                       // Mathematical bold script Capital X
-    { 0x1D4E8, "Yboldscript" },                       // Mathematical bold script Capital Y
-    { 0x1D4E9, "Zboldscript" },                       // Mathematical bold script Capital Z
-    { 0x1D504, "Afraktur" },                          // Mathematical fraktur Capital A
-    { 0x1D505, "Bfraktur" },                          // Mathematical fraktur Capital B
-    { 0x1D507, "Dfraktur" },                          // Mathematical fraktur Capital D
-    { 0x1D508, "Efraktur" },                          // Mathematical fraktur Capital E
-    { 0x1D509, "Ffraktur" },                          // Mathematical fraktur Capital F
-    { 0x1D50A, "Gfraktur" },                          // Mathematical fraktur Capital G
-    { 0x1D50D, "Jfraktur" },                          // Mathematical fraktur Capital J
-    { 0x1D50E, "Kfraktur" },                          // Mathematical fraktur Capital K
-    { 0x1D50F, "Lfraktur" },                          // Mathematical fraktur Capital L
-    { 0x1D510, "Mfraktur" },                          // Mathematical fraktur Capital M
-    { 0x1D511, "Nfraktur" },                          // Mathematical fraktur Capital N
-    { 0x1D512, "Ofraktur" },                          // Mathematical fraktur Capital O
-    { 0x1D513, "Pfraktur" },                          // Mathematical fraktur Capital P
-    { 0x1D514, "Qfraktur" },                          // Mathematical fraktur Capital Q
-    { 0x1D516, "Sfraktur" },                          // Mathematical fraktur Capital S
-    { 0x1D517, "Tfraktur" },                          // Mathematical fraktur Capital T
-    { 0x1D518, "Ufraktur" },                          // Mathematical fraktur Capital U
-    { 0x1D519, "Vfraktur" },                          // Mathematical fraktur Capital V
-    { 0x1D51A, "Wfraktur" },                          // Mathematical fraktur Capital W
-    { 0x1D51B, "Xfraktur" },                          // Mathematical fraktur Capital X
-    { 0x1D51C, "Yfraktur" },                          // Mathematical fraktur Capital Y
-    { 0x1D51E, "afraktur" },                          // Mathematical fraktur small a
-    { 0x1D51F, "bfraktur" },                          // Mathematical fraktur small b
-    { 0x1D520, "cfraktur" },                          // Mathematical fraktur small c
-    { 0x1D521, "dfraktur" },                          // Mathematical fraktur small d
-    { 0x1D522, "efraktur" },                          // Mathematical fraktur small e
-    { 0x1D523, "ffraktur" },                          // Mathematical fraktur small f
-    { 0x1D524, "gfraktur" },                          // Mathematical fraktur small g
-    { 0x1D525, "hfraktur" },                          // Mathematical fraktur small h
-    { 0x1D526, "ifraktur" },                          // Mathematical fraktur small i
-    { 0x1D527, "jfraktur" },                          // Mathematical fraktur small j
-    { 0x1D528, "kfraktur" },                          // Mathematical fraktur small k
-    { 0x1D529, "lfraktur" },                          // Mathematical fraktur small l
-    { 0x1D52A, "mfraktur" },                          // Mathematical fraktur small m
-    { 0x1D52B, "nfraktur" },                          // Mathematical fraktur small n
-    { 0x1D52C, "ofraktur" },                          // Mathematical fraktur small o
-    { 0x1D52D, "pfraktur" },                          // Mathematical fraktur small p
-    { 0x1D52E, "qfraktur" },                          // Mathematical fraktur small q
-    { 0x1D52F, "rfraktur" },                          // Mathematical fraktur small r
     { 0x1D530, "sfraktur" },                          // Mathematical fraktur small s
     { 0x1D531, "tfraktur" },                          // Mathematical fraktur small t
     { 0x1D532, "ufraktur" },                          // Mathematical fraktur small u

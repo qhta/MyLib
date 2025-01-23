@@ -22,3 +22,4 @@ d:\dane\vs\projects\mylib\bin\Debug\net8.0\Qhta.Unicode.dll
 d:\dane\vs\projects\mylib\bin\Debug\net8.0\Qhta.Unicode.pdb
 D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.Unicode.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.Unicode\obj\Debug\net8.0\Qhta.Unicode.xml
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\ScriptCodes.txt

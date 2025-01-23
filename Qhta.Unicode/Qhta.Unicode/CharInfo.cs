@@ -16,7 +16,7 @@
     /// <summary>
     /// General category of the character.
     /// </summary>
-    public Category Category { get; set; }
+    public UcdCategory Category { get; set; }
     /// <summary>
     /// Canonical Combining Class of the character.
     /// </summary>
@@ -59,6 +59,10 @@
     /// Corresponding Titlecase character code point.
     /// </summary>
     public CodePoint? SimpleTitlecaseMapping { get; set; }
+    /// <summary>
+    /// Optional script of the character (4-character ISO 15924 script code).
+    /// </summary>
+    public string? Script { get; set; }
     /// <summary>
     /// Optional alias names for the character.
     /// </summary>

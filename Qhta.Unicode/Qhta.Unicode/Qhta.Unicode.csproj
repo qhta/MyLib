@@ -17,12 +17,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Qhta.Collections" Version="4.7.0" />
     <PackageReference Include="Qhta.TextUtils" Version="3.4.0" />
     <None Include="docs\readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="docs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ScriptCodes.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

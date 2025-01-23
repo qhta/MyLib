@@ -11,3 +11,4 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.Unicode\obj\Debug\netstandard2.0
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.Unicode\obj\Debug\netstandard2.0\Qhta.Unicode.pdb
 D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Unicode.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.Unicode\obj\Debug\netstandard2.0\Qhta.Unicode.xml
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\ScriptCodes.txt

@@ -587,9 +587,11 @@ public record TextOptions
   public bool UseControlCharNames { get; set; } = true;
 
   /// <summary>
-  /// Convert text to string using space character names.
+  /// Convert text to string using separator character names.
+  /// Separator characters are characters of category "Zs" (space separators), "Zl" (line separators), and "Zp" (paragraph separators).
+  /// Space itself (U+0020) is not included, but governed by UseOtherCharNames option.
   /// </summary>
-  public bool UseSpaceNames { get; set; } = true;
+  public bool UseSeparatorNames { get; set; } = true;
 
   /// <summary>
   /// Convert text to string using dash character names.
@@ -617,9 +619,14 @@ public record TextOptions
   public bool UseOtherCharNames { get; set; } = true;
 
   /// <summary>
+  /// Convert text to string using Ascii letters and digits character codes.
+  /// </summary>
+  public bool UseAlphanumericCodes { get; set; } = false;
+
+  /// <summary>
   /// Convert text to string using character functions (where possible).
   /// </summary>
-  public bool UseCharFunctions { get; set; } = true;
+  public bool UseCharFunctions { get; set; } = false;
 
   /// <summary>
   /// Convert text to string using Html entities.

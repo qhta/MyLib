@@ -124,155 +124,42 @@
             Pop_Directional_Isolate - U+2069: terminates an isolate control
             </summary>
         </member>
-        <member name="T:Qhta.Unicode.Category">
+        <member name="T:Qhta.Unicode.CategoryIndex">
             <summary>
-            Unicode character category.
+            An index of codePoints with specific UcdCategory.
             </summary>
         </member>
-        <member name="F:Qhta.Unicode.Category.Cc">
+        <member name="M:Qhta.Unicode.CategoryIndex.Initialize(Qhta.Unicode.UnicodeData)">
             <summary>
-            Control
+            Initializes DecompositionIndex from a UnicodeData object.
+            </summary>
+            <param name="ucd"></param>
+        </member>
+        <member name="M:Qhta.Unicode.CategoryIndex.Add(Qhta.Unicode.UcdCategory,System.Int32)">
+            <summary>
+            Add a code point to the index.
+            </summary>
+            <param name="category"></param>
+            <param name="codePoint"></param>
+        </member>
+        <member name="P:Qhta.Unicode.CategoryIndex.Count">
+            <summary>
+            Number of code points in the index.
             </summary>
         </member>
-        <member name="F:Qhta.Unicode.Category.Cf">
+        <member name="P:Qhta.Unicode.CategoryIndex.Item(Qhta.Unicode.UcdCategory)">
             <summary>
-            Format
+            Get the code points for an UcdCategory.
             </summary>
+            <param name="type"></param>
+            <returns></returns>
         </member>
-        <member name="F:Qhta.Unicode.Category.Co">
+        <member name="M:Qhta.Unicode.CategoryIndex.Take(System.Int32)">
             <summary>
-            Private Use
+            Get the first count code points in the index.
             </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Cs">
-            <summary>
-            Surrogate
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Ll">
-            <summary>
-            Lowercase Letter
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Lm">
-            <summary>
-            Modifier Letter
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Lo">
-            <summary>
-            Other Letter
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Lt">
-            <summary>
-             Titlecase Letter
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Lu">
-            <summary>
-            Uppercase Letter
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Mc">
-            <summary>
-            Spacing Mark
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Me">
-            <summary>
-            Enclosing Mark
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Mn">
-            <summary>
-            Non-spacing Mark
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Nd">
-            <summary>
-             Decimal Number
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Nl">
-            <summary>
-            Letter Number
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.No">
-            <summary>
-            Other Number
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Pc">
-            <summary>
-            Connector Punctuation
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Pd">
-            <summary>
-            Dash Punctuation
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Pe">
-            <summary>
-            Close Punctuation
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Pf">
-            <summary>
-            Final Punctuation
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Pi">
-            <summary>
-            Initial Punctuation
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Po">
-            <summary>
-            Other Punctuation
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Ps">
-            <summary>
-            Open Punctuation
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Sc">
-            <summary>
-            Close Punctuation
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Sk">
-            <summary>
-            Modifier Symbol
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Sm">
-            <summary>
-            Math Symbol
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.So">
-            <summary>
-            Other Symbol
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Zl">
-            <summary>
-            Line Separator
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Zp">
-            <summary>
-            Paragraph Separator
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Category.Zs">
-            <summary>
-            Space Separator
-            </summary>
+            <param name="count"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.Unicode.CCClass">
             <summary>
@@ -472,6 +359,11 @@
         <member name="P:Qhta.Unicode.CharInfo.SimpleTitlecaseMapping">
             <summary>
             Corresponding Titlecase character code point.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.CharInfo.Script">
+            <summary>
+            Optional script of the character (4-character ISO 15924 script code).
             </summary>
         </member>
         <member name="P:Qhta.Unicode.CharInfo.Aliases">
@@ -924,6 +816,148 @@
             <param name="word"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.Unicode.ScriptCodes">
+            <summary>
+            Unicode script codes loaded from Scripts.txt
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.ScriptCodes.UcdScriptNames">
+            <summary>
+            Unicode script codes loaded from Scripts.txt
+            </summary>
+        </member>
+        <member name="T:Qhta.Unicode.ScriptIndex">
+            <summary>
+            An index of codePoints with specific script. Script is a 4-character ISO 15924 script code.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.ScriptIndex.Initialize(Qhta.Unicode.UnicodeData)">
+            <summary>
+            Initializes ScriptIndex from a UnicodeData object.
+            </summary>
+            <param name="ucd"></param>
+        </member>
+        <member name="M:Qhta.Unicode.ScriptIndex.Add(System.String,System.Int32)">
+            <summary>
+            Add a code point to the index.
+            </summary>
+            <param name="script">Script is a 4-character ISO 15924 script code.</param>
+            <param name="codePoint"></param>
+        </member>
+        <member name="P:Qhta.Unicode.ScriptIndex.Count">
+            <summary>
+            Number of code points in the index.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.ScriptIndex.Item(System.String)">
+            <summary>
+            Get the code points for a specific script. Script is a 4-character ISO 15924 script code.
+            </summary>
+            <param name="script"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.ScriptIndex.Take(System.Int32)">
+            <summary>
+            Get the first count code points in the index.
+            </summary>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.Unicode.UcdCategory">
+            <summary>
+            Unicode character category. The values are the same as UnicodeCategory in System.Globalization.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Lu">
+            <summary>Uppercase letter.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Ll">
+            <summary>Lowercase letter.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Lt">
+            <summary>Titlecase letter.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Lm">
+            <summary>Modifier letter character, which is freestanding spacing character that indicates modifications of a preceding letter.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Lo">
+            <summary>Letter that is not an uppercase letter, a lowercase letter, a titlecase letter, or a modifier letter.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Mn">
+            <summary>Non-spacing character that indicates modifications of a base character.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Mc">
+            <summary>Spacing character that indicates modifications of a base character and affects the width of the glyph for that base character.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Me">
+            <summary>Enclosing mark character, which is a non-spacing combining character that surrounds all previous characters up to and including a base character.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Nd">
+            <summary>Decimal digit character, that is, a character in the range 0 through 9.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Nl">
+            <summary>Number represented by a letter, instead of a decimal digit, for example, the Roman numeral for five, which is "V". The indicator is</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.No">
+            <summary>Number that is neither a decimal digit nor a letter number, for example, the fraction 1/2. The indicator is</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Zs">
+            <summary>Space character, which has no glyph but is not a control or format character.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Zl">
+            <summary>Character that is used to separate lines of text.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Zp">
+            <summary>Character used to separate paragraphs.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Cc">
+            <summary>Control code character, with a Unicode value of U+007F or in the range U+0000 through U+001F or U+0080 through U+009F.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Cf">
+            <summary>Format character that affects the layout of text or the operation of text processes, but is not normally rendered.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Cs">
+            <summary>High surrogate or a low surrogate character. Surrogate code values are in the range U+D800 through U+DFFF.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Co">
+            <summary>Private-use character, with a Unicode value in the range U+E000 through U+F8FF.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Pc">
+            <summary>Connector punctuation character that connects two characters.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Pd">
+            <summary>Dash or hyphen character.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Ps">
+            <summary>Opening character of one of the paired punctuation marks, such as parentheses, square brackets, and braces.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Pe">
+            <summary>Closing character of one of the paired punctuation marks, such as parentheses, square brackets, and braces.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Pi">
+            <summary>Opening or initial quotation mark character.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Pf">
+            <summary>Closing or final quotation mark character.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Po">
+            <summary>Punctuation character that is not a connector, a dash, open punctuation, close punctuation, an initial quote, or a final quote.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Sm">
+            <summary>Mathematical symbol character, such as "+" or "= ".</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Sc">
+            <summary>Currency symbol character.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Sk">
+            <summary>Modifier symbol character, which indicates modifications of surrounding characters. For example, the fraction slash indicates that the number to the left is the numerator and the number to the right is the denominator. The indicator is</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.So">
+            <summary>Symbol character that is not a mathematical symbol, a currency symbol or a modifier symbol.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.UcdCategory.Cn">
+            <summary>Character that is not assigned to any Unicode category.</summary>
+        </member>
         <member name="T:Qhta.Unicode.UnicodeData">
             <summary>
             Unicode character data singleton class.
@@ -960,7 +994,20 @@
             <param name="filePath"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.Unicode.UnicodeData.LoadScripts(System.String)">
+            <summary>
+            Loads aliases from a file. Updates NameIndex and NameWordIndex.
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.Unicode.UnicodeData.DownloadFileName(System.String)">
+            <summary>
+            Downloads a file from unicode.org if it does not exist in the current directory.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Qhta.Unicode.UnicodeData.DownloadFileNameAsync(System.String)">
             <summary>
             Downloads a file from unicode.org if it does not exist in the current directory.
             </summary>
@@ -976,11 +1023,36 @@
             <param name="pattern"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.Unicode.UnicodeData.SearchInCategories(System.String)">
+            <summary>
+            Searches for code points by categories.
+            Pattern can be a list of pattern items separated by '|'.
+            Pattern is a two-letter string or one-letter string.
+            If a pattern is a single letter or a two-letter string and the second letter is '*', all categories starting with the first letter are searched.
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.UnicodeData.SearchInCategories2(System.String)">
+            <summary>
+            Searches for code points by categories. Pattern is a two-letter string and can contain '*' as the second char.
+            Pattern can also be a single letter, in which case all categories starting with that letter are searched
+            </summary>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.Unicode.UnicodeData.SearchInDecomposition(Qhta.Unicode.DecompositionType)">
             <summary>
             Searches for code points by decomposition type
             </summary>
             <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.UnicodeData.SearchInScripts(System.String)">
+            <summary>
+            Searches for code points by script code
+            </summary>
+            <param name="script"></param>
             <returns></returns>
         </member>
     </members>

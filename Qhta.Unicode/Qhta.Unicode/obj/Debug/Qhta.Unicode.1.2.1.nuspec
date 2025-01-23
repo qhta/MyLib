@@ -8,15 +8,18 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Package Description</description>
-    <repository type="git" commit="6d923cdc5aab474f09b22cc37ec4b3fd3c082c70" />
+    <repository type="git" commit="12a4341433709b960e4e3bddc4a1e4423e2fdb50" />
     <dependencies>
       <group targetFramework="net8.0">
+        <dependency id="Qhta.Collections" version="4.7.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="3.4.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.0">
+        <dependency id="Qhta.Collections" version="4.7.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="3.4.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.1">
+        <dependency id="Qhta.Collections" version="4.7.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="3.4.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>

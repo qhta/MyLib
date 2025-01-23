@@ -8,10 +8,22 @@
     ".NETCoreApp,Version=v8.0": {
       "Qhta.Unicode/1.2.1": {
         "dependencies": {
+          "Qhta.Collections": "4.7.0",
           "Qhta.TextUtils": "3.4.0"
         },
         "runtime": {
           "Qhta.Unicode.dll": {}
+        }
+      },
+      "Qhta.Collections/4.7.0": {
+        "dependencies": {
+          "Qhta.TextUtils": "3.4.0"
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.Collections.dll": {
+            "assemblyVersion": "4.7.0.0",
+            "fileVersion": "4.7.0.0"
+          }
         }
       },
       "Qhta.TextUtils/3.4.0": {
@@ -29,6 +41,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Qhta.Collections/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-N16Vl+al7XL8/BzT2BUPh5zwTit/W/kYfeCesEPVJnjhxo5tXgigpb0ejK1FkJP0wxXFLh/J7aCFZnVoJ98SVA==",
+      "path": "qhta.collections/4.7.0",
+      "hashPath": "qhta.collections.4.7.0.nupkg.sha512"
     },
     "Qhta.TextUtils/3.4.0": {
       "type": "package",

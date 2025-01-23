@@ -26,6 +26,22 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "Qhta.Collections/4.7.0": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.TextUtils": "3.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Qhta.TextUtils/3.4.0": {
         "type": "package",
         "compile": {
@@ -41,6 +57,22 @@
       }
     },
     ".NETStandard,Version=v2.1": {
+      "Qhta.Collections/4.7.0": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.TextUtils": "3.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Qhta.TextUtils/3.4.0": {
         "type": "package",
         "compile": {
@@ -56,6 +88,22 @@
       }
     },
     "net8.0": {
+      "Qhta.Collections/4.7.0": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.TextUtils": "3.2.0"
+        },
+        "compile": {
+          "lib/net6.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Qhta.TextUtils/3.4.0": {
         "type": "package",
         "compile": {
@@ -216,6 +264,25 @@
         "netstandard.library.nuspec"
       ]
     },
+    "Qhta.Collections/4.7.0": {
+      "sha512": "N16Vl+al7XL8/BzT2BUPh5zwTit/W/kYfeCesEPVJnjhxo5tXgigpb0ejK1FkJP0wxXFLh/J7aCFZnVoJ98SVA==",
+      "type": "package",
+      "path": "qhta.collections/4.7.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0-windows7.0/Qhta.Collections.dll",
+        "lib/net6.0-windows7.0/Qhta.Collections.xml",
+        "lib/net6.0/Qhta.Collections.dll",
+        "lib/net6.0/Qhta.Collections.xml",
+        "lib/netcoreapp3.0/Qhta.Collections.dll",
+        "lib/netcoreapp3.0/Qhta.Collections.xml",
+        "lib/netstandard2.0/Qhta.Collections.dll",
+        "lib/netstandard2.0/Qhta.Collections.xml",
+        "qhta.collections.4.7.0.nupkg.sha512",
+        "qhta.collections.nuspec",
+        "readme.md"
+      ]
+    },
     "Qhta.TextUtils/3.4.0": {
       "sha512": "9qhua4FonGIG6a27KNFFk9tCgyYcNmZvWwchnUmxpknLoAOBSlu0EEwvVz/SztkEVWFRN25SzWONHDT4Oi5RkQ==",
       "type": "package",
@@ -239,12 +306,15 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
+      "Qhta.Collections >= 4.7.0",
       "Qhta.TextUtils >= 3.4.0"
     ],
     ".NETStandard,Version=v2.1": [
+      "Qhta.Collections >= 4.7.0",
       "Qhta.TextUtils >= 3.4.0"
     ],
     "net8.0": [
+      "Qhta.Collections >= 4.7.0",
       "Qhta.TextUtils >= 3.4.0"
     ]
   },
@@ -314,6 +384,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "Qhta.Collections": {
+            "target": "Package",
+            "version": "[4.7.0, )"
+          },
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.4.0, )"
@@ -346,6 +420,10 @@
             "version": "[2.0.3, )",
             "autoReferenced": true
           },
+          "Qhta.Collections": {
+            "target": "Package",
+            "version": "[4.7.0, )"
+          },
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.4.0, )"
@@ -367,6 +445,10 @@
       "netstandard2.1": {
         "targetAlias": "netstandard2.1",
         "dependencies": {
+          "Qhta.Collections": {
+            "target": "Package",
+            "version": "[4.7.0, )"
+          },
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.4.0, )"

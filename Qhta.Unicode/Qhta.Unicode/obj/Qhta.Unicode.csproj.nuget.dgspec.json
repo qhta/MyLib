@@ -65,6 +65,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Qhta.Collections": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
             "Qhta.TextUtils": {
               "target": "Package",
               "version": "[3.4.0, )"
@@ -97,6 +101,10 @@
               "version": "[2.0.3, )",
               "autoReferenced": true
             },
+            "Qhta.Collections": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
             "Qhta.TextUtils": {
               "target": "Package",
               "version": "[3.4.0, )"
@@ -118,6 +126,10 @@
         "netstandard2.1": {
           "targetAlias": "netstandard2.1",
           "dependencies": {
+            "Qhta.Collections": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
             "Qhta.TextUtils": {
               "target": "Package",
               "version": "[3.4.0, )"

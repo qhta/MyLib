@@ -137,6 +137,8 @@ public class RichTextReader: OpenXmlTextReader
         ch = base.ReadChar();
         value = value * 16 + HexDigitVal(ch);
       }
+      if (Peek() == ' ')
+        base.ReadChar();
       if (value > 0xFFFF)
         throw new InvalidOperationException("Invalid Unicode character value.");
       ch = (char)value;

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Qhta.OpenXMLTools</name>
+        <name>Qhta.OpenXmlTools</name>
     </assembly>
     <members>
         <member name="T:Qhta.OpenXmlTools.AbstractNumTools">
@@ -12249,9 +12249,11 @@
             Convert text to string using control character names.
             </summary>
         </member>
-        <member name="P:Qhta.OpenXmlTools.TextOptions.UseSpaceNames">
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseSeparatorNames">
             <summary>
-            Convert text to string using space character names.
+            Convert text to string using separator character names.
+            Separator characters are characters of category "Zs" (space separators), "Zl" (line separators), and "Zp" (paragraph separators).
+            Space itself (U+0020) is not included, but governed by UseOtherCharNames option.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.UseDashNames">
@@ -12277,6 +12279,11 @@
         <member name="P:Qhta.OpenXmlTools.TextOptions.UseOtherCharNames">
             <summary>
             Convert text to string using other character names.
+            </summary>
+        </member>
+        <member name="P:Qhta.OpenXmlTools.TextOptions.UseAlphanumericCodes">
+            <summary>
+            Convert text to string using Ascii letters and digits character codes.
             </summary>
         </member>
         <member name="P:Qhta.OpenXmlTools.TextOptions.UseCharFunctions">
