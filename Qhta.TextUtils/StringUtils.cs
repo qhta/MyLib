@@ -23,9 +23,17 @@ public static class StringUtils
   /// Change string to title case. First letter tu upper, rest to lower case.
   /// </summary>
   /// <param name="str"></param>
+  /// <param name="allWords">Determines whether all words should be treated separately.</param>
   /// <returns></returns>
-  public static string TitleCase(this string str)
+  public static string TitleCase(this string str, bool allWords=false)
   {
+    if (allWords)
+    {
+      var words = str.Split(' ');
+      for (var i = 0; i < words.Length; i++)
+        words[i] = words[i].TitleCase();
+      return string.Join(" ", words);
+    }
     var chars = str.ToCharArray();
     for (var i = 0; i < chars.Length; i++)
       if (i == 0)

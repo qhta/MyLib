@@ -389,18 +389,20 @@
             <param name="charName">Name is a single-word string</param>
             <param name="codePoint"></param>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortName(Qhta.Unicode.CharInfo)">
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortName(Qhta.Unicode.CharInfo,System.Int32)">
             <summary>
             Create a short name for a character.
             </summary>
             <param name="charInfo"></param>
+            <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortNameFromString(System.String)">
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortenName(Qhta.Unicode.CharInfo,System.Int32)">
             <summary>
             Create a short name for a long character name.
             </summary>
-            <param name="longName"></param>
+            <param name="charInfo"></param>
+            <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
         </member>
         <member name="T:Qhta.Unicode.CodePoint">

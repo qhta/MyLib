@@ -8,7 +8,7 @@ namespace Qhta.OpenXmlTools;
 /// <summary>
 /// Class for reading OpenXml documents with rich text.
 /// </summary>
-public class RichTextReader: OpenXmlTextReader
+public class RichTextReader : OpenXmlTextReader
 {
 
   /// <summary>
@@ -43,9 +43,9 @@ public class RichTextReader: OpenXmlTextReader
   public string ReadCharStr()
   {
     var str = (char)base.ReadChar();
-    if (str==' ')
+    if (str == ' ')
       Debug.Assert(true);
-    if (str== '\\')
+    if (str == '\\')
     {
       if (Peek() == '\\')
       {
@@ -54,7 +54,7 @@ public class RichTextReader: OpenXmlTextReader
       }
       return ReadCharWithName();
     }
-    return new string(str,1);
+    return new string(str, 1);
   }
 
   private string ReadCharWithName()
@@ -66,7 +66,7 @@ public class RichTextReader: OpenXmlTextReader
         return new string(ch, 1);
       ch = base.Peek();
       if (!char.IsLetter(ch))
-        return new string('\\',1);
+        return new string('\\', 1);
       while (!EOF())
       {
         ch = Peek();
@@ -98,19 +98,18 @@ public class RichTextReader: OpenXmlTextReader
             sb.Append(ch);
           }
           param = sb.ToString();
+          sb.Clear();
+          foreach (var ch1 in param)
+          {
+            var seq = charName + "{" + ch1 + "}";
+            if (CharNames.TryFindFunction(seq, out var cp))
+              sb.Append((char)cp);
+            else
+              throw new InvalidOperationException($"Invalid \\{charName} parameter \"{param}\"");
+          }
+          return sb.ToString();
         }
-        sb.Clear();
-        foreach (var ch1 in param)
-        {
-          var seq = charName + "{" + ch1 + "}";
-          if (CharNames.TryFindFunction(seq, out var cp))
-            sb.Append((char)cp);
-          else
-            throw new InvalidOperationException($"Invalid \\{charName} parameter \"{param}\"");
-        }
-        return sb.ToString();
       }
-      else
       {
         if (CharNames.TryFindName(charName, out var cp))
           return new string((char)cp, 1);

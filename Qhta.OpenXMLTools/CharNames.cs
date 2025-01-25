@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+
 using Qhta.Collections;
 using Qhta.Unicode;
 
@@ -88,14 +90,22 @@ public static class CharNames
   private static BiDiDictionary<int, string> CreateCharMapping()
   {
     BiDiDictionary<int, string> charMapping = new BiDiDictionary<int, string>();
-    ;
-    foreach (var entry in UnicodeData.Instance.CharNameIndex)
+    using (var reader = File.OpenText("CharNames.txt"))
     {
-      var charInfo = UnicodeData.Instance[entry.Value];
-      var charName = Unicode.CharNameIndex.CreateShortName(charInfo);
-      if (charName is not null)
+      while (!reader.EndOfStream)
       {
-        charMapping.Add(charInfo.CodePoint, charName);
+        var line = reader.ReadLine();
+        if (line is not null && !line.StartsWith("#"))
+        {
+          var parts = line.Split(';');
+          if (parts.Length == 2)
+          {
+            if (int.TryParse(parts[0], NumberStyles.HexNumber, null, out var cp))
+            {
+              charMapping.Add(cp, parts[1]);
+            }
+          }
+        }
       }
     }
     return charMapping;

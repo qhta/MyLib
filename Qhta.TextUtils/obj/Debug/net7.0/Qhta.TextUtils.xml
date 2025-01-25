@@ -227,11 +227,12 @@
             A bunch of string utility methods
             </summary>
         </member>
-        <member name="M:Qhta.TextUtils.StringUtils.TitleCase(System.String)">
+        <member name="M:Qhta.TextUtils.StringUtils.TitleCase(System.String,System.Boolean)">
             <summary>
             Change string to title case. First letter tu upper, rest to lower case.
             </summary>
             <param name="str"></param>
+            <param name="allWords">Determines whether all words should be treated separately.</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.CamelCase(System.String)">

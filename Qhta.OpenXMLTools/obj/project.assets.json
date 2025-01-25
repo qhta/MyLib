@@ -74,7 +74,7 @@
           }
         }
       },
-      "Qhta.TextUtils/3.4.0": {
+      "Qhta.TextUtils/3.5.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
@@ -192,7 +192,7 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Qhta.Collections": "4.7.0",
-          "Qhta.TextUtils": "3.4.0"
+          "Qhta.TextUtils": "3.5.0"
         },
         "compile": {
           "bin/placeholder/Qhta.Unicode.dll": {}
@@ -415,10 +415,10 @@
         "readme.md"
       ]
     },
-    "Qhta.TextUtils/3.4.0": {
-      "sha512": "9qhua4FonGIG6a27KNFFk9tCgyYcNmZvWwchnUmxpknLoAOBSlu0EEwvVz/SztkEVWFRN25SzWONHDT4Oi5RkQ==",
+    "Qhta.TextUtils/3.5.0": {
+      "sha512": "LUsNNp+Woc8EM1sP3zK+nJcU5oj7t8TEYBHSX4CI9OBX6o1e9sYYH0/D+HZ815BlXjXvneP5/d6s6/3yaCfwGA==",
       "type": "package",
-      "path": "qhta.textutils/3.4.0",
+      "path": "qhta.textutils/3.5.0",
       "files": [
         ".nupkg.metadata",
         "lib/net6.0/Qhta.TextUtils.dll",
@@ -429,7 +429,7 @@
         "lib/net8.0/Qhta.TextUtils.xml",
         "lib/netstandard2.0/Qhta.TextUtils.dll",
         "lib/netstandard2.0/Qhta.TextUtils.xml",
-        "qhta.textutils.3.4.0.nupkg.sha512",
+        "qhta.textutils.3.5.0.nupkg.sha512",
         "qhta.textutils.nuspec",
         "readme.md"
       ]
@@ -709,7 +709,7 @@
       "DocumentFormat.OpenXml >= 3.2.0",
       "NETStandard.Library >= 2.0.3",
       "Qhta.Collections >= 4.7.0",
-      "Qhta.TextUtils >= 3.4.0",
+      "Qhta.TextUtils >= 3.5.0",
       "Qhta.TypeUtils >= 1.4.0",
       "Qhta.Unicode >= 1.2.1",
       "System.ComponentModel.Annotations >= 5.0.0"
@@ -790,7 +790,7 @@
           },
           "Qhta.TextUtils": {
             "target": "Package",
-            "version": "[3.4.0, )"
+            "version": "[3.5.0, )"
           },
           "Qhta.TypeUtils": {
             "target": "Package",

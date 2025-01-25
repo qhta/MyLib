@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TextUtils\\Qhta.TextUtils.csproj": {
-      "version": "3.4.0",
+      "version": "3.5.0",
       "restore": {
         "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TextUtils\\Qhta.TextUtils.csproj",
         "projectName": "Qhta.TextUtils",
@@ -32,6 +32,7 @@
           "netstandard2.0"
         ],
         "sources": {
+          "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
           "d:\\VS\\Projects\\mylib\\bin": {},
           "https://api.nuget.org/v3/index.json": {}
         },

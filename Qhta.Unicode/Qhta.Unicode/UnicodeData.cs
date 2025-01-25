@@ -106,11 +106,11 @@ public class UnicodeData : Dictionary<int, CharInfo>
     NameWordIndex.Initialize(this);
     taskB.Wait();
     LoadAliases(AliasesFileName);
-    CharNameIndex.Initialize(this);
     CategoryIndex.Initialize(this);
     DecompositionIndex.Initialize(this);
     taskC.Wait();
     LoadScripts(ScriptsFileName);
+    CharNameIndex.Initialize(this);
   }
 
   /// <summary>
