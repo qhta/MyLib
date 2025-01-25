@@ -27,9 +27,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="ScriptCodes.txt">
+    <ContentWithTargetPath Include="ScriptCodes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+      <TargetPath>$(OutDir)..\..\..\ScriptCodes.txt</TargetPath>
+    </ContentWithTargetPath>
+    <None Include="ScriptCodes.txt" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ContentWithTargetPath Include="GenCharNameWordAbbr.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\GenCharNameWordAbbr.txt</TargetPath>
+    </ContentWithTargetPath>
+    <None Include="GenCharNameWordAbbr.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ContentWithTargetPath Include="GenCharNameStringRepl.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\GenCharNameStringRepl.txt</TargetPath>
+    </ContentWithTargetPath>
+    <None Include="GenCharNameStringRepl.txt" />
+  </ItemGroup>
 </Project>

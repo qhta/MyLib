@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using System.Xml.Linq;
 
@@ -20,9 +21,17 @@ public class CharNameIndex : Dictionary<string, CodePoint>
   /// <param name="ucd"></param>
   public void Initialize(UnicodeData ucd)
   {
+    if (Initialized)
+      return;
     Ucd = ucd;
+    StringReplacements = new Dictionary<string, string>();
+    InitializeMapping(StringReplacements, "GenCharNameStringRepl.txt");
+    WordsAbbreviations = new Dictionary<string, string>();
+    InitializeMapping(WordsAbbreviations, "GenCharNameWordAbbr.txt");
+    Initialized = true;
     CreateShortNamesToFile("CharNames.txt");
   }
+  private static bool Initialized = false;
 
   /// <summary>
   /// Add a code point to the this.
@@ -78,9 +87,9 @@ public class CharNameIndex : Dictionary<string, CodePoint>
                   Add(charName, charInfo.CodePoint);
                   break;
                 }
-                throw new DuplicateNameException($"CharName \"{charName}\" already exists");
-                charName = charName + alternative.ToString();
-                Add(charName, charInfo.CodePoint);
+                throw new DuplicateNameException($"Conflict between code points {charInfo1.CodePoint} and {charInfo.CodePoint}. CharName \"{charName}\" already exists");
+                //charName = charName + alternative.ToString();
+                //Add(charName, charInfo.CodePoint);
               }
             }
           }
@@ -106,36 +115,33 @@ public class CharNameIndex : Dictionary<string, CodePoint>
   /// <returns></returns>
   public string? CreateShortName(CharInfo charInfo, int alternative = 0)
   {
-    if (charInfo.CodePoint == 0x16AC)
+    if (charInfo.CodePoint == 0x166D)
       Debug.Assert(true);
 
     string longName = charInfo.Name;
     string? charName = null;
-    if (charInfo.CodePoint == 0x0021)
-      Debug.Assert(true);
+
     if (charInfo.CodePoint == 0x007F)
       charName = "DEL";
     else if (charInfo.Category == UcdCategory.Cc || charInfo.CodePoint == 0x020 || longName.StartsWith("<"))
       charName = CreateAbbreviationCharName(charInfo);
     else if (charInfo.Category.ToString()[0] == 'Z')
       charName = CreateShortenName(charInfo, alternative);
-    else if (longName.StartsWith("MODIFIER LETTER "))
-      charName = CreateModifierLetterName(charInfo, alternative);
+    else if (longName.StartsWith("MODIFIER LETTER ") || charInfo.Category == UcdCategory.Mn)
+      charName = CreateModifierLetterName(longName, alternative);
     else if (longName.StartsWith("COMBINING "))
-      charName = CreateCombiningCharName(charInfo, alternative);
+      charName = CreateCombiningCharName(longName, alternative);
     else if (longName.StartsWith("VULGAR FRACTION "))
-      charName = CreateVulgarFractionName(charInfo, alternative);
+      charName = CreateVulgarFractionName(longName, alternative);
     else if (longName.StartsWith("PRESENTATION FORM "))
-      charName = CreatePresentationFormName(charInfo, alternative);
+      charName = CreatePresentationFormName(longName, alternative);
     else if (longName.StartsWith("FULLWIDTH "))
-      charName = CreateFullWidthName(charInfo, alternative);
+      charName = CreateFullWidthName(longName, alternative);
     else if (charInfo.Category.ToString()[0] == 'L')
-      charName = CreateLetterName(charInfo, alternative);
+      charName = CreateLetterName(longName, alternative);
     else
       charName = CreateShortenName(charInfo, alternative);
     //Debug.WriteLine($"{charInfo.CodePoint};{charName}");
-    if (charName!.Length == 1)
-      Debug.Assert(true);
     return charName;
   }
 
@@ -164,14 +170,12 @@ public class CharNameIndex : Dictionary<string, CodePoint>
   /// <returns></returns>
   private string CreateShortenName(CharInfo charInfo, int alternative = 0)
   {
-    if (charInfo.CodePoint == 0xFE32)
-      Debug.Assert(true);
     var longName = charInfo.Name.ToString();
     longName = ReplaceStrings(longName, alternative);
     var sb = new StringBuilder();
     if (charInfo.Category.ToString() == "Sk")
       longName = longName.Replace(" AND ", " ");
-    var words = longName.Split([' ', ',', '-'], StringSplitOptions.RemoveEmptyEntries).ToList();
+    var words = longName.Split([' ', ',', '-','_'], StringSplitOptions.RemoveEmptyEntries).ToList();
     for (int i = words.Count - 1; i >= 0; i--)
     {
       var word = words[i];
@@ -180,7 +184,7 @@ public class CharNameIndex : Dictionary<string, CodePoint>
     }
     if (words.Count == 1)
     {
-      if (WordsToReplace.TryGetValue(words[0], out var shortWord))
+      if (WordsAbbreviations.TryGetValue(words[0], out var shortWord))
         return shortWord;
       return words[0].ToLower();
     }
@@ -188,12 +192,15 @@ public class CharNameIndex : Dictionary<string, CodePoint>
     {
       var word = words[i];
 
-      if (i == 0 && TryFindScriptName(word, alternative, out var scCode))
+      if (TryFindScriptName(word, alternative, out var scCode))
       {
         scCode = scCode.ToLower();
         sb.Append(scCode);
         continue;
       }
+
+      if (word == "LETTER" || word == "LIGATURE")
+        continue;
 
       if (charInfo.Category == UcdCategory.Sc && i == 0)
       {
@@ -209,7 +216,7 @@ public class CharNameIndex : Dictionary<string, CodePoint>
           sb.Append(char.ToLower(word[1]));
       }
       else
-      if (WordsToReplace.TryGetValue(word, out var shortWord))
+      if (WordsAbbreviations.TryGetValue(word, out var shortWord))
         sb.Append(shortWord);
       else
         //if (i < words.Count - 1)
@@ -220,45 +227,44 @@ public class CharNameIndex : Dictionary<string, CodePoint>
     return sb.ToString();
   }
 
-  private string CreateLetterName(CharInfo charInfo, int alternative = 0)
+  private string CreateLetterName(string longName, int alternative = 0)
   {
-    var longName = charInfo.Name.ToString();
     return CreateShortenName(longName, alternative);
   }
 
-  private string CreateModifierLetterName(CharInfo charInfo, int alternative = 0)
+  private string CreateModifierLetterName(string longName, int alternative = 0)
   {
-    var longName = charInfo.Name.ToString();
-    longName = longName.Replace("MODIFIER LETTER ", "");
-    return CreateShortenName(longName, alternative) + "mod";
+    var k = longName.IndexOf("MODIFIER LETTER ");
+    if (k >= 0)
+      longName = longName.Replace("MODIFIER LETTER ", "");
+    var result = CreateShortenName(longName, alternative);
+    if (k>=0)
+      result = "mod" + result;
+    return result;
   }
 
-  private string CreateCombiningCharName(CharInfo charInfo, int alternative = 0)
+  private string CreateCombiningCharName(string longName, int alternative = 0)
   {
-    var longName = charInfo.Name.ToString();
-    longName = longName.Substring("COMBINING ".Length);
+    longName = longName.Replace("COMBINING ","");
     longName = longName.Replace(" AND ", " ");
     longName = longName.Replace('-', ' ');
     return "comb" + CreateShortenName(longName, alternative);
   }
 
-  private string CreateVulgarFractionName(CharInfo charInfo, int alternative = 0)
+  private string CreateVulgarFractionName(string longName, int alternative = 0)
   {
-    var longName = charInfo.Name.ToString();
     longName = longName.Replace("VULGAR FRACTION ", "");
     return CreateShortenName(longName, alternative);
   }
 
-  private string CreatePresentationFormName(CharInfo charInfo, int alternative = 0)
+  private string CreatePresentationFormName(string longName, int alternative = 0)
   {
-    var longName = charInfo.Name.ToString();
     longName = longName.Replace("PRESENTATION FORM FOR VERTICAL ", "VERTICAL");
     return CreateShortenName(longName, alternative);
   }
 
-  private string CreateFullWidthName(CharInfo charInfo, int alternative = 0)
+  private string? CreateFullWidthName(string longName, int alternative = 0)
   {
-    var longName = charInfo.Name.ToString();
     longName = longName.Replace("FULLWIDTH ", "");
     return "wide" + CreateShortenName(longName, alternative);
   }
@@ -274,16 +280,20 @@ public class CharNameIndex : Dictionary<string, CodePoint>
     for (int i = 0; i < ss.Length; i++)
     {
       var word = ss[i];//.Replace('-', '_');
-      if (word == "LATIN")
-      {
-        continue;
-      }
-      if (i == 0 && TryFindScriptName(word, alternative, out var scCode))
+
+      if (word != "YI" && TryFindScriptName(word, alternative, out var scCode))
       {
         scCode = scCode.ToLower();
         sb.Append(scCode);
         continue;
       }
+      if (word == "LETTER")
+        continue;
+      if (word == "LIGATURE")
+        continue;
+      if (word == "SYMBOL")
+        continue;
+
       if (word == "WITH")
       {
         wasWith = true;
@@ -294,7 +304,7 @@ public class CharNameIndex : Dictionary<string, CodePoint>
       if (TryFindWordToRemove(word, alternative))
         continue;
 
-      if (word == "CAPITAL_LETTER" || word == "CAPITAL_LIGATURE")
+      if (word == "CAPITAL" || word == "CAPITAL_LETTER" || word == "CAPITAL_LIGATURE")
       {
         wasCapital = true;
         continue;
@@ -306,16 +316,25 @@ public class CharNameIndex : Dictionary<string, CodePoint>
         continue;
       }
 
-      if (word == "SMALL_CAPITAL_LETTER")
+      if (word.Contains('_') && word.Contains("SMALL") && word.Contains("CAPITAL"))
       {
         wasCapital = true;
         wasSmall = true;
         continue;
       }
 
-      if (WordsToReplace.TryGetValue(word, out var replacement) && replacement.Length > 2)
+      if (WordsAbbreviations.TryGetValue(word, out var replacement) && replacement.Length > 2)
+      {
         sb.Append(replacement);
-      else
+        continue;
+      }
+
+      if (AdjectiveWords.Contains(word))
+      {
+        sb.Append(word.ToLower());
+        continue;
+      }
+
       if (wasCapital)
       {
         if (wasSmall)
@@ -354,7 +373,7 @@ public class CharNameIndex : Dictionary<string, CodePoint>
 
   private static string ReplaceStrings(string longName, int alternative)
   {
-    foreach (var entry in StringsToReplace)
+    foreach (var entry in StringReplacements)
       longName = longName.Replace(entry.Key, entry.Value);
 
     return longName;
@@ -362,86 +381,21 @@ public class CharNameIndex : Dictionary<string, CodePoint>
 
   private static bool TryFindScriptName(string word, int alternative, out string scCode)
   {
-    word = word.Replace('_', ' ').TitleCase(true);
+    if (word== "CANADIAN")
+      word = "Canadian Aboriginal";
+    else
+      word = word.Replace('_', ' ').TitleCase(true);
     if (ScriptCodes.UcdScriptNames.TryGetValue1(word, out scCode))
     {
       if (alternative == 0)
       {
-        if (scCode is "Latn" or "Grek" or "Hebr")
+        if (scCode is "Latn" or "Grek" or "Hebr" or "Arab")
           scCode = "";
       }
       return true;
     }
     return false;
   }
-
-  private static readonly Dictionary<string, string> StringsToReplace = new()
-  {
-    {" -"," ALT "},
-    {"SQUARE BRACKET", "BRACKET"},
-    {"CURLY BRACKET", "BRACE"},
-    {"SMALL CAPITAL LETTER", "SMALL_CAPITAL_LETTER"},
-    {"CAPITAL LETTER", "CAPITAL_LETTER"},
-    {"SMALL LETTER", "SMALL_LETTER"},
-    {"CAPITAL LIGATURE", "CAPITAL_LIGATURE"},
-    {"SMALL LIGATURE", "SMALL_LIGATURE"},
-    {"NO-BREAK", "NOBREAK"},
-    {"NON-BREAKING", "NOBREAK"},
-    {"THREE-PER-EM", "tpm"},
-    {"FOUR-PER-EM", "fpm"},
-    {"SIX-PER-EM", "spm"},
-    {"TWO-EM DASH","twoemdash"},
-    {"THREE-EM DASH", "triemdash"},
-    {"EM DASH", "emdash"},
-    {"EN DASH", "endash"},
-    {"NUMBER SIGN", "hash"},
-    {"REVERSE SOLIDUS", "BACKSLASH"},
-    {"SOLIDUS", "SLASH"},
-    {"-THAN", ""},
-    {"HYPHEN-MINUS", "dash"},
-    {"PRECEDED BY", "AFTER"},
-    {"COMMERCIAL AT", "at"},
-    {"SOFT HYPHEN", "sh"},
-    {"MULTIPLICATION", "times"},
-    {"RETROFLEX HOOK", "rhook"},
-    {"PALATAL HOOK", "phook"},
-    {"PALATALIZED HOOK", "phook"},
-    {"CANADIAN SYLLABICS", "CANADIAN_ABORIGINAL"},
-    {"KATAKANA-HIRAGANA", "JAPANESE"},
-    {"ZERO WIDTH", "ZEROWIDTH"},
-    {"NON-JOINER", "NONJOINER"},
-    {"LEFT-TO-RIGHT EMBEDDING", "lre"},
-    {"LEFT-TO-RIGHT OVERRIDE", "lro"},
-    {"LEFT-TO-RIGHT ISOLATE", "lri"},
-    {"LEFT TO RIGHT", "ltr"},
-    {"RIGHT-TO-LEFT EMBEDDING", "rle"},
-    {"RIGHT-TO-LEFT OVERRIDE", "rlo"},
-    {"RIGHT-TO-LEFT ISOLATE", "rli"},
-    {"RIGHT TO LEFT", "rtl"},
-    {"FIRST STRONG ISOLATE", "fsi"},
-    {"POP DIRECTIONAL FORMATTING", "pdf"},
-    {"POP DIRECTIONAL ISOLATE", "pdi"},
-    {"WORD JOINER", "wjn"},
-    {"INHIBIT SYMMETRIC SWAPPING","iss"},
-    {"ACTIVATE SYMMETRIC SWAPPING","ass"},
-    {"INHIBIT ARABIC FORM SHAPING","iafs"},
-    {"ACTIVATE ARABIC FORM SHAPING","aafs"},
-    {"NATIONAL DIGIT SHAPES", "natds"},
-    {"NOMINAL DIGIT SHAPES", "nomds"},
-    {"INTERLINEAR ANNOTATION ANCHOR","iaa"},
-    {"INTERLINEAR ANNOTATION SEPARATOR","ias"},
-    {"INTERLINEAR ANNOTATION TERMINATOR","iat"},
-    {"HEBREW LETTER", "HEBREW"},
-    {"HEBREW LIGATURE", "HEBREW"},
-    {"HEBREW PUNCTUATION", "HEBREW"},
-    {"HEBREW POINT", "HEBREW"},
-    {"VARIATION SELECTOR", "varsel"},
-    {"CJK COMPATIBILITY IDEOGRAPH","cjk"},
-    {"ISOLATED FORM", "ISOLATED"},
-    {"FINAL FORM", "FINAL"},
-    {"ARABIC LETTER","ARABIC"},
-    {"CYPRIOT SYLLABLE", "CYPRIOT"},
-  };
 
   private static readonly Dictionary<string, int> WordsToRemove = new()
   {
@@ -453,131 +407,34 @@ public class CharNameIndex : Dictionary<string, CodePoint>
     {"THAN", 0},
   };
 
-  private static readonly Dictionary<string, string> WordsToReplace = new()
+  private static readonly List<string> AdjectiveWords = new()
   {
-    {"ABBREVIATION", "abbr"},
-    {"ACCENT", "acc"},
-    {"ACUTE", "acute"},
-    {"AMPERSAND", "amp"},
-    {"ANGLE", "angle"},
-    {"APOSTROPHE", "apos"},
-    {"APPLICATION","app"},
-    {"ARROWHEAD","ahead"},
-    {"ASTERISK", "ast"},
-    {"AT", "at"},
-    {"BACKSLASH", "bslash"},
-    {"BAR", "bar"},
-    {"BRACE", "brace"},
-    {"BRACKET", "bracket"},
-    {"BREVE", "breve"},
-    {"BULLET", "bullet"},
-    {"CARET", "caret"},
-    {"CARON", "caron"},
-    {"CEDILLA", "cedilla"},
-    {"CENTRED","cnt"},
-    {"CIRCLE", "circle"},
-    {"CIRCUMFLEX", "cflex"},
-    {"CLOSE", "close"},
-    {"COLON", "colon"},
-    {"COMMA", "comma"},
-    {"COPYRIGHT", "cpright"},
-    {"CURLY", "curly"},
-    {"DASH", "dash"},
-    {"DESCENDER", "desc"},
-    {"DIAERESIS", "die"},
-    {"DOLLAR", "dollar"},
-    {"DOT", "dot"},
-    {"DOTTED","dot"},
-    {"DOUBLE", "dbl"},
-    {"ELLIPSIS", "ellipsis"},
-    {"EM", "em"},
-    {"EN", "en"},
-    {"EQUALS", "eq"},
-    {"EXCLAMATION", "excl"},
-    {"FEMININE", "fem"},
-    {"FIGURE", "fig"},
-    {"FOOTNOTE", "ftn"},
-    {"FRACTION", "frac"},
-    {"FULL", "f"},
-    {"FUNCTION","funct"},
-    {"GLOTTAL", "glot"},
-    {"GREATER", "gt"},
-    {"GRAVE", "grave"},
-    {"HAIR", "hair"},
-    {"HASH", "hash"},
-    {"HORIZONTAL", "horz"},
-    {"HYPHEN", "hyphen"},
-    {"IDEOGRAPHIC", "id"},
-    {"INDICATOR", "ind"},
-    {"INVERTED", "inv"},
-    {"INVISIBLE","nv"},
-    {"JOINER","jn"},
-    {"LEFT", "l"},
-    {"LESS", "lt"},
-    {"LETTER", "letter"},
-    {"LIGATURE", "lig"},
-    {"LONG", "long"},
-    {"LOW", "low"},
-    {"MACRON", "macron"},
-    {"MARK", "mark"},
-    {"MARKER", "mark"},
-    {"MASCULINE", "masc"},
-    {"MATHEMATICAL", "mat"},
-    {"MEDIUM", "med"},
-    {"MIDDLE", "mid"},
-    {"MINUS", "minus"},
-    {"MODIFIED","mod"},
-    {"NARROW", "nar"},
-    {"NOBREAK", "nb"},
-    {"NONBREAKING", "nb"},
-    {"NONJOINER","njn"},
-    {"NOT", "not"},
-    {"NUMBER", "num"},
-    {"OBLIQUE", "obl"},
-    {"OGONEK", "ogonek"},
-    {"OPEN", "open"},
-    {"ORDINAL", "ord"},
-    {"PARAGRAPH", "para"},
-    {"PARENTHESIS", "paren"},
-    {"PERCENT", "percent"},
-    {"PLUS", "plus"},
-    {"POINTING", "pt"},
-    {"PRIVATE", "priv"},
-    {"PUNCTUATION", "punct"},
-    {"QUADRUPLE", "quad"},
-    {"QUESTION", "quest"},
-    {"QUINTUPLE", "quint"},
-    {"QUOTATION", "quote"},
-    {"QUOTE", "quote"},
-    {"REGISTERED", "regrd"},
-    {"REVERSED", "rev"},
-    {"RIGHT", "r"},
-    {"RING", "ring"},
-    {"ROUND", "round"},
-    {"SECTION", "sect"},
-    {"SEMICOLON", "scolon"},
-    {"SEPARATOR", "sep"},
-    {"SHORT", "short"},
-    {"SIGN", "sign"},
-    {"SIX-PER-EM", "spm"},
-    {"SLASH", "slash"},
-    {"SPACE", "sp"},
-    {"SQUARE", "sq"},
-    {"STAR", "star"},
-    {"STROKE", "stroke"},
-    {"SUBSCRIPT", "sub"},
-    {"SUPERSCRIPT", "sup"},
-    {"SURROGATE", "sur"},
-    {"THIN", "thin"},
-    {"TILDE", "tilde"},
-    {"TRIPLE", "tple"},
-    {"TURNED", "turn"},
-    {"VERTICAL", "vert"},
-    {"VERTICALLY","vert"},
-    {"WAVE", "wave"},
-    {"WORD_JOINER","wjn"},
-    {"UNDERSCORE", "uline"},
-    {"ZEROWIDTH", "zw"},
+    "AFRICAN",
+    "FINAL",
+    "INITIAL",
+    "ISOLATED",
   };
 
+  private static Dictionary<string, string> StringReplacements = null!;
+  private static Dictionary<string, string> WordsAbbreviations = null!;
+
+  private static void InitializeMapping(Dictionary<string, string> mapping, string fileName)
+  {
+    using (var reader = File.OpenText(fileName))
+    {
+      while (!reader.EndOfStream)
+      {
+        var line = reader.ReadLine();
+        if (line is not null && !line.StartsWith("#"))
+        {
+          var parts = line.Split(';');
+          if (parts.Length == 2)
+          {
+            mapping.Add(parts[0], parts[1]);
+          }
+        }
+      }
+    }
+
+  }
 }

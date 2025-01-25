@@ -168,6 +168,7 @@ Wcho;Wancho
 Xpeo;Old Persian
 Xsux;Cuneiform
 Yezi;Yezidi
+Yidd;Yiddish
 Yiii;Yi
 Zanb;Zanabazar Square
 Zinh;Inherited

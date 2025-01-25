@@ -16,16 +16,16 @@ public static class ScriptCodes
 
   private static BiDiDictionary<string, string> LoadUcdScriptNames(string fileName)
   {
-    var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-    var fileName1 = Path.Combine(baseDirectory, fileName);
-    while (!baseDirectory!.EndsWith("\\bin")) baseDirectory = Path.GetDirectoryName(baseDirectory);
-    var fileName2 = Path.Combine(baseDirectory, fileName);
-    if (!File.Exists(fileName2) && File.Exists(fileName1))
-      File.Copy(fileName1, fileName2);
-    if (File.Exists(fileName2) && File.Exists(fileName1))
-      if (File.GetLastWriteTime(fileName1) > File.GetLastWriteTime(fileName2))
-        File.Copy(fileName1, fileName2, true);
-    fileName = fileName2;
+    //var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    //var fileName1 = Path.Combine(baseDirectory, fileName);
+    //while (!baseDirectory!.EndsWith("\\bin")) baseDirectory = Path.GetDirectoryName(baseDirectory);
+    //var fileName2 = Path.Combine(baseDirectory, fileName);
+    //if (!File.Exists(fileName2) && File.Exists(fileName1))
+    //  File.Copy(fileName1, fileName2);
+    //if (File.Exists(fileName2) && File.Exists(fileName1))
+    //  if (File.GetLastWriteTime(fileName1) > File.GetLastWriteTime(fileName2))
+    //    File.Copy(fileName1, fileName2, true);
+    //fileName = fileName2;
     var result = new BiDiDictionary<string, string>();
     using (var reader = new StreamReader(fileName))
     {
