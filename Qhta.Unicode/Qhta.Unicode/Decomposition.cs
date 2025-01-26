@@ -15,7 +15,7 @@ public class Decomposition
   /// <summary>
   /// Gets or sets the code points.
   /// </summary>
-  public List<int> CodePoints { get; set; } = new();
+  public List<CodePoint> CodePoints { get; set; } = new();
 
   #region implicit operators
   /// <summary>

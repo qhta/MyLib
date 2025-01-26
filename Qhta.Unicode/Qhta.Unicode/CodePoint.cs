@@ -7,7 +7,10 @@
 /// </summary>
 public readonly struct CodePoint: IComparable
 {
-  private readonly int Value;
+  /// <summary>
+  /// Integer value of the Unicode character.
+  /// </summary>
+  public readonly int Value;
 
   // ReSharper disable once ConvertToPrimaryConstructor
   /// <summary>

@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Package Description</description>
-    <repository type="git" commit="3dd6a13f96141adc978ef953ac62df4fde85d38b" />
+    <repository type="git" commit="fe1fd4cbf44e1ede47783262990649281313152d" />
     <dependencies>
       <group targetFramework="net8.0">
         <dependency id="Qhta.Collections" version="4.7.0" exclude="Build,Analyzers" />

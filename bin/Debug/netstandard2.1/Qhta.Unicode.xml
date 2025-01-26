@@ -389,9 +389,24 @@
             <param name="charName">Name is a single-word string</param>
             <param name="codePoint"></param>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortName(Qhta.Unicode.CharInfo,System.Int32)">
+        <member name="M:Qhta.Unicode.CharNameIndex.IsAccepted(Qhta.Unicode.CharInfo)">
+            <summary>
+            Check if a character is accepted in this name generation process.
+            </summary>
+            <param name="charInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.GenerateShortName(Qhta.Unicode.CharInfo,System.Int32)">
             <summary>
             Create a short name for a character.
+            </summary>
+            <param name="charInfo"></param>
+            <param name="alternative">Some names can have alternatives</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateDecompositionName(Qhta.Unicode.CharInfo,System.Int32)">
+            <summary>
+            Create a short name for a character decomposition.
             </summary>
             <param name="charInfo"></param>
             <param name="alternative">Some names can have alternatives</param>
@@ -410,6 +425,11 @@
             A Unicode code point.
             Contains a single integer value.
             Converts to and from hexadecimal string.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.CodePoint.Value">
+            <summary>
+            Integer value of the Unicode character.
             </summary>
         </member>
         <member name="M:Qhta.Unicode.CodePoint.#ctor(System.Int32)">

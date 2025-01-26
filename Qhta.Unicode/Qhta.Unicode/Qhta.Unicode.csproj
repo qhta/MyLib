@@ -49,4 +49,12 @@
     </ContentWithTargetPath>
     <None Include="GenCharNameStringRepl.txt" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ContentWithTargetPath Include="GenCharNameAdjectives.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\GenCharNameAdjectives.txt</TargetPath>
+    </ContentWithTargetPath>
+    <None Include="GenCharNameAdjectives.txt" />
+  </ItemGroup>
 </Project>
