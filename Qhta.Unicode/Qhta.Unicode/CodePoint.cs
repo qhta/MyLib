@@ -98,4 +98,10 @@ public readonly struct CodePoint: IComparable
     return new CodePoint(value);
   }
   #endregion
+
+  /// <inheritdoc />
+  public override int GetHashCode()
+  {
+    return Value.GetHashCode();
+  }
 }

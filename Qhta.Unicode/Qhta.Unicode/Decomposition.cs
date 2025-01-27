@@ -11,7 +11,7 @@ public class Decomposition
   /// <summary>
   /// Gets or sets the decomposition type.
   /// </summary>
-  public DecompositionType? Type { get; set; }
+  public DecompositionType Type { get; set; }
   /// <summary>
   /// Gets or sets the code points.
   /// </summary>
@@ -53,19 +53,21 @@ public class Decomposition
     if (ss.Length == 0)
       return new Decomposition();
     int i = 0;
-    DecompositionType? type = null;
+    DecompositionType type;
     if (ss[0].StartsWith("<"))
     {
       i = 1;
       if (ss[0].EndsWith(">"))
       {
-        if (!Enum.TryParse<DecompositionType>(ss[0].Substring(1, ss[0].Length-2), true, out var val))
+        if (!Enum.TryParse<DecompositionType>(ss[0].Substring(1, ss[0].Length - 2), true, out var val))
           throw new FormatException($"Invalid decomposition type {ss[0]}");
         type = val;
       }
       else
         throw new FormatException("Invalid decomposition format");
     }
+    else
+      type = DecompositionType.Concat;
     var result = new Decomposition { Type = type };
     for (; i < ss.Length; i++)
     {
@@ -83,11 +85,8 @@ public class Decomposition
   public override string ToString()
   {
     var sb = new StringBuilder();
-    if (Type!=null)
-    {
-      sb.Append($"<{Type.ToString()?.ToLower()}>");
-      sb.Append(' ');
-    }
+    sb.Append($"<{Type.ToString()?.ToLower()}>");
+    sb.Append(' ');
     foreach (var codePoint in CodePoints)
     {
       sb.Append(codePoint.ToString("X4"));

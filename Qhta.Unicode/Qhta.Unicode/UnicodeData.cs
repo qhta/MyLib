@@ -14,23 +14,27 @@ public class UnicodeData : Dictionary<int, CharInfo>
   /// <summary>
   /// Original name index
   /// </summary>
-  public readonly Dictionary<string, CodePoint> NameIndex = new Dictionary<string, CodePoint>();
+  public readonly Dictionary<string, CodePoint> NameIndex = new();
   /// <summary>
   /// Name words index
   /// </summary>
-  public readonly NameWordIndex NameWordIndex = new NameWordIndex();
+  public readonly NameWordIndex NameWordIndex = new();
   /// <summary>
   /// Short name index
   /// </summary>
-  public readonly CharNameIndex CharNameIndex = new CharNameIndex();
+  public readonly CharNameIndex CharNameIndex = new ();
+  /// <summary>
+  /// Short name index
+  /// </summary>
+  public readonly CharFunctionIndex CharFunctionIndex = new();
   /// <summary>
   /// Category index
   /// </summary>
-  public readonly CategoryIndex CategoryIndex = new CategoryIndex();
+  public readonly CategoryIndex CategoryIndex = new();
   /// <summary>
   /// Index of decomposition types.
   /// </summary>
-  public readonly DecompositionIndex DecompositionIndex = new DecompositionIndex();
+  public readonly DecompositionIndex DecompositionIndex = new();
   /// <summary>
   /// Index of Scripts
   /// </summary>
@@ -111,6 +115,7 @@ public class UnicodeData : Dictionary<int, CharInfo>
     taskC.Wait();
     LoadScripts(ScriptsFileName);
     CharNameIndex.Initialize(this);
+    CharFunctionIndex.Initialize(this);
   }
 
   /// <summary>

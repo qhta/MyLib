@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.collections\\bididictionary\u00602.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|solutionrelative:bididictionary\u00602.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.collections\\qhta.collections.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|solutionrelative:qhta.collections.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
@@ -33,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.collections\\wildcardstrings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|solutionrelative:wildcardstrings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.collections\\bididictionary\u00602.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|solutionrelative:bididictionary\u00602.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,11 +46,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 9,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "WildcardSortedStringDictionary\u00601.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\WildcardSortedStringDictionary\u00601.cs",
               "RelativeDocumentMoniker": "WildcardSortedStringDictionary\u00601.cs",
@@ -62,7 +66,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "WildcardSortedStringDictionary.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\WildcardSortedStringDictionary.cs",
               "RelativeDocumentMoniker": "WildcardSortedStringDictionary.cs",
@@ -74,7 +78,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "WildcardStringDictionary\u00601.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\WildcardStringDictionary\u00601.cs",
               "RelativeDocumentMoniker": "WildcardStringDictionary\u00601.cs",
@@ -86,7 +90,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "WildcardStringDictionary.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\WildcardStringDictionary.cs",
               "RelativeDocumentMoniker": "WildcardStringDictionary.cs",
@@ -98,20 +102,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Qhta.Collections.csproj",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
               "RelativeDocumentMoniker": "Qhta.Collections.csproj",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
               "RelativeToolTip": "Qhta.Collections.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2025-01-18T17:36:26.985Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "WildcardStringComparer.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\WildcardStringComparer.cs",
               "RelativeDocumentMoniker": "WildcardStringComparer.cs",
@@ -123,7 +127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "WildcardStrings.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\WildcardStrings.cs",
               "RelativeDocumentMoniker": "WildcardStrings.cs",
@@ -135,7 +139,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "readme.md",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\docs\\readme.md",
               "RelativeDocumentMoniker": "docs\\readme.md",
@@ -147,15 +151,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
               "Title": "BiDiDictionary\u00602.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\BiDiDictionary\u00602.cs",
               "RelativeDocumentMoniker": "BiDiDictionary\u00602.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\BiDiDictionary\u00602.cs",
               "RelativeToolTip": "BiDiDictionary\u00602.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAowC8AAAAAAAAA",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAAAHsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T17:36:27.024Z"
+              "WhenOpened": "2025-01-18T17:36:27.024Z",
+              "EditorCaption": ""
             }
           ]
         }

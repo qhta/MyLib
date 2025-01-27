@@ -14,8 +14,8 @@ public class BiDiDictionary<Type1, Type2> : List<Tuple<Type1, Type2>>, IDictiona
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public BiDiDictionary()
   {
-    index1 = new Dictionary<Type1, int>();
-    index2 = new Dictionary<Type2, int>();
+    Index1 = new Dictionary<Type1, int>();
+    Index2 = new Dictionary<Type2, int>();
   }
 
   /// <summary>
@@ -27,40 +27,40 @@ public class BiDiDictionary<Type1, Type2> : List<Tuple<Type1, Type2>>, IDictiona
   {
     Comparer1 = comparer1;
     Comparer2 = comparer2;
-    index1 = new Dictionary<Type1, int>(comparer1);
-    index2 = new Dictionary<Type2, int>(comparer2);
+    Index1 = new Dictionary<Type1, int>(comparer1);
+    Index2 = new Dictionary<Type2, int>(comparer2);
   }
 
   IEqualityComparer<Type1>? Comparer1;
   IEqualityComparer<Type2>? Comparer2;
-  private Dictionary<Type1, int> index1 = null!;
-  private Dictionary<Type2, int> index2 = null!;
+  protected Dictionary<Type1, int> Index1;
+  protected Dictionary<Type2, int> Index2;
 
   public new void Clear()
   {
     base.Clear();
-    index1.Clear();
-    index2.Clear();
+    Index1.Clear();
+    Index2.Clear();
   }
 
   public void Add(Type1 value1, Type2 value2)
   {
     base.Add(new Tuple<Type1, Type2>(value1, value2));
-    if (!index1.ContainsKey(value1))
-      index1.Add(value1, base.Count - 1);
-    if (!index2.ContainsKey(value2))
-      index2.Add(value2, base.Count - 1);
+    if (!Index1.ContainsKey(value1))
+      Index1.Add(value1, base.Count - 1);
+    if (!Index2.ContainsKey(value2))
+      Index2.Add(value2, base.Count - 1);
   }
 
   public bool TryGetIndex1(Type1 key, out int n)
   {
-    var ok = index1.TryGetValue(key, out n);
+    var ok = Index1.TryGetValue(key, out n);
     return ok;
   }
 
   public bool TryGetIndex2(Type2 key, out int n)
   {
-    var ok = index2.TryGetValue(key, out n);
+    var ok = Index2.TryGetValue(key, out n);
     return ok;
   }
 
@@ -119,10 +119,12 @@ public class BiDiDictionary<Type1, Type2> : List<Tuple<Type1, Type2>>, IDictiona
 
   public bool Remove(Type1 key)
   {
-    if (TryGetIndex1(key, out int n))
+    var remove2 = TryGetValue(key, out var value);
+    if (Index1.Remove(key))
     {
-      base.RemoveAt(n);
-      return true;
+      if (remove2)
+        return Index2.Remove(value);
+      return false;
     }
     return false;
   }
@@ -181,7 +183,7 @@ public class BiDiDictionary<Type1, Type2> : List<Tuple<Type1, Type2>>, IDictiona
 
   IEnumerator<KeyValuePair<Type1, Type2>> IEnumerable<KeyValuePair<Type1, Type2>>.GetEnumerator()
   {
-    return base.ToArray().Select(item=>new KeyValuePair<Type1, Type2>(item.Item1, item.Item2)).GetEnumerator();
+    return base.ToArray().Select(item => new KeyValuePair<Type1, Type2>(item.Item1, item.Item2)).GetEnumerator();
   }
 }
 

@@ -58,22 +58,6 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Qhta.Collections/4.7.0": {
-        "type": "package",
-        "dependencies": {
-          "Qhta.TextUtils": "3.2.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/Qhta.Collections.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/Qhta.Collections.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Qhta.TextUtils/3.5.0": {
         "type": "package",
         "compile": {
@@ -187,11 +171,24 @@
           }
         }
       },
+      "Qhta.Collections/4.9.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Qhta.TextUtils": "3.2.0"
+        },
+        "compile": {
+          "bin/placeholder/Qhta.Collections.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.Collections.dll": {}
+        }
+      },
       "Qhta.Unicode/1.2.1": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Qhta.Collections": "4.7.0",
+          "Qhta.Collections": "4.9.0",
           "Qhta.TextUtils": "3.5.0"
         },
         "compile": {
@@ -394,25 +391,6 @@
         "lib/netstandard1.0/_._",
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
-      ]
-    },
-    "Qhta.Collections/4.7.0": {
-      "sha512": "N16Vl+al7XL8/BzT2BUPh5zwTit/W/kYfeCesEPVJnjhxo5tXgigpb0ejK1FkJP0wxXFLh/J7aCFZnVoJ98SVA==",
-      "type": "package",
-      "path": "qhta.collections/4.7.0",
-      "files": [
-        ".nupkg.metadata",
-        "lib/net6.0-windows7.0/Qhta.Collections.dll",
-        "lib/net6.0-windows7.0/Qhta.Collections.xml",
-        "lib/net6.0/Qhta.Collections.dll",
-        "lib/net6.0/Qhta.Collections.xml",
-        "lib/netcoreapp3.0/Qhta.Collections.dll",
-        "lib/netcoreapp3.0/Qhta.Collections.xml",
-        "lib/netstandard2.0/Qhta.Collections.dll",
-        "lib/netstandard2.0/Qhta.Collections.xml",
-        "qhta.collections.4.7.0.nupkg.sha512",
-        "qhta.collections.nuspec",
-        "readme.md"
       ]
     },
     "Qhta.TextUtils/3.5.0": {
@@ -698,6 +676,11 @@
         "version.txt"
       ]
     },
+    "Qhta.Collections/4.9.0": {
+      "type": "project",
+      "path": "../Qhta.Collections/Qhta.Collections.csproj",
+      "msbuildProject": "../Qhta.Collections/Qhta.Collections.csproj"
+    },
     "Qhta.Unicode/1.2.1": {
       "type": "project",
       "path": "../Qhta.Unicode/Qhta.Unicode/Qhta.Unicode.csproj",
@@ -708,7 +691,6 @@
     ".NETStandard,Version=v2.0": [
       "DocumentFormat.OpenXml >= 3.2.0",
       "NETStandard.Library >= 2.0.3",
-      "Qhta.Collections >= 4.7.0",
       "Qhta.TextUtils >= 3.5.0",
       "Qhta.TypeUtils >= 1.4.0",
       "Qhta.Unicode >= 1.2.1",
@@ -783,10 +765,6 @@
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
-          },
-          "Qhta.Collections": {
-            "target": "Package",
-            "version": "[4.7.0, )"
           },
           "Qhta.TextUtils": {
             "target": "Package",

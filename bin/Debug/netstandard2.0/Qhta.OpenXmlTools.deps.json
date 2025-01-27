@@ -11,7 +11,6 @@
         "dependencies": {
           "DocumentFormat.OpenXml": "3.2.0",
           "NETStandard.Library": "2.0.3",
-          "Qhta.Collections": "4.7.0",
           "Qhta.TextUtils": "3.5.0",
           "Qhta.TypeUtils": "1.4.0",
           "Qhta.Unicode": "1.2.1",
@@ -54,17 +53,6 @@
           "Microsoft.NETCore.Platforms": "1.1.0"
         }
       },
-      "Qhta.Collections/4.7.0": {
-        "dependencies": {
-          "Qhta.TextUtils": "3.5.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Qhta.Collections.dll": {
-            "assemblyVersion": "4.7.0.0",
-            "fileVersion": "4.7.0.0"
-          }
-        }
-      },
       "Qhta.TextUtils/3.5.0": {
         "runtime": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
@@ -75,7 +63,7 @@
       },
       "Qhta.TypeUtils/1.4.0": {
         "dependencies": {
-          "Qhta.Collections": "4.7.0"
+          "Qhta.Collections": "4.9.0"
         },
         "runtime": {
           "lib/netstandard2.0/Qhta.TypeUtils.dll": {
@@ -140,9 +128,20 @@
           }
         }
       },
+      "Qhta.Collections/4.9.0": {
+        "dependencies": {
+          "Qhta.TextUtils": "3.5.0"
+        },
+        "runtime": {
+          "Qhta.Collections.dll": {
+            "assemblyVersion": "4.9.0",
+            "fileVersion": "4.9.0.0"
+          }
+        }
+      },
       "Qhta.Unicode/1.2.1": {
         "dependencies": {
-          "Qhta.Collections": "4.7.0",
+          "Qhta.Collections": "4.9.0",
           "Qhta.TextUtils": "3.5.0"
         },
         "runtime": {
@@ -187,13 +186,6 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
-    },
-    "Qhta.Collections/4.7.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-N16Vl+al7XL8/BzT2BUPh5zwTit/W/kYfeCesEPVJnjhxo5tXgigpb0ejK1FkJP0wxXFLh/J7aCFZnVoJ98SVA==",
-      "path": "qhta.collections/4.7.0",
-      "hashPath": "qhta.collections.4.7.0.nupkg.sha512"
     },
     "Qhta.TextUtils/3.5.0": {
       "type": "package",
@@ -250,6 +242,11 @@
       "sha512": "sha512-3TIsJhD1EiiT0w2CcDMN/iSSwnNnsrnbzeVHSKkaEgV85txMprmuO+Yq2AdSbeVGcg28pdNDTPK87tJhX7VFHw==",
       "path": "system.runtime.compilerservices.unsafe/4.5.3",
       "hashPath": "system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
+    },
+    "Qhta.Collections/4.9.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Qhta.Unicode/1.2.1": {
       "type": "project",

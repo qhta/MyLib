@@ -272,6 +272,40 @@
             Iota_Subscript - Greek iota subscript only
             </summary>
         </member>
+        <member name="T:Qhta.Unicode.CharFunctionIndex">
+            <summary>
+            An index of codePoints with specific char function. Char function is a function Func with a parameter in braces.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.CharFunctionIndex.Initialize(Qhta.Unicode.UnicodeData)">
+            <summary>
+            Initializes index.from a UnicodeData object.
+            </summary>
+            <param name="ucd"></param>
+        </member>
+        <member name="M:Qhta.Unicode.CharFunctionIndex.Add(System.String,System.Int32)">
+            <summary>
+            Add a code point to the this.
+            </summary>
+            <param name="charFunc">Func is a single-word string</param>
+            <param name="codePoint"></param>
+        </member>
+        <member name="M:Qhta.Unicode.CharFunctionIndex.GenerateFunction(Qhta.Unicode.CharInfo,System.Int32)">
+            <summary>
+            Create a short Func for a character.
+            </summary>
+            <param name="charInfo"></param>
+            <param name="alternative">Some Functions can have alternatives</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharFunctionIndex.CreateDecompositionFunction(Qhta.Unicode.CharInfo,System.Int32)">
+            <summary>
+            Create a function for a character decomposition.
+            </summary>
+            <param name="charInfo"></param>
+            <param name="alternative">Some Functions can have alternatives</param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.Unicode.CharInfo">
             <summary>
             Unicode character information.
@@ -382,7 +416,7 @@
             </summary>
             <param name="ucd"></param>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.Add(System.String,System.Int32)">
+        <member name="M:Qhta.Unicode.CharNameIndex.AddCheck(System.Int32,System.String)">
             <summary>
             Add a code point to the this.
             </summary>
@@ -487,6 +521,9 @@
             </summary>
             <param name="value"></param>
         </member>
+        <member name="M:Qhta.Unicode.CodePoint.GetHashCode">
+            <inheritdoc />
+        </member>
         <member name="T:Qhta.Unicode.Decomposition">
             <summary>
             Decoded Unicode decomposition.
@@ -551,9 +588,9 @@
             Unicode character decomposition type.
             </summary>
         </member>
-        <member name="F:Qhta.Unicode.DecompositionType.Unknown">
+        <member name="F:Qhta.Unicode.DecompositionType.Concat">
             <summary>
-            No decomposition type
+            Concatenation
             </summary>
         </member>
         <member name="F:Qhta.Unicode.DecompositionType.Font">
@@ -964,6 +1001,11 @@
             </summary>
         </member>
         <member name="F:Qhta.Unicode.UnicodeData.CharNameIndex">
+            <summary>
+            Short name index
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.UnicodeData.CharFunctionIndex">
             <summary>
             Short name index
             </summary>

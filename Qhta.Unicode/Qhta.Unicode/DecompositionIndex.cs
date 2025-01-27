@@ -18,7 +18,7 @@ public class DecompositionIndex: Dictionary<DecompositionType, List<CodePoint>>
     {
       if (charInfo.Decomposition is not null)
       {
-        Add(charInfo.Decomposition.Type ?? DecompositionType.Unknown, charInfo.CodePoint);
+        Add(charInfo.Decomposition.Type, charInfo.CodePoint);
       }
     }
   }
