@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj": {
-      "version": "4.9.0",
+      "version": "5.0.0",
       "restore": {
         "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
         "projectName": "Qhta.Collections",
@@ -82,7 +82,7 @@
           "dependencies": {
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.2.0, )"
+              "version": "[3.6.0, )"
             }
           },
           "imports": [
@@ -122,7 +122,7 @@
           "dependencies": {
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.2.0, )"
+              "version": "[3.6.0, )"
             }
           },
           "imports": [
@@ -148,7 +148,7 @@
           "dependencies": {
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.2.0, )"
+              "version": "[3.6.0, )"
             }
           },
           "imports": [
@@ -174,7 +174,7 @@
           "dependencies": {
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.2.0, )"
+              "version": "[3.6.0, )"
             }
           },
           "imports": [
@@ -200,7 +200,7 @@
           "dependencies": {
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.2.0, )"
+              "version": "[3.6.0, )"
             }
           },
           "imports": [
@@ -232,7 +232,7 @@
             },
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.2.0, )"
+              "version": "[3.6.0, )"
             }
           },
           "imports": [
@@ -316,7 +316,7 @@
             },
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.5.0, )"
+              "version": "[3.6.0, )"
             },
             "Qhta.TypeUtils": {
               "target": "Package",
@@ -417,7 +417,7 @@
           "dependencies": {
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.5.0, )"
+              "version": "[3.6.0, )"
             }
           },
           "imports": [
@@ -449,7 +449,7 @@
             },
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.5.0, )"
+              "version": "[3.6.0, )"
             }
           },
           "imports": [
@@ -470,7 +470,7 @@
           "dependencies": {
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.5.0, )"
+              "version": "[3.6.0, )"
             }
           },
           "imports": [

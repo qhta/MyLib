@@ -13,7 +13,7 @@
     <RootNamespace>Qhta.TextUtils</RootNamespace>
     <Description>A package of functions to supplement System.Text.</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>3.5</Version>
+    <Version>3.6</Version>
     <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>

@@ -8,19 +8,19 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Package Description</description>
-    <repository type="git" commit="83b86d0bc65f24b9441e1a13448f0367ad5f7eb2" />
+    <repository type="git" commit="367adc3662ef7c9cb191550f7e5f9b877a8d71b9" />
     <dependencies>
       <group targetFramework="net8.0">
-        <dependency id="Qhta.Collections" version="4.9.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TextUtils" version="3.5.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Collections" version="5.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TextUtils" version="3.6.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Qhta.Collections" version="4.9.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TextUtils" version="3.5.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Collections" version="5.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TextUtils" version="3.6.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.1">
-        <dependency id="Qhta.Collections" version="4.9.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TextUtils" version="3.5.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Collections" version="5.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TextUtils" version="3.6.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

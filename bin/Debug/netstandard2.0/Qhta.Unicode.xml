@@ -274,7 +274,9 @@
         </member>
         <member name="T:Qhta.Unicode.CharFunctionIndex">
             <summary>
-            An index of codePoints with specific char function. Char function is a function Func with a parameter in braces.
+            An index of codePoints with specific char function.
+            Char function is a function name with a parameter in braces
+            or a rich text string in braces.
             </summary>
         </member>
         <member name="M:Qhta.Unicode.CharFunctionIndex.Initialize(Qhta.Unicode.UnicodeData)">
@@ -416,7 +418,7 @@
             </summary>
             <param name="ucd"></param>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.AddCheck(System.Int32,System.String)">
+        <member name="M:Qhta.Unicode.CharNameIndex.AddCheck(Qhta.Unicode.CodePoint,System.String)">
             <summary>
             Add a code point to the this.
             </summary>
@@ -588,9 +590,9 @@
             Unicode character decomposition type.
             </summary>
         </member>
-        <member name="F:Qhta.Unicode.DecompositionType.Concat">
+        <member name="F:Qhta.Unicode.DecompositionType.None">
             <summary>
-            Concatenation
+            Not stated
             </summary>
         </member>
         <member name="F:Qhta.Unicode.DecompositionType.Font">

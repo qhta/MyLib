@@ -1,17 +1,17 @@
-﻿using System.Data;
+﻿using System.ComponentModel.Design;
+using System.Data;
 using System.Diagnostics;
-using System.Globalization;
-using System.Runtime.InteropServices;
+using System.Runtime.ExceptionServices;
 using System.Text;
-using System.Xml.Linq;
 
 using Qhta.Collections;
-using Qhta.TextUtils;
 
 namespace Qhta.Unicode;
 
 /// <summary>
-/// An index of codePoints with specific char function. Char function is a function Func with a parameter in braces.
+/// An index of codePoints with specific char function.
+/// Char function is a function name with a parameter in braces
+/// or a rich text string in braces.
 /// </summary>
 public class CharFunctionIndex : BiDiDictionary<CodePoint, string>
 {
@@ -26,12 +26,6 @@ public class CharFunctionIndex : BiDiDictionary<CodePoint, string>
     if (Initialized)
       return;
     Ucd = ucd;
-    //StringReplacements = new Dictionary<string, string>();
-    //InitializeDictionary(StringReplacements, "GenCharNameStringRepl.txt");
-    //WordsAbbreviations = new Dictionary<string, string>();
-    //InitializeDictionary(WordsAbbreviations, "GenCharFuncWordAbbr.txt");
-    //AdjectiveWords = new List<string>();
-    //InitializeList(AdjectiveWords, "GenCharFuncAdjectives.txt");
     CreateCharFunctionsToFile("CharFunctions.txt");
     Initialized = true;
   }
@@ -59,11 +53,15 @@ public class CharFunctionIndex : BiDiDictionary<CodePoint, string>
     CreateCharFunctions();
     using (var writer = File.CreateText(fileFunc))
     {
-      foreach (CharInfo charInfo in Ucd.Values.OrderBy(item => (int)item.CodePoint))
+      foreach (var entry in this.OrderBy(item => item.Value))
       {
-        if (TryGetValue(charInfo.CodePoint, out var charFunc))
-          writer.WriteLine($"{charInfo.CodePoint};{charFunc}");
+        writer.WriteLine($"{entry.Key};{entry.Value}");
       }
+      //foreach (CharInfo charInfo in Ucd.Values.OrderBy(item => (int)item.CodePoint))
+      //{
+      //  if (TryGetValue(charInfo.CodePoint, out var charFunc))
+      //    writer.WriteLine($"{charInfo.CodePoint};{charFunc}");
+      //}
     }
   }
 
@@ -120,9 +118,24 @@ public class CharFunctionIndex : BiDiDictionary<CodePoint, string>
     var decomposition = charInfo.Decomposition;
     if (decomposition == null)
       return null;
+    if (charInfo.CodePoint == 0xFB21)
+      Debug.Assert(true);
     var sb = new StringBuilder();
     var needsSp = false;
-    foreach (var cp in decomposition.CodePoints)
+    var codePoints = decomposition.CodePoints.ToArray().ToList();
+    string longName = charInfo.Name;
+    var isParenthesized = false;
+
+    if (longName.StartsWith("PARENTHESIZED"))
+    {
+      if (codePoints.First() == '(' && codePoints.Last() == ')')
+      {
+        codePoints.RemoveAt(0);
+        codePoints.RemoveAt(codePoints.Count - 1);
+        isParenthesized = true;
+      }
+    }
+    foreach (var cp in codePoints)
     {
       if (!Ucd.TryGetValue(cp.Value, out var item))
       {
@@ -143,18 +156,90 @@ public class CharFunctionIndex : BiDiDictionary<CodePoint, string>
         if (!Ucd.CharNameIndex.TryGetValue(item.CodePoint, out str))
           str = "'" + cp.ToString("X4");
 
-      if (str.Length >1)
+      if (str.Length > 1 && !str.StartsWith("{"))
       {
         str = @"\" + str;
         needsSp = false;
       }
       if (needsSp)
         sb.Append(" ");
-      sb.Append(str);
-      needsSp = str.First()=='\\';
+      if (str.StartsWith("{") && str.EndsWith("}"))
+        sb.Append(str.Substring(1, str.Length - 2));
+      else
+        sb.Append(str);
+      needsSp = str.First() == '\\';
     }
     var sequence = sb.ToString();
-    var funcName = (decomposition.Type == DecompositionType.Super) ? "sup" : decomposition.Type.ToString().ToLower();
+    if (sequence.StartsWith("{") && sequence.StartsWith("}"))
+      return sequence.Substring(1, sequence.Length - 1);
+    if (decomposition.Type == DecompositionType.None)
+      return "{" + sequence + "}";
+
+    string funcName;
+    if (decomposition.Type == DecompositionType.Super)
+      funcName = "sup";
+    else if (decomposition.Type == DecompositionType.Vertical)
+      funcName = "vert";
+    else if (decomposition.Type == DecompositionType.Font)
+    {
+      funcName = "";
+      var words = longName.Split([' '], StringSplitOptions.RemoveEmptyEntries);
+      foreach (var word in words)
+      {
+        if (word == "ALTERNATIVE")
+          funcName = @"\alt";
+        else if (word == "BLACK-LETTER")
+          funcName = @"\fraktur";
+        else if (word == "DOUBLE-STRUCK")
+          funcName += @"\dstruck";
+        else if (word == "MATHEMATICAL" || word == "CONSTANT")
+          funcName += @"\math";
+        else if (word == "BOLD")
+          funcName += @"\b";
+        else if (word == "ITALIC")
+          funcName += @"\i";
+        else if (word == "SCRIPT")
+          funcName += @"\script";
+        else if (word == "OUTLINED")
+          funcName += @"\outl";
+        else if (word == "WIDE")
+          funcName += @"\wide";
+        else if (word == "SEGMENTED")
+          funcName += @"\segm";
+      }
+      if (funcName == "")
+        funcName = "font";
+      else
+        funcName = funcName.Substring(1);
+    }
+    else if (decomposition.Type == DecompositionType.Nobreak)
+      funcName = "nobreak";
+    else if (decomposition.Type == DecompositionType.Initial)
+      funcName = "init";
+    else if (decomposition.Type == DecompositionType.Medial)
+      funcName = "med";
+    else if (decomposition.Type == DecompositionType.Final)
+      funcName = "final";
+    else if (decomposition.Type == DecompositionType.Isolated)
+      funcName = "isol";
+    else if (decomposition.Type == DecompositionType.Compat)
+    {
+      if (isParenthesized)
+        funcName = "parenthesized";
+      else
+      if (longName.Contains("LIGATURE"))
+        funcName = "ligature";
+      else
+      if (longName.Contains("DIGRAPH") || longName.Contains("LETTER"))
+        funcName = "digraph";
+      else
+      if (longName.Contains("ROMAN"))
+        funcName = "roman";
+      else
+        funcName = "compat";
+    }
+    else
+      funcName = decomposition.Type.ToString().ToLower();
     var result = funcName + "{" + sequence + "}";
     return result;
   }

@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 
 namespace Qhta.Unicode;
@@ -11,11 +12,12 @@ public class Decomposition
   /// <summary>
   /// Gets or sets the decomposition type.
   /// </summary>
-  public DecompositionType Type { get; set; }
+  public DecompositionType Type { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
+
   /// <summary>
   /// Gets or sets the code points.
   /// </summary>
-  public List<CodePoint> CodePoints { get; set; } = new();
+  public List<CodePoint> CodePoints { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = new();
 
   #region implicit operators
   /// <summary>
@@ -67,7 +69,7 @@ public class Decomposition
         throw new FormatException("Invalid decomposition format");
     }
     else
-      type = DecompositionType.Concat;
+      type = DecompositionType.None;
     var result = new Decomposition { Type = type };
     for (; i < ss.Length; i++)
     {

@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Qhta.TextUtils" Version="3.5.0" />
+    <PackageReference Include="Qhta.TextUtils" Version="3.6.0" />
     <None Include="docs\readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
@@ -79,6 +79,21 @@
     <ContentWithTargetPath Include="WordsToRemove.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>$(OutDir)..\..\..\WordsToRemove.txt</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ContentWithTargetPath Include="NameStarts.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\NameStarts.txt</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ContentWithTargetPath Include="NumberNames.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\NumberNames.txt</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
 

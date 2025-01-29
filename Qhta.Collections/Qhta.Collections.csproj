@@ -12,7 +12,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>A package with Bidirectional dictionary.</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>4.9</Version>
+    <Version>5.0</Version>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Qhta.TextUtils" Version="3.2.0" />
+    <PackageReference Include="Qhta.TextUtils" Version="3.6.0" />
   </ItemGroup>
 
 </Project>

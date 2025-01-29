@@ -20,6 +20,16 @@ public static class StringUtils
   };
 
   /// <summary>
+  /// Get a substring from the first characters of the text words.
+  /// </summary>
+  /// <param name="text"></param>
+  /// <returns></returns>
+  public static string Acronym(this string text)
+  {
+    return new string(text.Split([' '], StringSplitOptions.RemoveEmptyEntries).Select(word => word.First()).ToArray());
+  }
+
+  /// <summary>
   /// Change string to title case. First letter tu upper, rest to lower case.
   /// </summary>
   /// <param name="str"></param>

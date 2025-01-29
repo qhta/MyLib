@@ -6,9 +6,9 @@
 public enum DecompositionType
 {
   /// <summary>
-  /// Concatenation
+  /// Not stated
   /// </summary>
-  Concat,
+  None,
   /// <summary>
   /// Font variant (for example, a blackletter form)
   /// </summary>

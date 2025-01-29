@@ -227,6 +227,13 @@
             A bunch of string utility methods
             </summary>
         </member>
+        <member name="M:Qhta.TextUtils.StringUtils.Acronym(System.String)">
+            <summary>
+            Get a substring from the first characters of the text words.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.TextUtils.StringUtils.TitleCase(System.String,System.Boolean)">
             <summary>
             Change string to title case. First letter tu upper, rest to lower case.
