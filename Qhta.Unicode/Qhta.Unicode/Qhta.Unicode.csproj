@@ -98,6 +98,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ContentWithTargetPath Include="SignWritingAbbr.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\SignWritingAbbr.txt</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Qhta.Collections\Qhta.Collections.csproj" />
   </ItemGroup>
 </Project>

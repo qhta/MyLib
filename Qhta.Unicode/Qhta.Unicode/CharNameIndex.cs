@@ -36,6 +36,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     InitializeStringList(AdjectiveWords, "Adjectives.txt");
     InitializeStringIntDictionary(WordsToRemove, "WordsToRemove.txt");
     InitializeIntStringDictionary(NumberNames, "NumberNames.txt");
+    InitializeStringDictionary(SignWritingAbbreviations, "SignWritingAbbr.txt");
     CreateCharNamesToFile("CharNames.txt");
     Initialized = true;
   }
@@ -75,6 +76,14 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       //  if (TryGetValue(charInfo.CodePoint, out var charName))
       //    writer.WriteLine($"{charInfo.CodePoint};{charName}");
       //}
+    }
+
+    using (var writer = File.CreateText("SwWords.txt"))
+    {
+      foreach (var entry in SwWords)
+      {
+        writer.WriteLine($"{entry.Key} {entry.Value}");
+      }
     }
   }
 
@@ -245,6 +254,8 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     else if (TryParseVariationSelectorName(charInfo, out charName, alternative))
     { }
     else if (TryParseChessFigureName(charInfo, out charName, alternative))
+    { }
+    else if (TryParseSignWriteName(charInfo, out charName, alternative))
     { }
     else if (TryParseNameStartingString(charInfo, out charName, alternative))
     { }
@@ -426,6 +437,46 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
         }
       }
       var shortName = CreateShortenName(charInfo.CodePoint, rest, alternative);
+      charName = prefix + shortName;
+      return true;
+    }
+    charName = null;
+    return false;
+  }
+
+
+  private bool TryParseSignWriteName(CharInfo charInfo, out string? charName, int alternative = 0)
+  {
+    string keyString = "SIGNWRITING";
+    var longName = charInfo.Name.ToString().ToUpper().Replace('-', ' ');
+    var k = longName.IndexOf(keyString);
+    if (k >= 0)
+    {
+      var lead = longName.Substring(0, k + keyString.Length).Trim();
+      //var rest = longName.Substring(k + keyString.Length).Trim();
+      if (!NameStarts.TryGetValue(lead, out var prefix))
+      {
+        if (!NameStarts.TryGetValue(keyString, out prefix))
+          prefix = keyString.ToLower();
+        //rest += " " + lead.Substring(0, lead.Length - keyString.Length);
+      }
+      var number = charInfo.CodePoint - 0x1D800 + 1;
+      var shortName = number.ToString();
+      //var words = rest.Split(' ');
+      //var sb = new StringBuilder();
+      //for (int i = 0; i < words.Length; i++)
+      //{
+      //  var word = words[i];
+      //  if (SwWords.ContainsKey(word))
+      //    SwWords[word]++;
+      //  else
+      //    SwWords.Add(word, 1);
+      //  if (SignWritingAbbreviations.TryGetValue(word, out var abbr))
+      //    sb.Append(abbr);
+      //  else
+      //    sb.Append(word.ToLower());
+      //}
+      //var shortName = sb.ToString();
       charName = prefix + shortName;
       return true;
     }
@@ -649,7 +700,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     }
   }
 
-  private static void InitializeStringDictionary(Dictionary<string, string> dictionary, string fileName)
+  private static void InitializeStringDictionary(Dictionary<string, string> dictionary, string fileName, bool joinKeyWords = false)
   {
     using (var reader = File.OpenText(fileName))
     {
@@ -661,7 +712,10 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
           var parts = line.Split([';', ',']);
           if (parts.Length == 2)
           {
-            dictionary.Add(parts[0], parts[1]);
+            var key = parts[0];
+            if (joinKeyWords)
+              key = key.Replace(' ', '_');
+            dictionary.Add(key, parts[1]);
           }
         }
       }
@@ -729,6 +783,8 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   private static readonly List<string> AdjectiveWords = new();
   private static readonly Dictionary<string, int> WordsToRemove = new();
   private static readonly BiDiDictionary<int, string> NumberNames = new();
+  private static readonly Dictionary<string, string> SignWritingAbbreviations = new();
+  private static readonly Dictionary<string, int> SwWords = new();
 
 
 }
