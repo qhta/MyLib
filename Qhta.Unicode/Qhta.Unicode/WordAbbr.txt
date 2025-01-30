@@ -30,8 +30,9 @@ CARET;caret
 CARON;caron
 CARRIER;carr
 CEDILLA;cedilla
-CENTRALIZATION;centr
-CENTRED;centr
+CENTRALIZATION;cntr
+CENTRE;cntr
+CENTRED;cntr
 CIRCLE;circle
 CIRCLED;circ
 CIRCUMFLEX;cflex
@@ -57,7 +58,7 @@ DESCENDER;desc
 DESCENDING;desc
 DIAERESIS;die
 DIERESIS;die
-DIAGONAL;diag
+DIAGONAL;dg
 DIFFERENCE;dif
 DIFFERENTIAL;diff
 DIMENSION;dim
@@ -66,6 +67,7 @@ DOLLAR;dollar
 DOT;dot
 DOTTED;dot
 DOUBLE;dbl
+DOWN;d
 DOWNWARDS;dn
 EDITORIAL;ed
 EGYPTIAN;egyp
@@ -103,6 +105,7 @@ GREEK;Grek
 HAIR;hair
 HARPOON;harp
 HASH;hash
+HEAVY;hvy
 HEBREW;heb
 HIEROGLYPH;hgl
 HIEROGLYPHIC;hgl
@@ -128,8 +131,8 @@ LETTER;letter
 LIGATURE;ligature
 LIGHT;lgt
 LONG;long
-LOW;low
-LOWER;low
+LOW;lw
+LOWER;lw
 MACRON;macron
 MARK;mark
 MARKER;mark
@@ -222,6 +225,7 @@ TRIPLE;tple
 TURNED;turn
 UKRAINIAN;ukr
 UNDERSCORE;uline
+UP;u
 UPPER;up
 UPWARDS;up
 VERTICAL;v
