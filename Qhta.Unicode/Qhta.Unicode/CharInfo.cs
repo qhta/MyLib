@@ -1,4 +1,6 @@
-﻿namespace Qhta.Unicode
+﻿using System.Diagnostics;
+
+namespace Qhta.Unicode
 {
   /// <summary>
   /// Unicode character information.
@@ -8,71 +10,71 @@
     /// <summary>
     /// Code point - integer value of the Unicode character converted to hexadecimal.
     /// </summary>
-    public CodePoint CodePoint { get; set; }
+    public CodePoint CodePoint { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
     /// <summary>
     /// Name of the character.
     /// </summary>
-    public HashedName Name { get; set; } = null!;
+    public HashedName Name { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = null!;
     /// <summary>
     /// General category of the character.
     /// </summary>
-    public UcdCategory Category { get; set; }
+    public UcdCategory Category { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
     /// <summary>
     /// Canonical Combining Class of the character.
     /// </summary>
-    public CCClass CCClass { get; set; }
+    public CCClass CCClass { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
     /// <summary>
     /// Bidirectional class of the character.
     /// </summary>
-    public BiDiClass? BiDiClass { get; set; }
+    public BiDiClass? BiDiClass { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
     /// <summary>
     /// Decomposition of the character.
     /// </summary>
-    public Decomposition? Decomposition { get; set; }
+    public Decomposition? Decomposition { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
     /// <summary>
     /// Corresponding decimal digit value of the character.
     /// </summary>
-    public string? DecDigit { get; set; }
+    public string? DecDigit { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
     /// <summary>
     /// Corresponding digit value of the character.
     /// </summary>
-    public string? Digit { get; set; }
+    public string? Digit { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
     /// <summary>
     /// Corresponding numeric value of the character (integer or rational number).
     /// </summary>
-    public string? NumVal { get; set; }
+    public string? NumVal { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
     /// <summary>
     /// Whether the character is mirrored in bidirectional text.
     /// </summary>
-    public bool BidiMirrored { get; set; }
-    //public string? Unicode1Name { get; set; }
-    //public string? ISOComment { get; set; }
+    public bool BidiMirrored { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
+    //public string? Unicode1Name { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
+    //public string? ISOComment { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
     /// <summary>
     /// Corresponding Uppercase character code point.
     /// </summary>
-    public CodePoint? SimpleUppercaseMapping { get; set; }
+    public CodePoint? SimpleUppercaseMapping { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
     /// <summary>
     /// Corresponding Lowercase character code point.
     /// </summary>
-    public CodePoint? SimpleLowercaseMapping { get; set; }
+    public CodePoint? SimpleLowercaseMapping { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
     /// <summary>
     /// Corresponding Titlecase character code point.
     /// </summary>
-    public CodePoint? SimpleTitlecaseMapping { get; set; }
+    public CodePoint? SimpleTitlecaseMapping { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
     /// <summary>
     /// Optional script of the character (4-character ISO 15924 script code).
     /// </summary>
-    public string? Script { get; set; }
+    public string? Script { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
     /// <summary>
     /// Optional old name
     /// </summary>
-    public HashedName? OldName { get; set; }
+    public HashedName? OldName { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
     /// <summary>
     /// Optional alias names for the character.
     /// </summary>
-    public List<NameAlias>? Aliases { get; set; } = null;
+    public List<NameAlias>? Aliases { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = null;
 
     /// <summary>
     /// Enumerates all names for the character.

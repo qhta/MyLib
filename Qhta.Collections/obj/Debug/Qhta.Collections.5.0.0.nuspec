@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>A package with Bidirectional dictionary.</description>
-    <repository type="git" commit="9bdf7dbba4d8459fd930cc59770a1886a33f4b3c" />
+    <repository type="git" commit="31e0005ae7533ccaf841694fd1cd6d0e82be7ec8" />
     <dependencies>
       <group targetFramework=".NETCoreApp3.0">
         <dependency id="Qhta.TextUtils" version="3.6.0" exclude="Build,Analyzers" />

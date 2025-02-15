@@ -8,18 +8,14 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Package Description</description>
-    <repository type="git" commit="ac0bbd0c4b5689676000fbbcd2102e30ed250224" />
+    <repository type="git" commit="31e0005ae7533ccaf841694fd1cd6d0e82be7ec8" />
     <dependencies>
       <group targetFramework="net8.0">
-        <dependency id="Qhta.Collections" version="5.0.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TextUtils" version="3.6.0" exclude="Build,Analyzers" />
-      </group>
-      <group targetFramework=".NETStandard2.0">
-        <dependency id="Qhta.Collections" version="5.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Collections" version="5.1.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="3.6.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.1">
-        <dependency id="Qhta.Collections" version="5.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Collections" version="5.1.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="3.6.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
@@ -27,8 +23,6 @@
   <files>
     <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.Unicode.dll" target="lib\net8.0\Qhta.Unicode.dll" />
     <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.Unicode.xml" target="lib\net8.0\Qhta.Unicode.xml" />
-    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Unicode.dll" target="lib\netstandard2.0\Qhta.Unicode.dll" />
-    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Unicode.xml" target="lib\netstandard2.0\Qhta.Unicode.xml" />
     <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.1\Qhta.Unicode.dll" target="lib\netstandard2.1\Qhta.Unicode.dll" />
     <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.1\Qhta.Unicode.xml" target="lib\netstandard2.1\Qhta.Unicode.xml" />
     <file src="D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.Unicode\docs\readme.md" target="\readme.md" />

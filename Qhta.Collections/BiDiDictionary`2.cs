@@ -129,8 +129,17 @@ public class BiDiDictionary<Type1, Type2> : ICollection<KeyValuePair<Type1, Type
 
   public Type2 this[Type1 key]
   {
-    get => throw new NotImplementedException();
-    set => throw new NotImplementedException();
+    get
+    {
+      if (TryGetValue(key, out var val))
+        return val;
+      throw new KeyNotFoundException();
+    }
+    set
+    {
+      Remove(key);
+      Add(key, value);
+    }
   }
 
   public ICollection<Type1> Keys => Index1.ToArray().Select(item => item.Key).ToList();

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -30,7 +30,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>$(OutDir)..\..\..\ScriptCodes.txt</TargetPath>
     </ContentWithTargetPath>
-    <None Include="ScriptCodes.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ContentWithTargetPath Include="ScriptNames.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\ScriptNames.txt</TargetPath>
+    </ContentWithTargetPath>
   </ItemGroup>
 
   <ItemGroup>
@@ -91,9 +97,16 @@
 
 
   <ItemGroup>
-    <ContentWithTargetPath Include="NumberNames.txt">
+    <ContentWithTargetPath Include="Numerals.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>$(OutDir)..\..\..\NumberNames.txt</TargetPath>
+      <TargetPath>$(OutDir)..\..\..\Numerals.txt</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ContentWithTargetPath Include="Ordinals.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\Ordinals.txt</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
 
@@ -101,6 +114,14 @@
     <ContentWithTargetPath Include="SignWritingAbbr.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>$(OutDir)..\..\..\SignWritingAbbr.txt</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ContentWithTargetPath Include="NamedBlocks.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\NamedBlocks.txt</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
 

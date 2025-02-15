@@ -38,11 +38,25 @@ public class UnicodeData : Dictionary<int, CharInfo>
   /// <summary>
   /// Index of Scripts
   /// </summary>
-  public readonly ScriptIndex ScriptIndex = new ScriptIndex();
+  public readonly BiDiDictionary<string, string> ScriptCodes = new();
+  /// <summary>
+  /// Index of Scripts
+  /// </summary>
+  public readonly ScriptIndex ScriptIndex = new();
+  /// <summary>
+  /// Index of Blocks
+  /// </summary>
+  public readonly BlockIndex BlockIndex = new();
+
+  /// <summary>
+  /// Named Blocks used to parse UnicodeData
+  /// </summary>
+  public NamedBlocks NamedBlocks => CharNameIndex.NamedBlocks;
 
   const string UcdFileName = "UnicodeData.txt";
   const string AliasesFileName = "NameAliases.txt";
   const string ScriptsFileName = "Scripts.txt";
+  const string BlocksFileName = "Blocks.txt";
 
   /// <summary>
   /// Private constructor for the singleton instance.
@@ -75,6 +89,7 @@ public class UnicodeData : Dictionary<int, CharInfo>
     var taskA = DownloadFileNameAsync(UcdFileName);
     var taskB = DownloadFileNameAsync(AliasesFileName);
     var taskC = DownloadFileNameAsync(ScriptsFileName);
+    var taskD = DownloadFileNameAsync(BlocksFileName);
     taskA.Wait();
     string[] lines = System.IO.File.ReadAllLines(UcdFileName);
     foreach (string line in lines)
@@ -112,8 +127,11 @@ public class UnicodeData : Dictionary<int, CharInfo>
     LoadAliases(AliasesFileName);
     CategoryIndex.Initialize(this);
     DecompositionIndex.Initialize(this);
+    ScriptCodes.LoadFromFile("ScriptCodes.txt");
     taskC.Wait();
     LoadScripts(ScriptsFileName);
+    taskD.Wait();
+    LoadBlocks(BlocksFileName);
     CharNameIndex.Initialize(this);
     CharFunctionIndex.Initialize(this);
   }
@@ -185,7 +203,7 @@ public class UnicodeData : Dictionary<int, CharInfo>
         if (TryGetValue(cp, out CharInfo? charInfo))
         {
           str = parts[1].Trim().Replace('_', ' ');
-          if (ScriptCodes.UcdScriptNames.TryGetValue1(str, out string script))
+          if (ScriptCodes.TryGetValue1(str, out string script))
           {
             charInfo.Script = script;
             count++;
@@ -194,6 +212,35 @@ public class UnicodeData : Dictionary<int, CharInfo>
             throw new Exception($"Invalid script name: \"{str}\"");
         }
       }
+    }
+    ScriptIndex.Initialize(this);
+    return count;
+  }
+
+  /// <summary>
+  /// Loads Unicode blocks from a file. Updates BlockIndex.
+  /// </summary>
+  /// <param name="filePath"></param>
+  /// <returns></returns>
+  private int LoadBlocks(string filePath)
+  {
+    int count = 0;
+    string[] lines = System.IO.File.ReadAllLines(filePath);
+    foreach (string line in lines)
+    {
+      if (line.StartsWith("#") || line.Trim().Length == 0)
+        continue;
+      var k = line.IndexOf('#');
+      var str = (k >= 0) ? line.Substring(0, k) : line;
+      string[] parts = str.Split(';');
+      str = parts[0].Trim();
+      k = str.IndexOf("..");
+      var str1 = (k >= 0) ? str.Substring(0, k) : str;
+      var str2 = (k >= 0) ? str.Substring(k + 2) : string.Empty;
+      var codePoint1 = int.Parse(str1, NumberStyles.HexNumber);
+      var codePoint2 =  int.Parse(str2, NumberStyles.HexNumber);
+      var blockName = parts[1].Trim().Replace('_', ' ');
+      BlockIndex.Add(blockName, new UcdBlock(blockName, codePoint1, codePoint2));
     }
     ScriptIndex.Initialize(this);
     return count;

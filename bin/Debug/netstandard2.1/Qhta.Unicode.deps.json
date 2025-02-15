@@ -9,7 +9,7 @@
     ".NETStandard,Version=v2.1/": {
       "Qhta.Unicode/1.2.1": {
         "dependencies": {
-          "Qhta.Collections": "5.0.0",
+          "Qhta.Collections": "5.1.0",
           "Qhta.TextUtils": "3.6.0"
         },
         "runtime": {
@@ -24,14 +24,14 @@
           }
         }
       },
-      "Qhta.Collections/5.0.0": {
+      "Qhta.Collections/5.1.0": {
         "dependencies": {
           "Qhta.TextUtils": "3.6.0"
         },
         "runtime": {
           "Qhta.Collections.dll": {
-            "assemblyVersion": "5.0.0",
-            "fileVersion": "5.0.0.0"
+            "assemblyVersion": "5.1.0",
+            "fileVersion": "5.1.0.0"
           }
         }
       }
@@ -50,7 +50,7 @@
       "path": "qhta.textutils/3.6.0",
       "hashPath": "qhta.textutils.3.6.0.nupkg.sha512"
     },
-    "Qhta.Collections/5.0.0": {
+    "Qhta.Collections/5.1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

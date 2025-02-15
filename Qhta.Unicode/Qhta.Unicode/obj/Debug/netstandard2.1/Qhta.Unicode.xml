@@ -124,6 +124,70 @@
             Pop_Directional_Isolate - U+2069: terminates an isolate control
             </summary>
         </member>
+        <member name="T:Qhta.Unicode.BlockIndex">
+            <summary>
+            An index of Unicode character name separate words to code points.
+            </summary>
+        </member>
+        <member name="T:Qhta.Unicode.BlockType">
+            <summary>
+            Enumerates the Unicode block types
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Unknown">
+            <summary>Undefined block type.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Alphabet">
+            <summary>Standard set of letters written to represent particular sounds in a spoken language.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Abjad">
+            <summary>Writing system in which only consonants are represented, leaving the vowel sounds to be inferred by the reader.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Abugida">
+            <summary>Segmental writing system in which consonant–vowel sequences are written as units; each unit is based on a consonant letter, and vowel notation is secondary, similar to a diacritical mark.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Combining">
+            <summary>Diacritical symbols combining with other symbols.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Cuneiform">
+            <summary>Cuneiform symbols.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Ideographic">
+            <summary>Ideographic symbols.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Numerals">
+            <summary>Block that contains only numeral symbols</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Format">
+            <summary>Block that changes only the form of presentation of some other code point.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Phonetic">
+            <summary>Phonetic extensions.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Punctuation">
+            <summary>Phonetic extensions.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Range">
+            <summary>Block of which only first and last symbol has a name.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Sequential">
+            <summary>Block in which individual code points are numbered sequentially</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.SemiSyllabary">
+            <summary>Writing system that behaves partly as an alphabet and partly as a syllabary.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Syllabary">
+            <summary>Set of written symbols (called syllabograms) that represent either syllables or moras—a unit of prosody that is often but not always a syllable in length.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Symbols">
+            <summary>Block which contains symbols not used in any natural language.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Block">
+            <summary>Block with special syntax of description.</summary>
+        </member>
+        <member name="F:Qhta.Unicode.BlockType.Special">
+            <summary>Block with special syntax of description.</summary>
+        </member>
         <member name="T:Qhta.Unicode.CategoryIndex">
             <summary>
             An index of codePoints with specific UcdCategory.
@@ -425,13 +489,6 @@
             <param name="charName">Name is a single-word string</param>
             <param name="codePoint"></param>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.IsAccepted(Qhta.Unicode.CharInfo)">
-            <summary>
-            Check if a character is accepted in this name generation process.
-            </summary>
-            <param name="charInfo"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.Unicode.CharNameIndex.GenerateShortName(Qhta.Unicode.CharInfo,System.Int32)">
             <summary>
             Create a short name for a character.
@@ -463,6 +520,23 @@
             <param name="longName"></param>
             <param name="codePoint"></param>
             <param name="alternative">Some names can have alternatives</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.WordsAbbreviationsComparer.Compare(System.String,System.String)">
+            <summary>
+            Compare two strings by lexicographical order,
+            but if one string is contained in the other, the longer string goes first.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.StringReplacementsComparer.Compare(System.String,System.String)">
+            <summary>
+            Compare two strings by reverse lexicographical order,
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.Unicode.CodePoint">
@@ -684,6 +758,69 @@
             Otherwise unspecified compatibility character
             </summary>
         </member>
+        <member name="T:Qhta.Unicode.DictTools">
+            <summary>
+            Tools for working with dictionaries and lists
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.DictTools.LoadFromFile(Qhta.Collections.BiDiDictionary{Qhta.Unicode.CodePoint,System.String},System.String)">
+            <summary>
+            Load a CodePoint to String BiDiDictionary from a file
+            </summary>
+            <param name="dictionary"></param>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Qhta.Unicode.DictTools.LoadFromFile(System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.Boolean)">
+            <summary>
+            Load a String Dictionary from a file
+            </summary>
+            <param name="dictionary"></param>
+            <param name="fileName"></param>
+            <param name="joinKeyWords">true to join words of key with underscores</param>
+        </member>
+        <member name="M:Qhta.Unicode.DictTools.LoadFromFile(Qhta.Collections.BiDiDictionary{System.String,System.String},System.String,System.Boolean)">
+            <summary>
+            Load a String BiDiDictionary from a file
+            </summary>
+            <param name="dictionary"></param>
+            <param name="fileName"></param>
+            <param name="joinKeyWords">true to join words of key with underscores</param>
+        </member>
+        <member name="M:Qhta.Unicode.DictTools.LoadFromFile(System.Collections.Generic.IDictionary{System.String,System.Int32},System.String)">
+            <summary>
+            Load a String to Int Dictionary from a file
+            </summary>
+            <param name="dictionary"></param>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Qhta.Unicode.DictTools.LoadFromFile(Qhta.Collections.BiDiDictionary{System.Int32,System.String},System.String)">
+            <summary>
+            Load an Int to String BiDiDictionary from a file
+            </summary>
+            <param name="dictionary"></param>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Qhta.Unicode.DictTools.LoadFromFile(System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Load a String List from a file
+            </summary>
+            <param name="list"></param>
+            <param name="fileName"></param>
+        </member>
+        <member name="T:Qhta.Unicode.EnumHelper">
+            <summary>
+            Helper class for working with enums
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.EnumHelper.ParseEnum``1(System.String)">
+            <summary>
+            Parse an enum value from a string using EnumMemberAttribute or the field name
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="T:Qhta.Unicode.HashedName">
             <summary>
             A Unicode name split into separate words.
@@ -835,6 +972,76 @@
             The type of the alias
             </summary>
         </member>
+        <member name="T:Qhta.Unicode.NamedBlock">
+            <summary>
+            Defined a named block used to parse ucd data
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.NamedBlock.Range">
+            <summary>
+            String representation of the Start and End code points in the block
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.NamedBlock.Start">
+            <summary>
+            First code point in the block.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.NamedBlock.End">
+            <summary>
+            Last code point in the block. Can be the same as Start
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.NamedBlock.Name">
+            <summary>
+            Name of the block.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.NamedBlock.KeyString">
+            <summary>
+            A key string of the CodePoint description used to identify the block
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.NamedBlock.BlockType">
+            <summary>
+            The type of block.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.NamedBlock.Contains(Qhta.Unicode.CodePoint)">
+            <summary>
+            Check if a code point is in the block
+            </summary>
+            <param name="cp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.NamedBlock.Contains(Qhta.Unicode.CodePoint,System.String)">
+            <summary>
+            Check if a code point is in the block
+            </summary>
+            <param name="cp"></param>
+            <param name="description"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.Unicode.NamedBlocks">
+            <summary>
+            A list of named blocks. Defines a LoadFromFile method to load from a file.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.NamedBlocks.LoadFromFile(System.String)">
+            <summary>
+            Load a list of named blocks from a file
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Qhta.Unicode.NamedBlocks.TryGetValue(Qhta.Unicode.CodePoint,System.String,Qhta.Unicode.NamedBlock@)">
+            <summary>
+            Try to get a named block by code point and description
+            </summary>
+            <param name="codePoint"></param>
+            <param name="description"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.Unicode.NameWordIndex">
             <summary>
             An index of Unicode character name separate words to code points.
@@ -873,16 +1080,6 @@
             <param name="word"></param>
             <returns></returns>
         </member>
-        <member name="T:Qhta.Unicode.ScriptCodes">
-            <summary>
-            Unicode script codes loaded from Scripts.txt
-            </summary>
-        </member>
-        <member name="P:Qhta.Unicode.ScriptCodes.UcdScriptNames">
-            <summary>
-            Unicode script codes loaded from Scripts.txt
-            </summary>
-        </member>
         <member name="T:Qhta.Unicode.ScriptIndex">
             <summary>
             An index of codePoints with specific script. Script is a 4-character ISO 15924 script code.
@@ -900,6 +1097,16 @@
             </summary>
             <param name="script">Script is a 4-character ISO 15924 script code.</param>
             <param name="codePoint"></param>
+        </member>
+        <member name="T:Qhta.Unicode.UcdBlock">
+            <summary>
+            Unicode blocks enumeration
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.UcdBlock.#ctor(System.String,Qhta.Unicode.CodePoint,Qhta.Unicode.CodePoint)">
+            <summary>
+            Unicode blocks enumeration
+            </summary>
         </member>
         <member name="T:Qhta.Unicode.UcdCategory">
             <summary>
@@ -1031,9 +1238,24 @@
             Index of decomposition types.
             </summary>
         </member>
+        <member name="F:Qhta.Unicode.UnicodeData.ScriptCodes">
+            <summary>
+            Index of Scripts
+            </summary>
+        </member>
         <member name="F:Qhta.Unicode.UnicodeData.ScriptIndex">
             <summary>
             Index of Scripts
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.UnicodeData.BlockIndex">
+            <summary>
+            Index of Blocks
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.UnicodeData.NamedBlocks">
+            <summary>
+            Named Blocks used to parse UnicodeData
             </summary>
         </member>
         <member name="M:Qhta.Unicode.UnicodeData.#ctor">
@@ -1070,6 +1292,13 @@
         <member name="M:Qhta.Unicode.UnicodeData.LoadScripts(System.String)">
             <summary>
             Loads aliases from a file. Updates NameIndex and NameWordIndex.
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.UnicodeData.LoadBlocks(System.String)">
+            <summary>
+            Loads Unicode blocks from a file. Updates BlockIndex.
             </summary>
             <param name="filePath"></param>
             <returns></returns>

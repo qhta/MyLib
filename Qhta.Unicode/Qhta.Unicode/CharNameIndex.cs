@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Linq;
 
@@ -27,16 +29,34 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       return;
     Ucd = ucd;
 
-    InitializeCodePointDictionary(KnownCharNames, "KnownCharNames.txt");
-    InitializeCodePointDictionary(GreekAlphabet, "GreekAlphabet.txt");
-    InitializeCodePointDictionary(HebrewAlphabet, "HebrewAlphabet.txt");
-    InitializeStringDictionary(StringReplacements, "StringRepl.txt");
-    InitializeStringDictionary(WordsAbbreviations, "WordAbbr.txt");
-    InitializeStringDictionary(NameStarts, "NameStarts.txt");
-    InitializeStringList(AdjectiveWords, "Adjectives.txt");
-    InitializeStringIntDictionary(WordsToRemove, "WordsToRemove.txt");
-    InitializeIntStringDictionary(NumberNames, "NumberNames.txt");
-    InitializeStringDictionary(SignWritingAbbreviations, "SignWritingAbbr.txt");
+    KnownCharNames.LoadFromFile("KnownCharNames.txt");
+    GreekAlphabet.LoadFromFile("GreekAlphabet.txt");
+    HebrewAlphabet.LoadFromFile("HebrewAlphabet.txt");
+    ScriptNames.LoadFromFile("ScriptNames.txt");
+    WordsAbbreviations.LoadFromFile("WordAbbr.txt");
+    Numerals.LoadFromFile("Numerals.txt");
+    MaxWords = WordsAbbreviations.Keys.Max(key => key.Split(' ').Length);
+    foreach (var key in WordsAbbreviations.Keys.Where(key => key.Contains(' ')))
+    {
+      var key2 = key.Replace(' ', '_');
+      StringReplacements.Add(key, key2);
+    }
+    foreach (var key in Numerals.Values.Where(key => key.Contains(' ')))
+    {
+      var key2 = key.ToUpper().Replace(' ', '_');
+      StringReplacements.Add(key, key2);
+    }
+    foreach (var key in ScriptNames.Keys.Where(key => key.Contains(' ')))
+    {
+      var key2 = key.ToUpper().Replace(' ', '_');
+      StringReplacements.TryAdd(key, key2);
+    }
+    NameStarts.LoadFromFile("NameStarts.txt");
+    AdjectiveWords.LoadFromFile("Adjectives.txt");
+    WordsToRemove.LoadFromFile("WordsToRemove.txt");
+
+    SignWritingAbbreviations.LoadFromFile("SignWritingAbbr.txt");
+    NamedBlocks.LoadFromFile("NamedBlocks.txt");
     CreateCharNamesToFile("CharNames.txt");
     Initialized = true;
   }
@@ -51,8 +71,6 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   {
     if (this.TryGetValue1(charName, out var value))
     {
-      //if (charName == "gujrvowelcandrae")
-      //  Debug.Assert(true);
       if (Index1.TryGetValue(codePoint, out var existingValue))
         throw new DuplicateNameException($"CodePoint {codePoint} has charName \"{charName}\"");
 
@@ -99,7 +117,8 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
 
   private bool TryAddShortName(CharInfo charInfo)
   {
-    if (charInfo.CodePoint == 0x00B2)
+    var codePoint = charInfo.CodePoint;
+    if (codePoint == 0x1EF2D)
       Debug.Assert(true);
     var charName = GenerateShortName(charInfo);
     if (charName is null)
@@ -132,12 +151,6 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
           }
           else if (alternative == maxAlternative)
           {
-            if (charName.StartsWith("hangjungseong"))
-            {
-              charName = charName.Insert("hangjungseong".Length, "2");
-              AddCheck(charInfo.CodePoint, charName);
-              break;
-            }
             throw new DuplicateNameException($"Conflict between code points {charInfo1.CodePoint} and {charInfo.CodePoint}. CharName \"{charName}\" already exists");
           }
         }
@@ -149,76 +162,6 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   }
 
   /// <summary>
-  /// Check if a character is accepted in this name generation process.
-  /// </summary>
-  /// <param name="charInfo"></param>
-  /// <returns></returns>
-  private bool IsAccepted(CharInfo charInfo)
-  {
-
-    if (charInfo.CodePoint > 0xFFFF)
-      return false;
-
-    string longName = charInfo.Name.ToString().ToUpper();
-
-    if (longName.StartsWith("MODIFIER LETTER ") && !longName.Contains("CHINESE"))
-      return true;
-
-    if (charInfo.CodePoint >= 0xFE20 && charInfo.CodePoint <= 0xFE2F)
-      return true;
-
-    if (longName.StartsWith("GREEK") && !GreekAlphabet.ContainsKey(charInfo.CodePoint))
-      return false;
-
-    if (longName.StartsWith("HEBREW") && !HebrewAlphabet.ContainsKey(charInfo.CodePoint))
-      return false;
-
-    if (charInfo.CodePoint >= 0xA000 && !longName.Contains("LIGATURE"))
-      return false;
-
-    if (longName.Contains("CJK ")
-        || longName.Contains("IDEOGRAPH")
-        || longName.StartsWith("VARIATION")
-        || longName.StartsWith("HEXAGRAM")
-        || longName.StartsWith("KANGXI")
-        || longName.StartsWith("PHAGS-PA")
-        || longName.StartsWith("RUSSIAN")
-        || longName.Contains("EGYPT"))
-      return false;
-
-    if (longName.StartsWith("APL FUNCTIONAL SYMBOL"))
-      return false;
-
-    if (longName.StartsWith("SQUARE "))
-    {
-      var decomposition = charInfo.Decomposition;
-      if (decomposition is not null)
-      {
-        var hasAscii = false;
-        foreach (var item in decomposition.CodePoints)
-          if (item.Value < 0x80)
-            hasAscii = true;
-        if (!hasAscii)
-          return false;
-      }
-
-    }
-
-    foreach (var entry in ScriptCodes.UcdScriptNames)
-    {
-      var scriptName = entry.Value;
-      var words = scriptName.Split(' ');
-      string key = words[0];
-      if (key is "Latin" or "Greek" or "Hebrew")
-        continue;
-
-      if (longName.Contains(scriptName.ToUpper()))
-        return false;
-    }
-    return true;
-  }
-
-  /// <summary>
   /// Create a short name for a character.
   /// </summary>
   /// <param name="charInfo"></param>
@@ -226,12 +169,12 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   /// <returns></returns>
   public string? GenerateShortName(CharInfo charInfo, int alternative = 0)
   {
-    if (charInfo.CodePoint == 0x1D9BD)
+    if (charInfo.CodePoint == 0x1ED2D)
       Debug.Assert(true);
 
 
     string? charName = null;
-    string longName = charInfo.Name.ToString().ToUpper().Replace(" -A", " AA").Replace('-', ' ');
+    string longName = charInfo.Name.ToString().ToUpper().Replace(" -A", " AA")/*.Replace('-', ' ')*/;
 
     if (KnownCharNames.TryGetValue(charInfo.CodePoint, out var knownCharName))
       charName = knownCharName;
@@ -239,26 +182,29 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       charName = greekLetterName;
     else if (HebrewAlphabet.TryGetValue(charInfo.CodePoint, out var hebrewLetterName))
       charName = hebrewLetterName;
-    else if (charInfo.Category == UcdCategory.Cc || charInfo.CodePoint == 0x020 || longName.StartsWith("<"))
-      charName = CreateAbbreviationCharName(charInfo);
+    else if (TryParseNamedBlockCpName(charInfo, out charName, alternative))
+    { }
+    else if (charInfo.Category == UcdCategory.Cc || charInfo.CodePoint == 0x020 || longName.StartsWith("<") && TryCreateAliasCharName(charInfo, out charName))
+    {}
     else if (charInfo.Category.ToString()[0] == 'Z')
       charName = CreateShortenName(charInfo, alternative);
+    else if (TryParseSignWrittingName(charInfo, out charName, alternative))
+    { }
+    else if (TryParseByzantineMusicalSymbol(charInfo, out charName, alternative))
+    { }
+    else if (TryParseCuneiformSymbol(charInfo, out charName, alternative))
+    { }
+    else if (TryParseMusicalSymbol(charInfo, out charName, alternative))
+    { }
+    else if (TryParseNameStartingString(charInfo, out charName, alternative))
+    { }
     else if (charInfo.Decomposition?.Type == DecompositionType.Super || charInfo.Decomposition?.Type == DecompositionType.Sub)
       charName = CreateDecompositionName(charInfo, alternative);
     else if (TryParseModifierLetterName(charInfo, out charName, alternative))
     { }
     else if (TryParseCombiningCharName(charInfo, out charName, alternative))
     { }
-    else if (TryParseVulgarFractionName(charInfo, out charName, alternative))
-    { }
-    else if (TryParseVariationSelectorName(charInfo, out charName, alternative))
-    { }
-    else if (TryParseChessFigureName(charInfo, out charName, alternative))
-    { }
-    else if (TryParseSignWriteName(charInfo, out charName, alternative))
-    { }
-    else if (TryParseNameStartingString(charInfo, out charName, alternative))
-    { }
+
     else if (charInfo.Category.ToString()[0] == 'L' || longName.Contains("LETTER") || longName.Contains("CAPITAL"))
       charName = CreateShortenName(charInfo.CodePoint, longName, alternative);
     else
@@ -271,21 +217,27 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     return charName;
   }
 
-  private string? CreateAbbreviationCharName(CharInfo charInfo)
+  private bool TryCreateAliasCharName(CharInfo charInfo, out string? charName, int alternative = 0)
   {
-    string? charName = null;
+    charName = null;
     if (charInfo.Aliases != null)
     {
       var alias = charInfo.Aliases.FirstOrDefault(item => item.Type == NameAliasType.Abbreviation);
       charName = alias?.Name!;
       //Debug.WriteLine($"{charInfo.CodePoint};{charName}");
       if (alias != null)
-        return alias!.Name;
+      {
+        charName = alias!.Name;
+        return true;
+      }
     }
     var longName = charInfo.Name.ToString();
     if (longName.StartsWith("<") && longName.EndsWith(">"))
-      return CreateShortenName(charInfo.CodePoint, longName.Substring(1, longName.Length - 2).ToUpper());
-    return charName;
+    {
+      charName = CreateShortenName(charInfo.CodePoint, longName.Substring(1, longName.Length - 2).ToUpper());
+      return true;
+    }
+    return false;
   }
 
   /// <summary>
@@ -313,6 +265,40 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     var sequence = sb.ToString();
     var funcName = (decomposition.Type == DecompositionType.Super) ? "sup" : decomposition.Type.ToString()!.ToLower();
     return funcName + sequence;
+  }
+
+  private bool TryParseNamedBlockCpName(CharInfo charInfo, out string? charName, int alternative = 0)
+  {
+    charName = null;
+    if (NamedBlocks.TryGetValue(charInfo.CodePoint, charInfo.Name.ToString(), out var namedBlock))
+    {
+      switch (namedBlock!.BlockType)
+      {
+        case BlockType.Sequential:
+          return TryParseSequentialCpName(charInfo, namedBlock.KeyString!, out charName, alternative);
+        case BlockType.Numerals:
+          return TryParseNumeralCpName(charInfo, out charName, alternative);
+        case BlockType.Block:
+          return TryParseBlockDrawingsName(charInfo, namedBlock.KeyString, out charName, alternative);
+        case BlockType.Special:
+          switch (namedBlock.Name)
+          {
+            case "Control Chars":
+              return TryCreateAliasCharName(charInfo, out charName, alternative);
+            case "Chess Symbols":
+              return TryParseChessFigureName(charInfo, out charName, alternative);
+            case "Vulgar Fractions":
+              return TryParseVulgarFractionName(charInfo, out charName, alternative);
+
+            default:
+              throw new NotImplementedException($"Special parse method for block \"{namedBlock.Name}\" not implemented");
+          }
+        default:
+          charName = CreateShortenName(charInfo, alternative);
+          return true;
+      }
+    }
+    return false;
   }
 
   private bool TryParseModifierLetterName(CharInfo charInfo, out string? charName, int alternative = 0)
@@ -373,79 +359,88 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
 
   private bool TryParseVulgarFractionName(CharInfo charInfo, out string? charName, int alternative = 0)
   {
-    var longName = charInfo.Name.ToString().ToUpper().Replace('-', ' ');
-    if (longName.StartsWith("VULGAR FRACTION "))
-    {
-      longName = longName.Replace("VULGAR FRACTION ", "");
-      charName = CreateShortenName(charInfo.CodePoint, longName, alternative);
-      return true;
-    }
     charName = null;
-    return false;
+    var codePoint = charInfo.CodePoint;
+    var longName = charInfo.Name.ToString();
+    if (codePoint == 0x00BC)
+      Debug.Assert(true);
+    var ss = SplitWords(longName, alternative);
+    var sb = new StringBuilder();
+    for (int i = 2; i < ss.Count; i++)
+    {
+      var word = ss[i];
+      sb.Append(word.TitleCase());
+    }
+    charName = sb.ToString();
+    return true;
   }
 
-  private bool TryParseVariationSelectorName(CharInfo charInfo, out string? charName, int alternative = 0)
+  private bool TryParseBlockDrawingsName(CharInfo charInfo, string? keyString, out string? charName, int alternative = 0)
   {
-    string keyString = "VARIATION SELECTOR";
-    var longName = charInfo.Name.ToString().ToUpper().Replace('-', ' ');
-    var k = longName.IndexOf(keyString);
-    if (k >= 0)
-    {
-      var lead = longName.Substring(0, k + keyString.Length).Trim();
-      var rest = longName.Substring(k + keyString.Length).Trim();
-      if (NumberNames.TryGetValue1(rest.TitleCase(), out var num))
-        rest = num.ToString();
-      if (!NameStarts.TryGetValue(lead, out var prefix))
-        prefix = lead.Acronym();
-      charName = prefix + rest;
-      return true;
-    }
     charName = null;
-    return false;
-  }
-
-  private bool TryParseChessFigureName(CharInfo charInfo, out string? charName, int alternative = 0)
-  {
-    string keyString = "CHESS";
-    var longName = charInfo.Name.ToString().ToUpper().Replace('-', ' ');
-    var k = longName.IndexOf(keyString);
-    if (k >= 0)
+    var codePoint = charInfo.CodePoint;
+    var longName = charInfo.Name.ToString();
+    if (codePoint == 0x00BC)
+      Debug.Assert(true);
+    var ss = SplitWords(longName, alternative);
+    var sb = new StringBuilder();
+    if (keyString != null)
     {
-      var lead = longName.Substring(0, k + keyString.Length).Trim();
-      var rest = longName.Substring(k + keyString.Length).Trim();
-      if (!NameStarts.TryGetValue(lead, out var prefix))
-      {
-        if (!NameStarts.TryGetValue(keyString, out prefix))
-          prefix = keyString.ToLower();
-        rest += " " + lead.Substring(0, lead.Length - keyString.Length);
-      }
-      keyString = "ROTATED ";
-      k = rest.IndexOf(keyString);
+      var k = ss.IndexOf(keyString);
       if (k >= 0)
       {
-        rest = rest.Substring(0, k) + rest.Substring(k + keyString.Length);
-        foreach (var entry in NumberNames.Where(item => item.Key >= 45))
-          rest = rest.Replace(entry.Value.ToUpper(), entry.Key.ToString());
+        ss.RemoveAt(k);
+        ss.Insert(0, keyString);
       }
-      else
+      else if (keyString.Contains('*'))
       {
-        keyString = "TURNED ";
-        k = rest.IndexOf(keyString);
-        if (k >= 0)
+        keyString = keyString.Replace("*", " ");
+        var keyWords = keyString.Split(' ');
+        for (int i = keyWords.Length-1; i>=0; i--)
         {
-          rest = rest.Substring(0, k) + rest.Substring(k + keyString.Length) + " 180 DEGREES";
+          var str = keyWords[i];
+          if (ss.Contains(str))
+          {
+            ss.Remove(str);
+          }
+        }
+        ss.Insert(0,keyString);
+      }
+      else if (keyString.Contains("BLOCK"))
+      {
+        var str = ss.FirstOrDefault(s => s.Contains(keyString));
+        if (str!=null)
+        {
+          ss.Remove(str);
+          ss.Insert(0, str);
         }
       }
-      var shortName = CreateShortenName(charInfo.CodePoint, rest, alternative);
-      charName = prefix + shortName;
-      return true;
     }
-    charName = null;
-    return false;
+    var arrowString = ss.FirstOrDefault(s => s.Contains("ARROW"));
+    if (arrowString != null)
+    {
+      ss.Remove(arrowString);
+      ss.Add(arrowString);
+    }
+    for (int i = 0; i < ss.Count; i++)
+    {
+      var word = ss[i];
+      if (word == "AND" || word == "TO" || word == "WITH" || word == "CONTAINING")
+        continue;
+      else if (word == "SINGLE")
+        sb.Append("1");
+      else if (word == "DOUBLE")
+        sb.Append("2");
+      else if (WordsAbbreviations.TryGetValue(word, out var replacement))
+        sb.Append(replacement);
+      else
+        sb.Append(word.TitleCase());
+    }
+    charName = sb.ToString();
+    return true;
   }
 
-
-  private bool TryParseSignWriteName(CharInfo charInfo, out string? charName, int alternative = 0)
+  private bool TryParseSignWrittingName(CharInfo charInfo, out string? charName, int alternative = 0)
   {
     string keyString = "SIGNWRITING";
     var longName = charInfo.Name.ToString().ToUpper().Replace('-', ' ');
@@ -462,21 +457,63 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       }
       var number = charInfo.CodePoint - 0x1D800 + 1;
       var shortName = number.ToString();
-      //var words = rest.Split(' ');
-      //var sb = new StringBuilder();
-      //for (int i = 0; i < words.Length; i++)
-      //{
-      //  var word = words[i];
-      //  if (SwWords.ContainsKey(word))
-      //    SwWords[word]++;
-      //  else
-      //    SwWords.Add(word, 1);
-      //  if (SignWritingAbbreviations.TryGetValue(word, out var abbr))
-      //    sb.Append(abbr);
-      //  else
-      //    sb.Append(word.ToLower());
-      //}
-      //var shortName = sb.ToString();
+      charName = prefix + shortName;
+      return true;
+    }
+    charName = null;
+    return false;
+  }
+
+  private bool TryParseByzantineMusicalSymbol(CharInfo charInfo, out string? charName, int alternative = 0)
+  {
+    string keyString = "BYZANTINE MUSICAL SYMBOL";
+    var longName = charInfo.Name.ToString();
+    var k = longName.IndexOf(keyString);
+    if (k >= 0)
+    {
+      var lead = keyString;
+      if (!WordsAbbreviations.TryGetValue(lead, out var prefix))
+        prefix = keyString.ToLower();
+      var number = charInfo.CodePoint - 0x1D000 + 1;
+      var shortName = number.ToString();
+      charName = prefix + shortName;
+      return true;
+    }
+    charName = null;
+    return false;
+  }
+
+  private bool TryParseMusicalSymbol(CharInfo charInfo, out string? charName, int alternative = 0)
+  {
+    string keyString = "MUSICAL SYMBOL";
+    var longName = charInfo.Name.ToString();
+    var k = longName.IndexOf(keyString);
+    if (k >= 0)
+    {
+      var lead = keyString;
+      if (!WordsAbbreviations.TryGetValue(lead, out var prefix))
+        prefix = keyString.ToLower();
+      var number = charInfo.CodePoint - 0x1D100 + 1;
+      var shortName = number.ToString();
+      charName = prefix + shortName;
+      return true;
+    }
+    charName = null;
+    return false;
+  }
+
+  private bool TryParseCuneiformSymbol(CharInfo charInfo, out string? charName, int alternative = 0)
+  {
+    string keyString = "CUNEIFORM";
+    var longName = charInfo.Name.ToString();
+    var k = longName.IndexOf(keyString);
+    if (k >= 0)
+    {
+      var lead = keyString;
+      if (!WordsAbbreviations.TryGetValue(lead, out var prefix))
+        prefix = keyString.ToLower();
+      var number = charInfo.CodePoint - 0x12000 + 1;
+      var shortName = number.ToString();
       charName = prefix + shortName;
       return true;
     }
@@ -516,6 +553,110 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     return false;
   }
 
+  private bool TryParseSequentialCpName(CharInfo charInfo, string keyString, out string? charName, int alternative)
+  {
+    charName = null;
+    var codePoint = charInfo.CodePoint;
+    var longName = charInfo.Name.ToString();
+    if (codePoint == 0x1CF42)
+      Debug.Assert(true);
+    var ss = SplitWords(longName, alternative);
+    var word = ss.First();
+    if (WordsAbbreviations.TryGetValue(word, out var replacement))
+    {
+      var sb = new StringBuilder();
+      sb.Append(replacement);
+      SequentialDictionary.TryAdd(keyString, 0);
+      var number = SequentialDictionary[keyString] + 1;
+      SequentialDictionary[keyString] = number;
+      //sb.Append('-');
+      sb.Append(number);
+      charName = sb.ToString();
+      return true;
+    }
+    return false;
+  }
+
+  private bool TryParseNumeralCpName(CharInfo charInfo, out string? charName, int alternative)
+  {
+    charName = null;
+    var codePoint = charInfo.CodePoint;
+    var longName = charInfo.Name.ToString();
+    if (codePoint == 0x1ED2D)
+      Debug.Assert(true);
+    var ss = SplitWords(longName, alternative);
+    var sb = new StringBuilder();
+    var isTens = ss.Contains("TENS");
+    for (int i = 0; i < ss.Count; i++)
+    {
+      var word = ss[i];
+      if (TryFindScriptName(word, alternative, out var scCode))
+      {
+        sb.Append(scCode);
+      }
+      else if (Numerals.TryGetValue1(word, out var num))
+      {
+        if (isTens)
+          num *= 10;
+        sb.Append(Numerals[num].TitleCase().Replace(" ", ""));
+      }
+      else if (WordsAbbreviations.TryGetValue(word, out var replacement))
+        sb.Append(replacement);
+      else if (int.TryParse(word, out _)) 
+        sb.Append(word);
+    }
+    charName = sb.ToString();
+    return true;
+  }
+
+  private bool TryParseChessFigureName(CharInfo charInfo, out string? charName, int alternative)
+  {
+    charName = null;
+    var codePoint = charInfo.CodePoint;
+    var longName = charInfo.Name.ToString().Replace('-', ' ');
+    if (codePoint == 0x11A3F)
+      Debug.Assert(true);
+    var ss = SplitWords(longName, alternative);
+    var k = ss.IndexOf("TURNED");
+    if (k >= 0)
+    {
+      var item = ss[k];
+      ss.RemoveAt(k);
+      ss.Add(item);
+    }
+    k = 0;
+    if (ss[k].EndsWith("QUADRANT"))
+    {
+      var item = ss[k];
+      ss.RemoveAt(k);
+      ss.Add(item);
+      ss[0] = "LARGE " + ss[0];
+    }
+    var sb = new StringBuilder();
+    for (int i = 0; i < ss.Count; i++)
+    {
+      var word = ss[i];
+      if (word == "TURNED")
+      {
+        if (WordsAbbreviations.TryGetValue("ROTATED ONE HUNDRED EIGHTY DEGREES", out var replacement))
+          sb.Append(replacement);
+        else
+        if (WordsAbbreviations.TryGetValue(word, out replacement))
+          sb.Append(replacement);
+        else sb.Append(TitleCase(word, alternative));
+      }
+      else
+      if (Numerals.TryGetValue1(word, out var number))
+        sb.Append(number);
+      else
+      if (WordsAbbreviations.TryGetValue(word, out var replacement))
+        sb.Append(replacement);
+      else
+        sb.Append(TitleCase(word, alternative));
+    }
+    charName = sb.ToString();
+    return true;
+  }
   /// <summary>
   /// Create a short name for a charInfo.
   /// </summary>
@@ -525,15 +666,6 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   private string CreateShortenName(CharInfo charInfo, int alternative = 0)
   {
     var longName = charInfo.Name.ToString();
-    longName = ReplaceStrings(longName, alternative);
-    var sb = new StringBuilder();
-    var words = longName.Split([' ', ',', '-', '_'], StringSplitOptions.RemoveEmptyEntries).ToList();
-    if (words.Count == 1)
-    {
-      if (StringReplacements.TryGetValue(words[0], out var repl))
-        return repl;
-      return words[0].ToLower();
-    }
     return CreateShortenName(charInfo.CodePoint, longName, alternative);
   }
 
@@ -546,16 +678,18 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   /// <returns></returns>
   private string CreateShortenName(CodePoint codePoint, string longName, int alternative = 0)
   {
-    if (codePoint == 0x250D)
+    if (codePoint == 0x113E1)
       Debug.Assert(true);
-    longName = ReplaceStrings(longName, alternative);
     var sb = new StringBuilder();
-    var ss = longName.Split([' ', ',', '-']);
-    var wasCapital = longName.Contains("CAPITAL");
-    var wasSmall = longName.Contains("SMALL");
-    var wasLetter = longName.Contains("LETTER");
+    var ss = SplitWords(longName, alternative);
+    var isCapital = ss.Contains("CAPITAL");
+    var isSmall = ss.Contains("SMALL");
+    var isLetter = ss.Contains("LETTER");
+    var isLatin = ss.Contains("LATIN");
+    var isDigit = ss.Contains("DIGIT");
+    var isNumber = ss.Contains("NUMBER");
     //var wasWith = false;
-    for (int i = 0; i < ss.Length; i++)
+    for (int i = 0; i < ss.Count; i++)
     {
       var word = ss[i];//.Replace('-', '_');
 
@@ -574,10 +708,16 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
 
       if (word == "SMALL")
       {
-        if (wasLetter)
+        if (isLetter)
           continue;
         if (WordsAbbreviations.TryGetValue(word, out var small))
           sb.Append(small);
+        continue;
+      }
+
+      if (Numerals.TryGetValue1(word, out var abbr))
+      {
+        sb.Append(TitleCase(word, alternative));
         continue;
       }
 
@@ -585,11 +725,6 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       {
         if (WordsAbbreviations.TryGetValue(word, out var replacement))
         {
-          if (AdjectiveWords.Contains(word))
-          {
-            sb.Append(word.ToLower());
-            continue;
-          }
           sb.Append(replacement);
           continue;
         }
@@ -601,45 +736,68 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
         }
       }
 
-      if (wasCapital)
+      if (isCapital)
       {
-        if (wasSmall)
+        if (isSmall)
           sb.Append("smcap");
         if (word.Length == 2)
-          sb.Append(word.ToUpper());
+          sb.Append(UpperCase(word, alternative));
         else
         {
           if (alternative > 1)
             sb.Append("cap");
-          sb.Append(word.TitleCase());
+          sb.Append(UpperCase(word, alternative));
         }
-        wasCapital = false;
+        isCapital = false;
       }
       else
-      if (wasSmall)
+      if (isSmall)
       {
-        if (alternative > 0 || !wasLetter)
-        {
-          if (WordsAbbreviations.TryGetValue("SMALL", out var abbr))
-            sb.Append(abbr);
-          else
-            sb.Append("small");
-        }
-        sb.Append(word.ToLower());
+        sb.Append(LowerCase(word, alternative));
       }
       else
-        sb.Append(word.ToLower());
-      wasSmall = false;
+        sb.Append(TitleCase(word, alternative));
+      isSmall = false;
     }
     return sb.ToString();
+  }
+
+  private static string LowerCase(string word, int alternative)
+  {
+    if (word.Contains('-'))
+    {
+      if (alternative == 0)
+        word = word.Replace("-", "");
+    }
+    return word.ToLower();
+  }
+
+  private static string UpperCase(string word, int alternative)
+  {
+    if (word.Contains('-'))
+    {
+      if (alternative == 0)
+        word = word.Replace("-", "");
+    }
+    return word.ToUpper();
+  }
+
+  private static string TitleCase(string word, int alternative)
+  {
+    if (word.Contains('-'))
+    {
+      if (alternative == 0)
+        word = word.Replace("-", "");
+    }
+    return word.TitleCase();
   }
 
   private static bool TryFindWordToRemove(string word, string longName, int alternative)
   {
     if (alternative > 1)
       return false;
-    if (word == "WITH" && longName.Contains("ARROW"))
-      return false;
+    if (word == "WITH")
+      return true;
     if (word == "AND" && !longName.StartsWith("LOG"))
       return true;
     if (WordsToRemove.TryGetValue(word, out int val))
@@ -650,29 +808,69 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     return false;
   }
 
+  private static List<String> SplitWords(string longName, int alternative)
+  {
+    var k = longName.LastIndexOf('-');
+    if (k >= 0)
+    {
+      var rest = longName.Substring(k + 1);
+      if (int.TryParse(rest, out _) || (rest.Length > 2 && int.TryParse(rest, NumberStyles.HexNumber, null, out _)))
+        longName = longName.Substring(0, k) + " " + rest;
+    }
+    longName = ReplaceStrings(longName, alternative);
+    var words = longName.Split([' '], StringSplitOptions.RemoveEmptyEntries).ToList();
+    for (int i = 0; i < words.Count; i++)
+    {
+      words[i] = words[i].Replace('_', ' ');
+    }
+    return words;
+  }
+
   private static string ReplaceStrings(string longName, int alternative)
   {
-    if (longName.Contains("ARROW"))
-      return longName;
-    foreach (var entry in StringReplacements)
+    var wordSequences = GetWordSequences(longName, alternative);
+    for (int i = 0; i < wordSequences.Count; i++)
     {
-      longName = longName.Replace(entry.Key, entry.Value);
+      var sequence = wordSequences[i];
+      if (sequence== "NINETY THOUSAND")
+        Debug.Assert(true);
+      if (StringReplacements.TryGetValue(sequence, out var replacement))
+      {
+        longName = longName.Replace(sequence, replacement);
+      }
     }
     return longName;
   }
 
+  private static List<string> GetWordSequences(string longName, int alternative)
+  {
+    var wordSequences = new List<string>();
+    var words = longName.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+    for (int length = 1; length <= words.Length; length++)
+    {
+      for (int start = 0; start <= words.Length - length; start++)
+      {
+        if (length > 1)
+        {
+          var sequence = string.Join(" ", words, start, length);
+          wordSequences.Add(sequence);
+        }
+      }
+    }
+    wordSequences.Sort((s1, s2) => s2.Length.CompareTo(s1.Length));
+    return wordSequences;
+  }
+
   private static bool TryFindScriptName(string word, int alternative, out string scCode)
   {
-    if (word == "CANADIAN")
-      word = "Canadian Aboriginal";
-    else
-      word = word.Replace('_', ' ').TitleCase(true);
-    if (alternative == 0 && (word == "Latin" || word == "Greek" || word == "Hebrew"))
+    word = word.Replace('_', ' ').Replace(" LETTER", "");
+    if (alternative == 0 && (word == "LATIN" || word == "LATIN" || word == "LATIN"))
     {
       scCode = "";
       return true;
     }
-    if (ScriptCodes.UcdScriptNames.TryGetValue1(word, out scCode))
+    if (ScriptNames.TryGetValue(word, out scCode))
     {
       //if (WordsAbbreviations.TryGetValue(word.ToUpper(), out var abbr))
       //  scCode = abbr;
@@ -681,110 +879,52 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     return false;
   }
 
-  private static void InitializeCodePointDictionary(BiDiDictionary<CodePoint, string> dictionary, string fileName)
-  {
-    using (var reader = File.OpenText(fileName))
-    {
-      while (!reader.EndOfStream)
-      {
-        var line = reader.ReadLine();
-        if (line is not null && !line.StartsWith("#"))
-        {
-          var parts = line.Split([';', ',']);
-          if (parts.Length == 2)
-          {
-            dictionary.Add(parts[0], parts[1]);
-          }
-        }
-      }
-    }
-  }
-
-  private static void InitializeStringDictionary(Dictionary<string, string> dictionary, string fileName, bool joinKeyWords = false)
-  {
-    using (var reader = File.OpenText(fileName))
-    {
-      while (!reader.EndOfStream)
-      {
-        var line = reader.ReadLine();
-        if (line is not null && !line.StartsWith("#"))
-        {
-          var parts = line.Split([';', ',']);
-          if (parts.Length == 2)
-          {
-            var key = parts[0];
-            if (joinKeyWords)
-              key = key.Replace(' ', '_');
-            dictionary.Add(key, parts[1]);
-          }
-        }
-      }
-    }
-  }
-
-  private static void InitializeStringIntDictionary(Dictionary<string, int> dictionary, string fileName)
-  {
-    using (var reader = File.OpenText(fileName))
-    {
-      while (!reader.EndOfStream)
-      {
-        var line = reader.ReadLine();
-        if (line is not null && !line.StartsWith("#"))
-        {
-          var parts = line.Split([';', ',']);
-          if (parts.Length == 2)
-          {
-            dictionary.Add(parts[0], int.Parse(parts[1]));
-          }
-        }
-      }
-    }
-  }
-
-  private static void InitializeIntStringDictionary(BiDiDictionary<int, string> dictionary, string fileName)
-  {
-    using (var reader = File.OpenText(fileName))
-    {
-      while (!reader.EndOfStream)
-      {
-        var line = reader.ReadLine();
-        if (line is not null && !line.StartsWith("#"))
-        {
-          var parts = line.Split([';', ',']);
-          if (parts.Length == 2)
-          {
-            dictionary.Add(int.Parse(parts[0]), parts[1]);
-          }
-        }
-      }
-    }
-  }
-  private static void InitializeStringList(List<string> list, string fileName)
-  {
-    using (var reader = File.OpenText(fileName))
-    {
-      while (!reader.EndOfStream)
-      {
-        var line = reader.ReadLine();
-        if (line is not null && !line.StartsWith("#"))
-        {
-          list.Add(line.Trim());
-        }
-      }
-    }
-  }
-
   private static readonly BiDiDictionary<CodePoint, string> KnownCharNames = new();
   private static readonly BiDiDictionary<CodePoint, string> GreekAlphabet = new();
   private static readonly BiDiDictionary<CodePoint, string> HebrewAlphabet = new();
-  private static readonly Dictionary<string, string> StringReplacements = new();
-  private static readonly Dictionary<string, string> WordsAbbreviations = new();
+  private static readonly BiDiDictionary<string, string> ScriptNames = new();
+  private static readonly SortedDictionary<string, string> WordsAbbreviations = new(new WordsAbbreviationsComparer());
+  private static readonly SortedList<string, string> StringReplacements = new(new StringReplacementsComparer());
+  private static int MaxWords;
   private static readonly Dictionary<string, string> NameStarts = new();
   private static readonly List<string> AdjectiveWords = new();
   private static readonly Dictionary<string, int> WordsToRemove = new();
-  private static readonly BiDiDictionary<int, string> NumberNames = new();
+  private static readonly BiDiDictionary<int, string> Numerals = new();
   private static readonly Dictionary<string, string> SignWritingAbbreviations = new();
   private static readonly Dictionary<string, int> SwWords = new();
+  internal static readonly NamedBlocks NamedBlocks = new();
+  private Dictionary<string, int> SequentialDictionary = new();
 
+  private class WordsAbbreviationsComparer : IComparer<string>
+  {
+    /// <summary>
+    /// Compare two strings by lexicographical order,
+    /// but if one string is contained in the other, the longer string goes first.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public int Compare(string? x, string? y)
+    {
+      if (x == "EXTENDED ARABIC-INDIC" && y == "EXTENDED ARABIC-INDIC")
+        Debug.Assert(true);
+      return String.Compare(x!, y, StringComparison.InvariantCulture);
+    }
+  }
 
+  private class StringReplacementsComparer : IComparer<string>
+  {
+    /// <summary>
+    /// Compare two strings by reverse lexicographical order,
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public int Compare(string? x, string? y)
+    {
+      return -String.Compare(x!, y, StringComparison.InvariantCulture);
+    }
+  }
 }
+
+
