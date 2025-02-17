@@ -1,9 +1,9 @@
 ﻿007F;DEL
-00A8;Dieresis
+00A8;dieresis
 00AB;lguillemot
-00AF;Macron
-00B4;Acute
-00B8;Cedilla
+00AF;macron
+00B4;acute
+00B8;cedilla
 00BB;rguillemot
 2000;enquad
 2001;emquad

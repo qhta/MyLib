@@ -30,7 +30,7 @@
         },
         "runtime": {
           "Qhta.Collections.dll": {
-            "assemblyVersion": "5.1.0",
+            "assemblyVersion": "5.1.0.0",
             "fileVersion": "5.1.0.0"
           }
         }

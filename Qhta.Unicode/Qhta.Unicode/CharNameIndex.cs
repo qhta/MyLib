@@ -169,7 +169,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   /// <returns></returns>
   public string? GenerateShortName(CharInfo charInfo, int alternative = 0)
   {
-    if (charInfo.CodePoint == 0x1ED2D)
+    if (charInfo.CodePoint == 0xFF01)
       Debug.Assert(true);
 
 

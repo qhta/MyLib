@@ -158,7 +158,7 @@
         <member name="F:Qhta.Unicode.BlockType.Numerals">
             <summary>Block that contains only numeral symbols</summary>
         </member>
-        <member name="F:Qhta.Unicode.BlockType.Format">
+        <member name="F:Qhta.Unicode.BlockType.Form">
             <summary>Block that changes only the form of presentation of some other code point.</summary>
         </member>
         <member name="F:Qhta.Unicode.BlockType.Phonetic">

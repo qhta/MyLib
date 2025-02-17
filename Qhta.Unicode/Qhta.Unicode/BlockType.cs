@@ -25,7 +25,7 @@ public enum BlockType
   /// <summary>Block that contains only numeral symbols</summary>
   [EnumMember(Value = "num")] Numerals,
   /// <summary>Block that changes only the form of presentation of some other code point.</summary>
-  [EnumMember(Value = "form")] Format,
+  [EnumMember(Value = "form")] Form,
   /// <summary>Phonetic extensions.</summary>
   [EnumMember(Value = "phon")] Phonetic,
   /// <summary>Phonetic extensions.</summary>

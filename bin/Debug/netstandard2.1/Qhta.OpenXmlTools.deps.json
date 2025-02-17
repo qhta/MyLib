@@ -127,7 +127,7 @@
         },
         "runtime": {
           "Qhta.Collections.dll": {
-            "assemblyVersion": "5.1.0",
+            "assemblyVersion": "5.1.0.0",
             "fileVersion": "5.1.0.0"
           }
         }
@@ -139,7 +139,7 @@
         },
         "runtime": {
           "Qhta.Unicode.dll": {
-            "assemblyVersion": "1.2.1",
+            "assemblyVersion": "1.2.1.0",
             "fileVersion": "1.2.1.0"
           }
         }

@@ -377,7 +377,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "netcoreapp3.0": {
@@ -418,7 +418,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
       },
       "net6.0": {
         "targetAlias": "net6.0",
@@ -444,7 +444,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
       },
       "net6.0-windows7.0": {
         "targetAlias": "net6-windows7.0",
@@ -470,7 +470,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
       },
       "net7.0": {
         "targetAlias": "net7.0",
@@ -496,7 +496,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
       },
       "net8.0": {
         "targetAlias": "net8.0",
@@ -522,7 +522,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       },
       "netstandard2.0": {
         "targetAlias": "netstandard2.0",
@@ -549,7 +549,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }
