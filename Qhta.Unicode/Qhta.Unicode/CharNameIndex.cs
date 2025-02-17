@@ -678,13 +678,14 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   /// <returns></returns>
   private string CreateShortenName(CodePoint codePoint, string longName, int alternative = 0)
   {
-    if (codePoint == 0x113E1)
+    if (codePoint == 0x18D)
       Debug.Assert(true);
     var sb = new StringBuilder();
     var ss = SplitWords(longName, alternative);
     var isCapital = ss.Contains("CAPITAL");
     var isSmall = ss.Contains("SMALL");
     var isLetter = ss.Contains("LETTER");
+    var isLigature = ss.Contains("LIGATURE");
     var isLatin = ss.Contains("LATIN");
     var isDigit = ss.Contains("DIGIT");
     var isNumber = ss.Contains("NUMBER");
@@ -695,7 +696,8 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
 
       if (word != "YI" && TryFindScriptName(word, alternative, out var scCode))
       {
-        scCode = scCode.ToLower();
+        if (i==0)
+          scCode = scCode.ToLower();
         sb.Append(scCode);
         continue;
       }
@@ -708,7 +710,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
 
       if (word == "SMALL")
       {
-        if (isLetter)
+        if (isLetter || isLigature)
           continue;
         if (WordsAbbreviations.TryGetValue(word, out var small))
           sb.Append(small);
@@ -725,6 +727,8 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       {
         if (WordsAbbreviations.TryGetValue(word, out var replacement))
         {
+          if (i==0)
+            replacement = replacement.ToLower();
           sb.Append(replacement);
           continue;
         }
@@ -739,14 +743,17 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       if (isCapital)
       {
         if (isSmall)
-          sb.Append("smcap");
+          sb.Append("SmCap");
         if (word.Length == 2)
           sb.Append(UpperCase(word, alternative));
         else
         {
           if (alternative > 1)
             sb.Append("cap");
-          sb.Append(UpperCase(word, alternative));
+          if (word.Length <= 2) 
+            sb.Append(UpperCase(word, alternative));
+          else
+            sb.Append(TitleCase(word, alternative));
         }
         isCapital = false;
       }
