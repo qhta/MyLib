@@ -20,6 +20,9 @@
 03F4;grkTheta
 03F5;epsilonLun
 03F6;epsilonLunRev
+0605;arabNumAbv
+0609;Permille
+060A;PerTenThs
 2000;enquad
 2001;emquad
 2002;ensp

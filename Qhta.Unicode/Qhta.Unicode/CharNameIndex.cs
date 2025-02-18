@@ -691,7 +691,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     var sb = new StringBuilder();
     var ss = SplitWords(longName, alternative);
     var isCapital = longName.Contains("CAPITAL");
-    var isSmall = longName.Contains("SMALL");
+    var isSmall = longName.Contains("SMALL") && !longName.Contains("SMALL HIGH");
     var isLetter = ss.Contains("LETTER");
     var isLigature = ss.Contains("LIGATURE");
     foreach (var word in MoveToStartWords)
