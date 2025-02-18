@@ -213,7 +213,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     { }
 
     else if (charInfo.Category.ToString()[0] == 'L' || longName.Contains("LETTER") || longName.Contains("CAPITAL"))
-      charName = CreateShortenName(charInfo.CodePoint, longName, alternative);
+      charName = CreateShortenName(charInfo, longName, alternative);
     else
       charName = CreateShortenName(charInfo, alternative);
 
@@ -241,7 +241,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     var longName = charInfo.Name.ToString();
     if (longName.StartsWith("<") && longName.EndsWith(">"))
     {
-      charName = CreateShortenName(charInfo.CodePoint, longName.Substring(1, longName.Length - 2).ToUpper());
+      charName = CreateShortenName(charInfo, longName.Substring(1, longName.Length - 2).ToUpper());
       return true;
     }
     return false;
@@ -315,7 +315,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     if (mod >= 0)
     {
       longName = longName.Replace("MODIFIER LETTER ", "");
-      var result = CreateShortenName(charInfo.CodePoint, longName, alternative);
+      var result = CreateShortenName(charInfo, longName, alternative);
       if (result.EndsWith("tonebar"))
         result = result.Substring(0, result.Length - 3);
       charName = result + "mod";
@@ -332,7 +332,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     if (comb >= 0)
     {
       longName = longName.Replace("COMBINING ", "");
-      var result = CreateShortenName(charInfo.CodePoint, longName, alternative);
+      var result = CreateShortenName(charInfo, longName, alternative);
       if (alternative == 0)
       {
         if (longName.StartsWith("LIGATURE"))
@@ -551,7 +551,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
           charName = prefix + "{" + rest + "}";
           return true;
         }
-        var shortName1 = CreateShortenName(charInfo.CodePoint, rest, alternative);
+        var shortName1 = CreateShortenName(charInfo, rest, alternative);
         charName = prefix + shortName1;
         return true;
       }
@@ -673,33 +673,29 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   private string CreateShortenName(CharInfo charInfo, int alternative = 0)
   {
     var longName = charInfo.Name.ToString();
-    return CreateShortenName(charInfo.CodePoint, longName, alternative);
+    return CreateShortenName(charInfo, longName, alternative);
   }
 
   /// <summary>
   /// Create a short name for a long character name.
   /// </summary>
   /// <param name="longName"></param>
-  /// <param name="codePoint"></param>
+  /// <param name="charInfo"></param>
   /// <param name="alternative">Some names can have alternatives</param>
   /// <returns></returns>
-  private string CreateShortenName(CodePoint codePoint, string longName, int alternative = 0)
+  private string CreateShortenName(CharInfo charInfo, string longName, int alternative = 0)
   {
-    if (codePoint == 0x037E)
+    if (charInfo.CodePoint == 0x037E)
       Debug.Assert(true);
     var sb = new StringBuilder();
     var ss = SplitWords(longName, alternative);
-    foreach (var word in MoveToEndWords)
-      TryMoveToEnd(word, ss);
     var isCapital = longName.Contains("CAPITAL");
     var isSmall = longName.Contains("SMALL");
     var isLetter = ss.Contains("LETTER");
     var isLigature = ss.Contains("LIGATURE");
-    //var isLatin = ss.Contains("LATIN");
-    //var isDigit = ss.Contains("DIGIT");
-    //var isNumber = ss.Contains("NUMBER");
-    //var isTone = ss.Contains("TONE");
-    //var wasWith = false;
+    if (charInfo.Category.ToString().StartsWith("L"))
+      foreach (var word in MoveToEndWords)
+        TryMoveToEnd(word, ss);
     for (int i = 0; i < ss.Count; i++)
     {
       var word = ss[i];//.Replace('-', '_');

@@ -513,12 +513,12 @@
             <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortenName(Qhta.Unicode.CodePoint,System.String,System.Int32)">
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortenName(Qhta.Unicode.CharInfo,System.String,System.Int32)">
             <summary>
             Create a short name for a long character name.
             </summary>
             <param name="longName"></param>
-            <param name="codePoint"></param>
+            <param name="charInfo"></param>
             <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
         </member>
