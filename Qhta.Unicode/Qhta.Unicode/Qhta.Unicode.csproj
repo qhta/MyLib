@@ -82,6 +82,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ContentWithTargetPath Include="MoveToStartWords.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\MoveToStartWords.txt</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
     <ContentWithTargetPath Include="MoveToEndWords.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>$(OutDir)..\..\..\MoveToEndWords.txt</TargetPath>

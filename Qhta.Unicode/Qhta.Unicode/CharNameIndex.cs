@@ -59,6 +59,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     }
     NameStarts.LoadFromFile("NameStarts.txt");
     AdjectiveWords.LoadFromFile("Adjectives.txt");
+    MoveToStartWords.LoadFromFile("MoveToStartWords.txt");
     MoveToEndWords.LoadFromFile("MoveToEndWords.txt");
     WordsToRemove.LoadFromFile("WordsToRemove.txt");
 
@@ -693,6 +694,8 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     var isSmall = longName.Contains("SMALL");
     var isLetter = ss.Contains("LETTER");
     var isLigature = ss.Contains("LIGATURE");
+    foreach (var word in MoveToStartWords)
+      TryMoveToStart(word, ss);
     if (charInfo.Category.ToString().StartsWith("L"))
       foreach (var word in MoveToEndWords)
         TryMoveToEnd(word, ss);
@@ -707,8 +710,9 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
         sb.Append(scCode);
         continue;
       }
-      if (TryFindWordToRemove(word, longName, alternative))
-        continue;
+      if (!(word =="TO" && charInfo.Category.ToString().StartsWith("L")))
+        if (TryFindWordToRemove(word, longName, alternative))
+          continue;
 
 
       if (word == "CAPITAL")
@@ -774,7 +778,8 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
           else
             sb.Append(TitleCase(word, alternative));
         }
-        isCapital = false;
+        if (!isLigature)
+          isCapital = false;
       }
       else
       if (isSmall)
@@ -783,9 +788,23 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       }
       else
         sb.Append(TitleCase(word, alternative));
-      isSmall = false;
+      if (!isLigature)
+        isSmall = false;
     }
     return sb.ToString();
+  }
+
+  private static bool TryMoveToStart(string key, List<string> ss)
+  {
+    var k = ss.IndexOf(key);
+    if (k >= 0)
+    {
+      var item = ss[k];
+      ss.RemoveAt(k);
+      ss.Insert(0, item);
+      return true;
+    }
+    return false;
   }
 
   private static bool TryMoveToEnd(string key, List<string> ss)
@@ -954,6 +973,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   private static int MaxWords;
   private static readonly Dictionary<string, string> NameStarts = new();
   private static readonly List<string> AdjectiveWords = new();
+  private static readonly List<string> MoveToStartWords = new();
   private static readonly List<string> MoveToEndWords = new();
   private static readonly Dictionary<string, int> WordsToRemove = new();
   private static readonly BiDiDictionary<string, string> Letters = new();
