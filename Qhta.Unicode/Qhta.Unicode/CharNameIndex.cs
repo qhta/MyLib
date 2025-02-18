@@ -34,11 +34,17 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     HebrewAlphabet.LoadFromFile("HebrewAlphabet.txt");
     ScriptNames.LoadFromFile("ScriptNames.txt");
     WordsAbbreviations.LoadFromFile("WordAbbr.txt");
+    Letters.LoadFromFile("Letters.txt");
     Numerals.LoadFromFile("Numerals.txt");
     MaxWords = WordsAbbreviations.Keys.Max(key => key.Split(' ').Length);
     foreach (var key in WordsAbbreviations.Keys.Where(key => key.Contains(' ')))
     {
       var key2 = key.Replace(' ', '_');
+      StringReplacements.Add(key, key2);
+    }
+    foreach (var key in Letters.Keys.Where(key => key.Contains(' ')))
+    {
+      var key2 = key.ToUpper().Replace(' ', '_');
       StringReplacements.Add(key, key2);
     }
     foreach (var key in Numerals.Values.Where(key => key.Contains(' ')))
@@ -53,6 +59,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     }
     NameStarts.LoadFromFile("NameStarts.txt");
     AdjectiveWords.LoadFromFile("Adjectives.txt");
+    MoveToEndWords.LoadFromFile("MoveToEndWords.txt");
     WordsToRemove.LoadFromFile("WordsToRemove.txt");
 
     SignWritingAbbreviations.LoadFromFile("SignWritingAbbr.txt");
@@ -678,17 +685,20 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   /// <returns></returns>
   private string CreateShortenName(CodePoint codePoint, string longName, int alternative = 0)
   {
-    if (codePoint == 0x18D)
+    if (codePoint == 0x037E)
       Debug.Assert(true);
     var sb = new StringBuilder();
     var ss = SplitWords(longName, alternative);
-    var isCapital = ss.Contains("CAPITAL");
-    var isSmall = ss.Contains("SMALL");
+    foreach (var word in MoveToEndWords)
+      TryMoveToEnd(word, ss);
+    var isCapital = longName.Contains("CAPITAL");
+    var isSmall = longName.Contains("SMALL");
     var isLetter = ss.Contains("LETTER");
     var isLigature = ss.Contains("LIGATURE");
-    var isLatin = ss.Contains("LATIN");
-    var isDigit = ss.Contains("DIGIT");
-    var isNumber = ss.Contains("NUMBER");
+    //var isLatin = ss.Contains("LATIN");
+    //var isDigit = ss.Contains("DIGIT");
+    //var isNumber = ss.Contains("NUMBER");
+    //var isTone = ss.Contains("TONE");
     //var wasWith = false;
     for (int i = 0; i < ss.Count; i++)
     {
@@ -696,7 +706,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
 
       if (word != "YI" && TryFindScriptName(word, alternative, out var scCode))
       {
-        if (i==0)
+        if (sb.Length==0)
           scCode = scCode.ToLower();
         sb.Append(scCode);
         continue;
@@ -716,6 +726,10 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
           sb.Append(small);
         continue;
       }
+      if (word == "SMALL CAPITAL")
+      {
+        continue;
+      }
 
       if (Numerals.TryGetValue1(word, out var abbr))
       {
@@ -723,11 +737,20 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
         continue;
       }
 
+      if (Letters.TryGetValue(word, out var letter))
+      {
+        if (isCapital)
+          sb.Append(CapitalCase(letter, alternative));
+        else
+          sb.Append(SmallCase(letter, alternative));
+        continue;
+      }
+
       if (word != "EN" && word != "EM")
       {
         if (WordsAbbreviations.TryGetValue(word, out var replacement))
         {
-          if (i==0)
+          if (sb.Length == 0)
             replacement = replacement.ToLower();
           sb.Append(replacement);
           continue;
@@ -743,13 +766,13 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       if (isCapital)
       {
         if (isSmall)
-          sb.Append("SmCap");
+          sb.Append(WordsAbbreviations["SMALL CAPITAL"]);
         if (word.Length == 2)
           sb.Append(UpperCase(word, alternative));
         else
         {
           if (alternative > 1)
-            sb.Append("cap");
+            sb.Append(WordsAbbreviations["CAPITAL"]);
           if (word.Length <= 2) 
             sb.Append(UpperCase(word, alternative));
           else
@@ -767,6 +790,22 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       isSmall = false;
     }
     return sb.ToString();
+  }
+
+  private static bool TryMoveToEnd(string key, List<string> ss)
+  {
+    var k = ss.IndexOf(key);
+    if (k >= 0)
+    {
+      var item = ss[k];
+      ss.RemoveAt(k);
+      k = ss.IndexOf("WITH");
+      if (k < 0)
+        k = ss.Count();
+      ss.Insert(k,item);
+      return true;
+    }
+    return false;
   }
 
   private static string LowerCase(string word, int alternative)
@@ -797,6 +836,30 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
         word = word.Replace("-", "");
     }
     return word.TitleCase();
+  }
+
+  private static string CapitalCase(string word, int alternative)
+  {
+    if (word.Contains('-'))
+    {
+      if (alternative == 0)
+        word = word.Replace("-", "");
+    }
+    var chars = word.ToCharArray();
+    chars[0] = char.ToUpper(chars[0]);
+    return new string(chars);
+  }
+
+  private static string SmallCase(string word, int alternative)
+  {
+    if (word.Contains('-'))
+    {
+      if (alternative == 0)
+        word = word.Replace("-", "");
+    }
+    var chars = word.ToCharArray();
+    chars[0] = char.ToLower(chars[0]);
+    return new string(chars);
   }
 
   private static bool TryFindWordToRemove(string word, string longName, int alternative)
@@ -872,7 +935,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   private static bool TryFindScriptName(string word, int alternative, out string scCode)
   {
     word = word.Replace('_', ' ').Replace(" LETTER", "");
-    if (alternative == 0 && (word == "LATIN" || word == "LATIN" || word == "LATIN"))
+    if (alternative == 0 && (word == "LATIN" || word == "GREEK" || word == "COPTIC" || word == "HEBREW"))
     {
       scCode = "";
       return true;
@@ -895,7 +958,9 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   private static int MaxWords;
   private static readonly Dictionary<string, string> NameStarts = new();
   private static readonly List<string> AdjectiveWords = new();
+  private static readonly List<string> MoveToEndWords = new();
   private static readonly Dictionary<string, int> WordsToRemove = new();
+  private static readonly BiDiDictionary<string, string> Letters = new();
   private static readonly BiDiDictionary<int, string> Numerals = new();
   private static readonly Dictionary<string, string> SignWritingAbbreviations = new();
   private static readonly Dictionary<string, int> SwWords = new();

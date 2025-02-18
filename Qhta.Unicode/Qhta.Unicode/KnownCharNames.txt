@@ -12,6 +12,14 @@
 00FE;thorn
 014A;Eng
 014B;eng
+0374;grkNumeral
+0375;grkLowerNumeral
+037A;ypogegrammeni
+03F0;koppa
+03F2;sigmaLun
+03F4;grkTheta
+03F5;epsilonLun
+03F6;epsilonLunRev
 2000;enquad
 2001;emquad
 2002;ensp

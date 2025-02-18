@@ -82,6 +82,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ContentWithTargetPath Include="MoveToEndWords.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\MoveToEndWords.txt</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
     <ContentWithTargetPath Include="WordsToRemove.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>$(OutDir)..\..\..\WordsToRemove.txt</TargetPath>
@@ -95,6 +102,12 @@
     </ContentWithTargetPath>
   </ItemGroup>
 
+  <ItemGroup>
+    <ContentWithTargetPath Include="Letters.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\Letters.txt</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
 
   <ItemGroup>
     <ContentWithTargetPath Include="Numerals.txt">
