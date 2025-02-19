@@ -131,8 +131,6 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     var charName = GenerateShortName(charInfo);
     if (charName is null)
       return false;
-    //if (charName.Contains("Gamma"))
-    //  Debug.Assert(true);
 
     if (this.TryGetValue1(charName, out var existingCodePoint))
     {
@@ -193,7 +191,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     else if (TryParseNamedBlockCpName(charInfo, out charName, alternative))
     { }
     else if (charInfo.Category == UcdCategory.Cc || charInfo.CodePoint == 0x020 || longName.StartsWith("<") && TryCreateAliasCharName(charInfo, out charName))
-    {}
+    { }
     else if (charInfo.Category.ToString()[0] == 'Z')
       charName = CreateShortenName(charInfo, alternative);
     else if (TryParseSignWrittingName(charInfo, out charName, alternative))
@@ -404,7 +402,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       {
         keyString = keyString.Replace("*", " ");
         var keyWords = keyString.Split(' ');
-        for (int i = keyWords.Length-1; i>=0; i--)
+        for (int i = keyWords.Length - 1; i >= 0; i--)
         {
           var str = keyWords[i];
           if (ss.Contains(str))
@@ -412,12 +410,12 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
             ss.Remove(str);
           }
         }
-        ss.Insert(0,keyString);
+        ss.Insert(0, keyString);
       }
       else if (keyString.Contains("BLOCK"))
       {
         var str = ss.FirstOrDefault(s => s.Contains(keyString));
-        if (str!=null)
+        if (str != null)
         {
           ss.Remove(str);
           ss.Insert(0, str);
@@ -610,7 +608,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       }
       else if (WordsAbbreviations.TryGetValue(word, out var replacement))
         sb.Append(replacement);
-      else if (int.TryParse(word, out _)) 
+      else if (int.TryParse(word, out _))
         sb.Append(word);
     }
     charName = sb.ToString();
@@ -690,8 +688,15 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       Debug.Assert(true);
     var sb = new StringBuilder();
     var ss = SplitWords(longName, alternative);
-    var isCapital = longName.Contains("CAPITAL");
-    var isSmall = longName.Contains("SMALL") && !longName.Contains("SMALL HIGH");
+    var firstWord = ss[0];
+    bool isCapital = false;
+
+    bool isSmall = false;
+    if (firstWord == "SQUARE")
+    {
+      isCapital = longName.Contains("CAPITAL");
+      isSmall = longName.Contains("SMALL") && !longName.Contains("SMALL HIGH");
+    }
     var isLetter = ss.Contains("LETTER");
     var isLigature = ss.Contains("LIGATURE");
     foreach (var word in MoveToStartWords)
@@ -705,29 +710,36 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
 
       if (word != "YI" && TryFindScriptName(word, alternative, out var scCode))
       {
-        if (sb.Length==0)
+        if (sb.Length == 0)
           scCode = scCode.ToLower();
         sb.Append(scCode);
         continue;
       }
-      if (!(word =="TO" && charInfo.Category.ToString().StartsWith("L")))
+      if (!(word == "TO" && charInfo.Category.ToString().StartsWith("L")))
         if (TryFindWordToRemove(word, longName, alternative))
           continue;
 
 
       if (word == "CAPITAL")
+      {
+        isCapital = true;
         continue;
+      }
 
       if (word == "SMALL")
       {
+        isSmall = true;
         if (isLetter || isLigature)
           continue;
         if (WordsAbbreviations.TryGetValue(word, out var small))
           sb.Append(small);
         continue;
       }
+
       if (word == "SMALL CAPITAL")
       {
+        isCapital = true;
+        isSmall = true;
         continue;
       }
 
@@ -773,7 +785,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
         {
           if (alternative > 1)
             sb.Append(WordsAbbreviations["CAPITAL"]);
-          if (word.Length <= 2) 
+          if (word.Length <= 2)
             sb.Append(UpperCase(word, alternative));
           else
             sb.Append(TitleCase(word, alternative));
@@ -817,7 +829,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       k = ss.IndexOf("WITH");
       if (k < 0)
         k = ss.Count();
-      ss.Insert(k,item);
+      ss.Insert(k, item);
       return true;
     }
     return false;
@@ -917,7 +929,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     for (int i = 0; i < wordSequences.Count; i++)
     {
       var sequence = wordSequences[i];
-      if (sequence== "NINETY THOUSAND")
+      if (sequence == "NINETY THOUSAND")
         Debug.Assert(true);
       if (StringReplacements.TryGetValue(sequence, out var replacement))
       {

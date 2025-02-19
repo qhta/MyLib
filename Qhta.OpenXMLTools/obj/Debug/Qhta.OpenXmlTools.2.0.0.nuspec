@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>OpenXmlTools is a library for working with OpenXml documents.</description>
-    <repository type="git" commit="92f75ede42e016b6afc58f7237df23e2a7dd8ee5" />
+    <repository type="git" commit="d5dcb9f384e450f3041fdbb5f693044a777e7dbe" />
     <dependencies>
       <group targetFramework=".NETStandard2.1">
         <dependency id="Qhta.Unicode" version="1.2.1" exclude="Build,Analyzers" />

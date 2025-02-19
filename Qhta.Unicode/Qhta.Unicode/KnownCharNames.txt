@@ -23,6 +23,7 @@
 0605;arabNumAbv
 0609;Permille
 060A;PerTenThs
+085E;mandPunctuation
 2000;enquad
 2001;emquad
 2002;ensp
