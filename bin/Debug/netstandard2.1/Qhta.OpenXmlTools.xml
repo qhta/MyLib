@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Qhta.OpenXmlTools</name>
+        <name>Qhta.OpenXMLTools</name>
     </assembly>
     <members>
         <member name="T:Qhta.OpenXmlTools.AbstractNumTools">

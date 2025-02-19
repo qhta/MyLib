@@ -131,6 +131,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ContentWithTargetPath Include="Ordinals.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>$(OutDir)..\..\..\Ordinals.txt</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
     <ContentWithTargetPath Include="SignWritingAbbr.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>$(OutDir)..\..\..\SignWritingAbbr.txt</TargetPath>

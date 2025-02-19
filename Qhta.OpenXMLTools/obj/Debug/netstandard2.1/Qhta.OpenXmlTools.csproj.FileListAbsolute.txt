@@ -17,4 +17,4 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\pl\Qhta
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.OpenXmlTools.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.OpenXmlTools.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.OpenXmlTools.pdb
-D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.Ope.9F435BCC.Up2Date
+D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.Ope.7D9C0617.Up2Date

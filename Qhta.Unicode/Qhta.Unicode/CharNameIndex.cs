@@ -36,6 +36,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     WordsAbbreviations.LoadFromFile("WordAbbr.txt");
     Letters.LoadFromFile("Letters.txt");
     Numerals.LoadFromFile("Numerals.txt");
+    Ordinals.LoadFromFile("Ordinals.txt");
     MaxWords = WordsAbbreviations.Keys.Max(key => key.Split(' ').Length);
     foreach (var key in WordsAbbreviations.Keys.Where(key => key.Contains(' ')))
     {
@@ -684,7 +685,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   /// <returns></returns>
   private string CreateShortenName(CharInfo charInfo, string longName, int alternative = 0)
   {
-    if (charInfo.CodePoint == 0x037E)
+    if (charInfo.CodePoint == 0x0B75)
       Debug.Assert(true);
     var sb = new StringBuilder();
     var ss = SplitWords(longName, alternative);
@@ -746,6 +747,14 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       if (Numerals.TryGetValue1(word, out var abbr))
       {
         sb.Append(TitleCase(word, alternative));
+        continue;
+      }
+
+      var ordWord = word.EndsWith("THS") ? word.Substring(0, word.Length - 1) : word;
+      
+      if (Ordinals.TryGetValue1(ordWord, out var ordAbbr))
+      {
+        sb.Append(TitleCase(ordAbbr, alternative));
         continue;
       }
 
@@ -862,7 +871,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       if (alternative == 0)
         word = word.Replace("-", "");
     }
-    return word.TitleCase();
+    return word.TitleCase(true).Replace(" ", "");
   }
 
   private static string CapitalCase(string word, int alternative)
@@ -961,7 +970,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
 
   private static bool TryFindScriptName(string word, int alternative, out string scCode)
   {
-    word = word.Replace('_', ' ').Replace(" LETTER", "");
+    //word = word.Replace('_', ' ').Replace(" LETTER", "");
     if (alternative == 0 && (word == "LATIN" || word == "GREEK" || word == "COPTIC" || word == "HEBREW"))
     {
       scCode = "";
@@ -990,6 +999,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
   private static readonly Dictionary<string, int> WordsToRemove = new();
   private static readonly BiDiDictionary<string, string> Letters = new();
   private static readonly BiDiDictionary<int, string> Numerals = new();
+  private static readonly BiDiDictionary<string, string> Ordinals = new();
   private static readonly Dictionary<string, string> SignWritingAbbreviations = new();
   private static readonly Dictionary<string, int> SwWords = new();
   internal static readonly NamedBlocks NamedBlocks = new();
