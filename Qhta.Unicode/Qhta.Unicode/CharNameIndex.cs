@@ -45,8 +45,11 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     }
     foreach (var key in Letters.Keys.Where(key => key.Contains(' ')))
     {
-      var key2 = key.ToUpper().Replace(' ', '_');
-      StringReplacements.Add(key, key2);
+      if (!StringReplacements.ContainsKey(key))
+      {
+        var key2 = key.ToUpper().Replace(' ', '_');
+        StringReplacements.Add(key, key2);
+      }
     }
     foreach (var key in Numerals.Values.Where(key => key.Contains(' ')))
     {
@@ -181,7 +184,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
 
 
     string? charName = null;
-    string longName = charInfo.Name.ToString().ToUpper().Replace(" -A", " AA")/*.Replace('-', ' ')*/;
+    string longName = charInfo.Name.ToString().ToUpper().Replace(" -A", " AA");
 
     if (KnownCharNames.TryGetValue(charInfo.CodePoint, out var knownCharName))
       charName = knownCharName;
@@ -189,6 +192,10 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       charName = greekLetterName;
     else if (HebrewAlphabet.TryGetValue(charInfo.CodePoint, out var hebrewLetterName))
       charName = hebrewLetterName;
+    else if (TryParseModifierLetterName(charInfo, out charName, alternative))
+    { }
+    else if (TryParseCombiningCharName(charInfo, out charName, alternative))
+    { }
     else if (TryParseNamedBlockCpName(charInfo, out charName, alternative))
     { }
     else if (charInfo.Category == UcdCategory.Cc || charInfo.CodePoint == 0x020 || longName.StartsWith("<") && TryCreateAliasCharName(charInfo, out charName))
@@ -207,10 +214,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     { }
     else if (charInfo.Decomposition?.Type == DecompositionType.Super || charInfo.Decomposition?.Type == DecompositionType.Sub)
       charName = CreateDecompositionName(charInfo, alternative);
-    else if (TryParseModifierLetterName(charInfo, out charName, alternative))
-    { }
-    else if (TryParseCombiningCharName(charInfo, out charName, alternative))
-    { }
+
 
     else if (charInfo.Category.ToString()[0] == 'L' || longName.Contains("LETTER") || longName.Contains("CAPITAL"))
       charName = CreateShortenName(charInfo, longName, alternative);
@@ -292,6 +296,8 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
           {
             case "Control Chars":
               return TryCreateAliasCharName(charInfo, out charName, alternative);
+            case "Spacing Modifier Letters":
+              return TryParseModifierLetterName(charInfo, out charName, alternative);
             case "Chess Symbols":
               return TryParseChessFigureName(charInfo, out charName, alternative);
             case "Vulgar Fractions":
@@ -310,58 +316,218 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
 
   private bool TryParseModifierLetterName(CharInfo charInfo, out string? charName, int alternative = 0)
   {
+    if (charInfo.CodePoint == 0x02B9)
+      Debug.Assert(true);
+    charName = null;
     var longName = charInfo.Name.ToString();
-    var mod = longName.IndexOf("MODIFIER LETTER ");
-    if (mod >= 0)
+    if (longName.StartsWith("MODIFIER LETTER "))
     {
-      longName = longName.Replace("MODIFIER LETTER ", "");
-      var result = CreateShortenName(charInfo, longName, alternative);
-      if (result.EndsWith("tonebar"))
-        result = result.Substring(0, result.Length - 3);
-      charName = result + "mod";
+      string trailStr;
+      if (longName.StartsWith("MODIFIER LETTER SMALL CAPITAL"))
+        trailStr = "LATIN" + longName.Substring("MODIFIER".Length);
+      else
+      if (longName.StartsWith("MODIFIER LETTER SMALL"))
+        trailStr = "LATIN SMALL LETTER" + longName.Substring("MODIFIER LETTER SMALL".Length);
+      else
+      if (longName.StartsWith("MODIFIER LETTER CAPITAL"))
+        trailStr = "LATIN CAPITAL LETTER" + longName.Substring("MODIFIER LETTER CAPITAL".Length);
+      else
+      if (longName.StartsWith("MODIFIER LETTER CYRILLIC SMALL"))
+        trailStr = "CYRILLIC SMALL LETTER" + longName.Substring("MODIFIER LETTER CYRILLIC SMALL".Length);
+      else
+        trailStr = longName.Substring("MODIFIER LETTER ".Length);
+      if (Ucd.NameIndex.TryGetValue(trailStr, out var modCP))
+      {
+        charName = GenerateShortName(Ucd[modCP], alternative);
+        if (charInfo.Decomposition?.Type == DecompositionType.Super)
+          charName = @"\sup{\" + charName + "}";
+        else if (charInfo.Decomposition?.Type == DecompositionType.Sub)
+          charName = @"\sub{\" + charName + "}";
+        else
+        if (alternative > 0)
+          charName = charName + "mod";
+      }
+      else
+      {
+        charName = CreateShortenName(charInfo, trailStr, alternative);
+        if (charName.EndsWith("tonebar"))
+          charName = charName.Substring(0, charName.Length - 3);
+        if (alternative > 0)
+          charName = charName + "mod";
+      }
+
       return true;
     }
-    charName = null;
     return false;
   }
 
   private bool TryParseCombiningCharName(CharInfo charInfo, out string? charName, int alternative = 0)
   {
-    var longName = charInfo.Name.ToString();
-    var comb = longName.IndexOf("COMBINING ");
-    if (comb >= 0)
-    {
-      longName = longName.Replace("COMBINING ", "");
-      var result = CreateShortenName(charInfo, longName, alternative);
-      if (alternative == 0)
-      {
-        if (longName.StartsWith("LIGATURE"))
-          charName = "zw" + result + "ligature";
-        else if (longName.Contains("ABOVE") || longName.EndsWith("BELOW") || longName.EndsWith("OVERLAY") || longName.EndsWith("OVERLINE"))
-          charName = "zw" + result;
-        else if (longName.EndsWith("BREVE") || longName.EndsWith("TILDE") || longName.EndsWith("MACRON") || longName.EndsWith("CARON") || longName.EndsWith("DIERESIS"))
-        {
-          if (charInfo.Decomposition?.Type == DecompositionType.Compat &&
-              charInfo.Decomposition?.CodePoints.FirstOrDefault() == 0x0020)
-            charName = result + "mod";
-          else
-            charName = "zw" + result;
-        }
-        else if (longName.Contains("CANDRABINDU") || longName.Contains("HORN"))
-          charName = "zw" + result;
-        else if (longName.Split(' ').Last().Length == 1)
-          charName = "zw" + result;
-        else if (longName.EndsWith("ACCENT"))
-          charName = "zw" + result.Substring(0, result.Length - 6);
-        else
-          charName = "zw" + result;
-      }
-      else
-        charName = "zw" + result;
-      return true;
-    }
+    if (charInfo.CodePoint == 0x1E08F)
+      Debug.Assert(true);
     charName = null;
+    var longName = charInfo.Name.ToString();
+    if (longName.StartsWith("COMBINING "))
+    {
+      bool isSmallLetter = false;
+      string? trailStr = null;
+      if (longName.StartsWith("COMBINING LATIN LETTER SMALL CAPITAL "))
+      {
+        trailStr = longName.Substring("COMBINING LATIN LETTER SMALL CAPITAL ".Length);
+        if (!trailStr.Contains(' '))
+        {
+          charName = trailStr.ToUpper() + WordsAbbreviations["ABOVE"];
+          return true;
+        }
+      }
+      else if (longName.StartsWith("COMBINING LATIN SMALL LETTER "))
+      {
+        trailStr = longName.Substring("COMBINING LATIN SMALL LETTER ".Length);
+        if (!trailStr.Contains(' '))
+        {
+          charName = trailStr.ToLower() + WordsAbbreviations["ABOVE"];
+          return true;
+        }
+        if (trailStr.EndsWith(" BELOW") && trailStr.Length == " BELOW".Length + 1)
+        {
+          charName = trailStr.Substring(0, trailStr.Length - " BELOW".Length).ToLower() + WordsAbbreviations["BELOW"];
+          return true;
+        }
+        trailStr = ConcatAboveIfPossible(trailStr);
+
+        isSmallLetter = true;
+      }
+      else if (longName.StartsWith("COMBINING GREEK MUSICAL "))
+        trailStr = longName.Substring("COMBINING GREEK MUSICAL ".Length) + " ABOVE";
+      else if (longName.StartsWith("COMBINING GREEK "))
+        trailStr = longName.Substring("COMBINING GREEK ".Length);
+      else if (longName.StartsWith("COMBINING CYRILLIC SMALL LETTER"))
+      {
+        trailStr = ConcatAboveIfPossible(longName.Substring("COMBINING CYRILLIC SMALL LETTER".Length));
+        isSmallLetter = true;
+      } 
+      else if (longName.StartsWith("COMBINING CYRILLIC LETTER"))
+        trailStr = ConcatAboveIfPossible(longName.Substring("COMBINING CYRILLIC LETTER".Length));
+      else if (longName.StartsWith("COMBINING CYRILLIC "))
+        trailStr = longName.Substring("COMBINING CYRILLIC ".Length);
+      else if (longName.StartsWith("COMBINING KATAKANA-HIRAGANA "))
+        trailStr = longName.Substring("COMBINING KATAKANA-HIRAGANA ".Length) + " ABOVE";
+      else
+      if (longName.StartsWith("COMBINING "))
+        trailStr = longName.Substring("COMBINING ".Length);
+
+      if (trailStr != null)
+      {
+        var ss = SplitWords(trailStr, alternative);
+        var sb = new StringBuilder();
+        for (int i = 0; i < ss.Count; i++)
+        {
+          var word = ss[i];
+          if (word == "ACCENT" || word == "MARK" || word == "SIGN" || word == "WITH" || word == "AND")
+            continue;
+          if (word == "DIGIT" || word == "LETTER")
+          {
+            ss.Add("ABOVE");
+            continue;
+          }
+
+          if (WordsAbbreviations.TryGetValue(word, out var replacement))
+            sb.Append(replacement);
+          else if (isSmallLetter && word.Length == 1)
+          {
+            sb.Append(word.ToLower());
+            isSmallLetter = false;
+          }
+          else if (ScriptNames.TryGetValue(word, out var lang))
+            sb.Append(lang);
+          else if (Numerals.TryGetValue1(word, out var n))
+            sb.Append(n.ToString());
+          else
+            sb.Append(TitleCase(word, alternative));
+        }
+        charName = sb.ToString();
+        return true;
+      }
+    }
+
+    //if (charInfo.Category == UcdCategory.Mn)
+    //{
+    //  if (longName.StartsWith("HEBREW ACCENT "))
+    //    trailStr = longName.Substring("HEBREW ACCENT ".Length) + " ACCENT";
+    //  else
+    //  if (longName.StartsWith("HEBREW MARK "))
+    //    trailStr = longName.Substring("HEBREW MARK ".Length) + " MARK";
+    //  else
+    //  if (longName.StartsWith("HEBREW POINT "))
+    //    trailStr = longName.Substring("HEBREW POINT ".Length) + " POINT";
+    //  else
+    //  if (longName.StartsWith("ARABIC SIGN "))
+    //    trailStr = longName.Substring("ARABIC SIGN ".Length) + " ABOVE";
+    //  else
+    //  if (longName.StartsWith("ARABIC SMALL HIGH "))
+    //    trailStr = longName.Substring("ARABIC SMALL HIGH ".Length) + " ABOVE";
+    //  else
+    //  if (longName.StartsWith("ARABIC SMALL LOW "))
+    //    trailStr = longName.Substring("ARABIC SMALL LOW ".Length) + " BELOW";
+    //  else
+    //  if (longName.StartsWith("ARABIC SMALL "))
+    //    trailStr = longName.Substring("ARABIC SMALL ".Length) + " ABOVE";
+    //  else if (longName.StartsWith("ARABIC "))
+    //  {
+    //    trailStr = longName.Substring("ARABIC ".Length);
+    //    if (trailStr.Contains(" LOW"))
+    //      trailStr = trailStr.Replace(" LOW", "") + " BELOW";
+    //    else
+    //    if (trailStr.Contains(" HIGH"))
+    //      trailStr = trailStr.Replace(" HIGH", "") + " ABOVE";
+    //    else if (!trailStr.EndsWith(" ABOVE") && !trailStr.EndsWith(" BELOW"))
+    //      trailStr += " ABOVE";
+    //  }
+    //  else
+    //  if (longName.StartsWith("SYRIAC LETTER SUPERSCRIPT "))
+    //    trailStr = longName.Substring("SYRIAC LETTER SUPERSCRIPT ".Length) + " ABOVE";
+    //  else
+    //  if (longName.StartsWith("SYRIAC DOTTED "))
+    //    trailStr = longName.Substring("SYRIAC DOTTED ".Length) + " BELOW";
+    //  if (longName.StartsWith("COMBINING "))
+    //    trailStr = longName.Substring("COMBINING ".Length);
+
+    //  if (trailStr != null && Ucd.NameIndex.TryGetValue(trailStr, out var modCP))
+    //  {
+    //    charName = GenerateShortName(Ucd[modCP], alternative);
+    //    if (charInfo.Decomposition?.Type == DecompositionType.Super)
+    //      charName = @"\sup{\" + charName + "}";
+    //    else if (charInfo.Decomposition?.Type == DecompositionType.Sub)
+    //      charName = @"\sub{\" + charName + "}";
+    //    else
+    //    if (alternative > 0)
+    //      charName = charName + "mod";
+    //  }
+    //  else
+    //  {
+    //    if (trailStr == null)
+    //      trailStr = longName;
+    //    charName = CreateShortenName(charInfo, trailStr, alternative);
+    //    if (charName.EndsWith("tonebar"))
+    //      charName = charName.Substring(0, charName.Length - 3);
+    //    if (alternative > 0)
+    //      charName = charName + "mod";
+    //  }
+
+    //  return true;
+    //}
     return false;
+  }
+
+  private string ConcatAboveIfPossible(string str)
+  {
+    if (str.EndsWith(" BELOW") || str.EndsWith("ABOVE") || str.EndsWith("OVERLAY"))
+      return str;
+    if (str.Contains("ABOVE"))
+      return str;
+    if (str.StartsWith("ENCLOSING"))
+      return str;
+    return str + " ABOVE";
   }
 
   private bool TryParseVulgarFractionName(CharInfo charInfo, out string? charName, int alternative = 0)
@@ -702,7 +868,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     var isLigature = ss.Contains("LIGATURE");
     foreach (var word in MoveToStartWords)
       TryMoveToStart(word, ss);
-    if (charInfo.Category.ToString().StartsWith("L"))
+    if (charInfo.Category.ToString().StartsWith("L") || isLetter || isLigature)
       foreach (var word in MoveToEndWords)
         TryMoveToEnd(word, ss);
     for (int i = 0; i < ss.Count; i++)
@@ -751,7 +917,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
       }
 
       var ordWord = word.EndsWith("THS") ? word.Substring(0, word.Length - 1) : word;
-      
+
       if (Ordinals.TryGetValue1(ordWord, out var ordAbbr))
       {
         sb.Append(TitleCase(ordAbbr, alternative));
@@ -869,7 +1035,7 @@ public class CharNameIndex : BiDiDictionary<CodePoint, string>
     if (word.Contains('-'))
     {
       if (alternative == 0)
-        word = word.Replace("-", "");
+        word = word.Replace("-", " ");
     }
     return word.TitleCase(true).Replace(" ", "");
   }

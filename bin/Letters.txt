@@ -1,2 +1,1 @@
-﻿GLOTTAL STOP;GlotStop
-LONG S;sLong
+﻿LONG S;sLong

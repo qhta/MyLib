@@ -5,7 +5,7 @@
 00BC..00BE;Vulgar Fractions;VULGAR FRACTION;spec
 00BF..024F;Latin Extended;;alph
 0250..02AF;IPA Extensions;;symb
-02B0..02FF;Spacing Modifier Letters;;alph
+02B0..02FF;Spacing Modifier Letters;;spec
 0300..036F;Combining Diacritical Marks;COMBINING;comb
 0370..03E1;Greek;GREEK;alph
 03E2..03EF;Coptic;COPTIC;alph
