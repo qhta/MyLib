@@ -24,6 +24,8 @@ public enum BlockType
   [EnumMember(Value = "ideo")] Ideographic,
   /// <summary>Block that contains only numeral symbols</summary>
   [EnumMember(Value = "num")] Numerals,
+  /// <summary>Block that contains glyphs combined with some other glyphs.</summary>
+  [EnumMember(Value = "encl")] Enclosed,
   /// <summary>Block that changes only the form of presentation of some other code point.</summary>
   [EnumMember(Value = "form")] Form,
   /// <summary>Phonetic extensions.</summary>

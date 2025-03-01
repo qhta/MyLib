@@ -158,6 +158,9 @@
         <member name="F:Qhta.Unicode.BlockType.Numerals">
             <summary>Block that contains only numeral symbols</summary>
         </member>
+        <member name="F:Qhta.Unicode.BlockType.Enclosed">
+            <summary>Block that contains glyphs combined with some other glyphs.</summary>
+        </member>
         <member name="F:Qhta.Unicode.BlockType.Form">
             <summary>Block that changes only the form of presentation of some other code point.</summary>
         </member>
@@ -489,17 +492,17 @@
             <param name="charName">Name is a single-word string</param>
             <param name="codePoint"></param>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.GenerateShortName(Qhta.Unicode.CharInfo,System.Int32)">
+        <member name="M:Qhta.Unicode.CharNameIndex.GetOrCreateShortName(Qhta.Unicode.CharInfo,System.Int32)">
             <summary>
-            Create a short name for a character.
+            Create a short name for a character or get it if already exists.
             </summary>
             <param name="charInfo"></param>
             <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateDecompositionName(Qhta.Unicode.CharInfo,System.Int32)">
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortName(Qhta.Unicode.CharInfo,System.Int32)">
             <summary>
-            Create a short name for a character decomposition.
+            Create a short name for a character.
             </summary>
             <param name="charInfo"></param>
             <param name="alternative">Some names can have alternatives</param>
@@ -519,6 +522,42 @@
             </summary>
             <param name="longName"></param>
             <param name="charInfo"></param>
+            <param name="alternative">Some names can have alternatives</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.GetOrCreateWithModifierName(Qhta.Unicode.CharInfo,System.String,System.Int32)">
+            <summary>
+            Get or create a short name for a modifier character name.
+            </summary>
+            <param name="longName"></param>
+            <param name="charInfo"></param>
+            <param name="alternative">Some names can have alternatives</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateStartCharName(Qhta.Unicode.CharInfo,System.String,System.Int32)">
+            <summary>
+            Create a short name for a simple character name.
+            </summary>
+            <param name="charInfo"></param>
+            <param name="longName"></param>
+            <param name="alternative">Some names can have alternatives</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateMainCharName(Qhta.Unicode.CharInfo,System.String,System.Int32)">
+            <summary>
+            Create a short name for a simple character name.
+            </summary>
+            <param name="charInfo"></param>
+            <param name="longName"></param>
+            <param name="alternative">Some names can have alternatives</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateSimpleCharName(Qhta.Unicode.CharInfo,System.String,System.Int32)">
+            <summary>
+            Create a short name for a simple character name.
+            </summary>
+            <param name="charInfo"></param>
+            <param name="longName"></param>
             <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
         </member>
@@ -770,21 +809,13 @@
             <param name="dictionary"></param>
             <param name="fileName"></param>
         </member>
-        <member name="M:Qhta.Unicode.DictTools.LoadFromFile(System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.Boolean)">
+        <member name="M:Qhta.Unicode.DictTools.LoadFromFile(System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.String)">
             <summary>
             Load a String Dictionary from a file
             </summary>
             <param name="dictionary"></param>
             <param name="fileName"></param>
-            <param name="joinKeyWords">true to join words of key with underscores</param>
-        </member>
-        <member name="M:Qhta.Unicode.DictTools.LoadFromFile(Qhta.Collections.BiDiDictionary{System.String,System.String},System.String,System.Boolean)">
-            <summary>
-            Load a String BiDiDictionary from a file
-            </summary>
-            <param name="dictionary"></param>
-            <param name="fileName"></param>
-            <param name="joinKeyWords">true to join words of key with underscores</param>
+            <param name="category">A category recognized by ## </param>
         </member>
         <member name="M:Qhta.Unicode.DictTools.LoadFromFile(System.Collections.Generic.IDictionary{System.String,System.Int32},System.String)">
             <summary>
