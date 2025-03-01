@@ -18,17 +18,29 @@ public enum BlockType
   [EnumMember(Value = "abug")] Abugida,
   /// <summary>Diacritical symbols combining with other symbols.</summary>
   [EnumMember(Value = "comb")] Combining,
+  /// <summary>Constructed language symbols.</summary>
+  [EnumMember(Value = "cons")] Constructed,
   /// <summary>Cuneiform symbols.</summary>
   [EnumMember(Value = "cune")] Cuneiform,
+  /// <summary>Symbols to represent individual features rather than phonemes.</summary>
+  [EnumMember(Value = "feat")] Featural,
+  /// <summary>Hieroglyph symbols.</summary>
+  [EnumMember(Value = "hier")] Hieroglyphs,
   /// <summary>Ideographic symbols.</summary>
   [EnumMember(Value = "ideo")] Ideographic,
   /// <summary>Block that contains only numeral symbols</summary>
-  [EnumMember(Value = "num")] Numerals,
+  [EnumMember(Value = "numb")] Numerals,
+  /// <summary>Block that contains glyphs combined with some other glyphs.</summary>
+  [EnumMember(Value = "encl")] Enclosed,
   /// <summary>Block that changes only the form of presentation of some other code point.</summary>
   [EnumMember(Value = "form")] Form,
+  /// <summary>Logographic script.</summary>
+  [EnumMember(Value = "logo")] Logographic,
   /// <summary>Phonetic extensions.</summary>
   [EnumMember(Value = "phon")] Phonetic,
-  /// <summary>Phonetic extensions.</summary>
+  /// <summary>Pictographic symbols.</summary>
+  [EnumMember(Value = "pict")] Pictographic,
+  /// <summary>Block of punctuation symbols.</summary>
   [EnumMember(Value = "punc")] Punctuation,
   /// <summary>Block of which only first and last symbol has a name.</summary>
   [EnumMember(Value = "range")] Range,
@@ -36,12 +48,14 @@ public enum BlockType
   [EnumMember(Value = "seq")] Sequential,
   /// <summary>Writing system that behaves partly as an alphabet and partly as a syllabary.</summary>
   [EnumMember(Value = "semi")] SemiSyllabary,
+  /// <summary>Block of stenographic symbols.</summary>
+  [EnumMember(Value = "sten")] Stenography,
   /// <summary>Set of written symbols (called syllabograms) that represent either syllables or moras—a unit of prosody that is often but not always a syllable in length.</summary>
-  [EnumMember(Value = "syl")] Syllabary,
+  [EnumMember(Value = "syll")] Syllabary,
   /// <summary>Block which contains symbols not used in any natural language.</summary>
   [EnumMember(Value = "symb")] Symbols,
-  /// <summary>Block with special syntax of description.</summary>
-  [EnumMember(Value = "block")] Block,
+  /// <summary>Block drawings or box-drawings.</summary>
+  [EnumMember(Value = "block")] Blockdraw,
   /// <summary>Block with special syntax of description.</summary>
   [EnumMember(Value = "spec")] Special,
 

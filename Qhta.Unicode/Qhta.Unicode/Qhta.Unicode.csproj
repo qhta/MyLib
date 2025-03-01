@@ -17,6 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Qhta.Collections" Version="5.1.0" />
     <PackageReference Include="Qhta.TextUtils" Version="3.6.0" />
     <None Include="docs\readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
@@ -82,30 +83,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ContentWithTargetPath Include="MoveToStartWords.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>$(OutDir)..\..\..\MoveToStartWords.txt</TargetPath>
-    </ContentWithTargetPath>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ContentWithTargetPath Include="MoveToEndWords.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>$(OutDir)..\..\..\MoveToEndWords.txt</TargetPath>
-    </ContentWithTargetPath>
-  </ItemGroup>
-
-  <ItemGroup>
     <ContentWithTargetPath Include="WordsToRemove.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>$(OutDir)..\..\..\WordsToRemove.txt</TargetPath>
-    </ContentWithTargetPath>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ContentWithTargetPath Include="NameStarts.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>$(OutDir)..\..\..\NameStarts.txt</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
 
@@ -150,9 +130,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>$(OutDir)..\..\..\NamedBlocks.txt</TargetPath>
     </ContentWithTargetPath>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Qhta.Collections\Qhta.Collections.csproj" />
   </ItemGroup>
 </Project>
