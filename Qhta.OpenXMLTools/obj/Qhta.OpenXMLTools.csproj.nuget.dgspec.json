@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj": {}
+    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj": {}
   },
   "projects": {
     "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj": {
@@ -35,7 +35,7 @@
         ],
         "sources": {
           "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
-          "d:\\VS\\Projects\\mylib\\bin": {},
+          "file://d:\\\\VS\\\\Projects\\\\mylib\\\\bin": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -250,12 +250,12 @@
         }
       }
     },
-    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj": {
+    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj": {
       "version": "2.0.0",
       "restore": {
-        "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj",
-        "projectName": "Qhta.OpenXmlTools",
-        "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj",
+        "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj",
+        "projectName": "Qhta.OpenXMLTools",
+        "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj",
         "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
         "outputPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\obj\\",
         "projectStyle": "PackageReference",
@@ -275,7 +275,7 @@
         ],
         "sources": {
           "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
-          "d:\\VS\\Projects\\mylib\\bin": {},
+          "file://d:\\\\VS\\\\Projects\\\\mylib\\\\bin": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -306,7 +306,7 @@
           "dependencies": {
             "DocumentFormat.OpenXml": {
               "target": "Package",
-              "version": "[3.2.0, )"
+              "version": "[3.3.0, )"
             },
             "Qhta.TextUtils": {
               "target": "Package",
@@ -368,7 +368,7 @@
         ],
         "sources": {
           "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
-          "d:\\VS\\Projects\\mylib\\bin": {},
+          "file://d:\\\\VS\\\\Projects\\\\mylib\\\\bin": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

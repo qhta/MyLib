@@ -11,4 +11,3 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.Unicode\obj\Debug\netstandard2.1
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.Unicode\obj\Debug\netstandard2.1\Qhta.Unicode.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.Unicode\obj\Debug\netstandard2.1\Qhta.Unicode.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.Unicode\obj\Debug\netstandard2.1\Qhta.Unicode.pdb
-D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.Unicode\obj\Debug\netstandard2.1\Qhta.Uni.54699023.Up2Date

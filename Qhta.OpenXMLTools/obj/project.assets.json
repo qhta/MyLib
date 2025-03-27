@@ -2,10 +2,10 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.1": {
-      "DocumentFormat.OpenXml/3.2.0": {
+      "DocumentFormat.OpenXml/3.3.0": {
         "type": "package",
         "dependencies": {
-          "DocumentFormat.OpenXml.Framework": "3.2.0"
+          "DocumentFormat.OpenXml.Framework": "3.3.0"
         },
         "compile": {
           "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {
@@ -18,7 +18,7 @@
           }
         }
       },
-      "DocumentFormat.OpenXml.Framework/3.2.0": {
+      "DocumentFormat.OpenXml.Framework/3.3.0": {
         "type": "package",
         "dependencies": {
           "System.IO.Packaging": "8.0.1"
@@ -179,15 +179,15 @@
     }
   },
   "libraries": {
-    "DocumentFormat.OpenXml/3.2.0": {
-      "sha512": "eDBT9G0sAWUvjgE8l8E5bGCFXgxCZXIecQ8dqUnj2PyxyMR5eBmLahqRRw3Q7uSKM3cKbysaL2mEY0JJbEEOEA==",
+    "DocumentFormat.OpenXml/3.3.0": {
+      "sha512": "JogRPJNiE6kKvbuCqVRX691pPWeGMqdQgjrUwRYkdpfkMmtElfqAgcRR73geYj7OtBeEpstldZXXzJw27LUI9w==",
       "type": "package",
-      "path": "documentformat.openxml/3.2.0",
+      "path": "documentformat.openxml/3.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "documentformat.openxml.3.2.0.nupkg.sha512",
+        "documentformat.openxml.3.3.0.nupkg.sha512",
         "documentformat.openxml.nuspec",
         "icon.png",
         "lib/net35/DocumentFormat.OpenXml.dll",
@@ -202,15 +202,15 @@
         "lib/netstandard2.0/DocumentFormat.OpenXml.xml"
       ]
     },
-    "DocumentFormat.OpenXml.Framework/3.2.0": {
-      "sha512": "e1neOKqRnSHUom4JQEorAoZ67aiJOp6+Xzsu0fc6IYfFcgQn6roo+w6i2w//N2u/5ilEfvLr35bNO9zaIN7r7g==",
+    "DocumentFormat.OpenXml.Framework/3.3.0": {
+      "sha512": "R5CLzEoeyr7XDB7g3NTxRobcU19agaxVAhGZm+fZUShJGiU4bw8oUgnA2BNFepigJckfFMayOBMAbV3kDXNInA==",
       "type": "package",
-      "path": "documentformat.openxml.framework/3.2.0",
+      "path": "documentformat.openxml.framework/3.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "documentformat.openxml.framework.3.2.0.nupkg.sha512",
+        "documentformat.openxml.framework.3.3.0.nupkg.sha512",
         "documentformat.openxml.framework.nuspec",
         "icon.png",
         "lib/net35/DocumentFormat.OpenXml.Framework.dll",
@@ -523,7 +523,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.1": [
-      "DocumentFormat.OpenXml >= 3.2.0",
+      "DocumentFormat.OpenXml >= 3.3.0",
       "Qhta.TextUtils >= 3.6.0",
       "Qhta.TypeUtils >= 1.4.0",
       "Qhta.Unicode >= 1.2.1",
@@ -538,9 +538,9 @@
   "project": {
     "version": "2.0.0",
     "restore": {
-      "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj",
-      "projectName": "Qhta.OpenXmlTools",
-      "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj",
+      "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj",
+      "projectName": "Qhta.OpenXMLTools",
+      "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj",
       "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
       "outputPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\obj\\",
       "projectStyle": "PackageReference",
@@ -560,7 +560,7 @@
       ],
       "sources": {
         "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
-        "d:\\VS\\Projects\\mylib\\bin": {},
+        "file://d:\\\\VS\\\\Projects\\\\mylib\\\\bin": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -591,7 +591,7 @@
         "dependencies": {
           "DocumentFormat.OpenXml": {
             "target": "Package",
-            "version": "[3.2.0, )"
+            "version": "[3.3.0, )"
           },
           "Qhta.TextUtils": {
             "target": "Package",
