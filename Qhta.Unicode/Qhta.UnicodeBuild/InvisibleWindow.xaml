@@ -1,0 +1,16 @@
+﻿<Window x:Class="Qhta.UnicodeBuild.InvisibleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="#01FFFFFF"
+        WindowState="Maximized"
+        Topmost="True"
+        ShowInTaskbar="False"
+        AllowDrop="True"
+        DragEnter="Window_DragEnter"
+        DragOver="Window_DragOver"
+        Drop="Window_Drop">
+  <Grid>
+  </Grid>
+</Window>

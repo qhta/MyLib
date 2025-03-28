@@ -13,6 +13,7 @@ public partial class App : Application
 {
   protected override void OnStartup(StartupEventArgs e)
   {
+    Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NNaF5cXmBCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXxcd3VSQmdYU01+X0FWYUA=");
     base.OnStartup(e);
 
     using (var context = new MyDbContext())

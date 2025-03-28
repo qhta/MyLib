@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\App.xaml
-21842145384
+4-492035646
 
-81688836823
-221-535206614
-MainWindow.xaml;Views\UcdBlocksView.xaml;
+10-503338912
+224-2142097599
+InvisibleWindow.xaml;MainWindow.xaml;NewWindow.xaml;Views\UcdBlocksView.xaml;
 
-True
+False
 

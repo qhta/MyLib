@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Qhta.UnicodeBuild.Views"
+             xmlns:models="clr-namespace:Qhta.Unicode.Models"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -15,6 +16,13 @@
                                         SelectedItemBinding="{Binding WritingSystem}" 
                                         DisplayMemberPath="Name" 
                                         ItemsSource="{Binding WritingSystems}"/>
+        <DataGridTemplateColumn Header="Comment" MaxWidth="400">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate DataType="models:UcdBlock">
+              <TextBlock Text="{Binding Comment}" TextWrapping="Wrap"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
       </DataGrid.Columns>
     </DataGrid>
     </Grid>

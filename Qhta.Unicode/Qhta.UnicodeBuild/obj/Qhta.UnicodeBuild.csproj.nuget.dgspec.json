@@ -86,6 +86,10 @@
               "target": "Package",
               "version": "[9.0.3, )"
             },
+            "Syncfusion.Tools.WPF": {
+              "target": "Package",
+              "version": "[29.1.33, )"
+            },
             "System.Data.OleDb": {
               "target": "Package",
               "version": "[9.0.3, )"
