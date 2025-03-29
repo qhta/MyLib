@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 
-using Syncfusion.Windows.Tools.Controls;
 
 namespace Qhta.UnicodeBuild
 {
@@ -15,7 +15,7 @@ namespace Qhta.UnicodeBuild
     private void Window_DragEnter(object sender, DragEventArgs e)
     {
       //Debug.WriteLine($"Invisible Window Drag Enter ");
-      if (e.Data.GetDataPresent(typeof(TabItemExt)))
+      if (e.Data.GetDataPresent(typeof(TabItem)))
       {
         e.Effects = DragDropEffects.Move;
       }
@@ -28,7 +28,7 @@ namespace Qhta.UnicodeBuild
     private void Window_DragOver(object sender, DragEventArgs e)
     {
       Point dropPosition = e.GetPosition(this);
-      if (e.Data.GetDataPresent(typeof(TabItemExt)))
+      if (e.Data.GetDataPresent(typeof(TabItem)))
       {
         e.Effects = DragDropEffects.Move;
       }
@@ -42,13 +42,13 @@ namespace Qhta.UnicodeBuild
     private void Window_Drop(object sender, DragEventArgs e)
     {
       Point dropPosition = e.GetPosition(this);
-      if (e.Data.GetDataPresent(typeof(TabItemExt)))
+      if (e.Data.GetDataPresent(typeof(TabItem)))
       {
-        if (e.Data.GetData(typeof(TabItemExt)) is TabItemExt tabItem)
+        if (e.Data.GetData(typeof(TabItem)) is TabItem tabItem)
         {
           e.Effects = DragDropEffects.Move;
-          // Remove the TabItemExt from the original TabControlExt
-          TabControlExt? originalTabControl = tabItem.Parent as TabControlExt;
+          // Remove the TabItem from the original TabControlExt
+          TabControl? originalTabControl = tabItem.Parent as TabControl;
           originalTabControl?.Items.Remove(tabItem);
 
           // Create and show the new window

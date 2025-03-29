@@ -7,18 +7,26 @@
         xmlns:views="clr-namespace:Qhta.UnicodeBuild.Views"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="450" Width="850"
         DragEnter="Window_DragEnter"
         DragOver="Window_DragOver"
         Drop="Window_Drop">
   <Grid>
-    <syncfusion:TabControlExt Name="MainTabControl">
-      <syncfusion:TabItemExt Header="Unicode Blocks"
-                             MouseDown="TabItem_MouseDown"
-                             MouseMove="TabItem_MouseMove"
-                             >
+    <TabControl Name="MainTabControl">
+      <TabItem MouseMove="TabItem_MouseMove">
+        <TabItem.Header>
+          <TextBlock Text="UcdBlocks" 
+                     PreviewMouseDown="TabItem_MouseDown"/>
+        </TabItem.Header>
         <views:UcdBlocksView/>
-      </syncfusion:TabItemExt>
-    </syncfusion:TabControlExt>
+      </TabItem>
+      <TabItem MouseMove="TabItem_MouseMove">
+        <TabItem.Header>
+          <TextBlock Text="Writing Systems" 
+                     PreviewMouseDown="TabItem_MouseDown"/>
+        </TabItem.Header>
+        <views:WritingSystemsView/>
+      </TabItem>
+    </TabControl>
   </Grid>
 </Window>

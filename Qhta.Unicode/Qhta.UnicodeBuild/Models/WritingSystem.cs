@@ -11,9 +11,9 @@ public partial class WritingSystem
 
   public string? Type { get; set; }
 
-  public int? ParentId { get; set; }
-
   public string? Kind { get; set; }
+
+  public int? ParentId { get; set; }
 
   public bool? Starting { get; set; }
 
@@ -31,13 +31,14 @@ public partial class WritingSystem
 
   public string? Aliases { get; set; }
 
+  public virtual WritingSystemKind? WritingSystemKind { get; set; }
+
+  public virtual WritingSystemType? WritingSystemType { get; set; }
+
   //public virtual ICollection<WritingSystem> InverseParent { get; set; } = new List<WritingSystem>();
 
-  //public virtual WritingSystemKind? KindNavigation { get; set; }
 
   ////public virtual WritingSystem? Parent { get; set; }
 
-  //public virtual WritingSystemType? TypeNavigation { get; set; }
-
-  public virtual ICollection<UcdBlock> UcdBlocks { get; set; }
+  public virtual ICollection<UcdBlock>? UcdBlocks { get; set; }
 }

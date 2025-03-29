@@ -7,13 +7,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace Qhta.Unicode.Models;
 
-public partial class MyDbContext : DbContext
+public partial class _DbContext : DbContext
 {
-  public MyDbContext()
+  public _DbContext()
   {
   }
 
-  public MyDbContext(DbContextOptions<MyDbContext> options)
+  public _DbContext(DbContextOptions<_DbContext> options)
       : base(options)
   {
   }
@@ -148,9 +148,9 @@ public partial class MyDbContext : DbContext
 
   public virtual DbSet<WritingSystem> WritingSystems { get; set; }
 
-  //public virtual DbSet<WritingSystemKind> WritingSystemKinds { get; set; }
+  public virtual DbSet<WritingSystemKind> WritingSystemKinds { get; set; }
 
-  //public virtual DbSet<WritingSystemType> WritingSystemTypes { get; set; }
+  public virtual DbSet<WritingSystemType> WritingSystemTypes { get; set; }
 
   //public virtual DbSet<Zapfdingbat> Zapfdingbats { get; set; }
 
@@ -921,6 +921,9 @@ public partial class MyDbContext : DbContext
               .HasColumnType("counter")
               .HasColumnName("ID");
       entity.Property(e => e.Aliases).HasMaxLength(255);
+      entity.Property(e => e.Name).HasMaxLength(255);
+      entity.Property(e => e.Keywords).HasMaxLength(255);
+      entity.Property(e => e.Abbr).HasMaxLength(255);
       entity.Property(e => e.Ctg).HasMaxLength(2);
       entity.Property(e => e.Ext).HasMaxLength(10);
       entity.Property(e => e.Iso)
@@ -933,17 +936,17 @@ public partial class MyDbContext : DbContext
               .HasColumnType("bit");
       entity.Property(e => e.Type).HasMaxLength(10);
 
-    //  entity.HasOne(d => d.KindNavigation).WithMany(p => p.WritingSystems)
-    //          .HasForeignKey(d => d.Kind)
-    //          .HasConstraintName("WritingSystemKindsWritingSystems");
+      entity.HasOne(d => d.WritingSystemKind).WithMany(/*p => p.WritingSystems*/)
+              .HasForeignKey(d => d.Kind)
+              .HasConstraintName("WritingSystemKindsWritingSystems");
 
-    //  entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
-    //          .HasForeignKey(d => d.ParentId)
-    //          .HasConstraintName("WritingSystemsWritingSystems");
+      //  entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
+      //          .HasForeignKey(d => d.ParentId)
+      //          .HasConstraintName("WritingSystemsWritingSystems");
 
-    //  entity.HasOne(d => d.TypeNavigation).WithMany(p => p.WritingSystems)
-    //          .HasForeignKey(d => d.Type)
-    //          .HasConstraintName("WritingSystemTypesWritingSystems");
+      entity.HasOne(d => d.WritingSystemType).WithMany(/*p => p.WritingSystems*/)
+              .HasForeignKey(d => d.Type)
+              .HasConstraintName("WritingSystemTypesWritingSystems");
     });
 
     //modelBuilder.Entity<WritingSystemKind>(entity =>
@@ -953,12 +956,12 @@ public partial class MyDbContext : DbContext
     //  entity.Property(e => e.Kind).HasMaxLength(15);
     //});
 
-    //modelBuilder.Entity<WritingSystemType>(entity =>
-    //{
-    //  entity.HasKey(e => e.Type).HasName("PrimaryKey");
+    modelBuilder.Entity<WritingSystemType>(entity =>
+    {
+      entity.HasKey(e => e.Type).HasName("PrimaryKey");
 
-    //  entity.Property(e => e.Type).HasMaxLength(10);
-    //});
+      entity.Property(e => e.Type).HasMaxLength(10);
+    });
 
     //modelBuilder.Entity<Zapfdingbat>(entity =>
     //{

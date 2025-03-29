@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
-using Syncfusion.Windows.Tools.Controls;
 
 namespace Qhta.UnicodeBuild
 {
@@ -33,12 +33,12 @@ namespace Qhta.UnicodeBuild
           (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
            Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
       {
-        // Get the dragged TabItemExt
-        if (sender is TabItemExt tabItem)
+        // Get the dragged TabItem
+        if (sender is TabItem tabItem)
         {
           if (!isDragging)
           {
-            if (tabItem.Parent is TabControlExt tabControl && tabControl.Items.Count > 1)
+            if (tabItem.Parent is TabControl tabControl && tabControl.Items.Count > 1)
             {
               isDragging = true;
               //Debug.WriteLine($"Start Drag ({_startPoint})");
@@ -49,7 +49,7 @@ namespace Qhta.UnicodeBuild
               Mouse.Capture(this);
 
               // Initialize the drag-and-drop operation
-              DataObject data = new DataObject(typeof(TabItemExt), tabItem);
+              DataObject data = new DataObject(typeof(TabItem), tabItem);
               var result = DragDrop.DoDragDrop(tabItem, data, DragDropEffects.Move);
 
               //Debug.WriteLine($"DoDragDrop {result}");
@@ -67,7 +67,7 @@ namespace Qhta.UnicodeBuild
     private void Window_DragEnter(object sender, DragEventArgs e)
     {
       //Debug.WriteLine($"Drag Enter ");
-      if (e.Data.GetDataPresent(typeof(TabItemExt)))
+      if (e.Data.GetDataPresent(typeof(TabItem)))
       {
         e.Effects = DragDropEffects.Move;
       }
@@ -80,7 +80,7 @@ namespace Qhta.UnicodeBuild
     private void Window_DragOver(object sender, DragEventArgs e)
     {
       Point dropPosition = e.GetPosition(this);
-      if (e.Data.GetDataPresent(typeof(TabItemExt)))
+      if (e.Data.GetDataPresent(typeof(TabItem)))
       {
         e.Effects = DragDropEffects.Move;
       }
@@ -94,16 +94,16 @@ namespace Qhta.UnicodeBuild
     private void Window_Drop(object sender, DragEventArgs e)
     {
       Point dropPosition = e.GetPosition(this);
-      if (e.Data.GetDataPresent(typeof(TabItemExt)))
+      if (e.Data.GetDataPresent(typeof(TabItem)))
       {
-        if (e.Data.GetData(typeof(TabItemExt)) is TabItemExt tabItem)
+        if (e.Data.GetData(typeof(TabItem)) is TabItem tabItem)
         {
           e.Effects = DragDropEffects.Move;
           // Check if the drop position is outside the bounds of the MainWindow
           if (dropPosition.X < 0 || dropPosition.Y < 0 || dropPosition.X > this.ActualWidth || dropPosition.Y > this.ActualHeight)
           {
-            // Remove the TabItemExt from the original TabControlExt
-            TabControlExt? originalTabControl = tabItem.Parent as TabControlExt;
+            // Remove the TabItem from the original TabControlExt
+            TabControl? originalTabControl = tabItem.Parent as TabControl;
             originalTabControl?.Items.Remove(tabItem);
 
             // Create and show the new window

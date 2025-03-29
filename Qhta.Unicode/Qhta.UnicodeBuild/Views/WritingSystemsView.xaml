@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="Qhta.UnicodeBuild.Views.WritingSystemsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Qhta.UnicodeBuild.Views"
+             xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+  <UserControl.Resources>
+    <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
+  </UserControl.Resources>
+  <Grid>
+    <DataGrid x:Name="WritingSystemsDataGrid" 
+              DataContext ="{StaticResource ViewModels}"
+              ItemsSource ="{Binding Instance.WritingSystems}"
+              AutoGenerateColumns="False">
+      <DataGrid.Columns>
+        <DataGridTextColumn 
+          Header="Name" 
+          Binding="{Binding Name}"/>
+        <DataGridTextColumn 
+          Header="Aliases" 
+          Binding="{Binding Aliases}"
+          Width="50"/>
+        <DataGridComboBoxColumn
+          Header="Type" 
+          DisplayMemberPath="Type"
+          SelectedItemBinding="{Binding WritingSystemType}"
+          ItemsSource="{Binding Source={StaticResource ViewModels}, Path=Instance.WritingSystemTypes}"/>
+        <DataGridComboBoxColumn
+          Header="Kind" 
+          DisplayMemberPath="Kind"
+          SelectedItemBinding="{Binding WritingSystemKind}"
+          ItemsSource="{Binding Source={StaticResource ViewModels}, Path=Instance.WritingSystemKinds}"/>
+        <DataGridCheckBoxColumn
+          Header="Starting"
+          Binding="{Binding Starting}"
+          />
+        <DataGridTextColumn 
+          Header="Keywords" 
+          Binding="{Binding Keywords}"/>
+        <DataGridTextColumn 
+          Header="Ctg" 
+          Binding="{Binding Ctg}"/>
+        <DataGridTextColumn 
+          Header="ISO" 
+          Binding="{Binding Iso}"/>
+        <DataGridTextColumn 
+          Header="Abbr" 
+          Binding="{Binding Abbr}"/>
+        <DataGridTextColumn 
+          Header="Ext" 
+          Binding="{Binding Ext}"/>
+        <DataGridTextColumn 
+          Header="Description" 
+          Binding="{Binding Description}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+  </Grid>
+</UserControl>

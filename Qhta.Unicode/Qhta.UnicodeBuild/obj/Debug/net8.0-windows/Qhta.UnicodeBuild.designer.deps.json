@@ -56,7 +56,7 @@
       "Microsoft.CodeAnalysis.Common/4.8.0": {
         "dependencies": {
           "Microsoft.CodeAnalysis.Analyzers": "3.3.4",
-          "System.Collections.Immutable": "7.0.0",
+          "System.Collections.Immutable": "8.0.0",
           "System.Reflection.Metadata": "7.0.0",
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         },
@@ -605,9 +605,52 @@
           }
         }
       },
+      "Qhta.MVVM/4.2.0": {
+        "dependencies": {
+          "Qhta.ObservableObjects": "3.0.0"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Qhta.MVVM.dll": {
+            "assemblyVersion": "4.2.0.0",
+            "fileVersion": "4.2.0.0"
+          }
+        }
+      },
+      "Qhta.ObservableObjects/3.0.0": {
+        "dependencies": {
+          "System.Collections.Immutable": "8.0.0"
+        },
+        "runtime": {
+          "lib/net7.0-windows7.0/Qhta.ObservableObjects.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Syncfusion.Data.WPF/29.1.33": {
+        "runtime": {
+          "lib/net8.0-windows7.0/Syncfusion.Data.WPF.dll": {
+            "assemblyVersion": "29.1.33.0",
+            "fileVersion": "29.1.33.0"
+          }
+        }
+      },
       "Syncfusion.Licensing/29.1.33": {
         "runtime": {
           "lib/net8.0/Syncfusion.Licensing.dll": {
+            "assemblyVersion": "29.1.33.0",
+            "fileVersion": "29.1.33.0"
+          }
+        }
+      },
+      "Syncfusion.SfGrid.WPF/29.1.33": {
+        "dependencies": {
+          "Syncfusion.Data.WPF": "29.1.33",
+          "Syncfusion.Licensing": "29.1.33",
+          "Syncfusion.Shared.WPF": "29.1.33"
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Syncfusion.SfGrid.WPF.dll": {
             "assemblyVersion": "29.1.33.0",
             "fileVersion": "29.1.33.0"
           }
@@ -644,11 +687,11 @@
           }
         }
       },
-      "System.Collections.Immutable/7.0.0": {
+      "System.Collections.Immutable/8.0.0": {
         "runtime": {
-          "lib/net7.0/System.Collections.Immutable.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
+          "lib/net8.0/System.Collections.Immutable.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
           }
         }
       },
@@ -803,7 +846,7 @@
       },
       "System.Reflection.Metadata/7.0.0": {
         "dependencies": {
-          "System.Collections.Immutable": "7.0.0"
+          "System.Collections.Immutable": "8.0.0"
         },
         "runtime": {
           "lib/net7.0/System.Reflection.Metadata.dll": {
@@ -1119,12 +1162,40 @@
       "path": "mono.texttemplating/3.0.0",
       "hashPath": "mono.texttemplating.3.0.0.nupkg.sha512"
     },
+    "Qhta.MVVM/4.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+aXRiVZNyQ4OOuZc6MXnYr95WjaP1hw4wxYZP2sdWf6iQ5Pn/6jGmxz989zU4y6LUk32mZeQu/tcpqkzbUSeaA==",
+      "path": "qhta.mvvm/4.2.0",
+      "hashPath": "qhta.mvvm.4.2.0.nupkg.sha512"
+    },
+    "Qhta.ObservableObjects/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zo5rEzSr/KE2onFM3qM1qgihPtiLl0a4JSlxBer4KD5tB5A48pCngtltHRL+NZBsb1tt11a6VPbluYam75o6gQ==",
+      "path": "qhta.observableobjects/3.0.0",
+      "hashPath": "qhta.observableobjects.3.0.0.nupkg.sha512"
+    },
+    "Syncfusion.Data.WPF/29.1.33": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0w0zJDAr4iOUOhTgdOjf0Mx3sSzODt5ff7Pvy0i6T0lrQoWnfVY4Ex2SmdMiH4t8KEoadrr8Uh4+Am4uwFKoMQ==",
+      "path": "syncfusion.data.wpf/29.1.33",
+      "hashPath": "syncfusion.data.wpf.29.1.33.nupkg.sha512"
+    },
     "Syncfusion.Licensing/29.1.33": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-86pl48kuJ+CR9MdclPV0vyqX/j8g7AYxBCZwJdtct35shlga4qAv6SWWzP7osPSUX/j3BBCtE49I8K5YBTj+Lg==",
       "path": "syncfusion.licensing/29.1.33",
       "hashPath": "syncfusion.licensing.29.1.33.nupkg.sha512"
+    },
+    "Syncfusion.SfGrid.WPF/29.1.33": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vAmqEBak8elW2SQPHRi+6Q6Yda6rxq8yQqXnD69yOCcnqkt4hoO8Qqyf0/BFZjAcChRehkZkScPwaDMIA0yfMw==",
+      "path": "syncfusion.sfgrid.wpf/29.1.33",
+      "hashPath": "syncfusion.sfgrid.wpf.29.1.33.nupkg.sha512"
     },
     "Syncfusion.Shared.WPF/29.1.33": {
       "type": "package",
@@ -1147,12 +1218,12 @@
       "path": "system.codedom/6.0.0",
       "hashPath": "system.codedom.6.0.0.nupkg.sha512"
     },
-    "System.Collections.Immutable/7.0.0": {
+    "System.Collections.Immutable/8.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-dQPcs0U1IKnBdRDBkrCTi1FoajSTBzLcVTpjO4MBCMC7f4pDOIPzgBoX8JjG7X6uZRJ8EBxsi8+DR1JuwjnzOQ==",
-      "path": "system.collections.immutable/7.0.0",
-      "hashPath": "system.collections.immutable.7.0.0.nupkg.sha512"
+      "sha512": "sha512-AurL6Y5BA1WotzlEvVaIDpqzpIPvYnnldxru8oXJU2yFxFUy3+pNXjXd1ymO+RA0rq0+590Q8gaz2l3Sr7fmqg==",
+      "path": "system.collections.immutable/8.0.0",
+      "hashPath": "system.collections.immutable.8.0.0.nupkg.sha512"
     },
     "System.Composition/7.0.0": {
       "type": "package",

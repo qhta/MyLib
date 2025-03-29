@@ -72,9 +72,9 @@
     <Compile Remove="Models\Webding.cs" />
     <Compile Remove="Models\Wingding.cs" />
     <Compile Remove="Models\Word.cs" />
-    <Compile Remove="Models\WritingSystemKind.cs" />
-    <Compile Remove="Models\WritingSystemType.cs" />
     <Compile Remove="Models\Zapfdingbat.cs" />
+    <Compile Remove="ModelViews\UcdBlockViewModel.cs" />
+    <Compile Remove="ModelViews\WritingSystemViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -91,6 +91,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.3" />
+    <PackageReference Include="Qhta.MVVM" Version="4.2.0" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="29.1.33" />
     <PackageReference Include="Syncfusion.Tools.WPF" Version="29.1.33" />
     <PackageReference Include="System.Data.OleDb" Version="9.0.3" />
   </ItemGroup>
@@ -99,10 +101,6 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ModelViews\" />
   </ItemGroup>
 
 </Project>

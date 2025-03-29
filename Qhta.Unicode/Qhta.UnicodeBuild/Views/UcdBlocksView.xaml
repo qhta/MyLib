@@ -5,25 +5,44 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Qhta.UnicodeBuild.Views"
              xmlns:models="clr-namespace:Qhta.Unicode.Models"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-    <DataGrid x:Name="UcdBlocksDataGrid" AutoGenerateColumns="False">
+  <UserControl.Resources>
+    <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
+  </UserControl.Resources>
+  <Grid>
+    <DataGrid x:Name="UcdBlocksDataGrid" 
+              DataContext ="{StaticResource ViewModels}"
+              ItemsSource ="{Binding Instance.UcdBlocks}"
+              AutoGenerateColumns="False">
       <DataGrid.Columns>
         <DataGridTextColumn Header="Range" Binding="{Binding Range}"/>
-        <DataGridTextColumn Header="BlockName" Binding="{Binding BlockName}" />
-        <DataGridComboBoxColumn Header="WritingSystem" 
-                                        SelectedItemBinding="{Binding WritingSystem}" 
-                                        DisplayMemberPath="Name" 
-                                        ItemsSource="{Binding WritingSystems}"/>
-        <DataGridTemplateColumn Header="Comment" MaxWidth="400">
+        <DataGridTextColumn Header="BlockName" Binding="{Binding BlockName}"/>
+        <DataGridComboBoxColumn
+                    Header="WritingSystem" 
+                    DisplayMemberPath="Name"
+                    SelectedItemBinding="{Binding WritingSystem}"
+                    ItemsSource="{Binding Source={StaticResource ViewModels}, Path=Instance.WritingSystems}"/>
+        <DataGridTemplateColumn Header="Comment">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="models:UcdBlock">
-              <TextBlock Text="{Binding Comment}" TextWrapping="Wrap"/>
+              <TextBlock Text="{Binding Comment}" 
+                         MaxWidth="400"
+                         TextWrapping="Wrap"/>
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
+          <DataGridTemplateColumn.CellEditingTemplate>
+            <DataTemplate DataType="models:UcdBlock">
+              <TextBox Text="{Binding Comment}" 
+                       MaxWidth="400" 
+                       TextWrapping="Wrap"
+                       BorderThickness="0" />
+            </DataTemplate>
+          </DataGridTemplateColumn.CellEditingTemplate>
         </DataGridTemplateColumn>
       </DataGrid.Columns>
     </DataGrid>
-    </Grid>
+  </Grid>
 </UserControl>

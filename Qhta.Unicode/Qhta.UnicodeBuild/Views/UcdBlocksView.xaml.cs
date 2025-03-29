@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -27,20 +14,20 @@ namespace Qhta.UnicodeBuild.Views
     public UcdBlocksView()
     {
       InitializeComponent();
-      LoadData();
+      //LoadData();
     }
 
-    private void LoadData()
-    {
-      using (var context = new MyDbContext())
-      {
-        var ucdBlocks = context.UcdBlocks.Include(ub => ub.WritingSystem).ToList();
-        var writingSystems = context.WritingSystems.ToList();
+    //private void LoadData()
+    //{
+    //  using (var context = new _DbContext())
+    //  {
+    //    var ucdBlocks = context.UcdBlocks.Include(ub => ub.WritingSystem).ToList();
+    //    var writingSystems = context.WritingSystems.ToList();
 
-        UcdBlocksDataGrid.ItemsSource = ucdBlocks;
-        ((DataGridComboBoxColumn)UcdBlocksDataGrid.Columns[2]).ItemsSource = writingSystems;
-      }
-    }
+    //    UcdBlocksDataGrid.ItemsSource = ucdBlocks;
+    //    ((DataGridComboBoxColumn)UcdBlocksDataGrid.Columns[2]).ItemsSource = writingSystems;
+    //  }
+    //}
 
   }
 }

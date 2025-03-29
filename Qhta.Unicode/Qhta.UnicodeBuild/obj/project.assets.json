@@ -836,6 +836,51 @@
           "buildTransitive/Mono.TextTemplating.targets": {}
         }
       },
+      "Qhta.MVVM/4.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.ObservableObjects": "3.0.0"
+        },
+        "compile": {
+          "lib/net6.0-windows7.0/Qhta.MVVM.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Qhta.MVVM.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.ObservableObjects/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections.Immutable": "8.0.0"
+        },
+        "compile": {
+          "lib/net7.0-windows7.0/Qhta.ObservableObjects.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0-windows7.0/Qhta.ObservableObjects.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Syncfusion.Data.WPF/29.1.33": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0-windows7.0/Syncfusion.Data.WPF.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Syncfusion.Data.WPF.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Syncfusion.Licensing/29.1.33": {
         "type": "package",
         "compile": {
@@ -843,6 +888,24 @@
         },
         "runtime": {
           "lib/net8.0/Syncfusion.Licensing.dll": {}
+        }
+      },
+      "Syncfusion.SfGrid.WPF/29.1.33": {
+        "type": "package",
+        "dependencies": {
+          "Syncfusion.Data.WPF": "29.1.33",
+          "Syncfusion.Licensing": "29.1.33",
+          "Syncfusion.Shared.WPF": "29.1.33"
+        },
+        "compile": {
+          "lib/net8.0-windows7.0/Syncfusion.SfGrid.WPF.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Syncfusion.SfGrid.WPF.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Syncfusion.Shared.WPF/29.1.33": {
@@ -894,15 +957,15 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
-      "System.Collections.Immutable/7.0.0": {
+      "System.Collections.Immutable/8.0.0": {
         "type": "package",
         "compile": {
-          "lib/net7.0/_._": {
+          "lib/net8.0/System.Collections.Immutable.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net7.0/System.Collections.Immutable.dll": {
+          "lib/net8.0/System.Collections.Immutable.dll": {
             "related": ".xml"
           }
         },
@@ -2967,6 +3030,59 @@
         "readme.md"
       ]
     },
+    "Qhta.MVVM/4.2.0": {
+      "sha512": "+aXRiVZNyQ4OOuZc6MXnYr95WjaP1hw4wxYZP2sdWf6iQ5Pn/6jGmxz989zU4y6LUk32mZeQu/tcpqkzbUSeaA==",
+      "type": "package",
+      "path": "qhta.mvvm/4.2.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0-windows7.0/Qhta.MVVM.dll",
+        "lib/net6.0-windows7.0/Qhta.MVVM.xml",
+        "lib/net6.0/Qhta.MVVM.dll",
+        "lib/net6.0/Qhta.MVVM.xml",
+        "qhta.mvvm.4.2.0.nupkg.sha512",
+        "qhta.mvvm.nuspec",
+        "readme.md"
+      ]
+    },
+    "Qhta.ObservableObjects/3.0.0": {
+      "sha512": "zo5rEzSr/KE2onFM3qM1qgihPtiLl0a4JSlxBer4KD5tB5A48pCngtltHRL+NZBsb1tt11a6VPbluYam75o6gQ==",
+      "type": "package",
+      "path": "qhta.observableobjects/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0-windows7.0/Qhta.ObservableObjects.dll",
+        "lib/net6.0-windows7.0/Qhta.ObservableObjects.xml",
+        "lib/net6.0/Qhta.ObservableObjects.dll",
+        "lib/net6.0/Qhta.ObservableObjects.xml",
+        "lib/net7.0-windows7.0/Qhta.ObservableObjects.dll",
+        "lib/net7.0-windows7.0/Qhta.ObservableObjects.xml",
+        "lib/net7.0/Qhta.ObservableObjects.dll",
+        "lib/net7.0/Qhta.ObservableObjects.xml",
+        "qhta.observableobjects.3.0.0.nupkg.sha512",
+        "qhta.observableobjects.nuspec",
+        "readme.md"
+      ]
+    },
+    "Syncfusion.Data.WPF/29.1.33": {
+      "sha512": "0w0zJDAr4iOUOhTgdOjf0Mx3sSzODt5ff7Pvy0i6T0lrQoWnfVY4Ex2SmdMiH4t8KEoadrr8Uh4+Am4uwFKoMQ==",
+      "type": "package",
+      "path": "syncfusion.data.wpf/29.1.33",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "lib/net462/Syncfusion.Data.WPF.dll",
+        "lib/net462/Syncfusion.Data.WPF.xml",
+        "lib/net8.0-windows7.0/Syncfusion.Data.WPF.dll",
+        "lib/net8.0-windows7.0/Syncfusion.Data.WPF.xml",
+        "lib/net9.0-windows7.0/Syncfusion.Data.WPF.dll",
+        "lib/net9.0-windows7.0/Syncfusion.Data.WPF.xml",
+        "syncfusion.data.wpf.29.1.33.nupkg.sha512",
+        "syncfusion.data.wpf.nuspec",
+        "syncfusion_logo.png"
+      ]
+    },
     "Syncfusion.Licensing/29.1.33": {
       "sha512": "86pl48kuJ+CR9MdclPV0vyqX/j8g7AYxBCZwJdtct35shlga4qAv6SWWzP7osPSUX/j3BBCtE49I8K5YBTj+Lg==",
       "type": "package",
@@ -2987,6 +3103,33 @@
         "syncfusion.licensing.29.1.33.nupkg.sha512",
         "syncfusion.licensing.nuspec",
         "syncfusion_logo.png"
+      ]
+    },
+    "Syncfusion.SfGrid.WPF/29.1.33": {
+      "sha512": "vAmqEBak8elW2SQPHRi+6Q6Yda6rxq8yQqXnD69yOCcnqkt4hoO8Qqyf0/BFZjAcChRehkZkScPwaDMIA0yfMw==",
+      "type": "package",
+      "path": "syncfusion.sfgrid.wpf/29.1.33",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "lib/net462/Design/Syncfusion.SfGrid.WPF.DesignTools.dll",
+        "lib/net462/Design/Syncfusion.SfGrid.WPF.Expression.Design.dll",
+        "lib/net462/Design/Syncfusion.SfGrid.WPF.VisualStudio.Design.dll",
+        "lib/net462/Syncfusion.SfGrid.WPF.dll",
+        "lib/net462/Syncfusion.SfGrid.WPF.xml",
+        "lib/net8.0-windows7.0/Design/Syncfusion.SfGrid.WPF.DesignTools.dll",
+        "lib/net8.0-windows7.0/Syncfusion.SfGrid.WPF.dll",
+        "lib/net8.0-windows7.0/Syncfusion.SfGrid.WPF.xml",
+        "lib/net9.0-windows7.0/Design/Syncfusion.SfGrid.WPF.DesignTools.dll",
+        "lib/net9.0-windows7.0/Syncfusion.SfGrid.WPF.dll",
+        "lib/net9.0-windows7.0/Syncfusion.SfGrid.WPF.xml",
+        "syncfusion.sfgrid.wpf.29.1.33.nupkg.sha512",
+        "syncfusion.sfgrid.wpf.nuspec",
+        "syncfusion_logo.png",
+        "tools/VisualStudioToolsManifest.xml"
       ]
     },
     "Syncfusion.Shared.WPF/29.1.33": {
@@ -3070,16 +3213,16 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Collections.Immutable/7.0.0": {
-      "sha512": "dQPcs0U1IKnBdRDBkrCTi1FoajSTBzLcVTpjO4MBCMC7f4pDOIPzgBoX8JjG7X6uZRJ8EBxsi8+DR1JuwjnzOQ==",
+    "System.Collections.Immutable/8.0.0": {
+      "sha512": "AurL6Y5BA1WotzlEvVaIDpqzpIPvYnnldxru8oXJU2yFxFUy3+pNXjXd1ymO+RA0rq0+590Q8gaz2l3Sr7fmqg==",
       "type": "package",
-      "path": "system.collections.immutable/7.0.0",
+      "path": "system.collections.immutable/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
-        "README.md",
+        "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
         "buildTransitive/net461/System.Collections.Immutable.targets",
         "buildTransitive/net462/_._",
@@ -3091,9 +3234,11 @@
         "lib/net6.0/System.Collections.Immutable.xml",
         "lib/net7.0/System.Collections.Immutable.dll",
         "lib/net7.0/System.Collections.Immutable.xml",
+        "lib/net8.0/System.Collections.Immutable.dll",
+        "lib/net8.0/System.Collections.Immutable.xml",
         "lib/netstandard2.0/System.Collections.Immutable.dll",
         "lib/netstandard2.0/System.Collections.Immutable.xml",
-        "system.collections.immutable.7.0.0.nupkg.sha512",
+        "system.collections.immutable.8.0.0.nupkg.sha512",
         "system.collections.immutable.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3670,6 +3815,8 @@
       "Microsoft.Extensions.Configuration >= 9.0.3",
       "Microsoft.Extensions.Configuration.Binder >= 9.0.3",
       "Microsoft.Extensions.Configuration.Json >= 9.0.3",
+      "Qhta.MVVM >= 4.2.0",
+      "Syncfusion.SfGrid.WPF >= 29.1.33",
       "Syncfusion.Tools.WPF >= 29.1.33",
       "System.Data.OleDb >= 9.0.3"
     ]
@@ -3760,6 +3907,14 @@
           "Microsoft.Extensions.Configuration.Json": {
             "target": "Package",
             "version": "[9.0.3, )"
+          },
+          "Qhta.MVVM": {
+            "target": "Package",
+            "version": "[4.2.0, )"
+          },
+          "Syncfusion.SfGrid.WPF": {
+            "target": "Package",
+            "version": "[29.1.33, )"
           },
           "Syncfusion.Tools.WPF": {
             "target": "Package",
