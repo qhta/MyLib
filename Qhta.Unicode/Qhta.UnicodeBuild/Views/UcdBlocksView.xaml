@@ -24,7 +24,7 @@
                     Header="WritingSystem" 
                     DisplayMemberPath="Name"
                     SelectedItemBinding="{Binding WritingSystem}"
-                    ItemsSource="{Binding Source={StaticResource ViewModels}, Path=Instance.WritingSystems}"/>
+                    ItemsSource="{Binding Source={StaticResource ViewModels}, Path=Instance.SelectableWritingSystems}"/>
         <DataGridTemplateColumn Header="Comment">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="models:UcdBlock">

@@ -24,7 +24,8 @@ public class _ViewModels: IDisposable
   private _ViewModels()
   {
     UcdBlocks = new UcdBlocksCollection();
-    WritingSystems = new WritingSystemsCollection();
+    AllWritingSystems = new WritingSystemsCollection();
+    TopWritingSystems = new WritingSystemsCollection();
     _Context = new _DbContext();
     {
       foreach (var ub in _Context.UcdBlocks.Include(ub => ub.WritingSystem).ToList())
@@ -33,7 +34,11 @@ public class _ViewModels: IDisposable
       }
       foreach (var ws in _Context.WritingSystems.Include(ws => ws.WritingSystemType).ToList())
       {
-        WritingSystems.Add(ws);
+        AllWritingSystems.Add(ws);
+        if (ws.ParentId==null)
+        {
+          TopWritingSystems.Add(ws);
+        }
       }
       WritingSystemTypes = _Context.WritingSystemTypes.ToList();
       WritingSystemKinds = _Context.WritingSystemKinds.ToList();
@@ -43,9 +48,12 @@ public class _ViewModels: IDisposable
 
 
   public UcdBlocksCollection UcdBlocks { get; set; }
-  public WritingSystemsCollection WritingSystems { get; set; }
+  public WritingSystemsCollection AllWritingSystems { get; set; }
+  public WritingSystemsCollection TopWritingSystems { get; set; }
   public List<WritingSystemType> WritingSystemTypes { get; set; }
   public List<WritingSystemKind> WritingSystemKinds { get; set; }
+  public IEnumerable<WritingSystem> SelectableWritingSystems => _Context.WritingSystems.OrderBy(ws => ws.Name).ToList();
+  public IEnumerable<WritingSystem> SelectableWritingSystemParents => _Context.WritingSystems.OrderBy(ws=>ws.Name).ToList();
 
   public void Dispose()
   {

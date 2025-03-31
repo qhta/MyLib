@@ -13,26 +13,34 @@
   <Grid>
     <DataGrid x:Name="WritingSystemsDataGrid" 
               DataContext ="{StaticResource ViewModels}"
-              ItemsSource ="{Binding Instance.WritingSystems}"
+              ItemsSource ="{Binding Instance.TopWritingSystems}"
               AutoGenerateColumns="False">
       <DataGrid.Columns>
         <DataGridTextColumn 
+          Header="ChildrenCount" 
+          Binding="{Binding ChildrenCount}"/>
+        <DataGridTextColumn 
           Header="Name" 
           Binding="{Binding Name}"/>
-        <DataGridTextColumn 
-          Header="Aliases" 
-          Binding="{Binding Aliases}"
-          Width="50"/>
+        <DataGridComboBoxColumn
+          Header="Parent" 
+          DisplayMemberPath="Name"
+          SelectedItemBinding="{Binding Parent}"
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.SelectableWritingSystemParents}"/>
+
         <DataGridComboBoxColumn
           Header="Type" 
           DisplayMemberPath="Type"
           SelectedItemBinding="{Binding WritingSystemType}"
-          ItemsSource="{Binding Source={StaticResource ViewModels}, Path=Instance.WritingSystemTypes}"/>
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.WritingSystemTypes}"/>
         <DataGridComboBoxColumn
           Header="Kind" 
           DisplayMemberPath="Kind"
           SelectedItemBinding="{Binding WritingSystemKind}"
-          ItemsSource="{Binding Source={StaticResource ViewModels}, Path=Instance.WritingSystemKinds}"/>
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.WritingSystemKinds}"/>
         <DataGridCheckBoxColumn
           Header="Starting"
           Binding="{Binding Starting}"
@@ -55,6 +63,10 @@
         <DataGridTextColumn 
           Header="Description" 
           Binding="{Binding Description}"/>
+        <DataGridTextColumn 
+          Header="Aliases" 
+          Binding="{Binding Aliases}"
+          Width="50"/>
       </DataGrid.Columns>
     </DataGrid>
   </Grid>

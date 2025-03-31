@@ -4,6 +4,7 @@ using System.IO;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Syncfusion.Windows.Shared;
 
 namespace Qhta.Unicode.Models;
 
@@ -940,13 +941,13 @@ public partial class _DbContext : DbContext
               .HasForeignKey(d => d.Kind)
               .HasConstraintName("WritingSystemKindsWritingSystems");
 
-      //  entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
-      //          .HasForeignKey(d => d.ParentId)
-      //          .HasConstraintName("WritingSystemsWritingSystems");
-
       entity.HasOne(d => d.WritingSystemType).WithMany(/*p => p.WritingSystems*/)
               .HasForeignKey(d => d.Type)
               .HasConstraintName("WritingSystemTypesWritingSystems");
+
+        entity.HasOne(d => d.Parent).WithMany(p => p.Children)
+              .HasForeignKey(d => d.ParentId)
+              .HasConstraintName("WritingSystemsWritingSystems");
     });
 
     //modelBuilder.Entity<WritingSystemKind>(entity =>

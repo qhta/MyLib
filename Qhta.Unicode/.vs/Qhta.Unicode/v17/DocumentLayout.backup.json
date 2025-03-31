@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\qhta.unicode.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\qhta.unicode.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\unicodedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\unicodedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -30,8 +26,8 @@
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\9.0.102\\Sdks\\NuGet.Build.Tasks.Pack\\build\\NuGet.Build.Tasks.Pack.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C266B1C1-9CF4-4D77-A555-3412E6D9A44A}|Qhta.Unicode.Build\\Qhta.Unicode.Build.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode.build\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C266B1C1-9CF4-4D77-A555-3412E6D9A44A}|Qhta.Unicode.Build\\Qhta.Unicode.Build.csproj|solutionrelative:qhta.unicode.build\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode.Build\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Qhta.Unicode.Build\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -40,16 +36,16 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "DockedWidth": 275,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "HashedName.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\HashedName.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode\\HashedName.cs",
@@ -61,7 +57,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Decomposition.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Decomposition.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode\\Decomposition.cs",
@@ -73,20 +69,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "UnicodeData.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\UnicodeData.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode\\UnicodeData.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\UnicodeData.cs",
               "RelativeToolTip": "Qhta.Unicode\\UnicodeData.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG4AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-21T08:07:38.586Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-21T08:07:38.586Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "CharInfo.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\CharInfo.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode\\CharInfo.cs",
@@ -98,7 +93,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Qhta.Unicode",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj",
               "RelativeDocumentMoniker": "Qhta.Unicode\\Qhta.Unicode.csproj",
@@ -110,7 +105,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "NuGet.Build.Tasks.Pack.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\Sdks\\NuGet.Build.Tasks.Pack\\build\\NuGet.Build.Tasks.Pack.targets",
               "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\Sdks\\NuGet.Build.Tasks.Pack\\build\\NuGet.Build.Tasks.Pack.targets",
@@ -120,20 +115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Qhta.Unicode.csproj",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj",
-              "RelativeDocumentMoniker": "Qhta.Unicode\\Qhta.Unicode.csproj",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj",
-              "RelativeToolTip": "Qhta.Unicode\\Qhta.Unicode.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-01-20T20:25:40.189Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode.Build\\Program.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode.Build\\Program.cs",
@@ -142,6 +124,10 @@
               "ViewState": "AgIAAC8AAAAAAAAAAAAUwEsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-19T14:39:25.032Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             }
           ]
         }

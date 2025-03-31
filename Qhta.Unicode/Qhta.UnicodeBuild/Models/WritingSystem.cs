@@ -35,10 +35,12 @@ public partial class WritingSystem
 
   public virtual WritingSystemType? WritingSystemType { get; set; }
 
-  //public virtual ICollection<WritingSystem> InverseParent { get; set; } = new List<WritingSystem>();
+  public virtual WritingSystem? Parent { get; set; }
 
+  public virtual ICollection<WritingSystem>? Children { get; set; }
 
-  ////public virtual WritingSystem? Parent { get; set; }
+  public int ChildrenCount => Children?.Count ?? 0;
 
   public virtual ICollection<UcdBlock>? UcdBlocks { get; set; }
+
 }

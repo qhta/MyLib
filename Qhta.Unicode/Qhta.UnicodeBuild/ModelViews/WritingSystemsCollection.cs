@@ -2,10 +2,12 @@
 
 using Qhta.Unicode.Models;
 
-
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public class WritingSystemsCollection: ObservableCollection<WritingSystem>
+public class WritingSystemsCollection: ObservableCollection<WritingSystemViewModel>
 {
-
+  public void Add(WritingSystem ws)
+  {
+    Add(new WritingSystemViewModel(ws));
+  }
 }

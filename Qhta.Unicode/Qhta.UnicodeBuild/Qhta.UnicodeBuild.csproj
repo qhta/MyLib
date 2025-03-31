@@ -73,8 +73,6 @@
     <Compile Remove="Models\Wingding.cs" />
     <Compile Remove="Models\Word.cs" />
     <Compile Remove="Models\Zapfdingbat.cs" />
-    <Compile Remove="ModelViews\UcdBlockViewModel.cs" />
-    <Compile Remove="ModelViews\WritingSystemViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
