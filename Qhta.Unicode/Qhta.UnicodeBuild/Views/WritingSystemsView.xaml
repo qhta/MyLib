@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Qhta.UnicodeBuild.Views"
+             xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -11,63 +12,77 @@
     <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
   </UserControl.Resources>
   <Grid>
-    <DataGrid x:Name="WritingSystemsDataGrid" 
+    <sf:SfDataGrid x:Name="WritingSystemsDataGrid" 
               DataContext ="{StaticResource ViewModels}"
               ItemsSource ="{Binding Instance.TopWritingSystems}"
+              AllowDraggingColumns="True"
+              AllowEditing="True"
+              AllowFiltering="True"
+              AllowResizingColumns="True"
+              ColumnSizer="Auto"
+              HeaderRowHeight="26"
+              QueryRowHeight="DataGrid_OnQueryRowHeight"
               AutoGenerateColumns="False">
-      <DataGrid.Columns>
-        <DataGridTextColumn 
-          Header="ChildrenCount" 
-          Binding="{Binding ChildrenCount}"/>
-        <DataGridTextColumn 
-          Header="Name" 
-          Binding="{Binding Name}"/>
-        <DataGridComboBoxColumn
-          Header="Parent" 
+      <sf:SfDataGrid.Columns>
+        <sf:GridTextColumn 
+          HeaderText="" 
+          MappingName="ChildrenCount"
+          Width="30"/>
+        <sf:GridTextColumn 
+          HeaderText="Name" 
+          MappingName="Name"/>
+        <!--<DataGridComboBoxColumn
+          HeaderText="Parent" 
           DisplayMemberPath="Name"
-          SelectedItemBinding="{Binding Parent}"
+          SelectedItemMappingName="{Binding Parent}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableWritingSystemParents}"/>
+            Path=Instance.SelectableWritingSystemParents}"/> -->
 
-        <DataGridComboBoxColumn
-          Header="Type" 
+        <sf:GridComboBoxColumn
+          HeaderText="Type" 
           DisplayMemberPath="Type"
-          SelectedItemBinding="{Binding WritingSystemType}"
+          MappingName="WritingSystemType"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemTypes}"/>
-        <DataGridComboBoxColumn
-          Header="Kind" 
+        <sf:GridComboBoxColumn
+          HeaderText="Kind" 
           DisplayMemberPath="Kind"
-          SelectedItemBinding="{Binding WritingSystemKind}"
+          MappingName="WritingSystemKind"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemKinds}"/>
-        <DataGridCheckBoxColumn
-          Header="Starting"
-          Binding="{Binding Starting}"
+        <sf:GridCheckBoxColumn
+          HeaderText="Starting"
+          MappingName="Starting"
+          Width="100"/>
+        <sf:GridTextColumn 
+          HeaderText="Key phrase" 
+          MappingName="Keywords"/>
+        <sf:GridTextColumn 
+          HeaderText="Ctg" 
+          MappingName="Ctg"
+          Width="60"/>
+        <sf:GridTextColumn 
+          HeaderText="ISO" 
+          MappingName="Iso"
+          Width="60"/>
+        <sf:GridTextColumn 
+          HeaderText="Abbr" 
+          MappingName="Abbr"
+          Width="60"/>
+        <sf:GridTextColumn 
+          HeaderText="Ext" 
+          MappingName="Ext"
+          Width="60"/>
+        <sf:GridTextColumn 
+          HeaderText="Description" 
+          MappingName="Description"
+          MaximumWidth="400"
+          TextWrapping="Wrap"/>
+        <sf:GridTextColumn 
+          HeaderText="Aliases" 
+          MappingName="Aliases"
           />
-        <DataGridTextColumn 
-          Header="Keywords" 
-          Binding="{Binding Keywords}"/>
-        <DataGridTextColumn 
-          Header="Ctg" 
-          Binding="{Binding Ctg}"/>
-        <DataGridTextColumn 
-          Header="ISO" 
-          Binding="{Binding Iso}"/>
-        <DataGridTextColumn 
-          Header="Abbr" 
-          Binding="{Binding Abbr}"/>
-        <DataGridTextColumn 
-          Header="Ext" 
-          Binding="{Binding Ext}"/>
-        <DataGridTextColumn 
-          Header="Description" 
-          Binding="{Binding Description}"/>
-        <DataGridTextColumn 
-          Header="Aliases" 
-          Binding="{Binding Aliases}"
-          Width="50"/>
-      </DataGrid.Columns>
-    </DataGrid>
+      </sf:SfDataGrid.Columns>
+    </sf:SfDataGrid>
   </Grid>
 </UserControl>

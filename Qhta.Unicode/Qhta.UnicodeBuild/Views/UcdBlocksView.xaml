@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Qhta.UnicodeBuild.Views"
              xmlns:models="clr-namespace:Qhta.Unicode.Models"
-             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -13,36 +13,36 @@
     <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
   </UserControl.Resources>
   <Grid>
-    <DataGrid x:Name="UcdBlocksDataGrid" 
+    <sf:SfDataGrid x:Name="UcdBlocksDataGrid" 
               DataContext ="{StaticResource ViewModels}"
               ItemsSource ="{Binding Instance.UcdBlocks}"
+              AllowDraggingColumns="True"
+              AllowEditing="True"
+              AllowFiltering="True"
+              AllowResizingColumns="True"
+              ColumnSizer="Auto"
+              HeaderRowHeight="26"
+              QueryRowHeight="DataGrid_OnQueryRowHeight"
               AutoGenerateColumns="False">
-      <DataGrid.Columns>
-        <DataGridTextColumn Header="Range" Binding="{Binding Range}"/>
-        <DataGridTextColumn Header="BlockName" Binding="{Binding BlockName}"/>
-        <DataGridComboBoxColumn
-                    Header="WritingSystem" 
-                    DisplayMemberPath="Name"
-                    SelectedItemBinding="{Binding WritingSystem}"
-                    ItemsSource="{Binding Source={StaticResource ViewModels}, Path=Instance.SelectableWritingSystems}"/>
-        <DataGridTemplateColumn Header="Comment">
-          <DataGridTemplateColumn.CellTemplate>
-            <DataTemplate DataType="models:UcdBlock">
-              <TextBlock Text="{Binding Comment}" 
-                         MaxWidth="400"
-                         TextWrapping="Wrap"/>
-            </DataTemplate>
-          </DataGridTemplateColumn.CellTemplate>
-          <DataGridTemplateColumn.CellEditingTemplate>
-            <DataTemplate DataType="models:UcdBlock">
-              <TextBox Text="{Binding Comment}" 
-                       MaxWidth="400" 
-                       TextWrapping="Wrap"
-                       BorderThickness="0" />
-            </DataTemplate>
-          </DataGridTemplateColumn.CellEditingTemplate>
-        </DataGridTemplateColumn>
-      </DataGrid.Columns>
-    </DataGrid>
+      <sf:SfDataGrid.Columns>
+        <sf:GridTextColumn 
+          MappingName="Range"
+          HeaderText="Range" />
+        <sf:GridTextColumn 
+          MappingName="BlockName" 
+          HeaderText="BlockName" />
+        <sf:GridComboBoxColumn
+          MappingName="WritingSystem"
+          HeaderText="WritingSystem" 
+          DisplayMemberPath="Name"
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+          Path=Instance.SelectableWritingSystems}"/>
+        <sf:GridTextColumn 
+          MappingName="Comment" 
+          HeaderText="Comment"
+          MaximumWidth="400"
+          TextWrapping="Wrap"/>
+      </sf:SfDataGrid.Columns>
+    </sf:SfDataGrid>
   </Grid>
 </UserControl>

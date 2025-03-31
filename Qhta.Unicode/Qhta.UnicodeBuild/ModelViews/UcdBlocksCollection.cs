@@ -10,4 +10,6 @@ public class UcdBlocksCollection : ObservableCollection<UcdBlockViewModel>
   {
     Add(new UcdBlockViewModel(ub));
   }
+
+  public double MaxBlockNameWidth => this.Max(ub => ub.BlockName?.Length ?? 0)*12;
 }

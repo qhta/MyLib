@@ -18,4 +18,13 @@ public partial class UcdBlockViewModel(UcdBlock model) : ViewModel<UcdBlock>(mod
   public WritingSystem? WritingSystem { get => Model.WritingSystem; set => Model.WritingSystem = value; }
 
   //public virtual ICollection<UcdRange> UcdRanges { get; set; } = new List<UcdRange>();
+
+  //public UcdBlockViewModel(UcdBlock model, UcdBlocksCollection collection) : this(model)
+  //{
+  //  Collection = collection;
+  //}
+
+  //internal UcdBlocksCollection Collection { get; init; } = null!;
+
+  //public double BlockNameWidth { get => Collection.GetMaxBlockNameWidth}
 }
