@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{1B672CB6-7329-A7C8-C8DF-A9F7310889BE}|Qhta.UnicodeBuild\\Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\views\\ucdblocksview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1B672CB6-7329-A7C8-C8DF-A9F7310889BE}|Qhta.UnicodeBuild\\Qhta.UnicodeBuild.csproj|solutionrelative:qhta.unicodebuild\\views\\ucdblocksview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicode\\unicodedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{48164287-BEDA-4384-85CC-032CCD8A6B14}|Qhta.Unicode\\Qhta.Unicode.csproj|solutionrelative:qhta.unicode\\unicodedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -36,16 +40,32 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 275,
-          "SelectedChildIndex": 3,
+          "DockedWidth": 214,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "UcdBlocksView.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\UcdBlocksView.xaml",
+              "RelativeDocumentMoniker": "Qhta.UnicodeBuild\\Views\\UcdBlocksView.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\UcdBlocksView.xaml",
+              "RelativeToolTip": "Qhta.UnicodeBuild\\Views\\UcdBlocksView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-31T21:16:19.827Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "HashedName.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\HashedName.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode\\HashedName.cs",
@@ -57,7 +77,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Decomposition.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Decomposition.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode\\Decomposition.cs",
@@ -69,19 +89,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "UnicodeData.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\UnicodeData.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode\\UnicodeData.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\UnicodeData.cs",
               "RelativeToolTip": "Qhta.Unicode\\UnicodeData.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG4AAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG4AAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-21T08:07:38.586Z"
+              "WhenOpened": "2025-01-21T08:07:38.586Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "CharInfo.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\CharInfo.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode\\CharInfo.cs",
@@ -93,19 +114,18 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Qhta.Unicode",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj",
               "RelativeDocumentMoniker": "Qhta.Unicode\\Qhta.Unicode.csproj",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj",
               "RelativeToolTip": "Qhta.Unicode\\Qhta.Unicode.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-01-20T20:32:53.351Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-20T20:32:53.351Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "NuGet.Build.Tasks.Pack.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\Sdks\\NuGet.Build.Tasks.Pack\\build\\NuGet.Build.Tasks.Pack.targets",
               "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\Sdks\\NuGet.Build.Tasks.Pack\\build\\NuGet.Build.Tasks.Pack.targets",
@@ -115,7 +135,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode.Build\\Program.cs",
               "RelativeDocumentMoniker": "Qhta.Unicode.Build\\Program.cs",
@@ -124,10 +144,6 @@
               "ViewState": "AgIAAC8AAAAAAAAAAAAUwEsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-19T14:39:25.032Z"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             }
           ]
         }

@@ -4,17 +4,52 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Qhta.UnicodeBuild.Views"
+             xmlns:vm="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <UserControl.Resources>
     <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
+    <Style x:Key="ExpandToggleButtonStyle" TargetType="ToggleButton">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="BorderBrush" Value="Transparent"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="FontSize" Value="18"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ToggleButton">
+            <Border Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+
+      <Setter Property="Content" Value="v"/>
+      <Style.Triggers>
+        <DataTrigger Binding="{Binding IsExpanded}" Value="True">
+          <Setter Property="Content" Value="&gt;"/>
+        </DataTrigger>
+        <Trigger Property="IsMouseOver" Value="True">
+          <Setter Property="Background" Value="Transparent"/>
+        </Trigger>
+        <Trigger Property="IsMouseDirectlyOver" Value="True">
+          <Setter Property="Background" Value="Transparent"/>
+        </Trigger>
+        <Trigger Property="IsPressed" Value="True">
+          <Setter Property="Background" Value="Transparent"/>
+        </Trigger>
+        <Trigger Property="IsChecked" Value="True">
+          <Setter Property="Background" Value="Transparent"/>
+        </Trigger>
+      </Style.Triggers>
+    </Style>
   </UserControl.Resources>
   <Grid>
     <sf:SfDataGrid x:Name="WritingSystemsDataGrid" 
               DataContext ="{StaticResource ViewModels}"
-              ItemsSource ="{Binding Instance.TopWritingSystems}"
+              ItemsSource ="{Binding Instance.AllWritingSystems}"
               AllowDraggingColumns="True"
               AllowEditing="True"
               AllowFiltering="True"
@@ -22,31 +57,49 @@
               ColumnSizer="Auto"
               HeaderRowHeight="26"
               QueryRowHeight="DataGrid_OnQueryRowHeight"
-              AutoGenerateColumns="False">
+              AutoGenerateColumns="False"
+              SelectionUnit="Row">
       <sf:SfDataGrid.Columns>
         <sf:GridTextColumn 
           HeaderText="" 
           MappingName="ChildrenCount"
-          Width="30"/>
+          Width="40"/>
+        <sf:GridTemplateColumn AllowFiltering="False" 
+                               AllowFocus="False" 
+                               AllowResizing="False" 
+                               AllowSorting="False" 
+                               AllowEditing="False" 
+                               AllowGrouping="False"
+                               Width="20">
+          <sf:GridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <ToggleButton Style="{StaticResource ExpandToggleButtonStyle}"
+                            IsChecked="{Binding IsExpanded}"
+                            />
+            </DataTemplate>
+          </sf:GridTemplateColumn.CellTemplate>
+        </sf:GridTemplateColumn>
         <sf:GridTextColumn 
           HeaderText="Name" 
           MappingName="Name"/>
-        <!--<DataGridComboBoxColumn
+        <sf:GridComboBoxColumn
           HeaderText="Parent" 
           DisplayMemberPath="Name"
-          SelectedItemMappingName="{Binding Parent}"
+          SortMode="Display"
+          MappingName="Parent"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableWritingSystemParents}"/> -->
-
+            Path=Instance.SelectableWritingSystemParents}"/>
         <sf:GridComboBoxColumn
           HeaderText="Type" 
           DisplayMemberPath="Type"
+          SortMode="Display"
           MappingName="WritingSystemType"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemTypes}"/>
         <sf:GridComboBoxColumn
           HeaderText="Kind" 
           DisplayMemberPath="Kind"
+          SortMode="Display"
           MappingName="WritingSystemKind"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemKinds}"/>
@@ -80,9 +133,9 @@
           TextWrapping="Wrap"/>
         <sf:GridTextColumn 
           HeaderText="Aliases" 
-          MappingName="Aliases"
-          />
+          MappingName="Aliases"/>
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
   </Grid>
 </UserControl>
+

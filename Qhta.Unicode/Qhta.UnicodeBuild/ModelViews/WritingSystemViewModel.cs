@@ -1,9 +1,12 @@
-﻿using Qhta.MVVM;
+﻿using System.Diagnostics;
+using System.Windows.Input;
+
+using Qhta.MVVM;
 using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class WritingSystemViewModel(WritingSystem model): ViewModel<WritingSystem>(model)
+public partial class WritingSystemViewModel: ViewModel<WritingSystem>
 {
   public int? Id { get => Model.Id; set => Model.Id = value; }
   public string Name { get => Model.Name; set => Model.Name = value; }
@@ -25,6 +28,33 @@ public partial class WritingSystemViewModel(WritingSystem model): ViewModel<Writ
   public virtual ICollection<WritingSystem>? Children => Model.Children;
 
   public int ChildrenCount => Children?.Count ?? 0;
+
+  private bool _isExpanded;
+  public bool IsExpanded
+  {
+    get => _isExpanded;
+    set
+    {
+      if (_isExpanded != value)
+      {
+        _isExpanded = value;
+        NotifyPropertyChanged(nameof(IsExpanded));
+      }
+    }
+  }
+
+  public ICommand ExpandCommand { get; set; }
+
+  public WritingSystemViewModel(WritingSystem model) : base(model)
+  {
+    ExpandCommand = new RelayCommand(Expand);
+  }
+
+  private void Expand()
+  {
+    IsExpanded = !IsExpanded;
+    Debug.WriteLine($"IsExpanded = {IsExpanded}");
+  }
 
   ////public virtual ICollection<UcdBlock> UcdBlocks { get; set; }
 }

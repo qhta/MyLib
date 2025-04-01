@@ -35,6 +35,7 @@
           MappingName="WritingSystem"
           HeaderText="WritingSystem" 
           DisplayMemberPath="Name"
+          SortMode="Display"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
           Path=Instance.SelectableWritingSystems}"/>
         <sf:GridTextColumn 
