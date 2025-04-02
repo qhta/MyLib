@@ -6,7 +6,7 @@ using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class WritingSystemViewModel: ViewModel<WritingSystem>
+public partial class WritingSystemViewModel: ViewModel<WritingSystem>, IEquatable<WritingSystemViewModel>
 {
   public int? Id { get => Model.Id; set => Model.Id = value; }
   public string Name { get => Model.Name; set => Model.Name = value; }
@@ -25,7 +25,22 @@ public partial class WritingSystemViewModel: ViewModel<WritingSystem>
   public virtual WritingSystemKind? WritingSystemKind { get => Model.WritingSystemKind; set => Model.WritingSystemKind = value; }
   public virtual WritingSystem? Parent { get => Model.Parent; set => Model.Parent= value; }
   public virtual IEnumerable<WritingSystem>? SelectableWritingSystemParents => _ViewModels.Instance.SelectableWritingSystemParents;
-  public virtual ICollection<WritingSystem>? Children => Model.Children;
+
+  public virtual WritingSystemsCollection? Children
+  {
+    get
+    {
+      if (_Children == null)
+      {
+        if (Model.Children == null)
+          return null;
+        _Children = new WritingSystemsCollection(Model.Children.ToList());
+      }
+      return _Children;
+    }
+  }
+
+  private WritingSystemsCollection? _Children;
 
   public int ChildrenCount => Children?.Count ?? 0;
 
@@ -57,4 +72,16 @@ public partial class WritingSystemViewModel: ViewModel<WritingSystem>
   }
 
   ////public virtual ICollection<UcdBlock> UcdBlocks { get; set; }
+
+  public bool Equals(WritingSystemViewModel? other)
+  {
+    if (other == null)
+      return false;
+    return Id == other.Id;
+  }
+
+  public override string ToString()
+  {
+    return Name;
+  }
 }

@@ -32,12 +32,13 @@ public class _ViewModels: IDisposable
       {
         UcdBlocks.Add(ub);
       }
-      foreach (var ws in _Context.WritingSystems.Include(ws => ws.WritingSystemType).ToList())
+      foreach (var ws in _Context.WritingSystems.Include(ws => ws.WritingSystemType).OrderBy(ws=>ws.Name).ToList())
       {
-        AllWritingSystems.Add(ws);
+        var vm= new WritingSystemViewModel(ws);
+        AllWritingSystems.Add(vm);
         if (ws.ParentId==null)
         {
-          TopWritingSystems.Add(ws);
+          TopWritingSystems.Add(vm);
         }
       }
       WritingSystemTypes = _Context.WritingSystemTypes.ToList();

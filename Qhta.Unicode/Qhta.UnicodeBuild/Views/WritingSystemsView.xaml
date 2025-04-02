@@ -11,7 +11,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
   <UserControl.Resources>
     <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
-    <Style x:Key="ExpandToggleButtonStyle" TargetType="ToggleButton">
+    <!--<Style x:Key="ExpandToggleButtonStyle" TargetType="ToggleButton">
       <Setter Property="Background" Value="Transparent"/>
       <Setter Property="BorderBrush" Value="Transparent"/>
       <Setter Property="BorderThickness" Value="0"/>
@@ -26,10 +26,10 @@
         </Setter.Value>
       </Setter>
 
-      <Setter Property="Content" Value="v"/>
+      <Setter Property="Content" Value="+"/>
       <Style.Triggers>
         <DataTrigger Binding="{Binding IsExpanded}" Value="True">
-          <Setter Property="Content" Value="&gt;"/>
+          <Setter Property="Content" Value="-"/>
         </DataTrigger>
         <Trigger Property="IsMouseOver" Value="True">
           <Setter Property="Background" Value="Transparent"/>
@@ -44,27 +44,49 @@
           <Setter Property="Background" Value="Transparent"/>
         </Trigger>
       </Style.Triggers>
-    </Style>
+    </Style>-->
   </UserControl.Resources>
   <Grid>
-    <sf:SfDataGrid x:Name="WritingSystemsDataGrid" 
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="200"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <TreeView Grid.Column="0"
+              x:Name="WritingSystemsTreeView"
               DataContext ="{StaticResource ViewModels}"
-              ItemsSource ="{Binding Instance.AllWritingSystems}"
-              AllowDraggingColumns="True"
-              AllowEditing="True"
-              AllowFiltering="True"
-              AllowResizingColumns="True"
-              ColumnSizer="Auto"
-              HeaderRowHeight="26"
-              QueryRowHeight="DataGrid_OnQueryRowHeight"
-              AutoGenerateColumns="False"
-              SelectionUnit="Row">
+              ItemsSource ="{Binding Instance.TopWritingSystems}"
+              Margin="0,0,5,0"
+              SelectedItemChanged="WritingSystemsTreeView_OnSelectedItemChanged">
+      <TreeView.ItemTemplate>
+        <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Name}"/>
+          </StackPanel>
+        </HierarchicalDataTemplate>
+      </TreeView.ItemTemplate>
+    </TreeView>
+    <GridSplitter Grid.Column="0" 
+                  Width="5"/>
+    <sf:SfDataGrid Grid.Column="1"  
+                   x:Name="WritingSystemsDataGrid" 
+                   DataContext ="{StaticResource ViewModels}"
+                   ItemsSource ="{Binding Instance.AllWritingSystems}"
+                   AllowDraggingColumns="True"
+                   AllowEditing="True"
+                   AllowFiltering="True"
+                   AllowResizingColumns="True"
+                   ColumnSizer="Auto"
+                   HeaderRowHeight="26"
+                   QueryRowHeight="DataGrid_OnQueryRowHeight"
+                   AutoGenerateColumns="False"
+                   SelectionUnit="Row"
+                   SelectionChanged="WritingSystemsDataGrid_OnSelectionChanged">
       <sf:SfDataGrid.Columns>
-        <sf:GridTextColumn 
+        <!--<sf:GridTextColumn 
           HeaderText="" 
           MappingName="ChildrenCount"
-          Width="40"/>
-        <sf:GridTemplateColumn AllowFiltering="False" 
+          Width="40"/>-->
+        <!--<sf:GridTemplateColumn AllowFiltering="False" 
                                AllowFocus="False" 
                                AllowResizing="False" 
                                AllowSorting="False" 
@@ -78,15 +100,17 @@
                             />
             </DataTemplate>
           </sf:GridTemplateColumn.CellTemplate>
-        </sf:GridTemplateColumn>
+        </sf:GridTemplateColumn>-->
         <sf:GridTextColumn 
           HeaderText="Name" 
-          MappingName="Name"/>
+          MappingName="Name"
+          Width="150"/>
         <sf:GridComboBoxColumn
           HeaderText="Parent" 
           DisplayMemberPath="Name"
           SortMode="Display"
           MappingName="Parent"
+          Width="150"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableWritingSystemParents}"/>
         <sf:GridComboBoxColumn
@@ -129,7 +153,7 @@
         <sf:GridTextColumn 
           HeaderText="Description" 
           MappingName="Description"
-          MaximumWidth="400"
+          Width="400"
           TextWrapping="Wrap"/>
         <sf:GridTextColumn 
           HeaderText="Aliases" 
