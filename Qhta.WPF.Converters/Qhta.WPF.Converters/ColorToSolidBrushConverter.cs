@@ -20,8 +20,12 @@ namespace Qhta.WPF.Converters
     /// <param name="parameter"></param>
     /// <param name="culture"></param>
     /// <returns></returns>
-    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
+      if (value is not Color)
+      {
+        throw new ArgumentException("Value is not a color.");
+      }
       return new SolidColorBrush((Color)value);
     }
 
@@ -34,7 +38,7 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
       throw new NotImplementedException();
     }

@@ -53,7 +53,7 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object? value)
     {
       if (value == null)
       {

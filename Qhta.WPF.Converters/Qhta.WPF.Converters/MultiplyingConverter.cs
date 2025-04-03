@@ -17,13 +17,11 @@ namespace Qhta.WPF.Converters
     /// <param name="parameter"></param>
     /// <param name="culture"></param>
     /// <returns></returns>
-    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-      Double value2;
-      if (!TryGetValue(parameter, out value2))
+      if (!TryGetValue(parameter, out var value2))
         value2=Param;
-      Double value1;
-      if (!TryGetValue(value, out value1))
+      if (!TryGetValue(value, out var value1))
         return value;
       if (!Double.IsNaN(value1) && !Double.IsInfinity(value1) && !Double.IsNaN(value2) && !Double.IsInfinity(value2))
         return value1*value2;

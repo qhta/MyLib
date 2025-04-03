@@ -54,7 +54,7 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public object? Convert (object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert (object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (targetType==typeof(string))
         return ConvertBack(value, targetType, parameter, culture);
@@ -145,7 +145,7 @@ namespace Qhta.WPF.Converters
     /// <param name="parameter"></param>
     /// <param name="culture"></param>
     /// <returns></returns>
-    public object? ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
+    public object? ConvertBack (object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (value==null || value is string)
         return Convert(value ?? string.Empty, targetType, parameter, culture);

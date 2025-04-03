@@ -7,44 +7,15 @@
              xmlns:vm="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
+             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=System.ComponentModel.TypeConverter"
+             xmlns:collections="clr-namespace:System.Collections;assembly=System.Runtime"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:converters="clr-namespace:Qhta.WPF.Converters;assembly=Qhta.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <UserControl.Resources>
     <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
-    <!--<Style x:Key="ExpandToggleButtonStyle" TargetType="ToggleButton">
-      <Setter Property="Background" Value="Transparent"/>
-      <Setter Property="BorderBrush" Value="Transparent"/>
-      <Setter Property="BorderThickness" Value="0"/>
-      <Setter Property="FontSize" Value="18"/>
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="ToggleButton">
-            <Border Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
-              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-
-      <Setter Property="Content" Value="+"/>
-      <Style.Triggers>
-        <DataTrigger Binding="{Binding IsExpanded}" Value="True">
-          <Setter Property="Content" Value="-"/>
-        </DataTrigger>
-        <Trigger Property="IsMouseOver" Value="True">
-          <Setter Property="Background" Value="Transparent"/>
-        </Trigger>
-        <Trigger Property="IsMouseDirectlyOver" Value="True">
-          <Setter Property="Background" Value="Transparent"/>
-        </Trigger>
-        <Trigger Property="IsPressed" Value="True">
-          <Setter Property="Background" Value="Transparent"/>
-        </Trigger>
-        <Trigger Property="IsChecked" Value="True">
-          <Setter Property="Background" Value="Transparent"/>
-        </Trigger>
-      </Style.Triggers>
-    </Style>-->
+    <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
   </UserControl.Resources>
   <Grid>
     <Grid.ColumnDefinitions>
@@ -133,7 +104,7 @@
           Width="100"/>
         <sf:GridTextColumn 
           HeaderText="Key phrase" 
-          MappingName="Keywords"/>
+          MappingName="KeyPhrase"/>
         <sf:GridTextColumn 
           HeaderText="Ctg" 
           MappingName="Ctg"
@@ -153,8 +124,18 @@
         <sf:GridTextColumn 
           HeaderText="Description" 
           MappingName="Description"
-          Width="400"
-          TextWrapping="Wrap"/>
+          d:DataContext="{d:DesignInstance Type=vm:WritingSystemViewModel, IsDesignTimeCreatable=True}"
+          TextWrapping="Wrap"
+          Width="400">
+          <!--<sf:GridTextColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Description}" 
+                         TextWrapping="{Binding IsWrapped, Converter={StaticResource BoolToTextWrappingConverter}}"
+                         TextTrimming="CharacterEllipsis"
+                         MouseLeftButtonDown="WrappedTextBlock_OnMouseLeftButtonDown"/>
+            </DataTemplate>
+          </sf:GridTextColumn.CellTemplate>-->
+        </sf:GridTextColumn>
         <sf:GridTextColumn 
           HeaderText="Aliases" 
           MappingName="Aliases"/>

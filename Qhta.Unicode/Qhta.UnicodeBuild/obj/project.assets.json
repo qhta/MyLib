@@ -836,6 +836,19 @@
           "buildTransitive/Mono.TextTemplating.targets": {}
         }
       },
+      "Qhta.Collections/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Qhta.MVVM/4.2.0": {
         "type": "package",
         "dependencies": {
@@ -868,7 +881,56 @@
           }
         }
       },
-      "Syncfusion.Data.WPF/29.1.33": {
+      "Qhta.TextUtils/3.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.TypeUtils/1.3.10.1": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "2.0.0"
+        },
+        "compile": {
+          "lib/net7.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.WPF.Converters/1.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.TextUtils": "3.1.1",
+          "Qhta.TypeUtils": "1.3.10.1"
+        },
+        "compile": {
+          "lib/net8.0-windows7.0/Qhta.WPF.Converters.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Qhta.WPF.Converters.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
+      "Syncfusion.Data.WPF/29.1.35": {
         "type": "package",
         "compile": {
           "lib/net8.0-windows7.0/Syncfusion.Data.WPF.dll": {
@@ -881,7 +943,7 @@
           }
         }
       },
-      "Syncfusion.Licensing/29.1.33": {
+      "Syncfusion.Licensing/29.1.35": {
         "type": "package",
         "compile": {
           "lib/net8.0/Syncfusion.Licensing.dll": {}
@@ -890,12 +952,12 @@
           "lib/net8.0/Syncfusion.Licensing.dll": {}
         }
       },
-      "Syncfusion.SfGrid.WPF/29.1.33": {
+      "Syncfusion.SfGrid.WPF/29.1.35": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Data.WPF": "29.1.33",
-          "Syncfusion.Licensing": "29.1.33",
-          "Syncfusion.Shared.WPF": "29.1.33"
+          "Syncfusion.Data.WPF": "29.1.35",
+          "Syncfusion.Licensing": "29.1.35",
+          "Syncfusion.Shared.WPF": "29.1.35"
         },
         "compile": {
           "lib/net8.0-windows7.0/Syncfusion.SfGrid.WPF.dll": {
@@ -908,10 +970,10 @@
           }
         }
       },
-      "Syncfusion.Shared.WPF/29.1.33": {
+      "Syncfusion.Shared.WPF/29.1.35": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Licensing": "29.1.33"
+          "Syncfusion.Licensing": "29.1.35"
         },
         "compile": {
           "lib/net8.0-windows7.0/Syncfusion.Shared.WPF.dll": {
@@ -924,11 +986,11 @@
           }
         }
       },
-      "Syncfusion.Tools.WPF/29.1.33": {
+      "Syncfusion.Tools.WPF/29.1.35": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Licensing": "29.1.33",
-          "Syncfusion.Shared.WPF": "29.1.33"
+          "Syncfusion.Licensing": "29.1.35",
+          "Syncfusion.Shared.WPF": "29.1.35"
         },
         "compile": {
           "lib/net8.0-windows7.0/Syncfusion.Tools.WPF.dll": {
@@ -3030,6 +3092,22 @@
         "readme.md"
       ]
     },
+    "Qhta.Collections/2.0.0": {
+      "sha512": "VMddBExgPXLQ6XEoSZu2uQzs/T0RyycOx8R9qOJeq+2DjphmRFbQJMU+8EyIu0a9iOmJJ3XZBXXSxSROxng3cw==",
+      "type": "package",
+      "path": "qhta.collections/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0/Qhta.Collections.dll",
+        "lib/net6.0/Qhta.Collections.xml",
+        "lib/net7.0/Qhta.Collections.dll",
+        "lib/net7.0/Qhta.Collections.xml",
+        "lib/netstandard2.0/Qhta.Collections.dll",
+        "lib/netstandard2.0/Qhta.Collections.xml",
+        "qhta.collections.2.0.0.nupkg.sha512",
+        "qhta.collections.nuspec"
+      ]
+    },
     "Qhta.MVVM/4.2.0": {
       "sha512": "+aXRiVZNyQ4OOuZc6MXnYr95WjaP1hw4wxYZP2sdWf6iQ5Pn/6jGmxz989zU4y6LUk32mZeQu/tcpqkzbUSeaA==",
       "type": "package",
@@ -3064,10 +3142,61 @@
         "readme.md"
       ]
     },
-    "Syncfusion.Data.WPF/29.1.33": {
-      "sha512": "0w0zJDAr4iOUOhTgdOjf0Mx3sSzODt5ff7Pvy0i6T0lrQoWnfVY4Ex2SmdMiH4t8KEoadrr8Uh4+Am4uwFKoMQ==",
+    "Qhta.TextUtils/3.1.1": {
+      "sha512": "eeLbjNYAJbyJb+N3zDFNSkiGyoAUxRV0L2yIBbe+HqWw1OkoINYKFDCg3QQWRlg5IVKUQXV7KHFOXA1NkjnYzQ==",
       "type": "package",
-      "path": "syncfusion.data.wpf/29.1.33",
+      "path": "qhta.textutils/3.1.1",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0/Qhta.TextUtils.dll",
+        "lib/net6.0/Qhta.TextUtils.xml",
+        "lib/netstandard2.0/Qhta.TextUtils.dll",
+        "lib/netstandard2.0/Qhta.TextUtils.xml",
+        "qhta.textutils.3.1.1.nupkg.sha512",
+        "qhta.textutils.nuspec",
+        "readme.md"
+      ]
+    },
+    "Qhta.TypeUtils/1.3.10.1": {
+      "sha512": "Ftu0du3ern/ZqB524tZpK0pQ4e4AgUpnRKYGqPI01JfipLIwImTbdL4PB5ULHl4kwy0JEyuLaiIIUhtzfh3oHg==",
+      "type": "package",
+      "path": "qhta.typeutils/1.3.10.1",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0/Qhta.TypeUtils.dll",
+        "lib/net6.0/Qhta.TypeUtils.xml",
+        "lib/net7.0/Qhta.TypeUtils.dll",
+        "lib/net7.0/Qhta.TypeUtils.xml",
+        "lib/netstandard2.0/Qhta.TypeUtils.dll",
+        "lib/netstandard2.0/Qhta.TypeUtils.xml",
+        "qhta.typeutils.1.3.10.1.nupkg.sha512",
+        "qhta.typeutils.nuspec",
+        "readme.md"
+      ]
+    },
+    "Qhta.WPF.Converters/1.4.0": {
+      "sha512": "HIORj8uZe7OpEsLR75xdpnI703U7nbb+QCNhqBDiPdKPGFcLGaH8D3KYTjNa4YkuHAUWTZaLYfWUhsLZq1DX/w==",
+      "type": "package",
+      "path": "qhta.wpf.converters/1.4.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0-windows7.0/Qhta.WPF.Converters.dll",
+        "lib/net6.0-windows7.0/Qhta.WPF.Converters.xml",
+        "lib/net7.0-windows7.0/Qhta.WPF.Converters.dll",
+        "lib/net7.0-windows7.0/Qhta.WPF.Converters.xml",
+        "lib/net8.0-windows7.0/Qhta.WPF.Converters.dll",
+        "lib/net8.0-windows7.0/Qhta.WPF.Converters.xml",
+        "lib/net9.0-windows7.0/Qhta.WPF.Converters.dll",
+        "lib/net9.0-windows7.0/Qhta.WPF.Converters.xml",
+        "qhta.wpf.converters.1.4.0.nupkg.sha512",
+        "qhta.wpf.converters.nuspec",
+        "readme.md"
+      ]
+    },
+    "Syncfusion.Data.WPF/29.1.35": {
+      "sha512": "BmcLKmhg6F+lMPpsHK9qIGLP3wi0Gmi9BXkPlidsjOGwp09wP0L4g3e7TM+4vB0vLqTJzQWy+k/LdyGqLqgMWA==",
+      "type": "package",
+      "path": "syncfusion.data.wpf/29.1.35",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3078,15 +3207,15 @@
         "lib/net8.0-windows7.0/Syncfusion.Data.WPF.xml",
         "lib/net9.0-windows7.0/Syncfusion.Data.WPF.dll",
         "lib/net9.0-windows7.0/Syncfusion.Data.WPF.xml",
-        "syncfusion.data.wpf.29.1.33.nupkg.sha512",
+        "syncfusion.data.wpf.29.1.35.nupkg.sha512",
         "syncfusion.data.wpf.nuspec",
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.Licensing/29.1.33": {
-      "sha512": "86pl48kuJ+CR9MdclPV0vyqX/j8g7AYxBCZwJdtct35shlga4qAv6SWWzP7osPSUX/j3BBCtE49I8K5YBTj+Lg==",
+    "Syncfusion.Licensing/29.1.35": {
+      "sha512": "OUfPQLIWuqJPh77Z5eXTaFtJ8ux0N/uW7MDfgJ8EUTBARFDC0/BcoAC2XCq07+RP36DTe7cvzvRwoBvgAj6Ygg==",
       "type": "package",
-      "path": "syncfusion.licensing/29.1.33",
+      "path": "syncfusion.licensing/29.1.35",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3100,15 +3229,15 @@
         "lib/net9.0/Syncfusion.Licensing.dll",
         "lib/netstandard2.0/Syncfusion.Licensing.dll",
         "lib/uap10.0/Syncfusion.Licensing.dll",
-        "syncfusion.licensing.29.1.33.nupkg.sha512",
+        "syncfusion.licensing.29.1.35.nupkg.sha512",
         "syncfusion.licensing.nuspec",
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.SfGrid.WPF/29.1.33": {
-      "sha512": "vAmqEBak8elW2SQPHRi+6Q6Yda6rxq8yQqXnD69yOCcnqkt4hoO8Qqyf0/BFZjAcChRehkZkScPwaDMIA0yfMw==",
+    "Syncfusion.SfGrid.WPF/29.1.35": {
+      "sha512": "Uf4wqqJYp+so3rF5isIC4iUE/Se6I7pYNfg/Bpd3OmSRearGcT9TuagML2U8ConOr3RBpaiZrZTzZdVkST7t1w==",
       "type": "package",
-      "path": "syncfusion.sfgrid.wpf/29.1.33",
+      "path": "syncfusion.sfgrid.wpf/29.1.35",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -3126,16 +3255,16 @@
         "lib/net9.0-windows7.0/Design/Syncfusion.SfGrid.WPF.DesignTools.dll",
         "lib/net9.0-windows7.0/Syncfusion.SfGrid.WPF.dll",
         "lib/net9.0-windows7.0/Syncfusion.SfGrid.WPF.xml",
-        "syncfusion.sfgrid.wpf.29.1.33.nupkg.sha512",
+        "syncfusion.sfgrid.wpf.29.1.35.nupkg.sha512",
         "syncfusion.sfgrid.wpf.nuspec",
         "syncfusion_logo.png",
         "tools/VisualStudioToolsManifest.xml"
       ]
     },
-    "Syncfusion.Shared.WPF/29.1.33": {
-      "sha512": "TaXm1Kyq4T9S+ZK5BY6ecBSUIGfqJ7SXXCAPWcUGWPU4zldusJqUZEPkQrLI2j+HumUFFLZpvyNxZTrqUrcpEA==",
+    "Syncfusion.Shared.WPF/29.1.35": {
+      "sha512": "Am9+3DI59bRNw4AyeCS3Rg7yPRt+8bOQyLwrRuk5Pq0v7l8QbZAwpGFVL8UWBCXRnRD4S2fcnl821IKXc1g72g==",
       "type": "package",
-      "path": "syncfusion.shared.wpf/29.1.33",
+      "path": "syncfusion.shared.wpf/29.1.35",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -3155,16 +3284,16 @@
         "lib/net9.0-windows7.0/Design/Syncfusion.Shared.WPF.DesignTools.dll",
         "lib/net9.0-windows7.0/Syncfusion.Shared.WPF.dll",
         "lib/net9.0-windows7.0/Syncfusion.Shared.WPF.xml",
-        "syncfusion.shared.wpf.29.1.33.nupkg.sha512",
+        "syncfusion.shared.wpf.29.1.35.nupkg.sha512",
         "syncfusion.shared.wpf.nuspec",
         "syncfusion_logo.png",
         "tools/VisualStudioToolsManifest.xml"
       ]
     },
-    "Syncfusion.Tools.WPF/29.1.33": {
-      "sha512": "4McY0WZV/PbRoLsD+DWkVwdkigBhi0muSD3FRNsNBrjdc8kn8zRX0kakbxkXlZmizn2pvCEgq7ZlyIDLnqZEYg==",
+    "Syncfusion.Tools.WPF/29.1.35": {
+      "sha512": "qAtCanon9/wC11Mn4KzBDcd8gYIt1np9ST1WQOdBeUhev4qerd3TQzZ/ywIzQo48vFyR9DnfkZ8qJo2sWDWNbw==",
       "type": "package",
-      "path": "syncfusion.tools.wpf/29.1.33",
+      "path": "syncfusion.tools.wpf/29.1.35",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -3184,7 +3313,7 @@
         "lib/net9.0-windows7.0/Design/Syncfusion.Tools.WPF.DesignTools.dll",
         "lib/net9.0-windows7.0/Syncfusion.Tools.WPF.dll",
         "lib/net9.0-windows7.0/Syncfusion.Tools.WPF.xml",
-        "syncfusion.tools.wpf.29.1.33.nupkg.sha512",
+        "syncfusion.tools.wpf.29.1.35.nupkg.sha512",
         "syncfusion.tools.wpf.nuspec",
         "syncfusion_logo.png",
         "tools/VisualStudioToolsManifest.xml"
@@ -3816,8 +3945,9 @@
       "Microsoft.Extensions.Configuration.Binder >= 9.0.3",
       "Microsoft.Extensions.Configuration.Json >= 9.0.3",
       "Qhta.MVVM >= 4.2.0",
-      "Syncfusion.SfGrid.WPF >= 29.1.33",
-      "Syncfusion.Tools.WPF >= 29.1.33",
+      "Qhta.WPF.Converters >= 1.4.0",
+      "Syncfusion.SfGrid.WPF >= 29.1.35",
+      "Syncfusion.Tools.WPF >= 29.1.35",
       "System.Data.OleDb >= 9.0.3"
     ]
   },
@@ -3912,13 +4042,17 @@
             "target": "Package",
             "version": "[4.2.0, )"
           },
+          "Qhta.WPF.Converters": {
+            "target": "Package",
+            "version": "[1.4.0, )"
+          },
           "Syncfusion.SfGrid.WPF": {
             "target": "Package",
-            "version": "[29.1.33, )"
+            "version": "[29.1.35, )"
           },
           "Syncfusion.Tools.WPF": {
             "target": "Package",
-            "version": "[29.1.33, )"
+            "version": "[29.1.35, )"
           },
           "System.Data.OleDb": {
             "target": "Package",

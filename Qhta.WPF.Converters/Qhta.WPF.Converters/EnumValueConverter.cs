@@ -51,7 +51,7 @@ namespace Qhta.WPF.Converters
     /// Direct conversion - same as reverse conversion.
     /// Conversion direction recognized by the <c>targetType</c> parameter
     /// </summary>
-    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (value == null)
         throw new ArgumentNullException("value");
@@ -66,7 +66,7 @@ namespace Qhta.WPF.Converters
     /// Backward conversion - same as direct conversion.
     /// Conversion direction recognized by the <c>targetType</c> parameter
     /// </summary>
-    public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (value == null)
         throw new ArgumentNullException("value");
@@ -79,7 +79,7 @@ namespace Qhta.WPF.Converters
     /// <summary>
     /// Convert a string, boolean, or number to an enumeration.
     /// </summary>
-    public object? ConvertToEnum(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? ConvertToEnum(object value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (EnumValues.Count == 0)
         InitEnumValues();
@@ -104,7 +104,7 @@ namespace Qhta.WPF.Converters
         return this.EnumValues.ElementAtOrDefault(System.Convert.ToInt32(value));
       else if (value is Enum)
         return this.EnumValues.ElementAtOrDefault(System.Convert.ToInt32(value));
-      throw new InvalidOperationException(string.Format("Invalid input value of type '{0}'", value.GetType()));
+      throw new InvalidOperationException(string.Format("Invalid input value of type '{0}'", value?.GetType()));
     }
 
     /// <summary>
@@ -121,7 +121,7 @@ namespace Qhta.WPF.Converters
     /// <summary>
     /// Converting an enumerated value to a numeric value.
     /// </summary>
-    public object? ConvertFromEnum(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? ConvertFromEnum(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (EnumValues.Count == 0)
         InitEnumValues();

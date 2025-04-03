@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:Qhta.UnicodeBuild"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+      <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+          <ResourceDictionary Source="AppResourceDictionary.xaml"/>
+        </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary>   
     </Application.Resources>
 </Application>

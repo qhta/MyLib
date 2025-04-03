@@ -7,14 +7,14 @@ namespace Qhta.WPF.Converters
 {
   /// <summary>
   /// One way value converter bool to Visibility (Visible, Collapsed).
-  /// Parameter can be a string consisting of two Visiblity values divided by comma.
+  /// Parameter can be a string consisting of two Visibility values divided by comma.
   /// First value is assigned when true, second when false.
   /// </summary>
   public class BoolToVisibilityConverter : IValueConverter
   {
     /// <summary>
     /// Converts true to Visible, false to Collapsed.
-    /// Parameter can be a string consisting of two Visiblity values divided by comma.
+    /// Parameter can be a string consisting of two Visibility values divided by comma.
     /// First value is assigned when true, second when false.
     /// </summary>
     /// <param name="value"></param>
@@ -22,7 +22,7 @@ namespace Qhta.WPF.Converters
     /// <param name="parameter"></param>
     /// <param name="culture"></param>
     /// <returns></returns>
-    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (value is bool bv)
       {
@@ -57,7 +57,7 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       throw new NotImplementedException();
     }

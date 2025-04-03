@@ -11,3 +11,6 @@ build_property.RootNamespace = Qhta.MVVM
 build_property.ProjectDir = D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 6.0
+build_property.EnableCodeStyleSeverity = 

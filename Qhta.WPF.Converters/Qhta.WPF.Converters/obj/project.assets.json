@@ -132,6 +132,50 @@
           }
         }
       }
+    },
+    "net9.0-windows7.0": {
+      "Qhta.Collections/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Qhta.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.TextUtils/3.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.TypeUtils/1.3.10.1": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "2.0.0"
+        },
+        "compile": {
+          "lib/net7.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      }
     }
   },
   "libraries": {
@@ -196,15 +240,19 @@
     "net8.0-windows7.0": [
       "Qhta.TextUtils >= 3.1.1",
       "Qhta.TypeUtils >= 1.3.10.1"
+    ],
+    "net9.0-windows7.0": [
+      "Qhta.TextUtils >= 3.1.1",
+      "Qhta.TypeUtils >= 1.3.10.1"
     ]
   },
   "packageFolders": {
     "C:\\Users\\qhta1\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\27.1.48\\ToolboxNuGetPackages": {}
+    "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.1.33\\ToolboxNuGetPackages": {}
   },
   "project": {
-    "version": "1.3.2",
+    "version": "1.4.0",
     "restore": {
       "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
       "projectName": "Qhta.WPF.Converters",
@@ -215,7 +263,7 @@
       "crossTargeting": true,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\27.1.48\\ToolboxNuGetPackages"
+        "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.1.33\\ToolboxNuGetPackages"
       ],
       "configFilePaths": [
         "D:\\OneDrive\\VS\\Projects\\NuGet.Config",
@@ -227,10 +275,11 @@
       "originalTargetFrameworks": [
         "net6.0-windows",
         "net7.0-windows",
-        "net8.0-windows"
+        "net8.0-windows",
+        "net9.0-windows"
       ],
       "sources": {
-        "C:\\Program Files\\dotnet\\library-packs": {},
+        "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
         "d:\\VS\\Projects\\mylib\\bin": {},
         "https://api.nuget.org/v3/index.json": {}
       },
@@ -246,6 +295,10 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {}
+        },
+        "net9.0-windows7.0": {
+          "targetAlias": "net9.0-windows",
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -257,7 +310,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net6.0-windows7.0": {
@@ -291,7 +345,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
       },
       "net7.0-windows7.0": {
         "targetAlias": "net7.0-windows",
@@ -324,7 +378,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
       },
       "net8.0-windows7.0": {
         "targetAlias": "net8.0-windows",
@@ -357,7 +411,40 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+      },
+      "net9.0-windows7.0": {
+        "targetAlias": "net9.0-windows",
+        "dependencies": {
+          "Qhta.TextUtils": {
+            "target": "Package",
+            "version": "[3.1.1, )"
+          },
+          "Qhta.TypeUtils": {
+            "target": "Package",
+            "version": "[1.3.10.1, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

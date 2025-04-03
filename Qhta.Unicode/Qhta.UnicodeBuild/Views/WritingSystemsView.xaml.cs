@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,8 @@ namespace Qhta.UnicodeBuild.Views
         {
           if (record.Description == null)
             return;
+          if (!record.IsWrapped)
+            return;
           var wrapColumn = dataGrid.Columns.FirstOrDefault(col => col.MappingName == "Description");
           if (wrapColumn == null)
             return;
@@ -59,15 +62,10 @@ namespace Qhta.UnicodeBuild.Views
         return;
       }
       isSyncFromTreeView = true;
-      Debug.WriteLine($"TreeViewSelectionChanged {e.NewValue}");
+      //Debug.WriteLine($"TreeViewSelectionChanged {e.NewValue}");
       WritingSystemsDataGrid.SelectedItem = e.NewValue;
-      // Resolve the row index of the selected item
       var rowIndex = WritingSystemsDataGrid.ResolveToRowIndex(WritingSystemsDataGrid.SelectedItem);
-
-      // Create a RowColumnIndex object
       var rowColumnIndex = new RowColumnIndex(rowIndex, 0);
-
-      // Scroll the DataGrid to bring the selected item into view
       WritingSystemsDataGrid.ScrollInView(rowColumnIndex);
       isSyncFromTreeView = false;
     }
@@ -88,7 +86,7 @@ namespace Qhta.UnicodeBuild.Views
       {
         if (gridRowInfo.RowData is WritingSystemViewModel selectedItem)
         {
-          Debug.WriteLine($"DataGridSelectionChanged {selectedItem.Name}");
+          //Debug.WriteLine($"DataGridSelectionChanged {selectedItem.Name}");
           SetSelectedItemInTreeView(WritingSystemsTreeView, selectedItem);
         }
       }
@@ -126,6 +124,14 @@ namespace Qhta.UnicodeBuild.Views
         }
       }
       return null;
+    }
+
+    private void WrappedTextBlock_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+      if (sender is TextBlock textBlock && textBlock.DataContext is WritingSystemViewModel viewModel)
+      {
+        viewModel.IsWrapped = !viewModel.IsWrapped;
+      }
     }
   }
 }

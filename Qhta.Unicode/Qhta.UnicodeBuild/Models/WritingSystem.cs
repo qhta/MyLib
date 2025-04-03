@@ -17,7 +17,7 @@ public partial class WritingSystem
 
   public bool? Starting { get; set; }
 
-  public string? Keywords { get; set; }
+  public string? KeyPhrase { get; set; }
 
   public string? Ctg { get; set; }
 

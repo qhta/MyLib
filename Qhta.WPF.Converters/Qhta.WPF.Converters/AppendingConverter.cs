@@ -16,11 +16,10 @@ namespace Qhta.WPF.Converters
     /// <param name="parameter"></param>
     /// <param name="culture"></param>
     /// <returns></returns>
-    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-      string? value2;
-      TryGetValue(parameter ?? Param, out value2);
-      return value.ToString() + value2;
+      TryGetValue(parameter ?? Param, out var value2);
+      return value?.ToString() + value2;
     }
 
   }

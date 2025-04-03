@@ -912,7 +912,7 @@ public partial class _DbContext : DbContext
 
       entity.HasIndex(e => e.Id, "ID");
 
-      entity.HasIndex(e => e.Keywords, "Keywords").IsUnique();
+      entity.HasIndex(e => e.KeyPhrase, "KeyPhrase").IsUnique();
 
       entity.HasIndex(e => e.ParentId, "ParentID");
 
@@ -923,7 +923,7 @@ public partial class _DbContext : DbContext
               .HasColumnName("ID");
       entity.Property(e => e.Aliases).HasMaxLength(255);
       entity.Property(e => e.Name).HasMaxLength(255);
-      entity.Property(e => e.Keywords).HasMaxLength(255);
+      entity.Property(e => e.KeyPhrase).HasMaxLength(255);
       entity.Property(e => e.Abbr).HasMaxLength(255);
       entity.Property(e => e.Ctg).HasMaxLength(2);
       entity.Property(e => e.Ext).HasMaxLength(10);

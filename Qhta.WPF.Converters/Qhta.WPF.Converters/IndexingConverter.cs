@@ -21,7 +21,7 @@ namespace Qhta.WPF.Converters
     /// <param name="parameter"></param>
     /// <param name="culture"></param>
     /// <returns></returns>
-    public object? Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object[] values, Type targetType, object? parameter, CultureInfo culture)
     {
       var obj = values[0];
       var indexProp = values[1];
@@ -53,7 +53,7 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    public object[] ConvertBack(object? value, Type[] targetTypes, object? parameter, CultureInfo culture)
     {
       throw new NotImplementedException();
     }

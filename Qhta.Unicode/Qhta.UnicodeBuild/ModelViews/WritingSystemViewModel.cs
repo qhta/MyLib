@@ -6,24 +6,218 @@ using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class WritingSystemViewModel: ViewModel<WritingSystem>, IEquatable<WritingSystemViewModel>
+public partial class WritingSystemViewModel(WritingSystem model)
+  : ViewModel<WritingSystem>(model), IEquatable<WritingSystemViewModel>
 {
-  public int? Id { get => Model.Id; set => Model.Id = value; }
-  public string Name { get => Model.Name; set => Model.Name = value; }
-  public string? Type { get => Model.Type; set => Model.Type = value; }
-  public int? ParentId { get => Model.ParentId; set => Model.ParentId = value; }
-  public string? Kind { get => Model.Kind; set => Model.Kind = value; }
-  public bool? Starting { get => Model.Starting; set => Model.Starting = value; }
-  public string? Keywords { get => Model.Keywords; set => Model.Keywords = value; }
-  public string? Ctg { get => Model.Ctg; set => Model.Ctg = value; }
-  public string? Iso { get => Model.Iso; set => Model.Iso = value; }
-  public string? Abbr { get => Model.Abbr; set => Model.Abbr = value; }
-  public string? Ext { get => Model.Ext; set => Model.Ext = value; }
-  public string? Description { get => Model.Description; set => Model.Description = value; }
-  public string? Aliases { get => Model.Aliases; set => Model.Aliases = value; }
-  public virtual WritingSystemType? WritingSystemType { get => Model.WritingSystemType; set => Model.WritingSystemType = value; }
-  public virtual WritingSystemKind? WritingSystemKind { get => Model.WritingSystemKind; set => Model.WritingSystemKind = value; }
-  public virtual WritingSystem? Parent { get => Model.Parent; set => Model.Parent= value; }
+  public int? Id
+  {
+    get => Model.Id;
+    set
+    {
+      if (Model.Id != value)
+      {
+        Model.Id = value;
+        NotifyPropertyChanged(nameof(Id));
+      }
+      NotifyPropertyChanged(nameof(Id));
+    }
+  }
+
+  public string Name
+  {
+    get => Model.Name;
+    set
+    {
+      if (Model.Name != value)
+      {
+        Model.Name = value;
+        NotifyPropertyChanged(nameof(Name));
+      }
+    }
+  }
+
+  public string? Type
+  {
+    get => Model.Type;
+    set
+    {
+      if (Model.Type != value)
+      {
+        Model.Type = value;
+        NotifyPropertyChanged(nameof(Type));
+      }
+    }
+  }
+
+  public int? ParentId
+  {
+    get => Model.ParentId;
+    set
+    {
+      if (Model.ParentId != value)
+      {
+        Model.ParentId = value;
+        NotifyPropertyChanged(nameof(ParentId));
+      }
+    }
+  }
+
+  public string? Kind
+  {
+    get => Model.Kind;
+    set
+    {
+      if (Model.Kind != value)
+      {
+        Model.Kind = value;
+        NotifyPropertyChanged(nameof(Kind));
+      }
+    }
+  }
+
+  public bool? Starting
+  {
+    get => Model.Starting;
+    set
+    {
+      if (Model.Starting != value)
+      {
+        Model.Starting = value;
+        NotifyPropertyChanged(nameof(Starting));
+      }
+    }
+  }
+
+  public string? KeyPhrase
+  {
+    get => Model.KeyPhrase;
+    set
+    {
+      if (Model.KeyPhrase != value)
+      {
+        Model.KeyPhrase = value;
+        NotifyPropertyChanged(nameof(KeyPhrase));
+      }
+    }
+  }
+
+  public string? Ctg
+  {
+    get => Model.Ctg;
+    set
+    {
+      if (Model.Ctg != value)
+      {
+        Model.Ctg = value;
+        NotifyPropertyChanged(nameof(Ctg));
+      }
+    }
+  }
+
+  public string? Iso
+  {
+    get => Model.Iso;
+    set
+    {
+      if (Model.Iso != value)
+      {
+        Model.Iso = value;
+        NotifyPropertyChanged(nameof(Iso));
+      }
+    }
+  }
+
+  public string? Abbr
+  {
+    get => Model.Abbr;
+    set
+    {
+      if (Model.Abbr != value)
+      {
+        Model.Abbr = value;
+        NotifyPropertyChanged(nameof(Abbr));
+      }
+    }
+  }
+
+  public string? Ext
+  {
+    get => Model.Ext;
+    set
+    {
+      if (Model.Ext != value)
+      {
+        Model.Ext = value;
+        NotifyPropertyChanged(nameof(Ext));
+      }
+    }
+  }
+
+  public string? Description
+  {
+    get => Model.Description;
+    set
+    {
+      if (Model.Description != value)
+      {
+        Model.Description = value;
+        NotifyPropertyChanged(nameof(Description));
+      }
+    }
+  }
+
+  public string? Aliases
+  {
+    get => Model.Aliases;
+    set
+    {
+      if (Model.Aliases != value)
+      {
+        Model.Aliases = value;
+        NotifyPropertyChanged(nameof(Aliases));
+      }
+    }
+  }
+
+  public virtual WritingSystemType? WritingSystemType
+  {
+    get => Model.WritingSystemType;
+    set
+    {
+      if (Model.WritingSystemType != value)
+      {
+        Model.WritingSystemType = value;
+        NotifyPropertyChanged(nameof(WritingSystemType));
+      }
+    }
+  }
+
+  public virtual WritingSystemKind? WritingSystemKind
+  {
+    get => Model.WritingSystemKind;
+    set
+    {
+      if (Model.WritingSystemKind != value)
+      {
+        Model.WritingSystemKind = value;
+        NotifyPropertyChanged(nameof(WritingSystemKind));
+      }
+    }
+  }
+
+  public virtual WritingSystem? Parent
+  {
+    get => Model.Parent;
+    set
+    {
+      if (Model.Parent != value)
+      {
+        Model.Parent = value;
+        NotifyPropertyChanged(nameof(Parent));
+      }
+    }
+  }
+
   public virtual IEnumerable<WritingSystem>? SelectableWritingSystemParents => _ViewModels.Instance.SelectableWritingSystemParents;
 
   public virtual WritingSystemsCollection? Children
@@ -58,20 +252,20 @@ public partial class WritingSystemViewModel: ViewModel<WritingSystem>, IEquatabl
     }
   }
 
-  public ICommand ExpandCommand { get; set; }
-
-  public WritingSystemViewModel(WritingSystem model) : base(model)
+  private bool _isWrapped = true;
+  public bool IsWrapped
   {
-    ExpandCommand = new RelayCommand(Expand);
+    get => _isWrapped;
+    set
+    {
+      if (_isWrapped != value)
+      {
+        _isWrapped = value;
+        Debug.WriteLine($"IsWrapped changed to {IsWrapped}");
+        NotifyPropertyChanged(nameof(IsWrapped));
+      }
+    }
   }
-
-  private void Expand()
-  {
-    IsExpanded = !IsExpanded;
-    Debug.WriteLine($"IsExpanded = {IsExpanded}");
-  }
-
-  ////public virtual ICollection<UcdBlock> UcdBlocks { get; set; }
 
   public bool Equals(WritingSystemViewModel? other)
   {

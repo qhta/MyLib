@@ -13,7 +13,7 @@ namespace Qhta.WPF.Converters
     /// <summary>
     /// Direct conversion.
     /// </summary>
-    public object? Convert (object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert (object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (value == null)
         throw new ArgumentNullException ("value");
@@ -23,7 +23,7 @@ namespace Qhta.WPF.Converters
     /// <summary>
     /// Reverse conversion.
     /// </summary>
-    public object? ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
+    public object? ConvertBack (object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (value == null)
         throw new ArgumentNullException("value");
@@ -33,7 +33,7 @@ namespace Qhta.WPF.Converters
     /// <summary>
     /// Internal convert method.
     /// </summary>
-    private object? DoConvert (object value, Type targetType, object parameter, CultureInfo culture)
+    private object? DoConvert (object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (value is double && targetType == typeof(string))
         return (1.0 / (double)value).ToString(CultureInfo.InvariantCulture);

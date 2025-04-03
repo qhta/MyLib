@@ -8,7 +8,7 @@ namespace Qhta.WPF.Converters
 {
   /// <summary>
   /// One way converter to convert a specific bitset to bool.
-  /// It return true value when a bitset value equals int mask,
+  /// It returns true value when a bitset value equals int mask,
   /// otherwise it returns false.
   /// </summary>
   public class BitTestConverter : DependencyObject, IValueConverter, IMultiValueConverter
@@ -17,7 +17,7 @@ namespace Qhta.WPF.Converters
     /// Static mask property to test a bitset value
     /// </summary>
     public static DependencyProperty MaskProperty = DependencyProperty.Register
-      ("Mask", typeof(int), typeof(BitTestConverter), new PropertyMetadata(0));
+      (nameof(Mask), typeof(int), typeof(BitTestConverter), new PropertyMetadata(0));
 
     /// <summary>
     /// Mask property to test a bitset value.
@@ -37,7 +37,7 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    public virtual object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public virtual object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (value == null)
         value = 0;
@@ -56,7 +56,7 @@ namespace Qhta.WPF.Converters
     /// <param name="parameter"></param>
     /// <param name="culture"></param>
     /// <returns></returns>
-    public object? Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object[] values, Type targetType, object? parameter, CultureInfo culture)
     {
       return null;
     }
@@ -70,7 +70,7 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public virtual object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public virtual object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       throw new NotImplementedException();
     }
@@ -84,14 +84,14 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public object[]? ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    public object[]? ConvertBack(object? value, Type[] targetTypes, object? parameter, CultureInfo culture)
     {
       throw new NotImplementedException();
     }
 
     /// <summary>
     /// A method to convert an object to int value.
-    /// The object value can be an enum or any integer type.
+    /// The object? value can be an enum or any integer type.
     /// </summary>
     /// <param name="value"></param>
     /// <param name="parameter"></param>
@@ -99,9 +99,8 @@ namespace Qhta.WPF.Converters
     /// <param name="mask"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    protected bool ConvertArguments(object value, object parameter, out int val, out int mask)
+    protected bool ConvertArguments(object value, object? parameter, out int val, out int mask)
     {
-
       Dictionary<string, int> enums = null!;
       if (value is int n)
         val = n;
@@ -143,7 +142,7 @@ namespace Qhta.WPF.Converters
     }
 
     /// <summary>
-    /// Helper method to convert an object parameter to int mask
+    /// Helper method to convert an object? parameter to int mask
     /// eventually using string-int dictionary.
     /// </summary>
     /// <param name="parameter"></param>
@@ -151,7 +150,7 @@ namespace Qhta.WPF.Converters
     /// <param name="mask"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    protected bool ConvertParameterArgument(object parameter, Dictionary<string, int> dictionary, out int mask)
+    protected bool ConvertParameterArgument(object? parameter, Dictionary<string, int> dictionary, out int mask)
     {
       if (parameter == null)
       {

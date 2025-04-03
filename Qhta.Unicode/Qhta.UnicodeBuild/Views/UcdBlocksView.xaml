@@ -7,6 +7,7 @@
              xmlns:models="clr-namespace:Qhta.Unicode.Models"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
+             xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <UserControl.Resources>
@@ -23,26 +24,72 @@
               ColumnSizer="Auto"
               HeaderRowHeight="26"
               QueryRowHeight="DataGrid_OnQueryRowHeight"
-              AutoGenerateColumns="False">
+              AutoGenerateColumns="False"
+              >
       <sf:SfDataGrid.Columns>
         <sf:GridTextColumn 
           MappingName="Range"
-          HeaderText="Range" />
+          HeaderText="Range" 
+          VerticalAlignment="Top"
+          />
         <sf:GridTextColumn 
           MappingName="BlockName" 
-          HeaderText="BlockName" />
+          HeaderText="BlockName" 
+          VerticalAlignment="Top"
+          />
         <sf:GridComboBoxColumn
           MappingName="WritingSystem"
           HeaderText="WritingSystem" 
           DisplayMemberPath="Name"
           SortMode="Display"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-          Path=Instance.SelectableWritingSystems}"/>
+          Path=Instance.SelectableWritingSystems}"
+          VerticalAlignment="Top"
+          />
         <sf:GridTextColumn 
+          d:DataContext="{d:DesignInstance Type=viewModels:UcdBlockViewModel, IsDesignTimeCreatable=True}"
           MappingName="Comment" 
           HeaderText="Comment"
-          MaximumWidth="400"
-          TextWrapping="Wrap"/>
+          Width="420"
+          TextWrapping="Wrap"
+          VerticalAlignment="Top"
+          >
+          <sf:GridTextColumn.CellTemplate>
+            <DataTemplate DataType="viewModels:UcdBlockViewModel">
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Comment}" 
+                           TextWrapping="{Binding IsWrapped, Converter={StaticResource BoolToTextWrappingConverter}}"/>
+                <ToggleButton 
+                  Grid.Column="1"
+                  Visibility="{Binding CanBeWrapped, Converter={StaticResource BoolToVisibilityConverter}}"
+                  Height="20"
+                  VerticalAlignment="Top"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  BorderBrush="Transparent"
+                  IsChecked="{Binding IsWrapped, Mode=TwoWay}"
+                  Checked="WrapButton_CheckedChanged"
+                  Unchecked="WrapButton_CheckedChanged"
+                  >
+                  <ToggleButton.Style>
+                    <Style TargetType="ToggleButton">
+                      <Setter Property="Content" Value="⏷"/>
+                      <Style.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                          <Setter Property="Content" Value="⏶"/>
+                        </Trigger>
+                      </Style.Triggers>
+                    </Style>
+                  </ToggleButton.Style>
+                </ToggleButton>
+              </Grid>
+            </DataTemplate>
+          </sf:GridTextColumn.CellTemplate>
+        </sf:GridTextColumn>
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
   </Grid>

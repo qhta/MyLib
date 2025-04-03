@@ -18,7 +18,7 @@ namespace Qhta.WPF.Converters
     /// Static dependency property of double parameter.
     /// </summary>
     public static DependencyProperty ParamProperty = DependencyProperty.Register
-      ("Param", typeof(double), typeof(ArithmeticConverter), new PropertyMetadata(Double.NaN));
+      (nameof(Param), typeof(double), typeof(ArithmeticConverter), new PropertyMetadata(Double.NaN));
 
     /// <summary>
     /// Dependency property of double parameter.
@@ -37,7 +37,7 @@ namespace Qhta.WPF.Converters
     /// <param name="parameter"></param>
     /// <param name="culture"></param>
     /// <returns></returns>
-    public abstract object Convert(object value, Type targetType, object parameter, CultureInfo culture);
+    public abstract object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture);
 
     /// <summary>
     /// Convert back unimplemented method.
@@ -48,18 +48,18 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       throw new NotImplementedException();
     }
 
     /// <summary>
-    /// A method to convert an object parameter to double.
+    /// A method to convert an object? parameter to double.
     /// </summary>
     /// <param name="parameter"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    protected bool TryGetValue(object parameter, out double value)
+    protected bool TryGetValue(object? parameter, out double value)
     {
       value = double.NaN;
       if (parameter is string str)

@@ -23,7 +23,7 @@ public class IndirectPropertyConverter : IMultiValueConverter
   /// <param name="culture"></param>
   /// <returns></returns>
   /// <exception cref="NotImplementedException"></exception>
-  public object? Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+  public object? Convert(object[] values, Type targetType, object? parameter, CultureInfo culture)
   {
     if (values.Length >= 2)
     {
@@ -50,7 +50,7 @@ public class IndirectPropertyConverter : IMultiValueConverter
   /// <param name="culture"></param>
   /// <returns></returns>
   /// <exception cref="NotImplementedException"></exception>
-  public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+  public object[] ConvertBack(object? value, Type[] targetTypes, object? parameter, CultureInfo culture)
   {
     throw new NotImplementedException();
   }

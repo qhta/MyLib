@@ -14,7 +14,7 @@ namespace Qhta.WPF.Converters
     /// <summary>
     /// Compares a value to the parameter and returns a boolean value.
     /// </summary>
-    public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert (object? value, Type targetType, object? parameter, CultureInfo culture)
     {
 
       if (value is string valStr && parameter is string parStr)
@@ -45,7 +45,7 @@ namespace Qhta.WPF.Converters
     /// <summary>
     /// Unimplemented backward conversion.
     /// </summary>
-    public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack (object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       throw new NotImplementedException();
     }

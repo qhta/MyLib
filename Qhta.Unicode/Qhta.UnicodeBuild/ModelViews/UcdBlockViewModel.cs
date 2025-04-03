@@ -1,9 +1,11 @@
-﻿using Qhta.MVVM;
+﻿using System.Diagnostics;
+
+using Qhta.MVVM;
 using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class UcdBlockViewModel(UcdBlock model) : ViewModel<UcdBlock>(model)
+public partial class UcdBlockViewModel(UcdBlock model) : ViewModel<UcdBlock>(model), ILongTextViewModel
 {
   public string? Range { get => Model.Range; set => Model.Range = value; }
 
@@ -27,4 +29,21 @@ public partial class UcdBlockViewModel(UcdBlock model) : ViewModel<UcdBlock>(mod
   //internal UcdBlocksCollection Collection { get; init; } = null!;
 
   //public double BlockNameWidth { get => Collection.GetMaxBlockNameWidth}
+
+  public bool CanBeWrapped => !string.IsNullOrEmpty(model.Comment) && model.Comment.Length >50;
+  
+  private bool _isWrapped = false;
+  public bool IsWrapped
+  {
+    get => _isWrapped;
+    set
+    {
+      if (_isWrapped != value)
+      {
+        _isWrapped = value;
+        Debug.WriteLine($"IsWrapped changed to {IsWrapped}");
+        NotifyPropertyChanged(nameof(IsWrapped));
+      }
+    }
+  }
 }

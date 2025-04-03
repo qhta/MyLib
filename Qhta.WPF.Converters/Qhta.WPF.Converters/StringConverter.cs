@@ -18,7 +18,7 @@ namespace Qhta.WPF.Converters
     /// Static dependency property of double parameter.
     /// </summary>
     public static DependencyProperty ParamProperty = DependencyProperty.Register
-      ("Param", typeof(string), typeof(StringConverter));
+      (nameof(Param), typeof(string), typeof(StringConverter));
 
     /// <summary>
     /// Dependency property of double parameter.
@@ -37,7 +37,7 @@ namespace Qhta.WPF.Converters
     /// <param name="parameter"></param>
     /// <param name="culture"></param>
     /// <returns></returns>
-    public abstract object Convert(object value, Type targetType, object parameter, CultureInfo culture);
+    public abstract object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture);
 
     /// <summary>
     /// Convert back unimplemented method.
@@ -48,13 +48,13 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       throw new NotImplementedException();
     }
 
     /// <summary>
-    /// A method to convert an object parameter to string.
+    /// A method to convert an object? parameter to string.
     /// </summary>
     /// <param name="parameter"></param>
     /// <param name="value"></param>

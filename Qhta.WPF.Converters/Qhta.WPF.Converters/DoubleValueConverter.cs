@@ -19,7 +19,7 @@ namespace Qhta.WPF.Converters
     /// <param name="parameter"></param>
     /// <param name="culture"></param>
     /// <returns></returns>
-    public object? Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
       if (value == null)
         return null;
@@ -41,7 +41,7 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public object? ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object? ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
       if (value == null)
         return null;
@@ -53,19 +53,18 @@ namespace Qhta.WPF.Converters
         throw new NotImplementedException();
     }
 
-    private double StringToDouble(string s, object parameter, System.Globalization.CultureInfo culture)
+    private double StringToDouble(string s, object? parameter, System.Globalization.CultureInfo culture)
     {
       s = s.Trim();
       if (s.Length == 0)
         return 0;
-      double result;
-      if (Double.TryParse(s, NumberStyles.Float, culture, out result))
+      if (Double.TryParse(s, NumberStyles.Float, culture, out var result))
         return result;
       else
         return Double.NaN;
     }
 
-    private string DoubleToString(double d, object parameter, System.Globalization.CultureInfo culture)
+    private string DoubleToString(double d, object? parameter, System.Globalization.CultureInfo culture)
     {
       if (!Double.IsNaN(d))
         return (d.ToString(culture));

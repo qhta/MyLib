@@ -22,7 +22,7 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public object? Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
       if (value is Color)
       {
@@ -34,7 +34,7 @@ namespace Qhta.WPF.Converters
       throw new NotImplementedException();
     }
 
-    private System.Windows.Media.ColorConverter mediaConverter = new System.Windows.Media.ColorConverter();
+    private readonly System.Windows.Media.ColorConverter mediaConverter = new System.Windows.Media.ColorConverter();
 
     /// <summary>
     /// Converts from string to color.
@@ -45,7 +45,7 @@ namespace Qhta.WPF.Converters
     /// <param name="culture"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public object? ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    public object? ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {
       if (targetType==typeof(Color))
       {
