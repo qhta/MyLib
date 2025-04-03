@@ -46,50 +46,13 @@
           Path=Instance.SelectableWritingSystems}"
           VerticalAlignment="Top"
           />
-        <sf:GridTextColumn 
-          d:DataContext="{d:DesignInstance Type=viewModels:UcdBlockViewModel, IsDesignTimeCreatable=True}"
-          MappingName="Comment" 
-          HeaderText="Comment"
-          Width="420"
-          TextWrapping="Wrap"
-          VerticalAlignment="Top"
-          >
-          <sf:GridTextColumn.CellTemplate>
-            <DataTemplate DataType="viewModels:UcdBlockViewModel">
-              <Grid>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="{Binding Comment}" 
-                           TextWrapping="{Binding IsWrapped, Converter={StaticResource BoolToTextWrappingConverter}}"/>
-                <ToggleButton 
-                  Grid.Column="1"
-                  Visibility="{Binding CanBeWrapped, Converter={StaticResource BoolToVisibilityConverter}}"
-                  Height="20"
-                  VerticalAlignment="Top"
-                  Background="Transparent"
-                  BorderThickness="0"
-                  BorderBrush="Transparent"
-                  IsChecked="{Binding IsWrapped, Mode=TwoWay}"
-                  Checked="WrapButton_CheckedChanged"
-                  Unchecked="WrapButton_CheckedChanged"
-                  >
-                  <ToggleButton.Style>
-                    <Style TargetType="ToggleButton">
-                      <Setter Property="Content" Value="⏷"/>
-                      <Style.Triggers>
-                        <Trigger Property="IsChecked" Value="True">
-                          <Setter Property="Content" Value="⏶"/>
-                        </Trigger>
-                      </Style.Triggers>
-                    </Style>
-                  </ToggleButton.Style>
-                </ToggleButton>
-              </Grid>
-            </DataTemplate>
-          </sf:GridTextColumn.CellTemplate>
-        </sf:GridTextColumn>
+          <helpers:GridLongTextColumn 
+            MappingName="Comment" 
+            HeaderText="Comment"
+            Width="420"
+            TextWrapping="Wrap"
+            VerticalAlignment="Top"
+            CellTemplate="{StaticResource GridLongTextColumnCellTemplate}"/>
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
   </Grid>

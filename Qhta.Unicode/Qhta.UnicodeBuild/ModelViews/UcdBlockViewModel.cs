@@ -5,8 +5,14 @@ using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class UcdBlockViewModel(UcdBlock model) : ViewModel<UcdBlock>(model), ILongTextViewModel
+public partial class UcdBlockViewModel: ViewModel<UcdBlock>, ILongTextViewModel
 {
+  /// <inheritdoc />
+  public UcdBlockViewModel(UcdBlock model) : base(model)
+  {
+    // Initialize any additional properties or collections here if needed
+  }
+
   public string? Range { get => Model.Range; set => Model.Range = value; }
 
   public string? BlockName { get => Model.BlockName; set => Model.BlockName = value; }
@@ -30,10 +36,10 @@ public partial class UcdBlockViewModel(UcdBlock model) : ViewModel<UcdBlock>(mod
 
   //public double BlockNameWidth { get => Collection.GetMaxBlockNameWidth}
 
-  public bool CanBeWrapped => !string.IsNullOrEmpty(model.Comment) && model.Comment.Length >50;
+  public bool CanExpandRowHeight => !string.IsNullOrEmpty(Model.Comment) && Model.Comment.Length >50;
   
   private bool _isWrapped = false;
-  public bool IsWrapped
+  public bool IsRowHeightExpanded
   {
     get => _isWrapped;
     set
@@ -41,8 +47,8 @@ public partial class UcdBlockViewModel(UcdBlock model) : ViewModel<UcdBlock>(mod
       if (_isWrapped != value)
       {
         _isWrapped = value;
-        Debug.WriteLine($"IsWrapped changed to {IsWrapped}");
-        NotifyPropertyChanged(nameof(IsWrapped));
+        //Debug.WriteLine($"IsWrapped changed to {IsRowHeightExpanded}");
+        NotifyPropertyChanged(nameof(IsRowHeightExpanded));
       }
     }
   }

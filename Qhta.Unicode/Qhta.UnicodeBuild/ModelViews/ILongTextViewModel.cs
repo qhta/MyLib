@@ -2,6 +2,6 @@
 
 public interface ILongTextViewModel
 {
-  public bool CanBeWrapped { get; }
-  public bool IsWrapped { get; set; }
+  public bool CanExpandRowHeight { get; }
+  public bool IsRowHeightExpanded { get; set; }
 }

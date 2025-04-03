@@ -7,7 +7,7 @@ using Qhta.Unicode.Models;
 namespace Qhta.UnicodeBuild.ViewModels;
 
 public partial class WritingSystemViewModel(WritingSystem model)
-  : ViewModel<WritingSystem>(model), IEquatable<WritingSystemViewModel>
+  : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>
 {
   public int? Id
   {
@@ -252,21 +252,6 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  private bool _isWrapped = true;
-  public bool IsWrapped
-  {
-    get => _isWrapped;
-    set
-    {
-      if (_isWrapped != value)
-      {
-        _isWrapped = value;
-        Debug.WriteLine($"IsWrapped changed to {IsWrapped}");
-        NotifyPropertyChanged(nameof(IsWrapped));
-      }
-    }
-  }
-
   public bool Equals(WritingSystemViewModel? other)
   {
     if (other == null)
@@ -277,5 +262,22 @@ public partial class WritingSystemViewModel(WritingSystem model)
   public override string ToString()
   {
     return Name;
+  }
+
+  public bool CanExpandRowHeight => !string.IsNullOrEmpty(Model.Description) && Model.Description.Length > 50;
+
+  private bool _isWrapped = false;
+  public bool IsRowHeightExpanded
+  {
+    get => _isWrapped;
+    set
+    {
+      if (_isWrapped != value)
+      {
+        _isWrapped = value;
+        //Debug.WriteLine($"IsWrapped changed to {IsRowHeightExpanded}");
+        NotifyPropertyChanged(nameof(IsRowHeightExpanded));
+      }
+    }
   }
 }

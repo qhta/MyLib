@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\App.xaml
 6-1512504449
 
-23461424111
+26-723217288
 232271856206
 AppResourceDictionary.xaml;InvisibleWindow.xaml;MainWindow.xaml;NewWindow.xaml;Views\UcdBlocksView.xaml;Views\WritingSystemsView.xaml;
 
-False
+True
 

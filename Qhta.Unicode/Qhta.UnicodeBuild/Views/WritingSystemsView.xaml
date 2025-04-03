@@ -53,25 +53,6 @@
                    SelectionUnit="Row"
                    SelectionChanged="WritingSystemsDataGrid_OnSelectionChanged">
       <sf:SfDataGrid.Columns>
-        <!--<sf:GridTextColumn 
-          HeaderText="" 
-          MappingName="ChildrenCount"
-          Width="40"/>-->
-        <!--<sf:GridTemplateColumn AllowFiltering="False" 
-                               AllowFocus="False" 
-                               AllowResizing="False" 
-                               AllowSorting="False" 
-                               AllowEditing="False" 
-                               AllowGrouping="False"
-                               Width="20">
-          <sf:GridTemplateColumn.CellTemplate>
-            <DataTemplate>
-              <ToggleButton Style="{StaticResource ExpandToggleButtonStyle}"
-                            IsChecked="{Binding IsExpanded}"
-                            />
-            </DataTemplate>
-          </sf:GridTemplateColumn.CellTemplate>
-        </sf:GridTemplateColumn>-->
         <sf:GridTextColumn 
           HeaderText="Name" 
           MappingName="Name"
@@ -121,21 +102,13 @@
           HeaderText="Ext" 
           MappingName="Ext"
           Width="60"/>
-        <sf:GridTextColumn 
-          HeaderText="Description" 
-          MappingName="Description"
-          d:DataContext="{d:DesignInstance Type=vm:WritingSystemViewModel, IsDesignTimeCreatable=True}"
+        <helpers:GridLongTextColumn 
+          MappingName="Description" 
+          HeaderText="Description"
+          Width="420"
           TextWrapping="Wrap"
-          Width="400">
-          <!--<sf:GridTextColumn.CellTemplate>
-            <DataTemplate>
-              <TextBlock Text="{Binding Description}" 
-                         TextWrapping="{Binding IsWrapped, Converter={StaticResource BoolToTextWrappingConverter}}"
-                         TextTrimming="CharacterEllipsis"
-                         MouseLeftButtonDown="WrappedTextBlock_OnMouseLeftButtonDown"/>
-            </DataTemplate>
-          </sf:GridTextColumn.CellTemplate>-->
-        </sf:GridTextColumn>
+          VerticalAlignment="Top"
+          CellTemplate="{StaticResource GridLongTextColumnCellTemplate}"/>
         <sf:GridTextColumn 
           HeaderText="Aliases" 
           MappingName="Aliases"/>
