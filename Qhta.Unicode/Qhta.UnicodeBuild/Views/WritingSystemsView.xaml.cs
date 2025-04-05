@@ -27,7 +27,7 @@ namespace Qhta.UnicodeBuild.Views
 
     private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
     {
-      GridLongTextColumn.DataGrid_OnQueryRowHeight(sender, e);
+      LongTextColumn.DataGrid_OnQueryRowHeight(sender, e);
     }
 
     private void WritingSystemsTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -63,43 +63,10 @@ namespace Qhta.UnicodeBuild.Views
         if (gridRowInfo.RowData is WritingSystemViewModel selectedItem)
         {
           //Debug.WriteLine($"DataGridSelectionChanged {selectedItem.Name}");
-          SetSelectedItemInTreeView(WritingSystemsTreeView, selectedItem);
+          WritingSystemsTreeView.SetSelectedItemInTreeView(selectedItem);
         }
       }
       isSyncFromDataGrid = false;
-    }
-
-    private void SetSelectedItemInTreeView(TreeView treeView, object selectedItem)
-    {
-      var treeViewItem = FindTreeViewItem(treeView, selectedItem);
-      if (treeViewItem != null)
-      {
-        treeViewItem.IsSelected = true;
-        treeViewItem.BringIntoView();
-      }
-    }
-
-    private TreeViewItem? FindTreeViewItem(ItemsControl? container, object item)
-    {
-      if (container == null)
-        return null;
-
-      if (container.DataContext.Equals(item))
-        return container as TreeViewItem;
-
-      for (int i = 0; i < container.Items.Count; i++)
-      {
-        if (container.ItemContainerGenerator.ContainerFromIndex(i) is TreeViewItem childContainer)
-        {
-          childContainer.IsExpanded = true;
-          childContainer.UpdateLayout();
-
-          var result = FindTreeViewItem(childContainer, item);
-          if (result != null)
-            return result;
-        }
-      }
-      return null;
     }
 
   }

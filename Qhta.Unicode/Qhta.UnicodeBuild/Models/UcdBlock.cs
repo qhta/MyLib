@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.ViewModels;
 
 namespace Qhta.Unicode.Models;

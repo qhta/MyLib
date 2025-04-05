@@ -36,6 +36,7 @@
           MappingName="BlockName" 
           HeaderText="BlockName" 
           VerticalAlignment="Top"
+          Width="100"
           />
         <sf:GridComboBoxColumn
           MappingName="WritingSystem"
@@ -45,14 +46,15 @@
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
           Path=Instance.SelectableWritingSystems}"
           VerticalAlignment="Top"
+          Width="100"
           />
-          <helpers:GridLongTextColumn 
-            MappingName="Comment" 
-            HeaderText="Comment"
-            Width="420"
-            TextWrapping="Wrap"
-            VerticalAlignment="Top"
-            CellTemplate="{StaticResource GridLongTextColumnCellTemplate}"/>
+        <helpers:LongTextColumn 
+          MappingName="Comment" 
+          HeaderText="Comment"
+          Width="420"
+          TextWrapping="Wrap"
+          VerticalAlignment="Top"
+          CellTemplate="{StaticResource LongTextCellTemplate}"/>
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
   </Grid>

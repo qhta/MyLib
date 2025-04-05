@@ -45,6 +45,5 @@ namespace Qhta.UnicodeBuild.Helpers
         }
     }
 
-
   }
 }

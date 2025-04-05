@@ -22,7 +22,7 @@ namespace Qhta.UnicodeBuild.Views
 
     private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
     {
-      GridLongTextColumn.DataGrid_OnQueryRowHeight(sender, e);
+      LongTextColumn.DataGrid_OnQueryRowHeight(sender, e);
     }
 
   }

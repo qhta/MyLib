@@ -9,7 +9,7 @@
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
   <helpers:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
 
-  <DataTemplate x:Key="GridLongTextColumnCellTemplate" DataType="{x:Type viewModels:ILongTextViewModel}">
+  <DataTemplate x:Key="LongTextCellTemplate" DataType="{x:Type viewModels:ILongTextViewModel}">
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>

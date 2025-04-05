@@ -102,13 +102,13 @@
           HeaderText="Ext" 
           MappingName="Ext"
           Width="60"/>
-        <helpers:GridLongTextColumn 
+        <helpers:LongTextColumn 
           MappingName="Description" 
           HeaderText="Description"
           Width="420"
           TextWrapping="Wrap"
           VerticalAlignment="Top"
-          CellTemplate="{StaticResource GridLongTextColumnCellTemplate}"/>
+          CellTemplate="{StaticResource LongTextCellTemplate}"/>
         <sf:GridTextColumn 
           HeaderText="Aliases" 
           MappingName="Aliases"/>

@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\LongTextCell.cs" />
     <Compile Remove="Models\Abbreviation.cs" />
     <Compile Remove="Models\AbbreviationCategory.cs" />
     <Compile Remove="Models\Agl.cs" />
@@ -73,6 +74,7 @@
     <Compile Remove="Models\Wingding.cs" />
     <Compile Remove="Models\Word.cs" />
     <Compile Remove="Models\Zapfdingbat.cs" />
+    <Compile Remove="ViewModels\ExtendedViewModel`1.cs" />
   </ItemGroup>
 
   <ItemGroup>
