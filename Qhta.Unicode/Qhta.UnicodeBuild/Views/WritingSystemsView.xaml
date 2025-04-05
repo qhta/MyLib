@@ -16,13 +16,48 @@
   <UserControl.Resources>
     <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
     <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
+    <DataTemplate x:Key="KeyPhraseTextCellTemplate">
+      <TextBlock Text="{Binding KeyPhrase}" />
+    </DataTemplate>
   </UserControl.Resources>
   <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="200"/>
       <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
-    <TreeView Grid.Column="0"
+
+    <!-- Menu Bar -->
+    <Menu Grid.Row="0" Grid.ColumnSpan="2">
+      <MenuItem Header="File">
+        <MenuItem Header="New" Command="New"/>
+        <MenuItem Header="Open" Command="Open"/>
+        <MenuItem Header="Save" Command="Save"/>
+        <Separator/>
+        <MenuItem Header="Exit" Command="Close"/>
+      </MenuItem>
+      <MenuItem Header="Edit">
+        <MenuItem Header="Undo" Command="Undo"/>
+        <MenuItem Header="Redo" Command="Redo"/>
+        <Separator/>
+        <MenuItem Header="Cut" Command="Cut"/>
+        <MenuItem Header="Copy" Command="Copy"/>
+        <MenuItem Header="Paste" Command="Paste"/>
+      </MenuItem>
+      <MenuItem Header="Tools">
+        <MenuItem Header="Evaluate IsUsed" 
+          Command="{Binding Source={StaticResource ViewModels}, 
+          Path=Instance.AllWritingSystems.EvaluateIsUsedCommand}"/>
+      </MenuItem>
+      <MenuItem Header="Help">
+        <MenuItem Header="About" Command="Help"/>
+      </MenuItem>
+    </Menu>
+
+    <TreeView Grid.Column="0" Grid.Row="1"
               x:Name="WritingSystemsTreeView"
               DataContext ="{StaticResource ViewModels}"
               ItemsSource ="{Binding Instance.TopWritingSystems}"
@@ -36,9 +71,9 @@
         </HierarchicalDataTemplate>
       </TreeView.ItemTemplate>
     </TreeView>
-    <GridSplitter Grid.Column="0" 
+    <GridSplitter Grid.Column="0" Grid.Row="1"
                   Width="5"/>
-    <sf:SfDataGrid Grid.Column="1"  
+    <sf:SfDataGrid Grid.Column="1" Grid.Row="1" 
                    x:Name="WritingSystemsDataGrid" 
                    DataContext ="{StaticResource ViewModels}"
                    ItemsSource ="{Binding Instance.AllWritingSystems}"
@@ -65,6 +100,9 @@
           Width="150"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableWritingSystemParents}"/>
+        <sf:GridCheckBoxColumn
+          HeaderText="IsUsed"
+          MappingName="IsUsed"/>
         <sf:GridComboBoxColumn
           HeaderText="Type" 
           DisplayMemberPath="Type"
@@ -79,13 +117,10 @@
           MappingName="WritingSystemKind"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemKinds}"/>
-        <sf:GridCheckBoxColumn
-          HeaderText="Starting"
-          MappingName="Starting"
-          Width="100"/>
         <sf:GridTextColumn 
           HeaderText="Key phrase" 
-          MappingName="KeyPhrase"/>
+          MappingName="KeyPhrase"
+          CellTemplate="{StaticResource TextCellTemplate}"/>
         <sf:GridTextColumn 
           HeaderText="Ctg" 
           MappingName="Ctg"

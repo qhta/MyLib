@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Qhta.Unicode.Models;
 
@@ -28,9 +29,13 @@ public class _ViewModels: IDisposable
     TopWritingSystems = new WritingSystemsCollection();
     _Context = new _DbContext();
     {
-      foreach (var ub in _Context.UcdBlocks.Include(ub => ub.WritingSystem).ToList())
+      foreach (var ub in _Context.UcdBlocks
+                 .Include(ub => ub.WritingSystem)
+                 .Include(ub => ub.UcdRanges)
+                 .ToList())
       {
         UcdBlocks.Add(ub);
+        Debug.WriteLine($"{ub.BlockName}.UcdRanges = {ub.UcdRanges.Count}");
       }
       foreach (var ws in _Context.WritingSystems.Include(ws => ws.WritingSystemType).OrderBy(ws=>ws.Name).ToList())
       {

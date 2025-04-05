@@ -3,12 +3,27 @@
                     xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
                     xmlns:converters="clr-namespace:Qhta.WPF.Converters;assembly=Qhta.WPF.Converters"
                     xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
+                    xmlns:mvvm="clr-namespace:Qhta.MVVM;assembly=Qhta.MVVM"
                     x:Class="Qhta.UnicodeBuild.Helpers.AppResourceDictionary">
   <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
   <helpers:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
 
+  <ContextMenu x:Key="CommonContextMenu">
+    <MenuItem Header="Copy" Command="Copy"/>
+    <MenuItem Header="Paste" Command="Paste"/>
+    <MenuItem Header="Cut" Command="Cut"/>
+  </ContextMenu>
+
+  <DataTemplate x:Key="TextCellTemplate" DataType="{x:Type mvvm:IViewModel}">
+    <TextBlock      
+      Text="{Binding Path=TemplatedParent, 
+      RelativeSource={RelativeSource AncestorType=ContentPresenter}, Converter={StaticResource MappingNameToValueConverter}}"
+      Padding="3"
+      ContextMenu="{StaticResource CommonContextMenu}" />
+  </DataTemplate>
+  
   <DataTemplate x:Key="LongTextCellTemplate" DataType="{x:Type viewModels:ILongTextViewModel}">
     <Grid>
       <Grid.ColumnDefinitions>

@@ -16,8 +16,6 @@ public partial class WritingSystem
 
   public int? ParentId { get; set; }
 
-  public bool? Starting { get; set; }
-
   public string? KeyPhrase { get; set; }
 
   public string? Ctg { get; set; }
@@ -44,4 +42,5 @@ public partial class WritingSystem
 
   public virtual ICollection<UcdBlock>? UcdBlocks { get; set; }
 
+  public virtual ICollection<UcdRange>? UcdRanges { get; set; }
 }

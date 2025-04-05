@@ -133,7 +133,7 @@ public partial class _DbContext : DbContext
 
   //public virtual DbSet<UcdBlockWritingSystem> UcdBlockWritingSystems { get; set; }
 
-  //public virtual DbSet<UcdRange> UcdRanges { get; set; }
+  public virtual DbSet<UcdRange> UcdRanges { get; set; }
 
   //public virtual DbSet<UcdRangesStartEnd> UcdRangesStartEnds { get; set; }
 
@@ -789,29 +789,31 @@ public partial class _DbContext : DbContext
     //  entity.Property(e => e.WritingSystemId).HasColumnName("WritingSystemID");
     //});
 
-    //modelBuilder.Entity<UcdRange>(entity =>
-    //{
-    //  entity.HasKey(e => e.StartCp).HasName("PrimaryKey");
+    modelBuilder.Entity<UcdRange>(entity =>
+    {
+      entity.HasKey(e => e.StartCp).HasName("PrimaryKey");
 
-    //  entity.HasIndex(e => e.BlockRange, "BlockID");
+      entity.HasIndex(e => e.BlockRange, "BlockID");
 
-    //  entity.HasIndex(e => e.WritingSystemId, "WritingSystemID");
+      entity.HasIndex(e => e.WritingSystemId, "WritingSystemID");
 
-    //  entity.Property(e => e.StartCp)
-    //          .HasMaxLength(5)
-    //          .HasColumnName("StartCP");
-    //  entity.Property(e => e.EndCp)
-    //          .HasMaxLength(5)
-    //          .HasColumnName("EndCP");
-    //  entity.Property(e => e.Language).HasMaxLength(255);
-    //  entity.Property(e => e.RangeName).HasMaxLength(255);
-    //  entity.Property(e => e.Standard).HasMaxLength(255);
-    //  entity.Property(e => e.WritingSystemId).HasColumnName("WritingSystemID");
+      entity.Property(e => e.StartCp)
+              .HasMaxLength(5)
+              .HasColumnName("StartCP");
+      entity.Property(e => e.EndCp)
+              .HasMaxLength(5)
+              .HasColumnName("EndCP");
+      entity.Property(e => e.Language).HasMaxLength(255);
+      entity.Property(e => e.RangeName).HasMaxLength(255);
+      entity.Property(e => e.Standard).HasMaxLength(255);
+      entity.Property(e => e.WritingSystemId).HasColumnName("WritingSystemID");
+      entity.HasOne(d => d.WritingSystem).WithMany(p => p.UcdRanges)
+        .HasForeignKey(d => d.WritingSystemId);
 
-    //  entity.HasOne(d => d.BlockRangeNavigation).WithMany(p => p.UcdRanges)
-    //          .HasForeignKey(d => d.BlockRange)
-    //          .HasConstraintName("UcdBlocksUcdRanges");
-    //});
+      entity.HasOne(d => d.BlockRangeNavigation).WithMany(p => p.UcdRanges)
+              .HasForeignKey(d => d.BlockRange)
+              .HasConstraintName("UcdBlocksUcdRanges");
+    });
 
     //modelBuilder.Entity<UcdRangesStartEnd>(entity =>
     //{
@@ -932,9 +934,6 @@ public partial class _DbContext : DbContext
               .HasColumnName("ISO");
       entity.Property(e => e.Kind).HasMaxLength(15);
       entity.Property(e => e.ParentId).HasColumnName("ParentID");
-      entity.Property(e => e.Starting)
-              .HasDefaultValueSql("No")
-              .HasColumnType("bit");
       entity.Property(e => e.Type).HasMaxLength(10);
 
       entity.HasOne(d => d.WritingSystemKind).WithMany(/*p => p.WritingSystems*/)

@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 
+using Qhta.MVVM;
 using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;
@@ -8,9 +10,10 @@ public class WritingSystemsCollection : ObservableCollection<WritingSystemViewMo
 {
   public WritingSystemsCollection()
   {
+    EvaluateIsUsedCommand = new RelayCommand(EvaluateIsUsed);
   }
 
-  public WritingSystemsCollection(IEnumerable<WritingSystem> ws)
+  public WritingSystemsCollection(IEnumerable<WritingSystem> ws): this()
   {
     foreach (var w in ws)
     {
@@ -29,4 +32,14 @@ public class WritingSystemsCollection : ObservableCollection<WritingSystemViewMo
     Add(new WritingSystemViewModel(ws));
   }
 
+
+  public ICommand EvaluateIsUsedCommand { get; }
+
+  private void EvaluateIsUsed()
+  {
+    foreach (var vm in this)
+    {
+      vm.IsUsed = vm.Model.UcdBlocks?.Count > 0 || vm.Model.Children?.Count > 0 || vm.Model.UcdRanges?.Count >0;
+    }
+  }
 }

@@ -75,19 +75,6 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  public bool? Starting
-  {
-    get => Model.Starting;
-    set
-    {
-      if (Model.Starting != value)
-      {
-        Model.Starting = value;
-        NotifyPropertyChanged(nameof(Starting));
-      }
-    }
-  }
-
   public string? KeyPhrase
   {
     get => Model.KeyPhrase;
@@ -218,6 +205,20 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  private bool _IsUsed;
+  public virtual bool IsUsed
+  {
+    get => _IsUsed;
+    set
+    {
+      if (_IsUsed != value)
+      {
+        _IsUsed = value;
+        NotifyPropertyChanged(nameof(IsUsed));
+      }
+    }
+  }
+
   public virtual IEnumerable<WritingSystem>? SelectableWritingSystemParents => _ViewModels.Instance.SelectableWritingSystemParents;
 
   public virtual WritingSystemsCollection? Children
@@ -280,4 +281,5 @@ public partial class WritingSystemViewModel(WritingSystem model)
       }
     }
   }
+
 }

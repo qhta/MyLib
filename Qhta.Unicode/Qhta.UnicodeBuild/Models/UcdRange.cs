@@ -23,5 +23,7 @@ public partial class UcdRange
 
   public string? Comment { get; set; }
 
+  public WritingSystem? WritingSystem { get; set; } // Navigation property
+
   public virtual UcdBlock? BlockRangeNavigation { get; set; }
 }
