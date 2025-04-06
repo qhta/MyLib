@@ -24,18 +24,24 @@ public class _ViewModels: IDisposable
 
   private _ViewModels()
   {
-    UcdBlocks = new UcdBlocksCollection();
-    AllWritingSystems = new WritingSystemsCollection();
-    TopWritingSystems = new WritingSystemsCollection();
     _Context = new _DbContext();
     {
+      foreach (var ur in _Context.UcdRanges
+                 //.Include(ub => ub.WritingSystem)
+                 //.Include(ub => ub.UcdRanges)
+                 .ToList())
+      {
+        UcdRanges.Add(ur);
+        //Debug.WriteLine($"{ub.BlockName}.UcdRanges = {ub.UcdRanges.Count}");
+      }
+
       foreach (var ub in _Context.UcdBlocks
                  .Include(ub => ub.WritingSystem)
-                 .Include(ub => ub.UcdRanges)
+                 //.Include(ub => ub.UcdRanges)
                  .ToList())
       {
         UcdBlocks.Add(ub);
-        Debug.WriteLine($"{ub.BlockName}.UcdRanges = {ub.UcdRanges.Count}");
+        //Debug.WriteLine($"{ub.BlockName}.UcdRanges = {ub.UcdRanges.Count}");
       }
       foreach (var ws in _Context.WritingSystems.Include(ws => ws.WritingSystemType).OrderBy(ws=>ws.Name).ToList())
       {
@@ -53,9 +59,10 @@ public class _ViewModels: IDisposable
   }
 
 
-  public UcdBlocksCollection UcdBlocks { get; set; }
-  public WritingSystemsCollection AllWritingSystems { get; set; }
-  public WritingSystemsCollection TopWritingSystems { get; set; }
+  public UcdBlocksCollection UcdBlocks { get; set; } = new UcdBlocksCollection();
+  public UcdRangeCollection UcdRanges { get; set; } = new UcdRangeCollection();
+  public WritingSystemsCollection AllWritingSystems { get; set; } = new WritingSystemsCollection();
+  public WritingSystemsCollection TopWritingSystems { get; set; } = new WritingSystemsCollection();
   public List<WritingSystemType> WritingSystemTypes { get; set; }
   public List<WritingSystemKind> WritingSystemKinds { get; set; }
   public IEnumerable<WritingSystem> SelectableWritingSystems => _Context.WritingSystems.OrderBy(ws => ws.Name).ToList();

@@ -6,7 +6,7 @@ using Qhta.UnicodeBuild.Helpers;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class UcdBlockViewModel: ViewModel<UcdBlock>, ILongTextViewModel
+public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
 {
   /// <inheritdoc />
   public UcdBlockViewModel(UcdBlock model) : base(model)
@@ -14,31 +14,49 @@ public partial class UcdBlockViewModel: ViewModel<UcdBlock>, ILongTextViewModel
     // Initialize any additional properties or collections here if needed
   }
 
-  public string? Range { get => Model.Range; set => Model.Range = value; }
+  public string? Range
+  {
+    get => Model.Range;
+    set
+    {
+      if (Model.Range != value)
+      {
+        Model.Range = value;
+        NotifyPropertyChanged(nameof(Range));
+      }
+    }
+  }
 
-  public string? BlockName { get => Model.BlockName; set => Model.BlockName = value; }
+  public string? BlockName
+  {
+    get => Model.BlockName;
+    set
+    {
+      if (Model.BlockName != null)
+      {
+        Model.BlockName = value;
+        NotifyPropertyChanged(nameof(BlockName));
+      }
+    }
+  }
 
-  public int? Start { get => Model.Start; set => Model.Start = value; }
-
-  public int? End { get => Model.End; set => Model.End = value; }
-
-  public string? Comment { get => Model.Comment; set => Model.Comment = value; }
+  public string? Comment
+  {
+    get => Model.Comment;
+    set
+    {
+      if (Model.Comment != value)
+      {
+        Model.Comment = value;
+        NotifyPropertyChanged(nameof(Comment));
+      }
+    }
+  }
 
   public WritingSystem? WritingSystem { get => Model.WritingSystem; set => Model.WritingSystem = value; }
 
-  //public virtual ICollection<UcdRange> UcdRanges { get; set; } = new List<UcdRange>();
+  public bool CanExpandRowHeight => !string.IsNullOrEmpty(Model.Comment) && Model.Comment.Length > 50;
 
-  //public UcdBlockViewModel(UcdBlock model, UcdBlocksCollection collection) : this(model)
-  //{
-  //  Collection = collection;
-  //}
-
-  //internal UcdBlocksCollection Collection { get; init; } = null!;
-
-  //public double BlockNameWidth { get => Collection.GetMaxBlockNameWidth}
-
-  public bool CanExpandRowHeight => !string.IsNullOrEmpty(Model.Comment) && Model.Comment.Length >50;
-  
   private bool _isWrapped = false;
   public bool IsRowHeightExpanded
   {

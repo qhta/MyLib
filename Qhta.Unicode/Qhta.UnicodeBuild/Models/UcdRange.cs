@@ -7,23 +7,21 @@ namespace Qhta.Unicode.Models;
 public partial class UcdRange
 {
   [Key]
-  public string StartCp { get; set; } = null!;
+  public string Range { get; set; } = null!;
 
-  public string? EndCp { get; set; }
+  //public int? BlockId { get; set; }
 
-  public int? BlockRange { get; set; }
+  //public string? RangeName { get; set; }
 
-  public string? RangeName { get; set; }
+  //public string? Standard { get; set; }
 
-  public string? Standard { get; set; }
+  //public int? WritingSystemId { get; set; }
 
-  public int? WritingSystemId { get; set; }
+  //public string? Language { get; set; }
 
-  public string? Language { get; set; }
+  //public string? Comment { get; set; }
 
-  public string? Comment { get; set; }
+  //public WritingSystem? WritingSystem { get; set; } // Navigation property
 
-  public WritingSystem? WritingSystem { get; set; } // Navigation property
-
-  public virtual UcdBlock? BlockRangeNavigation { get; set; }
+  //public virtual UcdBlock? BlockRangeNavigation { get; set; }
 }

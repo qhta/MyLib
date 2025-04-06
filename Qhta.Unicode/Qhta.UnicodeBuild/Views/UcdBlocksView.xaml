@@ -26,6 +26,46 @@
               QueryRowHeight="DataGrid_OnQueryRowHeight"
               AutoGenerateColumns="False"
               >
+      <!--<sf:SfDataGrid.DetailsViewDefinition>
+        <sf:GridViewDefinition RelationalColumn="UcdRanges">
+          <sf:GridViewDefinition.DataGrid>
+            <sf:SfDataGrid
+              x:Name="UcdRangesViewGrid"
+              AutoGenerateColumns="False"
+              ColumnSizer="AutoWithLastColumnFill">
+              <sf:SfDataGrid.Columns>
+                <sf:GridTextColumn 
+                  HeaderText="Range" 
+                  MappingName="Range" 
+                  VerticalAlignment="Top"/>
+                <sf:GridTextColumn 
+                  MappingName="RangeName" 
+                  HeaderText="RangeName" 
+                  VerticalAlignment="Top"
+                  Width="100"
+                />
+                <sf:GridComboBoxColumn
+                  MappingName="WritingSystem"
+                  HeaderText="WritingSystem" 
+                  DisplayMemberPath="Name"
+                  SortMode="Display"
+                  ItemsSource="{Binding Source={StaticResource ViewModels}, 
+                    Path=Instance.SelectableWritingSystems}"
+                  VerticalAlignment="Top"
+                  Width="100"
+                />
+                <helpers:LongTextColumn 
+                  MappingName="Comment" 
+                  HeaderText="Comment"
+                  Width="420"
+                  TextWrapping="Wrap"
+                  VerticalAlignment="Top"
+                  CellTemplate="{StaticResource LongTextCellTemplate}"/>
+              </sf:SfDataGrid.Columns>
+            </sf:SfDataGrid>
+          </sf:GridViewDefinition.DataGrid>
+        </sf:GridViewDefinition>
+      </sf:SfDataGrid.DetailsViewDefinition>-->
       <sf:SfDataGrid.Columns>
         <sf:GridTextColumn 
           MappingName="Range"
@@ -56,6 +96,7 @@
           VerticalAlignment="Top"
           CellTemplate="{StaticResource LongTextCellTemplate}"/>
       </sf:SfDataGrid.Columns>
+
     </sf:SfDataGrid>
   </Grid>
 </UserControl>

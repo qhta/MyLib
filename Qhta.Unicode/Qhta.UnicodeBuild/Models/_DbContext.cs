@@ -791,28 +791,26 @@ public partial class _DbContext : DbContext
 
     modelBuilder.Entity<UcdRange>(entity =>
     {
-      entity.HasKey(e => e.StartCp).HasName("PrimaryKey");
+      entity.HasKey(e => e.Range).HasName("PrimaryKey");
+      
+      entity.HasIndex(e => e.Range, "BlockID");
+      //entity.HasIndex(e => e.BlockId, "BlockID");
 
-      entity.HasIndex(e => e.BlockRange, "BlockID");
+      //entity.HasIndex(e => e.WritingSystemId, "WritingSystemID");
 
-      entity.HasIndex(e => e.WritingSystemId, "WritingSystemID");
+      entity.Property(e => e.Range)
+              .HasMaxLength(12)
+              .HasColumnName("Range");
+      //entity.Property(e => e.Language).HasMaxLength(255);
+      //entity.Property(e => e.RangeName).HasMaxLength(255);
+      //entity.Property(e => e.Standard).HasMaxLength(255);
+      //entity.Property(e => e.WritingSystemId).HasColumnName("WritingSystemID");
+      //entity.HasOne(d => d.WritingSystem).WithMany(p => p.UcdRanges)
+      //  .HasForeignKey(d => d.WritingSystemId);
 
-      entity.Property(e => e.StartCp)
-              .HasMaxLength(5)
-              .HasColumnName("StartCP");
-      entity.Property(e => e.EndCp)
-              .HasMaxLength(5)
-              .HasColumnName("EndCP");
-      entity.Property(e => e.Language).HasMaxLength(255);
-      entity.Property(e => e.RangeName).HasMaxLength(255);
-      entity.Property(e => e.Standard).HasMaxLength(255);
-      entity.Property(e => e.WritingSystemId).HasColumnName("WritingSystemID");
-      entity.HasOne(d => d.WritingSystem).WithMany(p => p.UcdRanges)
-        .HasForeignKey(d => d.WritingSystemId);
-
-      entity.HasOne(d => d.BlockRangeNavigation).WithMany(p => p.UcdRanges)
-              .HasForeignKey(d => d.BlockRange)
-              .HasConstraintName("UcdBlocksUcdRanges");
+      //entity.HasOne(d => d.BlockRangeNavigation).WithMany(p => p.UcdRanges)
+      //        .HasForeignKey(d => d.BlockId)
+      //        .HasConstraintName("UcdBlocksUcdRanges");
     });
 
     //modelBuilder.Entity<UcdRangesStartEnd>(entity =>
