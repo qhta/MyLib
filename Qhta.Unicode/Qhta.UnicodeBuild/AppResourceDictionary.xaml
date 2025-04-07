@@ -9,6 +9,7 @@
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
   <helpers:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
+  <helpers:RangeModelComparer x:Key="RangeModelComparer"/>
 
   <ContextMenu x:Key="CommonContextMenu">
     <MenuItem Header="Copy" Command="Copy"/>
