@@ -67,11 +67,24 @@
         </sf:GridViewDefinition>
       </sf:SfDataGrid.DetailsViewDefinition>-->
       <sf:SfDataGrid.Columns>
-        <sf:GridTextColumn 
+        <sf:GridTemplateColumn 
           MappingName="Range"
           HeaderText="Range" 
-          VerticalAlignment="Top"
-          />
+          VerticalAlignment="Top">
+          <sf:GridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock 
+                Text="{Binding Range, Converter={StaticResource RangeModelValueConverter}}" 
+                Padding="2"/>
+            </DataTemplate>
+          </sf:GridTemplateColumn.CellTemplate>
+          <sf:GridTemplateColumn.EditTemplate>
+            <DataTemplate>
+              <TextBox Text="{Binding Range, Converter={StaticResource RangeModelValueConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </DataTemplate>
+          </sf:GridTemplateColumn.EditTemplate>
+
+        </sf:GridTemplateColumn>
         <sf:GridTextColumn 
           MappingName="BlockName" 
           HeaderText="BlockName" 

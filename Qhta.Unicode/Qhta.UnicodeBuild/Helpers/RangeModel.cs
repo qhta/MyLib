@@ -17,7 +17,8 @@ public record RangeModel(): IComparable<RangeModel>
     var result = Start.ToString("X4");
     if (End.HasValue)
     {
-      result += ".." + ((int)End).ToString("X4");
+      var end = End.Value;
+      result += ".." + end.ToString("X4");
     }
     return result;
   }

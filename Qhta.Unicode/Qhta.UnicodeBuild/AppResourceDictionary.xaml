@@ -10,6 +10,7 @@
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
   <helpers:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
   <helpers:RangeModelComparer x:Key="RangeModelComparer"/>
+  <helpers:RangeModelValueConverter x:Key="RangeModelValueConverter"/>
 
   <ContextMenu x:Key="CommonContextMenu">
     <MenuItem Header="Copy" Command="Copy"/>
@@ -21,7 +22,7 @@
     <TextBlock      
       Text="{Binding Path=TemplatedParent, 
       RelativeSource={RelativeSource AncestorType=ContentPresenter}, Converter={StaticResource MappingNameToValueConverter}}"
-      Padding="3"
+      Padding="2"
       ContextMenu="{StaticResource CommonContextMenu}" />
   </DataTemplate>
   
@@ -33,7 +34,7 @@
       </Grid.ColumnDefinitions>
       <TextBlock 
         Text ="{Binding Path=TemplatedParent, RelativeSource={RelativeSource AncestorType=ContentPresenter}, Converter={StaticResource MappingNameToValueConverter}}"
-        Padding="3"
+        Padding="2"
         TextWrapping="{Binding IsRowHeightExpanded, Converter={StaticResource BoolToTextWrappingConverter}}"/>
       <ToggleButton 
         Grid.Column="1"
