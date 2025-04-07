@@ -39,7 +39,7 @@ public class WritingSystemsCollection : ObservableCollection<WritingSystemViewMo
   {
     foreach (var vm in this)
     {
-      vm.IsUsed = vm.Model.UcdBlocks?.Count > 0 || vm.Model.Children?.Count > 0 || vm.Model.UcdRanges?.Count >0;
+      vm.IsUsed = vm.Model.UcdBlocks?.Count > 0 || vm.Model.Children?.Count > 0 || vm.Model.UcdRanges?.Count > 0;
     }
   }
 }

@@ -14,7 +14,7 @@ public partial class UcdRangeViewModel: ViewModel<UcdRange>, ILongTextViewModel
     // Initialize any additional properties or collections here if needed
   }
 
-  public string Range
+  public string? Range
   {
     get => Model.Range;
     set
@@ -28,33 +28,33 @@ public partial class UcdRangeViewModel: ViewModel<UcdRange>, ILongTextViewModel
   }
 
 
-  //public string? RangeName
-  //{
-  //  get => Model.RangeName;
-  //  set
-  //  {
-  //    if (Model.RangeName!=null)
-  //    {
-  //      Model.RangeName = value;
-  //      NotifyPropertyChanged(nameof(RangeName));
-  //    }
-  //  }
-  //}
+  public string? RangeName
+  {
+    get => Model.RangeName;
+    set
+    {
+      if (Model.RangeName != null)
+      {
+        Model.RangeName = value;
+        NotifyPropertyChanged(nameof(RangeName));
+      }
+    }
+  }
 
-  //public string? Comment
-  //{
-  //  get => Model.Comment;
-  //  set
-  //  {
-  //    if (Model.Comment != value)
-  //    {
-  //      Model.Comment = value;
-  //      NotifyPropertyChanged(nameof(Comment));
-  //    }
-  //  }
-  //}
+  public string? Comment
+  {
+    get => Model.Comment;
+    set
+    {
+      if (Model.Comment != value)
+      {
+        Model.Comment = value;
+        NotifyPropertyChanged(nameof(Comment));
+      }
+    }
+  }
 
-  //public WritingSystem? WritingSystem { get => Model.WritingSystem; set => Model.WritingSystem = value; }
+  public WritingSystem? WritingSystem { get => Model.WritingSystem; set => Model.WritingSystem = value; }
   public bool CanExpandRowHeight => false;//!string.IsNullOrEmpty(Model.Comment) && Model.Comment.Length >50;
   
   private bool _isWrapped = false;

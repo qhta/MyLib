@@ -22,6 +22,13 @@
       </TabItem>
       <TabItem MouseMove="TabItem_MouseMove">
         <TabItem.Header>
+          <TextBlock Text="UcdRanges" 
+                     PreviewMouseDown="TabItem_MouseDown"/>
+        </TabItem.Header>
+        <views:UcdRangesView/>
+      </TabItem>
+      <TabItem MouseMove="TabItem_MouseMove">
+        <TabItem.Header>
           <TextBlock Text="Writing Systems" 
                      PreviewMouseDown="TabItem_MouseDown"/>
         </TabItem.Header>

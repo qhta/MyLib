@@ -37,12 +37,13 @@ public class _ViewModels: IDisposable
 
       foreach (var ub in _Context.UcdBlocks
                  .Include(ub => ub.WritingSystem)
-                 //.Include(ub => ub.UcdRanges)
+                 .Include(ub => ub.UcdRanges)
                  .ToList())
       {
         UcdBlocks.Add(ub);
         //Debug.WriteLine($"{ub.BlockName}.UcdRanges = {ub.UcdRanges.Count}");
       }
+
       foreach (var ws in _Context.WritingSystems.Include(ws => ws.WritingSystemType).OrderBy(ws=>ws.Name).ToList())
       {
         var vm= new WritingSystemViewModel(ws);

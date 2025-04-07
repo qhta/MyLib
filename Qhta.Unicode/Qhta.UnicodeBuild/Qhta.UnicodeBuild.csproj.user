@@ -11,6 +11,9 @@
     <Compile Update="Views\UcdBlocksView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\UcdRangesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\WritingSystemsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

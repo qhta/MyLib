@@ -8,7 +8,8 @@ public class UcdBlocksCollection : ObservableCollection<UcdBlockViewModel>
 {
   public void Add(UcdBlock ub)
   {
-    Add(new UcdBlockViewModel(ub));
+    var vm = new UcdBlockViewModel(ub);
+    Add(vm);
   }
 
   public double MaxBlockNameWidth => this.Max(ub => ub.BlockName?.Length ?? 0)*12;
