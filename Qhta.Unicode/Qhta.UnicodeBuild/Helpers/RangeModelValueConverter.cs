@@ -18,7 +18,9 @@ public class RangeModelValueConverter: IValueConverter
   {
     if (value is string str)
     {
-      return RangeModel.Parse(str);
+      if (RangeModel.TryParse(str, out var result))
+        return result;
+      throw new FormatException($"Invalid range format: {str}");
     }
     return null;
   }

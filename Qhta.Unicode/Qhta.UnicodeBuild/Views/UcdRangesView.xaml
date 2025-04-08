@@ -28,20 +28,10 @@
         <sf:GridTemplateColumn 
           MappingName="Range"
           HeaderText="Range" 
-          VerticalAlignment="Top">
-          <sf:GridTemplateColumn.CellTemplate>
-            <DataTemplate>
-              <TextBlock 
-                Text="{Binding Range, Converter={StaticResource RangeModelValueConverter}}" 
-                Padding="2"/>
-            </DataTemplate>
-          </sf:GridTemplateColumn.CellTemplate>
-          <sf:GridTemplateColumn.EditTemplate>
-            <DataTemplate>
-              <TextBox Text="{Binding Range, Converter={StaticResource RangeModelValueConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </DataTemplate>
-          </sf:GridTemplateColumn.EditTemplate>
-        </sf:GridTemplateColumn>
+          VerticalAlignment="Top"
+          CellTemplate="{StaticResource RangeCellTemplate}"
+          EditTemplate="{StaticResource RangeEditTemplate}"
+          />
         <sf:GridTextColumn 
           MappingName="RangeName" 
           HeaderText="RangeName" 

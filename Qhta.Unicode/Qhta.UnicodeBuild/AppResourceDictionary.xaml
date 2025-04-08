@@ -3,8 +3,10 @@
                     xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
                     xmlns:converters="clr-namespace:Qhta.WPF.Converters;assembly=Qhta.WPF.Converters"
                     xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
+                    xmlns:sf="http://schemas.syncfusion.com/wpf"
                     xmlns:mvvm="clr-namespace:Qhta.MVVM;assembly=Qhta.MVVM"
                     x:Class="Qhta.UnicodeBuild.Helpers.AppResourceDictionary">
+
   <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
@@ -18,14 +20,60 @@
     <MenuItem Header="Cut" Command="Cut"/>
   </ContextMenu>
 
+  <Style TargetType="TextBox">
+    <Setter Property="Validation.ErrorTemplate">
+      <Setter.Value>
+        <ControlTemplate>
+          <DockPanel>
+            <Border DockPanel.Dock="Bottom" Background="Red" BorderBrush="Black" BorderThickness="1"
+                    Padding="2">
+              <TextBlock Foreground="White" Text="{Binding [0].ErrorContent}" />
+            </Border>
+            <AdornedElementPlaceholder />
+          </DockPanel>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <Trigger Property="Validation.HasError" Value="True">
+        <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+
+  <DataTemplate x:Key="RangeCellTemplate">
+    <TextBlock 
+        Text="{Binding Range, Converter={StaticResource RangeModelValueConverter}}" 
+        Padding="2"/>
+  </DataTemplate>
+  <DataTemplate x:Key="RangeEditTemplate">
+    <TextBox>
+      <TextBox.Text>
+        <Binding Path="Range" 
+                   Converter="{StaticResource RangeModelValueConverter}"
+                   UpdateSourceTrigger="PropertyChanged"
+                   Mode="TwoWay">
+          <Binding.ValidationRules>
+            <helpers:RangeValidationRule />
+          </Binding.ValidationRules>
+        </Binding>
+      </TextBox.Text>
+    </TextBox>
+
+  </DataTemplate>
+  <!--MaskType="RegEx"
+Mask="[0-9A-Fa-f]{4,6}\.\.[0-9A-Fa-f]{4,6}"-->
+
   <DataTemplate x:Key="TextCellTemplate" DataType="{x:Type mvvm:IViewModel}">
     <TextBlock      
       Text="{Binding Path=TemplatedParent, 
-      RelativeSource={RelativeSource AncestorType=ContentPresenter}, Converter={StaticResource MappingNameToValueConverter}}"
+      RelativeSource={RelativeSource AncestorType=ContentPresenter}, 
+      Converter={StaticResource MappingNameToValueConverter}}"
       Padding="2"
-      ContextMenu="{StaticResource CommonContextMenu}" />
+      ContextMenu="{StaticResource CommonContextMenu}" 
+      />
   </DataTemplate>
-  
+
   <DataTemplate x:Key="LongTextCellTemplate" DataType="{x:Type viewModels:ILongTextViewModel}">
     <Grid>
       <Grid.ColumnDefinitions>

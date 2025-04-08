@@ -92,8 +92,9 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.3" />
     <PackageReference Include="Qhta.MVVM" Version="4.2.0" />
     <PackageReference Include="Qhta.WPF.Converters" Version="1.4.0" />
-    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="29.1.35" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="29.1.35" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="29.1.37" />
+    <PackageReference Include="Syncfusion.SfInput.WPF" Version="29.1.37" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="29.1.37" />
     <PackageReference Include="System.Data.OleDb" Version="9.0.3" />
   </ItemGroup>
 

@@ -25,6 +25,21 @@ namespace Qhta.UnicodeBuild.Views
       LongTextColumn.DataGrid_OnQueryRowHeight(sender, e);
     }
 
+    private void DataGrid_OnCurrentCellValidating(object? sender, CurrentCellValidatingEventArgs e)
+    {
+      if (e.Column.MappingName == "Range")
+      {
+        var newValue = e.NewValue?.ToString();
+        if (newValue != null)
+        {
+          if (!RangeModel.TryParse(newValue, out _))
+          {
+            e.ErrorMessage = "Invalid range format. Expected format: XXXX..YYYY.";
+            e.IsValid = false;
+          }
+        }
+      }
+    }
   }
 }
 

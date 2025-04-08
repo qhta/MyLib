@@ -666,55 +666,67 @@
           }
         }
       },
-      "Syncfusion.Data.WPF/29.1.35": {
+      "Syncfusion.Data.WPF/29.1.37": {
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.Data.WPF.dll": {
-            "assemblyVersion": "29.1.35.0",
-            "fileVersion": "29.1.35.0"
+            "assemblyVersion": "29.1.37.0",
+            "fileVersion": "29.1.37.0"
           }
         }
       },
-      "Syncfusion.Licensing/29.1.35": {
+      "Syncfusion.Licensing/29.1.37": {
         "runtime": {
           "lib/net8.0/Syncfusion.Licensing.dll": {
-            "assemblyVersion": "29.1.35.0",
-            "fileVersion": "29.1.35.0"
+            "assemblyVersion": "29.1.37.0",
+            "fileVersion": "29.1.37.0"
           }
         }
       },
-      "Syncfusion.SfGrid.WPF/29.1.35": {
+      "Syncfusion.SfGrid.WPF/29.1.37": {
         "dependencies": {
-          "Syncfusion.Data.WPF": "29.1.35",
-          "Syncfusion.Licensing": "29.1.35",
-          "Syncfusion.Shared.WPF": "29.1.35"
+          "Syncfusion.Data.WPF": "29.1.37",
+          "Syncfusion.Licensing": "29.1.37",
+          "Syncfusion.Shared.WPF": "29.1.37"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.SfGrid.WPF.dll": {
-            "assemblyVersion": "29.1.35.0",
-            "fileVersion": "29.1.35.0"
+            "assemblyVersion": "29.1.37.0",
+            "fileVersion": "29.1.37.0"
           }
         }
       },
-      "Syncfusion.Shared.WPF/29.1.35": {
+      "Syncfusion.SfInput.WPF/29.1.37": {
         "dependencies": {
-          "Syncfusion.Licensing": "29.1.35"
+          "Syncfusion.Licensing": "29.1.37",
+          "Syncfusion.Shared.WPF": "29.1.37"
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Syncfusion.SfInput.WPF.dll": {
+            "assemblyVersion": "29.1.37.0",
+            "fileVersion": "29.1.37.0"
+          }
+        }
+      },
+      "Syncfusion.Shared.WPF/29.1.37": {
+        "dependencies": {
+          "Syncfusion.Licensing": "29.1.37"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.Shared.WPF.dll": {
-            "assemblyVersion": "29.1.35.0",
-            "fileVersion": "29.1.35.0"
+            "assemblyVersion": "29.1.37.0",
+            "fileVersion": "29.1.37.0"
           }
         }
       },
-      "Syncfusion.Tools.WPF/29.1.35": {
+      "Syncfusion.Tools.WPF/29.1.37": {
         "dependencies": {
-          "Syncfusion.Licensing": "29.1.35",
-          "Syncfusion.Shared.WPF": "29.1.35"
+          "Syncfusion.Licensing": "29.1.37",
+          "Syncfusion.Shared.WPF": "29.1.37"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.Tools.WPF.dll": {
-            "assemblyVersion": "29.1.35.0",
-            "fileVersion": "29.1.35.0"
+            "assemblyVersion": "29.1.37.0",
+            "fileVersion": "29.1.37.0"
           }
         }
       },
@@ -1243,40 +1255,47 @@
       "path": "qhta.wpf.converters/1.4.0",
       "hashPath": "qhta.wpf.converters.1.4.0.nupkg.sha512"
     },
-    "Syncfusion.Data.WPF/29.1.35": {
+    "Syncfusion.Data.WPF/29.1.37": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BmcLKmhg6F+lMPpsHK9qIGLP3wi0Gmi9BXkPlidsjOGwp09wP0L4g3e7TM+4vB0vLqTJzQWy+k/LdyGqLqgMWA==",
-      "path": "syncfusion.data.wpf/29.1.35",
-      "hashPath": "syncfusion.data.wpf.29.1.35.nupkg.sha512"
+      "sha512": "sha512-g7pqWVPKpwYNJxbnup6mF9ks2MNctM6TUzRYCtRIkEZNKd2MsjhZnPWcyoXwCcjWVA+kmxiPxHQUn2DLTmUr5A==",
+      "path": "syncfusion.data.wpf/29.1.37",
+      "hashPath": "syncfusion.data.wpf.29.1.37.nupkg.sha512"
     },
-    "Syncfusion.Licensing/29.1.35": {
+    "Syncfusion.Licensing/29.1.37": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OUfPQLIWuqJPh77Z5eXTaFtJ8ux0N/uW7MDfgJ8EUTBARFDC0/BcoAC2XCq07+RP36DTe7cvzvRwoBvgAj6Ygg==",
-      "path": "syncfusion.licensing/29.1.35",
-      "hashPath": "syncfusion.licensing.29.1.35.nupkg.sha512"
+      "sha512": "sha512-0IT7/SJ6Jgs7Hdl8RrBxH3bQjpoTT2yMs/mPpExLeqrn27A3aeDqKIEyS0KGBkYIo39BofuNl+0ExE22uCC4Rg==",
+      "path": "syncfusion.licensing/29.1.37",
+      "hashPath": "syncfusion.licensing.29.1.37.nupkg.sha512"
     },
-    "Syncfusion.SfGrid.WPF/29.1.35": {
+    "Syncfusion.SfGrid.WPF/29.1.37": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Uf4wqqJYp+so3rF5isIC4iUE/Se6I7pYNfg/Bpd3OmSRearGcT9TuagML2U8ConOr3RBpaiZrZTzZdVkST7t1w==",
-      "path": "syncfusion.sfgrid.wpf/29.1.35",
-      "hashPath": "syncfusion.sfgrid.wpf.29.1.35.nupkg.sha512"
+      "sha512": "sha512-WUzv2S52EiVsjHt/XxoR352QjOXIs4o2P+VS85/OsJtCAweeBaEy2C6UUF7bO7KgLrNYPISBOzYIZvuKBB7PTg==",
+      "path": "syncfusion.sfgrid.wpf/29.1.37",
+      "hashPath": "syncfusion.sfgrid.wpf.29.1.37.nupkg.sha512"
     },
-    "Syncfusion.Shared.WPF/29.1.35": {
+    "Syncfusion.SfInput.WPF/29.1.37": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Am9+3DI59bRNw4AyeCS3Rg7yPRt+8bOQyLwrRuk5Pq0v7l8QbZAwpGFVL8UWBCXRnRD4S2fcnl821IKXc1g72g==",
-      "path": "syncfusion.shared.wpf/29.1.35",
-      "hashPath": "syncfusion.shared.wpf.29.1.35.nupkg.sha512"
+      "sha512": "sha512-B1EyEWuLitjiVFGXYrEeQNxaXD4/2Z1JZ7Nszn3JqVrW6fXtAfCR0m4mik8ZK+4CyOJV0F/hU7OsxWMiNkusxA==",
+      "path": "syncfusion.sfinput.wpf/29.1.37",
+      "hashPath": "syncfusion.sfinput.wpf.29.1.37.nupkg.sha512"
     },
-    "Syncfusion.Tools.WPF/29.1.35": {
+    "Syncfusion.Shared.WPF/29.1.37": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-qAtCanon9/wC11Mn4KzBDcd8gYIt1np9ST1WQOdBeUhev4qerd3TQzZ/ywIzQo48vFyR9DnfkZ8qJo2sWDWNbw==",
-      "path": "syncfusion.tools.wpf/29.1.35",
-      "hashPath": "syncfusion.tools.wpf.29.1.35.nupkg.sha512"
+      "sha512": "sha512-42W8eh/CoY7ksfCudNdEtAaPHThSo/x6fQh4DHerYVeMlzCukqpG0mb1RRVfAJRupdLOVpk7pE0JMbKJ/yWQCQ==",
+      "path": "syncfusion.shared.wpf/29.1.37",
+      "hashPath": "syncfusion.shared.wpf.29.1.37.nupkg.sha512"
+    },
+    "Syncfusion.Tools.WPF/29.1.37": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DNMxHazX1XKE+qJ5nlnkcc7smejVhslhXZpfWvSNoI2F3e7FKGPf8HRa+I/xXFgdW1AfGIlzttYX1AkcpNc9fA==",
+      "path": "syncfusion.tools.wpf/29.1.37",
+      "hashPath": "syncfusion.tools.wpf.29.1.37.nupkg.sha512"
     },
     "System.CodeDom/6.0.0": {
       "type": "package",
