@@ -10,7 +10,7 @@ using Qhta.UnicodeBuild.ViewModels;
 
 using Syncfusion.UI.Xaml.Grid;
 
-namespace Qhta.UnicodeBuild.Helpers
+namespace Qhta.UnicodeBuild
 {
   public partial class AppResourceDictionary : ResourceDictionary
   {
@@ -47,38 +47,44 @@ namespace Qhta.UnicodeBuild.Helpers
         }
     }
 
-
-    private bool CheckValidationErrors(TextBox textBox)
+    private void ShowPopup_Click(object sender, RoutedEventArgs e)
     {
-      var bindingExpression = textBox.GetBindingExpression(TextBox.TextProperty);
-      if (bindingExpression == null) return true;
-      Validation.ClearInvalid(bindingExpression);
-      var validationResult = new RangeValidationRule().Validate(textBox.Text, CultureInfo.CurrentCulture);
-      if (!validationResult.IsValid)
+      if (sender is Button button)
       {
-        Validation.MarkInvalid(bindingExpression, new ValidationError(new RangeValidationRule(), bindingExpression)
+        if (VisualTreeHelper.GetParent(button) is Grid grid)
         {
-          ErrorContent = validationResult.ErrorContent
-        });
-        return false;
-      }
-      return true;
-    }
-
-    private void TextBox_OnPreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-    {
-      if (sender is TextBox textBox)
-      {
-        // Check if the TAB or ENTER key is pressed
-        if (e.Key == System.Windows.Input.Key.Tab || e.Key == System.Windows.Input.Key.Enter)
-        {
-          // Validate the TextBox content
-          if (!CheckValidationErrors(textBox))
+          var popup = grid.Children.OfType<Popup>().FirstOrDefault();
+          if (popup != null)
           {
-            e.Handled = true;
-            // Optionally, set focus back to the TextBox to keep the user in the field
-            textBox.Focus();
+            // Find the parent cell of the button
+            var cell = FindParent<GridCell>(button);
+            if (cell != null)
+            {
+              // Get the position of the cell relative to the DataGrid
+              var dataGrid = FindParent<SfDataGrid>(cell);
+              if (dataGrid != null)
+              {
+                var cellPosition = cell.TransformToAncestor(dataGrid).Transform(new Point(0, 0));
+
+                popup.PlacementTarget= cell;
+                popup.Placement = PlacementMode.Bottom;
+                popup.VerticalOffset = -cell.ActualHeight;
+                popup.Width = cell.ActualWidth;
+                // Set the Popup position relative to the cell
+                //popup.HorizontalOffset = cellPosition.X;
+                //popup.VerticalOffset = cellPosition.Y;
+
+                // Open the Popup
+                popup.IsOpen = true;
+                var textBox = (popup.Child as Border)?.Child as TextBox;
+                if (textBox!=null)
+                {
+                  textBox.Focus();
+                }
+              }
+            }
           }
+
         }
       }
     }

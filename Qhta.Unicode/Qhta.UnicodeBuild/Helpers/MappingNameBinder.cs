@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using Qhta.MVVM;
 using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.UnicodeBuild.Helpers

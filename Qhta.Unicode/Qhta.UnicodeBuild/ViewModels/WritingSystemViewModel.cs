@@ -265,6 +265,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
     return Name;
   }
 
+  public string? LongText { get => Description; set => Description = value; }
   public bool CanExpandRowHeight => !string.IsNullOrEmpty(Model.Description) && Model.Description.Length > 50;
 
   private bool _isWrapped = false;

@@ -58,6 +58,7 @@ public partial class UcdRangeViewModel: ViewModel<UcdRange>, ILongTextViewModel
   }
 
   public WritingSystem? WritingSystem { get => Model.WritingSystem; set => Model.WritingSystem = value; }
+  public string? LongText { get => Comment; set => Comment=value; }
   public bool CanExpandRowHeight => false;//!string.IsNullOrEmpty(Model.Comment) && Model.Comment.Length >50;
   
   private bool _isWrapped = false;

@@ -5,12 +5,13 @@
                     xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
                     xmlns:sf="http://schemas.syncfusion.com/wpf"
                     xmlns:mvvm="clr-namespace:Qhta.MVVM;assembly=Qhta.MVVM"
-                    x:Class="Qhta.UnicodeBuild.Helpers.AppResourceDictionary">
+                    x:Class="Qhta.UnicodeBuild.AppResourceDictionary">
 
   <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
   <helpers:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
+  <helpers:MappingNameBinder x:Key="MappingNameBinder"/>
   <helpers:RangeModelComparer x:Key="RangeModelComparer"/>
   <helpers:RangeModelValueConverter x:Key="RangeModelValueConverter"/>
 
@@ -47,7 +48,7 @@
         Padding="2"/>
   </DataTemplate>
   <DataTemplate x:Key="RangeEditTemplate">
-    <TextBox  PreviewKeyDown="TextBox_OnPreviewKeyDown">
+    <TextBox >
       <TextBox.Text>
         <Binding Path="Range" 
                    Converter="{StaticResource RangeModelValueConverter}"
@@ -84,7 +85,7 @@ Mask="[0-9A-Fa-f]{4,6}\.\.[0-9A-Fa-f]{4,6}"-->
         Text ="{Binding Path=TemplatedParent, RelativeSource={RelativeSource AncestorType=ContentPresenter}, Converter={StaticResource MappingNameToValueConverter}}"
         Padding="2"
         TextWrapping="{Binding IsRowHeightExpanded, Converter={StaticResource BoolToTextWrappingConverter}}"/>
-      <ToggleButton 
+      <Button 
         Grid.Column="1"
         Visibility="{Binding CanExpandRowHeight, Converter={StaticResource BoolToVisibilityConverter}}"
         Height="20"
@@ -92,20 +93,18 @@ Mask="[0-9A-Fa-f]{4,6}\.\.[0-9A-Fa-f]{4,6}"-->
         Background="Transparent"
         BorderThickness="0"
         BorderBrush="Transparent"
-        IsChecked="{Binding IsRowHeightExpanded, Mode=TwoWay}"
-        Checked="WrapButton_CheckedChanged"
-        Unchecked="WrapButton_CheckedChanged">
-        <ToggleButton.Style>
-          <Style TargetType="ToggleButton">
-            <Setter Property="Content" Value="⏷"/>
-            <Style.Triggers>
-              <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Content" Value="⏶"/>
-              </Trigger>
-            </Style.Triggers>
-          </Style>
-        </ToggleButton.Style>
-      </ToggleButton>
+        Content="▼"
+        Click="ShowPopup_Click"/>
+      <Popup Grid.Column="0" Grid.ColumnSpan="2" x:Name="LongTextPopup" Placement="Mouse" StaysOpen="false">
+        <Border Background="White" BorderBrush="Black" BorderThickness="1" Padding="5" 
+                >
+          <TextBox 
+            Text="{Binding Path=LongText}" 
+            BorderThickness="0"
+            BorderBrush="Transparent"
+            TextWrapping="Wrap"/>
+        </Border>
+      </Popup>
     </Grid>
   </DataTemplate>
 </ResourceDictionary>
