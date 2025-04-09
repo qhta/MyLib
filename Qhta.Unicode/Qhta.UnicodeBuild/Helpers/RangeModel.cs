@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 
 namespace Qhta.UnicodeBuild.Helpers;
 
@@ -27,7 +28,6 @@ public record RangeModel() : IComparable<RangeModel>
     }
     return result;
   }
-
   public static RangeModel Parse(string str)
   {
     if (TryParse(str, out var result))
@@ -48,7 +48,7 @@ public record RangeModel() : IComparable<RangeModel>
       var ok1 = int.TryParse(s1, NumberStyles.HexNumber, null, out var n1);
       if (!ok1)
         return false;
-      if (k + 2 < str.Length - 1)
+      if (k + 2 < str.Length)
       {
         var s2 = str.Substring(k + 2);
 
@@ -58,7 +58,7 @@ public record RangeModel() : IComparable<RangeModel>
         result = new RangeModel { Start = n1, End = n2 };
         return true;
       }
-      result = new RangeModel { Start = n1, End = n1, Separator=".." };
+      result = new RangeModel { Start = n1, End = null, Separator=".." };
       return true;
     }
     if ((k = str.IndexOf(".")) != -1)
@@ -67,7 +67,7 @@ public record RangeModel() : IComparable<RangeModel>
       var ok1 = int.TryParse(s1, NumberStyles.HexNumber, null, out var n1);
       if (!ok1)
         return false;
-      if (k + 1 < str.Length - 1)
+      if (k + 1 < str.Length)
       {
         var s2 = str.Substring(k + 2);
 

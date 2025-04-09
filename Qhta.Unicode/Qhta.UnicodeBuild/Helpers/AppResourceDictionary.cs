@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Media;
 
 using Qhta.UnicodeBuild.ViewModels;
@@ -45,5 +47,40 @@ namespace Qhta.UnicodeBuild.Helpers
         }
     }
 
+
+    private bool CheckValidationErrors(TextBox textBox)
+    {
+      var bindingExpression = textBox.GetBindingExpression(TextBox.TextProperty);
+      if (bindingExpression == null) return true;
+      Validation.ClearInvalid(bindingExpression);
+      var validationResult = new RangeValidationRule().Validate(textBox.Text, CultureInfo.CurrentCulture);
+      if (!validationResult.IsValid)
+      {
+        Validation.MarkInvalid(bindingExpression, new ValidationError(new RangeValidationRule(), bindingExpression)
+        {
+          ErrorContent = validationResult.ErrorContent
+        });
+        return false;
+      }
+      return true;
+    }
+
+    private void TextBox_OnPreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+    {
+      if (sender is TextBox textBox)
+      {
+        // Check if the TAB or ENTER key is pressed
+        if (e.Key == System.Windows.Input.Key.Tab || e.Key == System.Windows.Input.Key.Enter)
+        {
+          // Validate the TextBox content
+          if (!CheckValidationErrors(textBox))
+          {
+            e.Handled = true;
+            // Optionally, set focus back to the TextBox to keep the user in the field
+            textBox.Focus();
+          }
+        }
+      }
+    }
   }
 }

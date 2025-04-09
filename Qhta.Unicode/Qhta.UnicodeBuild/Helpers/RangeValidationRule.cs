@@ -11,7 +11,7 @@ public class RangeValidationRule : ValidationRule
     {
       if (!RangeModel.TryParse(str, out var range))
         return new ValidationResult(false, "Invalid range format. Expected format: XXXX..YYYY.");
-      if (range!=null && range.End.HasValue && range.End < range.Start)
+      if (range != null && range.End.HasValue && range.End < range.Start)
         return new ValidationResult(false, "End value must be greater than or equal to Start value.");
     }
 

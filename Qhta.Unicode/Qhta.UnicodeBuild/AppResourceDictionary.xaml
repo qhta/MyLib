@@ -47,7 +47,7 @@
         Padding="2"/>
   </DataTemplate>
   <DataTemplate x:Key="RangeEditTemplate">
-    <TextBox>
+    <TextBox  PreviewKeyDown="TextBox_OnPreviewKeyDown">
       <TextBox.Text>
         <Binding Path="Range" 
                    Converter="{StaticResource RangeModelValueConverter}"

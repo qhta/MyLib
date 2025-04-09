@@ -16,6 +16,7 @@ namespace Qhta.UnicodeBuild.Views
     public UcdRangesView()
     {
       InitializeComponent();
+      UcdRangeDataGrid.CurrentCellValidating += DataGrid_CurrentCellValidating;
     }
 
     private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
@@ -35,5 +36,22 @@ namespace Qhta.UnicodeBuild.Views
       }
     }
 
+    private void DataGrid_CurrentCellValidating(object? sender, Syncfusion.UI.Xaml.Grid.CurrentCellValidatingEventArgs e)
+    {
+      if (e.NewValue!=null && e.Column.MappingName == "Range")
+      {
+        // Validate the Range value
+        if (!RangeModel.TryParse(e.NewValue.ToString()!, out var range))
+        {
+          e.ErrorMessage = "Invalid range format. Expected format: XXXX..YYYY.";
+          e.IsValid = false;
+        }
+        else if (range != null && range.End.HasValue && range.End < range.Start)
+        {
+          e.ErrorMessage = "End value must be greater than or equal to Start value.";
+          e.IsValid = false;
+        }
+      }
+    }
   }
 }

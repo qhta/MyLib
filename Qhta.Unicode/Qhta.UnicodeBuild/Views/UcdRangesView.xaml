@@ -23,12 +23,15 @@
               HeaderRowHeight="26"
               QueryRowHeight="DataGrid_OnQueryRowHeight"
               AutoGenerateColumns="False"
+              GridValidationMode="InEdit"
+              CurrentCellValidating="DataGrid_CurrentCellValidating"
               >
       <sf:SfDataGrid.Columns>
         <sf:GridTemplateColumn 
           MappingName="Range"
           HeaderText="Range" 
           VerticalAlignment="Top"
+          GridValidationMode="InEdit"
           CellTemplate="{StaticResource RangeCellTemplate}"
           EditTemplate="{StaticResource RangeEditTemplate}"
           />

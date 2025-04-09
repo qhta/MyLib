@@ -1,8 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 using Qhta.MVVM;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
+
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -26,7 +30,6 @@ public partial class UcdRangeViewModel: ViewModel<UcdRange>, ILongTextViewModel
       }
     }
   }
-
 
   public string? RangeName
   {
@@ -71,4 +74,5 @@ public partial class UcdRangeViewModel: ViewModel<UcdRange>, ILongTextViewModel
       }
     }
   }
+
 }
