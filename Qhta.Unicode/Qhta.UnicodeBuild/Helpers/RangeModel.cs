@@ -58,7 +58,7 @@ public record RangeModel() : IComparable<RangeModel>
         result = new RangeModel { Start = n1, End = n2 };
         return true;
       }
-      result = new RangeModel { Start = n1, End = null, Separator=".." };
+      result = new RangeModel { Start = n1, Separator=".." };
       return true;
     }
     if ((k = str.IndexOf(".")) != -1)
@@ -69,7 +69,7 @@ public record RangeModel() : IComparable<RangeModel>
         return false;
       if (k + 1 < str.Length)
       {
-        var s2 = str.Substring(k + 2);
+        var s2 = str.Substring(k + 1);
 
         var ok2 = int.TryParse(s2, NumberStyles.HexNumber, null, out var n2);
         if (!ok2)

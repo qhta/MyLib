@@ -24,21 +24,31 @@
               ColumnSizer="Auto"
               HeaderRowHeight="26"
               QueryRowHeight="DataGrid_OnQueryRowHeight"
-              CurrentCellValidating="DataGrid_OnCurrentCellValidating"
               AutoGenerateColumns="False"
               >
-      <!--<sf:SfDataGrid.DetailsViewDefinition>
-        <sf:GridViewDefinition RelationalColumn="UcdRanges">
+      <sf:SfDataGrid.DetailsViewDefinition>
+        <sf:GridViewDefinition RelationalColumn="Ranges">
           <sf:GridViewDefinition.DataGrid>
             <sf:SfDataGrid
               x:Name="UcdRangesViewGrid"
+              AllowDraggingColumns="True"
+              AllowEditing="True"
+              AllowFiltering="True"
+              AllowResizingColumns="True"
+              ColumnSizer="Auto"
+              HeaderRowHeight="26"
+              QueryRowHeight="DataGrid_OnQueryRowHeight"
               AutoGenerateColumns="False"
-              ColumnSizer="AutoWithLastColumnFill">
+              >
               <sf:SfDataGrid.Columns>
-                <sf:GridTextColumn 
+                <sf:GridTemplateColumn 
+                  MappingName="Range"
                   HeaderText="Range" 
-                  MappingName="Range" 
-                  VerticalAlignment="Top"/>
+                  VerticalAlignment="Top"
+                  GridValidationMode="InEdit"
+                  CellTemplate="{StaticResource RangeCellTemplate}"
+                  EditTemplate="{StaticResource RangeEditTemplate}"
+                />
                 <sf:GridTextColumn 
                   MappingName="RangeName" 
                   HeaderText="RangeName" 
@@ -66,7 +76,7 @@
             </sf:SfDataGrid>
           </sf:GridViewDefinition.DataGrid>
         </sf:GridViewDefinition>
-      </sf:SfDataGrid.DetailsViewDefinition>-->
+      </sf:SfDataGrid.DetailsViewDefinition>
       <sf:SfDataGrid.Columns>
         <sf:GridTemplateColumn 
           MappingName="Range"

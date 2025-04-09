@@ -11,9 +11,12 @@ public class LongTextColumn : GridTextColumn
 {
   public static void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
   {
-    //Debug.WriteLine($"DataGrid_OnQueryRowHeight invoked for row {e.RowIndex}");
+    if (sender is not SfDataGrid)
+      Debug.WriteLine($"DataGrid_OnQueryRowHeight invoked for {sender?.GetType().Name}");
     if (e.RowIndex > 0 && sender is SfDataGrid dataGrid)
     {
+      Debug.WriteLine($"DataGrid_OnQueryRowHeight invoked for {dataGrid.View.Records[e.RowIndex - 1].Data?.GetType().Name}");
+
       if (dataGrid.View.Records[e.RowIndex - 1].Data is ILongTextViewModel viewModel)
       {
         var longTextColumns = dataGrid.Columns.OfType<LongTextColumn>();

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 using Qhta.MVVM;
 using Qhta.Unicode.Models;
@@ -54,6 +55,24 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
   }
 
   public WritingSystem? WritingSystem { get => Model.WritingSystem; set => Model.WritingSystem = value; }
+
+  public UcdRangeCollection Ranges
+  {
+    get
+    {
+      if (_Ranges == null)
+      {
+        _Ranges = new UcdRangeCollection();
+        foreach (var range in Model.UcdRanges)
+        {
+          var vm = new UcdRangeViewModel(range);
+          _Ranges.Add(vm);
+        }
+      }
+      return _Ranges;
+    }
+  } 
+  public UcdRangeCollection? _Ranges;
 
   public bool CanExpandRowHeight => !string.IsNullOrEmpty(Model.Comment) && Model.Comment.Length > 50;
 
