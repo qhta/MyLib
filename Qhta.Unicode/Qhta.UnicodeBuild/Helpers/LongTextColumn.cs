@@ -7,7 +7,7 @@ using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.UnicodeBuild.Helpers;
 
-public class LongTextColumn : GridTextColumn
+public class LongTextColumn : GridTemplateColumn
 {
   public static void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
   {
@@ -46,7 +46,7 @@ public class LongTextColumn : GridTextColumn
     }
   }
 
-  private static string GetCellText(GridTextColumn column, object dataItem)
+  private static string GetCellText(GridColumn column, object dataItem)
   {
     var propertyInfo = dataItem.GetType().GetProperty(column.MappingName);
     return propertyInfo?.GetValue(dataItem)?.ToString() ?? string.Empty;

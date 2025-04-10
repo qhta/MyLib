@@ -4,11 +4,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 
 using Qhta.UnicodeBuild.ViewModels;
 
 using Syncfusion.UI.Xaml.Grid;
+using Syncfusion.UI.Xaml.ScrollAxis;
+using Syncfusion.Windows.Shared;
 
 namespace Qhta.UnicodeBuild
 {
@@ -56,37 +59,49 @@ namespace Qhta.UnicodeBuild
           var popup = grid.Children.OfType<Popup>().FirstOrDefault();
           if (popup != null)
           {
-            // Find the parent cell of the button
             var cell = FindParent<GridCell>(button);
             if (cell != null)
             {
-              // Get the position of the cell relative to the DataGrid
               var dataGrid = FindParent<SfDataGrid>(cell);
               if (dataGrid != null)
               {
-                var cellPosition = cell.TransformToAncestor(dataGrid).Transform(new Point(0, 0));
-
-                popup.PlacementTarget= cell;
+                popup.PlacementTarget = cell;
                 popup.Placement = PlacementMode.Bottom;
                 popup.VerticalOffset = -cell.ActualHeight;
                 popup.Width = cell.ActualWidth;
-                // Set the Popup position relative to the cell
-                //popup.HorizontalOffset = cellPosition.X;
-                //popup.VerticalOffset = cellPosition.Y;
-
-                // Open the Popup
                 popup.IsOpen = true;
-                var textBox = (popup.Child as Border)?.Child as TextBox;
-                if (textBox!=null)
+                if ((popup.Child as Border)?.Child is TextBox textBox)
                 {
                   textBox.Focus();
+                  textBox.SelectAll();
                 }
               }
             }
           }
-
         }
       }
     }
+
+    private void TexBlock_OnMouseDown(object sender, MouseButtonEventArgs e)
+    {
+      if (sender is TextBlock textBlock)
+      {
+        if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
+        {
+          // Find the parent cell of the TextBlock
+          var cell = FindParent<GridCell>(textBlock);
+          if (cell != null)
+          {
+            // Get the position of the cell relative to the DataGrid
+            var dataGrid = FindParent<SfDataGrid>(cell);
+            if (dataGrid != null)
+            {
+              dataGrid.SelectionController.CurrentCellManager.BeginEdit();
+            }
+          }
+        }
+      }
+    }
+
   }
 }

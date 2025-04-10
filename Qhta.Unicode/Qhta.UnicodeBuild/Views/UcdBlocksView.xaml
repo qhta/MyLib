@@ -25,6 +25,7 @@
               HeaderRowHeight="26"
               QueryRowHeight="DataGrid_OnQueryRowHeight"
               AutoGenerateColumns="False"
+              EditTrigger="OnTap"
               >
       <sf:SfDataGrid.DetailsViewDefinition>
         <sf:GridViewDefinition RelationalColumn="Ranges">
@@ -108,7 +109,8 @@
           Width="420"
           TextWrapping="Wrap"
           VerticalAlignment="Top"
-          CellTemplate="{StaticResource LongTextCellTemplate}"/>
+          CellTemplate="{StaticResource LongTextCellTemplate}"
+          EditTemplate="{StaticResource LongTextEditTemplate}"/>
       </sf:SfDataGrid.Columns>
 
     </sf:SfDataGrid>

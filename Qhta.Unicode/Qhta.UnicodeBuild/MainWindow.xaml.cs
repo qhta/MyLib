@@ -10,6 +10,38 @@ namespace Qhta.UnicodeBuild
     public MainWindow()
     {
       InitializeComponent();
+      this.PreviewKeyDown += MainWindow_PreviewKeyDown;
+    }
+
+    /// <summary>
+    /// This method is needed to override the default behavior of the Enter key in SfDataGrid.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.Key == Key.Return && Keyboard.Modifiers == ModifierKeys.Shift)
+      {
+        var focusedElement = Keyboard.FocusedElement;
+        if (focusedElement is UIElement focusedControl)
+        {
+          var keyEventArgs = new KeyEventArgs(
+            Keyboard.PrimaryDevice,
+            PresentationSource.FromVisual(focusedControl)!,
+            0, 
+            Key.Return)
+          {
+            RoutedEvent = Keyboard.KeyDownEvent
+          };
+
+          focusedControl.RaiseEvent(keyEventArgs);
+          if (keyEventArgs.Handled)
+          {
+            e.Handled = true;
+          }
+        }
+
+      }
     }
 
     private Point _startPoint;

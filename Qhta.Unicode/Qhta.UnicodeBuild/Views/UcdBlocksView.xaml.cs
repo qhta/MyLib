@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.ViewModels;
@@ -12,6 +13,7 @@ namespace Qhta.UnicodeBuild.Views
 {
   /// <summary>
   /// Interaction logic for UcdBlocksView.xaml
+  /// 
   /// </summary>
   public partial class UcdBlocksView : UserControl
   {
@@ -19,6 +21,7 @@ namespace Qhta.UnicodeBuild.Views
     {
       InitializeComponent();
     }
+
 
     private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
     {
