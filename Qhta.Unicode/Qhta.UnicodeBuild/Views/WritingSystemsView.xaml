@@ -13,13 +13,6 @@
              xmlns:converters="clr-namespace:Qhta.WPF.Converters;assembly=Qhta.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-  <UserControl.Resources>
-    <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
-    <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
-    <DataTemplate x:Key="KeyPhraseTextCellTemplate">
-      <TextBlock Text="{Binding KeyPhrase}" />
-    </DataTemplate>
-  </UserControl.Resources>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>

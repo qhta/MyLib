@@ -3,6 +3,6 @@
 public interface ILongTextViewModel
 {
   public string? LongText { get; set; }
-  public bool CanExpandRowHeight { get; }
-  public bool IsRowHeightExpanded { get; set; }
+  public bool CanExpandLongText { get; }
+  public bool IsLongTextExpanded { get; set; }
 }

@@ -23,7 +23,7 @@ public class LongTextColumn : GridTemplateColumn
           var longText = GetCellText(longTextColumn, dataGrid.View.Records[e.RowIndex - 1].Data);
           if (string.IsNullOrEmpty(longText))
             return;
-          if (!viewModel.IsRowHeightExpanded)
+          if (!viewModel.IsLongTextExpanded)
             return;
           var maxWidth = longTextColumn.ActualWidth - 6;
           var formattedText = new FormattedText(

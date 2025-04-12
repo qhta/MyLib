@@ -8,9 +8,6 @@
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-  <UserControl.Resources>
-    <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
-  </UserControl.Resources>
   <Grid>
     <sf:SfDataGrid x:Name="UcdRangeDataGrid" 
               DataContext ="{StaticResource ViewModels}"
@@ -25,6 +22,7 @@
               AutoGenerateColumns="False"
               GridValidationMode="InEdit"
               CurrentCellValidating="DataGrid_CurrentCellValidating"
+              EditTrigger="OnTap"
               >
       <sf:SfDataGrid.Columns>
         <sf:GridTemplateColumn 

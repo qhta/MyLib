@@ -59,19 +59,19 @@ public partial class UcdRangeViewModel: ViewModel<UcdRange>, ILongTextViewModel
 
   public WritingSystem? WritingSystem { get => Model.WritingSystem; set => Model.WritingSystem = value; }
   public string? LongText { get => Comment; set => Comment=value; }
-  public bool CanExpandRowHeight => false;//!string.IsNullOrEmpty(Model.Comment) && Model.Comment.Length >50;
+  public bool CanExpandLongText => !string.IsNullOrEmpty(Model.Comment);
   
-  private bool _isWrapped = false;
-  public bool IsRowHeightExpanded
+  private bool _IsLongTextExpanded = false;
+  public bool IsLongTextExpanded
   {
-    get => _isWrapped;
+    get => _IsLongTextExpanded;
     set
     {
-      if (_isWrapped != value)
+      if (_IsLongTextExpanded != value)
       {
-        _isWrapped = value;
+        _IsLongTextExpanded = value;
         //Debug.WriteLine($"IsWrapped changed to {IsRowHeightExpanded}");
-        NotifyPropertyChanged(nameof(IsRowHeightExpanded));
+        NotifyPropertyChanged(nameof(IsLongTextExpanded));
       }
     }
   }

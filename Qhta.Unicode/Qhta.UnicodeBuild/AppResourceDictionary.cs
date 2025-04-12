@@ -32,6 +32,44 @@ namespace Qhta.UnicodeBuild
       return FindParent<T>(parentObject);
     }
 
+    private T? FirstDescendant<T>(DependencyObject? parent, Predicate<T> predicate) where T : DependencyObject
+    {
+      //OrientedCellsPanel
+      //GridDetailsViewExpanderCell
+      var parentObject = parent;
+      if (parent is T content)
+      {
+        if (predicate(content))
+          return content;
+      }
+      if (parentObject is ContentControl contentControl)
+      {
+        return FirstDescendant<T>(contentControl.Content as DependencyObject, predicate);
+      }
+      if (parentObject is ItemsControl itemsControl)
+      {
+        foreach (var item in itemsControl.Items)
+        {
+          var result = FirstDescendant<T>(item as DependencyObject, predicate);
+          if (result != null)
+            return result;
+        }
+        return null;
+      }
+      if (parentObject is Panel panel)
+      {
+        foreach (var item in panel.Children)
+        {
+          var result = FirstDescendant<T>(item as DependencyObject, predicate);
+          if (result != null)
+            return result;
+        }
+        return null;
+      }
+      Debug.WriteLine($"parent is {parent?.GetType()}");
+      return null;
+    }
+
     private void WrapButton_CheckedChanged(object sender, RoutedEventArgs e)
     {
       if (sender is ToggleButton button)
@@ -70,33 +108,7 @@ namespace Qhta.UnicodeBuild
                 popup.VerticalOffset = -cell.ActualHeight;
                 popup.Width = cell.ActualWidth;
                 popup.IsOpen = true;
-                if ((popup.Child as Border)?.Child is TextBox textBox)
-                {
-                  textBox.Focus();
-                  textBox.SelectAll();
-                }
               }
-            }
-          }
-        }
-      }
-    }
-
-    private void TexBlock_OnMouseDown(object sender, MouseButtonEventArgs e)
-    {
-      if (sender is TextBlock textBlock)
-      {
-        if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
-        {
-          // Find the parent cell of the TextBlock
-          var cell = FindParent<GridCell>(textBlock);
-          if (cell != null)
-          {
-            // Get the position of the cell relative to the DataGrid
-            var dataGrid = FindParent<SfDataGrid>(cell);
-            if (dataGrid != null)
-            {
-              dataGrid.SelectionController.CurrentCellManager.BeginEdit();
             }
           }
         }

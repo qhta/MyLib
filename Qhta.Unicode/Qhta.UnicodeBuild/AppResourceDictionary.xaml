@@ -63,8 +63,6 @@
     </TextBox>
 
   </DataTemplate>
-  <!--MaskType="RegEx"
-Mask="[0-9A-Fa-f]{4,6}\.\.[0-9A-Fa-f]{4,6}"-->
 
   <DataTemplate x:Key="TextCellTemplate" DataType="{x:Type mvvm:IViewModel}">
     <TextBlock      
@@ -83,13 +81,14 @@ Mask="[0-9A-Fa-f]{4,6}\.\.[0-9A-Fa-f]{4,6}"-->
         <ColumnDefinition Width="Auto"/>
       </Grid.ColumnDefinitions>
       <TextBlock 
+        x:Name="LongTextBlock"
         Text="{Binding Path=LongText}" 
         Padding="3"
-        TextWrapping="{Binding IsRowHeightExpanded, 
-          Converter={StaticResource BoolToTextWrappingConverter}}"/>
+        TextWrapping="Wrap"
+        />
       <Button 
         Grid.Column="1"
-        Visibility="{Binding CanExpandRowHeight, 
+        Visibility="{Binding CanExpandLongText, 
           Converter={StaticResource BoolToVisibilityConverter}}"
         Height="20"
         VerticalAlignment="Top"
@@ -103,17 +102,20 @@ Mask="[0-9A-Fa-f]{4,6}\.\.[0-9A-Fa-f]{4,6}"-->
                 >
           <TextBlock 
             Text="{Binding Path=LongText}" 
-            TextWrapping="Wrap"
-            MouseDown="TexBlock_OnMouseDown"/>
+            TextWrapping="Wrap"/>
         </Border>
       </Popup>
     </Grid>
   </DataTemplate>
 
   <DataTemplate x:Key="LongTextEditTemplate" DataType="{x:Type viewModels:ILongTextViewModel}">
-    <Grid>
+    <Grid x:Name="EditedGrid">
+      <TextBlock 
+        Text="{Binding Path=LongText}" 
+        Padding="3"
+        TextWrapping="Wrap"/>
       <Popup 
-         x:Name="LongTextPopup" 
+         x:Name="LongTextEditPopup" 
          PlacementTarget="{Binding 
            RelativeSource={RelativeSource AncestorType={x:Type Grid}},
            BindsDirectlyToSource=true}"
@@ -125,7 +127,7 @@ Mask="[0-9A-Fa-f]{4,6}\.\.[0-9A-Fa-f]{4,6}"-->
          Width="{Binding
            RelativeSource={RelativeSource AncestorType={x:Type Grid}},
            Path=ActualWidth}"
-         IsOpen = "true"
+         IsOpen = "true"   
          StaysOpen="false">
         <Border Background="White" BorderBrush="Black" BorderThickness="1" Padding="3" 
         >
@@ -135,6 +137,7 @@ Mask="[0-9A-Fa-f]{4,6}\.\.[0-9A-Fa-f]{4,6}"-->
             BorderBrush="Transparent"
             TextWrapping="Wrap"
             AcceptsReturn="True"
+            sf:FocusManagerHelper.FocusedElement ="True"
             />
         </Border>
       </Popup>

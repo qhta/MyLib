@@ -74,20 +74,20 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
   } 
   public UcdRangeCollection? _Ranges;
 
-  public bool CanExpandRowHeight => !string.IsNullOrEmpty(Model.Comment) && Model.Comment.Length > 50;
+  public bool CanExpandLongText => !string.IsNullOrEmpty(Model.Comment);
   public string? LongText { get => Comment; set => Comment = value; }
 
-  private bool _isWrapped = false;
-  public bool IsRowHeightExpanded
+  private bool _IsLongTextExpanded = false;
+  public bool IsLongTextExpanded
   {
-    get => _isWrapped;
+    get => _IsLongTextExpanded;
     set
     {
-      if (_isWrapped != value)
+      if (_IsLongTextExpanded != value)
       {
-        _isWrapped = value;
+        _IsLongTextExpanded = value;
         //Debug.WriteLine($"IsWrapped changed to {IsRowHeightExpanded}");
-        NotifyPropertyChanged(nameof(IsRowHeightExpanded));
+        NotifyPropertyChanged(nameof(IsLongTextExpanded));
       }
     }
   }

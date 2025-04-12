@@ -10,9 +10,6 @@
              xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-  <UserControl.Resources>
-    <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
-  </UserControl.Resources>
   <Grid>
     <sf:SfDataGrid x:Name="UcdBlocksDataGrid" 
               DataContext ="{StaticResource ViewModels}"
@@ -40,6 +37,7 @@
               HeaderRowHeight="26"
               QueryRowHeight="DataGrid_OnQueryRowHeight"
               AutoGenerateColumns="False"
+              EditTrigger="OnTap"
               >
               <sf:SfDataGrid.Columns>
                 <sf:GridTemplateColumn 
@@ -72,7 +70,8 @@
                   Width="420"
                   TextWrapping="Wrap"
                   VerticalAlignment="Top"
-                  CellTemplate="{StaticResource LongTextCellTemplate}"/>
+                  CellTemplate="{StaticResource LongTextCellTemplate}"
+                  EditTemplate="{StaticResource LongTextEditTemplate}"/>
               </sf:SfDataGrid.Columns>
             </sf:SfDataGrid>
           </sf:GridViewDefinition.DataGrid>
