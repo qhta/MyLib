@@ -1,0 +1,92 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM4EF\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B327DC2F-93E0-4143-8DD1-B2079DD24B88}|Qhta.MVVM4EF\\Qhta.MVVM4EF.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm4ef\\qhta.mvvm4ef\\source.extension.vsixmanifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{B327DC2F-93E0-4143-8DD1-B2079DD24B88}|Qhta.MVVM4EF\\Qhta.MVVM4EF.csproj|solutionrelative:qhta.mvvm4ef\\source.extension.vsixmanifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B327DC2F-93E0-4143-8DD1-B2079DD24B88}|Qhta.MVVM4EF\\Qhta.MVVM4EF.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm4ef\\qhta.mvvm4ef\\extensionentrypoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B327DC2F-93E0-4143-8DD1-B2079DD24B88}|Qhta.MVVM4EF\\Qhta.MVVM4EF.csproj|solutionrelative:qhta.mvvm4ef\\extensionentrypoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B327DC2F-93E0-4143-8DD1-B2079DD24B88}|Qhta.MVVM4EF\\Qhta.MVVM4EF.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm4ef\\qhta.mvvm4ef\\command1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B327DC2F-93E0-4143-8DD1-B2079DD24B88}|Qhta.MVVM4EF\\Qhta.MVVM4EF.csproj|solutionrelative:qhta.mvvm4ef\\command1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B327DC2F-93E0-4143-8DD1-B2079DD24B88}|Qhta.MVVM4EF\\Qhta.MVVM4EF.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm4ef\\qhta.mvvm4ef\\.vsextension\\string-resources.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B327DC2F-93E0-4143-8DD1-B2079DD24B88}|Qhta.MVVM4EF\\Qhta.MVVM4EF.csproj|solutionrelative:qhta.mvvm4ef\\.vsextension\\string-resources.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 18,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "string-resources.json",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM4EF\\Qhta.MVVM4EF\\.vsextension\\string-resources.json",
+              "RelativeDocumentMoniker": "Qhta.MVVM4EF\\.vsextension\\string-resources.json",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM4EF\\Qhta.MVVM4EF\\.vsextension\\string-resources.json",
+              "RelativeToolTip": "Qhta.MVVM4EF\\.vsextension\\string-resources.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-17T18:26:18.172Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "source.extension.vsixmanifest",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM4EF\\Qhta.MVVM4EF\\source.extension.vsixmanifest",
+              "RelativeDocumentMoniker": "Qhta.MVVM4EF\\source.extension.vsixmanifest",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM4EF\\Qhta.MVVM4EF\\source.extension.vsixmanifest",
+              "RelativeToolTip": "Qhta.MVVM4EF\\source.extension.vsixmanifest",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003464|",
+              "WhenOpened": "2025-04-17T18:23:47.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ExtensionEntrypoint.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM4EF\\Qhta.MVVM4EF\\ExtensionEntrypoint.cs",
+              "RelativeDocumentMoniker": "Qhta.MVVM4EF\\ExtensionEntrypoint.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM4EF\\Qhta.MVVM4EF\\ExtensionEntrypoint.cs",
+              "RelativeToolTip": "Qhta.MVVM4EF\\ExtensionEntrypoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T18:19:10.904Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Command1.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM4EF\\Qhta.MVVM4EF\\Command1.cs",
+              "RelativeDocumentMoniker": "Qhta.MVVM4EF\\Command1.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM4EF\\Qhta.MVVM4EF\\Command1.cs",
+              "RelativeToolTip": "Qhta.MVVM4EF\\Command1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T18:18:29.811Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

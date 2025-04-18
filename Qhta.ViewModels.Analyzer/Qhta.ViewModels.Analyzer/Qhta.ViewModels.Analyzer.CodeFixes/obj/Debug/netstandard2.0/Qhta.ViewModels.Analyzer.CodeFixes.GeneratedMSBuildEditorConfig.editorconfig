@@ -1,0 +1,8 @@
+is_global = true
+build_property.RootNamespace = Qhta.ViewModels.Analyzer
+build_property.ProjectDir = D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 

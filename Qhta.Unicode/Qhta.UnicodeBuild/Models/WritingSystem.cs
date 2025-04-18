@@ -10,11 +10,11 @@ public partial class WritingSystem
 
   public string Name { get; set; } = null!;
 
-  public string? Type { get; set; }
+  public byte? Type { get; set; }
 
-  public string? Kind { get; set; }
+  public byte? Kind { get; set; }
 
-  public int? ParentId { get; set; }
+  public int? Parent { get; set; }
 
   public string? KeyPhrase { get; set; }
 
@@ -28,13 +28,11 @@ public partial class WritingSystem
 
   public string? Description { get; set; }
 
-  public string? Aliases { get; set; }
-
   public virtual WritingSystemKind? WritingSystemKind { get; set; }
 
   public virtual WritingSystemType? WritingSystemType { get; set; }
 
-  public virtual WritingSystem? Parent { get; set; }
+  public virtual WritingSystem? ParentSystem { get; set; }
 
   public virtual ICollection<WritingSystem>? Children { get; set; }
 

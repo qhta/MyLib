@@ -1,0 +1,51 @@
+{
+  "controlPlacements": [
+    {
+      "controlName": "Qhta.MVVM4EF.Command1",
+      "parent": {
+        "legacyParentId": {
+          "guid": "d309f791-903f-11d0-9efc-00a0c911004f",
+          "id": 345
+        },
+        "priority": 0
+      }
+    }
+  ],
+  "commandSets": [
+    {
+      "name": "Qhta.MVVM4EF.ExtensionEntrypoint",
+      "serviceMoniker": {
+        "name": "Qhta.MVVM4EF.ExtensionEntrypointCommandSet",
+        "version": "1.0"
+      },
+      "commands": [
+        {
+          "tooltipText": "%Qhta.MVVM4EF.Command1.DisplayName%",
+          "flags": "None",
+          "icon": {
+            "IconName": "KnownMonikers.Extension",
+            "iconSettings": "IconAndText"
+          },
+          "name": "Qhta.MVVM4EF.Command1",
+          "displayName": "%Qhta.MVVM4EF.Command1.DisplayName%",
+          "contextProviderName": "Editor,Shell"
+        }
+      ],
+      "dynamicCommandAnchors": []
+    }
+  ],
+  "services": [
+    {
+      "host": "dotnetExtensibility",
+      "name": "Qhta.MVVM4EF.ExtensionEntrypointCommandSet",
+      "serviceBaseDirectory": ".",
+      "serviceAudience": "Local | RemoteExclusiveClient",
+      "version": "1.0",
+      "entryPoint": {
+        "assemblyPath": "Qhta.MVVM4EF.dll",
+        "fullClassName": "Qhta.MVVM4EF.ExtensionEntrypoint"
+      },
+      "allowHostingInProcess": true
+    }
+  ]
+}

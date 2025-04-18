@@ -14,8 +14,6 @@
     <Compile Remove="Models\AbbreviationCategory.cs" />
     <Compile Remove="Models\Agl.cs" />
     <Compile Remove="Models\AglDuplikaty.cs" />
-    <Compile Remove="Models\Alias.cs" />
-    <Compile Remove="Models\AliasType.cs" />
     <Compile Remove="Models\Amsfont.cs" />
     <Compile Remove="Models\Amssymb.cs" />
     <Compile Remove="Models\Bidirectional.cs" />
@@ -68,7 +66,6 @@
     <Compile Remove="Models\UcdBlockWritingSystem.cs" />
     <Compile Remove="Models\UcdRangesStartEnd.cs" />
     <Compile Remove="Models\UnicodeData13.cs" />
-    <Compile Remove="Models\UnicodeDatum.cs" />
     <Compile Remove="Models\Webding.cs" />
     <Compile Remove="Models\Wingding.cs" />
     <Compile Remove="Models\Word.cs" />

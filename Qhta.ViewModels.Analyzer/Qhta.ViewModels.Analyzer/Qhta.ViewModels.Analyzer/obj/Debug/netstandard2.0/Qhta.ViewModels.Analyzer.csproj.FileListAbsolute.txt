@@ -1,0 +1,13 @@
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\bin\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.deps.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\bin\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\bin\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.Resources.resources
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.csproj.GenerateResource.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.pdb

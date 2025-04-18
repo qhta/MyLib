@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+
 using Syncfusion.Windows.Shared;
 
 namespace Qhta.Unicode.Models;
@@ -27,7 +30,7 @@ public partial class _DbContext : DbContext
 
   //public virtual DbSet<AglDuplikaty> AglDuplikaties { get; set; }
 
-  //public virtual DbSet<Alias> Aliases { get; set; }
+  public virtual DbSet<Alias> Aliases { get; set; }
 
   //public virtual DbSet<AliasType> AliasTypes { get; set; }
 
@@ -139,7 +142,7 @@ public partial class _DbContext : DbContext
 
   //public virtual DbSet<UnicodeData13> UnicodeData13s { get; set; }
 
-  //public virtual DbSet<UnicodeDatum> UnicodeData { get; set; }
+  public virtual DbSet<UnicodeDatum> UnicodeData { get; set; }
 
   //public virtual DbSet<Webding> Webdings { get; set; }
 
@@ -166,7 +169,8 @@ public partial class _DbContext : DbContext
         .Build();
 
       var connectionString = configuration.GetConnectionString("DefaultConnection");
-      optionsBuilder.UseJet(connectionString);
+      optionsBuilder.UseJet(connectionString)
+        .LogTo((str)=>Debug.WriteLine(str), LogLevel.Information); ;
     }
   }
 
@@ -216,17 +220,17 @@ public partial class _DbContext : DbContext
     //  entity.Property(e => e.Name).HasMaxLength(255);
     //});
 
-    //modelBuilder.Entity<Alias>(entity =>
-    //{
-    //  entity.HasKey(e => new { e.Ord, e.Alias1 }).HasName("PrimaryKey");
+    modelBuilder.Entity<Alias>(entity =>
+    {
+      entity.HasKey(e => new { e.Ord, e.Alias1 }).HasName("PrimaryKey");
 
-    //  entity.Property(e => e.Alias1).HasColumnName("Alias");
+      entity.Property(e => e.Alias1).HasColumnName("Alias");
 
-    //  entity.HasOne(d => d.OrdNavigation).WithMany(p => p.Aliases)
-    //          .HasForeignKey(d => d.Ord)
-    //          .OnDelete(DeleteBehavior.ClientSetNull)
-    //          .HasConstraintName("UnicodeDataAliases");
-    //});
+      entity.HasOne(d => d.UnicodeDatum).WithMany(p => p.Aliases)
+              .HasForeignKey(d => d.Ord)
+              .OnDelete(DeleteBehavior.ClientSetNull)
+              .HasConstraintName("UnicodeDataAliases");
+    });
 
     //modelBuilder.Entity<AliasType>(entity =>
     //{
@@ -854,29 +858,29 @@ public partial class _DbContext : DbContext
     //  entity.Property(e => e.Upper).HasMaxLength(255);
     //});
 
-    //modelBuilder.Entity<UnicodeDatum>(entity =>
-    //{
-    //  entity.HasKey(e => e.Ord).HasName("PrimaryKey");
+    modelBuilder.Entity<UnicodeDatum>(entity =>
+    {
+      entity.HasKey(e => e.Ord).HasName("PrimaryKey");
 
-    //  entity.HasIndex(e => e.CharName, "CharName");
+      entity.HasIndex(e => e.CharName, "CharName");
 
-    //  entity.HasIndex(e => e.NumVal, "NumVal");
+      entity.HasIndex(e => e.NumVal, "NumVal");
 
-    //  entity.Property(e => e.Bidir).HasMaxLength(255);
-    //  entity.Property(e => e.Code).HasMaxLength(255);
-    //  entity.Property(e => e.Comment).HasMaxLength(255);
-    //  entity.Property(e => e.Ctg).HasMaxLength(255);
-    //  entity.Property(e => e.DecDigitVal).HasMaxLength(255);
-    //  entity.Property(e => e.Decomposition).HasMaxLength(255);
-    //  entity.Property(e => e.Description).HasMaxLength(255);
-    //  entity.Property(e => e.DigitVal).HasMaxLength(255);
-    //  entity.Property(e => e.Glyph).HasMaxLength(2);
-    //  entity.Property(e => e.Lower).HasMaxLength(255);
-    //  entity.Property(e => e.Mirr).HasMaxLength(255);
-    //  entity.Property(e => e.OldDescription).HasMaxLength(255);
-    //  entity.Property(e => e.Title).HasMaxLength(255);
-    //  entity.Property(e => e.Upper).HasMaxLength(255);
-    //});
+      entity.Property(e => e.Bidir).HasMaxLength(255);
+      entity.Property(e => e.Code).HasMaxLength(255);
+      entity.Property(e => e.Comment).HasMaxLength(255);
+      entity.Property(e => e.Ctg).HasMaxLength(255);
+      entity.Property(e => e.DecDigitVal).HasMaxLength(255);
+      entity.Property(e => e.Decomposition).HasMaxLength(255);
+      entity.Property(e => e.Description).HasMaxLength(255);
+      entity.Property(e => e.DigitVal).HasMaxLength(255);
+      entity.Property(e => e.Glyph).HasMaxLength(2);
+      entity.Property(e => e.Lower).HasMaxLength(255);
+      entity.Property(e => e.Mirr).HasMaxLength(255);
+      entity.Property(e => e.OldDescription).HasMaxLength(255);
+      entity.Property(e => e.Title).HasMaxLength(255);
+      entity.Property(e => e.Upper).HasMaxLength(255);
+    });
 
     //modelBuilder.Entity<Webding>(entity =>
     //{
@@ -911,18 +915,16 @@ public partial class _DbContext : DbContext
 
       entity.HasIndex(e => new { e.Name, e.Type }, "FullName").IsUnique();
 
-      entity.HasIndex(e => e.Id, "ID");
-
       entity.HasIndex(e => e.KeyPhrase, "KeyPhrase").IsUnique();
 
-      entity.HasIndex(e => e.ParentId, "ParentID");
+      entity.HasIndex(e => e.Parent, "Parent");
 
-      entity.HasIndex(e => e.Kind, "ScriptType");
+      entity.HasIndex(e => e.Kind, "Kind");
+      entity.HasIndex(e => e.Type, "Type");
 
       entity.Property(e => e.Id)
               .HasColumnType("counter")
               .HasColumnName("ID");
-      entity.Property(e => e.Aliases).HasMaxLength(255);
       entity.Property(e => e.Name).HasMaxLength(255);
       entity.Property(e => e.KeyPhrase).HasMaxLength(255);
       entity.Property(e => e.Abbr).HasMaxLength(255);
@@ -932,34 +934,34 @@ public partial class _DbContext : DbContext
               .HasMaxLength(255)
               .HasColumnName("ISO");
       entity.Property(e => e.Kind).HasMaxLength(15);
-      entity.Property(e => e.ParentId).HasColumnName("ParentID");
+      entity.Property(e => e.Parent).HasColumnName("Parent");
       entity.Property(e => e.Type).HasMaxLength(10);
 
-      entity.HasOne(d => d.WritingSystemKind).WithMany(/*p => p.WritingSystems*/)
+      entity.HasOne(d => d.WritingSystemKind).WithMany()
               .HasForeignKey(d => d.Kind)
               .HasConstraintName("WritingSystemKindsWritingSystems");
 
-      entity.HasOne(d => d.WritingSystemType).WithMany(/*p => p.WritingSystems*/)
+      entity.HasOne(d => d.WritingSystemType).WithMany()
               .HasForeignKey(d => d.Type)
               .HasConstraintName("WritingSystemTypesWritingSystems");
 
-        entity.HasOne(d => d.Parent).WithMany(p => p.Children)
-              .HasForeignKey(d => d.ParentId)
+      entity.HasOne(d => d.ParentSystem).WithMany(p => p.Children)
+              .HasForeignKey(d => d.Parent)
               .HasConstraintName("WritingSystemsWritingSystems");
     });
 
-    //modelBuilder.Entity<WritingSystemKind>(entity =>
-    //{
-    //  entity.HasKey(e => e.Kind).HasName("PrimaryKey");
-
-    //  entity.Property(e => e.Kind).HasMaxLength(15);
-    //});
+    modelBuilder.Entity<WritingSystemKind>(entity =>
+    {
+      entity.HasKey(e => e.Id).HasName("PrimaryKey");
+      entity.Property(e => e.Kind).HasMaxLength(15);
+      entity.HasIndex(e => e.Kind, "Kind").IsUnique();
+    });
 
     modelBuilder.Entity<WritingSystemType>(entity =>
     {
-      entity.HasKey(e => e.Type).HasName("PrimaryKey");
-
+      entity.HasKey(e => e.Id).HasName("PrimaryKey");
       entity.Property(e => e.Type).HasMaxLength(10);
+      entity.HasIndex(e => e.Type, "Type").IsUnique();
     });
 
     //modelBuilder.Entity<Zapfdingbat>(entity =>

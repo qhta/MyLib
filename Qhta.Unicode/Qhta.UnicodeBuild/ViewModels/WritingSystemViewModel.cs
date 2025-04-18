@@ -36,7 +36,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  public string? Type
+  public byte? Type
   {
     get => Model.Type;
     set
@@ -51,18 +51,18 @@ public partial class WritingSystemViewModel(WritingSystem model)
 
   public int? ParentId
   {
-    get => Model.ParentId;
+    get => Model.Parent;
     set
     {
-      if (Model.ParentId != value)
+      if (Model.Parent != value)
       {
-        Model.ParentId = value;
+        Model.Parent = value;
         NotifyPropertyChanged(nameof(ParentId));
       }
     }
   }
 
-  public string? Kind
+  public byte? Kind
   {
     get => Model.Kind;
     set
@@ -153,19 +153,6 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  public string? Aliases
-  {
-    get => Model.Aliases;
-    set
-    {
-      if (Model.Aliases != value)
-      {
-        Model.Aliases = value;
-        NotifyPropertyChanged(nameof(Aliases));
-      }
-    }
-  }
-
   public virtual WritingSystemType? WritingSystemType
   {
     get => Model.WritingSystemType;
@@ -194,12 +181,12 @@ public partial class WritingSystemViewModel(WritingSystem model)
 
   public virtual WritingSystem? Parent
   {
-    get => Model.Parent;
+    get => Model.ParentSystem;
     set
     {
-      if (Model.Parent != value)
+      if (Model.ParentSystem != value)
       {
-        Model.Parent = value;
+        Model.ParentSystem = value;
         NotifyPropertyChanged(nameof(Parent));
       }
     }

@@ -1,0 +1,16 @@
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\bin\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixes.deps.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\bin\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixes.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\bin\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixes.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\bin\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\bin\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixes.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixResources.resources
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixes.csproj.GenerateResource.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixes.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixes.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixes.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixes.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixes.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\obj\Debug\netstandard2.0\Qhta.Vie.10907657.Up2Date
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixes.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer\Qhta.ViewModels.Analyzer.CodeFixes\obj\Debug\netstandard2.0\Qhta.ViewModels.Analyzer.CodeFixes.pdb

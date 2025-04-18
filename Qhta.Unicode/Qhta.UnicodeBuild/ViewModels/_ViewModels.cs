@@ -36,8 +36,8 @@ public class _ViewModels: IDisposable
       }
 
       foreach (var ub in _Context.UcdBlocks
-                 .Include(ub => ub.WritingSystem)
-                 .Include(ub => ub.UcdRanges)
+                 //.Include(ub => ub.WritingSystem)
+                 //.Include(ub => ub.UcdRanges)
                  .ToList())
       {
         UcdBlocks.Add(ub);
@@ -48,7 +48,7 @@ public class _ViewModels: IDisposable
       {
         var vm= new WritingSystemViewModel(ws);
         AllWritingSystems.Add(vm);
-        if (ws.ParentId==null)
+        if (ws.Parent==null)
         {
           TopWritingSystems.Add(vm);
         }
