@@ -2,7 +2,7 @@
 
 namespace Qhta.Unicode.Models;
 
-public enum WritingSystemTypeEnum
+public enum WritingSystemTypeEnum: byte
 {
   area = 1, // a range of code points that are not defined individually
   family = 2, // a set of scripts or other writing systems

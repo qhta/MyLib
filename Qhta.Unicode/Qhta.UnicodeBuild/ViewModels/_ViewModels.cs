@@ -44,7 +44,7 @@ public class _ViewModels: IDisposable
         //Debug.WriteLine($"{ub.BlockName}.UcdRanges = {ub.UcdRanges.Count}");
       }
 
-      foreach (var ws in _Context.WritingSystems.Include(ws => ws.WritingSystemType).OrderBy(ws=>ws.Name).ToList())
+      foreach (var ws in _Context.WritingSystems/*.Include(ws => ws.WritingSystemType)*/.OrderBy(ws=>ws.Name).ToList())
       {
         var vm= new WritingSystemViewModel(ws);
         AllWritingSystems.Add(vm);
@@ -59,13 +59,15 @@ public class _ViewModels: IDisposable
     }
   }
 
-
   public UcdBlocksCollection UcdBlocks { get; set; } = new UcdBlocksCollection();
   public UcdRangeCollection UcdRanges { get; set; } = new UcdRangeCollection();
   public WritingSystemsCollection AllWritingSystems { get; set; } = new WritingSystemsCollection();
   public WritingSystemsCollection TopWritingSystems { get; set; } = new WritingSystemsCollection();
   public List<WritingSystemType> WritingSystemTypes { get; set; }
   public List<WritingSystemKind> WritingSystemKinds { get; set; }
+  //public IEnumerable<WritingSystemTypeEnum> WritingSystemTypes { get; } = Enum.GetValues(typeof(WritingSystemTypeEnum)).Cast<WritingSystemTypeEnum>();
+  // public IEnumerable<WritingSystemKindEnum> WritingSystemKinds { get; } = Enum.GetValues(typeof(WritingSystemKindEnum)).Cast<WritingSystemKindEnum>();
+
   public IEnumerable<WritingSystem> SelectableWritingSystems => _Context.WritingSystems.OrderBy(ws => ws.Name).ToList();
   public IEnumerable<WritingSystem> SelectableWritingSystemParents => _Context.WritingSystems.OrderBy(ws=>ws.Name).ToList();
 

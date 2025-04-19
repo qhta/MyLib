@@ -5,7 +5,7 @@ namespace Qhta.Unicode.Models;
 public partial class WritingSystemType
 {
   [Key]
-  public byte Id { get; set; }
+  public WritingSystemTypeEnum Id { get; set; }
 
   public string Type { get; set; } = null!;
 

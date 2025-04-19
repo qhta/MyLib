@@ -79,7 +79,8 @@
                    QueryRowHeight="DataGrid_OnQueryRowHeight"
                    AutoGenerateColumns="False"
                    SelectionUnit="Row"
-                   SelectionChanged="WritingSystemsDataGrid_OnSelectionChanged">
+                   SelectionChanged="WritingSystemsDataGrid_OnSelectionChanged"
+                   EditTrigger="OnTap">
       <sf:SfDataGrid.Columns>
         <sf:GridTextColumn 
           HeaderText="Name" 
@@ -100,14 +101,16 @@
           HeaderText="Type" 
           DisplayMemberPath="Type"
           SortMode="Display"
-          MappingName="WritingSystemType"
+          MappingName="Type" 
+          SelectedValuePath="Id"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemTypes}"/>
         <sf:GridComboBoxColumn
           HeaderText="Kind" 
           DisplayMemberPath="Kind"
           SortMode="Display"
-          MappingName="WritingSystemKind"
+          MappingName="Kind"
+          SelectedValuePath="Id"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemKinds}"/>
         <sf:GridTextColumn 
@@ -137,9 +140,6 @@
           TextWrapping="Wrap"
           VerticalAlignment="Top"
           CellTemplate="{StaticResource LongTextCellTemplate}"/>
-        <sf:GridTextColumn 
-          HeaderText="Aliases" 
-          MappingName="Aliases"/>
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
   </Grid>

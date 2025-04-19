@@ -936,14 +936,17 @@ public partial class _DbContext : DbContext
       entity.Property(e => e.Kind).HasMaxLength(15);
       entity.Property(e => e.Parent).HasColumnName("Parent");
       entity.Property(e => e.Type).HasMaxLength(10);
+              
+      entity.Property(e => e.Type).HasConversion<byte>();
+      entity.Property(e => e.Kind).HasConversion<byte>();
 
-      entity.HasOne(d => d.WritingSystemKind).WithMany()
-              .HasForeignKey(d => d.Kind)
-              .HasConstraintName("WritingSystemKindsWritingSystems");
+      //entity.HasOne(d => d.WritingSystemType).WithMany()
+      //        .HasForeignKey(d => d.Type)
+      //        .HasConstraintName("WritingSystemTypesWritingSystems");
 
-      entity.HasOne(d => d.WritingSystemType).WithMany()
-              .HasForeignKey(d => d.Type)
-              .HasConstraintName("WritingSystemTypesWritingSystems");
+      //entity.HasOne(d => d.WritingSystemKind).WithMany()
+      //        .HasForeignKey(d => d.Kind)
+      //        .HasConstraintName("WritingSystemKindsWritingSystems");
 
       entity.HasOne(d => d.ParentSystem).WithMany(p => p.Children)
               .HasForeignKey(d => d.Parent)
@@ -952,6 +955,7 @@ public partial class _DbContext : DbContext
 
     modelBuilder.Entity<WritingSystemKind>(entity =>
     {
+      entity.Property(e => e.Id).HasConversion<byte>();
       entity.HasKey(e => e.Id).HasName("PrimaryKey");
       entity.Property(e => e.Kind).HasMaxLength(15);
       entity.HasIndex(e => e.Kind, "Kind").IsUnique();
@@ -959,6 +963,7 @@ public partial class _DbContext : DbContext
 
     modelBuilder.Entity<WritingSystemType>(entity =>
     {
+      entity.Property(e => e.Id).HasConversion<byte>();
       entity.HasKey(e => e.Id).HasName("PrimaryKey");
       entity.Property(e => e.Type).HasMaxLength(10);
       entity.HasIndex(e => e.Type, "Type").IsUnique();

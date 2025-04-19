@@ -10,9 +10,9 @@ public partial class WritingSystem
 
   public string Name { get; set; } = null!;
 
-  public byte? Type { get; set; }
+  public WritingSystemTypeEnum? Type { get; set; }
 
-  public byte? Kind { get; set; }
+  public WritingSystemKindEnum? Kind { get; set; }
 
   public int? Parent { get; set; }
 
@@ -28,9 +28,9 @@ public partial class WritingSystem
 
   public string? Description { get; set; }
 
-  public virtual WritingSystemKind? WritingSystemKind { get; set; }
+  //public virtual WritingSystemKind? WritingSystemKind { get; set; }
 
-  public virtual WritingSystemType? WritingSystemType { get; set; }
+  //public virtual WritingSystemType? WritingSystemType { get; set; }
 
   public virtual WritingSystem? ParentSystem { get; set; }
 

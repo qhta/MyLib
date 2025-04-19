@@ -36,7 +36,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  public byte? Type
+  public WritingSystemTypeEnum? Type
   {
     get => Model.Type;
     set
@@ -45,6 +45,19 @@ public partial class WritingSystemViewModel(WritingSystem model)
       {
         Model.Type = value;
         NotifyPropertyChanged(nameof(Type));
+      }
+    }
+  }
+
+  public WritingSystemKindEnum? Kind
+  {
+    get => Model.Kind;
+    set
+    {
+      if (Model.Kind != value)
+      {
+        Model.Kind = value;
+        NotifyPropertyChanged(nameof(Kind));
       }
     }
   }
@@ -62,18 +75,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  public byte? Kind
-  {
-    get => Model.Kind;
-    set
-    {
-      if (Model.Kind != value)
-      {
-        Model.Kind = value;
-        NotifyPropertyChanged(nameof(Kind));
-      }
-    }
-  }
+
 
   public string? KeyPhrase
   {
@@ -153,31 +155,31 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  public virtual WritingSystemType? WritingSystemType
-  {
-    get => Model.WritingSystemType;
-    set
-    {
-      if (Model.WritingSystemType != value)
-      {
-        Model.WritingSystemType = value;
-        NotifyPropertyChanged(nameof(WritingSystemType));
-      }
-    }
-  }
+  //public virtual WritingSystemType? WritingSystemType
+  //{
+  //  get => Model.WritingSystemType;
+  //  set
+  //  {
+  //    if (Model.WritingSystemType != value)
+  //    {
+  //      Model.WritingSystemType = value;
+  //      NotifyPropertyChanged(nameof(WritingSystemType));
+  //    }
+  //  }
+  //}
 
-  public virtual WritingSystemKind? WritingSystemKind
-  {
-    get => Model.WritingSystemKind;
-    set
-    {
-      if (Model.WritingSystemKind != value)
-      {
-        Model.WritingSystemKind = value;
-        NotifyPropertyChanged(nameof(WritingSystemKind));
-      }
-    }
-  }
+  //public virtual WritingSystemKind? WritingSystemKind
+  //{
+  //  get => Model.WritingSystemKind;
+  //  set
+  //  {
+  //    if (Model.WritingSystemKind != value)
+  //    {
+  //      Model.WritingSystemKind = value;
+  //      NotifyPropertyChanged(nameof(WritingSystemKind));
+  //    }
+  //  }
+  //}
 
   public virtual WritingSystem? Parent
   {
