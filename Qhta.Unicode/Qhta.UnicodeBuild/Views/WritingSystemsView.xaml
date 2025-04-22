@@ -50,20 +50,49 @@
       </MenuItem>
     </Menu>
 
-    <TreeView Grid.Column="0" Grid.Row="1"
-              x:Name="WritingSystemsTreeView"
-              DataContext ="{StaticResource ViewModels}"
-              ItemsSource ="{Binding Instance.TopWritingSystems}"
-              Margin="0,0,5,0"
-              SelectedItemChanged="WritingSystemsTreeView_OnSelectedItemChanged">
-      <TreeView.ItemTemplate>
-        <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+    <sf:SfTreeView  Grid.Column="0" Grid.Row="1"
+                    x:Name="WritingSystemsTreeView"
+                    DataContext ="{StaticResource ViewModels}"
+                    ItemsSource ="{Binding Instance.TopWritingSystems}"
+                    ChildPropertyName="Children"
+                    Margin="0,0,5,0" 
+                    SelectionChanged="WritingSystemsTreeView_OnSelectionChanged"
+                    AutoExpandMode="AllNodes"
+                    AllowDragging ="true"
+                    AllowDrop ="True"
+                    ItemDropped="WritingSystemsTreeView_OnItemDropped"
+                    >
+      <!--<sf:SfTreeView.DragPreviewTemplate>
+        <DataTemplate>
+          <Border
+            x:Name="border"
+            Width="205"
+            Height="40"
+            Background="#ececec"
+            BorderBrush="#c8c8c8"
+            BorderThickness="1.2">
+
+              <TextBlock
+                Grid.Column="1"
+                FontFamily="Segoe UI"
+                FontSize="12"
+                FontWeight="Regular"
+                Foreground="#333333"
+                Text="{Binding Name}" />
+          </Border>
+        </DataTemplate>
+      </sf:SfTreeView.DragPreviewTemplate>-->
+
+      <sf:SfTreeView.ItemTemplate>
+        <DataTemplate>
           <StackPanel Orientation="Horizontal">
+            <Image Source="{Binding Type, Converter={StaticResource TypeToImageConverter}}"
+                   Width="24" Height="24" Stretch="Uniform"/>
             <TextBlock Text="{Binding Name}"/>
           </StackPanel>
-        </HierarchicalDataTemplate>
-      </TreeView.ItemTemplate>
-    </TreeView>
+        </DataTemplate>
+      </sf:SfTreeView.ItemTemplate>
+    </sf:SfTreeView>
     <GridSplitter Grid.Column="0" Grid.Row="1"
                   Width="5"/>
     <sf:SfDataGrid Grid.Column="1" Grid.Row="1" 

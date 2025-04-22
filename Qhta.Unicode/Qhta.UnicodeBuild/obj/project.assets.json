@@ -952,7 +952,7 @@
           "Microsoft.WindowsDesktop.App.WPF"
         ]
       },
-      "Syncfusion.Data.WPF/29.1.37": {
+      "Syncfusion.Data.WPF/29.1.38": {
         "type": "package",
         "compile": {
           "lib/net8.0-windows7.0/Syncfusion.Data.WPF.dll": {
@@ -965,7 +965,7 @@
           }
         }
       },
-      "Syncfusion.Licensing/29.1.37": {
+      "Syncfusion.Licensing/29.1.38": {
         "type": "package",
         "compile": {
           "lib/net8.0/Syncfusion.Licensing.dll": {}
@@ -974,12 +974,28 @@
           "lib/net8.0/Syncfusion.Licensing.dll": {}
         }
       },
-      "Syncfusion.SfGrid.WPF/29.1.37": {
+      "Syncfusion.SfBusyIndicator.WPF/29.1.38": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Data.WPF": "29.1.37",
-          "Syncfusion.Licensing": "29.1.37",
-          "Syncfusion.Shared.WPF": "29.1.37"
+          "Syncfusion.Licensing": "29.1.38"
+        },
+        "compile": {
+          "lib/net8.0-windows7.0/Syncfusion.SfBusyIndicator.WPF.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Syncfusion.SfBusyIndicator.WPF.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Syncfusion.SfGrid.WPF/29.1.38": {
+        "type": "package",
+        "dependencies": {
+          "Syncfusion.Data.WPF": "29.1.38",
+          "Syncfusion.Licensing": "29.1.38",
+          "Syncfusion.Shared.WPF": "29.1.38"
         },
         "compile": {
           "lib/net8.0-windows7.0/Syncfusion.SfGrid.WPF.dll": {
@@ -992,11 +1008,27 @@
           }
         }
       },
-      "Syncfusion.SfInput.WPF/29.1.37": {
+      "Syncfusion.SfGridCommon.WPF/29.1.38": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Licensing": "29.1.37",
-          "Syncfusion.Shared.WPF": "29.1.37"
+          "Syncfusion.Licensing": "29.1.38"
+        },
+        "compile": {
+          "lib/net8.0-windows7.0/Syncfusion.SfGridCommon.WPF.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Syncfusion.SfGridCommon.WPF.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Syncfusion.SfInput.WPF/29.1.38": {
+        "type": "package",
+        "dependencies": {
+          "Syncfusion.Licensing": "29.1.38",
+          "Syncfusion.Shared.WPF": "29.1.38"
         },
         "compile": {
           "lib/net8.0-windows7.0/Syncfusion.SfInput.WPF.dll": {
@@ -1009,11 +1041,30 @@
           }
         }
       },
-      "Syncfusion.Shared.Base/29.1.37": {
+      "Syncfusion.SfTreeView.WPF/29.1.38": {
+        "type": "package",
+        "dependencies": {
+          "Syncfusion.Licensing": "29.1.38",
+          "Syncfusion.SfBusyIndicator.WPF": "29.1.38",
+          "Syncfusion.SfGridCommon.WPF": "29.1.38",
+          "Syncfusion.Shared.WPF": "29.1.38"
+        },
+        "compile": {
+          "lib/net8.0-windows7.0/Syncfusion.SfTreeView.WPF.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Syncfusion.SfTreeView.WPF.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Syncfusion.Shared.Base/29.1.38": {
         "type": "package",
         "dependencies": {
           "Microsoft.WinForms.Designer.SDK": "1.6.0",
-          "Syncfusion.Licensing": "29.1.37"
+          "Syncfusion.Licensing": "29.1.38"
         },
         "compile": {
           "lib/net8.0-windows7.0/Syncfusion.Shared.Base.dll": {
@@ -1026,10 +1077,10 @@
           }
         }
       },
-      "Syncfusion.Shared.WPF/29.1.37": {
+      "Syncfusion.Shared.WPF/29.1.38": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Licensing": "29.1.37"
+          "Syncfusion.Licensing": "29.1.38"
         },
         "compile": {
           "lib/net8.0-windows7.0/Syncfusion.Shared.WPF.dll": {
@@ -1042,11 +1093,11 @@
           }
         }
       },
-      "Syncfusion.Tools.WPF/29.1.37": {
+      "Syncfusion.Tools.WPF/29.1.38": {
         "type": "package",
         "dependencies": {
-          "Syncfusion.Licensing": "29.1.37",
-          "Syncfusion.Shared.WPF": "29.1.37"
+          "Syncfusion.Licensing": "29.1.38",
+          "Syncfusion.Shared.WPF": "29.1.38"
         },
         "compile": {
           "lib/net8.0-windows7.0/Syncfusion.Tools.WPF.dll": {
@@ -3270,10 +3321,10 @@
         "readme.md"
       ]
     },
-    "Syncfusion.Data.WPF/29.1.37": {
-      "sha512": "g7pqWVPKpwYNJxbnup6mF9ks2MNctM6TUzRYCtRIkEZNKd2MsjhZnPWcyoXwCcjWVA+kmxiPxHQUn2DLTmUr5A==",
+    "Syncfusion.Data.WPF/29.1.38": {
+      "sha512": "SgmyRxyaTRYF4ZpeakpUX3PUIgC5RRsNv91RD+kSGZAXuuoO8KyhfZktzcdziW3DlUDygklSuyzfx6XXQBig/g==",
       "type": "package",
-      "path": "syncfusion.data.wpf/29.1.37",
+      "path": "syncfusion.data.wpf/29.1.38",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3284,15 +3335,15 @@
         "lib/net8.0-windows7.0/Syncfusion.Data.WPF.xml",
         "lib/net9.0-windows7.0/Syncfusion.Data.WPF.dll",
         "lib/net9.0-windows7.0/Syncfusion.Data.WPF.xml",
-        "syncfusion.data.wpf.29.1.37.nupkg.sha512",
+        "syncfusion.data.wpf.29.1.38.nupkg.sha512",
         "syncfusion.data.wpf.nuspec",
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.Licensing/29.1.37": {
-      "sha512": "0IT7/SJ6Jgs7Hdl8RrBxH3bQjpoTT2yMs/mPpExLeqrn27A3aeDqKIEyS0KGBkYIo39BofuNl+0ExE22uCC4Rg==",
+    "Syncfusion.Licensing/29.1.38": {
+      "sha512": "EdYR9p6VZHrqZmVgotDB23G5Ko5FLTwm5mL3C/bKgCrBuGz+Be1iptuMXGDQLGvR6weA8cwkQ959M+oKGkhUaQ==",
       "type": "package",
-      "path": "syncfusion.licensing/29.1.37",
+      "path": "syncfusion.licensing/29.1.38",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3306,15 +3357,43 @@
         "lib/net9.0/Syncfusion.Licensing.dll",
         "lib/netstandard2.0/Syncfusion.Licensing.dll",
         "lib/uap10.0/Syncfusion.Licensing.dll",
-        "syncfusion.licensing.29.1.37.nupkg.sha512",
+        "syncfusion.licensing.29.1.38.nupkg.sha512",
         "syncfusion.licensing.nuspec",
         "syncfusion_logo.png"
       ]
     },
-    "Syncfusion.SfGrid.WPF/29.1.37": {
-      "sha512": "WUzv2S52EiVsjHt/XxoR352QjOXIs4o2P+VS85/OsJtCAweeBaEy2C6UUF7bO7KgLrNYPISBOzYIZvuKBB7PTg==",
+    "Syncfusion.SfBusyIndicator.WPF/29.1.38": {
+      "sha512": "5wbG6qLLzb4jrRVQumjU0/b1yvCk47ybUxDA8vNsM0r9jSBpoo+sRKWk8QyADhpiwxIptGGRcLixgJMNwXcYKA==",
       "type": "package",
-      "path": "syncfusion.sfgrid.wpf/29.1.37",
+      "path": "syncfusion.sfbusyindicator.wpf/29.1.38",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "lib/net462/Design/Syncfusion.Design.Wpf.dll",
+        "lib/net462/Design/Syncfusion.SfBusyIndicator.WPF.DesignTools.dll",
+        "lib/net462/Design/Syncfusion.SfBusyIndicator.WPF.Expression.Design.dll",
+        "lib/net462/Design/Syncfusion.SfBusyIndicator.Wpf.VisualStudio.Design.dll",
+        "lib/net462/Syncfusion.SfBusyIndicator.WPF.dll",
+        "lib/net462/Syncfusion.SfBusyIndicator.WPF.xml",
+        "lib/net8.0-windows7.0/Design/Syncfusion.SfBusyIndicator.WPF.DesignTools.dll",
+        "lib/net8.0-windows7.0/Syncfusion.SfBusyIndicator.WPF.dll",
+        "lib/net8.0-windows7.0/Syncfusion.SfBusyIndicator.WPF.xml",
+        "lib/net9.0-windows7.0/Design/Syncfusion.SfBusyIndicator.WPF.DesignTools.dll",
+        "lib/net9.0-windows7.0/Syncfusion.SfBusyIndicator.WPF.dll",
+        "lib/net9.0-windows7.0/Syncfusion.SfBusyIndicator.WPF.xml",
+        "syncfusion.sfbusyindicator.wpf.29.1.38.nupkg.sha512",
+        "syncfusion.sfbusyindicator.wpf.nuspec",
+        "syncfusion_logo.png",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "Syncfusion.SfGrid.WPF/29.1.38": {
+      "sha512": "3rq0b1CTr7SAlfFj6EZU2QCEIb/ah5Ax1oeXEf1Pgm1uXowrwMjd9wh5pSwZmyWLI9G+UTqySXQwQR+ua9b0Rg==",
+      "type": "package",
+      "path": "syncfusion.sfgrid.wpf/29.1.38",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -3332,16 +3411,35 @@
         "lib/net9.0-windows7.0/Design/Syncfusion.SfGrid.WPF.DesignTools.dll",
         "lib/net9.0-windows7.0/Syncfusion.SfGrid.WPF.dll",
         "lib/net9.0-windows7.0/Syncfusion.SfGrid.WPF.xml",
-        "syncfusion.sfgrid.wpf.29.1.37.nupkg.sha512",
+        "syncfusion.sfgrid.wpf.29.1.38.nupkg.sha512",
         "syncfusion.sfgrid.wpf.nuspec",
         "syncfusion_logo.png",
         "tools/VisualStudioToolsManifest.xml"
       ]
     },
-    "Syncfusion.SfInput.WPF/29.1.37": {
-      "sha512": "B1EyEWuLitjiVFGXYrEeQNxaXD4/2Z1JZ7Nszn3JqVrW6fXtAfCR0m4mik8ZK+4CyOJV0F/hU7OsxWMiNkusxA==",
+    "Syncfusion.SfGridCommon.WPF/29.1.38": {
+      "sha512": "XFmJfnIUaDRsvo8PB4FHCqt5MdRPicIMRCcI9v+EsN1GfUM6gUJMx12CO2GzxlDNYJGjvj4cpBaSKOVA4krFLA==",
       "type": "package",
-      "path": "syncfusion.sfinput.wpf/29.1.37",
+      "path": "syncfusion.sfgridcommon.wpf/29.1.38",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "lib/net462/Syncfusion.SfGridCommon.WPF.dll",
+        "lib/net462/Syncfusion.SfGridCommon.WPF.xml",
+        "lib/net8.0-windows7.0/Syncfusion.SfGridCommon.WPF.dll",
+        "lib/net8.0-windows7.0/Syncfusion.SfGridCommon.WPF.xml",
+        "lib/net9.0-windows7.0/Syncfusion.SfGridCommon.WPF.dll",
+        "lib/net9.0-windows7.0/Syncfusion.SfGridCommon.WPF.xml",
+        "syncfusion.sfgridcommon.wpf.29.1.38.nupkg.sha512",
+        "syncfusion.sfgridcommon.wpf.nuspec",
+        "syncfusion_logo.png"
+      ]
+    },
+    "Syncfusion.SfInput.WPF/29.1.38": {
+      "sha512": "rY9EqpJcKWZjIFqdusPfLCs2kKibvdwPMkastt25B5RVdhsSlFKA/+wx6tZ8Wm3RAv0QcqCCgz8nS738GxKmvw==",
+      "type": "package",
+      "path": "syncfusion.sfinput.wpf/29.1.38",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -3360,16 +3458,44 @@
         "lib/net9.0-windows7.0/Design/Syncfusion.SfInput.WPF.DesignTools.dll",
         "lib/net9.0-windows7.0/Syncfusion.SfInput.WPF.dll",
         "lib/net9.0-windows7.0/Syncfusion.SfInput.WPF.xml",
-        "syncfusion.sfinput.wpf.29.1.37.nupkg.sha512",
+        "syncfusion.sfinput.wpf.29.1.38.nupkg.sha512",
         "syncfusion.sfinput.wpf.nuspec",
         "syncfusion_logo.png",
         "tools/VisualStudioToolsManifest.xml"
       ]
     },
-    "Syncfusion.Shared.Base/29.1.37": {
-      "sha512": "1XaWrIchH0vEod5/vP8py9HoBqiu84SCYWZVTDL6pU/dGFifSz/K38lVMZ1LzMy6WqzuIQgdvmu28YxcBf/cqg==",
+    "Syncfusion.SfTreeView.WPF/29.1.38": {
+      "sha512": "sgFjTW9hqnYHC6t2XQ9RMJgTxKwMpYRl45CoXvT92qQxvjZKW3EpCz6n9vIa7uHjGYEnlpYJ0GTdriGAnyTxAg==",
       "type": "package",
-      "path": "syncfusion.shared.base/29.1.37",
+      "path": "syncfusion.sftreeview.wpf/29.1.38",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "lib/net462/Design/Syncfusion.SfTreeView.WPF.DesignTools.dll",
+        "lib/net462/Design/Syncfusion.SfTreeView.WPF.Expression.Design.dll",
+        "lib/net462/Design/Syncfusion.SfTreeView.WPF.VisualStudio.Design.dll",
+        "lib/net462/Design/Syncfusion.SfTreeView.WPF.dll.Design.dll",
+        "lib/net462/Syncfusion.SfTreeView.WPF.dll",
+        "lib/net462/Syncfusion.SfTreeView.WPF.xml",
+        "lib/net8.0-windows7.0/Design/Syncfusion.SfTreeView.WPF.DesignTools.dll",
+        "lib/net8.0-windows7.0/Syncfusion.SfTreeView.WPF.dll",
+        "lib/net8.0-windows7.0/Syncfusion.SfTreeView.WPF.xml",
+        "lib/net9.0-windows7.0/Design/Syncfusion.SfTreeView.WPF.DesignTools.dll",
+        "lib/net9.0-windows7.0/Syncfusion.SfTreeView.WPF.dll",
+        "lib/net9.0-windows7.0/Syncfusion.SfTreeView.WPF.xml",
+        "syncfusion.sftreeview.wpf.29.1.38.nupkg.sha512",
+        "syncfusion.sftreeview.wpf.nuspec",
+        "syncfusion_logo.png",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "Syncfusion.Shared.Base/29.1.38": {
+      "sha512": "d6Y/BSr1yVzbm7Uxdbf9MSSzeEVw6UtRtCJjI9TgYE0MAn3yEiDZYxegp94qRZPvDrgC9aWEuvHCM2Q7cc77rg==",
+      "type": "package",
+      "path": "syncfusion.shared.base/29.1.38",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -3386,16 +3512,16 @@
         "lib/net9.0-windows7.0/Design/WinForms/Syncfusion.Shared.Base.Client.dll",
         "lib/net9.0-windows7.0/Syncfusion.Shared.Base.dll",
         "lib/net9.0-windows7.0/Syncfusion.Shared.Base.xml",
-        "syncfusion.shared.base.29.1.37.nupkg.sha512",
+        "syncfusion.shared.base.29.1.38.nupkg.sha512",
         "syncfusion.shared.base.nuspec",
         "syncfusion_logo.png",
         "tools/VisualStudioToolsManifest.xml"
       ]
     },
-    "Syncfusion.Shared.WPF/29.1.37": {
-      "sha512": "42W8eh/CoY7ksfCudNdEtAaPHThSo/x6fQh4DHerYVeMlzCukqpG0mb1RRVfAJRupdLOVpk7pE0JMbKJ/yWQCQ==",
+    "Syncfusion.Shared.WPF/29.1.38": {
+      "sha512": "v28q/C3qFQZR2dMDpSzWSpe6QS+neWRCEInMl3wwt0uFVH3S/2R/+drRrJx/C6hNxATob4+YAA461nSplA+huw==",
       "type": "package",
-      "path": "syncfusion.shared.wpf/29.1.37",
+      "path": "syncfusion.shared.wpf/29.1.38",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -3415,16 +3541,16 @@
         "lib/net9.0-windows7.0/Design/Syncfusion.Shared.WPF.DesignTools.dll",
         "lib/net9.0-windows7.0/Syncfusion.Shared.WPF.dll",
         "lib/net9.0-windows7.0/Syncfusion.Shared.WPF.xml",
-        "syncfusion.shared.wpf.29.1.37.nupkg.sha512",
+        "syncfusion.shared.wpf.29.1.38.nupkg.sha512",
         "syncfusion.shared.wpf.nuspec",
         "syncfusion_logo.png",
         "tools/VisualStudioToolsManifest.xml"
       ]
     },
-    "Syncfusion.Tools.WPF/29.1.37": {
-      "sha512": "DNMxHazX1XKE+qJ5nlnkcc7smejVhslhXZpfWvSNoI2F3e7FKGPf8HRa+I/xXFgdW1AfGIlzttYX1AkcpNc9fA==",
+    "Syncfusion.Tools.WPF/29.1.38": {
+      "sha512": "HTTMuPI21jILHvQBU4aKpvH44o3m4G8pwY70D0JRwDghYjZf5N5I/ksS/9cc6XvXXL+4FnZTxI/8tuhAXp4m3Q==",
       "type": "package",
-      "path": "syncfusion.tools.wpf/29.1.37",
+      "path": "syncfusion.tools.wpf/29.1.38",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -3444,7 +3570,7 @@
         "lib/net9.0-windows7.0/Design/Syncfusion.Tools.WPF.DesignTools.dll",
         "lib/net9.0-windows7.0/Syncfusion.Tools.WPF.dll",
         "lib/net9.0-windows7.0/Syncfusion.Tools.WPF.xml",
-        "syncfusion.tools.wpf.29.1.37.nupkg.sha512",
+        "syncfusion.tools.wpf.29.1.38.nupkg.sha512",
         "syncfusion.tools.wpf.nuspec",
         "syncfusion_logo.png",
         "tools/VisualStudioToolsManifest.xml"
@@ -4072,11 +4198,12 @@
       "Microsoft.Extensions.Configuration.Json >= 9.0.4",
       "Qhta.MVVM >= 4.2.0",
       "Qhta.WPF.Converters >= 1.4.0",
-      "Syncfusion.SfGrid.WPF >= 29.1.37",
-      "Syncfusion.SfInput.WPF >= 29.1.37",
-      "Syncfusion.Shared.Base >= 29.1.37",
-      "Syncfusion.Shared.WPF >= 29.1.37",
-      "Syncfusion.Tools.WPF >= 29.1.37",
+      "Syncfusion.SfGrid.WPF >= 29.1.38",
+      "Syncfusion.SfInput.WPF >= 29.1.38",
+      "Syncfusion.SfTreeView.WPF >= 29.1.38",
+      "Syncfusion.Shared.Base >= 29.1.38",
+      "Syncfusion.Shared.WPF >= 29.1.38",
+      "Syncfusion.Tools.WPF >= 29.1.38",
       "System.Data.OleDb >= 9.0.4"
     ]
   },
@@ -4177,23 +4304,27 @@
           },
           "Syncfusion.SfGrid.WPF": {
             "target": "Package",
-            "version": "[29.1.37, )"
+            "version": "[29.1.38, )"
           },
           "Syncfusion.SfInput.WPF": {
             "target": "Package",
-            "version": "[29.1.37, )"
+            "version": "[29.1.38, )"
+          },
+          "Syncfusion.SfTreeView.WPF": {
+            "target": "Package",
+            "version": "[29.1.38, )"
           },
           "Syncfusion.Shared.Base": {
             "target": "Package",
-            "version": "[29.1.37, )"
+            "version": "[29.1.38, )"
           },
           "Syncfusion.Shared.WPF": {
             "target": "Package",
-            "version": "[29.1.37, )"
+            "version": "[29.1.38, )"
           },
           "Syncfusion.Tools.WPF": {
             "target": "Package",
-            "version": "[29.1.37, )"
+            "version": "[29.1.38, )"
           },
           "System.Data.OleDb": {
             "target": "Package",

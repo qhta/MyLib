@@ -3,6 +3,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
+using Qhta.UnicodeBuild.ViewModels;
+
+using Syncfusion.UI.Xaml.TreeView.Engine;
+
 namespace Qhta.UnicodeBuild
 {
   public partial class MainWindow : Window
@@ -28,7 +32,7 @@ namespace Qhta.UnicodeBuild
           var keyEventArgs = new KeyEventArgs(
             Keyboard.PrimaryDevice,
             PresentationSource.FromVisual(focusedControl)!,
-            0, 
+            0,
             Key.Return)
           {
             RoutedEvent = Keyboard.KeyDownEvent
@@ -60,8 +64,8 @@ namespace Qhta.UnicodeBuild
     {
       if (e.LeftButton == MouseButtonState.Pressed) return;
 
-      var ms =(DateTime.Now - _clickTime!).TotalMilliseconds;
-      if (ms< 1000) return;
+      var ms = (DateTime.Now - _clickTime!).TotalMilliseconds;
+      if (ms < 1000) return;
       //Debug.WriteLine($"MouseMove ({ms})");
       Point mousePos = e.GetPosition(this);
       Vector diff = _startPoint - mousePos;
@@ -103,54 +107,49 @@ namespace Qhta.UnicodeBuild
 
     private void Window_DragEnter(object sender, DragEventArgs e)
     {
-      Debug.WriteLine($"Drag Enter ");
       if (e.Data.GetDataPresent(typeof(TabItem)))
       {
+        Debug.WriteLine($"Drag Enter ");
         e.Effects = DragDropEffects.Move;
-      }
-      else
-      {
-        e.Effects = DragDropEffects.None;
+        e.Handled = true;
       }
     }
 
     private void Window_DragOver(object sender, DragEventArgs e)
     {
-      Point dropPosition = e.GetPosition(this);
-      if (e.Data.GetDataPresent(typeof(TabItem)))
+      if (e.Data.GetData(typeof(TabItem)) is TabItem tabItem)
       {
+        Point dropPosition = e.GetPosition(this);
         e.Effects = DragDropEffects.Move;
+        Debug.WriteLine($"Drag Over ({dropPosition.X}, {dropPosition.Y}) {tabItem.Header} -> {e.Effects}");
+        e.Handled = true;
       }
-      else
-      {
-        e.Effects = DragDropEffects.None;
-      }
-      Debug.WriteLine($"Drag Over ({dropPosition.X}, {dropPosition.Y}) -> {e.Effects}");
     }
 
     private void Window_Drop(object sender, DragEventArgs e)
     {
-      Point dropPosition = e.GetPosition(this);
-      if (e.Data.GetDataPresent(typeof(TabItem)))
+      if (e.Data.GetData(typeof(TabItem)) is TabItem tabItem)
       {
-        if (e.Data.GetData(typeof(TabItem)) is TabItem tabItem)
+        Point dropPosition = e.GetPosition(this);
+        e.Effects = DragDropEffects.Move;
+        // Check if the drop position is outside the bounds of the MainWindow
+        if (dropPosition.X < 0 || dropPosition.Y < 0 || dropPosition.X > this.ActualWidth || dropPosition.Y > this.ActualHeight)
         {
-          e.Effects = DragDropEffects.Move;
-          // Check if the drop position is outside the bounds of the MainWindow
-          if (dropPosition.X < 0 || dropPosition.Y < 0 || dropPosition.X > this.ActualWidth || dropPosition.Y > this.ActualHeight)
-          {
-            // Remove the TabItem from the original TabControlExt
-            TabControl? originalTabControl = tabItem.Parent as TabControl;
-            originalTabControl?.Items.Remove(tabItem);
+          // Remove the TabItem from the original TabControlExt
+          TabControl? originalTabControl = tabItem.Parent as TabControl;
+          originalTabControl?.Items.Remove(tabItem);
 
-            // Create and show the new window
-            NewWindow newWindow = new NewWindow();
-            newWindow.NewTabControl.Items.Add(tabItem);
-            newWindow.Show();
-          }
+          // Create and show the new window
+          NewWindow newWindow = new NewWindow();
+          newWindow.NewTabControl.Items.Add(tabItem);
+          newWindow.Show();
+        }
+        else
+        {
+          //Debug.WriteLine($"Drop ({dropPosition.X}, {dropPosition.Y}) {tabItem.Header} -> {e.Effects}");
+          e.Handled = true;
         }
       }
-      Debug.WriteLine($"Drag Drop ({dropPosition.X}, {dropPosition.Y}) -> {e.Effects}");
     }
   }
 }

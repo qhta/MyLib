@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Remove="Helpers\LongTextCell.cs" />
+    <Compile Remove="Helpers\TreeViewHelper.cs" />
     <Compile Remove="Models\Abbreviation.cs" />
     <Compile Remove="Models\AbbreviationCategory.cs" />
     <Compile Remove="Models\Agl.cs" />
@@ -74,6 +75,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Area.png" />
+    <None Remove="Assets\Family.png" />
+    <None Remove="Assets\Language.png" />
+    <None Remove="Assets\Notation.png" />
+    <None Remove="Assets\Script.png" />
+    <None Remove="Assets\Set.png" />
+    <None Remove="Assets\Subset.png" />
+    <None Remove="Assets\_Empty.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EntityFrameworkCore.Jet" Version="9.0.0-beta.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
@@ -89,12 +101,40 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.4" />
     <PackageReference Include="Qhta.MVVM" Version="4.2.0" />
     <PackageReference Include="Qhta.WPF.Converters" Version="1.4.0" />
-    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="29.1.37" />
-    <PackageReference Include="Syncfusion.SfInput.WPF" Version="29.1.37" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="29.1.37" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="29.1.37" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="29.1.37" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="29.1.38" />
+    <PackageReference Include="Syncfusion.SfInput.WPF" Version="29.1.38" />
+    <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="29.1.38" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="29.1.38" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="29.1.38" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="29.1.38" />
     <PackageReference Include="System.Data.OleDb" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Area.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Family.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Language.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Notation.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Script.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Set.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Subset.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\_Empty.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

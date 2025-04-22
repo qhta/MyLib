@@ -15,6 +15,7 @@
   <helpers:RangeModelComparer x:Key="RangeModelComparer"/>
   <helpers:RangeModelValueConverter x:Key="RangeModelValueConverter"/>
   <converters:NegateValueConverter x:Key="NegateValueConverter"/>
+  <helpers:WritingSystemTypeToImageConverter x:Key="TypeToImageConverter" />
 
   <ContextMenu x:Key="CommonContextMenu">
     <MenuItem Header="Copy" Command="Copy"/>

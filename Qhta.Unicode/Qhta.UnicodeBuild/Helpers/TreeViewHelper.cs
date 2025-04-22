@@ -1,4 +1,6 @@
 ﻿using System.Windows.Controls;
+using Syncfusion.UI.Xaml.TreeView;
+using TreeViewItem = System.Windows.Controls.TreeViewItem;
 
 namespace Qhta.UnicodeBuild.Helpers;
 
@@ -37,4 +39,37 @@ public static class TreeViewHelper
     return null;
   }
 
+
+  public static void SetSelectedItemInTreeView(this SfTreeView treeView, object selectedItem)
+  {
+    var treeViewItem = FindTreeViewItem(treeView, selectedItem);
+    if (treeViewItem != null)
+    {
+      treeViewItem.IsSelected = true;
+      treeViewItem.BringIntoView();
+    }
+  }
+
+  public static TreeViewItem? FindTreeViewItem(SfTreeView? container, object item)
+  {
+    if (container == null)
+      return null;
+
+    //if (container.DataContext.Equals(item))
+    //  return container as TreeViewItem;
+
+    //for (int i = 0; i < container.Items.Count; i++)
+    //{
+    //  if (container.ItemContainerGenerator.ContainerFromIndex(i) is TreeViewItem childContainer)
+    //  {
+    //    childContainer.IsExpanded = true;
+    //    childContainer.UpdateLayout();
+
+    //    var result = FindTreeViewItem(childContainer, item);
+    //    if (result != null)
+    //      return result;
+    //  }
+    //}
+    return null;
+  }
 }
