@@ -86,6 +86,11 @@
       <sf:SfTreeView.ItemTemplate>
         <DataTemplate>
           <StackPanel Orientation="Horizontal">
+            <StackPanel.ToolTip>
+              <ToolTip>
+                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Width="200" />
+              </ToolTip>
+            </StackPanel.ToolTip>
             <Image Source="{Binding Type, Converter={StaticResource TypeToImageConverter}}"
                    Width="24" Height="24" Stretch="Uniform"/>
             <TextBlock Text="{Binding Name}"/>
@@ -117,12 +122,13 @@
           Width="150"/>
         <sf:GridComboBoxColumn
           HeaderText="Parent" 
-          DisplayMemberPath="Name"
+          DisplayMemberPath="FullName"
           SortMode="Display"
           MappingName="Parent"
           Width="150"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableWritingSystemParents}"/>
+            Path=Instance.SelectableWritingSystems}"
+          />
         <sf:GridCheckBoxColumn
           HeaderText="IsUsed"
           MappingName="IsUsed"/>
@@ -133,7 +139,8 @@
           MappingName="Type" 
           SelectedValuePath="Id"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.WritingSystemTypes}"/>
+            Path=Instance.WritingSystemTypes}"
+          />
         <sf:GridComboBoxColumn
           HeaderText="Kind" 
           DisplayMemberPath="Kind"
@@ -168,7 +175,8 @@
           Width="420"
           TextWrapping="Wrap"
           VerticalAlignment="Top"
-          CellTemplate="{StaticResource LongTextCellTemplate}"/>
+          CellTemplate="{StaticResource LongTextCellTemplate}"
+          EditTemplate="{StaticResource LongTextEditTemplate}"/>
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
   </Grid>

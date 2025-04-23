@@ -68,9 +68,18 @@ public class _ViewModels: IDisposable
   //public IEnumerable<WritingSystemTypeEnum> WritingSystemTypes { get; } = Enum.GetValues(typeof(WritingSystemTypeEnum)).Cast<WritingSystemTypeEnum>();
   // public IEnumerable<WritingSystemKindEnum> WritingSystemKinds { get; } = Enum.GetValues(typeof(WritingSystemKindEnum)).Cast<WritingSystemKindEnum>();
 
-  public IEnumerable<WritingSystem> SelectableWritingSystems => _Context.WritingSystems.OrderBy(ws => ws.Name).ToList();
-  public IEnumerable<WritingSystem> SelectableWritingSystemParents => _Context.WritingSystems.OrderBy(ws=>ws.Name).ToList();
+  public IEnumerable<WritingSystemViewModel> SelectableWritingSystems
+  {
+    get
+    {
+      var list = _ViewModels.Instance.AllWritingSystems
+        .OrderBy(vm => vm.FullName).ToList();
+      list.Insert(0, dummyWritingSystemViewModel);
+      return list;
+    }
+  }
 
+  readonly WritingSystemViewModel dummyWritingSystemViewModel = new WritingSystemViewModel(new WritingSystem { Name = "<null>" });
   public void Dispose()
   {
     _Context.SaveChanges();

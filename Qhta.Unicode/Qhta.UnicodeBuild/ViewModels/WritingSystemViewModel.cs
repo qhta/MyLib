@@ -36,6 +36,9 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  public string FullName => Model.Name +" " +Type.ToString()?.ToLower();
+
+
   public WritingSystemTypeEnum? Type
   {
     get => Model.Type;
@@ -181,15 +184,35 @@ public partial class WritingSystemViewModel(WritingSystem model)
   //  }
   //}
 
-  public virtual WritingSystem? Parent
+  public virtual WritingSystemViewModel? Parent
   {
-    get => Model.ParentSystem;
+    get => _ViewModels.Instance.AllWritingSystems.FirstOrDefault(vm => vm.Id==Model.Parent);
     set
     {
-      if (Model.ParentSystem != value)
+      var parentId = value?.Id;
+      if (parentId == 0)
+        parentId = null;
+      if (Model.Parent != parentId)
       {
-        Model.ParentSystem = value;
+        if (Parent != null)
+        {
+          Parent.Children?.Remove(this);
+        }
+        else
+        {
+          _ViewModels.Instance.TopWritingSystems.Remove(this);
+        }
+        Model.Parent = parentId;
         NotifyPropertyChanged(nameof(Parent));
+        if (Parent?.Children != null)
+        {
+          Parent.Children?.Add(this);
+          Parent.NotifyPropertyChanged(nameof(Children));
+        }
+        else
+        {
+          _ViewModels.Instance.TopWritingSystems.Add(this);
+        }
       }
     }
   }
@@ -208,8 +231,6 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  public virtual IEnumerable<WritingSystem>? SelectableWritingSystemParents => _ViewModels.Instance.SelectableWritingSystemParents;
-
   public virtual WritingSystemsCollection? Children
   {
     get
@@ -218,7 +239,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
       {
         if (Model.Children == null)
           return null;
-        _Children = new WritingSystemsCollection(Model.Children.ToList());
+        _Children = new WritingSystemsCollection(Model.Children.OrderBy(ws=>ws.Name).ToList());
       }
       return _Children;
     }
