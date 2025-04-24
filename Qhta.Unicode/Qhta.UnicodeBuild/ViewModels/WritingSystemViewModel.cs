@@ -192,8 +192,8 @@ public partial class WritingSystemViewModel(WritingSystem model)
       var parentId = value?.Id;
       if (parentId == 0)
         parentId = null;
-      if (Model.Parent != parentId)
-      {
+      //if (Model.Parent != parentId)
+      //{
         if (Parent != null)
         {
           Parent.Children?.Remove(this);
@@ -213,7 +213,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
         {
           _ViewModels.Instance.TopWritingSystems.Add(this);
         }
-      }
+      //}
     }
   }
 
@@ -239,10 +239,18 @@ public partial class WritingSystemViewModel(WritingSystem model)
       {
         if (Model.Children == null)
           return null;
-        _Children = new WritingSystemsCollection(Model.Children.OrderBy(ws=>ws.Name).ToList());
+        _Children = new WritingSystemsCollection(this, Model.Children.OrderBy(ws=>ws.Name).ToList());
+        _Children.CollectionChanged += Children_CollectionChanged;
       }
       return _Children;
     }
+    //set => _Children = value;
+  }
+
+
+  private void Children_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+  {
+    //Debug.WriteLine($"Children_CollectionChanged({sender}, {e.Action}, {e.NewItems?.Cast<WritingSystemViewModel>().FirstOrDefault()}, {e.NewStartingIndex})");
   }
 
   private WritingSystemsCollection? _Children;

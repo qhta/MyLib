@@ -16,6 +16,8 @@ using Syncfusion.UI.Xaml.ScrollAxis;
 using Syncfusion.UI.Xaml.TreeView;
 using Syncfusion.UI.Xaml.TreeView.Engine;
 
+using DropPosition = Syncfusion.UI.Xaml.TreeView.DropPosition;
+
 namespace Qhta.UnicodeBuild.Views
 {
   /// <summary>
@@ -93,8 +95,27 @@ namespace Qhta.UnicodeBuild.Views
     {
       TreeViewNode draggingNode = e.DraggingNodes.First();
       TreeViewNode targetNode = e.TargetNode;
-      if (draggingNode.Content is WritingSystemViewModel item && targetNode.Content is WritingSystemViewModel target)
-        Debug.WriteLine($"Item dropped {item} -> {target}");
+      if (draggingNode.Content is WritingSystemViewModel item && targetNode.Content is WritingSystemViewModel target && target!=item)
+      {
+        //Debug.WriteLine($"Item dropped {item} -({e.DropPosition})-> {target}");
+        WritingSystemViewModel? parent = target;
+        if (e.DropPosition is DropPosition.DropBelow or DropPosition.DropAbove)
+          parent = target.Parent;
+        if (parent != null)
+        {
+          //Debug.WriteLine($"{parent}.Children = {parent.ChildrenCount}");
+          if (parent.Children != null && parent.Children.Contains(item))
+          {
+            //Debug.WriteLine($"Removing {item} from {parent}");
+            parent.Children.Remove(item);
+          }
+          item.Parent = parent;
+        }
+        else
+        {
+          item.Parent = parent;
+        }
+      }
     }
   }
 }
