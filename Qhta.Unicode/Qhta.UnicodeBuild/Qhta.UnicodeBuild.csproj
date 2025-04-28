@@ -100,6 +100,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.4" />
     <PackageReference Include="Prism.Wpf" Version="9.0.537" />
+    <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
     <PackageReference Include="Qhta.MVVM" Version="4.2.0" />
     <PackageReference Include="Qhta.WPF.Converters" Version="1.4.0" />
     <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="29.1.39" />

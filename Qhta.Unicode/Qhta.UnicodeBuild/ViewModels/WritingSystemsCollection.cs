@@ -117,4 +117,14 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
     };
     vmWindow.Show();
   }
+
+  public WritingSystemViewModel? NewWritingSystem
+  {
+    get
+    {
+      var data = new WritingSystem();
+      var viewModel = new WritingSystemViewModel(data);
+      return viewModel;
+    }
+  }
 }

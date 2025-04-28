@@ -949,6 +949,31 @@
           "Microsoft.WindowsDesktop.App.WPF"
         ]
       },
+      "PropertyTools/3.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/PropertyTools.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/PropertyTools.dll": {}
+        }
+      },
+      "PropertyTools.Wpf/3.1.0": {
+        "type": "package",
+        "dependencies": {
+          "PropertyTools": "3.1.0",
+          "System.ComponentModel.Annotations": "4.6.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/PropertyTools.Wpf.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/PropertyTools.Wpf.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
       "Qhta.Collections/2.0.0": {
         "type": "package",
         "compile": {
@@ -1250,6 +1275,19 @@
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.ComponentModel.Annotations/4.6.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.1/System.ComponentModel.Annotations.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/System.ComponentModel.Annotations.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Composition/7.0.0": {
@@ -3458,6 +3496,34 @@
         "prism.wpf.nuspec"
       ]
     },
+    "PropertyTools/3.1.0": {
+      "sha512": "NAbA0+9rXe3L372/A4QOuCt0UCw9iPKI4Hkeu8PycC9TSJmEpsAgRb/qdXaPLkE+Z3zT3n1lPIGL7Oi+WBltqg==",
+      "type": "package",
+      "path": "propertytools/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net45/PropertyTools.dll",
+        "lib/netstandard2.0/PropertyTools.dll",
+        "propertytools.3.1.0.nupkg.sha512",
+        "propertytools.nuspec"
+      ]
+    },
+    "PropertyTools.Wpf/3.1.0": {
+      "sha512": "e1CyxgZ+6RUeEHXTU0+ozNgdQIYciouu4I/9ygSaGn6v8ftzJ/us/FOlZyHyhf7QNakGH0Jds6eMZ45CM3ES3w==",
+      "type": "package",
+      "path": "propertytools.wpf/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net45/PropertyTools.Wpf.dll",
+        "lib/netcoreapp3.0/PropertyTools.Wpf.dll",
+        "propertytools.wpf.3.1.0.nupkg.sha512",
+        "propertytools.wpf.nuspec"
+      ]
+    },
     "Qhta.Collections/2.0.0": {
       "sha512": "VMddBExgPXLQ6XEoSZu2uQzs/T0RyycOx8R9qOJeq+2DjphmRFbQJMU+8EyIu0a9iOmJJ3XZBXXSxSROxng3cw==",
       "type": "package",
@@ -3894,6 +3960,95 @@
         "system.collections.immutable.8.0.0.nupkg.sha512",
         "system.collections.immutable.nuspec",
         "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.ComponentModel.Annotations/4.6.0": {
+      "sha512": "pOd+UhZ3X8xfwKDlgAzowUJNjp8VYVmOHZm++vCd0kq1HZ0zK3mNo2yRXjYgv7Ik/Xi43fmJfND2PLEsQSALCg==",
+      "type": "package",
+      "path": "system.componentmodel.annotations/4.6.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/net461/System.ComponentModel.Annotations.dll",
+        "lib/netcore50/System.ComponentModel.Annotations.dll",
+        "lib/netstandard1.4/System.ComponentModel.Annotations.dll",
+        "lib/netstandard2.0/System.ComponentModel.Annotations.dll",
+        "lib/netstandard2.1/System.ComponentModel.Annotations.dll",
+        "lib/netstandard2.1/System.ComponentModel.Annotations.xml",
+        "lib/portable-net45+win8/_._",
+        "lib/win8/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/net461/System.ComponentModel.Annotations.dll",
+        "ref/net461/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/System.ComponentModel.Annotations.dll",
+        "ref/netcore50/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/de/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/es/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/fr/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/it/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/ja/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/ko/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/ru/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/zh-hans/System.ComponentModel.Annotations.xml",
+        "ref/netcore50/zh-hant/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/System.ComponentModel.Annotations.dll",
+        "ref/netstandard1.1/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/de/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/es/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/fr/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/it/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/ja/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/ko/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/ru/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/zh-hans/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.1/zh-hant/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/System.ComponentModel.Annotations.dll",
+        "ref/netstandard1.3/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/de/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/es/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/fr/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/it/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/ja/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/ko/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/ru/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/zh-hans/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.3/zh-hant/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/System.ComponentModel.Annotations.dll",
+        "ref/netstandard1.4/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/de/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/es/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/fr/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/it/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/ja/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/ko/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/ru/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/zh-hans/System.ComponentModel.Annotations.xml",
+        "ref/netstandard1.4/zh-hant/System.ComponentModel.Annotations.xml",
+        "ref/netstandard2.0/System.ComponentModel.Annotations.dll",
+        "ref/netstandard2.0/System.ComponentModel.Annotations.xml",
+        "ref/netstandard2.1/System.ComponentModel.Annotations.dll",
+        "ref/netstandard2.1/System.ComponentModel.Annotations.xml",
+        "ref/portable-net45+win8/_._",
+        "ref/win8/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.componentmodel.annotations.4.6.0.nupkg.sha512",
+        "system.componentmodel.annotations.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Composition/7.0.0": {
@@ -4464,6 +4619,7 @@
       "Microsoft.Extensions.Configuration.Binder >= 9.0.4",
       "Microsoft.Extensions.Configuration.Json >= 9.0.4",
       "Prism.Wpf >= 9.0.537",
+      "PropertyTools.Wpf >= 3.1.0",
       "Qhta.MVVM >= 4.2.0",
       "Qhta.WPF.Converters >= 1.4.0",
       "Syncfusion.PropertyGrid.WPF >= 29.1.39",
@@ -4566,6 +4722,10 @@
           "Prism.Wpf": {
             "target": "Package",
             "version": "[9.0.537, )"
+          },
+          "PropertyTools.Wpf": {
+            "target": "Package",
+            "version": "[3.1.0, )"
           },
           "Qhta.MVVM": {
             "target": "Package",

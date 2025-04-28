@@ -662,6 +662,26 @@
           }
         }
       },
+      "PropertyTools/3.1.0": {
+        "runtime": {
+          "lib/netstandard2.0/PropertyTools.dll": {
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.1.0.0"
+          }
+        }
+      },
+      "PropertyTools.Wpf/3.1.0": {
+        "dependencies": {
+          "PropertyTools": "3.1.0",
+          "System.ComponentModel.Annotations": "4.6.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/PropertyTools.Wpf.dll": {
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.1.0.0"
+          }
+        }
+      },
       "Qhta.Collections/2.0.0": {
         "runtime": {
           "lib/net7.0/Qhta.Collections.dll": {
@@ -862,6 +882,14 @@
           "lib/net8.0/System.Collections.Immutable.dll": {
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.23.53103"
+          }
+        }
+      },
+      "System.ComponentModel.Annotations/4.6.0": {
+        "runtime": {
+          "lib/netstandard2.1/System.ComponentModel.Annotations.dll": {
+            "assemblyVersion": "4.3.0.0",
+            "fileVersion": "4.700.19.46214"
           }
         }
       },
@@ -1374,6 +1402,20 @@
       "path": "prism.wpf/9.0.537",
       "hashPath": "prism.wpf.9.0.537.nupkg.sha512"
     },
+    "PropertyTools/3.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NAbA0+9rXe3L372/A4QOuCt0UCw9iPKI4Hkeu8PycC9TSJmEpsAgRb/qdXaPLkE+Z3zT3n1lPIGL7Oi+WBltqg==",
+      "path": "propertytools/3.1.0",
+      "hashPath": "propertytools.3.1.0.nupkg.sha512"
+    },
+    "PropertyTools.Wpf/3.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-e1CyxgZ+6RUeEHXTU0+ozNgdQIYciouu4I/9ygSaGn6v8ftzJ/us/FOlZyHyhf7QNakGH0Jds6eMZ45CM3ES3w==",
+      "path": "propertytools.wpf/3.1.0",
+      "hashPath": "propertytools.wpf.3.1.0.nupkg.sha512"
+    },
     "Qhta.Collections/2.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1506,6 +1548,13 @@
       "sha512": "sha512-AurL6Y5BA1WotzlEvVaIDpqzpIPvYnnldxru8oXJU2yFxFUy3+pNXjXd1ymO+RA0rq0+590Q8gaz2l3Sr7fmqg==",
       "path": "system.collections.immutable/8.0.0",
       "hashPath": "system.collections.immutable.8.0.0.nupkg.sha512"
+    },
+    "System.ComponentModel.Annotations/4.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pOd+UhZ3X8xfwKDlgAzowUJNjp8VYVmOHZm++vCd0kq1HZ0zK3mNo2yRXjYgv7Ik/Xi43fmJfND2PLEsQSALCg==",
+      "path": "system.componentmodel.annotations/4.6.0",
+      "hashPath": "system.componentmodel.annotations.4.6.0.nupkg.sha512"
     },
     "System.Composition/7.0.0": {
       "type": "package",

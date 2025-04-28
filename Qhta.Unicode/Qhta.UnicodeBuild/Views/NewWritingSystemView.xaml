@@ -1,132 +1,58 @@
 ﻿<UserControl x:Class="Qhta.UnicodeBuild.Views.NewWritingSystemView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:views="clr-namespace:Qhta.UnicodeBuild.Views"
-             xmlns:vm="clr-namespace:Qhta.UnicodeBuild.ViewModels"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
-             xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
-             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=System.ComponentModel.TypeConverter"
-             xmlns:collections="clr-namespace:System.Collections;assembly=System.Runtime"
-             xmlns:system="clr-namespace:System;assembly=System.Runtime"
-             xmlns:converters="clr-namespace:Qhta.WPF.Converters;assembly=Qhta.WPF.Converters"
+             xmlns:pt="http://propertytools.org/wpf"
+             xmlns:vm="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance vm:WritingSystemViewModel}"
              d:DesignHeight="350" d:DesignWidth="400">
+  <UserControl.Resources>
+    <DataTemplate x:Key="EmptyDataTemplate">
+
+    </DataTemplate>
+    <ControlTemplate x:Key="CategoryControlTemplate1"  TargetType="{x:Type HeaderedContentControl}">
+      <Grid Margin="0 8 0 0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ContentPresenter ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+        <!--<Separator Grid.Column="1" Margin="4 3 0 0"/>-->
+        <ContentPresenter Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" />
+      </Grid>
+    </ControlTemplate>
+  </UserControl.Resources>
   <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto"/>
-      <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="30"/>
-      <RowDefinition Height="30"/>
-      <RowDefinition Height="30"/>
-      <RowDefinition Height="30"/>
-      <RowDefinition Height="30"/>
-      <RowDefinition Height="30"/>
-      <RowDefinition Height="30"/>
-      <RowDefinition Height="30"/>
-      <RowDefinition Height="30"/>
-      <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
-    <Label 
-      Grid.Column="0" Grid.Row="0" 
-      Content="Name"/>
-    <TextBox 
-      Grid.Column="1" Grid.Row="0" 
-      Margin="10,6"
-      Text="{Binding Name}"/>
-    <Label 
-      Grid.Column="0" Grid.Row="1" 
-      Content="Parent"/>
-    <ComboBox 
-      Grid.Column="1" Grid.Row="1" 
-      Margin="10,6"
-      HorizontalAlignment="Left"
-      Width="250"
-      SelectedItem="{Binding Parent}"
-      DisplayMemberPath="FullName"
-      ItemsSource="{Binding Source={StaticResource ViewModels}, 
-           Path=Instance.SelectableWritingSystems}"/>
-    <Label 
-      Grid.Column="0" Grid.Row="2" 
-      Content="Type"/>
-    <ComboBox 
-      Grid.Column="1" Grid.Row="2" 
-      Margin="10,6"
-      HorizontalAlignment="Left"
-      Width="150"
-      SelectedItem="{Binding Type}"
-      DisplayMemberPath="Type" 
-      SelectedValuePath="Id"
-      ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.WritingSystemTypes}"/>
-    <Label 
-      Grid.Column="0" Grid.Row="3" 
-      Content="Kind"/>
-    <ComboBox 
-      Grid.Column="1" Grid.Row="3" 
-      Margin="10,6"
-      HorizontalAlignment="Left"
-      Width="150"
-      SelectedItem="{Binding Kind}"
-      DisplayMemberPath="Kind" 
-      SelectedValuePath="Id"
-      ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.WritingSystemKinds}"/>
-    <Label 
-      Grid.Column="0" Grid.Row="4" 
-      Content="Key phrase"/>
-    <TextBox 
-      Grid.Column="1" Grid.Row="4" 
-      Margin="10,6"
-      Text="{Binding KeyPhrase}"/>
-    <Label 
-      Grid.Column="0" Grid.Row="5" 
-      Content="Ctg"/>
-    <TextBox 
-      Grid.Column="1" Grid.Row="5" 
-      Margin="10,6"
-      Width="60"
-      HorizontalAlignment="Left"
-      Text="{Binding Ctg}"/>
-    <Label 
-      Grid.Column="0" Grid.Row="6" 
-      Content="ISO"
-      VerticalContentAlignment="Center"/>
-    <TextBox 
-      Grid.Column="1" Grid.Row="6" 
-      Margin="10,6"
-      Width="60"
-      HorizontalAlignment="Left"
-      Text="{Binding Iso}"/>
-    <Label 
-      Grid.Column="0" Grid.Row="7" 
-      Content="Abbr"/>
-    <TextBox 
-      Grid.Column="1" Grid.Row="7" 
-      Margin="10,6"
-      Width="60"
-      HorizontalAlignment="Left"
-      Text="{Binding Abbr}"/>
-    <Label 
-      Grid.Column="0" Grid.Row="8" 
-      Content="Ext"/>
-    <TextBox 
-      Grid.Column="1" Grid.Row="8" 
-      Margin="10,6"
-      Width="60"
-      HorizontalAlignment="Left"
-      Text="{Binding Ext}"/>
-    <Label 
-      Grid.Column="0" Grid.Row="9" 
-      Content="Description"/>
-    <TextBox 
-      Grid.Column="1" Grid.Row="9" 
-      Margin="10,6"
-      TextWrapping="Wrap"
-      Text="{Binding Ext}"/>
+    <pt:PropertyGrid
+      DataContext="{StaticResource ViewModels}"
+      SelectedObject="{Binding Instance.AllWritingSystems.NewWritingSystem}"
+      ControlFactory="{StaticResource PropertyControlFactory}"
+      Operator="{StaticResource PropertyModelOperator}"
+      ShowDeclaredOnly="True"
+      ShowReadOnlyProperties="false"
+      TabVisibility="Collapsed"
+      CategoryControlType="Template"
+      CategoryHeaderTemplate="{StaticResource EmptyDataTemplate}"
+      CategoryControlTemplate="{StaticResource CategoryControlTemplate1}"
+      />
+    <!--
+    ControlFactory="{StaticResource CustomControlFactory}"
+      Operator="{StaticResource CustomOperator}"
+      CategoryControlTemplate="{StaticResource CategoryControlTemplate1}"
+      CategoryHeaderTemplate="{StaticResource HeaderTemplate1}"
+      TabHeaderTemplate="{StaticResource HeaderTemplate2}"
+      TabPageHeaderTemplate="{StaticResource PageHeaderTemplate1}"
+
+      Margin="8" 
+      DescriptionIcon="Images\lightbulb.png"
+      VerticalPropertySpacing="{Binding ElementName=VerticalPropertySpacing, Path=Value}"-->
+
   </Grid>
 </UserControl>

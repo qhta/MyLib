@@ -79,25 +79,12 @@ public class _ViewModels: IDisposable
     }
   }
 
-  readonly WritingSystemViewModel dummyWritingSystemViewModel = new WritingSystemViewModel(new WritingSystem { Name = "<null>" });
+  readonly WritingSystemViewModel dummyWritingSystemViewModel = new WritingSystemViewModel(new WritingSystem { Name = "" });
   public void Dispose()
   {
     _Context.SaveChanges();
     _Context.Dispose();
   }
-
-  //public WritingSystemViewModel? NewWritingSystem
-  //{
-  //  get
-  //  {
-  //    var data = new WritingSystem();
-  //    data.Id = _ViewModels.Instance.GetNewWritingSystemId();
-  //    var viewModel = new WritingSystemViewModel(data);
-  //    //_ViewModels.Instance.AllWritingSystems.Add(viewModel);
-  //    //_ViewModels.Instance.TopWritingSystems.Add(viewModel);
-  //    return viewModel;
-  //  }
-  //}
 
   public int GetNewWritingSystemId()
   {

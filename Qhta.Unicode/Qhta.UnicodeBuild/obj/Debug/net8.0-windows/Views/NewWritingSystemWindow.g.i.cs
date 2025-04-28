@@ -53,7 +53,7 @@ namespace Qhta.UnicodeBuild.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Qhta.UnicodeBuild;V1.0.0.0;component/views/newwritingsystemwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Qhta.UnicodeBuild;component/views/newwritingsystemwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\NewWritingSystemWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -1,6 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Windows.Input;
-
+using PropertyTools.DataAnnotations;
 using Qhta.MVVM;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
@@ -10,6 +11,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 public partial class WritingSystemViewModel(WritingSystem model)
   : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>
 {
+  [Browsable(false)]
   public int? Id
   {
     get => Model.Id;
@@ -36,6 +38,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  [Browsable(false)]
   public string FullName => Model.Name +" " +Type.ToString()?.ToLower();
 
 
@@ -65,6 +68,10 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  [DisplayName("Parent")]
+  [ItemsSourceProperty(nameof(Parents))]
+  [DisplayMemberPath("FullName")]
+  [SelectedValuePath("Id")]
   public int? ParentId
   {
     get => Model.ParentId;
@@ -77,8 +84,6 @@ public partial class WritingSystemViewModel(WritingSystem model)
       }
     }
   }
-
-
 
   public string? KeyPhrase
   {
@@ -145,6 +150,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  [DataType(DataType.MultilineText)]
   public string? Description
   {
     get => Model.Description;
@@ -184,6 +190,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
   //  }
   //}
 
+  [Browsable(false)]
   public virtual WritingSystemViewModel? Parent
   {
     get => _ViewModels.Instance.AllWritingSystems.FirstOrDefault(vm => vm.Id==Model.ParentId);
@@ -217,7 +224,11 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  [Browsable(false)]
+  public IEnumerable<WritingSystemViewModel> Parents => _ViewModels.Instance.SelectableWritingSystems;
+
   private bool _IsUsed;
+  [Browsable(false)]
   public virtual bool IsUsed
   {
     get => _IsUsed;
@@ -231,6 +242,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  [Browsable(false)]
   public virtual WritingSystemsCollection? Children
   {
     get
@@ -254,10 +266,11 @@ public partial class WritingSystemViewModel(WritingSystem model)
   }
 
   private WritingSystemsCollection? _Children;
-
+  [Browsable(false)]
   public int ChildrenCount => Children?.Count ?? 0;
 
   private bool _isExpanded;
+  [Browsable(false)]
   public bool IsExpanded
   {
     get => _isExpanded;
@@ -283,11 +296,11 @@ public partial class WritingSystemViewModel(WritingSystem model)
     return Name;
   }
 
-  public string? LongText { get => Description; set => Description = value; }
-  public bool CanExpandLongText => !string.IsNullOrEmpty(Model.Description);
+  [Browsable(false)] public string? LongText { get => Description; set => Description = value; }
+  [Browsable(false)] public bool CanExpandLongText => !string.IsNullOrEmpty(Model.Description);
 
   private bool _IsLongTextExpanded = false;
-  public bool IsLongTextExpanded
+  [Browsable(false)] public bool IsLongTextExpanded
   {
     get => _IsLongTextExpanded;
     set

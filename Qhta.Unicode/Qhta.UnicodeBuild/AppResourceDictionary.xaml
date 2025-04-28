@@ -16,6 +16,8 @@
   <helpers:RangeModelValueConverter x:Key="RangeModelValueConverter"/>
   <converters:NegateValueConverter x:Key="NegateValueConverter"/>
   <helpers:WritingSystemTypeToImageConverter x:Key="TypeToImageConverter" />
+  <helpers:PropertyControlFactory x:Key="PropertyControlFactory"/>
+  <helpers:PropertyModelOperator x:Key="PropertyModelOperator"/>
 
   <ContextMenu x:Key="CommonContextMenu">
     <MenuItem Header="Copy" Command="Copy"/>

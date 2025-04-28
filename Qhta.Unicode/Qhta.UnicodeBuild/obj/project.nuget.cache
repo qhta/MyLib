@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jTs/zoxYMi0=",
+  "dgSpecHash": "f2+kVpgOO04=",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Qhta.UnicodeBuild.csproj",
   "expectedPackageFiles": [
@@ -46,6 +46,8 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\prism.core\\9.0.537\\prism.core.9.0.537.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\prism.events\\9.0.537\\prism.events.9.0.537.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\prism.wpf\\9.0.537\\prism.wpf.9.0.537.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\propertytools\\3.1.0\\propertytools.3.1.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\propertytools.wpf\\3.1.0\\propertytools.wpf.3.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\2.0.0\\qhta.collections.2.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\4.2.0\\qhta.mvvm.4.2.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\3.0.0\\qhta.observableobjects.3.0.0.nupkg.sha512",
@@ -65,6 +67,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\syncfusion.tools.wpf\\29.1.39\\syncfusion.tools.wpf.29.1.39.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\8.0.0\\system.collections.immutable.8.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.componentmodel.annotations\\4.6.0\\system.componentmodel.annotations.4.6.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.composition\\7.0.0\\system.composition.7.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.composition.attributedmodel\\7.0.0\\system.composition.attributedmodel.7.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.composition.convention\\7.0.0\\system.composition.convention.7.0.0.nupkg.sha512",
