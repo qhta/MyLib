@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Input;
 
 using Qhta.MVVM;
@@ -15,6 +16,7 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
   public WritingSystemsCollection(): base((item)=>item.Name)
   {
     EvaluateIsUsedCommand = new RelayCommand(EvaluateIsUsed);
+    NewWritingSystemCommand = new RelayCommand(CreateNewWritingSystem);
   }
 
   public WritingSystemsCollection(WritingSystemViewModel parent, IEnumerable<WritingSystem> ws) : this()
@@ -100,5 +102,19 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
     {
       vm.IsUsed = vm.Model.UcdBlocks?.Count > 0 || vm.Model.Children?.Count > 0 || vm.Model.UcdRanges?.Count > 0;
     }
+  }
+
+  public ICommand NewWritingSystemCommand { get; }
+
+  private void CreateNewWritingSystem()
+  {
+    var vm = new WritingSystemViewModel(new WritingSystem());
+    vm.Name = "New Writing System";
+    var vmWindow = new Views.NewWritingSystemWindow
+    {
+      DataContext = vm,
+      Owner = Application.Current.MainWindow
+    };
+    vmWindow.Show();
   }
 }

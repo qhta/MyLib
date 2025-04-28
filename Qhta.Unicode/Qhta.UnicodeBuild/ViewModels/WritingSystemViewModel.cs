@@ -67,12 +67,12 @@ public partial class WritingSystemViewModel(WritingSystem model)
 
   public int? ParentId
   {
-    get => Model.Parent;
+    get => Model.ParentId;
     set
     {
-      if (Model.Parent != value)
+      if (Model.ParentId != value)
       {
-        Model.Parent = value;
+        Model.ParentId = value;
         NotifyPropertyChanged(nameof(ParentId));
       }
     }
@@ -186,7 +186,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
 
   public virtual WritingSystemViewModel? Parent
   {
-    get => _ViewModels.Instance.AllWritingSystems.FirstOrDefault(vm => vm.Id==Model.Parent);
+    get => _ViewModels.Instance.AllWritingSystems.FirstOrDefault(vm => vm.Id==Model.ParentId);
     set
     {
       var parentId = value?.Id;
@@ -202,7 +202,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
         {
           _ViewModels.Instance.TopWritingSystems.Remove(this);
         }
-        Model.Parent = parentId;
+        Model.ParentId = parentId;
         NotifyPropertyChanged(nameof(Parent));
         if (Parent?.Children != null)
         {

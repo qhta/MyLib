@@ -22,6 +22,7 @@ using Syncfusion.UI.Xaml.TreeView.Engine;
 using Syncfusion.Windows;
 using Syncfusion.Windows.Controls.Input;
 using Syncfusion.Windows.Controls.Notification;
+using Syncfusion.Windows.PropertyGrid;
 using Syncfusion.Windows.Shared;
 using Syncfusion.Windows.Tools;
 using Syncfusion.Windows.Tools.Controls;

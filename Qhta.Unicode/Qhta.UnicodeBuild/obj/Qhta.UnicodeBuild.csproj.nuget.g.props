@@ -21,13 +21,15 @@
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\9.0.4\build\net8.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\9.0.4\build\net8.0\Microsoft.EntityFrameworkCore.Design.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgSyncfusion_Shared_WPF Condition=" '$(PkgSyncfusion_Shared_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.shared.wpf\29.1.38</PkgSyncfusion_Shared_WPF>
-    <PkgSyncfusion_Tools_WPF Condition=" '$(PkgSyncfusion_Tools_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.tools.wpf\29.1.38</PkgSyncfusion_Tools_WPF>
-    <PkgSyncfusion_Shared_Base Condition=" '$(PkgSyncfusion_Shared_Base)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.shared.base\29.1.38</PkgSyncfusion_Shared_Base>
-    <PkgSyncfusion_SfBusyIndicator_WPF Condition=" '$(PkgSyncfusion_SfBusyIndicator_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.sfbusyindicator.wpf\29.1.38</PkgSyncfusion_SfBusyIndicator_WPF>
-    <PkgSyncfusion_SfTreeView_WPF Condition=" '$(PkgSyncfusion_SfTreeView_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.sftreeview.wpf\29.1.38</PkgSyncfusion_SfTreeView_WPF>
-    <PkgSyncfusion_SfInput_WPF Condition=" '$(PkgSyncfusion_SfInput_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.sfinput.wpf\29.1.38</PkgSyncfusion_SfInput_WPF>
-    <PkgSyncfusion_SfGrid_WPF Condition=" '$(PkgSyncfusion_SfGrid_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.sfgrid.wpf\29.1.38</PkgSyncfusion_SfGrid_WPF>
+    <PkgSyncfusion_Shared_WPF Condition=" '$(PkgSyncfusion_Shared_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.shared.wpf\29.1.39</PkgSyncfusion_Shared_WPF>
+    <PkgSyncfusion_Tools_WPF Condition=" '$(PkgSyncfusion_Tools_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.tools.wpf\29.1.39</PkgSyncfusion_Tools_WPF>
+    <PkgSyncfusion_Shared_Base Condition=" '$(PkgSyncfusion_Shared_Base)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.shared.base\29.1.39</PkgSyncfusion_Shared_Base>
+    <PkgSyncfusion_SfBusyIndicator_WPF Condition=" '$(PkgSyncfusion_SfBusyIndicator_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.sfbusyindicator.wpf\29.1.39</PkgSyncfusion_SfBusyIndicator_WPF>
+    <PkgSyncfusion_SfTreeView_WPF Condition=" '$(PkgSyncfusion_SfTreeView_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.sftreeview.wpf\29.1.39</PkgSyncfusion_SfTreeView_WPF>
+    <PkgSyncfusion_SfInput_WPF Condition=" '$(PkgSyncfusion_SfInput_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.sfinput.wpf\29.1.39</PkgSyncfusion_SfInput_WPF>
+    <PkgSyncfusion_SfGrid_WPF Condition=" '$(PkgSyncfusion_SfGrid_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.sfgrid.wpf\29.1.39</PkgSyncfusion_SfGrid_WPF>
+    <PkgSyncfusion_PropertyGrid_WPF Condition=" '$(PkgSyncfusion_PropertyGrid_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.propertygrid.wpf\29.1.39</PkgSyncfusion_PropertyGrid_WPF>
+    <PkgMicrosoft_Xaml_Behaviors_Wpf Condition=" '$(PkgMicrosoft_Xaml_Behaviors_Wpf)' == '' ">C:\Users\qhta1\.nuget\packages\microsoft.xaml.behaviors.wpf\1.1.122</PkgMicrosoft_Xaml_Behaviors_Wpf>
     <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\qhta1\.nuget\packages\microsoft.codeanalysis.analyzers\3.3.4</PkgMicrosoft_CodeAnalysis_Analyzers>
     <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\qhta1\.nuget\packages\microsoft.entityframeworkcore.tools\9.0.4</PkgMicrosoft_EntityFrameworkCore_Tools>
   </PropertyGroup>

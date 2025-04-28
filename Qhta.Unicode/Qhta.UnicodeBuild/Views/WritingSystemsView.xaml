@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Qhta.UnicodeBuild.Views"
+             xmlns:views="clr-namespace:Qhta.UnicodeBuild.Views"
              xmlns:vm="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
@@ -13,6 +13,20 @@
              xmlns:converters="clr-namespace:Qhta.WPF.Converters;assembly=Qhta.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+  <UserControl.Resources>
+    <ContextMenu x:Key="WritingSystemsContextMenu">
+      <MenuItem 
+        Header="New Writing System" 
+        Command="{Binding Source={StaticResource ViewModels}, 
+          Path=Instance.AllWritingSystems.NewWritingSystemCommand}"/>
+    </ContextMenu>
+    <ContextMenu x:Key="WritingSystemsRowContextMenu">
+      <MenuItem 
+        Header="New Writing System" 
+        Command="{Binding Source={StaticResource ViewModels}, 
+          Path=Instance.AllWritingSystems.NewWritingSystemCommand}"/>
+    </ContextMenu>
+  </UserControl.Resources>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -114,7 +128,12 @@
                    AutoGenerateColumns="False"
                    SelectionUnit="Row"
                    SelectionChanged="WritingSystemsDataGrid_OnSelectionChanged"
-                   EditTrigger="OnTap">
+                   EditTrigger="OnTap"
+                   ContextMenu="{StaticResource WritingSystemsContextMenu}"
+                   RecordContextMenu="{StaticResource WritingSystemsRowContextMenu}"
+                   >
+      <!--AddNewRowPosition="Bottom"
+      AddNewRowInitiating ="WritingSystemsDataGrid_OnAddNewRowInitiating"-->
       <sf:SfDataGrid.Columns>
         <sf:GridTextColumn 
           HeaderText="Name" 
@@ -179,6 +198,17 @@
           EditTemplate="{StaticResource LongTextEditTemplate}"/>
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
+    <Button Grid.Row="1" Grid.Column="1" Width="32" Height="32"
+            Background="Transparent"
+            BorderThickness="0"
+            BorderBrush="Transparent"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Margin="0,0,20,20"
+            Command="{Binding Source={StaticResource ViewModels}, 
+              Path=Instance.AllWritingSystems.NewWritingSystemCommand}">
+          <Image Source="/Assets/Add.png"/>
+    </Button>
   </Grid>
 </UserControl>
 

@@ -11,7 +11,7 @@ public class LongTextColumn : GridTemplateColumn
 {
   public static void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
   {
-    if (e.RowIndex > 0 && sender is SfDataGrid dataGrid)
+    if (sender is SfDataGrid dataGrid && e.RowIndex > 0 && e.RowIndex <= dataGrid.View.Records.Count)
     {
       if (dataGrid.View.Records[e.RowIndex - 1].Data is ILongTextViewModel viewModel)
       {

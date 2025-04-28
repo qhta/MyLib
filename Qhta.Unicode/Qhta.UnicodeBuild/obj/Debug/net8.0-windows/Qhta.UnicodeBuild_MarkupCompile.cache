@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\App.xaml
-7196393026
+9-526938423
 
-44-2008617825
-245-306118038
-AppResourceDictionary.xaml;InvisibleWindow.xaml;MainWindow.xaml;NewWindow.xaml;Views\UcdBlocksView.xaml;Views\UcdRangesView.xaml;Views\WritingSystemsView.xaml;
+46-481519128
+2511841488362
+AppResourceDictionary.xaml;InvisibleWindow.xaml;MainWindow.xaml;NewWindow.xaml;Views\NewWritingSystemView.xaml;Views\NewWritingSystemWindow.xaml;Views\UcdBlocksView.xaml;Views\UcdRangesView.xaml;Views\WritingSystemsView.xaml;
 
 False
 

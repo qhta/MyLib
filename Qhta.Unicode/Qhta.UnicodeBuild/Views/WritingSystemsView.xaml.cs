@@ -117,5 +117,15 @@ namespace Qhta.UnicodeBuild.Views
         }
       }
     }
+
+    private void WritingSystemsDataGrid_OnAddNewRowInitiating(object? sender, AddNewRowInitiatingEventArgs e)
+    {
+      var data = new WritingSystem();
+      data.Id = _ViewModels.Instance.GetNewWritingSystemId();
+      var viewModel = new WritingSystemViewModel(data);
+      //_ViewModels.Instance.AllWritingSystems.Add(viewModel);
+      //_ViewModels.Instance.TopWritingSystems.Add(viewModel);
+      e.NewObject = viewModel;
+    }
   }
 }

@@ -917,13 +917,12 @@ public partial class _DbContext : DbContext
 
       entity.HasIndex(e => e.KeyPhrase, "KeyPhrase").IsUnique();
 
-      entity.HasIndex(e => e.Parent, "Parent");
+      entity.HasIndex(e => e.ParentId, "ParentID");
 
       entity.HasIndex(e => e.Kind, "Kind");
       entity.HasIndex(e => e.Type, "Type");
 
       entity.Property(e => e.Id)
-              .HasColumnType("counter")
               .HasColumnName("ID");
       entity.Property(e => e.Name).HasMaxLength(255);
       entity.Property(e => e.KeyPhrase).HasMaxLength(255);
@@ -934,7 +933,7 @@ public partial class _DbContext : DbContext
               .HasMaxLength(255)
               .HasColumnName("ISO");
       entity.Property(e => e.Kind).HasMaxLength(15);
-      entity.Property(e => e.Parent).HasColumnName("Parent");
+      entity.Property(e => e.ParentId).HasColumnName("ParentID");
       entity.Property(e => e.Type).HasMaxLength(10);
               
       entity.Property(e => e.Type).HasConversion<byte>();
@@ -949,7 +948,7 @@ public partial class _DbContext : DbContext
       //        .HasConstraintName("WritingSystemKindsWritingSystems");
 
       entity.HasOne(d => d.ParentSystem).WithMany(p => p.Children)
-              .HasForeignKey(d => d.Parent)
+              .HasForeignKey(d => d.ParentId)
               .HasConstraintName("WritingSystemsWritingSystems");
     });
 

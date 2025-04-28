@@ -48,7 +48,7 @@ public class _ViewModels: IDisposable
       {
         var vm= new WritingSystemViewModel(ws);
         AllWritingSystems.Add(vm);
-        if (ws.Parent==null)
+        if (ws.ParentId==null)
         {
           TopWritingSystems.Add(vm);
         }
@@ -84,5 +84,24 @@ public class _ViewModels: IDisposable
   {
     _Context.SaveChanges();
     _Context.Dispose();
+  }
+
+  //public WritingSystemViewModel? NewWritingSystem
+  //{
+  //  get
+  //  {
+  //    var data = new WritingSystem();
+  //    data.Id = _ViewModels.Instance.GetNewWritingSystemId();
+  //    var viewModel = new WritingSystemViewModel(data);
+  //    //_ViewModels.Instance.AllWritingSystems.Add(viewModel);
+  //    //_ViewModels.Instance.TopWritingSystems.Add(viewModel);
+  //    return viewModel;
+  //  }
+  //}
+
+  public int GetNewWritingSystemId()
+  {
+    var maxId = _Context.WritingSystems.Max(ws => ws.Id) ?? 0;
+    return maxId + 1;
   }
 }

@@ -14,7 +14,7 @@ public partial class WritingSystem
 
   public WritingSystemKindEnum? Kind { get; set; }
 
-  public int? Parent { get; set; }
+  public int? ParentId { get; set; }
 
   public string? KeyPhrase { get; set; }
 
