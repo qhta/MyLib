@@ -6,14 +6,14 @@
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:pt="http://propertytools.org/wpf"
              xmlns:vm="clr-namespace:Qhta.UnicodeBuild.ViewModels"
+             xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance vm:WritingSystemViewModel}"
+             d:DataContext="{Binding Source={StaticResource ViewModels}, Path=Instance.AllWritingSystems.NewWritingSystem}"
              d:DesignHeight="350" d:DesignWidth="400">
   <UserControl.Resources>
-    <DataTemplate x:Key="EmptyDataTemplate">
-
-    </DataTemplate>
-    <ControlTemplate x:Key="CategoryControlTemplate1"  TargetType="{x:Type HeaderedContentControl}">
+    <pt:ValidationErrorsToStringConverter x:Key="ValidationErrorsToStringConverter" />
+    <DataTemplate x:Key="EmptyDataTemplate"/>
+    <ControlTemplate x:Key="CategoryControlTemplate"  TargetType="{x:Type HeaderedContentControl}">
       <Grid Margin="0 8 0 0">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto"/>
@@ -28,11 +28,29 @@
         <ContentPresenter Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" />
       </Grid>
     </ControlTemplate>
+
+    <DataTemplate x:Key="ValidationErrorTemplate" DataType="{x:Type helpers:ValidationResultEx}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding ErrorMessage}" >
+        <TextBlock.Style>
+          <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="Red"/>
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding Severity}" Value="{x:Static helpers:Severity.Warning}">
+                <Setter Property="Foreground" Value="Orange"/>
+              </DataTrigger>
+              <DataTrigger Binding="{Binding Severity}" Value="{x:Null}">
+                <Setter Property="Foreground" Value="Red"/>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </TextBlock.Style>
+      </TextBlock>
+    </DataTemplate>
+
   </UserControl.Resources>
   <Grid>
     <pt:PropertyGrid
-      DataContext="{StaticResource ViewModels}"
-      SelectedObject="{Binding Instance.AllWritingSystems.NewWritingSystem}"
+      SelectedObject="{Binding}"
       ControlFactory="{StaticResource PropertyControlFactory}"
       Operator="{StaticResource PropertyModelOperator}"
       ShowDeclaredOnly="True"
@@ -40,7 +58,8 @@
       TabVisibility="Collapsed"
       CategoryControlType="Template"
       CategoryHeaderTemplate="{StaticResource EmptyDataTemplate}"
-      CategoryControlTemplate="{StaticResource CategoryControlTemplate1}"
+      CategoryControlTemplate="{StaticResource CategoryControlTemplate}"
+      ValidationErrorTemplate="{StaticResource ValidationErrorTemplate}"
       />
     <!--
     ControlFactory="{StaticResource CustomControlFactory}"

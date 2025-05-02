@@ -146,4 +146,39 @@
       </Popup>
     </Grid>
   </DataTemplate>
+
+  <helpers:MultiValueToStringConverter x:Key="MultiValueToStringConverter" />
+
+  <!--<DataTemplate x:Key="ValidationErrorTemplateEx">
+    <TextBlock TextWrapping="Wrap" Text="{Binding ErrorMessage}" >
+      <TextBlock.Style>
+        <Style TargetType="{x:Type TextBlock}">
+          <Setter Property="Foreground" Value="Red"/>
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding Severity}" Value="{x:Static helpers:Severity.Warning}">
+              <Setter Property="Foreground" Value="Orange"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Severity}" Value="{x:Null}">
+              <Setter Property="Foreground" Value="Red"/>
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </TextBlock.Style>
+    </TextBlock>
+  </DataTemplate>-->
+
+  <Style x:Key="ErrorInToolTipStyleEx" TargetType="{x:Type FrameworkElement}">
+    <Style.Triggers>
+      <Trigger Property="Validation.HasError" Value="true">
+        <Setter Property="ToolTip">
+          <Setter.Value>
+            <MultiBinding Converter="{StaticResource MultiValueToStringConverter}">
+              <Binding RelativeSource="{RelativeSource Self}" Path="(Validation.Errors)" />
+              <Binding RelativeSource="{RelativeSource Self}" Path="(Validation.Errors).Count" />
+            </MultiBinding>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
 </ResourceDictionary>

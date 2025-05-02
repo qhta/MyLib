@@ -1,17 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Windows.Input;
+﻿using System.Collections;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
+
 using PropertyTools.DataAnnotations;
+
 using Qhta.MVVM;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class WritingSystemViewModel(WritingSystem model)
-  : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>
+public class WritingSystemViewModel(WritingSystem model)
+  : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, INotifyDataErrorInfo
 {
-  [Browsable(false)]
+  public WritingSystemViewModel() : this(new WritingSystem())
+  {
+    //Debug.WriteLine($"WritingSystemViewModel() {this}");
+  }
+
+  [PropertyTools.DataAnnotations.Browsable(false)]
   public int? Id
   {
     get => Model.Id;
@@ -25,6 +34,9 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  [AutoUpdateText]
+  [PropertyTools.DataAnnotations.Description("Should not be empty.")]
+  [Required]
   public string Name
   {
     get => Model.Name;
@@ -33,13 +45,14 @@ public partial class WritingSystemViewModel(WritingSystem model)
       if (Model.Name != value)
       {
         Model.Name = value;
+        Validate(nameof(Name));
         NotifyPropertyChanged(nameof(Name));
       }
     }
   }
 
-  [Browsable(false)]
-  public string FullName => Model.Name +" " +Type.ToString()?.ToLower();
+  [PropertyTools.DataAnnotations.Browsable(false)]
+  public string FullName => Model.Name + " " + Type.ToString()?.ToLower();
 
 
   public WritingSystemTypeEnum? Type
@@ -68,7 +81,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  [DisplayName("Parent")]
+  [PropertyTools.DataAnnotations.DisplayName("Parent")]
   [ItemsSourceProperty(nameof(Parents))]
   [DisplayMemberPath("FullName")]
   [SelectedValuePath("Id")]
@@ -190,10 +203,10 @@ public partial class WritingSystemViewModel(WritingSystem model)
   //  }
   //}
 
-  [Browsable(false)]
+  [PropertyTools.DataAnnotations.Browsable(false)]
   public virtual WritingSystemViewModel? Parent
   {
-    get => _ViewModels.Instance.AllWritingSystems.FirstOrDefault(vm => vm.Id==Model.ParentId);
+    get => _ViewModels.Instance.AllWritingSystems.FirstOrDefault(vm => vm.Id == Model.ParentId);
     set
     {
       var parentId = value?.Id;
@@ -201,34 +214,34 @@ public partial class WritingSystemViewModel(WritingSystem model)
         parentId = null;
       //if (Model.Parent != parentId)
       //{
-        if (Parent != null)
-        {
-          Parent.Children?.Remove(this);
-        }
-        else
-        {
-          _ViewModels.Instance.TopWritingSystems.Remove(this);
-        }
-        Model.ParentId = parentId;
-        NotifyPropertyChanged(nameof(Parent));
-        if (Parent?.Children != null)
-        {
-          Parent.Children?.Add(this);
-          Parent.NotifyPropertyChanged(nameof(Children));
-        }
-        else
-        {
-          _ViewModels.Instance.TopWritingSystems.Add(this);
-        }
+      if (Parent != null)
+      {
+        Parent.Children?.Remove(this);
+      }
+      else
+      {
+        _ViewModels.Instance.TopWritingSystems.Remove(this);
+      }
+      Model.ParentId = parentId;
+      NotifyPropertyChanged(nameof(Parent));
+      if (Parent?.Children != null)
+      {
+        Parent.Children?.Add(this);
+        Parent.NotifyPropertyChanged(nameof(Children));
+      }
+      else
+      {
+        _ViewModels.Instance.TopWritingSystems.Add(this);
+      }
       //}
     }
   }
 
-  [Browsable(false)]
+  [PropertyTools.DataAnnotations.Browsable(false)]
   public IEnumerable<WritingSystemViewModel> Parents => _ViewModels.Instance.SelectableWritingSystems;
 
   private bool _IsUsed;
-  [Browsable(false)]
+  [PropertyTools.DataAnnotations.Browsable(false)]
   public virtual bool IsUsed
   {
     get => _IsUsed;
@@ -242,7 +255,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  [Browsable(false)]
+  [PropertyTools.DataAnnotations.Browsable(false)]
   public virtual WritingSystemsCollection? Children
   {
     get
@@ -251,7 +264,7 @@ public partial class WritingSystemViewModel(WritingSystem model)
       {
         if (Model.Children == null)
           return null;
-        _Children = new WritingSystemsCollection(this, Model.Children.OrderBy(ws=>ws.Name).ToList());
+        _Children = new WritingSystemsCollection(this, Model.Children.OrderBy(ws => ws.Name).ToList());
         _Children.CollectionChanged += Children_CollectionChanged;
       }
       return _Children;
@@ -260,17 +273,17 @@ public partial class WritingSystemViewModel(WritingSystem model)
   }
 
 
-  private void Children_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+  private void Children_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
   {
     //Debug.WriteLine($"Children_CollectionChanged({sender}, {e.Action}, {e.NewItems?.Cast<WritingSystemViewModel>().FirstOrDefault()}, {e.NewStartingIndex})");
   }
 
   private WritingSystemsCollection? _Children;
-  [Browsable(false)]
+  [PropertyTools.DataAnnotations.Browsable(false)]
   public int ChildrenCount => Children?.Count ?? 0;
 
   private bool _isExpanded;
-  [Browsable(false)]
+  [PropertyTools.DataAnnotations.Browsable(false)]
   public bool IsExpanded
   {
     get => _isExpanded;
@@ -296,11 +309,12 @@ public partial class WritingSystemViewModel(WritingSystem model)
     return Name;
   }
 
-  [Browsable(false)] public string? LongText { get => Description; set => Description = value; }
-  [Browsable(false)] public bool CanExpandLongText => !string.IsNullOrEmpty(Model.Description);
+  [PropertyTools.DataAnnotations.Browsable(false)] public string? LongText { get => Description; set => Description = value; }
+  [PropertyTools.DataAnnotations.Browsable(false)] public bool CanExpandLongText => !string.IsNullOrEmpty(Model.Description);
 
-  private bool _IsLongTextExpanded = false;
-  [Browsable(false)] public bool IsLongTextExpanded
+  private bool _IsLongTextExpanded;
+  [PropertyTools.DataAnnotations.Browsable(false)]
+  public bool IsLongTextExpanded
   {
     get => _IsLongTextExpanded;
     set
@@ -313,5 +327,50 @@ public partial class WritingSystemViewModel(WritingSystem model)
       }
     }
   }
+
+  private readonly Dictionary<string, ValidationResultEx> errors = new();
+
+  public bool Validate(string propertyName)
+  {
+    bool ok = true;
+    if (propertyName == nameof(Name))
+    {
+      errors.Remove(propertyName);
+      if (string.IsNullOrEmpty(Name))
+        errors.Add(propertyName, new ValidationResultEx("Name cannot be empty", Severity.Error));
+      else 
+      if (!Regex.IsMatch(Name, "^[a-zA-Z]+( [a-zA-Z0-9]+)*$"))
+        errors.Add(propertyName, new ValidationResultEx("Invalid name string", Severity.Error));
+      ok = false;
+    }
+    else
+    {
+      errors.Remove(propertyName);
+      ok = true;
+    }
+
+    ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+    return ok;
+  }
+
+  IEnumerable INotifyDataErrorInfo.GetErrors(string? propertyName)
+  {
+    if (propertyName != null && errors.TryGetValue(propertyName, out var error))
+    {
+      yield return error;
+    }
+    yield return null;
+  }
+
+  public bool HasErrors => errors.Count > 0;
+
+  public void AddError(string propertyName, string message, Severity severity = Severity.Error)
+  {
+    errors.Remove(propertyName);
+    errors.Add(propertyName, new ValidationResultEx(message, severity));
+    ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+
+  }
+  public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
 }

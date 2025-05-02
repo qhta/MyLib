@@ -17,9 +17,14 @@
       HorizontalAlignment="Center">
        <Button 
          Content="Cancel" 
+         Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
+            Path=CancelCommand}"
          Margin="20,10" Padding="10,0"/>
        <Button 
          Content="OK" 
+         Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
+            Path=AddWritingSystemCommand}"
+         CommandParameter="{Binding}"
          Margin="20,10" Padding="10,0"/>
     </StackPanel>
   </Grid>

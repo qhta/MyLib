@@ -170,7 +170,8 @@ public partial class _DbContext : DbContext
 
       var connectionString = configuration.GetConnectionString("DefaultConnection");
       optionsBuilder.UseJet(connectionString)
-        .LogTo((str)=>Debug.WriteLine(str), LogLevel.Information); ;
+        .LogTo((str)=>Debug.WriteLine(str), LogLevel.Information);
+      optionsBuilder.EnableSensitiveDataLogging(true);
     }
   }
 

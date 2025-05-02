@@ -50,7 +50,7 @@
       if (_CanExecuteChanged != null)
       {
         var dispatcher = base.Dispatcher;
-        foreach (EventHandler eventHandler in _CanExecuteChanged.GetInvocationList())
+        foreach (EventHandler eventHandler in _CanExecuteChanged.GetInvocationList().OfType<EventHandler>())
         {
           if (dispatcher != null)
           {
@@ -69,14 +69,6 @@
         }
       }
     }
-
-    ///// <summary>
-    ///// Callback method to notify, that a result of <see cref="CanExecute(object)"/> function may be changed.
-    ///// </summary>
-    //protected virtual void OnCanExecuteChanged()
-    //{
-
-    //}
 
     /// <summary>
     /// Default function which checks if a command can execute an action.

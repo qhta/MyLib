@@ -1,13 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows;
 
 using Qhta.MVVM;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
-using Syncfusion.Windows.Controls.Input;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -38,63 +33,17 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
 
   public WritingSystemViewModel Add(WritingSystem ws)
   {
-    //IsAdded = true;
     var vm = _ViewModels.Instance.AllWritingSystems.FirstOrDefault(item => item.Id == ws.Id);
     if (vm == null)
     {
       vm = new WritingSystemViewModel(ws);
       _ViewModels.Instance.AllWritingSystems.Add(vm);
     }
-    //IsAdded = false;
     return vm;
   }
 
-  ///// <summary>
-  ///// Adds a WritingSystemViewModel to the collection and subscribes to its PropertyChanged event.
-  ///// </summary>
-  //public new void Add(WritingSystemViewModel item)
-  //{
-  //  IsAdded = true;
-  //  int index = this.Count;
-  //  this.Remove(item);
-  //  for (int i=0; i < Count; i++)
-  //  {
-  //    if (String.Compare(this[i].Name, item.Name, StringComparison.InvariantCulture)>0)
-  //    {
-  //      index = i;
-  //      break;
-  //    }
-  //  }
-  //  Debug.WriteLine($"base.InsertItem({index}, {item})");
-  //  base.InsertItem(index,item);
-  //  IsAdded = false;
-  //}
 
-  //private bool IsAdded;
-
-  //protected override void InsertItem(int index, WritingSystemViewModel item)
-  //{
-  //  //if (!IsAdded) // i.e. if it is moved by dragging
-  //  //{
-  //  //  Debug.WriteLine($"InsertItem({index}, {item})");
-  //  //  item.Parent = Parent;
-  //  //}
-  //  //else
-  //  {
-  //    Debug.WriteLine($"InsertItem({index}, {item}) - not setting parent");
-  //    base.InsertItem(index, item);
-  //  }
-  //}
-
-  //private void VM_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-  //{
-  //  if (sender is WritingSystemViewModel vm && e.PropertyName == nameof(WritingSystemViewModel.Parent))
-  //  {
-  //    Debug.WriteLine($"Parent changed to {vm.Parent?.Name}");
-  //  }
-  //}
-
-  public ICommand EvaluateIsUsedCommand { get; }
+  public RelayCommand EvaluateIsUsedCommand { get; }
 
   private void EvaluateIsUsed()
   {
@@ -104,18 +53,20 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
     }
   }
 
-  public ICommand NewWritingSystemCommand { get; }
+  public RelayCommand NewWritingSystemCommand { get; }
+
 
   private void CreateNewWritingSystem()
   {
     var vm = new WritingSystemViewModel(new WritingSystem());
+    var model = vm.Model;
     vm.Name = "New Writing System";
     var vmWindow = new Views.NewWritingSystemWindow
     {
       DataContext = vm,
       Owner = Application.Current.MainWindow
     };
-    vmWindow.Show();
+    vmWindow.ShowDialog();
   }
 
   public WritingSystemViewModel? NewWritingSystem

@@ -19,8 +19,21 @@ public class _ViewModels: IDisposable
     }
   }
 
+  public _DbContext DBContext
+  {
+    get
+    {
+      if (_Context == null)
+      {
+        _Context = new _DbContext();
+      }
+      return _Context;
+    }
+  }
+
   private static _ViewModels? _Instance;
-  private static _DbContext _Context = null!;
+  private static _DbContext? _Context = null!;
+
 
   private _ViewModels()
   {
@@ -82,13 +95,17 @@ public class _ViewModels: IDisposable
   readonly WritingSystemViewModel dummyWritingSystemViewModel = new WritingSystemViewModel(new WritingSystem { Name = "" });
   public void Dispose()
   {
-    _Context.SaveChanges();
-    _Context.Dispose();
+    if (_Context!=null)
+    {
+      _Context.SaveChanges();
+      _Context.Dispose();
+      _Context = null;
+    }
   }
 
   public int GetNewWritingSystemId()
   {
-    var maxId = _Context.WritingSystems.Max(ws => ws.Id) ?? 0;
+    var maxId = _Context?.WritingSystems.Max(ws => ws.Id) ?? 0;
     return maxId + 1;
   }
 }
