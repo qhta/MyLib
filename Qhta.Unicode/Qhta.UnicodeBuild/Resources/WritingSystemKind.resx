@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Abjad" xml:space="preserve">
+    <value>Abjad</value>
+  </data>
+  <data name="Abugida" xml:space="preserve">
+    <value>Abugida</value>
+  </data>
+  <data name="Alphabet" xml:space="preserve">
+    <value>Alphabet</value>
+  </data>
+  <data name="Constructed" xml:space="preserve">
+    <value>Constructed</value>
+  </data>
+  <data name="Control" xml:space="preserve">
+    <value>Control</value>
+  </data>
+  <data name="Cuneiform" xml:space="preserve">
+    <value>Cuneiform</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>Encoding</value>
+  </data>
+  <data name="Form" xml:space="preserve">
+    <value>Form</value>
+  </data>
+  <data name="Graphical" xml:space="preserve">
+    <value>Graphical</value>
+  </data>
+  <data name="Hieroglyphic" xml:space="preserve">
+    <value>Hieroglyphic</value>
+  </data>
+  <data name="Ideographic" xml:space="preserve">
+    <value>Ideographic</value>
+  </data>
+  <data name="Invisible" xml:space="preserve">
+    <value>Invisible</value>
+  </data>
+  <data name="Logographic" xml:space="preserve">
+    <value>Logographic</value>
+  </data>
+  <data name="Mixed" xml:space="preserve">
+    <value>Mixed</value>
+  </data>
+  <data name="Musical" xml:space="preserve">
+    <value>Musical</value>
+  </data>
+  <data name="Numerals" xml:space="preserve">
+    <value>Numerals</value>
+  </data>
+  <data name="Phonetic" xml:space="preserve">
+    <value>Phonetic</value>
+  </data>
+  <data name="Pictographic" xml:space="preserve">
+    <value>Pictographic</value>
+  </data>
+  <data name="SemiSyllabary" xml:space="preserve">
+    <value>Semi-syllabary</value>
+  </data>
+  <data name="Stenography" xml:space="preserve">
+    <value>Stenography</value>
+  </data>
+  <data name="Syllabary" xml:space="preserve">
+    <value>Syllabary</value>
+  </data>
+  <data name="Symbolic" xml:space="preserve">
+    <value>Symbolic</value>
+  </data>
+  <data name="AbjadTooltip" xml:space="preserve">
+    <value>A writing system in which only consonants are represented, leaving the vowel sounds to be inferred by the reader.</value>
+  </data>
+  <data name="AbugidaTooltip" xml:space="preserve">
+    <value>A segmental writing system in which consonant–vowel sequences are written as units; each unit is based on a consonant letter, and vowel notation is secondary, similar to a diacritical mark.</value>
+  </data>
+  <data name="AlphabetTooltip" xml:space="preserve">
+    <value>A standard set of letters written to represent particular sounds in a spoken language.</value>
+  </data>
+  <data name="ConstructedTooltip" xml:space="preserve">
+    <value>A language whose phonology, grammar, orthography, and vocabulary, instead of having developed naturally, are consciously devised for some purpose.</value>
+  </data>
+  <data name="ControlTooltip" xml:space="preserve">
+    <value>A set of characters that control the flow of text,</value>
+  </data>
+  <data name="CuneiformTooltip" xml:space="preserve">
+    <value>A logo-syllabic writing system that was used to write several languages of the Ancient Near East, named for the characteristic wedge-shaped impressions which form their signs.</value>
+  </data>
+  <data name="EncodingTooltip" xml:space="preserve">
+    <value>A set of characters encoding other characters.</value>
+  </data>
+  <data name="FormTooltip" xml:space="preserve">
+    <value>A set of characters with a special presentation form.</value>
+  </data>
+  <data name="GraphicalTooltip" xml:space="preserve">
+    <value>A set of graphical shapes for individual use or used to construct drawings.</value>
+  </data>
+  <data name="HieroglyphicTooltip" xml:space="preserve">
+    <value>An ancient writing system that combines ideographic, logographic, syllabic and alphabetic elements.</value>
+  </data>
+  <data name="IdeographicTooltip" xml:space="preserve">
+    <value>A writing system consisting of symbols that represents ideas or concepts independent of any particular language.</value>
+  </data>
+  <data name="InvisibleTooltip" xml:space="preserve">
+    <value>A set of code points that have no visible presentations.</value>
+  </data>
+  <data name="LogographicTooltip" xml:space="preserve">
+    <value>A set of written characters that represent semantic components of a language, such as words or morphemes.</value>
+  </data>
+  <data name="MixedTooltip" xml:space="preserve">
+    <value>Mixed logographic, syllabary and phonetic writing system.</value>
+  </data>
+  <data name="MusicalTooltip" xml:space="preserve">
+    <value>A writing system used to visually represent music.</value>
+  </data>
+  <data name="NumeralsTooltip" xml:space="preserve">
+    <value>A writing system for expressing numbers; that is, a mathematical notation for representing numbers of a given set, using digits or other symbols in a consistent manner.</value>
+  </data>
+  <data name="PhoneticTooltip" xml:space="preserve">
+    <value>A set of symbols used in phonetic notation.</value>
+  </data>
+  <data name="PictographicTooltip" xml:space="preserve">
+    <value>A set of graphical symbols that convey meaning through its visual resemblance to physical objects.</value>
+  </data>
+  <data name="SemiSyllabaryTooltip" xml:space="preserve">
+    <value>A writing system that behaves partly as an alphabet and partly as a syllabary.</value>
+  </data>
+  <data name="StenographyTooltip" xml:space="preserve">
+    <value>An abbreviated symbolic writing method that increases speed and brevity of writing as compared to longhand, a more common method of writing a language.</value>
+  </data>
+  <data name="SyllabaryTooltip" xml:space="preserve">
+    <value>A set of written symbols that represent the syllables or (more frequently) morae which make up words.</value>
+  </data>
+  <data name="SymbolicTooltip" xml:space="preserve">
+    <value>A set of symbols from a certain domain.</value>
+  </data>
+</root>

@@ -3,8 +3,10 @@
                     xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
                     xmlns:converters="clr-namespace:Qhta.WPF.Converters;assembly=Qhta.WPF.Converters"
                     xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
+                    xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
                     xmlns:sf="http://schemas.syncfusion.com/wpf"
                     xmlns:mvvm="clr-namespace:Qhta.MVVM;assembly=Qhta.MVVM"
+                    xmlns:models="clr-namespace:Qhta.Unicode.Models"
                     x:Class="Qhta.UnicodeBuild.AppResourceDictionary">
 
   <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
@@ -18,6 +20,11 @@
   <helpers:WritingSystemTypeToImageConverter x:Key="TypeToImageConverter" />
   <helpers:PropertyControlFactory x:Key="PropertyControlFactory"/>
   <helpers:PropertyModelOperator x:Key="PropertyModelOperator"/>
+  <helpers:EnumToResourceConverter 
+    ResourceType="{x:Type resources:WritingSystemType}" x:Key="WritingSystemTypeResourceConverter"/>
+  <helpers:EnumToResourceConverter 
+    ResourceType="{x:Type resources:WritingSystemKind}" x:Key="WritingSystemKindResourceConverter"/>
+  <resources:Strings x:Key="Strings"/>
 
   <ContextMenu x:Key="CommonContextMenu">
     <MenuItem Header="Copy" Command="Copy"/>

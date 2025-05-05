@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Qhta.UnicodeBuild"
         xmlns:views="clr-namespace:Qhta.UnicodeBuild.Views"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="850"
         DragEnter="Window_DragEnter"
@@ -15,21 +16,21 @@
     <TabControl Name="MainTabControl">
       <TabItem MouseMove="TabItem_MouseMove">
         <TabItem.Header>
-          <TextBlock Text="UcdBlocks" 
+          <TextBlock Text="{x:Static resources:Strings.UcdBlocks}" 
                      PreviewMouseDown="TabItem_MouseDown"/>
         </TabItem.Header>
         <views:UcdBlocksView/>
       </TabItem>
       <TabItem MouseMove="TabItem_MouseMove">
         <TabItem.Header>
-          <TextBlock Text="UcdRanges" 
+          <TextBlock Text="{x:Static resources:Strings.UcdRanges}"
                      PreviewMouseDown="TabItem_MouseDown"/>
         </TabItem.Header>
         <views:UcdRangesView/>
       </TabItem>
       <TabItem MouseMove="TabItem_MouseMove">
         <TabItem.Header>
-          <TextBlock Text="Writing Systems" 
+          <TextBlock Text="{x:Static resources:Strings.WritingSystems}"
                      PreviewMouseDown="TabItem_MouseDown"/>
         </TabItem.Header>
         <views:WritingSystemsView/>

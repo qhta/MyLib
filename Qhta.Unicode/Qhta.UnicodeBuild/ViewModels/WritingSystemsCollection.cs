@@ -10,8 +10,9 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
 {
   public WritingSystemsCollection(): base((item)=>item.Name)
   {
-    EvaluateIsUsedCommand = new RelayCommand(EvaluateIsUsed);
+    //EvaluateIsUsedCommand = new RelayCommand(EvaluateIsUsed);
     NewWritingSystemCommand = new RelayCommand(CreateNewWritingSystem);
+    DeleteWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(DeleteWritingSystem, CanDeleteWritingSystem);
   }
 
   public WritingSystemsCollection(WritingSystemViewModel parent, IEnumerable<WritingSystem> ws) : this()
@@ -43,15 +44,15 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
   }
 
 
-  public RelayCommand EvaluateIsUsedCommand { get; }
+  //public RelayCommand EvaluateIsUsedCommand { get; }
 
-  private void EvaluateIsUsed()
-  {
-    foreach (var vm in this)
-    {
-      vm.IsUsed = vm.Model.UcdBlocks?.Count > 0 || vm.Model.Children?.Count > 0 || vm.Model.UcdRanges?.Count > 0;
-    }
-  }
+  //private void EvaluateIsUsed()
+  //{
+  //  foreach (var vm in this)
+  //  {
+  //    vm.IsUsed = vm.Model.UcdBlocks?.Count > 0 || vm.Model.Children?.Count > 0 || vm.Model.UcdRanges?.Count > 0;
+  //  }
+  //}
 
   public RelayCommand NewWritingSystemCommand { get; }
 
@@ -77,5 +78,23 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
       var viewModel = new WritingSystemViewModel(data);
       return viewModel;
     }
+  }
+
+  public RelayCommand<WritingSystemViewModel> DeleteWritingSystemCommand { get; }
+
+
+  private void DeleteWritingSystem(WritingSystemViewModel? item)
+  {
+    if (item == null) return;
+    if (!CanDeleteWritingSystem(item))
+      MessageBox.Show("Cannot delete writing system", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+  }
+
+  private bool CanDeleteWritingSystem(WritingSystemViewModel? item)
+  {
+    if (item == null) return false;
+
+    var ok = !item.IsUsed;
+    return ok;
   }
 }

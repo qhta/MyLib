@@ -3,26 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:views="clr-namespace:Qhta.UnicodeBuild.Views"
-             xmlns:vm="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
-             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=System.ComponentModel.TypeConverter"
-             xmlns:collections="clr-namespace:System.Collections;assembly=System.Runtime"
-             xmlns:system="clr-namespace:System;assembly=System.Runtime"
-             xmlns:converters="clr-namespace:Qhta.WPF.Converters;assembly=Qhta.WPF.Converters"
+             xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
+             xmlns:vm="clr-namespace:Qhta.UnicodeBuild.ViewModels"
+             xmlns:models="clr-namespace:Qhta.Unicode.Models"
+             xmlns:sys="clr-namespace:System.Globalization;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <UserControl.Resources>
     <ContextMenu x:Key="WritingSystemsContextMenu">
       <MenuItem 
-        Header="New Writing System" 
+        Header="{x:Static resources:Strings.NewWritingSystem}" 
         Command="{Binding Source={StaticResource ViewModels}, 
           Path=Instance.AllWritingSystems.NewWritingSystemCommand}"/>
     </ContextMenu>
     <ContextMenu x:Key="WritingSystemsRowContextMenu">
       <MenuItem 
-        Header="New Writing System" 
+        Header="{x:Static resources:Strings.NewWritingSystem}" 
         Command="{Binding Source={StaticResource ViewModels}, 
           Path=Instance.AllWritingSystems.NewWritingSystemCommand}"/>
     </ContextMenu>
@@ -39,28 +37,28 @@
 
     <!-- Menu Bar -->
     <Menu Grid.Row="0" Grid.ColumnSpan="2">
-      <MenuItem Header="File">
+      <!--<MenuItem Header="File">
         <MenuItem Header="New" Command="New"/>
         <MenuItem Header="Open" Command="Open"/>
         <MenuItem Header="Save" Command="Save"/>
         <Separator/>
         <MenuItem Header="Exit" Command="Close"/>
-      </MenuItem>
-      <MenuItem Header="Edit">
-        <MenuItem Header="Undo" Command="Undo"/>
+      </MenuItem>-->
+      <MenuItem Header="{x:Static resources:Strings.Edit}">
+        <!--<MenuItem Header="Undo" Command="Undo"/>
         <MenuItem Header="Redo" Command="Redo"/>
-        <Separator/>
-        <MenuItem Header="Cut" Command="Cut"/>
-        <MenuItem Header="Copy" Command="Copy"/>
-        <MenuItem Header="Paste" Command="Paste"/>
+        <Separator/>-->
+        <MenuItem Header="{x:Static resources:Strings.Cut}" Command="Cut"/>
+        <MenuItem Header="{x:Static resources:Strings.Copy}" Command="Copy"/>
+        <MenuItem Header="{x:Static resources:Strings.Paste}" Command="Paste"/>
       </MenuItem>
-      <MenuItem Header="Tools">
+      <!--<MenuItem Header="Tools">
         <MenuItem Header="Evaluate IsUsed" 
           Command="{Binding Source={StaticResource ViewModels}, 
           Path=Instance.AllWritingSystems.EvaluateIsUsedCommand}"/>
-      </MenuItem>
-      <MenuItem Header="Help">
-        <MenuItem Header="About" Command="Help"/>
+      </MenuItem>-->
+      <MenuItem Header="{x:Static resources:Strings.Help}">
+        <MenuItem Header="{x:Static resources:Strings.About}" Command="Help"/>
       </MenuItem>
     </Menu>
 
@@ -76,29 +74,9 @@
                     AllowDrop ="True"
                     ItemDropped="WritingSystemsTreeView_OnItemDropped"
                     >
-      <!--<sf:SfTreeView.DragPreviewTemplate>
-        <DataTemplate>
-          <Border
-            x:Name="border"
-            Width="205"
-            Height="40"
-            Background="#ececec"
-            BorderBrush="#c8c8c8"
-            BorderThickness="1.2">
-
-              <TextBlock
-                Grid.Column="1"
-                FontFamily="Segoe UI"
-                FontSize="12"
-                FontWeight="Regular"
-                Foreground="#333333"
-                Text="{Binding Name}" />
-          </Border>
-        </DataTemplate>
-      </sf:SfTreeView.DragPreviewTemplate>-->
 
       <sf:SfTreeView.ItemTemplate>
-        <DataTemplate>
+        <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
           <StackPanel Orientation="Horizontal">
             <StackPanel.ToolTip>
               <ToolTip>
@@ -131,43 +109,101 @@
                    EditTrigger="OnTap"
                    ContextMenu="{StaticResource WritingSystemsContextMenu}"
                    RecordContextMenu="{StaticResource WritingSystemsRowContextMenu}"
+                   
                    >
-      <!--AddNewRowPosition="Bottom"
-      AddNewRowInitiating ="WritingSystemsDataGrid_OnAddNewRowInitiating"-->
       <sf:SfDataGrid.Columns>
+        <sf:GridCheckBoxColumn
+          Width="70"
+          MappingName="IsUsed">
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:Strings.WritingSystemIsUsed}" 
+                         ToolTip="{x:Static resources:Strings.WritingSystemIsUsedTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridCheckBoxColumn>
+
         <sf:GridTextColumn 
-          HeaderText="Name" 
-          MappingName="Name"
-          Width="150"/>
+          Width="150"
+          MappingName="Name">
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:Strings.WritingSystemName}" 
+                         ToolTip="{x:Static resources:Strings.WritingSystemNameTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridTextColumn>
+
         <sf:GridComboBoxColumn
-          HeaderText="Parent" 
           DisplayMemberPath="FullName"
           SortMode="Display"
           MappingName="Parent"
           Width="150"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableWritingSystems}"
-          />
-        <sf:GridCheckBoxColumn
-          HeaderText="IsUsed"
-          MappingName="IsUsed"/>
+          >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:Strings.WritingSystemParent}" 
+                         ToolTip="{x:Static resources:Strings.WritingSystemParentTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridComboBoxColumn>
+
         <sf:GridComboBoxColumn
-          HeaderText="Type" 
-          DisplayMemberPath="Type"
+          Width="100"
           SortMode="Display"
           MappingName="Type" 
           SelectedValuePath="Id"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemTypes}"
-          />
+          >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:Strings.WritingSystemType}" 
+                         ToolTip="{x:Static resources:Strings.WritingSystemTypeTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+          <sf:GridComboBoxColumn.ItemTemplate>
+            <DataTemplate DataType="{x:Type models:WritingSystemType}">
+              <TextBlock Text="{Binding Type, 
+                              Converter={StaticResource WritingSystemTypeResourceConverter},
+                                  ConverterCulture={x:Static sys:CultureInfo.InvariantCulture}}"                        
+                         ToolTip="{Binding Path=Type,
+                              Converter={StaticResource WritingSystemTypeResourceConverter},
+                              ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
+                              ConverterParameter=Tooltip}"  />
+            </DataTemplate>          
+          </sf:GridComboBoxColumn.ItemTemplate>
+        </sf:GridComboBoxColumn>
+
         <sf:GridComboBoxColumn
-          HeaderText="Kind" 
-          DisplayMemberPath="Kind"
+          Width="100"
           SortMode="Display"
           MappingName="Kind"
           SelectedValuePath="Id"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.WritingSystemKinds}"/>
+            Path=Instance.WritingSystemKinds}"
+          >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:Strings.WritingSystemKind}" 
+                         ToolTip="{x:Static resources:Strings.WritingSystemKindTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+          <sf:GridComboBoxColumn.ItemTemplate>
+            <DataTemplate DataType="{x:Type models:WritingSystemKind}">
+              <TextBlock Text="{Binding Kind, 
+                              Converter={StaticResource WritingSystemKindResourceConverter},
+                                  ConverterCulture={x:Static sys:CultureInfo.InvariantCulture}}"                        
+                         ToolTip="{Binding Path=Kind,
+                              Converter={StaticResource WritingSystemKindResourceConverter},
+                              ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
+                              ConverterParameter=Tooltip}"  />
+            </DataTemplate>
+          </sf:GridComboBoxColumn.ItemTemplate>
+        </sf:GridComboBoxColumn>
+
         <sf:GridTextColumn 
           HeaderText="Key phrase" 
           MappingName="KeyPhrase"

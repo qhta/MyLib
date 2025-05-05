@@ -30,6 +30,11 @@
         },
         "runtime": {
           "Qhta.UnicodeBuild.dll": {}
+        },
+        "resources": {
+          "pl/Qhta.UnicodeBuild.resources.dll": {
+            "locale": "pl"
+          }
         }
       },
       "EntityFrameworkCore.Jet/9.0.0": {
