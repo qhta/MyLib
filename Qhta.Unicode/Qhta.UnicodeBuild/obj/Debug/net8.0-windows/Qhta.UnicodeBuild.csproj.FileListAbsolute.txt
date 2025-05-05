@@ -191,3 +191,5 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-wi
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.WritingSystemType.pl.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.WritingSystemKind.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.WritingSystemKind.pl.resources
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.WritingSystem.resources
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.WritingSystem.pl.resources

@@ -22,7 +22,7 @@ namespace Qhta.UnicodeBuild.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class WritingSystemKind {
+    public class WritingSystemKind {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Qhta.UnicodeBuild.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Qhta.UnicodeBuild.Resources.WritingSystemKind", typeof(WritingSystemKind).Assembly);
@@ -51,7 +51,7 @@ namespace Qhta.UnicodeBuild.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Abjad.
         /// </summary>
-        internal static string Abjad {
+        public static string Abjad {
             get {
                 return ResourceManager.GetString("Abjad", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A writing system in which only consonants are represented, leaving the vowel sounds to be inferred by the reader..
         /// </summary>
-        internal static string AbjadTooltip {
+        public static string AbjadTooltip {
             get {
                 return ResourceManager.GetString("AbjadTooltip", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Abugida.
         /// </summary>
-        internal static string Abugida {
+        public static string Abugida {
             get {
                 return ResourceManager.GetString("Abugida", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A segmental writing system in which consonant–vowel sequences are written as units; each unit is based on a consonant letter, and vowel notation is secondary, similar to a diacritical mark..
         /// </summary>
-        internal static string AbugidaTooltip {
+        public static string AbugidaTooltip {
             get {
                 return ResourceManager.GetString("AbugidaTooltip", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Alphabet.
         /// </summary>
-        internal static string Alphabet {
+        public static string Alphabet {
             get {
                 return ResourceManager.GetString("Alphabet", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A standard set of letters written to represent particular sounds in a spoken language..
         /// </summary>
-        internal static string AlphabetTooltip {
+        public static string AlphabetTooltip {
             get {
                 return ResourceManager.GetString("AlphabetTooltip", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Constructed.
         /// </summary>
-        internal static string Constructed {
+        public static string Constructed {
             get {
                 return ResourceManager.GetString("Constructed", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A language whose phonology, grammar, orthography, and vocabulary, instead of having developed naturally, are consciously devised for some purpose..
         /// </summary>
-        internal static string ConstructedTooltip {
+        public static string ConstructedTooltip {
             get {
                 return ResourceManager.GetString("ConstructedTooltip", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Control.
         /// </summary>
-        internal static string Control {
+        public static string Control {
             get {
                 return ResourceManager.GetString("Control", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A set of characters that control the flow of text,.
         /// </summary>
-        internal static string ControlTooltip {
+        public static string ControlTooltip {
             get {
                 return ResourceManager.GetString("ControlTooltip", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cuneiform.
         /// </summary>
-        internal static string Cuneiform {
+        public static string Cuneiform {
             get {
                 return ResourceManager.GetString("Cuneiform", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A logo-syllabic writing system that was used to write several languages of the Ancient Near East, named for the characteristic wedge-shaped impressions which form their signs..
         /// </summary>
-        internal static string CuneiformTooltip {
+        public static string CuneiformTooltip {
             get {
                 return ResourceManager.GetString("CuneiformTooltip", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Encoding.
         /// </summary>
-        internal static string Encoding {
+        public static string Encoding {
             get {
                 return ResourceManager.GetString("Encoding", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A set of characters encoding other characters..
         /// </summary>
-        internal static string EncodingTooltip {
+        public static string EncodingTooltip {
             get {
                 return ResourceManager.GetString("EncodingTooltip", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Form.
         /// </summary>
-        internal static string Form {
+        public static string Form {
             get {
                 return ResourceManager.GetString("Form", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A set of characters with a special presentation form..
         /// </summary>
-        internal static string FormTooltip {
+        public static string FormTooltip {
             get {
                 return ResourceManager.GetString("FormTooltip", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Graphical.
         /// </summary>
-        internal static string Graphical {
+        public static string Graphical {
             get {
                 return ResourceManager.GetString("Graphical", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A set of graphical shapes for individual use or used to construct drawings..
         /// </summary>
-        internal static string GraphicalTooltip {
+        public static string GraphicalTooltip {
             get {
                 return ResourceManager.GetString("GraphicalTooltip", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Hieroglyphic.
         /// </summary>
-        internal static string Hieroglyphic {
+        public static string Hieroglyphic {
             get {
                 return ResourceManager.GetString("Hieroglyphic", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to An ancient writing system that combines ideographic, logographic, syllabic and alphabetic elements..
         /// </summary>
-        internal static string HieroglyphicTooltip {
+        public static string HieroglyphicTooltip {
             get {
                 return ResourceManager.GetString("HieroglyphicTooltip", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Ideographic.
         /// </summary>
-        internal static string Ideographic {
+        public static string Ideographic {
             get {
                 return ResourceManager.GetString("Ideographic", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A writing system consisting of symbols that represents ideas or concepts independent of any particular language..
         /// </summary>
-        internal static string IdeographicTooltip {
+        public static string IdeographicTooltip {
             get {
                 return ResourceManager.GetString("IdeographicTooltip", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Invisible.
         /// </summary>
-        internal static string Invisible {
+        public static string Invisible {
             get {
                 return ResourceManager.GetString("Invisible", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A set of code points that have no visible presentations..
         /// </summary>
-        internal static string InvisibleTooltip {
+        public static string InvisibleTooltip {
             get {
                 return ResourceManager.GetString("InvisibleTooltip", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Logographic.
         /// </summary>
-        internal static string Logographic {
+        public static string Logographic {
             get {
                 return ResourceManager.GetString("Logographic", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A set of written characters that represent semantic components of a language, such as words or morphemes..
         /// </summary>
-        internal static string LogographicTooltip {
+        public static string LogographicTooltip {
             get {
                 return ResourceManager.GetString("LogographicTooltip", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Mixed.
         /// </summary>
-        internal static string Mixed {
+        public static string Mixed {
             get {
                 return ResourceManager.GetString("Mixed", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Mixed logographic, syllabary and phonetic writing system..
         /// </summary>
-        internal static string MixedTooltip {
+        public static string MixedTooltip {
             get {
                 return ResourceManager.GetString("MixedTooltip", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Musical.
         /// </summary>
-        internal static string Musical {
+        public static string Musical {
             get {
                 return ResourceManager.GetString("Musical", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A writing system used to visually represent music..
         /// </summary>
-        internal static string MusicalTooltip {
+        public static string MusicalTooltip {
             get {
                 return ResourceManager.GetString("MusicalTooltip", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Numerals.
         /// </summary>
-        internal static string Numerals {
+        public static string Numerals {
             get {
                 return ResourceManager.GetString("Numerals", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A writing system for expressing numbers; that is, a mathematical notation for representing numbers of a given set, using digits or other symbols in a consistent manner..
         /// </summary>
-        internal static string NumeralsTooltip {
+        public static string NumeralsTooltip {
             get {
                 return ResourceManager.GetString("NumeralsTooltip", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Phonetic.
         /// </summary>
-        internal static string Phonetic {
+        public static string Phonetic {
             get {
                 return ResourceManager.GetString("Phonetic", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A set of symbols used in phonetic notation..
         /// </summary>
-        internal static string PhoneticTooltip {
+        public static string PhoneticTooltip {
             get {
                 return ResourceManager.GetString("PhoneticTooltip", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Pictographic.
         /// </summary>
-        internal static string Pictographic {
+        public static string Pictographic {
             get {
                 return ResourceManager.GetString("Pictographic", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A set of graphical symbols that convey meaning through its visual resemblance to physical objects..
         /// </summary>
-        internal static string PictographicTooltip {
+        public static string PictographicTooltip {
             get {
                 return ResourceManager.GetString("PictographicTooltip", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Semi-syllabary.
         /// </summary>
-        internal static string SemiSyllabary {
+        public static string SemiSyllabary {
             get {
                 return ResourceManager.GetString("SemiSyllabary", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A writing system that behaves partly as an alphabet and partly as a syllabary..
         /// </summary>
-        internal static string SemiSyllabaryTooltip {
+        public static string SemiSyllabaryTooltip {
             get {
                 return ResourceManager.GetString("SemiSyllabaryTooltip", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Stenography.
         /// </summary>
-        internal static string Stenography {
+        public static string Stenography {
             get {
                 return ResourceManager.GetString("Stenography", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to An abbreviated symbolic writing method that increases speed and brevity of writing as compared to longhand, a more common method of writing a language..
         /// </summary>
-        internal static string StenographyTooltip {
+        public static string StenographyTooltip {
             get {
                 return ResourceManager.GetString("StenographyTooltip", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Syllabary.
         /// </summary>
-        internal static string Syllabary {
+        public static string Syllabary {
             get {
                 return ResourceManager.GetString("Syllabary", resourceCulture);
             }
@@ -432,7 +432,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A set of written symbols that represent the syllables or (more frequently) morae which make up words..
         /// </summary>
-        internal static string SyllabaryTooltip {
+        public static string SyllabaryTooltip {
             get {
                 return ResourceManager.GetString("SyllabaryTooltip", resourceCulture);
             }
@@ -441,7 +441,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Symbolic.
         /// </summary>
-        internal static string Symbolic {
+        public static string Symbolic {
             get {
                 return ResourceManager.GetString("Symbolic", resourceCulture);
             }
@@ -450,7 +450,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A set of symbols from a certain domain..
         /// </summary>
-        internal static string SymbolicTooltip {
+        public static string SymbolicTooltip {
             get {
                 return ResourceManager.GetString("SymbolicTooltip", resourceCulture);
             }

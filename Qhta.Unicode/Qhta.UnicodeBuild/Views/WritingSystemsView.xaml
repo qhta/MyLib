@@ -117,8 +117,8 @@
           MappingName="IsUsed">
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:Strings.WritingSystemIsUsed}" 
-                         ToolTip="{x:Static resources:Strings.WritingSystemIsUsedTooltip}"  />
+              <TextBlock Text="{x:Static resources:WritingSystem.IsUsed}" 
+                         ToolTip="{x:Static resources:WritingSystem.IsUsedTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridCheckBoxColumn>
@@ -128,8 +128,8 @@
           MappingName="Name">
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:Strings.WritingSystemName}" 
-                         ToolTip="{x:Static resources:Strings.WritingSystemNameTooltip}"  />
+              <TextBlock Text="{x:Static resources:WritingSystem.Name}" 
+                         ToolTip="{x:Static resources:WritingSystem.NameTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTextColumn>
@@ -144,8 +144,8 @@
           >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:Strings.WritingSystemParent}" 
-                         ToolTip="{x:Static resources:Strings.WritingSystemParentTooltip}"  />
+              <TextBlock Text="{x:Static resources:WritingSystem.Parent}" 
+                         ToolTip="{x:Static resources:WritingSystem.ParentTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridComboBoxColumn>
@@ -160,8 +160,8 @@
           >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:Strings.WritingSystemType}" 
-                         ToolTip="{x:Static resources:Strings.WritingSystemTypeTooltip}"  />
+              <TextBlock Text="{x:Static resources:WritingSystem.Type}" 
+                         ToolTip="{x:Static resources:WritingSystem.TypeTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridComboBoxColumn.ItemTemplate>
@@ -187,8 +187,8 @@
           >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:Strings.WritingSystemKind}" 
-                         ToolTip="{x:Static resources:Strings.WritingSystemKindTooltip}"  />
+              <TextBlock Text="{x:Static resources:WritingSystem.Kind}" 
+                         ToolTip="{x:Static resources:WritingSystem.KindTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridComboBoxColumn.ItemTemplate>
@@ -205,25 +205,60 @@
         </sf:GridComboBoxColumn>
 
         <sf:GridTextColumn 
-          HeaderText="Key phrase" 
+          HeaderText="Key phrase"
           MappingName="KeyPhrase"
-          CellTemplate="{StaticResource TextCellTemplate}"/>
+          CellTemplate="{StaticResource TextCellTemplate}">
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:WritingSystem.KeyPhrase}" 
+                         ToolTip="{x:Static resources:WritingSystem.KeyPhraseTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridTextColumn>
         <sf:GridTextColumn 
-          HeaderText="Ctg" 
+          HeaderText="Ctg"
           MappingName="Ctg"
-          Width="60"/>
+          Width="60">
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:WritingSystem.Ctg}" 
+                         ToolTip="{x:Static resources:WritingSystem.CtgTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridTextColumn>
         <sf:GridTextColumn 
-          HeaderText="ISO" 
+          HeaderText="ISO"
           MappingName="Iso"
-          Width="60"/>
+          Width="60">
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:WritingSystem.ISO}" 
+                         ToolTip="{x:Static resources:WritingSystem.ISOTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridTextColumn>
         <sf:GridTextColumn 
-          HeaderText="Abbr" 
+          HeaderText="Abbr"
           MappingName="Abbr"
-          Width="60"/>
+          Width="60">
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:WritingSystem.Abbr}" 
+                         ToolTip="{x:Static resources:WritingSystem.AbbrTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridTextColumn>
         <sf:GridTextColumn 
           HeaderText="Ext" 
           MappingName="Ext"
-          Width="60"/>
+          Width="60">
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:WritingSystem.Ext}" 
+                         ToolTip="{x:Static resources:WritingSystem.ExtTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridTextColumn>
         <helpers:LongTextColumn 
           MappingName="Description" 
           HeaderText="Description"
@@ -231,7 +266,12 @@
           TextWrapping="Wrap"
           VerticalAlignment="Top"
           CellTemplate="{StaticResource LongTextCellTemplate}"
-          EditTemplate="{StaticResource LongTextEditTemplate}"/>
+          EditTemplate="{StaticResource LongTextEditTemplate}">
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:Strings.Description}" />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>        </helpers:LongTextColumn>
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
     <Button Grid.Row="1" Grid.Column="1" Width="32" Height="32"

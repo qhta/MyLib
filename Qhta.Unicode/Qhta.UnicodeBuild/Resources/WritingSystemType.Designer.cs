@@ -22,7 +22,7 @@ namespace Qhta.UnicodeBuild.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class WritingSystemType {
+    public class WritingSystemType {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Qhta.UnicodeBuild.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Qhta.UnicodeBuild.Resources.WritingSystemType", typeof(WritingSystemType).Assembly);
@@ -51,7 +51,7 @@ namespace Qhta.UnicodeBuild.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Area.
         /// </summary>
-        internal static string Area {
+        public static string Area {
             get {
                 return ResourceManager.GetString("Area", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Area is a range of code points that are not defined individually..
         /// </summary>
-        internal static string AreaTooltip {
+        public static string AreaTooltip {
             get {
                 return ResourceManager.GetString("AreaTooltip", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Family.
         /// </summary>
-        internal static string Family {
+        public static string Family {
             get {
                 return ResourceManager.GetString("Family", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Family is a set of scripts or other writing systems..
         /// </summary>
-        internal static string FamilyTooltip {
+        public static string FamilyTooltip {
             get {
                 return ResourceManager.GetString("FamilyTooltip", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
-        internal static string Language {
+        public static string Language {
             get {
                 return ResourceManager.GetString("Language", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Language is a structured system of communication that consists of grammar and vocabulary..
         /// </summary>
-        internal static string LanguageTooltip {
+        public static string LanguageTooltip {
             get {
                 return ResourceManager.GetString("LanguageTooltip", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Notation.
         /// </summary>
-        internal static string Notation {
+        public static string Notation {
             get {
                 return ResourceManager.GetString("Notation", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Notation is a system of symbols used to represent information in some convention..
         /// </summary>
-        internal static string NotationTooltip {
+        public static string NotationTooltip {
             get {
                 return ResourceManager.GetString("NotationTooltip", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Script.
         /// </summary>
-        internal static string Script {
+        public static string Script {
             get {
                 return ResourceManager.GetString("Script", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Script is a set of symbols used to write a language..
         /// </summary>
-        internal static string ScriptTooltip {
+        public static string ScriptTooltip {
             get {
                 return ResourceManager.GetString("ScriptTooltip", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Set.
         /// </summary>
-        internal static string Set {
+        public static string Set {
             get {
                 return ResourceManager.GetString("Set", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A set of symbols that can be scattered across different Unicode ranges..
         /// </summary>
-        internal static string SetTooltip {
+        public static string SetTooltip {
             get {
                 return ResourceManager.GetString("SetTooltip", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Subset.
         /// </summary>
-        internal static string Subset {
+        public static string Subset {
             get {
                 return ResourceManager.GetString("Subset", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A subset of symbols belonging to a another set..
         /// </summary>
-        internal static string SubsetTootip {
+        public static string SubsetTootip {
             get {
                 return ResourceManager.GetString("SubsetTootip", resourceCulture);
             }
