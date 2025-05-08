@@ -19,7 +19,7 @@ public enum WritingSystemKindEnum
   logographic = 13,  // a set of written character that represents a semantic component of a language, such as a word or morpheme
   mixed = 14,  // mixed logographic, syllabary and phonetic
   musical = 15,  // any system used to visually represent music
-  numerals = 16,  // a writing system for expressing numbers; that is, a mathematical notation for representing numbers of a given set, using digits or other symbols in a consistent manner
+  numerical = 16,  // a writing system for expressing numbers; that is, a mathematical notation for representing numbers of a given set, using digits or other symbols in a consistent manner
   phonetic = 17,  // a set of symbols used in phonetic notation
   pictographic = 18,  // a set of graphical symbols that conveys meaning through its visual resemblance to a physical objects
   semi_syllabary = 19,  // a writing system that behaves partly as an alphabet and partly as a syllabary

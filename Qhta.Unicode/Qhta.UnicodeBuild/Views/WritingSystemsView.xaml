@@ -79,9 +79,7 @@
         <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
           <StackPanel Orientation="Horizontal">
             <StackPanel.ToolTip>
-              <ToolTip>
-                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Width="200" />
-              </ToolTip>
+              <ToolTip Content="{Binding Description}"/>
             </StackPanel.ToolTip>
             <Image Source="{Binding Type, Converter={StaticResource TypeToImageConverter}}"
                    Width="24" Height="24" Stretch="Uniform"/>
@@ -132,6 +130,12 @@
                          ToolTip="{x:Static resources:WritingSystem.NameTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
+          <sf:GridTextColumn.CellTemplate>
+            <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
+              <TextBlock Text="{Binding Name}" 
+                         ToolTip="{Binding Description}"  />
+            </DataTemplate>
+          </sf:GridTextColumn.CellTemplate>
         </sf:GridTextColumn>
 
         <sf:GridComboBoxColumn
@@ -173,7 +177,7 @@
                               Converter={StaticResource WritingSystemTypeResourceConverter},
                               ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
                               ConverterParameter=Tooltip}"  />
-            </DataTemplate>          
+            </DataTemplate>
           </sf:GridComboBoxColumn.ItemTemplate>
         </sf:GridComboBoxColumn>
 
@@ -271,7 +275,8 @@
             <DataTemplate>
               <TextBlock Text="{x:Static resources:Strings.Description}" />
             </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>        </helpers:LongTextColumn>
+          </sf:GridColumn.HeaderTemplate>
+        </helpers:LongTextColumn>
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
     <Button Grid.Row="1" Grid.Column="1" Width="32" Height="32"
@@ -283,7 +288,7 @@
             Margin="0,0,20,20"
             Command="{Binding Source={StaticResource ViewModels}, 
               Path=Instance.AllWritingSystems.NewWritingSystemCommand}">
-          <Image Source="/Assets/Add.png"/>
+      <Image Source="/Assets/Add.png"/>
     </Button>
   </Grid>
 </UserControl>

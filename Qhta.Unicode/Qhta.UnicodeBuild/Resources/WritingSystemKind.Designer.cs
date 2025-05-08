@@ -331,20 +331,20 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Numerals.
+        ///   Looks up a localized string similar to Numerical.
         /// </summary>
-        public static string Numerals {
+        public static string Numerical {
             get {
-                return ResourceManager.GetString("Numerals", resourceCulture);
+                return ResourceManager.GetString("Numerical", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to A writing system for expressing numbers; that is, a mathematical notation for representing numbers of a given set, using digits or other symbols in a consistent manner..
         /// </summary>
-        public static string NumeralsTooltip {
+        public static string NumericalTooltip {
             get {
-                return ResourceManager.GetString("NumeralsTooltip", resourceCulture);
+                return ResourceManager.GetString("NumericalTooltip", resourceCulture);
             }
         }
         

@@ -147,52 +147,22 @@
   <data name="NewWritingSystem" xml:space="preserve">
     <value>Nowy system pisma</value>
   </data>
-  <data name="WritingSystemIsUsed" xml:space="preserve">
-    <value>W użyciu</value>
-  </data>
-  <data name="WritingSystemName" xml:space="preserve">
-    <value>Nazwa</value>
-  </data>
-  <data name="WritingSystemParent" xml:space="preserve">
-    <value>System nadrzędny</value>
-  </data>
-  <data name="WritingSystemType" xml:space="preserve">
-    <value>Typ</value>
-  </data>
-  <data name="WritingSystemKind" xml:space="preserve">
-    <value>Rodzaj</value>
-  </data>
-  <data name="KeyPhrase" xml:space="preserve">
-    <value>Fraza kluczowa</value>
-  </data>
-  <data name="Ctg" xml:space="preserve">
-    <value>Kat.</value>
-  </data>
-  <data name="ISO" xml:space="preserve">
-    <value>ISO</value>
-  </data>
-  <data name="Abbr" xml:space="preserve">
-    <value>Skrót</value>
-  </data>
-  <data name="Ext" xml:space="preserve">
-    <value>Rozsz.</value>
-  </data>
   <data name="Description" xml:space="preserve">
     <value>Opis</value>
   </data>
-  <data name="WritingSystemIsUsedTooltip" xml:space="preserve">
-    <value>Określa czy system pisma jest nadrzędny wobec innych systemów pisma lub ma referencje w blokach lub zakresach Unicode.</value>
+  <data name="WritingSystemsTooltip" xml:space="preserve">
+    <value>System pisma składa się ze zbioru symboli, nazywanego pismem, a także z reguł, według których pismo reprezentuje dany język.</value>
   </data>
-  <data name="WritingSystemNameTooltip" xml:space="preserve">
-    <value>Nazwa systemu pisma to unikatowa nazwa rozpoczynająca się od litery i opcjonalnie zawierająca litery, cyfry i spacje.</value>
+  <data name="UcdBlocksTooltip" xml:space="preserve">
+    <value>Blok Unicode to jeden z ciągłych zakresów numerycznych kodów znaków (punktów kodowych) zestawu znaków Unicode, które są definiowane przez Konsorcjum Unicode w celach administracyjnych i dokumentacyjnych. 
+Jeden blok Unicode może zawierać jeden lub wiele zakresów Unicode, które mogą być przeglądane pod każdym blokiem.</value>
   </data>
-  <data name="WritingSystemParentTooltip" xml:space="preserve">
-    <value>Nadrzędny system pisma umożliwia organizację hierarchiczną systemów.</value>
+  <data name="UcdRangesTooltip" xml:space="preserve">
+    <value>Zakres Unicode to jeden z ciągłych zakresów numerycznych kodów znaków (punktów kodowych) zestawu znaków Unicode, dla których obowiązują określone zasady użytkowania i tłumaczenia. Reguły te są określone przez systemy pisma.
+Jeden zakres Unicode może zawierać jeden lub wiele punktów kodowych Unicode. 
+Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   </data>
-  <data name="WritingSystemTypeTooltip" xml:space="preserve">
-    <value>Typ systemu pisma określa główne przeznaczenie systemu.</value>
-  </data>
-  <data name="WritingSystemKindTooltip" xml:space="preserve">
-    <value>Rodzaj systemu pisma określa charakter znaków tego systemu.</value>
+  <data name="Comment" xml:space="preserve">
+    <value>Komentarz</value>
   </data>
 </root>

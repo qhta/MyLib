@@ -17,6 +17,7 @@
       <TabItem MouseMove="TabItem_MouseMove">
         <TabItem.Header>
           <TextBlock Text="{x:Static resources:Strings.UcdBlocks}" 
+                     ToolTip="{x:Static resources:Strings.UcdBlocksTooltip}"
                      PreviewMouseDown="TabItem_MouseDown"/>
         </TabItem.Header>
         <views:UcdBlocksView/>
@@ -24,6 +25,7 @@
       <TabItem MouseMove="TabItem_MouseMove">
         <TabItem.Header>
           <TextBlock Text="{x:Static resources:Strings.UcdRanges}"
+                     ToolTip="{x:Static resources:Strings.UcdRangesTooltip}"
                      PreviewMouseDown="TabItem_MouseDown"/>
         </TabItem.Header>
         <views:UcdRangesView/>
@@ -31,6 +33,7 @@
       <TabItem MouseMove="TabItem_MouseMove">
         <TabItem.Header>
           <TextBlock Text="{x:Static resources:Strings.WritingSystems}"
+                     ToolTip="{x:Static resources:Strings.WritingSystemsTooltip}"
                      PreviewMouseDown="TabItem_MouseDown"/>
         </TabItem.Header>
         <views:WritingSystemsView/>

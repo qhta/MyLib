@@ -150,6 +150,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\UcdBlock.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UcdBlock.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\UcdRange.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UcdRange.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\WritingSystem.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -171,6 +181,14 @@
     <EmbeddedResource Update="Resources\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\UcdBlock.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UcdBlock.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\UcdRange.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UcdRange.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WritingSystem.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

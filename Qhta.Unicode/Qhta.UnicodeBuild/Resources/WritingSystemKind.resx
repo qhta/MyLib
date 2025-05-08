@@ -142,8 +142,8 @@
   <data name="Musical" xml:space="preserve">
     <value>Musical</value>
   </data>
-  <data name="Numerals" xml:space="preserve">
-    <value>Numerals</value>
+  <data name="Numerical" xml:space="preserve">
+    <value>Numerical</value>
   </data>
   <data name="Phonetic" xml:space="preserve">
     <value>Phonetic</value>
@@ -208,7 +208,7 @@
   <data name="MusicalTooltip" xml:space="preserve">
     <value>A writing system used to visually represent music.</value>
   </data>
-  <data name="NumeralsTooltip" xml:space="preserve">
+  <data name="NumericalTooltip" xml:space="preserve">
     <value>A writing system for expressing numbers; that is, a mathematical notation for representing numbers of a given set, using digits or other symbols in a consistent manner.</value>
   </data>
   <data name="PhoneticTooltip" xml:space="preserve">

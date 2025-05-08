@@ -142,11 +142,11 @@
   <data name="Musical" xml:space="preserve">
     <value>Muzyczna</value>
   </data>
-  <data name="Numerals" xml:space="preserve">
-    <value>Numeryczny</value>
+  <data name="Numerical" xml:space="preserve">
+    <value>Numeryczna</value>
   </data>
   <data name="Phonetic" xml:space="preserve">
-    <value>Fonetyczny</value>
+    <value>Fonetyczna</value>
   </data>
   <data name="Pictographic" xml:space="preserve">
     <value>Piktograficzne</value>
@@ -208,7 +208,7 @@
   <data name="MusicalTooltip" xml:space="preserve">
     <value>System pisma używany do wizualnego przedstawiania muzyki.</value>
   </data>
-  <data name="NumeralsTooltip" xml:space="preserve">
+  <data name="NumericalTooltip" xml:space="preserve">
     <value>System pisma do wyrażania liczb; czyli notacja matematyczna służąca do przedstawiania liczb z danego zbioru, przy użyciu cyfr lub innych symboli w spójny sposób.</value>
   </data>
   <data name="PhoneticTooltip" xml:space="preserve">

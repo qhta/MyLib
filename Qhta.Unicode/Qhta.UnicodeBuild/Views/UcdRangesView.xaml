@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Qhta.UnicodeBuild.Views"
              xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
+             xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <Grid>
@@ -32,13 +33,27 @@
           GridValidationMode="InEdit"
           CellTemplate="{StaticResource RangeCellTemplate}"
           EditTemplate="{StaticResource RangeEditTemplate}"
-          />
+          >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:UcdRange.Range}" 
+                         ToolTip="{x:Static resources:UcdRange.RangeTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridTemplateColumn>
         <sf:GridTextColumn 
           MappingName="RangeName" 
           HeaderText="RangeName" 
           VerticalAlignment="Top"
           Width="100"
-          />
+          >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:UcdRange.Name}" 
+                         ToolTip="{x:Static resources:UcdRange.NameTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridTextColumn>
         <sf:GridComboBoxColumn
           MappingName="WritingSystem"
           HeaderText="WritingSystem" 
@@ -48,7 +63,14 @@
           Path=Instance.SelectableWritingSystems}"
           VerticalAlignment="Top"
           Width="100"
-          />
+          >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:UcdRange.WritingSystem}" 
+                         ToolTip="{x:Static resources:UcdRange.WritingSystemTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridComboBoxColumn>
         <helpers:LongTextColumn 
           MappingName="Comment" 
           HeaderText="Comment"

@@ -147,54 +147,22 @@
   <data name="NewWritingSystem" xml:space="preserve">
     <value>New Writing System</value>
   </data>
-  <data name="WritingSystemIsUsed" xml:space="preserve">
-    <value>Is used</value>
-  </data>
-  <data name="WritingSystemName" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="WritingSystemParent" xml:space="preserve">
-    <value>Parent system</value>
-  </data>
-  <data name="WritingSystemType" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="WritingSystemKind" xml:space="preserve">
-    <value>Kind</value>
-  </data>
-  <data name="KeyPhrase" xml:space="preserve">
-    <value>Key phrase</value>
-  </data>
-  <data name="Ctg" xml:space="preserve">
-    <value>Ctg</value>
-    <comment>@MutedRule(PunctuationTail)</comment>
-  </data>
-  <data name="ISO" xml:space="preserve">
-    <value>ISO</value>
-  </data>
-  <data name="Abbr" xml:space="preserve">
-    <value>Abbr</value>
-  </data>
-  <data name="Ext" xml:space="preserve">
-    <value>Ext</value>
-    <comment>@MutedRule(PunctuationTail)</comment>
-  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="WritingSystemIsUsedTooltip" xml:space="preserve">
-    <value>Indicates whether the writing system is a parent for some other systems or is referenced in Unicode Blocks or Unicode Ranges.</value>
+  <data name="WritingSystemsTooltip" xml:space="preserve">
+    <value>A writing system comprises a set of symbols, called a script, as well as the rules by which the script represents a particular language.</value>
   </data>
-  <data name="WritingSystemNameTooltip" xml:space="preserve">
-    <value>Writing system name is a unique name starting with a letter and optionally containing letters, digits and spaces.</value>
+  <data name="UcdBlocksTooltip" xml:space="preserve">
+    <value>A Unicode block is one of contiguous ranges of numeric character codes (code points) of the Unicode character set that are defined by the Unicode Consortium for administrative and documentation purposes.
+One Unicode blocks can contain one or many Unicode ranges, which can be shown under each block.</value>
   </data>
-  <data name="WritingSystemParentTooltip" xml:space="preserve">
-    <value>Writing system parent is used to organize systems in a hierarchy.</value>
+  <data name="UcdRangesTooltip" xml:space="preserve">
+    <value>A Unicode range is a contiguous range of numeric character codes (code points) of the Unicode character set that have the specific rules of use and translation. These rules are specified by writing systems.
+One Unicode range can contain one or many Unicode code points. 
+The "Unicode Ranges" tab contains a full list of ranges.</value>
   </data>
-  <data name="WritingSystemTypeTooltip" xml:space="preserve">
-    <value>The type of writing system determines the primary purpose of the system.</value>
-  </data>
-  <data name="WritingSystemKindTooltip" xml:space="preserve">
-    <value>The type of writing system determines the nature of the characters in that system.</value>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
   </data>
 </root>

@@ -61,15 +61,6 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Abbr.
-        /// </summary>
-        public static string Abbr {
-            get {
-                return ResourceManager.GetString("Abbr", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string About {
@@ -79,20 +70,20 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
         public static string Copy {
             get {
                 return ResourceManager.GetString("Copy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ctg.
-        /// </summary>
-        public static string Ctg {
-            get {
-                return ResourceManager.GetString("Ctg", resourceCulture);
             }
         }
         
@@ -124,38 +115,11 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ext.
-        /// </summary>
-        public static string Ext {
-            get {
-                return ResourceManager.GetString("Ext", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string Help {
             get {
                 return ResourceManager.GetString("Help", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ISO.
-        /// </summary>
-        public static string ISO {
-            get {
-                return ResourceManager.GetString("ISO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Key phrase.
-        /// </summary>
-        public static string KeyPhrase {
-            get {
-                return ResourceManager.GetString("KeyPhrase", resourceCulture);
             }
         }
         
@@ -187,6 +151,16 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A Unicode block is one of contiguous ranges of numeric character codes (code points) of the Unicode character set that are defined by the Unicode Consortium for administrative and documentation purposes.
+        ///One Unicode blocks can contain one or many Unicode ranges, which can be shown under each block..
+        /// </summary>
+        public static string UcdBlocksTooltip {
+            get {
+                return ResourceManager.GetString("UcdBlocksTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unicode Ranges.
         /// </summary>
         public static string UcdRanges {
@@ -196,74 +170,13 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is used.
+        ///   Looks up a localized string similar to A Unicode range is a contiguous range of numeric character codes (code points) of the Unicode character set that have the specific rules of use and translation. These rules are specified by writing systems.
+        ///One Unicode range can contain one or many Unicode code points. 
+        ///The &quot;Unicode Ranges&quot; tab contains a full list of ranges..
         /// </summary>
-        public static string WritingSystemIsUsed {
+        public static string UcdRangesTooltip {
             get {
-                return ResourceManager.GetString("WritingSystemIsUsed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Indicates whether the writing system is a parent for some other systems or is referenced in Unicode Blocks or Unicode Ranges..
-        /// </summary>
-        public static string WritingSystemIsUsedTooltip {
-            get {
-                return ResourceManager.GetString("WritingSystemIsUsedTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kind.
-        /// </summary>
-        public static string WritingSystemKind {
-            get {
-                return ResourceManager.GetString("WritingSystemKind", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The type of writing system determines the nature of the characters in that system..
-        /// </summary>
-        public static string WritingSystemKindTooltip {
-            get {
-                return ResourceManager.GetString("WritingSystemKindTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        public static string WritingSystemName {
-            get {
-                return ResourceManager.GetString("WritingSystemName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Writing system name is a unique name starting with a letter and optionally containing letters, digits and spaces..
-        /// </summary>
-        public static string WritingSystemNameTooltip {
-            get {
-                return ResourceManager.GetString("WritingSystemNameTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Parent system.
-        /// </summary>
-        public static string WritingSystemParent {
-            get {
-                return ResourceManager.GetString("WritingSystemParent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Writing system parent is used to organize systems in a hierarchy..
-        /// </summary>
-        public static string WritingSystemParentTooltip {
-            get {
-                return ResourceManager.GetString("WritingSystemParentTooltip", resourceCulture);
+                return ResourceManager.GetString("UcdRangesTooltip", resourceCulture);
             }
         }
         
@@ -277,20 +190,11 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type.
+        ///   Looks up a localized string similar to A writing system comprises a set of symbols, called a script, as well as the rules by which the script represents a particular language..
         /// </summary>
-        public static string WritingSystemType {
+        public static string WritingSystemsTooltip {
             get {
-                return ResourceManager.GetString("WritingSystemType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The type of writing system determines the primary purpose of the system..
-        /// </summary>
-        public static string WritingSystemTypeTooltip {
-            get {
-                return ResourceManager.GetString("WritingSystemTypeTooltip", resourceCulture);
+                return ResourceManager.GetString("WritingSystemsTooltip", resourceCulture);
             }
         }
     }
