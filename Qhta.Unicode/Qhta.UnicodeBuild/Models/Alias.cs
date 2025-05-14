@@ -11,5 +11,5 @@ public partial class Alias
 
     public byte? Type { get; set; }
 
-    public virtual UnicodeDatum UnicodeDatum { get; set; } = null!;
+    public virtual UcdCodePoint UcdCodePoint { get; set; } = null!;
 }

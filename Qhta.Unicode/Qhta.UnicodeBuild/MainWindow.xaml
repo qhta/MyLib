@@ -16,6 +16,14 @@
     <TabControl Name="MainTabControl">
       <TabItem MouseMove="TabItem_MouseMove">
         <TabItem.Header>
+          <TextBlock Text="{x:Static resources:Strings.CodePoints}" 
+                     ToolTip="{x:Static resources:Strings.CodePointsTooltip}"
+                     PreviewMouseDown="TabItem_MouseDown"/>
+        </TabItem.Header>
+        <views:UcdCodePointsView/>
+      </TabItem>
+      <TabItem MouseMove="TabItem_MouseMove">
+        <TabItem.Header>
           <TextBlock Text="{x:Static resources:Strings.UcdBlocks}" 
                      ToolTip="{x:Static resources:Strings.UcdBlocksTooltip}"
                      PreviewMouseDown="TabItem_MouseDown"/>

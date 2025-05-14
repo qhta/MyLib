@@ -31,7 +31,7 @@ namespace Qhta.UnicodeBuild.Views
         UcdRangeDataGrid.SortComparers.Add(new SortComparer
         {
           PropertyName = "Range",
-          Comparer = new RangeModelComparer()
+          Comparer = new CodeRangeComparer()
         });
       }
     }
@@ -41,7 +41,7 @@ namespace Qhta.UnicodeBuild.Views
       if (e.NewValue!=null && e.Column.MappingName == "Range")
       {
         // Validate the Range value
-        if (!RangeModel.TryParse(e.NewValue.ToString()!, out var range))
+        if (!CodeRange.TryParse(e.NewValue.ToString()!, out var range))
         {
           e.ErrorMessage = "Invalid range format. Expected format: XXXX..YYYY.";
           e.IsValid = false;

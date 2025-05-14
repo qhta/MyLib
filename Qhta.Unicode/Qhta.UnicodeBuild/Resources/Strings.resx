@@ -165,4 +165,10 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="CodePoints" xml:space="preserve">
+    <value>Code Points</value>
+  </data>
+  <data name="CodePointsTooltip" xml:space="preserve">
+    <value>In Unicode, a code point is a unique numerical value assigned to each character within the Unicode standard. These code points range from U+0000 to U+10FFFF, forming the Unicode codespace.</value>
+  </data>
 </root>

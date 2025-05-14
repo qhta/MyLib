@@ -8,6 +8,9 @@
     <Compile Update="NewWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\UcdCodePointsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\NewWritingSystemView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

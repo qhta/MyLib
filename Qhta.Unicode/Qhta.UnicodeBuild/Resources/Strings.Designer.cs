@@ -70,6 +70,24 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code Points.
+        /// </summary>
+        public static string CodePoints {
+            get {
+                return ResourceManager.GetString("CodePoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In Unicode, a code point is a unique numerical value assigned to each character within the Unicode standard. These code points range from U+0000 to U+10FFFF, forming the Unicode codespace..
+        /// </summary>
+        public static string CodePointsTooltip {
+            get {
+                return ResourceManager.GetString("CodePointsTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
         public static string Comment {

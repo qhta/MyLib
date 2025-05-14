@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="Qhta.UnicodeBuild.Views.UcdCodePointsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
+             xmlns:sf="http://schemas.syncfusion.com/wpf"
+             xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+  <Grid>
+    <sf:SfDataGrid x:Name="CodePointDataGrid" 
+              DataContext ="{StaticResource ViewModels}"
+              ItemsSource ="{Binding Instance.UcdCodePoints}"
+              AllowDraggingColumns="True"
+              AllowEditing="True"
+              AllowFiltering="True"
+              AllowResizingColumns="True"
+              ColumnSizer="Auto"
+              HeaderRowHeight="26"
+              QueryRowHeight="DataGrid_OnQueryRowHeight"
+              AutoGenerateColumns="False"
+              GridValidationMode="InEdit"
+              EditTrigger="OnTap"
+              >
+      <sf:SfDataGrid.Columns>
+        <sf:GridTemplateColumn 
+          MappingName="CP"
+          HeaderText="CP" 
+          VerticalAlignment="Top"
+          GridValidationMode="InEdit"
+          ColumnFilter="DisplayText"
+          CellTemplate="{StaticResource CodePointTemplate}"
+          >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:CodePoint.CP}" 
+                         ToolTip="{x:Static resources:CodePoint.CPTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridTemplateColumn>
+        <!--<sf:GridTextColumn 
+          MappingName="RangeName" 
+          HeaderText="RangeName" 
+          VerticalAlignment="Top"
+          Width="100"
+          >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:UcdRange.Name}" 
+                         ToolTip="{x:Static resources:UcdRange.NameTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridTextColumn>
+        <sf:GridComboBoxColumn
+          MappingName="WritingSystem"
+          HeaderText="WritingSystem" 
+          DisplayMemberPath="Name"
+          SortMode="Display"
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+          Path=Instance.SelectableWritingSystems}"
+          VerticalAlignment="Top"
+          Width="100"
+          >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:UcdRange.WritingSystem}" 
+                         ToolTip="{x:Static resources:UcdRange.WritingSystemTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridComboBoxColumn>
+        <helpers:LongTextColumn 
+          MappingName="Comment" 
+          HeaderText="Comment"
+          Width="420"
+          TextWrapping="Wrap"
+          VerticalAlignment="Top"
+          CellTemplate="{StaticResource LongTextCellTemplate}"/>-->
+      </sf:SfDataGrid.Columns>
+    </sf:SfDataGrid>  
+  </Grid>
+</UserControl>

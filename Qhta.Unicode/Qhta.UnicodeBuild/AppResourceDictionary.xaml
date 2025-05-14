@@ -14,8 +14,9 @@
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
   <helpers:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
   <helpers:MappingNameBinder x:Key="MappingNameBinder"/>
-  <helpers:RangeModelComparer x:Key="RangeModelComparer"/>
-  <helpers:RangeModelValueConverter x:Key="RangeModelValueConverter"/>
+  <helpers:CodeRangeComparer x:Key="CodeRangeComparer"/>
+  <helpers:CodeRangeValueConverter x:Key="CodeRangeValueConverter"/>
+  <helpers:CodePointValueConverter x:Key="CodePointValueConverter"/>
   <converters:NegateValueConverter x:Key="NegateValueConverter"/>
   <helpers:WritingSystemTypeToImageConverter x:Key="TypeToImageConverter" />
   <helpers:PropertyControlFactory x:Key="PropertyControlFactory"/>
@@ -68,7 +69,7 @@
 
   <DataTemplate x:Key="RangeCellTemplate">
     <TextBlock 
-        Text="{Binding Range, Converter={StaticResource RangeModelValueConverter}}" 
+        Text="{Binding Range, Converter={StaticResource CodeRangeValueConverter}}" 
         Padding="3"/>
   </DataTemplate>
 
@@ -76,16 +77,36 @@
     <TextBox >
       <TextBox.Text>
         <Binding Path="Range" 
-                   Converter="{StaticResource RangeModelValueConverter}"
+                   Converter="{StaticResource CodeRangeValueConverter}"
                    UpdateSourceTrigger="PropertyChanged"
                    Mode="TwoWay">
           <Binding.ValidationRules>
-            <helpers:RangeValidationRule />
+            <helpers:CodeRangeValidationRule />
           </Binding.ValidationRules>
         </Binding>
       </TextBox.Text>
     </TextBox>
+  </DataTemplate>
 
+  <DataTemplate x:Key="CodePointTemplate">
+    <TextBlock 
+      Text="{Binding CP, Converter={StaticResource CodePointValueConverter}}" 
+      Padding="3"/>
+  </DataTemplate>
+
+  <DataTemplate x:Key="CodePointEditTemplate">
+    <TextBox >
+      <TextBox.Text>
+        <Binding Path="CP" 
+                 Converter="{StaticResource CodePointValueConverter}"
+                 UpdateSourceTrigger="PropertyChanged"
+                 Mode="TwoWay">
+          <Binding.ValidationRules>
+            <helpers:CodePointValidationRule />
+          </Binding.ValidationRules>
+        </Binding>
+      </TextBox.Text>
+    </TextBox>
   </DataTemplate>
 
   <DataTemplate x:Key="TextCellTemplate" DataType="{x:Type mvvm:IViewModel}">

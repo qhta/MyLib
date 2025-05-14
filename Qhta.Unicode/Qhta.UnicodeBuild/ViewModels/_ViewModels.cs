@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Qhta.Unicode.Models;
+using Qhta.UnicodeBuild.ViewModels;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -66,20 +67,25 @@ public class _ViewModels: IDisposable
           TopWritingSystems.Add(vm);
         }
       }
+
+      foreach (var cp in _Context.CodePoints/*.Include(ws => ws.WritingSystemType)*/.OrderBy(ws => ws.Id).ToList())
+      {
+        var vm = new UcdCodePointViewModel(cp);
+        UcdCodePoints.Add(vm);
+      }
       WritingSystemTypes = _Context.WritingSystemTypes.ToList();
       WritingSystemKinds = _Context.WritingSystemKinds.ToList();
 
     }
   }
 
-  public UcdBlocksCollection UcdBlocks { get; set; } = new UcdBlocksCollection();
-  public UcdRangeCollection UcdRanges { get; set; } = new UcdRangeCollection();
-  public WritingSystemsCollection AllWritingSystems { get; set; } = new WritingSystemsCollection();
-  public WritingSystemsCollection TopWritingSystems { get; set; } = new WritingSystemsCollection();
+  public UcdBlocksCollection UcdBlocks { get; set; } = new ();
+  public UcdRangeCollection UcdRanges { get; set; } = new ();
+  public WritingSystemsCollection AllWritingSystems { get; set; } = new ();
+  public WritingSystemsCollection TopWritingSystems { get; set; } = new ();
   public List<WritingSystemType> WritingSystemTypes { get; set; }
   public List<WritingSystemKind> WritingSystemKinds { get; set; }
-  //public IEnumerable<WritingSystemTypeEnum> WritingSystemTypes { get; } = Enum.GetValues(typeof(WritingSystemTypeEnum)).Cast<WritingSystemTypeEnum>();
-  // public IEnumerable<WritingSystemKindEnum> WritingSystemKinds { get; } = Enum.GetValues(typeof(WritingSystemKindEnum)).Cast<WritingSystemKindEnum>();
+  public UcdCodePointsCollection UcdCodePoints { get; set; } = new ();
 
   public IEnumerable<WritingSystemViewModel> SelectableWritingSystems
   {

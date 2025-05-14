@@ -18,7 +18,7 @@ public partial class UcdRangeViewModel: ViewModel<UcdRange>, ILongTextViewModel
     // Initialize any additional properties or collections here if needed
   }
 
-  public RangeModel? Range
+  public CodeRange? Range
   {
     get => Model.Range;
     set
