@@ -77,5 +77,59 @@ namespace Qhta.UnicodeBuild.Resources {
                 return ResourceManager.GetString("CPTooltip", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description as provided by Unicode database.
+        /// </summary>
+        public static string DescriptionTooltip {
+            get {
+                return ResourceManager.GetString("DescriptionTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Glyph.
+        /// </summary>
+        public static string Glyph {
+            get {
+                return ResourceManager.GetString("Glyph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview of character font face.
+        /// </summary>
+        public static string GlyphTooltip {
+            get {
+                return ResourceManager.GetString("GlyphTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Char name used in serialization.
+        /// </summary>
+        public static string NameTooltip {
+            get {
+                return ResourceManager.GetString("NameTooltip", resourceCulture);
+            }
+        }
     }
 }

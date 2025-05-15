@@ -28,6 +28,8 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>
   //[ReadOnly(true)]
   public CodePoint CP { get => Model.Code!; set { if (Model.Code !=value) { Model.Code = value!; NotifyPropertyChanged(nameof(CP)); } } }
   public string? Glyph { get => Model.Glyph; set { if (Model.Glyph!=value) { Model.Glyph = value; NotifyPropertyChanged(nameof(Glyph)); } } }
+  public int GlyphSize { get => _GlyphSize; set { if (_GlyphSize != value) { _GlyphSize = value; NotifyPropertyChanged(nameof(GlyphSize)); } } }
+  private int _GlyphSize = 12;
   public string? CharName { get => Model.CharName; set { if (Model.CharName!=value) { Model.CharName = value; NotifyPropertyChanged(nameof(CharName)); } } }
   public string? Description { get => Model.Description; set { if (Model.Description!=value) { Model.Description = value; NotifyPropertyChanged(nameof(Description)); } } }
 

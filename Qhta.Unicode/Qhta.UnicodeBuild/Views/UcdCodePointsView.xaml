@@ -6,8 +6,9 @@
              xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
+             xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="850" d:DesignWidth="800">
   <Grid>
     <sf:SfDataGrid x:Name="CodePointDataGrid" 
               DataContext ="{StaticResource ViewModels}"
@@ -31,6 +32,7 @@
           GridValidationMode="InEdit"
           ColumnFilter="DisplayText"
           CellTemplate="{StaticResource CodePointTemplate}"
+          AllowEditing="False"
           >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -39,43 +41,69 @@
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTemplateColumn>
-        <!--<sf:GridTextColumn 
-          MappingName="RangeName" 
-          HeaderText="RangeName" 
+        <sf:GridTextColumn 
+          MappingName="CharName" 
+          HeaderText="CharName" 
           VerticalAlignment="Top"
           Width="100"
           >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:UcdRange.Name}" 
-                         ToolTip="{x:Static resources:UcdRange.NameTooltip}"  />
+              <TextBlock Text="{x:Static resources:CodePoint.Name}" 
+                         ToolTip="{x:Static resources:CodePoint.NameTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTextColumn>
-        <sf:GridComboBoxColumn
-          MappingName="WritingSystem"
-          HeaderText="WritingSystem" 
-          DisplayMemberPath="Name"
-          SortMode="Display"
-          ItemsSource="{Binding Source={StaticResource ViewModels}, 
-          Path=Instance.SelectableWritingSystems}"
+        <sf:GridTemplateColumn 
+          MappingName="Glyph" 
+          HeaderText="Glyph" 
           VerticalAlignment="Top"
-          Width="100"
-          >
+          Width="34"
+          AllowFiltering="False"
+          AllowSorting="False"
+          AllowEditing="False"
+        >
           <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:UcdRange.WritingSystem}" 
-                         ToolTip="{x:Static resources:UcdRange.WritingSystemTooltip}"  />
+            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
+              <TextBlock Text="{x:Static resources:CodePoint.Glyph}" 
+                         ToolTip="{x:Static resources:CodePoint.GlyphTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
-        </sf:GridComboBoxColumn>
-        <helpers:LongTextColumn 
-          MappingName="Comment" 
-          HeaderText="Comment"
-          Width="420"
-          TextWrapping="Wrap"
+          <sf:GridColumn.CellTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Glyph}" 
+                           Padding="3"
+                           FontSize="{Binding GlyphSize}"/>
+                 <sf:UpDown Grid.Column="1" 
+                            Value="{Binding GlyphSize}"
+                            MinValue="12"
+                            MaxValue="36"
+                            Width="16"
+                            ValueChanged="UpDown_OnValueChanged"
+                            />
+              </Grid>
+            </DataTemplate>
+          </sf:GridColumn.CellTemplate>
+        </sf:GridTemplateColumn>
+        <sf:GridTextColumn 
+          MappingName="Description" 
+          HeaderText="Description" 
           VerticalAlignment="Top"
-          CellTemplate="{StaticResource LongTextCellTemplate}"/>-->
+          AllowEditing="False"
+          Width="300"
+        >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:CodePoint.Description}" 
+                         ToolTip="{x:Static resources:CodePoint.DescriptionTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridTextColumn>
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>  
   </Grid>

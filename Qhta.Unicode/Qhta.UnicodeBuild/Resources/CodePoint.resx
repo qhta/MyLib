@@ -103,4 +103,22 @@
   <data name="CPTooltip" xml:space="preserve">
     <value>Code point is a hexadecimal integer from 4 to 6 digits.</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NameTooltip" xml:space="preserve">
+    <value>Char name used in serialization</value>
+  </data>
+  <data name="Glyph" xml:space="preserve">
+    <value>Glyph</value>
+  </data>
+  <data name="GlyphTooltip" xml:space="preserve">
+    <value>Preview of character font face</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DescriptionTooltip" xml:space="preserve">
+    <value>Description as provided by Unicode database</value>
+  </data>
 </root>
