@@ -50,8 +50,6 @@ public class _ViewModels: IDisposable
       }
 
       foreach (var ub in _Context.UcdBlocks
-                 //.Include(ub => ub.WritingSystem)
-                 //.Include(ub => ub.UcdRanges)
                  .ToList())
       {
         UcdBlocks.Add(ub);
@@ -68,7 +66,7 @@ public class _ViewModels: IDisposable
         }
       }
 
-      foreach (var cp in _Context.CodePoints/*.Include(ws => ws.WritingSystemType)*/.OrderBy(ws => ws.Id).ToList())
+      foreach (var cp in _Context.CodePoints)
       {
         var vm = new UcdCodePointViewModel(cp);
         UcdCodePoints.Add(vm);
