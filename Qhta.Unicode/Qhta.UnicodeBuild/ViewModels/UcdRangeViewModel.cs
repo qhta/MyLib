@@ -27,6 +27,8 @@ public partial class UcdRangeViewModel: ViewModel<UcdRange>, ILongTextViewModel
       {
         Model.Range = value;
         NotifyPropertyChanged(nameof(Range));
+        _UcdBlock = null; // force recalculation of UcdBlock
+        NotifyPropertyChanged(nameof(UcdBlock));
       }
     }
   }
@@ -57,7 +59,16 @@ public partial class UcdRangeViewModel: ViewModel<UcdRange>, ILongTextViewModel
     }
   }
 
-  public WritingSystem? WritingSystem { get => Model.WritingSystem; set => Model.WritingSystem = value; }
+  public WritingSystemViewModel? WritingSystem
+  {
+    get
+    {
+      var result = Model.WritingSystemId is null ? null : _ViewModels.Instance.WritingSystemViewModels[(int)Model.WritingSystemId];
+      return result;
+    }
+    set => Model.WritingSystemId = value?.Id;
+  }
+
   public string? LongText { get => Comment; set => Comment=value; }
   public bool CanExpandLongText => !string.IsNullOrEmpty(Model.Comment);
   
@@ -76,4 +87,28 @@ public partial class UcdRangeViewModel: ViewModel<UcdRange>, ILongTextViewModel
     }
   }
 
+  public bool Contains(int code)
+  {
+    if (Range is null)
+      return false;
+    if (Range.End is null)
+      return Range.Start == code;
+    return Range.Start <= code && Range.End >= code;
+  }
+
+  public UcdBlockViewModel? UcdBlock
+  {
+    get
+    {
+      if (_UcdBlock is not null)
+        return _UcdBlock;
+      var code = Range?.Start;
+      if (code is null)
+        return null!;
+      _UcdBlock = _ViewModels.Instance.UcdBlocks.FirstOrDefault(x => x.Range != null && x.Range.Start <= code && x.Range.End >= code);
+      return _UcdBlock;
+    }
+  }
+
+  private UcdBlockViewModel? _UcdBlock;
 }

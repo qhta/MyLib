@@ -12,6 +12,7 @@
   <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
+  <converters:AddingConverter x:Key="AddingConverter"/>
   <helpers:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
   <helpers:MappingNameBinder x:Key="MappingNameBinder"/>
   <helpers:CodeRangeComparer x:Key="CodeRangeComparer"/>
@@ -27,11 +28,17 @@
     ResourceType="{x:Type resources:WritingSystemKind}" x:Key="WritingSystemKindResourceConverter"/>
   <resources:Strings x:Key="Strings"/>
 
-  <ContextMenu x:Key="CommonContextMenu">
+    <ContextMenu x:Key="CommonContextMenu">
     <MenuItem Header="Copy" Command="Copy"/>
     <MenuItem Header="Paste" Command="Paste"/>
     <MenuItem Header="Cut" Command="Cut"/>
   </ContextMenu>
+
+  <Style x:Key="FlatButtonStyle" TargetType="ButtonBase">
+    <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="BorderThickness" Value="0"/>
+  </Style>
 
   <Style TargetType="TextBox">
     <Setter Property="Validation.ErrorTemplate">

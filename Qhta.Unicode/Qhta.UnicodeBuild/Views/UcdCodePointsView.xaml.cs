@@ -64,11 +64,6 @@ public partial class UcdCodePointsView : UserControl
         column.Width = colWidth;
         //Debug.WriteLine($"Column {column.MappingName} width = {colWidth}");
       }
-      //Debug.WriteLine($"Invalidate row {rowIndex}");
-      //dataGrid.InvalidateRowHeight(rowIndex);
-      //dataGrid.InvalidateMeasure();
-      //dataGrid.InvalidateArrange();
-      //dataGrid.InvalidateVisual();
       dataGrid.View.Refresh();
     }
   }

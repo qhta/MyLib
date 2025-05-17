@@ -88,7 +88,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description as provided by Unicode database.
+        ///   Looks up a localized string similar to Description as provided by Unicode database..
         /// </summary>
         public static string DescriptionTooltip {
             get {
@@ -106,7 +106,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preview of character font face.
+        ///   Looks up a localized string similar to Preview of character font face..
         /// </summary>
         public static string GlyphTooltip {
             get {
@@ -124,11 +124,47 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Char name used in serialization.
+        ///   Looks up a localized string similar to Char name used in serialization..
         /// </summary>
         public static string NameTooltip {
             get {
                 return ResourceManager.GetString("NameTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode Block.
+        /// </summary>
+        public static string UcdBlock {
+            get {
+                return ResourceManager.GetString("UcdBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode block which contains this code point..
+        /// </summary>
+        public static string UcdBlockTooltip {
+            get {
+                return ResourceManager.GetString("UcdBlockTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode Range.
+        /// </summary>
+        public static string UcdRange {
+            get {
+                return ResourceManager.GetString("UcdRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode range which contains this code point..
+        /// </summary>
+        public static string UcdRangeTooltip {
+            get {
+                return ResourceManager.GetString("UcdRangeTooltip", resourceCulture);
             }
         }
     }

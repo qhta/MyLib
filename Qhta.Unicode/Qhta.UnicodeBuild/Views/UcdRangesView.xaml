@@ -6,24 +6,29 @@
              xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
+             xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <Grid>
+    <!--<Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="20"/>
+    </Grid.RowDefinitions>-->
     <sf:SfDataGrid x:Name="UcdRangeDataGrid" 
-              DataContext ="{StaticResource ViewModels}"
-              ItemsSource ="{Binding Instance.UcdRanges}"
-              AllowDraggingColumns="True"
-              AllowEditing="True"
-              AllowFiltering="True"
-              AllowResizingColumns="True"
-              ColumnSizer="Auto"
-              HeaderRowHeight="26"
-              QueryRowHeight="DataGrid_OnQueryRowHeight"
-              AutoGenerateColumns="False"
-              GridValidationMode="InEdit"
-              CurrentCellValidating="DataGrid_CurrentCellValidating"
-              EditTrigger="OnTap"
-              >
+                   DataContext ="{StaticResource ViewModels}"
+                   ItemsSource ="{Binding Instance.UcdRanges}"
+                   AllowDraggingColumns="True"
+                   AllowEditing="True"
+                   AllowFiltering="True"
+                   AllowResizingColumns="True"
+                   ColumnSizer="Auto"
+                   HeaderRowHeight="26"
+                   QueryRowHeight="DataGrid_OnQueryRowHeight"
+                   AutoGenerateColumns="False"
+                   GridValidationMode="InEdit"
+                   CurrentCellValidating="DataGrid_CurrentCellValidating"
+                   EditTrigger="OnTap"
+    >
       <sf:SfDataGrid.Columns>
         <sf:GridTemplateColumn 
           MappingName="Range"
@@ -40,11 +45,12 @@
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTemplateColumn>
+
         <sf:GridTextColumn 
           MappingName="RangeName" 
           HeaderText="RangeName" 
           VerticalAlignment="Top"
-          Width="100"
+          Width="300"
           >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -53,6 +59,30 @@
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTextColumn>
+
+        <sf:GridTemplateColumn 
+          MappingName="UcdBlock" 
+          HeaderText="UcdBlock" 
+          VerticalAlignment="Top"
+          AllowEditing="False"
+          Width="300"
+        >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:UcdRange.UcdBlock}" 
+                         ToolTip="{x:Static resources:UcdRange.UcdBlockTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+          <sf:GridColumn.CellTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
+              <TextBlock Text="{Binding UcdBlock.BlockName}" 
+                         ToolTip="{Binding UcdBlock.Comment}" 
+                         Padding="3"/>
+            </DataTemplate>
+          </sf:GridColumn.CellTemplate>
+
+        </sf:GridTemplateColumn>
+
         <sf:GridComboBoxColumn
           MappingName="WritingSystem"
           HeaderText="WritingSystem" 
@@ -61,7 +91,7 @@
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
           Path=Instance.SelectableWritingSystems}"
           VerticalAlignment="Top"
-          Width="100"
+          Width="300"
           >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -70,6 +100,7 @@
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridComboBoxColumn>
+
         <helpers:LongTextColumn 
           MappingName="Comment" 
           HeaderText="Comment"
@@ -77,7 +108,9 @@
           TextWrapping="Wrap"
           VerticalAlignment="Top"
           CellTemplate="{StaticResource LongTextCellTemplate}"/>
+
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
+
   </Grid>
 </UserControl>

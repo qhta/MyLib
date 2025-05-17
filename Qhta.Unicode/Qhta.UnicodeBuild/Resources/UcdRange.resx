@@ -115,4 +115,10 @@
   <data name="WritingSystemTooltip" xml:space="preserve">
     <value>Writing system of the Unicode range defines rules of use and translation of codepoints belonging to this range.</value>
   </data>
+  <data name="UcdBlock" xml:space="preserve">
+    <value>Unicode Block</value>
+  </data>
+  <data name="UcdBlockTooltip" xml:space="preserve">
+    <value>Unicode block which contains this range.</value>
+  </data>
 </root>

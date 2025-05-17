@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TestObservableObjectWpfApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c5f680217fed12e684ec7a4cb50ce6edc4378f2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+560e969268fb2136f1d880642f21d4ba029d4d8e")]
 [assembly: System.Reflection.AssemblyProductAttribute("TestObservableObjectWpfApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TestObservableObjectWpfApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

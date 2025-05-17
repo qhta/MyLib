@@ -15,6 +15,8 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
     // Initialize any additional properties or collections here if needed
   }
 
+  public int? Id => Model.Id!;
+
   public CodeRange? Range
   {
     get => Model.Range;
@@ -54,7 +56,15 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
     }
   }
 
-  public WritingSystem? WritingSystem { get => Model.WritingSystem; set => Model.WritingSystem = value; }
+  public WritingSystemViewModel? WritingSystem
+  {
+    get
+    {
+      var result = Model.WritingSystemId is null ? null : _ViewModels.Instance.WritingSystemViewModels[(int)Model.WritingSystemId];
+      return result;
+    }
+    set => Model.WritingSystemId = value?.Id;
+  }
 
   public UcdRangeCollection Ranges
   {

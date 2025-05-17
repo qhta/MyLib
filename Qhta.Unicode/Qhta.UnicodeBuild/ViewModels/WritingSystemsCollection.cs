@@ -43,7 +43,6 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
     return vm;
   }
 
-
   //public RelayCommand EvaluateIsUsedCommand { get; }
 
   //private void EvaluateIsUsed()

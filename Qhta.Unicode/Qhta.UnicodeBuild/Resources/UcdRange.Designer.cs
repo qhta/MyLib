@@ -97,6 +97,24 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unicode Block.
+        /// </summary>
+        public static string UcdBlock {
+            get {
+                return ResourceManager.GetString("UcdBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode block which contains this range..
+        /// </summary>
+        public static string UcdBlockTooltip {
+            get {
+                return ResourceManager.GetString("UcdBlockTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Writing system.
         /// </summary>
         public static string WritingSystem {

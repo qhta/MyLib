@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using Microsoft.DotNet.DesignTools.Protocol.Values;
 using Microsoft.DotNet.DesignTools.ViewModels;
 using PropertyTools.DataAnnotations;
@@ -133,4 +134,32 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>
   [RegularExpression("^[0-9a-fA-F]{4,6}")]
   public string? Title { get => Model.Title; set { if (Model.Title!=value) { Model.Title = value; NotifyPropertyChanged(nameof(Title)); } } }
   //public ICollection<Alias> Aliases { get; set; } = new List<Alias>();
+
+  public UcdBlockViewModel? UcdBlock
+  {
+    get
+    {
+      if (_UcdBlock is not null)
+        return _UcdBlock;
+      var code = Id;
+      _UcdBlock = _ViewModels.Instance.UcdBlocks.FirstOrDefault(x => x.Range != null && x.Range.Start <= code && x.Range.End >= code);
+      return _UcdBlock;
+    }
+  }
+
+  private UcdBlockViewModel? _UcdBlock;
+
+  public UcdRangeViewModel? UcdRange
+  {
+    get
+    {
+      if (_UcdRange is not null)
+        return _UcdRange;
+      var code = Id;
+      _UcdRange = _ViewModels.Instance.UcdRanges.FirstOrDefault(x => x.Contains(code));
+      return _UcdRange;
+    }
+  }
+
+  private UcdRangeViewModel? _UcdRange;
 }

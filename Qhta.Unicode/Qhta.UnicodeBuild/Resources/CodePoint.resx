@@ -107,18 +107,30 @@
     <value>Name</value>
   </data>
   <data name="NameTooltip" xml:space="preserve">
-    <value>Char name used in serialization</value>
+    <value>Char name used in serialization.</value>
   </data>
   <data name="Glyph" xml:space="preserve">
     <value>Glyph</value>
   </data>
   <data name="GlyphTooltip" xml:space="preserve">
-    <value>Preview of character font face</value>
+    <value>Preview of character font face.</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
   <data name="DescriptionTooltip" xml:space="preserve">
-    <value>Description as provided by Unicode database</value>
+    <value>Description as provided by Unicode database.</value>
+  </data>
+  <data name="UcdBlock" xml:space="preserve">
+    <value>Unicode Block</value>
+  </data>
+  <data name="UcdBlockTooltip" xml:space="preserve">
+    <value>Unicode block which contains this code point.</value>
+  </data>
+  <data name="UcdRange" xml:space="preserve">
+    <value>Unicode Range</value>
+  </data>
+  <data name="UcdRangeTooltip" xml:space="preserve">
+    <value>Unicode range which contains this code point.</value>
   </data>
 </root>

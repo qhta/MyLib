@@ -60,11 +60,13 @@ public class _ViewModels: IDisposable
       {
         var vm= new WritingSystemViewModel(ws);
         AllWritingSystems.Add(vm);
+        WritingSystemViewModels.Add((int)ws.Id!, vm);
         if (ws.ParentId==null)
         {
           TopWritingSystems.Add(vm);
         }
       }
+      AllWritingSystems.CollectionChanged += AllWritingSystems_CollectionChanged;
 
       foreach (var cp in _Context.CodePoints)
       {
@@ -77,8 +79,27 @@ public class _ViewModels: IDisposable
     }
   }
 
+  private void AllWritingSystems_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+  {
+    if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+    {
+      foreach (WritingSystemViewModel vm in e.OldItems!)
+      {
+        WritingSystemViewModels.Remove((int)vm.Id!);
+      }
+    }
+    else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+    {
+      foreach (WritingSystemViewModel vm in e.NewItems!)
+      {
+        WritingSystemViewModels.Add((int)vm.Id!, vm);
+      }
+    }
+  }
+
   public UcdBlocksCollection UcdBlocks { get; set; } = new ();
   public UcdRangeCollection UcdRanges { get; set; } = new ();
+  public Dictionary<int, WritingSystemViewModel> WritingSystemViewModels { get; set; } = new();
   public WritingSystemsCollection AllWritingSystems { get; set; } = new ();
   public WritingSystemsCollection TopWritingSystems { get; set; } = new ();
   public List<WritingSystemType> WritingSystemTypes { get; set; }

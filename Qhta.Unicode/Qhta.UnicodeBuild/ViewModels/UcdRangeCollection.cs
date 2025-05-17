@@ -6,6 +6,8 @@ namespace Qhta.UnicodeBuild.ViewModels;
 
 public class UcdRangeCollection : ObservableCollection<UcdRangeViewModel>
 {
+
+
   public void Add(UcdRange ur)
   {
     Add(new UcdRangeViewModel(ur));

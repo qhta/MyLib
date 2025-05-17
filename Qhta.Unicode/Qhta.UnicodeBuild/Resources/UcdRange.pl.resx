@@ -115,4 +115,10 @@
   <data name="WritingSystemTooltip" xml:space="preserve">
     <value>System pisma zakresu Unicode definiuje zasady używania i tłumaczenia punktów kodowych należących do tego zakresu.</value>
   </data>
+  <data name="UcdBlock" xml:space="preserve">
+    <value>Blok Unicode</value>
+  </data>
+  <data name="UcdBlockTooltip" xml:space="preserve">
+    <value>Blok Unicode, to którego należy ten punkt zakres.</value>
+  </data>
 </root>

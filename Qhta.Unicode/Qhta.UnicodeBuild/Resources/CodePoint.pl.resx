@@ -107,18 +107,30 @@
     <value>Nazwa</value>
   </data>
   <data name="NameTooltip" xml:space="preserve">
-    <value>Nazwa znaku używana do serializacji</value>
+    <value>Nazwa znaku używana do serializacji.</value>
   </data>
   <data name="Glyph" xml:space="preserve">
     <value>Glif</value>
   </data>
   <data name="GlyphTooltip" xml:space="preserve">
-    <value>Podgląd znaku w czcionce</value>
+    <value>Podgląd znaku w czcionce.</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Opis</value>
   </data>
   <data name="DescriptionTooltip" xml:space="preserve">
-    <value>Opis znaku dostarczony przez bazę danych Unicode</value>
+    <value>Opis znaku dostarczony przez bazę danych Unicode.</value>
+  </data>
+  <data name="UcdBlock" xml:space="preserve">
+    <value>Blok Unicode</value>
+  </data>
+  <data name="UcdBlockTooltip" xml:space="preserve">
+    <value>Blok Unicode, to którego należy ten punkt kodowy.</value>
+  </data>
+  <data name="UcdRange" xml:space="preserve">
+    <value>Zakres Unicode</value>
+  </data>
+  <data name="UcdRangeTooltip" xml:space="preserve">
+    <value>Zakres Unicode, to którego należy ten punkt kodowy.</value>
   </data>
 </root>
