@@ -7,7 +7,7 @@ using Qhta.UnicodeBuild.Helpers;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
+public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel, IRowHeightProvider
 {
   /// <inheritdoc />
   public UcdBlockViewModel(UcdBlock model) : base(model)
@@ -96,8 +96,23 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
       if (_IsLongTextExpanded != value)
       {
         _IsLongTextExpanded = value;
-        //Debug.WriteLine($"IsWrapped changed to {IsRowHeightExpanded}");
         NotifyPropertyChanged(nameof(IsLongTextExpanded));
+      }
+    }
+  }
+
+
+  private double _RowHeight = 30;
+  public double RowHeight
+  {
+    get => _RowHeight;
+    set
+    {
+      if (_RowHeight != value)
+      {
+        _RowHeight = value;
+        Debug.WriteLine($"RowHeight changed to {RowHeight}");
+        NotifyPropertyChanged(nameof(RowHeight));
       }
     }
   }

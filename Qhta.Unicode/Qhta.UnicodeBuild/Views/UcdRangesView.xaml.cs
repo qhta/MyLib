@@ -21,7 +21,7 @@ namespace Qhta.UnicodeBuild.Views
 
     private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
     {
-      LongTextColumn.DataGrid_OnQueryRowHeight(sender, e);
+      LongTextColumn.OnQueryRowHeight(sender, e);
     }
 
     private void UcdRangeDataGrid_Loaded(object sender, RoutedEventArgs e)

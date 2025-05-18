@@ -30,7 +30,10 @@ public partial class UcdBlocksView : UserControl
 
   private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
   {
-    LongTextColumn.DataGrid_OnQueryRowHeight(sender, e);
+    RowHeightProvider.OnQueryRowHeight(sender, e);
+    if (e.Handled)
+      return;
+    LongTextColumn.OnQueryRowHeight(sender, e);
   }
 
   public RelayCommand<SfDataGrid> NextItemCommand { get; set; }

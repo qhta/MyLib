@@ -209,3 +209,4 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-wi
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\pl\Qhta.WPF.Utils.resources.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Controls\RecordNavigationBar.g.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Controls\RecordNavigationBar.baml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Themes\Generic.baml

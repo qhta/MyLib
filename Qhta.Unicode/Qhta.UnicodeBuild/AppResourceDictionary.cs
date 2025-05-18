@@ -115,5 +115,17 @@ namespace Qhta.UnicodeBuild
       }
     }
 
+    private void GridSplitter_OnSizeChanged(object sender, SizeChangedEventArgs e)
+    {
+      var gridSplitter = sender as GridSplitter;
+      if (gridSplitter == null)
+        return;
+      var parent = FindParent<Grid>(gridSplitter);
+      if (parent != null)
+      {
+        Debug.WriteLine($"GridSplitter size changed: {e.NewSize}");
+        parent.Height=e.NewSize.Height;
+      }
+    }
   }
 }

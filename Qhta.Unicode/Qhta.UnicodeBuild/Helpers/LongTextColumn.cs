@@ -9,7 +9,7 @@ namespace Qhta.UnicodeBuild.Helpers;
 
 public class LongTextColumn : GridTemplateColumn
 {
-  public static void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
+  public static void OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
   {
     if (sender is SfDataGrid dataGrid && e.RowIndex > 0 && e.RowIndex <= dataGrid.View.Records.Count)
     {

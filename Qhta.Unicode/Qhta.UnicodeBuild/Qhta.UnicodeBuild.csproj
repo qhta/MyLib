@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controls\GridDefinitionBase.cs" />
     <Compile Remove="Helpers\LongTextCell.cs" />
     <Compile Remove="Helpers\TreeViewHelper.cs" />
     <Compile Remove="Models\Abbreviation.cs" />

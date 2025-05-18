@@ -109,7 +109,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
 
   private void ScrollInView(int selectedIndex)
   {
-    Debug.WriteLine($"selectedIndex = {selectedIndex}"); 
+    //Debug.WriteLine($"selectedIndex = {selectedIndex}"); 
     var dataGrid = DataGrid;
     var rowColumnIndex = new Syncfusion.UI.Xaml.ScrollAxis.RowColumnIndex(selectedIndex + 1, 0);
 
@@ -119,16 +119,16 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
     }
     else
     {
-      Debug.WriteLine($"ScrollInView = {rowColumnIndex.RowIndex}");
+      //Debug.WriteLine($"ScrollInView = {rowColumnIndex.RowIndex}");
       dataGrid.ScrollInView(rowColumnIndex);
     }
     var selectedItem = dataGrid.View.Records[selectedIndex].Data;
     dataGrid.View.MoveCurrentTo(selectedItem);
 
-    var firstLine = dataGrid.GetVisualContainer().ScrollRows.GetVisibleLines().FirstOrDefault(line => line.Region == ScrollAxisRegion.Body);
-    var lastLine = dataGrid.GetVisualContainer().ScrollRows.GetVisibleLines().LastOrDefault(line => line.Region == ScrollAxisRegion.Body);
-    Debug.WriteLine($"firstLine={firstLine}");
-    Debug.WriteLine($"lastLine={lastLine}");
+    //var firstLine = dataGrid.GetVisualContainer().ScrollRows.GetVisibleLines().FirstOrDefault(line => line.Region == ScrollAxisRegion.Body);
+    //var lastLine = dataGrid.GetVisualContainer().ScrollRows.GetVisibleLines().LastOrDefault(line => line.Region == ScrollAxisRegion.Body);
+    //Debug.WriteLine($"firstLine={firstLine}");
+    //Debug.WriteLine($"lastLine={lastLine}");
   }
 
   public event PropertyChangedEventHandler? PropertyChanged;

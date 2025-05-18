@@ -25,7 +25,7 @@ public partial class UcdCodePointsView : UserControl
   {
     if (sender is SfDataGrid dataGrid && e.RowIndex > 0 && e.RowIndex <= dataGrid.View.Records.Count)
     {
-      LongTextColumn.DataGrid_OnQueryRowHeight(sender, e);
+      LongTextColumn.OnQueryRowHeight(sender, e);
       var rowIndex = e.RowIndex - 1;
       var rowData = dataGrid.View.Records[rowIndex].Data as UcdCodePointViewModel;
       var glyphSize = (rowData?.GlyphSize ?? 12);

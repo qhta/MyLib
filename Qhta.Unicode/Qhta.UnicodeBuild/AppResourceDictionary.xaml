@@ -6,6 +6,7 @@
                     xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
                     xmlns:sf="http://schemas.syncfusion.com/wpf"
                     xmlns:mvvm="clr-namespace:Qhta.MVVM;assembly=Qhta.MVVM"
+                    xmlns:controls="clr-namespace:Qhta.UnicodeBuild.Controls"
                     xmlns:models="clr-namespace:Qhta.Unicode.Models"
                     x:Class="Qhta.UnicodeBuild.AppResourceDictionary">
 
@@ -229,5 +230,26 @@
         </Setter>
       </Trigger>
     </Style.Triggers>
+  </Style>
+
+  <Style TargetType="sf:GridRowHeaderCell">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="sf:GridRowHeaderCell">
+          <Border x:Name="PART_RowHeaderCellBorder"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid Height="{Binding RowHeight, Mode=TwoWay}">
+              <TextBlock HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Text="{Binding RowIndex,RelativeSource={RelativeSource TemplatedParent}}"
+                         TextAlignment="Center" />
+              <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="2" Background="LightGray"/>
+            </Grid>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
   </Style>
 </ResourceDictionary>
