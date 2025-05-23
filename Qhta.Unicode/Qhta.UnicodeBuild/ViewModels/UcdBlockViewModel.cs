@@ -102,7 +102,7 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
   }
 
 
-  private double _RowHeight = 30;
+  private double _RowHeight = 24;
   public double RowHeight
   {
     get => _RowHeight;
@@ -111,7 +111,7 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
       if (_RowHeight != value)
       {
         _RowHeight = value;
-        Debug.WriteLine($"RowHeight changed to {RowHeight}");
+        //Debug.WriteLine($"RowHeight changed to {RowHeight}");
         NotifyPropertyChanged(nameof(RowHeight));
       }
     }

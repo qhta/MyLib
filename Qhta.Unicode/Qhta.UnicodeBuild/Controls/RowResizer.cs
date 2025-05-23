@@ -17,7 +17,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using Qhta.UnicodeBuild.Helpers;
+using Qhta.UnicodeBuild.ViewModels;
+
+using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.UnicodeBuild.Controls;
 
@@ -65,11 +70,11 @@ public class RowResizer : Thumb
 
 
 
-    FocusableProperty.OverrideMetadata(typeof(RowResizer), new FrameworkPropertyMetadata(true));
-    FrameworkElement.HorizontalAlignmentProperty.OverrideMetadata(typeof(RowResizer), new FrameworkPropertyMetadata(HorizontalAlignment.Right));
+    FocusableProperty.OverrideMetadata(typeof(RowResizer), new FrameworkPropertyMetadata(false));
+    FrameworkElement.VerticalAlignmentProperty.OverrideMetadata(typeof(RowResizer), new FrameworkPropertyMetadata(VerticalAlignment.Bottom));
 
     // Cursor depends on ResizeDirection, ActualWidth, and ActualHeight 
-    CursorProperty.OverrideMetadata(typeof(RowResizer), new FrameworkPropertyMetadata(null, new CoerceValueCallback(CoerceCursor)));
+    CursorProperty.OverrideMetadata(typeof(RowResizer), new FrameworkPropertyMetadata(Cursors.SizeNS));
   }
 
   /// <summary>
@@ -88,55 +93,6 @@ public class RowResizer : Thumb
     o.CoerceValue(CursorProperty);
   }
 
-  private static object CoerceCursor(DependencyObject o, object value)
-  {
-    RowResizer resizer = (RowResizer)o;
-
-    bool hasModifiers;
-    object vs = resizer.GetValue(CursorProperty);
-    if (value == null && vs == Cursors.Arrow)
-    {
-      switch (resizer.GetEffectiveResizeDirection())
-      {
-        case GridResizeDirection.Columns:
-          return Cursors.SizeWE;
-        case GridResizeDirection.Rows:
-          return Cursors.SizeNS;
-      }
-    }
-    return value;
-  }
-
-  /// <summary>
-  ///     The DependencyProperty for the ResizeDirection property.
-  ///     Default Value:      GridResizeDirection.Auto
-  /// </summary>
-  public static readonly DependencyProperty ResizeDirectionProperty
-      = DependencyProperty.Register("ResizeDirection",
-                                      typeof(GridResizeDirection),
-                                      typeof(RowResizer),
-                                      new FrameworkPropertyMetadata(GridResizeDirection.Auto,
-                                                                    new PropertyChangedCallback(UpdateCursor)),
-                                      new ValidateValueCallback(IsValidResizeDirection));
-
-  /// <summary>
-  /// Indicates whether the Splitter resizes the Columns, Rows, or Both.
-  /// </summary>
-  public GridResizeDirection ResizeDirection
-  {
-    get { return (GridResizeDirection)GetValue(ResizeDirectionProperty); }
-
-    set { SetValue(ResizeDirectionProperty, value); }
-  }
-
-  private static bool IsValidResizeDirection(object o)
-  {
-    GridResizeDirection resizeDirection = (GridResizeDirection)o;
-    return resizeDirection == GridResizeDirection.Auto ||
-           resizeDirection == GridResizeDirection.Columns ||
-           resizeDirection == GridResizeDirection.Rows;
-  }
-
   /// <summary>
   ///     The DependencyProperty for the ResizeBehavior property.
   ///     Default Value:      GridResizeBehavior.BasedOnAlignment
@@ -149,7 +105,7 @@ public class RowResizer : Thumb
                                       new ValidateValueCallback(IsValidResizeBehavior));
 
   /// <summary>
-  /// Indicates which Columns or Rows the Splitter resizes.
+  /// Indicates which Columns or Rows the Resizer resizes.
   /// </summary>
   public GridResizeBehavior ResizeBehavior
   {
@@ -193,18 +149,18 @@ public class RowResizer : Thumb
   /// </summary>
   public static readonly DependencyProperty PreviewStyleProperty =
               DependencyProperty.Register(
-                          "PreviewStyle",
+                          nameof(PreviewStyle),
                           typeof(Style),
                           typeof(RowResizer),
-                          new FrameworkPropertyMetadata((Style)null));
+                          new FrameworkPropertyMetadata(null));
 
   /// <summary>
   ///     The Style used to render the Preview.
   /// </summary>
   public Style PreviewStyle
   {
-    get { return (Style)GetValue(PreviewStyleProperty); }
-    set { SetValue(PreviewStyleProperty, value); }
+    get => (Style)GetValue(PreviewStyleProperty);
+    set => SetValue(PreviewStyleProperty, value);
   }
 
 
@@ -214,7 +170,7 @@ public class RowResizer : Thumb
   /// </summary>
   public static readonly DependencyProperty KeyboardIncrementProperty =
               DependencyProperty.Register(
-                          "KeyboardIncrement",
+                          nameof(KeyboardIncrement),
                           typeof(double),
                           typeof(RowResizer),
                           new FrameworkPropertyMetadata(10.0),
@@ -225,8 +181,8 @@ public class RowResizer : Thumb
   /// </summary>
   public double KeyboardIncrement
   {
-    get { return (double)GetValue(KeyboardIncrementProperty); }
-    set { SetValue(KeyboardIncrementProperty, value); }
+    get => (double)GetValue(KeyboardIncrementProperty);
+    set => SetValue(KeyboardIncrementProperty, value);
   }
 
 
@@ -270,34 +226,6 @@ public class RowResizer : Thumb
   //{
   //  return new RowResizerAutomationPeer(this);
   //}
-
-  // Converts BasedOnAlignment direction to Rows, Columns, or Both depending on its width/height
-  private GridResizeDirection GetEffectiveResizeDirection()
-  {
-    GridResizeDirection direction = ResizeDirection;
-
-    if (direction == GridResizeDirection.Auto)
-    {
-      // When HorizontalAlignment is Left, Right or Center, resize Columns
-      if (HorizontalAlignment != HorizontalAlignment.Stretch)
-      {
-        direction = GridResizeDirection.Columns;
-      }
-      else if (VerticalAlignment != VerticalAlignment.Stretch)
-      {
-        direction = GridResizeDirection.Rows;
-      }
-      else if (ActualWidth <= ActualHeight)// Fall back to Width vs Height
-      {
-        direction = GridResizeDirection.Columns;
-      }
-      else
-      {
-        direction = GridResizeDirection.Rows;
-      }
-    }
-    return direction;
-  }
 
   // Convert BasedOnAlignment to Next/Prev/Both depending on alignment and Direction
   private GridResizeBehavior GetEffectiveResizeBehavior(GridResizeDirection direction)
@@ -357,7 +285,7 @@ public class RowResizer : Thumb
   // This adorner draws the preview for the RowResizer
   // It also positions the adorner
   // Note:- This class is sealed because it calls OnVisualChildrenChanged virtual in the 
-  //              constructor and it does not override it, but derived classes could.        
+  //              constructor, but it does not override it, but derived classes could.        
   private sealed class PreviewAdorner : Adorner
   {
     public PreviewAdorner(RowResizer RowResizer, Style previewStyle)
@@ -381,7 +309,7 @@ public class RowResizer : Thumb
     ///   Derived class must implement to support Visual children. The method must return
     ///    the child at the specified index. Index must be between 0 and GetVisualChildrenCount-1.
     ///
-    ///    By default a Visual does not have any children.
+    ///    By default, a Visual does not have any children.
     ///
     ///  Remark: 
     ///       During this virtual call it is not valid to modify the Visual tree. 
@@ -403,7 +331,7 @@ public class RowResizer : Thumb
     ///  the Visual children. Derived classes need to return the number of children
     ///  from this method.
     ///
-    ///    By default a Visual does not have any children.
+    ///    By default, a Visual does not have any children.
     ///
     ///  Remark: During this virtual method the Visual tree must not be modified.
     /// </summary>        
@@ -426,40 +354,46 @@ public class RowResizer : Thumb
     // The Preview's Offset in the X direction from the RowResizer
     public double OffsetX
     {
-      get { return Translation.X; }
-      set { Translation.X = value; }
+      get => Translation.X;
+      set => Translation.X = value;
     }
 
     // The Preview's Offset in the Y direction from the RowResizer
     public double OffsetY
     {
-      get { return Translation.Y; }
-      set { Translation.Y = value; }
+      get => Translation.Y;
+      set => Translation.Y = value;
     }
 
-    private TranslateTransform Translation;
-    private Decorator _decorator;
+    private readonly TranslateTransform Translation;
+    private readonly Decorator _decorator;
   }
 
   // Removes the Preview Adorner
   private void RemovePreviewAdorner()
   {
+    if (_resizeData == null)
+      return;
     // Remove the preview grid from the adorner
     if (_resizeData.Adorner != null)
     {
-      AdornerLayer layer = VisualTreeHelper.GetParent(_resizeData.Adorner) as AdornerLayer;
-      layer.Remove(_resizeData.Adorner);
+      AdornerLayer? layer = VisualTreeHelper.GetParent(_resizeData.Adorner) as AdornerLayer;
+      layer?.Remove(_resizeData.Adorner);
     }
   }
 
   #endregion
 
-  #region Splitter Setup
+  #region Resizer Setup
 
   // Initialize the data needed for resizing
-  private void InitializeData(bool ShowsPreview)
+  private void InitializeData(bool showsPreview)
   {
-    Grid grid = Parent as Grid;
+    var grid = this.FindParent<SfDataGrid>();
+    var dataContext = this.DataContext;
+
+    var cell = this.FindParent<GridRowHeaderCell>();
+    var rowIndex = cell?.RowIndex-1 ?? 0;
 
     // If not in a grid or can't resize, do nothing
     if (grid != null)
@@ -467,10 +401,9 @@ public class RowResizer : Thumb
       // Setup data used for resizing
       _resizeData = new ResizeData();
       _resizeData.Grid = grid;
-      _resizeData.ShowsPreview = ShowsPreview;
-      _resizeData.ResizeDirection = GetEffectiveResizeDirection();
-      _resizeData.ResizeBehavior = GetEffectiveResizeBehavior(_resizeData.ResizeDirection);
-      _resizeData.SplitterLength = Math.Min(ActualWidth, ActualHeight);
+      _resizeData.ShowsPreview = showsPreview;
+      _resizeData.RowIndex = rowIndex;
+      _resizeData.ResizerLength = Math.Min(ActualWidth, ActualHeight);
 
       // Store the rows and columns to resize on drag events
       if (!SetupDefinitionsToResize())
@@ -480,7 +413,7 @@ public class RowResizer : Thumb
         return;
       }
 
-      // Setup the preview in the adorner if ShowsPreview is true
+      // Set up the preview in the adorner if ShowsPreview is true
       SetupPreview();
     }
   }
@@ -488,67 +421,19 @@ public class RowResizer : Thumb
   // Returns true if RowResizer can resize rows/columns
   private bool SetupDefinitionsToResize()
   {
-    int resizerIndex, index1, index2;
+    if (_resizeData == null)
+      return false;
 
-    int gridSpan = (int)GetValue(_resizeData.ResizeDirection == GridResizeDirection.Columns ? Grid.ColumnSpanProperty : Grid.RowSpanProperty);
+    var rowIndex = _resizeData.RowIndex;
 
-    if (gridSpan == 1)
+    // Get # of rows/columns in the resize direction
+    int count = _resizeData.Grid.View.Records.Count;
+
+    if (rowIndex >= 0 && rowIndex < count)
     {
-      resizerIndex = (int)GetValue(_resizeData.ResizeDirection == GridResizeDirection.Columns ? Grid.ColumnProperty : Grid.RowProperty);
-
-      // Select the columns based on Behavior
-      switch (_resizeData.ResizeBehavior)
-      {
-        case GridResizeBehavior.PreviousAndCurrent:
-          // get current and previous
-          index1 = resizerIndex - 1;
-          index2 = resizerIndex;
-          break;
-        case GridResizeBehavior.CurrentAndNext:
-          // get current and next
-          index1 = resizerIndex;
-          index2 = resizerIndex + 1;
-          break;
-        default: // GridResizeBehavior.PreviousAndNext
-                 // get previous and next
-          index1 = resizerIndex - 1;
-          index2 = resizerIndex + 1;
-          break;
-      }
-
-      // Get # of rows/columns in the resize direction
-      int count = (_resizeData.ResizeDirection == GridResizeDirection.Columns) ? _resizeData.Grid.ColumnDefinitions.Count : _resizeData.Grid.RowDefinitions.Count;
-
-      if (index1 >= 0 && index2 < count)
-      {
-        _resizeData.SplitterIndex = resizerIndex;
-
-        _resizeData.Definition1Index = index1;
-        _resizeData.Definition1 = GetGridDefinition(_resizeData.Grid, index1, _resizeData.ResizeDirection);
-        //_resizeData.OriginalDefinition1Length = _resizeData.Definition1.UserSizeValueCache;  //save Size if user cancels
-        _resizeData.OriginalDefinition1ActualLength = GetActualLength(_resizeData.Definition1);
-
-        _resizeData.Definition2Index = index2;
-        _resizeData.Definition2 = GetGridDefinition(_resizeData.Grid, index2, _resizeData.ResizeDirection);
-        //_resizeData.OriginalDefinition2Length = _resizeData.Definition2.UserSizeValueCache;  //save Size if user cancels
-        _resizeData.OriginalDefinition2ActualLength = GetActualLength(_resizeData.Definition2);
-
-        // Determine how to resize the columns 
-        bool isStar1 = IsStar(_resizeData.Definition1);
-        bool isStar2 = IsStar(_resizeData.Definition2);
-        if (isStar1 && isStar2)
-        {
-          // If they are both stars, resize both
-          _resizeData.SplitBehavior = SplitBehavior.Split;
-        }
-        else
-        {
-          // One column is fixed width, resize the first one that is fixed
-          _resizeData.SplitBehavior = !isStar1 ? SplitBehavior.Resize1 : SplitBehavior.Resize2;
-        }
-
-        return true;
-      }
+      _resizeData.RowIndex = rowIndex;
+      _resizeData.OriginalRowHeight = GetRowHeight(_resizeData.Grid, rowIndex);
+      return true;
     }
     return false;
   }
@@ -556,19 +441,21 @@ public class RowResizer : Thumb
   // Create the Preview adorner and add it to the adorner layer
   private void SetupPreview()
   {
+    if (_resizeData == null)
+      return;
     if (_resizeData.ShowsPreview)
     {
       // Get the adorner layer and add an adorner to it
-      AdornerLayer adornerlayer = AdornerLayer.GetAdornerLayer(_resizeData.Grid);
+      AdornerLayer? adornerLayer = AdornerLayer.GetAdornerLayer(_resizeData.Grid);
 
       // Can't display preview
-      if (adornerlayer == null)
+      if (adornerLayer == null)
       {
         return;
       }
 
       _resizeData.Adorner = new PreviewAdorner(this, PreviewStyle);
-      adornerlayer.Add(_resizeData.Adorner);
+      adornerLayer.Add(_resizeData.Adorner);
 
       // Get constraints on preview's translation
       GetDeltaConstraints(out _resizeData.MinChange, out _resizeData.MaxChange);
@@ -579,42 +466,29 @@ public class RowResizer : Thumb
 
   #region Event Handlers
 
-  /// <summary>
-  ///     An event announcing that the resizer is no longer focused
-  /// </summary>
-  protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
-  {
-    base.OnLostKeyboardFocus(e);
-
-    if (_resizeData != null)
-    {
-      CancelResize();
-    }
-  }
-
   private static void OnDragStarted(object sender, DragStartedEventArgs e)
   {
-    RowResizer resizer = sender as RowResizer;
-    resizer.OnDragStarted(e);
+    RowResizer? resizer = sender as RowResizer;
+    resizer?.OnDragStarted(e);
   }
 
   // Thumb Mouse Down
   private void OnDragStarted(DragStartedEventArgs e)
   {
-    Debug.Assert(_resizeData == null, "_resizeData is not null, DragCompleted was not called");
-
+    //Debug.WriteLine($"OnDragStarted({_resizeData != null})");
     InitializeData(ShowsPreview);
   }
 
   private static void OnDragDelta(object sender, DragDeltaEventArgs e)
   {
-    RowResizer resizer = sender as RowResizer;
-    resizer.OnDragDelta(e);
+    RowResizer? resizer = sender as RowResizer;
+    resizer?.OnDragDelta(e);
   }
 
   // Thumb dragged
   private void OnDragDelta(DragDeltaEventArgs e)
   {
+    //Debug.WriteLine($"OnDragDelta({_resizeData != null})");
     if (_resizeData != null)
     {
       double horizontalChange = e.HorizontalChange;
@@ -625,41 +499,34 @@ public class RowResizer : Thumb
       horizontalChange = Math.Round(horizontalChange / dragIncrement) * dragIncrement;
       verticalChange = Math.Round(verticalChange / dragIncrement) * dragIncrement;
 
-      if (_resizeData.ShowsPreview)
+      if (_resizeData.ShowsPreview && _resizeData.Adorner!=null)
       {
-        //Set the Translation of the Adorner to the distance from the thumb
-        if (_resizeData.ResizeDirection == GridResizeDirection.Columns)
-        {
-          _resizeData.Adorner.OffsetX = Math.Min(Math.Max(horizontalChange, _resizeData.MinChange), _resizeData.MaxChange);
-        }
-        else
-        {
           _resizeData.Adorner.OffsetY = Math.Min(Math.Max(verticalChange, _resizeData.MinChange), _resizeData.MaxChange);
-        }
       }
       else
       {
         // Directly update the grid
-        MoveSplitter(horizontalChange, verticalChange);
+        MoveResizer(horizontalChange, verticalChange);
       }
     }
   }
 
   private static void OnDragCompleted(object sender, DragCompletedEventArgs e)
   {
-    RowResizer resizer = sender as RowResizer;
-    resizer.OnDragCompleted(e);
+    var resizer = sender as RowResizer;
+    resizer?.OnDragCompleted(e);
   }
 
   // Thumb dragging finished
   private void OnDragCompleted(DragCompletedEventArgs e)
   {
+    //Debug.WriteLine($"OnDragCompleted({_resizeData != null})");
     if (_resizeData != null)
     {
-      if (_resizeData.ShowsPreview)
+      if (_resizeData.ShowsPreview && _resizeData.Adorner != null)
       {
         // Update the grid
-        MoveSplitter(_resizeData.Adorner.OffsetX, _resizeData.Adorner.OffsetY);
+        MoveResizer(0, _resizeData.Adorner.OffsetY);
         RemovePreviewAdorner();
       }
 
@@ -667,90 +534,32 @@ public class RowResizer : Thumb
     }
   }
 
-  /// <summary>
-  ///     This is the method that responds to the KeyDown event.
-  /// </summary>
-  /// <param name="e">Event Arguments</param>
-  protected override void OnKeyDown(KeyEventArgs e)
-  {
-    Key key = e.Key;
-    switch (key)
-    {
-      case Key.Escape:
-        if (_resizeData != null)
-        {
-          CancelResize();
-          e.Handled = true;
-        }
-        break;
-
-      case Key.Left:
-        e.Handled = KeyboardMoveSplitter(-KeyboardIncrement, 0);
-        break;
-      case Key.Right:
-        e.Handled = KeyboardMoveSplitter(KeyboardIncrement, 0);
-        break;
-      case Key.Up:
-        e.Handled = KeyboardMoveSplitter(0, -KeyboardIncrement);
-        break;
-      case Key.Down:
-        e.Handled = KeyboardMoveSplitter(0, KeyboardIncrement);
-        break;
-    }
-  }
-
-  // Cancels the Resize when the user hits Escape
-  private void CancelResize()
-  {
-    // Restore original column/row lengths
-    Grid grid = Parent as Grid;
-
-    if (_resizeData.ShowsPreview)
-    {
-      RemovePreviewAdorner();
-    }
-    else // Reset the columns'/rows' lengths to the saved values 
-    {
-      SetDefinitionLength(_resizeData.Definition1, _resizeData.OriginalDefinition1Length);
-      SetDefinitionLength(_resizeData.Definition2, _resizeData.OriginalDefinition2Length);
-    }
-
-    _resizeData = null;
-  }
-
   #endregion
 
   #region Helper Methods
 
-  #region Row/Column Abstractions 
-  // These methods are to help abstract dealing with rows and columns.  
-  // DefinitionBase already has internal helpers for getting Width/Height, MinWidth/MinHeight, and MaxWidth/MaxHeight
+  #region Row Height get/set methods
 
-  // Returns true if the row/column has a Star length
-  private static bool IsStar(DefinitionBase definition)
+  // Gets the grid row height (if defined) or the default row height.
+  private static double GetRowHeight(SfDataGrid grid, int index)
   {
-    return false;
-    //return definition.UserSizeValueCache.IsStar;
+    var height = grid.RowHeight;
+    if (grid.View.Records[index].Data is IRowHeightProvider data)
+    {
+      if (!double.IsNaN(data.RowHeight))
+        height = data.RowHeight;
+    }
+    return height;
   }
 
-  // Gets Column or Row definition at index from grid based on resize direction
-  private static DefinitionBase GetGridDefinition(Grid grid, int index, GridResizeDirection direction)
+  // Set the grid row height
+  private static void SetRowHeight(SfDataGrid grid, int index, double height)
   {
-    return direction == GridResizeDirection.Columns ? (DefinitionBase)grid.ColumnDefinitions[index] : (DefinitionBase)grid.RowDefinitions[index];
-  }
-
-  // Retrieves the ActualWidth or ActualHeight of the definition depending on its type Column or Row
-  private double GetActualLength(DefinitionBase definition)
-  {
-    ColumnDefinition column = definition as ColumnDefinition;
-
-    return column == null ? ((RowDefinition)definition).ActualHeight : column.ActualWidth;
-  }
-
-  // Gets Column or Row definition at index from grid based on resize direction
-  private static void SetDefinitionLength(DefinitionBase definition, GridLength length)
-  {
-    definition.SetValue(definition is ColumnDefinition ? ColumnDefinition.WidthProperty : RowDefinition.HeightProperty, length);
+    if (grid.View.Records[index].Data is IRowHeightProvider data)
+    {
+      data.RowHeight = height;
+      grid.View.Refresh();
+    }
   }
 
   #endregion
@@ -758,185 +567,58 @@ public class RowResizer : Thumb
   // Get the minimum and maximum Delta can be given definition constraints (MinWidth/MaxWidth)
   private void GetDeltaConstraints(out double minDelta, out double maxDelta)
   {
-    double definition1Len = GetActualLength(_resizeData.Definition1);
+    var grid = _resizeData?.Grid;
+    if (_resizeData == null || grid == null)
+    {
+      minDelta = 0;
+      maxDelta = 0;
+      return;
+    }
+    double definition1Len = GetRowHeight(grid, _resizeData.RowIndex);
     double definition1Min = 24;//_resizeData.Definition1.UserMinSizeValueCache;
     double definition1Max = 120;//_resizeData.Definition1.UserMaxSizeValueCache;
 
-    double definition2Len = GetActualLength(_resizeData.Definition2);
-    double definition2Min = 24;//_resizeData.Definition2.UserMinSizeValueCache;
-    double definition2Max = 120;//_resizeData.Definition2.UserMaxSizeValueCache;
-
-    //Set MinWidths to be greater than width of resizer
-    if (_resizeData.SplitterIndex == _resizeData.Definition1Index)
-    {
-      definition1Min = Math.Max(definition1Min, _resizeData.SplitterLength);
-    }
-    else if (_resizeData.SplitterIndex == _resizeData.Definition2Index)
-    {
-      definition2Min = Math.Max(definition2Min, _resizeData.SplitterLength);
-    }
-
-    if (_resizeData.SplitBehavior == SplitBehavior.Split)
-    {
-      // Determine the minimum and maximum the columns can be resized
-      minDelta = -Math.Min(definition1Len - definition1Min, definition2Max - definition2Len);
-      maxDelta = Math.Min(definition1Max - definition1Len, definition2Len - definition2Min);
-    }
-    else if (_resizeData.SplitBehavior == SplitBehavior.Resize1)
-    {
-      minDelta = definition1Min - definition1Len;
-      maxDelta = definition1Max - definition1Len;
-    }
-    else
-    {
-      minDelta = definition2Len - definition2Max;
-      maxDelta = definition2Len - definition2Min;
-    }
-  }
-
-  //Sets the length of definition1 and definition2 
-  private void SetLengths(double definition1Pixels, double definition2Pixels)
-  {
-    // For the case where both definition1 and 2 are stars, update all star values to match their current pixel values
-    if (_resizeData.SplitBehavior == SplitBehavior.Split)
-    {
-      IEnumerable definitions = _resizeData.ResizeDirection == GridResizeDirection.Columns ? (IEnumerable)_resizeData.Grid.ColumnDefinitions : (IEnumerable)_resizeData.Grid.RowDefinitions;
-
-      int i = 0;
-      foreach (DefinitionBase definition in definitions)
-      {
-        // For each definition, if it is a star, set is value to ActualLength in stars
-        // This makes 1 star == 1 pixel in length
-        if (i == _resizeData.Definition1Index)
-        {
-          SetDefinitionLength(definition, new GridLength(definition1Pixels, GridUnitType.Star));
-        }
-        else if (i == _resizeData.Definition2Index)
-        {
-          SetDefinitionLength(definition, new GridLength(definition2Pixels, GridUnitType.Star));
-        }
-        else if (IsStar(definition))
-        {
-          SetDefinitionLength(definition, new GridLength(GetActualLength(definition), GridUnitType.Star));
-        }
-
-        i++;
-      }
-    }
-    else if (_resizeData.SplitBehavior == SplitBehavior.Resize1)
-    {
-      SetDefinitionLength(_resizeData.Definition1, new GridLength(definition1Pixels));
-    }
-    else
-    {
-      SetDefinitionLength(_resizeData.Definition2, new GridLength(definition2Pixels));
-    }
+    minDelta = definition1Min - definition1Len;
+    maxDelta = definition1Max - definition1Len;
   }
 
   // Move the resizer by the given Delta's in the horizontal and vertical directions
-  private void MoveSplitter(double horizontalChange, double verticalChange)
+  private void MoveResizer(double horizontalChange, double verticalChange)
   {
-    Debug.Assert(_resizeData != null, "_resizeData should not be null when calling MoveSplitter");
+    if (_resizeData == null)
+      return;
+    var grid = _resizeData.Grid;
+    var index = _resizeData.RowIndex;
+
+    Debug.Assert(_resizeData != null, "_resizeData should not be null when calling MoveResizer");
 
     double delta;
     DpiScale dpi = VisualTreeHelper.GetDpi(this);
 
     // Calculate the offset to adjust the resizer.  If layout rounding is enabled, we
     // need to round to an integer physical pixel value to avoid round-ups of children that
-    // expand the bounds of the Grid.  In practice this only happens in high dpi because
+    // expand the bounds of the Grid. In practice this only happens in high dpi because
     // horizontal/vertical offsets here are never fractional (they correspond to mouse movement
     // across logical pixels).  Rounding error only creeps in when converting to a physical
     // display with something other than the logical 96 dpi.
-    if (_resizeData.ResizeDirection == GridResizeDirection.Columns)
-    {
-      delta = horizontalChange;
-      if (this.UseLayoutRounding)
-      {
-        delta = RoundLayoutValue(delta, dpi.DpiScaleX);
-      }
-    }
-    else
-    {
-      delta = verticalChange;
-      if (this.UseLayoutRounding)
-      {
-        delta = RoundLayoutValue(delta, dpi.DpiScaleY);
-      }
-    }
+    delta = verticalChange;
+    if (this.UseLayoutRounding) delta = RoundLayoutValue(delta, dpi.DpiScaleY);
 
-    DefinitionBase definition1 = _resizeData.Definition1;
-    DefinitionBase definition2 = _resizeData.Definition2;
-    if (definition1 != null && definition2 != null)
-    {
-      double actualLength1 = GetActualLength(definition1);
-      double actualLength2 = GetActualLength(definition2);
+    double actualRowHeight = GetRowHeight(grid, index);
 
-      // When splitting, Check to see if the total pixels spanned by the definitions 
-      // is the same asbefore starting resize. If not cancel the drag
-      if (_resizeData.SplitBehavior == SplitBehavior.Split &&
-          !LayoutDoubleUtil.AreClose(actualLength1 + actualLength2, _resizeData.OriginalDefinition1ActualLength + _resizeData.OriginalDefinition2ActualLength))
-      {
-        CancelResize();
-        return;
-      }
+    GetDeltaConstraints(out var min, out var max);
 
-      double min, max;
-      GetDeltaConstraints(out min, out max);
+    // Flip when the resizer's flow direction isn't the same as the grid's
+    if (FlowDirection != _resizeData.Grid.FlowDirection)
+      delta = -delta;
 
-      // Flip when the resizer's flow direction isn't the same as the grid's
-      if (FlowDirection != _resizeData.Grid.FlowDirection)
-        delta = -delta;
+    // Constrain Delta to Min/MaxWidth of columns
+    delta = Math.Min(Math.Max(delta, min), max);
 
-      // Constrain Delta to Min/MaxWidth of columns
-      delta = Math.Min(Math.Max(delta, min), max);
+    double newHeight = actualRowHeight + delta;
 
-      // With floating point operations there may be loss of precision to some degree. Eg. Adding a very 
-      // small value to a very large one might result in the small value being ignored. In the following 
-      // steps there are two floating point operations viz. actualLength1+delta and actualLength2-delta. 
-      // It is possible that the addition resulted in loss of precision and the delta value was ignored, whereas 
-      // the subtraction actual absorbed the delta value. This now means that 
-      // (definition1LengthNew + definition2LengthNewis) 2 factors of precision away from 
-      // (actualLength1 + actualLength2). This can cause a problem in the subsequent drag iteration where 
-      // this will be interpreted as the cancellation of the resize operation. To avoid this imprecision we use 
-      // make definition2LengthNew be a function of definition1LengthNew so that the precision or the loss 
-      // thereof can be counterbalanced. See DevDiv bug#140228 for a manifestation of this problem.
 
-      double definition1LengthNew = actualLength1 + delta;
-      //double definition2LengthNew = actualLength2 - delta;
-      double definition2LengthNew = actualLength1 + actualLength2 - definition1LengthNew;
-
-      SetLengths(definition1LengthNew, definition2LengthNew);
-    }
-  }
-
-  // Move the resizer using the Keyboard (Don't show preview)
-  internal bool KeyboardMoveSplitter(double horizontalChange, double verticalChange)
-  {
-    // If moving with the mouse, ignore keyboard motion
-    if (_resizeData != null)
-    {
-      return false;  // don't handle the event
-    }
-
-    InitializeData(false);  // don't show preview
-
-    // Check that we are actually able to resize
-    if (_resizeData == null)
-    {
-      return false;  // don't handle the event
-    }
-
-    // Keyboard keys are unaffected by FlowDirection.
-    if (FlowDirection == FlowDirection.RightToLeft)
-    {
-      horizontalChange = -horizontalChange;
-    }
-
-    MoveSplitter(horizontalChange, verticalChange);
-
-    _resizeData = null;
-
-    return true;
+    SetRowHeight(grid, index, newHeight);
   }
 
   #endregion
@@ -944,86 +626,33 @@ public class RowResizer : Thumb
   #region Data
 
 
-  // RowResizer has special Behavior when columns are fixed
-  // If the left column is fixed, resizer will only resize that column
-  // Else if the right column is fixed, resizer will only resize the right column
-  private enum SplitBehavior
-  {
-    Split, // Both columns/rows are star lengths
-    Resize1, // resize 1 only
-    Resize2, // resize 2 only
-  }
-
   // Only store resize data if we are resizing
   private class ResizeData
   {
     public bool ShowsPreview;
-    public PreviewAdorner Adorner;
+    public PreviewAdorner? Adorner;
 
     // The constraints to keep the Preview within valid ranges
     public double MinChange;
     public double MaxChange;
 
     // The grid to Resize
-    public Grid Grid;
-
-    // cache of Resize Direction and Behavior
-    public GridResizeDirection ResizeDirection;
-    public GridResizeBehavior ResizeBehavior;
-
-    // The columns/rows to resize
-    public DefinitionBase Definition1;
-    public DefinitionBase Definition2;
-
-    // Are the columns/rows star lengths
-    public SplitBehavior SplitBehavior;
+    public SfDataGrid Grid = null!;
 
     // The index of the resizer
-    public int SplitterIndex;
+    public int RowIndex;
 
-    // The indices of the columns/rows
-    public int Definition1Index;
-    public int Definition2Index;
+    public double OriginalRowHeight;
 
-    // The original lengths of Definition1 and Definition2 (to restore lengths if user cancels resize)
-    public GridLength OriginalDefinition1Length;
-    public GridLength OriginalDefinition2Length;
-    public double OriginalDefinition1ActualLength;
-    public double OriginalDefinition2ActualLength;
-
-    // The minimum of Width/Height of Splitter.  Used to ensure resizer 
-    //isn't hidden by resizing a row/column smaller than the resizer
-    public double SplitterLength;
+    // The minimum of Height of Resizer.  Used to ensure resizer 
+    //isn't hidden by resizing a row smaller than the resizer
+    public double ResizerLength;
   }
 
   // Data used for resizing
-  private ResizeData _resizeData;
+  private ResizeData? _resizeData;
 
   #endregion
-
-  #region DTypeThemeStyleKey
-
-  // Returns the DependencyObjectType for the registered ThemeStyleKey's default 
-  // value. Controls will override this method to return approriate types.
-  internal DependencyObjectType DTypeThemeStyleKey
-  {
-    get { return _dType; }
-  }
-
-  private static DependencyObjectType _dType;
-
-  #endregion DTypeThemeStyleKey
-
-  internal GridLength GetUserSizeValueCache
-  {
-    get
-    {
-      return (GridLength)GetValue(
-        //_isColumnDefinition ?
-        //  ColumnDefinition.WidthProperty :
-          RowDefinition.HeightProperty);
-    }
-  }
 
   /// <summary>
   /// Rounds a size to integer values for layout purposes, compensating for high DPI screen coordinates.

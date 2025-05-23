@@ -12,6 +12,7 @@ using Qhta.UnicodeBuild.ViewModels;
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.UI.Xaml.ScrollAxis;
 using Syncfusion.Windows.Shared;
+using Qhta.UnicodeBuild.Helpers;
 
 namespace Qhta.UnicodeBuild
 {
@@ -22,15 +23,6 @@ namespace Qhta.UnicodeBuild
       InitializeComponent();
     }
 
-    private T? FindParent<T>(DependencyObject child) where T : DependencyObject
-    {
-      DependencyObject? parentObject = VisualTreeHelper.GetParent(child);
-      if (parentObject == null) return null;
-
-      if (parentObject is T parent)
-        return parent;
-      return FindParent<T>(parentObject);
-    }
 
     private T? FirstDescendant<T>(DependencyObject? parent, Predicate<T> predicate) where T : DependencyObject
     {
@@ -75,7 +67,7 @@ namespace Qhta.UnicodeBuild
       if (sender is ToggleButton button)
         if (button.DataContext is ILongTextViewModel viewModel)
         {
-          var dataGrid = FindParent<SfDataGrid>(button);
+          var dataGrid = button.FindParent<SfDataGrid>();
           if (dataGrid != null)
           {
             var rowIndex = dataGrid.ResolveToRowIndex(viewModel);
@@ -97,10 +89,10 @@ namespace Qhta.UnicodeBuild
           var popup = grid.Children.OfType<Popup>().FirstOrDefault();
           if (popup != null)
           {
-            var cell = FindParent<GridCell>(button);
+            var cell = button.FindParent<GridCell>();
             if (cell != null)
             {
-              var dataGrid = FindParent<SfDataGrid>(cell);
+              var dataGrid = cell.FindParent<SfDataGrid>();
               if (dataGrid != null)
               {
                 popup.PlacementTarget = cell;
@@ -115,17 +107,5 @@ namespace Qhta.UnicodeBuild
       }
     }
 
-    private void GridSplitter_OnSizeChanged(object sender, SizeChangedEventArgs e)
-    {
-      var gridSplitter = sender as GridSplitter;
-      if (gridSplitter == null)
-        return;
-      var parent = FindParent<Grid>(gridSplitter);
-      if (parent != null)
-      {
-        Debug.WriteLine($"GridSplitter size changed: {e.NewSize}");
-        parent.Height=e.NewSize.Height;
-      }
-    }
   }
 }

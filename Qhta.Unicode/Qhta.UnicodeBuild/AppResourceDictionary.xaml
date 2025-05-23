@@ -242,10 +242,11 @@
                   BorderThickness="{TemplateBinding BorderThickness}">
             <Grid Height="{Binding RowHeight, Mode=TwoWay}">
               <TextBlock HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
+                         VerticalAlignment="Top"
+                         Margin="0,3,0,0"
                          Text="{Binding RowIndex,RelativeSource={RelativeSource TemplatedParent}}"
                          TextAlignment="Center" />
-              <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="2" Background="LightGray"/>
+              <controls:RowResizer HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="2" Background="LightGray"/>
             </Grid>
           </Border>
         </ControlTemplate>
