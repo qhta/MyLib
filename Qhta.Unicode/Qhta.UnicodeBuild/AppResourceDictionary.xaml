@@ -246,7 +246,7 @@
                          Margin="0,3,0,0"
                          Text="{Binding RowIndex,RelativeSource={RelativeSource TemplatedParent}}"
                          TextAlignment="Center" />
-              <controls:RowResizer HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="2" Background="LightGray"/>
+              <controls:RowResizer HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="2" Background="LightGray" MaxRowHeight="240"/>
             </Grid>
           </Border>
         </ControlTemplate>

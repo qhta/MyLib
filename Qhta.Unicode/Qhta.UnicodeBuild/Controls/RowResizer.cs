@@ -1,24 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
-using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Update.Internal;
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.ViewModels;
 
@@ -26,35 +13,6 @@ using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.UnicodeBuild.Controls;
 
-/// <summary>
-/// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-///
-/// Step 1a) Using this custom control in a XAML file that exists in the current project.
-/// Add this XmlNamespace attribute to the root element of the markup file where it is 
-/// to be used:
-///
-///     xmlns:MyNamespace="clr-namespace:Qhta.UnicodeBuild.Controls"
-///
-///
-/// Step 1b) Using this custom control in a XAML file that exists in a different project.
-/// Add this XmlNamespace attribute to the root element of the markup file where it is 
-/// to be used:
-///
-///     xmlns:MyNamespace="clr-namespace:Qhta.UnicodeBuild.Controls;assembly=Qhta.UnicodeBuild.Controls"
-///
-/// You will also need to add a project reference from the project where the XAML file lives
-/// to this project and Rebuild to avoid compilation errors:
-///
-///     Right click on the target project in the Solution Explorer and
-///     "Add Reference"->"Projects"->[Browse to and select this project]
-///
-///
-/// Step 2)
-/// Go ahead and use your control in the XAML file.
-///
-///     <MyNamespace:RowResizer/>
-///
-/// </summary>
 public class RowResizer : Thumb
 {
 
@@ -88,48 +46,13 @@ public class RowResizer : Thumb
 
   #region Properties
 
-  private static void UpdateCursor(DependencyObject o, DependencyPropertyChangedEventArgs e)
-  {
-    o.CoerceValue(CursorProperty);
-  }
-
-  /// <summary>
-  ///     The DependencyProperty for the ResizeBehavior property.
-  ///     Default Value:      GridResizeBehavior.BasedOnAlignment
-  /// </summary>
-  public static readonly DependencyProperty ResizeBehaviorProperty
-      = DependencyProperty.Register("ResizeBehavior",
-                                      typeof(GridResizeBehavior),
-                                      typeof(RowResizer),
-                                      new FrameworkPropertyMetadata(GridResizeBehavior.BasedOnAlignment),
-                                      new ValidateValueCallback(IsValidResizeBehavior));
-
-  /// <summary>
-  /// Indicates which Columns or Rows the Resizer resizes.
-  /// </summary>
-  public GridResizeBehavior ResizeBehavior
-  {
-    get { return (GridResizeBehavior)GetValue(ResizeBehaviorProperty); }
-
-    set { SetValue(ResizeBehaviorProperty, value); }
-  }
-
-  private static bool IsValidResizeBehavior(object o)
-  {
-    GridResizeBehavior resizeBehavior = (GridResizeBehavior)o;
-    return resizeBehavior == GridResizeBehavior.BasedOnAlignment ||
-           resizeBehavior == GridResizeBehavior.CurrentAndNext ||
-           resizeBehavior == GridResizeBehavior.PreviousAndCurrent ||
-           resizeBehavior == GridResizeBehavior.PreviousAndNext;
-  }
-
 
   /// <summary>
   ///     The DependencyProperty for the ShowsPreview property.
   ///     Default Value:      false
   /// </summary>
   public static readonly DependencyProperty ShowsPreviewProperty
-      = DependencyProperty.Register("ShowsPreview",
+      = DependencyProperty.Register(nameof(ShowsPreview),
                                     typeof(bool),
                                     typeof(RowResizer),
                                     new FrameworkPropertyMetadata(false));
@@ -139,8 +62,8 @@ public class RowResizer : Thumb
   /// </summary>
   public bool ShowsPreview
   {
-    get { return (bool)GetValue(ShowsPreviewProperty); }
-    set { SetValue(ShowsPreviewProperty, value); }
+    get => (bool)GetValue(ShowsPreviewProperty);
+    set => SetValue(ShowsPreviewProperty, value);
   }
 
   /// <summary>
@@ -163,29 +86,6 @@ public class RowResizer : Thumb
     set => SetValue(PreviewStyleProperty, value);
   }
 
-
-  /// <summary>
-  ///     The DependencyProperty for the KeyboardIncrement property.
-  ///     Default Value:      10.0
-  /// </summary>
-  public static readonly DependencyProperty KeyboardIncrementProperty =
-              DependencyProperty.Register(
-                          nameof(KeyboardIncrement),
-                          typeof(double),
-                          typeof(RowResizer),
-                          new FrameworkPropertyMetadata(10.0),
-                          new ValidateValueCallback(IsValidDelta));
-
-  /// <summary>
-  ///     The Distance to move the resizer when pressing the Keyboard arrow keys
-  /// </summary>
-  public double KeyboardIncrement
-  {
-    get => (double)GetValue(KeyboardIncrementProperty);
-    set => SetValue(KeyboardIncrementProperty, value);
-  }
-
-
   private static bool IsValidDelta(object o)
   {
     double delta = (double)o;
@@ -199,7 +99,7 @@ public class RowResizer : Thumb
   /// </summary>
   public static readonly DependencyProperty DragIncrementProperty =
               DependencyProperty.Register(
-                          "DragIncrement",
+                          nameof(DragIncrement),
                           typeof(double),
                           typeof(RowResizer),
                           new FrameworkPropertyMetadata(1.0),
@@ -210,9 +110,57 @@ public class RowResizer : Thumb
   /// </summary>
   public double DragIncrement
   {
-    get { return (double)GetValue(DragIncrementProperty); }
-    set { SetValue(DragIncrementProperty, value); }
+    get => (double)GetValue(DragIncrementProperty);
+    set => SetValue(DragIncrementProperty, value);
   }
+
+  /// <summary>
+  ///     The DependencyProperty for the MinRowHeight property.
+  ///     Default Value:      24.0
+  /// </summary>
+  public static readonly DependencyProperty MinRowHeightProperty =
+    DependencyProperty.Register(
+      nameof(MinRowHeight),
+      typeof(double),
+      typeof(RowResizer),
+      new FrameworkPropertyMetadata(24.0),
+      new ValidateValueCallback(IsValidDelta));
+
+  /// <summary>
+  ///     Minimum height of the Row being resized.
+  /// </summary>
+  public double MinRowHeight
+  {
+    get => (double)GetValue(MinRowHeightProperty);
+    set => SetValue(MinRowHeightProperty, value);
+  }
+
+  /// <summary>
+  ///     The DependencyProperty for the MaxRowHeight property.
+  ///     Default Value:      120.0
+  /// </summary>
+  public static readonly DependencyProperty MaxRowHeightProperty =
+    DependencyProperty.Register(
+      nameof(MaxRowHeight),
+      typeof(double),
+      typeof(RowResizer),
+      new FrameworkPropertyMetadata(120.0),
+      new ValidateValueCallback(IsValidDelta));
+
+  /// <summary>
+  ///     Restricts resizer to move a multiple of the specified units.
+  /// </summary>
+  public double MaxRowHeight
+  {
+    get => (double)GetValue(MaxRowHeightProperty);
+    set => SetValue(MaxRowHeightProperty, value);
+  }
+
+
+  /// <summary>
+  ///   When Resizer is in a Grid, this is the index of the Row being resized.
+  /// </summary>
+  public int RowIndex { get; set; }
 
   #endregion
 
@@ -226,47 +174,6 @@ public class RowResizer : Thumb
   //{
   //  return new RowResizerAutomationPeer(this);
   //}
-
-  // Convert BasedOnAlignment to Next/Prev/Both depending on alignment and Direction
-  private GridResizeBehavior GetEffectiveResizeBehavior(GridResizeDirection direction)
-  {
-    GridResizeBehavior resizeBehavior = ResizeBehavior;
-
-    if (resizeBehavior == GridResizeBehavior.BasedOnAlignment)
-    {
-      if (direction == GridResizeDirection.Columns)
-      {
-        switch (HorizontalAlignment)
-        {
-          case HorizontalAlignment.Left:
-            resizeBehavior = GridResizeBehavior.PreviousAndCurrent;
-            break;
-          case HorizontalAlignment.Right:
-            resizeBehavior = GridResizeBehavior.CurrentAndNext;
-            break;
-          default:
-            resizeBehavior = GridResizeBehavior.PreviousAndNext;
-            break;
-        }
-      }
-      else
-      {
-        switch (VerticalAlignment)
-        {
-          case VerticalAlignment.Top:
-            resizeBehavior = GridResizeBehavior.PreviousAndCurrent;
-            break;
-          case VerticalAlignment.Bottom:
-            resizeBehavior = GridResizeBehavior.CurrentAndNext;
-            break;
-          default:
-            resizeBehavior = GridResizeBehavior.PreviousAndNext;
-            break;
-        }
-      }
-    }
-    return resizeBehavior;
-  }
 
   /// <summary>
   /// Override for <seealso cref="UIElement.OnRenderSizeChanged"/>
@@ -282,10 +189,6 @@ public class RowResizer : Thumb
 
   #region PreviewAdorner
 
-  // This adorner draws the preview for the RowResizer
-  // It also positions the adorner
-  // Note:- This class is sealed because it calls OnVisualChildrenChanged virtual in the 
-  //              constructor, but it does not override it, but derived classes could.        
   private sealed class PreviewAdorner : Adorner
   {
     public PreviewAdorner(RowResizer RowResizer, Style previewStyle)
@@ -320,7 +223,7 @@ public class RowResizer : Thumb
       Debug.Assert(_decorator != null);
       if (index != 0)
       {
-        throw new ArgumentOutOfRangeException("index", index, "Argument {0} out of range");
+        throw new ArgumentOutOfRangeException(nameof(index), index, "Argument {0} out of range");
       }
 
       return _decorator;
@@ -351,14 +254,6 @@ public class RowResizer : Thumb
       return finalSize;
     }
 
-    // The Preview's Offset in the X direction from the RowResizer
-    public double OffsetX
-    {
-      get => Translation.X;
-      set => Translation.X = value;
-    }
-
-    // The Preview's Offset in the Y direction from the RowResizer
     public double OffsetY
     {
       get => Translation.Y;
@@ -403,7 +298,7 @@ public class RowResizer : Thumb
       _resizeData.Grid = grid;
       _resizeData.ShowsPreview = showsPreview;
       _resizeData.RowIndex = rowIndex;
-      _resizeData.ResizerLength = Math.Min(ActualWidth, ActualHeight);
+      //_resizeData.ResizerLength = Math.Min(ActualWidth, ActualHeight);
 
       // Store the rows and columns to resize on drag events
       if (!SetupDefinitionsToResize())
@@ -432,7 +327,7 @@ public class RowResizer : Thumb
     if (rowIndex >= 0 && rowIndex < count)
     {
       _resizeData.RowIndex = rowIndex;
-      _resizeData.OriginalRowHeight = GetRowHeight(_resizeData.Grid, rowIndex);
+      //_resizeData.OriginalRowHeight = GetRowHeight(_resizeData.Grid, rowIndex);
       return true;
     }
     return false;
@@ -574,12 +469,12 @@ public class RowResizer : Thumb
       maxDelta = 0;
       return;
     }
-    double definition1Len = GetRowHeight(grid, _resizeData.RowIndex);
-    double definition1Min = 24;//_resizeData.Definition1.UserMinSizeValueCache;
-    double definition1Max = 120;//_resizeData.Definition1.UserMaxSizeValueCache;
+    double definitionLen = GetRowHeight(grid, _resizeData.RowIndex);
+    double definitionMin = MinRowHeight;
+    double definitionMax = MaxRowHeight;
 
-    minDelta = definition1Min - definition1Len;
-    maxDelta = definition1Max - definition1Len;
+    minDelta = definitionMin - definitionLen;
+    maxDelta = definitionMax - definitionLen;
   }
 
   // Move the resizer by the given Delta's in the horizontal and vertical directions
@@ -592,7 +487,6 @@ public class RowResizer : Thumb
 
     Debug.Assert(_resizeData != null, "_resizeData should not be null when calling MoveResizer");
 
-    double delta;
     DpiScale dpi = VisualTreeHelper.GetDpi(this);
 
     // Calculate the offset to adjust the resizer.  If layout rounding is enabled, we
@@ -601,7 +495,7 @@ public class RowResizer : Thumb
     // horizontal/vertical offsets here are never fractional (they correspond to mouse movement
     // across logical pixels).  Rounding error only creeps in when converting to a physical
     // display with something other than the logical 96 dpi.
-    delta = verticalChange;
+    var delta = verticalChange;
     if (this.UseLayoutRounding) delta = RoundLayoutValue(delta, dpi.DpiScaleY);
 
     double actualRowHeight = GetRowHeight(grid, index);
@@ -642,32 +536,12 @@ public class RowResizer : Thumb
     // The index of the resizer
     public int RowIndex;
 
-    public double OriginalRowHeight;
-
-    // The minimum of Height of Resizer.  Used to ensure resizer 
-    //isn't hidden by resizing a row smaller than the resizer
-    public double ResizerLength;
   }
 
   // Data used for resizing
   private ResizeData? _resizeData;
 
   #endregion
-
-  /// <summary>
-  /// Rounds a size to integer values for layout purposes, compensating for high DPI screen coordinates.
-  /// </summary>
-  /// <param name="size">Input size.</param>
-  /// <param name="dpiScaleX">DPI along x-dimension.</param>
-  /// <param name="dpiScaleY">DPI along y-dimension.</param>
-  /// <returns>Value of size that will be rounded under screen DPI.</returns>
-  /// <remarks>This is a layout helper method. It takes DPI into account and also does not return
-  /// the rounded value if it is unacceptable for layout, e.g. Infinity or NaN. It's a helper associated with
-  /// UseLayoutRounding  property and should not be used as a general rounding utility.</remarks>
-  internal static Size RoundLayoutSize(Size size, double dpiScaleX, double dpiScaleY)
-  {
-    return new Size(RoundLayoutValue(size.Width, dpiScaleX), RoundLayoutValue(size.Height, dpiScaleY));
-  }
 
   /// <summary>
   /// Calculates the value to be used for layout rounding at high DPI.

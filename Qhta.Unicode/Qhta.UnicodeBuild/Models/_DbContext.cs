@@ -43,7 +43,7 @@ public partial class _DbContext : DbContext
     {
       var configuration = new ConfigurationBuilder()
         .SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile("appsettings.json")
+        .AddJsonFile("appSettings.json")
         .Build();
 
       var connectionString = configuration.GetConnectionString("DefaultConnection");
