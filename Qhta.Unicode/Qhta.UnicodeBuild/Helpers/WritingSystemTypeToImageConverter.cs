@@ -8,16 +8,16 @@ public class WritingSystemTypeToImageConverter : IValueConverter
 {
   public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
   {
-    if (value is WritingSystemTypeEnum type)
+    if (value is WritingSystemType type)
     {
       return type switch
       {
-        WritingSystemTypeEnum.Set => "pack://application:,,,/Assets/Set.png",
-        WritingSystemTypeEnum.Area => "pack://application:,,,/Assets/Area.png",
-        WritingSystemTypeEnum.Subset => "pack://application:,,,/Assets/Subset.png",
-        WritingSystemTypeEnum.Script => "pack://application:,,,/Assets/Script.png",
-        WritingSystemTypeEnum.Notation => "pack://application:,,,/Assets/Notation.png",
-        WritingSystemTypeEnum.Family => "pack://application:,,,/Assets/Family.png",
+        WritingSystemType.set => "pack://application:,,,/Assets/Set.png",
+        WritingSystemType.area => "pack://application:,,,/Assets/Area.png",
+        WritingSystemType.subset => "pack://application:,,,/Assets/Subset.png",
+        WritingSystemType.script => "pack://application:,,,/Assets/Script.png",
+        WritingSystemType.notation => "pack://application:,,,/Assets/Notation.png",
+        WritingSystemType.family => "pack://application:,,,/Assets/Family.png",
         _ => "pack://application:,,,/Assets/_Empty.png"
       };
     }

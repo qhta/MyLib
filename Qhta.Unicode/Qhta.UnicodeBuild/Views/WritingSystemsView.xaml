@@ -158,10 +158,11 @@
           Width="100"
           SortMode="Display"
           MappingName="Type" 
-          SelectedValuePath="Id"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemTypes}"
+
           >
+          <!--FilterPopupTemplate="{StaticResource WritingSystemTypeFilterPopupTemplate}"-->
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
               <TextBlock Text="{x:Static resources:WritingSystem.Type}" 
@@ -170,10 +171,10 @@
           </sf:GridColumn.HeaderTemplate>
           <sf:GridComboBoxColumn.ItemTemplate>
             <DataTemplate DataType="{x:Type models:WritingSystemType}">
-              <TextBlock Text="{Binding Type, 
+              <TextBlock Text="{Binding 
                               Converter={StaticResource WritingSystemTypeResourceConverter},
                                   ConverterCulture={x:Static sys:CultureInfo.InvariantCulture}}"                        
-                         ToolTip="{Binding Path=Type,
+                         ToolTip="{Binding 
                               Converter={StaticResource WritingSystemTypeResourceConverter},
                               ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
                               ConverterParameter=Tooltip}"  />
@@ -185,7 +186,6 @@
           Width="100"
           SortMode="Display"
           MappingName="Kind"
-          SelectedValuePath="Id"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemKinds}"
           >
@@ -197,10 +197,10 @@
           </sf:GridColumn.HeaderTemplate>
           <sf:GridComboBoxColumn.ItemTemplate>
             <DataTemplate DataType="{x:Type models:WritingSystemKind}">
-              <TextBlock Text="{Binding Kind, 
+              <TextBlock Text="{Binding 
                               Converter={StaticResource WritingSystemKindResourceConverter},
                                   ConverterCulture={x:Static sys:CultureInfo.InvariantCulture}}"                        
-                         ToolTip="{Binding Path=Kind,
+                         ToolTip="{Binding 
                               Converter={StaticResource WritingSystemKindResourceConverter},
                               ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
                               ConverterParameter=Tooltip}"  />

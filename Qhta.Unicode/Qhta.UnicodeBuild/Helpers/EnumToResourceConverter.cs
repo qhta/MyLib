@@ -40,7 +40,7 @@ public class EnumToResourceConverter : IValueConverter
     // Retrieve the translation from the resource file
     string? translation = _resourceManager.GetString(resourceKey, culture);
 
-    return translation ?? value.ToString(); // Fallback to the enum value if no translation is found
+    return (translation ?? value.ToString())?.ToLower(); // Fallback to the enum value if no translation is found
   }
 
   public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

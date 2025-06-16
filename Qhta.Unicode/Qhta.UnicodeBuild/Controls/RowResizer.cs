@@ -33,6 +33,7 @@ public class RowResizer : Thumb
 
     // Cursor depends on ResizeDirection, ActualWidth, and ActualHeight 
     CursorProperty.OverrideMetadata(typeof(RowResizer), new FrameworkPropertyMetadata(Cursors.SizeNS));
+    HeightProperty.OverrideMetadata(typeof(RowResizer), new FrameworkPropertyMetadata(2.0));
   }
 
   /// <summary>
@@ -46,11 +47,6 @@ public class RowResizer : Thumb
 
   #region Properties
 
-
-  /// <summary>
-  ///     The DependencyProperty for the ShowsPreview property.
-  ///     Default Value:      false
-  /// </summary>
   public static readonly DependencyProperty ShowsPreviewProperty
       = DependencyProperty.Register(nameof(ShowsPreview),
                                     typeof(bool),
@@ -155,12 +151,6 @@ public class RowResizer : Thumb
     get => (double)GetValue(MaxRowHeightProperty);
     set => SetValue(MaxRowHeightProperty, value);
   }
-
-
-  /// <summary>
-  ///   When Resizer is in a Grid, this is the index of the Row being resized.
-  /// </summary>
-  public int RowIndex { get; set; }
 
   #endregion
 
@@ -377,6 +367,8 @@ public class RowResizer : Thumb
   private static void OnDragDelta(object sender, DragDeltaEventArgs e)
   {
     RowResizer? resizer = sender as RowResizer;
+    //Debug.WriteLine($"OnDragDelta({e.VerticalChange})");
+
     resizer?.OnDragDelta(e);
   }
 
@@ -388,11 +380,13 @@ public class RowResizer : Thumb
     {
       double horizontalChange = e.HorizontalChange;
       double verticalChange = e.VerticalChange;
+      //Debug.WriteLine($"verticalChange0={verticalChange}");
 
       // Round change to nearest multiple of DragIncrement
       double dragIncrement = DragIncrement;
       horizontalChange = Math.Round(horizontalChange / dragIncrement) * dragIncrement;
       verticalChange = Math.Round(verticalChange / dragIncrement) * dragIncrement;
+      //Debug.WriteLine($"verticalChange1={verticalChange}");
 
       if (_resizeData.ShowsPreview && _resizeData.Adorner!=null)
       {
@@ -420,6 +414,7 @@ public class RowResizer : Thumb
     {
       if (_resizeData.ShowsPreview && _resizeData.Adorner != null)
       {
+        //Debug.WriteLine($"OffsetY={_resizeData.Adorner.OffsetY}");
         // Update the grid
         MoveResizer(0, _resizeData.Adorner.OffsetY);
         RemovePreviewAdorner();
@@ -480,6 +475,7 @@ public class RowResizer : Thumb
   // Move the resizer by the given Delta's in the horizontal and vertical directions
   private void MoveResizer(double horizontalChange, double verticalChange)
   {
+    //Debug.WriteLine($"verticalChange = {verticalChange}");
     if (_resizeData == null)
       return;
     var grid = _resizeData.Grid;
@@ -499,19 +495,22 @@ public class RowResizer : Thumb
     if (this.UseLayoutRounding) delta = RoundLayoutValue(delta, dpi.DpiScaleY);
 
     double actualRowHeight = GetRowHeight(grid, index);
+    //Debug.WriteLine($"actualRowHeight = {actualRowHeight}");
 
     GetDeltaConstraints(out var min, out var max);
+    //Debug.WriteLine($"delta min={min} max={max}");
 
     // Flip when the resizer's flow direction isn't the same as the grid's
     if (FlowDirection != _resizeData.Grid.FlowDirection)
       delta = -delta;
 
+    //Debug.WriteLine($"delta={delta}");
     // Constrain Delta to Min/MaxWidth of columns
     delta = Math.Min(Math.Max(delta, min), max);
+    //Debug.WriteLine($"delta={delta}");
 
     double newHeight = actualRowHeight + delta;
-
-
+    //Debug.WriteLine($"newHeight = {newHeight}");
     SetRowHeight(grid, index, newHeight);
   }
 

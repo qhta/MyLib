@@ -10,9 +10,9 @@ public partial class WritingSystem
 
   public string Name { get; set; } = null!;
 
-  public WritingSystemTypeEnum? Type { get; set; }
+  public WritingSystemType? Type { get; set; }
 
-  public WritingSystemKindEnum? Kind { get; set; }
+  public WritingSystemKind? Kind { get; set; }
 
   public int? ParentId { get; set; }
 

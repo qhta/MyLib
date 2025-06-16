@@ -56,7 +56,7 @@ public class WritingSystemViewModel(WritingSystem model)
   public string FullName => Model.Name + " " + Type.ToString()?.ToLower();
 
 
-  public WritingSystemTypeEnum? Type
+  public WritingSystemType? Type
   {
     get => Model.Type;
     set
@@ -69,7 +69,7 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  public WritingSystemKindEnum? Kind
+  public WritingSystemKind? Kind
   {
     get => Model.Kind;
     set

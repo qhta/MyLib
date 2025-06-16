@@ -29,7 +29,7 @@
     ResourceType="{x:Type resources:WritingSystemKind}" x:Key="WritingSystemKindResourceConverter"/>
   <resources:Strings x:Key="Strings"/>
 
-    <ContextMenu x:Key="CommonContextMenu">
+  <ContextMenu x:Key="CommonContextMenu">
     <MenuItem Header="Copy" Command="Copy"/>
     <MenuItem Header="Paste" Command="Paste"/>
     <MenuItem Header="Cut" Command="Cut"/>
@@ -71,7 +71,7 @@
             <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap"/>
           </StackPanel>
         </DataTemplate>
-        </Setter.Value>
+      </Setter.Value>
     </Setter>
   </Style>
 
@@ -150,6 +150,7 @@
         BorderBrush="Transparent"
         Content="▼"
         Click="ShowPopup_Click"/>
+      <!--<controls:RowResizer Grid.Column="0" Grid.ColumnSpan="2" MaxRowHeight="360" Background="LightGray"/>-->
       <Popup Grid.Column="0" Grid.ColumnSpan="2" x:Name="LongTextPopup" Placement="Mouse" StaysOpen="false">
         <Border Background="LightGray" BorderBrush="Black" BorderThickness="1" Padding="3" 
                 >
@@ -246,11 +247,22 @@
                          Margin="0,3,0,0"
                          Text="{Binding RowIndex,RelativeSource={RelativeSource TemplatedParent}}"
                          TextAlignment="Center" />
-              <controls:RowResizer HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="2" Background="LightGray" MaxRowHeight="240"/>
+              <controls:RowResizer Background="LightGray" MaxRowHeight="240"/>
             </Grid>
           </Border>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
+
+  <!--<DataTemplate x:Key="WritingSystemTypeFilterPopupTemplate">
+    <ComboBox ItemsSource="{helpers:EnumValues EnumType={x:Type models:WritingSystemType}}"
+              SelectedItem="{Binding FilterValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Converter={StaticResource WritingSystemTypeResourceConverter}}" />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+  </DataTemplate>-->
 </ResourceDictionary>

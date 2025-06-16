@@ -32,11 +32,7 @@ public partial class _DbContext : DbContext
 
   public virtual DbSet<WritingSystem> WritingSystems { get; set; }
 
-  public virtual DbSet<WritingSystemKind> WritingSystemKinds { get; set; }
 
-  public virtual DbSet<WritingSystemType> WritingSystemTypes { get; set; }
-
-  
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
     if (!optionsBuilder.IsConfigured)
@@ -162,6 +158,8 @@ public partial class _DbContext : DbContext
 
       entity.HasIndex(e => e.Kind, "Kind");
       entity.HasIndex(e => e.Type, "Type");
+      entity.Property(e => e.Type).HasConversion<byte>();
+      entity.Property(e => e.Kind).HasConversion<byte>();
 
       entity.Property(e => e.Id)
               .HasColumnName("ID");
@@ -177,29 +175,13 @@ public partial class _DbContext : DbContext
       entity.Property(e => e.ParentId).HasColumnName("ParentID");
       entity.Property(e => e.Type).HasMaxLength(10);
               
-      entity.Property(e => e.Type).HasConversion<byte>();
-      entity.Property(e => e.Kind).HasConversion<byte>();
+
 
       entity.HasOne(d => d.ParentSystem).WithMany(p => p.Children)
               .HasForeignKey(d => d.ParentId)
               .HasConstraintName("WritingSystemsWritingSystems");
     });
 
-    modelBuilder.Entity<WritingSystemKind>(entity =>
-    {
-      entity.Property(e => e.Id).HasConversion<byte>();
-      entity.HasKey(e => e.Id).HasName("PrimaryKey");
-      entity.Property(e => e.Kind).HasMaxLength(15);
-      entity.HasIndex(e => e.Kind, "Kind").IsUnique();
-    });
-
-    modelBuilder.Entity<WritingSystemType>(entity =>
-    {
-      entity.Property(e => e.Id).HasConversion<byte>();
-      entity.HasKey(e => e.Id).HasName("PrimaryKey");
-      entity.Property(e => e.Type).HasMaxLength(10);
-      entity.HasIndex(e => e.Type, "Type").IsUnique();
-    });
 
 
     OnModelCreatingPartial(modelBuilder);

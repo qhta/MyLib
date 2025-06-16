@@ -73,8 +73,6 @@ public class _ViewModels: IDisposable
         var vm = new UcdCodePointViewModel(cp);
         UcdCodePoints.Add(vm);
       }
-      WritingSystemTypes = _Context.WritingSystemTypes.ToList();
-      WritingSystemKinds = _Context.WritingSystemKinds.ToList();
 
     }
   }
@@ -102,8 +100,9 @@ public class _ViewModels: IDisposable
   public Dictionary<int, WritingSystemViewModel> WritingSystemViewModels { get; set; } = new();
   public WritingSystemsCollection AllWritingSystems { get; set; } = new ();
   public WritingSystemsCollection TopWritingSystems { get; set; } = new ();
-  public List<WritingSystemType> WritingSystemTypes { get; set; }
-  public List<WritingSystemKind> WritingSystemKinds { get; set; }
+  public Array WritingSystemTypes { get; } = Enum.GetValues(typeof(WritingSystemType));
+  public Array WritingSystemKinds { get; } = Enum.GetValues(typeof(WritingSystemKind));
+
   public UcdCodePointsCollection UcdCodePoints { get; set; } = new ();
 
   public IEnumerable<WritingSystemViewModel> SelectableWritingSystems
