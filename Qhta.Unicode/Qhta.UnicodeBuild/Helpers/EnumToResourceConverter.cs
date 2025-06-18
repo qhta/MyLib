@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 using System.Resources;
 using System.Windows.Data;
 using Qhta.TextUtils;
@@ -38,8 +39,9 @@ public class EnumToResourceConverter : IValueConverter
       resourceKey = $"{resourceKey}{param}";
     }
     // Retrieve the translation from the resource file
-    string? translation = _resourceManager.GetString(resourceKey, culture);
 
+    string? translation = _resourceManager.GetString(resourceKey, culture);
+    Debug.WriteLine($"{resourceKey} [{culture}] = {translation}");
     return (translation ?? value.ToString())?.ToLower(); // Fallback to the enum value if no translation is found
   }
 

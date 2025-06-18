@@ -12,18 +12,89 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <UserControl.Resources>
-    <ContextMenu x:Key="WritingSystemsContextMenu">
-      <MenuItem 
-        Header="{x:Static resources:Strings.NewWritingSystem}" 
+    <Image x:Key="FamilyIcon" Source="/Assets/Family.png" Width="16" Height="16"/>
+    <Image x:Key="AreaIcon" Source="/Assets/Area.png" Width="16" Height="16"/>
+    <Image x:Key="LanguageIcon" Source="/Assets/Language.png" Width="16" Height="16"/>
+    <Image x:Key="ScriptIcon" Source="/Assets/Script.png" Width="16" Height="16"/>
+    <Image x:Key="NotationIcon" Source="/Assets/Notation.png" Width="16" Height="16"/>
+    <Image x:Key="SetIcon" Source="/Assets/Set.png" Width="16" Height="16"/>
+    <Image x:Key="SubsetIcon" Source="/Assets/Subset.png" Width="16" Height="16"/>
+    <helpers:MenuItemCollection x:Key="NewWritingSystemMenuItem"
+              Header="{x:Static resources:Strings.NewWritingSystem}">
+      <helpers:MenuItemObject
+        Header="{x:Static resources:WritingSystemType.Area}" 
+        ToolTip="{x:Static resources:WritingSystemType.AreaTooltip}" 
+        Icon="{StaticResource AreaIcon}"
         Command="{Binding Source={StaticResource ViewModels}, 
-          Path=Instance.AllWritingSystems.NewWritingSystemCommand}"/>
+            Path=Instance.AllWritingSystems.NewWritingSystemCommand}"
+        CommandParameter="{x:Static models:WritingSystemType.area}"/>
+      <helpers:MenuItemObject
+                Header="{x:Static resources:WritingSystemType.Family}" 
+                ToolTip="{x:Static resources:WritingSystemType.FamilyTooltip}" 
+                Icon="{StaticResource FamilyIcon}"
+                Command="{Binding Source={StaticResource ViewModels},
+                      Path=Instance.AllWritingSystems.NewWritingSystemCommand}"
+                CommandParameter="{x:Static models:WritingSystemType.family}"/>
+      <helpers:MenuItemObject
+                Header="{x:Static resources:WritingSystemType.Language}" 
+                ToolTip="{x:Static resources:WritingSystemType.LanguageTooltip}" 
+                Icon="{StaticResource LanguageIcon}"
+                Command="{Binding Source={StaticResource ViewModels}, 
+                      Path=Instance.AllWritingSystems.NewWritingSystemCommand}"
+                CommandParameter="{x:Static models:WritingSystemType.language}"/>
+      <helpers:MenuItemObject
+                Header="{x:Static resources:WritingSystemType.Script}" 
+                ToolTip="{x:Static resources:WritingSystemType.ScriptTooltip}" 
+                Icon="{StaticResource ScriptIcon}"
+                Command="{Binding Source={StaticResource ViewModels}, 
+                      Path=Instance.AllWritingSystems.NewWritingSystemCommand}"
+                CommandParameter="{x:Static models:WritingSystemType.script}"/>
+      <helpers:MenuItemObject
+                Header="{x:Static resources:WritingSystemType.Notation}" 
+                ToolTip="{x:Static resources:WritingSystemType.NotationTooltip}" 
+                Icon="{StaticResource NotationIcon}"
+                Command="{Binding Source={StaticResource ViewModels},
+                      Path=Instance.AllWritingSystems.NewWritingSystemCommand}"
+                CommandParameter="{x:Static models:WritingSystemType.notation}"/>
+      <helpers:MenuItemObject
+                Header="{x:Static resources:WritingSystemType.Set}" 
+                ToolTip="{x:Static resources:WritingSystemType.SetTooltip}" 
+                Icon="{StaticResource SetIcon}"
+                Command="{Binding Source={StaticResource ViewModels}, 
+                      Path=Instance.AllWritingSystems.NewWritingSystemCommand}"
+                CommandParameter="{x:Static models:WritingSystemType.set}"/>
+      <helpers:MenuItemObject 
+                Header="{x:Static resources:WritingSystemType.Subset}" 
+                ToolTip="{x:Static resources:WritingSystemType.SubsetTooltip}" 
+                Icon="{StaticResource SubsetIcon}"
+                Command="{Binding Source={StaticResource ViewModels}, 
+                      Path=Instance.AllWritingSystems.NewWritingSystemCommand}"
+                CommandParameter="{x:Static models:WritingSystemType.subset}"/>
+    </helpers:MenuItemCollection>
+
+
+    <ContextMenu x:Key="WritingSystemsContextMenu">
+      <MenuItem Header="{x:Static resources:Strings.NewWritingSystem}"
+                ItemsSource="{StaticResource NewWritingSystemMenuItem}"
+                ItemContainerStyle="{StaticResource MenuItemObjectStyle}">
+      </MenuItem>
     </ContextMenu>
     <ContextMenu x:Key="WritingSystemsRowContextMenu">
-      <MenuItem 
-        Header="{x:Static resources:Strings.NewWritingSystem}" 
-        Command="{Binding Source={StaticResource ViewModels}, 
-          Path=Instance.AllWritingSystems.NewWritingSystemCommand}"/>
+      <MenuItem Header="{x:Static resources:Strings.NewWritingSystem}"
+                ItemsSource="{StaticResource NewWritingSystemMenuItem}"
+                ItemContainerStyle="{StaticResource MenuItemObjectStyle}">
+      </MenuItem>
     </ContextMenu>
+    <ContextMenu x:Key="WritingSystemsAddContextMenu" 
+                  ItemsSource="{StaticResource NewWritingSystemMenuItem}"
+                  ItemContainerStyle="{StaticResource MenuItemObjectStyle}">
+    </ContextMenu>
+
+    <helpers:EnumValues x:Key="WritingSystemTypeValue"
+                     EnumType="{x:Type models:WritingSystemType}" />
+    <DataTemplate x:Key="WritingSystemTypeFilterPopupTemplate">
+      <helpers:ComboBoxFilterControls/>
+    </DataTemplate>
   </UserControl.Resources>
   <Grid>
     <Grid.RowDefinitions>
@@ -62,6 +133,7 @@
       </MenuItem>
     </Menu>
 
+    
     <sf:SfTreeView  Grid.Column="0" Grid.Row="1"
                     x:Name="WritingSystemsTreeView"
                     DataContext ="{StaticResource ViewModels}"
@@ -82,7 +154,7 @@
               <ToolTip Content="{Binding Description}"/>
             </StackPanel.ToolTip>
             <Image Source="{Binding Type, Converter={StaticResource TypeToImageConverter}}"
-                   Width="24" Height="24" Stretch="Uniform"/>
+                   Width="16" Height="16" Stretch="Uniform" Margin="0,0,4,0"/>
             <TextBlock Text="{Binding Name}"/>
           </StackPanel>
         </DataTemplate>
@@ -107,7 +179,7 @@
                    EditTrigger="OnTap"
                    ContextMenu="{StaticResource WritingSystemsContextMenu}"
                    RecordContextMenu="{StaticResource WritingSystemsRowContextMenu}"
-                   
+                   FilterItemsPopulated="WritingSystemsDataGrid_OnFilterItemsPopulated"
                    >
       <sf:SfDataGrid.Columns>
         <sf:GridCheckBoxColumn
@@ -133,7 +205,8 @@
           <sf:GridTextColumn.CellTemplate>
             <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
               <TextBlock Text="{Binding Name}" 
-                         ToolTip="{Binding Description}"  />
+                         ToolTip="{Binding Description}" 
+                         Padding="4,2,0,0"/>
             </DataTemplate>
           </sf:GridTextColumn.CellTemplate>
         </sf:GridTextColumn>
@@ -160,7 +233,6 @@
           MappingName="Type" 
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemTypes}"
-
           >
           <!--FilterPopupTemplate="{StaticResource WritingSystemTypeFilterPopupTemplate}"-->
           <sf:GridColumn.HeaderTemplate>
@@ -173,7 +245,7 @@
             <DataTemplate DataType="{x:Type models:WritingSystemType}">
               <TextBlock Text="{Binding 
                               Converter={StaticResource WritingSystemTypeResourceConverter},
-                                  ConverterCulture={x:Static sys:CultureInfo.InvariantCulture}}"                        
+                                  ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}"                        
                          ToolTip="{Binding 
                               Converter={StaticResource WritingSystemTypeResourceConverter},
                               ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
@@ -199,7 +271,7 @@
             <DataTemplate DataType="{x:Type models:WritingSystemKind}">
               <TextBlock Text="{Binding 
                               Converter={StaticResource WritingSystemKindResourceConverter},
-                                  ConverterCulture={x:Static sys:CultureInfo.InvariantCulture}}"                        
+                                  ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}"                        
                          ToolTip="{Binding 
                               Converter={StaticResource WritingSystemKindResourceConverter},
                               ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
@@ -279,16 +351,19 @@
         </helpers:LongTextColumn>
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
-    <Button Grid.Row="1" Grid.Column="1" Width="32" Height="32"
+    <Button x:Name="NewWritingSystemButton"
+            Grid.Row="1" Grid.Column="1" Width="32" Height="32"
             Background="Transparent"
             BorderThickness="0"
             BorderBrush="Transparent"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Margin="0,0,20,20"
-            Command="{Binding Source={StaticResource ViewModels}, 
-              Path=Instance.AllWritingSystems.NewWritingSystemCommand}">
+            Click="NewWritingSystemButton_OnClick"
+            ContextMenu="{StaticResource WritingSystemsAddContextMenu}"
+            >
       <Image Source="/Assets/Add.png"/>
+
     </Button>
   </Grid>
 </UserControl>

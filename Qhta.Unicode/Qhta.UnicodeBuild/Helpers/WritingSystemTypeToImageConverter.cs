@@ -15,6 +15,7 @@ public class WritingSystemTypeToImageConverter : IValueConverter
         WritingSystemType.set => "pack://application:,,,/Assets/Set.png",
         WritingSystemType.area => "pack://application:,,,/Assets/Area.png",
         WritingSystemType.subset => "pack://application:,,,/Assets/Subset.png",
+        WritingSystemType.language => "pack://application:,,,/Assets/Language.png",
         WritingSystemType.script => "pack://application:,,,/Assets/Script.png",
         WritingSystemType.notation => "pack://application:,,,/Assets/Notation.png",
         WritingSystemType.family => "pack://application:,,,/Assets/Family.png",

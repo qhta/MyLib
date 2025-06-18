@@ -29,6 +29,14 @@
     ResourceType="{x:Type resources:WritingSystemKind}" x:Key="WritingSystemKindResourceConverter"/>
   <resources:Strings x:Key="Strings"/>
 
+  <Style x:Key="MenuItemObjectStyle" TargetType="MenuItem">
+    <Setter Property="Header" Value="{Binding Header}" />
+    <Setter Property="Icon" Value="{Binding Icon}" />
+    <Setter Property="ToolTip" Value="{Binding ToolTip}" />
+    <Setter Property="Command" Value="{Binding Command}" />
+    <Setter Property="CommandParameter" Value="{Binding CommandParameter}" />
+  </Style>
+
   <ContextMenu x:Key="CommonContextMenu">
     <MenuItem Header="Copy" Command="Copy"/>
     <MenuItem Header="Paste" Command="Paste"/>

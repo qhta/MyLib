@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-
+using Qhta.TextUtils;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.ViewModels;
@@ -120,6 +120,39 @@ namespace Qhta.UnicodeBuild.Views
       //_ViewModels.Instance.AllWritingSystems.Add(viewModel);
       //_ViewModels.Instance.TopWritingSystems.Add(viewModel);
       e.NewObject = viewModel;
+    }
+
+    private void NewWritingSystemButton_OnClick(object sender, RoutedEventArgs e)
+    {
+      var button = sender as Button;
+      if (button?.ContextMenu != null)
+      {
+        button.ContextMenu.PlacementTarget = button;
+        button.ContextMenu.IsOpen = true;
+      }
+    }
+
+    private void WritingSystemsDataGrid_OnFilterItemsPopulated(object? sender, GridFilterItemsPopulatedEventArgs e)
+    {
+      if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Type))
+      {
+        foreach (var item in e.ItemsSource)
+        {
+          if (!item.DisplayText.StartsWith("("))
+          {
+            var displayText = item.DisplayText.TitleCase();
+            var newText = Qhta.UnicodeBuild.Resources.WritingSystemType.ResourceManager.GetString(displayText);
+            if (newText != null)
+            {
+              item.DisplayText = newText;
+            }
+            else
+            {
+              //Debug.WriteLine($"No translation found for {displayText}");
+            }
+          }
+        }
+      }
     }
   }
 }

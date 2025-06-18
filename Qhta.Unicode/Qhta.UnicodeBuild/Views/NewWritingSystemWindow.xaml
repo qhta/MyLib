@@ -12,7 +12,7 @@
       <RowDefinition Height="*"/>
       <RowDefinition Height="50"/>
     </Grid.RowDefinitions>
-    <views:NewWritingSystemView />
+    <views:WritingSystemView />
     <StackPanel 
       Grid.Row="1" Orientation="Horizontal"
       HorizontalAlignment="Center">

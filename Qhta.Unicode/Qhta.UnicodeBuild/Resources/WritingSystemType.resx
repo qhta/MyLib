@@ -98,25 +98,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Area" xml:space="preserve">
-    <value>Area</value>
+    <value>area</value>
   </data>
   <data name="Family" xml:space="preserve">
-    <value>Family</value>
+    <value>family</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>language</value>
   </data>
   <data name="Script" xml:space="preserve">
-    <value>Script</value>
+    <value>script</value>
   </data>
   <data name="Notation" xml:space="preserve">
-    <value>Notation</value>
+    <value>notation</value>
   </data>
   <data name="Set" xml:space="preserve">
-    <value>Set</value>
+    <value>set</value>
   </data>
   <data name="Subset" xml:space="preserve">
-    <value>Subset</value>
+    <value>subset</value>
   </data>
   <data name="AreaTooltip" xml:space="preserve">
     <value>Area is a range of code points that are not defined individually.</value>
@@ -136,7 +136,7 @@
   <data name="SetTooltip" xml:space="preserve">
     <value>A set of symbols that can be scattered across different Unicode ranges.</value>
   </data>
-  <data name="SubsetTootip" xml:space="preserve">
+  <data name="SubsetTooltip" xml:space="preserve">
     <value>A subset of symbols belonging to a another set.</value>
   </data>
 </root>

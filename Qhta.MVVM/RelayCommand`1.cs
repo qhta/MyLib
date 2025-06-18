@@ -3,7 +3,7 @@
   /// <summary>
   ///  A command which relays its functionality to other objects by invoking delegates.
   /// </summary>
-  public sealed class RelayCommand<ParamType> : Command, IRelayCommand, ICommand where ParamType: class
+  public sealed class RelayCommand<ParamType> : Command, IRelayCommand, ICommand 
   {
     /// <summary>
     /// Action to invoke on Execute.

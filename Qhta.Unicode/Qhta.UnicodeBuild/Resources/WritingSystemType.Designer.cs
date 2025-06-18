@@ -61,7 +61,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Area.
+        ///   Looks up a localized string similar to area.
         /// </summary>
         public static string Area {
             get {
@@ -79,7 +79,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Family.
+        ///   Looks up a localized string similar to family.
         /// </summary>
         public static string Family {
             get {
@@ -97,7 +97,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Language.
+        ///   Looks up a localized string similar to language.
         /// </summary>
         public static string Language {
             get {
@@ -115,7 +115,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notation.
+        ///   Looks up a localized string similar to notation.
         /// </summary>
         public static string Notation {
             get {
@@ -133,7 +133,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Script.
+        ///   Looks up a localized string similar to script.
         /// </summary>
         public static string Script {
             get {
@@ -151,7 +151,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set.
+        ///   Looks up a localized string similar to set.
         /// </summary>
         public static string Set {
             get {
@@ -169,7 +169,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subset.
+        ///   Looks up a localized string similar to subset.
         /// </summary>
         public static string Subset {
             get {
@@ -180,9 +180,9 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to A subset of symbols belonging to a another set..
         /// </summary>
-        public static string SubsetTootip {
+        public static string SubsetTooltip {
             get {
-                return ResourceManager.GetString("SubsetTootip", resourceCulture);
+                return ResourceManager.GetString("SubsetTooltip", resourceCulture);
             }
         }
     }

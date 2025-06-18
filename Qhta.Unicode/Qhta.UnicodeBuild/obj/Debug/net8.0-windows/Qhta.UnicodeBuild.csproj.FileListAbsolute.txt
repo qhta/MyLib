@@ -175,9 +175,7 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-wi
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\Prism.Events.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\Prism.Wpf.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\Syncfusion.PropertyGrid.WPF.dll
-D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Views\NewWritingSystemView.g.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Views\NewWritingSystemWindow.g.cs
-D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Views\NewWritingSystemView.baml
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Views\NewWritingSystemWindow.baml
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\PropertyTools.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\PropertyTools.Wpf.dll
@@ -188,7 +186,6 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-wi
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.csproj.GenerateResource.cache
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\pl\Qhta.UnicodeBuild.resources.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.WritingSystemType.resources
-D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.WritingSystemType.pl.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.WritingSystemKind.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.WritingSystemKind.pl.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.WritingSystem.resources
@@ -210,3 +207,13 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-wi
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Controls\RecordNavigationBar.g.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Controls\RecordNavigationBar.baml
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Themes\Generic.baml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.WritingSystemType.pl.resources
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Views\WritingSystemView.g.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Views\WritingSystemView.baml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\Syncfusion.Grid.Windows.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\Syncfusion.Grid.WPF.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\Syncfusion.GridCommon.WPF.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\Syncfusion.Linq.Base.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\Syncfusion.Shared.Windows.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.Syncfusion.SfGrid.WPF.resources
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.Syncfusion.SfGrid.WPF.pl.resources

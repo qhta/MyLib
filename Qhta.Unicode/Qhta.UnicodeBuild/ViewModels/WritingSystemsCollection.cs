@@ -11,7 +11,7 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
   public WritingSystemsCollection(): base((item)=>item.Name)
   {
     //EvaluateIsUsedCommand = new RelayCommand(EvaluateIsUsed);
-    NewWritingSystemCommand = new RelayCommand(CreateNewWritingSystem);
+    NewWritingSystemCommand = new RelayCommand<WritingSystemType?>(CreateNewWritingSystem);
     DeleteWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(DeleteWritingSystem, CanDeleteWritingSystem);
   }
 
@@ -53,18 +53,18 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
   //  }
   //}
 
-  public RelayCommand NewWritingSystemCommand { get; }
+  public IRelayCommand NewWritingSystemCommand { get; }
 
-
-  private void CreateNewWritingSystem()
+  private void CreateNewWritingSystem(WritingSystemType? newType)
   {
     var vm = new WritingSystemViewModel(new WritingSystem());
     var model = vm.Model;
-    vm.Name = "New Writing System";
+    vm.Name = "New "+newType.ToString();
+    vm.Type = newType;
     var vmWindow = new Views.NewWritingSystemWindow
     {
       DataContext = vm,
-      Owner = Application.Current.MainWindow
+      Owner = Application.Current.MainWindow,
     };
     vmWindow.ShowDialog();
   }

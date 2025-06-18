@@ -1,1 +1,19 @@
-{"ShowEmptyProjects":false,"CustomColumnOrderings":{"name":0,"type":1,"neutral-value":2,"neutral-comment":3,"pl":4},"ShowValidationErrors":true,"SelectedResourceGroupsByProjectFilePath":{"D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Qhta.UnicodeBuild.csproj":["D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Resources\\Strings.resx"]},"VisibleColumnKeys":["name","neutral-value","neutral-comment"]}
+{
+  "ShowEmptyProjects": false,
+  "SelectedGroups": [],
+  "ExpandedProjects": [],
+  "EnableSpellChecker": true,
+  "ColumnOrder": [
+    "name",
+    "type",
+    "neutral-value",
+    "neutral-comment",
+    "pl"
+  ],
+  "VisibleColumnKeys": [
+    "name",
+    "neutral-comment",
+    "pl",
+    "neutral-value"
+  ]
+}

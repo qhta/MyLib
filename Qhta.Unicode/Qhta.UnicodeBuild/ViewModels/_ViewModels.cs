@@ -1,8 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
-using Qhta.Unicode.Models;
-using Qhta.UnicodeBuild.ViewModels;
+﻿using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
