@@ -149,17 +149,8 @@
         <member name="F:Qhta.Unicode.BlockType.Combining">
             <summary>Diacritical symbols combining with other symbols.</summary>
         </member>
-        <member name="F:Qhta.Unicode.BlockType.Constructed">
-            <summary>Constructed language symbols.</summary>
-        </member>
         <member name="F:Qhta.Unicode.BlockType.Cuneiform">
             <summary>Cuneiform symbols.</summary>
-        </member>
-        <member name="F:Qhta.Unicode.BlockType.Featural">
-            <summary>Symbols to represent individual features rather than phonemes.</summary>
-        </member>
-        <member name="F:Qhta.Unicode.BlockType.Hieroglyphs">
-            <summary>Hieroglyph symbols.</summary>
         </member>
         <member name="F:Qhta.Unicode.BlockType.Ideographic">
             <summary>Ideographic symbols.</summary>
@@ -173,17 +164,11 @@
         <member name="F:Qhta.Unicode.BlockType.Form">
             <summary>Block that changes only the form of presentation of some other code point.</summary>
         </member>
-        <member name="F:Qhta.Unicode.BlockType.Logographic">
-            <summary>Logographic script.</summary>
-        </member>
         <member name="F:Qhta.Unicode.BlockType.Phonetic">
             <summary>Phonetic extensions.</summary>
         </member>
-        <member name="F:Qhta.Unicode.BlockType.Pictographic">
-            <summary>Pictographic symbols.</summary>
-        </member>
         <member name="F:Qhta.Unicode.BlockType.Punctuation">
-            <summary>Block of punctuation symbols.</summary>
+            <summary>Phonetic extensions.</summary>
         </member>
         <member name="F:Qhta.Unicode.BlockType.Range">
             <summary>Block of which only first and last symbol has a name.</summary>
@@ -194,17 +179,14 @@
         <member name="F:Qhta.Unicode.BlockType.SemiSyllabary">
             <summary>Writing system that behaves partly as an alphabet and partly as a syllabary.</summary>
         </member>
-        <member name="F:Qhta.Unicode.BlockType.Stenography">
-            <summary>Block of stenographic symbols.</summary>
-        </member>
         <member name="F:Qhta.Unicode.BlockType.Syllabary">
             <summary>Set of written symbols (called syllabograms) that represent either syllables or moras—a unit of prosody that is often but not always a syllable in length.</summary>
         </member>
         <member name="F:Qhta.Unicode.BlockType.Symbols">
             <summary>Block which contains symbols not used in any natural language.</summary>
         </member>
-        <member name="F:Qhta.Unicode.BlockType.Blockdraw">
-            <summary>Block drawings or box-drawings.</summary>
+        <member name="F:Qhta.Unicode.BlockType.Block">
+            <summary>Block with special syntax of description.</summary>
         </member>
         <member name="F:Qhta.Unicode.BlockType.Special">
             <summary>Block with special syntax of description.</summary>
@@ -514,24 +496,17 @@
             <summary>
             Create a short name for a character or get it if already exists.
             </summary>
-        </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.GetOrCreateShortName(Qhta.Unicode.Tokens,System.Int32)">
-            <summary>
-            Create a short name for a character or get it if already exists.
-            </summary>
-        </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortName(Qhta.Unicode.CharInfo,System.Int32)">
-            <summary>
-            Create a short name for a character info.
-            </summary>
             <param name="charInfo"></param>
             <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortName(Qhta.Unicode.CharInfo,Qhta.Unicode.Tokens,System.Int32)">
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortName(Qhta.Unicode.CharInfo,System.Int32)">
             <summary>
-            Create a short name for a character info and a list of token.
+            Create a short name for a character.
             </summary>
+            <param name="charInfo"></param>
+            <param name="alternative">Some names can have alternatives</param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.Unicode.CharNameIndex.CreateShortenName(Qhta.Unicode.CharInfo,System.Int32)">
             <summary>
@@ -541,31 +516,50 @@
             <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateLetterName(Qhta.Unicode.Tokens,System.Int32)">
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortenName(Qhta.Unicode.CharInfo,System.String,System.Int32)">
             <summary>
             Create a short name for a long character name.
             </summary>
+            <param name="longName"></param>
+            <param name="charInfo"></param>
+            <param name="alternative">Some names can have alternatives</param>
+            <returns></returns>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.GetOrCreateWithModifierName(Qhta.Unicode.Tokens,System.Int32)">
+        <member name="M:Qhta.Unicode.CharNameIndex.GetOrCreateWithModifierName(Qhta.Unicode.CharInfo,System.String,System.Int32)">
             <summary>
             Get or create a short name for a modifier character name.
             </summary>
-        </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateStartCharName(Qhta.Unicode.Tokens,System.Int32)">
-            <summary>
-            Create a short name for start of character name.
-            </summary>
+            <param name="longName"></param>
+            <param name="charInfo"></param>
+            <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateMainCharName(Qhta.Unicode.Tokens,System.Int32)">
-            <summary>
-            Create a short name for a main part of character name.
-            </summary>
-        </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateSimpleCharName(Qhta.Unicode.Tokens,System.Int32)">
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateStartCharName(Qhta.Unicode.CharInfo,System.String,System.Int32)">
             <summary>
             Create a short name for a simple character name.
             </summary>
+            <param name="charInfo"></param>
+            <param name="longName"></param>
+            <param name="alternative">Some names can have alternatives</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateMainCharName(Qhta.Unicode.CharInfo,System.String,System.Int32)">
+            <summary>
+            Create a short name for a simple character name.
+            </summary>
+            <param name="charInfo"></param>
+            <param name="longName"></param>
+            <param name="alternative">Some names can have alternatives</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateSimpleCharName(Qhta.Unicode.CharInfo,System.String,System.Int32)">
+            <summary>
+            Create a short name for a simple character name.
+            </summary>
+            <param name="charInfo"></param>
+            <param name="longName"></param>
+            <param name="alternative">Some names can have alternatives</param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.Unicode.CharNameIndex.WordsAbbreviationsComparer.Compare(System.String,System.String)">
             <summary>
@@ -1134,111 +1128,6 @@
             </summary>
             <param name="script">Script is a 4-character ISO 15924 script code.</param>
             <param name="codePoint"></param>
-        </member>
-        <member name="T:Qhta.Unicode.Tokens">
-            <summary>
-            A list of tokens for a line of text
-            </summary>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.#ctor">
-            <summary>
-            Default constructor for empty list
-            </summary>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.#ctor(System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Constructor with initial strings
-            </summary>
-            <param name="strings"></param>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.Substring(System.Int32)">
-            <summary>
-            Gets the tokens from a start index to the end of the list
-            </summary>
-            <param name="start"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.ToUpper">
-            <summary>
-            Gets the tokens converted to upper case
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.ToLower">
-            <summary>
-            Gets the tokens converted to lower case
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.Substring(System.Int32,System.Int32)">
-            <summary>
-            Gets the tokens from a start index in the list for a given length
-            </summary>
-            <param name="start"></param>
-            <param name="length"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.Prepend(System.String)">
-            <summary>
-            Add a string to the start of the list
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.Prepend(System.String[])">
-            <summary>
-            Add strings to the start of the list
-            </summary>
-            <param name="strs"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.Append(System.String)">
-            <summary>
-            Add a string to the end of the list
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.Append(System.String[])">
-            <summary>
-            Add strings to the end of the list
-            </summary>
-            <param name="strs"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.StartsWith(System.String)">
-            <summary>
-            Checks if the first token is the same as the given string
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.StartsWith(System.String[])">
-            <summary>
-            Checks if the first tokens are the same as the given strings
-            </summary>
-            <param name="strs"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.EndsWith(System.String)">
-            <summary>
-            Checks if the last token is the same as the given string
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.EndsWith(System.String[])">
-            <summary>
-            Checks if the last tokens ares the same as the given strings
-            </summary>
-            <param name="strs"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.Unicode.Tokens.ToString">
-            <summary>
-            Checks if the list contains the given string
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:Qhta.Unicode.UcdBlock">
             <summary>

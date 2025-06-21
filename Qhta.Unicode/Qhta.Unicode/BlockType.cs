@@ -29,7 +29,11 @@ public enum BlockType
   /// <summary>Ideographic symbols.</summary>
   [EnumMember(Value = "ideo")] Ideographic,
   /// <summary>Block that contains only numeral symbols</summary>
+<<<<<<< HEAD
   [EnumMember(Value = "numb")] Numerals,
+=======
+  [EnumMember(Value = "num")] Numerals,
+>>>>>>> 2700dffbc7a58be67bd3cc15b1f6088d1371f148
   /// <summary>Block that contains glyphs combined with some other glyphs.</summary>
   [EnumMember(Value = "encl")] Enclosed,
   /// <summary>Block that changes only the form of presentation of some other code point.</summary>
