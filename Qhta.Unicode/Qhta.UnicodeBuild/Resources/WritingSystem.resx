@@ -172,8 +172,7 @@
 Wildchars '*' can be used to define more sophisticated classification rules.</value>
   </data>
   <data name="CtgTooltip" xml:space="preserve">
-    <value>A category string can be compared to Ctg  field of a code point to classify the code point to this writing system.
-Wildchars '*' can be used to define more sophisticated classification rules.</value>
+    <value>A category string is a value of "Ctg"  field of a code point which assigns the code point to this writing system. Wildcards '*' and alternative operators "|" can be used to define sophisticated classification rules.</value>
   </data>
   <data name="IsoTooltip" xml:space="preserve">
     <value>Identifier of the writing system (script or language) in ISO-15924 or ISO-639 standard.</value>
@@ -186,5 +185,14 @@ Wildchars '*' can be used to define more sophisticated classification rules.</va
   </data>
   <data name="NameAlreadyExistsMessage" xml:space="preserve">
     <value>Writing system {0} already exists.</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Extension" xml:space="preserve">
+    <value>Extension</value>
+  </data>
+  <data name="Abbreviation" xml:space="preserve">
+    <value>Abbreviation</value>
   </data>
 </root>

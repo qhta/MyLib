@@ -174,6 +174,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\Category.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Category.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\CodePoint.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -212,6 +217,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Category.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Category.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\CodePoint.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CodePoint.Designer.cs</LastGenOutput>

@@ -70,11 +70,29 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Abbreviation.
+        /// </summary>
+        public static string Abbreviation {
+            get {
+                return ResourceManager.GetString("Abbreviation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Abbreviation is a string to identify the writing system in the output text..
         /// </summary>
         public static string AbbrTooltip {
             get {
                 return ResourceManager.GetString("AbbrTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
             }
         }
         
@@ -88,8 +106,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A category string can be compared to Ctg  field of a code point to classify the code point to this writing system.
-        ///Wildchars &apos;*&apos; can be used to define more sophisticated classification rules..
+        ///   Looks up a localized string similar to A category string is a value of &quot;Ctg&quot;  field of a code point which assigns the code point to this writing system. Wildcards &apos;*&apos; and alternative operators &quot;|&quot; can be used to define sophisticated classification rules..
         /// </summary>
         public static string CtgTooltip {
             get {
@@ -112,6 +129,15 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string Ext {
             get {
                 return ResourceManager.GetString("Ext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extension.
+        /// </summary>
+        public static string Extension {
+            get {
+                return ResourceManager.GetString("Extension", resourceCulture);
             }
         }
         

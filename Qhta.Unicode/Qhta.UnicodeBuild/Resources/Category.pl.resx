@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cc" xml:space="preserve">
+    <value>Inne, sterujące</value>
+  </data>
+  <data name="Cf" xml:space="preserve">
+    <value>Inne, formatujące</value>
+  </data>
+  <data name="Cn" xml:space="preserve">
+    <value>Inne, nieprzydzielone</value>
+  </data>
+  <data name="Co" xml:space="preserve">
+    <value>Inne, do użytku prywatnego</value>
+  </data>
+  <data name="Cs" xml:space="preserve">
+    <value>Inne, zastępcze</value>
+  </data>
+  <data name="Ll" xml:space="preserve">
+    <value>Litery, małe</value>
+  </data>
+  <data name="Lm" xml:space="preserve">
+    <value>Litery, modyfikujące</value>
+  </data>
+  <data name="Lo" xml:space="preserve">
+    <value>Litery, inne</value>
+  </data>
+  <data name="Lt" xml:space="preserve">
+    <value>Litery, tytułowe</value>
+  </data>
+  <data name="Lu" xml:space="preserve">
+    <value>Litery, wielkie</value>
+  </data>
+  <data name="Mc" xml:space="preserve">
+    <value>Znaki, z kombinowaną szerokością</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>Znaki, obejmujące</value>
+  </data>
+  <data name="Mn" xml:space="preserve">
+    <value>Znaki, bez szerokości</value>
+  </data>
+  <data name="Nd" xml:space="preserve">
+    <value>Liczby, cyfry dziesiętne</value>
+  </data>
+  <data name="Nl" xml:space="preserve">
+    <value>Liczby, literopodobne</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Liczby, inne</value>
+  </data>
+  <data name="Pc" xml:space="preserve">
+    <value>Interpunkcyjne, łączniki</value>
+  </data>
+  <data name="Pd" xml:space="preserve">
+    <value>Interpunkcyjne, myślniki</value>
+  </data>
+  <data name="Pe" xml:space="preserve">
+    <value>Interpunkcyjne, zamykające</value>
+  </data>
+  <data name="Pf" xml:space="preserve">
+    <value>Interpunkcyjne, cudzysłowy zamykające</value>
+  </data>
+  <data name="Pi" xml:space="preserve">
+    <value>Interpunkcyjne, cudzysłowy otwierające</value>
+  </data>
+  <data name="Po" xml:space="preserve">
+    <value>Interpunkcyjne, inne</value>
+  </data>
+  <data name="Ps" xml:space="preserve">
+    <value>Interpunkcyjne, otwierające</value>
+  </data>
+  <data name="Sc" xml:space="preserve">
+    <value>Symbole, waluty</value>
+  </data>
+  <data name="Sk" xml:space="preserve">
+    <value>Symbole, modyfikujące</value>
+  </data>
+  <data name="Sm" xml:space="preserve">
+    <value>Symbole, matematyczne</value>
+  </data>
+  <data name="So" xml:space="preserve">
+    <value>Symbole, inne</value>
+  </data>
+  <data name="Zl" xml:space="preserve">
+    <value>Separatory, linii</value>
+  </data>
+  <data name="Zp" xml:space="preserve">
+    <value>Separatory, akapitów</value>
+  </data>
+  <data name="Zs" xml:space="preserve">
+    <value>Separatory, spacje</value>
+  </data>
+</root>

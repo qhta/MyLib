@@ -112,6 +112,7 @@ public class _ViewModels: IDisposable
   public List<WritingSystemKindViewModel> WritingSystemKindsList { get; } = new();
   public Array WritingSystemTypes { get; } = Enum.GetValues(typeof(WritingSystemType));
   public Array WritingSystemKinds { get; } = Enum.GetValues(typeof(WritingSystemKind));
+  public Array Categories { get; } = Enum.GetNames(typeof(UcdCategory));
 
   public UcdCodePointsCollection UcdCodePoints { get; set; } = new ();
 

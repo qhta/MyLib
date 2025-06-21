@@ -29,6 +29,7 @@
     ResourceType="{x:Type resources:WritingSystemType}" x:Key="WritingSystemTypeResourceConverter"/>
   <helpers:EnumToResourceConverter 
     ResourceType="{x:Type resources:WritingSystemKind}" x:Key="WritingSystemKindResourceConverter"/>
+  <helpers:CategoryResourceConverter x:Key="CategoryResourceConverter"/>
 
   <Style x:Key="MenuItemObjectStyle" TargetType="MenuItem">
     <Setter Property="Header" Value="{Binding Header}" />

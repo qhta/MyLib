@@ -142,7 +142,7 @@
     <value>ISO</value>
   </data>
   <data name="Abbr" xml:space="preserve">
-    <value>Skrót</value>
+    <value>Skrót nazwy</value>
   </data>
   <data name="Ext" xml:space="preserve">
     <value>Rozsz.</value>
@@ -170,19 +170,27 @@
 Można używać znaków wieloznacznych '*' do definiowania bardziej zaawansowanych reguł klasyfikacji.</value>
   </data>
   <data name="CtgTooltip" xml:space="preserve">
-    <value>Łańcuch znaków kategorii można porównać do pola Ctg punktu kodowego, aby zaklasyfikować punkt kodowy do tego systemu pisma. 
-Można używać znaków wieloznacznych '*' do definiowania bardziej zaawansowanych reguł klasyfikacji.</value>
+    <value>Łańcuch znaków kategorii to wartość pola "Ctg" punktu kodowego, która powoduje przydzielenie punktu kodowego do danego systemu pisma. Można używać znaków wieloznacznych '*' i operatorów alternatywy "|" do definiowania zaawansowanych reguł klasyfikacji.</value>
   </data>
   <data name="IsoTooltip" xml:space="preserve">
     <value>Identyfikator systemu pisma (pisma lub języka) w standardzie ISO-15924 lub ISO-639.</value>
   </data>
   <data name="AbbrTooltip" xml:space="preserve">
-    <value>Skrót to łańcuch, który identyfikuje system pisma w tekście wyjściowym.</value>
+    <value>Skrót nazwy to łańcuch, który identyfikuje system pisma w tekście wyjściowym.</value>
   </data>
   <data name="ExtTooltip" xml:space="preserve">
     <value>Rozszerzenie to ciąg znaków, który jest dołączany do skrótu, aby utworzyć unikalny klucz dla każdego systemu pisma. Nie pojawia się w tekście wyjściowym.</value>
   </data>
   <data name="NameAlreadyExistsMessage" xml:space="preserve">
     <value>System pisma {0} już istnieje.</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategoria</value>
+  </data>
+  <data name="Extension" xml:space="preserve">
+    <value>Rozszerzenie</value>
+  </data>
+  <data name="Abbreviation" xml:space="preserve">
+    <value>Skrót</value>
   </data>
 </root>
