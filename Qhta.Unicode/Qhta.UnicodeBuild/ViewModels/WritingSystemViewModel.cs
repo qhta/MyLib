@@ -36,7 +36,6 @@ public class WritingSystemViewModel(WritingSystem model)
   }
 
   [AutoUpdateText]
-  [Description("Should not be empty.")]
   [Required]
   public string Name
   {
@@ -46,7 +45,6 @@ public class WritingSystemViewModel(WritingSystem model)
       if (Model.Name != value)
       {
         Model.Name = value;
-        Validate(nameof(Name));
         NotifyPropertyChanged(nameof(Name));
       }
     }
@@ -56,6 +54,7 @@ public class WritingSystemViewModel(WritingSystem model)
   public string FullName => Model.Name + " " + Type.ToString()?.ToLower();
 
 
+  [Required]
   public WritingSystemType? Type
   {
     get => Model.Type;
@@ -82,7 +81,6 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  [DisplayName("Parent")]
   [ItemsSourceProperty(nameof(Parents))]
   [DisplayMemberPath("FullName")]
   [SelectedValuePath("Id")]

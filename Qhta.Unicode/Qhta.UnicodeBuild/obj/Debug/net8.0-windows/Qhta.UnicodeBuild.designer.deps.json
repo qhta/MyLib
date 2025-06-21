@@ -722,6 +722,14 @@
           }
         }
       },
+      "Qhta.DeepCopy/1.5.0": {
+        "runtime": {
+          "lib/net6.0/Qhta.DeepCopy.dll": {
+            "assemblyVersion": "1.5.0.0",
+            "fileVersion": "1.5.0.0"
+          }
+        }
+      },
       "Qhta.HtmlUtils/2.1.0": {
         "dependencies": {
           "HtmlAgilityPack": "1.8.9"
@@ -1062,6 +1070,18 @@
         },
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.SfInput.WPF.dll": {
+            "assemblyVersion": "29.2.11.0",
+            "fileVersion": "29.2.11.0"
+          }
+        }
+      },
+      "Syncfusion.SfTextInputLayout.WPF/29.2.11": {
+        "dependencies": {
+          "Syncfusion.Licensing": "29.2.11",
+          "Syncfusion.Shared.WPF": "29.2.11"
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Syncfusion.SfTextInputLayout.WPF.dll": {
             "assemblyVersion": "29.2.11.0",
             "fileVersion": "29.2.11.0"
           }
@@ -2330,6 +2350,13 @@
       "path": "qhta.collections/2.0.0",
       "hashPath": "qhta.collections.2.0.0.nupkg.sha512"
     },
+    "Qhta.DeepCopy/1.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-29Pjj8Ml4ODHD8I9MgYwaYFME5iEJ6L/XrP0IWqlrMLyh7AZCjbJFwcDiPbkkOBKKKxocrv3TW1aMgFM4ZQTJw==",
+      "path": "qhta.deepcopy/1.5.0",
+      "hashPath": "qhta.deepcopy.1.5.0.nupkg.sha512"
+    },
     "Qhta.HtmlUtils/2.1.0": {
       "type": "package",
       "serviceable": true,
@@ -2567,6 +2594,13 @@
       "sha512": "sha512-uM2U8uoScidYXMGfkIkzZq5AZgnVF+i6VzO/3lR8WV7DHv2cnjzJGZTuEVbEJovKpOC58FnmqwbDAtSzNi+usQ==",
       "path": "syncfusion.sfinput.wpf/29.2.11",
       "hashPath": "syncfusion.sfinput.wpf.29.2.11.nupkg.sha512"
+    },
+    "Syncfusion.SfTextInputLayout.WPF/29.2.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GAClfS3FRzSlJwdJmj33YOll4QlA18GbyEbT2VjBHnMHZYR/EJrz2NWr9di2jAwIILdeB1+mxBEJumrAlMdpZA==",
+      "path": "syncfusion.sftextinputlayout.wpf/29.2.11",
+      "hashPath": "syncfusion.sftextinputlayout.wpf.29.2.11.nupkg.sha512"
     },
     "Syncfusion.SfTreeView.WPF/29.2.11": {
       "type": "package",

@@ -1046,6 +1046,19 @@
           }
         }
       },
+      "Qhta.DeepCopy/1.5.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Qhta.DeepCopy.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.DeepCopy.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Qhta.HtmlUtils/2.1.0": {
         "type": "package",
         "dependencies": {
@@ -1508,6 +1521,23 @@
         },
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.SfInput.WPF.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Syncfusion.SfTextInputLayout.WPF/29.2.11": {
+        "type": "package",
+        "dependencies": {
+          "Syncfusion.Licensing": "29.2.11",
+          "Syncfusion.Shared.WPF": "29.2.11"
+        },
+        "compile": {
+          "lib/net8.0-windows7.0/Syncfusion.SfTextInputLayout.WPF.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Syncfusion.SfTextInputLayout.WPF.dll": {
             "related": ".xml"
           }
         }
@@ -4777,6 +4807,20 @@
         "qhta.collections.nuspec"
       ]
     },
+    "Qhta.DeepCopy/1.5.0": {
+      "sha512": "29Pjj8Ml4ODHD8I9MgYwaYFME5iEJ6L/XrP0IWqlrMLyh7AZCjbJFwcDiPbkkOBKKKxocrv3TW1aMgFM4ZQTJw==",
+      "type": "package",
+      "path": "qhta.deepcopy/1.5.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0/Qhta.DeepCopy.dll",
+        "lib/net6.0/Qhta.DeepCopy.xml",
+        "lib/netstandard2.0/Qhta.DeepCopy.dll",
+        "lib/netstandard2.0/Qhta.DeepCopy.xml",
+        "qhta.deepcopy.1.5.0.nupkg.sha512",
+        "qhta.deepcopy.nuspec"
+      ]
+    },
     "Qhta.HtmlUtils/2.1.0": {
       "sha512": "jN/EcMPo0Hut3Kh4K6pLkozSoTTy6P5Cdgb9nbAp8CUk20tipykCfQUbmtvNteUpGOk0ClE+iuCv39pwooO6Lg==",
       "type": "package",
@@ -5369,6 +5413,31 @@
         "lib/net9.0-windows7.0/Syncfusion.SfInput.WPF.xml",
         "syncfusion.sfinput.wpf.29.2.11.nupkg.sha512",
         "syncfusion.sfinput.wpf.nuspec",
+        "syncfusion_logo.png",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "Syncfusion.SfTextInputLayout.WPF/29.2.11": {
+      "sha512": "GAClfS3FRzSlJwdJmj33YOll4QlA18GbyEbT2VjBHnMHZYR/EJrz2NWr9di2jAwIILdeB1+mxBEJumrAlMdpZA==",
+      "type": "package",
+      "path": "syncfusion.sftextinputlayout.wpf/29.2.11",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "lib/net462/Design/Syncfusion.SfTextInputLayout.WPF.DesignTools.dll",
+        "lib/net462/Syncfusion.SfTextInputLayout.WPF.dll",
+        "lib/net462/Syncfusion.SfTextInputLayout.WPF.xml",
+        "lib/net8.0-windows7.0/Design/Syncfusion.SfTextInputLayout.WPF.DesignTools.dll",
+        "lib/net8.0-windows7.0/Syncfusion.SfTextInputLayout.WPF.dll",
+        "lib/net8.0-windows7.0/Syncfusion.SfTextInputLayout.WPF.xml",
+        "lib/net9.0-windows7.0/Design/Syncfusion.SfTextInputLayout.WPF.DesignTools.dll",
+        "lib/net9.0-windows7.0/Syncfusion.SfTextInputLayout.WPF.dll",
+        "lib/net9.0-windows7.0/Syncfusion.SfTextInputLayout.WPF.xml",
+        "syncfusion.sftextinputlayout.wpf.29.2.11.nupkg.sha512",
+        "syncfusion.sftextinputlayout.wpf.nuspec",
         "syncfusion_logo.png",
         "tools/VisualStudioToolsManifest.xml"
       ]
@@ -8390,6 +8459,7 @@
       "Microsoft.Extensions.Configuration.Json >= 9.0.6",
       "Prism.Wpf >= 9.0.537",
       "PropertyTools.Wpf >= 3.1.0",
+      "Qhta.DeepCopy >= 1.5.0",
       "Qhta.MVVM >= 4.3.0",
       "Qhta.WPF.Converters >= 1.4.0",
       "Qhta.WPF.Utils >= 3.4.0",
@@ -8398,6 +8468,7 @@
       "Syncfusion.PropertyGrid.WPF >= 29.2.11",
       "Syncfusion.SfGrid.WPF >= 29.2.11",
       "Syncfusion.SfInput.WPF >= 29.2.11",
+      "Syncfusion.SfTextInputLayout.WPF >= 29.2.11",
       "Syncfusion.SfTreeView.WPF >= 29.2.11",
       "Syncfusion.Shared.Base >= 29.2.11",
       "Syncfusion.Shared.WPF >= 29.2.11",
@@ -8500,6 +8571,10 @@
             "target": "Package",
             "version": "[3.1.0, )"
           },
+          "Qhta.DeepCopy": {
+            "target": "Package",
+            "version": "[1.5.0, )"
+          },
           "Qhta.MVVM": {
             "target": "Package",
             "version": "[4.3.0, )"
@@ -8529,6 +8604,10 @@
             "version": "[29.2.11, )"
           },
           "Syncfusion.SfInput.WPF": {
+            "target": "Package",
+            "version": "[29.2.11, )"
+          },
+          "Syncfusion.SfTextInputLayout.WPF": {
             "target": "Package",
             "version": "[29.2.11, )"
           },

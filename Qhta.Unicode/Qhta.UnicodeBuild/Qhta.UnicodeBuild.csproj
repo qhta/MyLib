@@ -92,6 +92,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="Resources\SfAeroNormalColor.xaml" />
+    <Page Remove="Resources\SfBlendStyle.xaml" />
+    <Page Remove="Resources\SfCollectionEditor.xaml" />
+    <Page Remove="Resources\SfDataGrid.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EntityFrameworkCore.Jet" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.6">
@@ -107,6 +114,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.6" />
     <PackageReference Include="Prism.Wpf" Version="9.0.537" />
     <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
+    <PackageReference Include="Qhta.DeepCopy" Version="1.5.0" />
     <PackageReference Include="Qhta.MVVM" Version="4.3.0" />
     <PackageReference Include="Qhta.WPF.Converters" Version="1.4.0" />
     <PackageReference Include="Qhta.WPF.Utils" Version="3.4.0" />
@@ -115,6 +123,7 @@
     <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="29.2.11" />
     <PackageReference Include="Syncfusion.SfGrid.WPF" Version="29.2.11" />
     <PackageReference Include="Syncfusion.SfInput.WPF" Version="29.2.11" />
+    <PackageReference Include="Syncfusion.SfTextInputLayout.WPF" Version="29.2.11" />
     <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="29.2.11" />
     <PackageReference Include="Syncfusion.Shared.Base" Version="29.2.11" />
     <PackageReference Include="Syncfusion.Shared.WPF" Version="29.2.11" />

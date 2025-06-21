@@ -17,7 +17,7 @@
     <Compile Update="Views\WritingSystemView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\NewWritingSystemWindow.xaml.cs">
+    <Compile Update="Views\EditWritingSystemWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\UcdBlocksView.xaml.cs">

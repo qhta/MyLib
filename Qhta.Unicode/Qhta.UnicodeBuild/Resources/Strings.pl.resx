@@ -171,4 +171,7 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="CodePointsTooltip" xml:space="preserve">
     <value>W Unicode punkt kodowy to unikalna wartość liczbowa przypisana do każdego znaku w standardzie Unicode. Te punkty kodowe mieszczą się w zakresie od U+0000 do U+10FFFF i tworzą przestrzeń kodową Unicode.</value>
   </data>
+  <data name="CannotBeEmpty" xml:space="preserve">
+    <value>Nie może być pusta</value>
+  </data>
 </root>

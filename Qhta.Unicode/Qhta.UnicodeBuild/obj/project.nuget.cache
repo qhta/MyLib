@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1jge8lSjnA4=",
+  "dgSpecHash": "uE+PhIKNMoE=",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Qhta.UnicodeBuild.csproj",
   "expectedPackageFiles": [
@@ -53,6 +53,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\propertytools\\3.1.0\\propertytools.3.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\propertytools.wpf\\3.1.0\\propertytools.wpf.3.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\2.0.0\\qhta.collections.2.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.deepcopy\\1.5.0\\qhta.deepcopy.1.5.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.htmlutils\\2.1.0\\qhta.htmlutils.2.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\4.3.0\\qhta.mvvm.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\3.0.0\\qhta.observableobjects.3.0.0.nupkg.sha512",
@@ -87,6 +88,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\syncfusion.sfgrid.wpf\\29.2.11\\syncfusion.sfgrid.wpf.29.2.11.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\syncfusion.sfgridcommon.wpf\\29.2.11\\syncfusion.sfgridcommon.wpf.29.2.11.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\syncfusion.sfinput.wpf\\29.2.11\\syncfusion.sfinput.wpf.29.2.11.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\syncfusion.sftextinputlayout.wpf\\29.2.11\\syncfusion.sftextinputlayout.wpf.29.2.11.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\syncfusion.sftreeview.wpf\\29.2.11\\syncfusion.sftreeview.wpf.29.2.11.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\syncfusion.shared.base\\29.2.11\\syncfusion.shared.base.29.2.11.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\syncfusion.shared.windows\\29.2.11\\syncfusion.shared.windows.29.2.11.nupkg.sha512",

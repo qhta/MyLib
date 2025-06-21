@@ -9,7 +9,9 @@
                     xmlns:controls="clr-namespace:Qhta.UnicodeBuild.Controls"
                     xmlns:models="clr-namespace:Qhta.Unicode.Models"
                     x:Class="Qhta.UnicodeBuild.AppResourceDictionary">
-
+  <!--<ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Resources/SfDataGrid.xaml"/>
+  </ResourceDictionary.MergedDictionaries>-->
   <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
@@ -27,7 +29,6 @@
     ResourceType="{x:Type resources:WritingSystemType}" x:Key="WritingSystemTypeResourceConverter"/>
   <helpers:EnumToResourceConverter 
     ResourceType="{x:Type resources:WritingSystemKind}" x:Key="WritingSystemKindResourceConverter"/>
-  <resources:Strings x:Key="Strings"/>
 
   <Style x:Key="MenuItemObjectStyle" TargetType="MenuItem">
     <Setter Property="Header" Value="{Binding Header}" />

@@ -127,18 +127,18 @@ namespace Qhta.UnicodeBuild.Resources {
         /// <summary>
         ///   Looks up a localized string similar to ISO.
         /// </summary>
-        public static string ISO {
+        public static string Iso {
             get {
-                return ResourceManager.GetString("ISO", resourceCulture);
+                return ResourceManager.GetString("Iso", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Identifier of the writing system (script or language) in ISO-15924 or ISO-639 standard..
         /// </summary>
-        public static string ISOTooltip {
+        public static string IsoTooltip {
             get {
-                return ResourceManager.GetString("ISOTooltip", resourceCulture);
+                return ResourceManager.GetString("IsoTooltip", resourceCulture);
             }
         }
         
@@ -203,6 +203,15 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Writing system {0} already exists..
+        /// </summary>
+        public static string NameAlreadyExistsMessage {
+            get {
+                return ResourceManager.GetString("NameAlreadyExistsMessage", resourceCulture);
             }
         }
         

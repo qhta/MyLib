@@ -21,16 +21,19 @@ public partial class App : Application
   protected override void OnStartup(StartupEventArgs e)
   {
     Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NNaF5cXmBCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXxcd3VSQmdYU01+X0FWYUA=");
-    //ResourceWrapper.SetResourceCulture(new System.Globalization.CultureInfo("pl-PL"));
-    System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("pl-PL");
-    var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-    foreach (var asm in loadedAssemblies)
-    {
-      System.Diagnostics.Debug.WriteLine(asm.FullName);
-    }
+
+    //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("pl-PL");
+    //var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+    //foreach (var asm in loadedAssemblies)
+    //{
+    //  System.Diagnostics.Debug.WriteLine(asm.FullName);
+    //}
     ResourceWrapper.SetResources(
       Assembly.GetExecutingAssembly(), // Correctly passing the assembly
       "Qhta.UnicodeBuilder.Resources.Syncfusion.SfGrid.WPF.pl"); // Namespace + resource file name
+    ResourceWrapper.SetResources(
+      Assembly.GetExecutingAssembly(), // Correctly passing the assembly
+      "Qhta.UnicodeBuilder.Resources.Syncfusion.PropertyGrid.WPF.pl"); // Namespace + resource file name
   }
 
   protected override void OnExit(ExitEventArgs e)

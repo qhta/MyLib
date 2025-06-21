@@ -7,6 +7,9 @@
              xmlns:pt="http://propertytools.org/wpf"
              xmlns:vm="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
+             xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
+             xmlns:models="clr-namespace:Qhta.Unicode.Models"
+             xmlns:sys="clr-namespace:System.Globalization;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DataContext="{Binding Source={StaticResource ViewModels}, Path=Instance.AllWritingSystems.NewWritingSystem}"
              d:DesignHeight="350" d:DesignWidth="400">
@@ -48,19 +51,105 @@
     </DataTemplate>
 
   </UserControl.Resources>
-  <Grid>
-    <pt:PropertyGrid
-      SelectedObject="{Binding}"
-      ControlFactory="{StaticResource PropertyControlFactory}"
-      Operator="{StaticResource PropertyModelOperator}"
-      ShowDeclaredOnly="True"
-      ShowReadOnlyProperties="false"
-      TabVisibility="Collapsed"
-      CategoryControlType="Template"
-      CategoryHeaderTemplate="{StaticResource EmptyDataTemplate}"
-      CategoryControlTemplate="{StaticResource CategoryControlTemplate}"
-      ValidationErrorTemplate="{StaticResource ValidationErrorTemplate}"
-      />
+  <Grid Margin="10,0,10,0">
+    <Grid.Resources>
+      <Thickness x:Key="RowMargin">0,3,0,3</Thickness>
+      <Thickness x:Key="TextBoxPadding">0,2,0,0</Thickness>
+    </Grid.Resources>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Label Grid.Row="0" Grid.Column="0" 
+             Margin="{StaticResource RowMargin}"
+             Content="{x:Static resources:WritingSystem.Name}"
+             ToolTip="{x:Static resources:WritingSystem.NameTooltip}"/>
+    <TextBox Grid.Row="0" Grid.Column="1"
+               Margin="{StaticResource RowMargin}"
+               Padding="{StaticResource TextBoxPadding}"
+               Text="{Binding Name}"/>
+
+    <Label Grid.Row="1" Grid.Column="0" 
+             Margin="{StaticResource RowMargin}"
+             Content="{x:Static resources:WritingSystem.Type}"
+             ToolTip="{x:Static resources:WritingSystem.TypeTooltip}"/>
+    <ComboBox Grid.Row="1" Grid.Column="1"
+                Margin="{StaticResource RowMargin}"
+                SelectedItem="{Binding Type}"
+                ItemsSource="{Binding Source={StaticResource ViewModels}, 
+                  Path=Instance.WritingSystemTypes}">
+      <ComboBox.ItemTemplate>
+        <DataTemplate DataType="{x:Type vm:WritingSystemTypeViewModel}">
+          <TextBlock Text="{Binding 
+                                  Converter={StaticResource WritingSystemTypeResourceConverter},
+                                  ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}"
+                     ToolTip="{Binding
+                           Converter={StaticResource WritingSystemTypeResourceConverter},
+                           ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
+                           ConverterParameter=Tooltip}"  />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+
+    <Label Grid.Row="2" Grid.Column="0" 
+           Margin="{StaticResource RowMargin}"
+           Content="{x:Static resources:WritingSystem.Kind}"
+           ToolTip="{x:Static resources:WritingSystem.KindTooltip}"/>    
+    <ComboBox Grid.Row="2" Grid.Column="1"
+              Margin="{StaticResource RowMargin}"
+              SelectedItem="{Binding Kind}"
+              ItemsSource="{Binding Source={StaticResource ViewModels}, 
+                  Path=Instance.WritingSystemKinds}">
+      <ComboBox.ItemTemplate>
+        <DataTemplate DataType="{x:Type vm:WritingSystemKindViewModel}">
+          <TextBlock Text="{Binding 
+                                  Converter={StaticResource WritingSystemKindResourceConverter},
+                                  ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}"
+                     ToolTip="{Binding 
+                           Converter={StaticResource WritingSystemKindResourceConverter},
+                           ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
+                           ConverterParameter=Tooltip}"  />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+
+    <Label Grid.Row="3" Grid.Column="0" 
+           Margin="{StaticResource RowMargin}"
+           Content="{x:Static resources:WritingSystem.Parent}"
+           ToolTip="{x:Static resources:WritingSystem.ParentTooltip}"/>    
+    <ComboBox Grid.Row="3" Grid.Column="1"
+              Margin="{StaticResource RowMargin}"
+              SelectedItem="{Binding Parent}"
+              ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.SelectableWritingSystems}">
+    </ComboBox>
+
+    <Label Grid.Row="4" Grid.Column="0" 
+           Margin="{StaticResource RowMargin}"
+           Content="{x:Static resources:WritingSystem.KeyPhrase}"
+           ToolTip="{x:Static resources:WritingSystem.KeyPhraseTooltip}"/>
+    <TextBox Grid.Row="4" Grid.Column="1"
+             Margin="{StaticResource RowMargin}"
+             Padding="{StaticResource TextBoxPadding}"
+             Text="{Binding KeyPhrase}"/>
+
+    <Label Grid.Row="5" Grid.Column="0" 
+           Margin="{StaticResource RowMargin}"
+           Content="{x:Static resources:WritingSystem.Ctg}"
+           ToolTip="{x:Static resources:WritingSystem.CtgTooltip}"/>
+    <TextBox Grid.Row="5" Grid.Column="1"
+             Margin="{StaticResource RowMargin}"
+             Padding="{StaticResource TextBoxPadding}"
+             Text="{Binding Ctg}"/>
 
   </Grid>
 </UserControl>

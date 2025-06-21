@@ -32,6 +32,9 @@ public partial class _DbContext : DbContext
 
   public virtual DbSet<WritingSystem> WritingSystems { get; set; }
 
+  public virtual DbSet<WritingSystemKindEntity> WritingSystemKinds { get; set; }
+
+  public virtual DbSet<WritingSystemTypeEntity> WritingSystemTypes { get; set; }
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
@@ -182,7 +185,21 @@ public partial class _DbContext : DbContext
               .HasConstraintName("WritingSystemsWritingSystems");
     });
 
+    modelBuilder.Entity<WritingSystemKindEntity>(entity =>
+    {
+      entity.Property(e => e.Id).HasConversion<byte>();
+      entity.HasKey(e => e.Id).HasName("PrimaryKey");
+      entity.Property(e => e.Kind).HasMaxLength(15);
+      entity.HasIndex(e => e.Kind, "Kind").IsUnique();
+    });
 
+    modelBuilder.Entity<WritingSystemTypeEntity>(entity =>
+    {
+      entity.Property(e => e.Id).HasConversion<byte>();
+      entity.HasKey(e => e.Id).HasName("PrimaryKey");
+      entity.Property(e => e.Type).HasMaxLength(10);
+      entity.HasIndex(e => e.Type, "Type").IsUnique();
+    });
 
     OnModelCreatingPartial(modelBuilder);
   }

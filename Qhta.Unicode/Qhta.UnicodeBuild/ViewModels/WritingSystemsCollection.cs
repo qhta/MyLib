@@ -59,10 +59,11 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
   {
     var vm = new WritingSystemViewModel(new WritingSystem());
     var model = vm.Model;
-    vm.Name = "New "+newType.ToString();
+    vm.Name = "<new "+newType.ToString()+">";
     vm.Type = newType;
-    var vmWindow = new Views.NewWritingSystemWindow
+    var vmWindow = new Views.EditWritingSystemWindow
     {
+      AddMode = true,
       DataContext = vm,
       Owner = Application.Current.MainWindow,
     };

@@ -41,11 +41,11 @@ public static class DeepCopier
   /// <summary>
   /// Gets the type of the object and if the type is Nullable, returns its baseType
   /// </summary>
-  public static Type GetNotNullableType(this object obj)
+  public static Type GetNotNullableType(this object? obj)
   {
-    Type type = obj.GetType() ?? typeof(object);
-    if (type.IsNullable(out var baseType) && baseType != null && baseType != type)
-      type = baseType;
+    Type type = obj?.GetType() ?? typeof(object);
+    if (type.IsNullable(out var baseType) && baseType != type)
+      type = baseType!;
     return type;
   }
 
@@ -112,7 +112,7 @@ public static class DeepCopier
       properties = sourceType.GetProperties()
      .Where(item =>
        item.DeclaringType?.Name.StartsWith("LinkedList") != true
-       && item.GetIndexParameters().Count() == 0
+       && !item.GetIndexParameters().Any()
        && item.GetCustomAttribute<NonComparableAttribute>() == null)
      .Select(item => new PropertyInfoCount(item)).ToArray();
       KnownProperties.Add(sourceType, properties);
@@ -120,11 +120,27 @@ public static class DeepCopier
     foreach (var propInfoCount in properties)
     {
       var prop = propInfoCount.Property;
-      var propType = prop.PropertyType;
+      var propType = prop.PropertyType.GetNotNullableType();
       var sourceValue = prop.GetValue(sourceObject);
-      prop.SetValue(targetObject, sourceValue);
+      try
+      {
+        if (prop.CanWrite && !propType.IsCollection())
+        {
+          var newValue = CopyFrom(sourceValue);
+          prop.SetValue(targetObject, newValue);
+        }
+        else
+        {
+          var oldValue = prop.GetValue(targetObject);
+          CopyDeep(oldValue, sourceValue);
+        }
+      }
+      catch (Exception ex)
+      {
+        Debug.WriteLine($"Can't copy property {prop.Name}. {ex.Message}");
+      }
     }
-    if (sourceObject is IEnumerable sourceCollection && sourceType.IsCollection(out var itemType) && itemType != null)
+    if (sourceObject is IEnumerable sourceCollection && sourceType.IsCollection(out var itemType))
     {
       var collectionType = typeof(ICollection<>).MakeGenericType(itemType);
       var addMethod = collectionType.GetMethod("Add");
@@ -136,6 +152,56 @@ public static class DeepCopier
         }
     }
     return targetObject;
+  }
+
+  /// <summary>
+  /// Copies properties from source object to target object.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="sourceObject"></param>
+  /// <param name="targetObject"></param>
+  /// <exception cref="ArgumentNullException"></exception>
+  /// <exception cref="ArgumentException"></exception>
+  public static void CopyDeep<T>(T? targetObject, T? sourceObject)
+  {
+    if (sourceObject == null || targetObject == null)
+      throw new ArgumentNullException(nameof(sourceObject), "Source or target object is null");
+    if (sourceObject.GetType() != targetObject.GetType())
+      throw new ArgumentException("Source and target objects must be of the same type");
+    var sourceType = sourceObject.GetNotNullableType();
+    if (!KnownProperties.TryGetValue(sourceType, out var properties))
+    {
+      properties = sourceType.GetProperties()
+     .Where(item =>
+       item.DeclaringType?.Name.StartsWith("LinkedList") != true
+       && !item.GetIndexParameters().Any()
+       && item.GetCustomAttribute<NonComparableAttribute>() == null)
+     .Select(item => new PropertyInfoCount(item)).ToArray();
+      KnownProperties.Add(sourceType, properties);
+    }
+    foreach (var propInfoCount in properties)
+    {
+      var prop = propInfoCount.Property;
+      var propType = prop.PropertyType.GetNotNullableType();
+
+      var sourceValue = prop.GetValue(sourceObject);
+      try
+      {
+        if (prop.CanWrite && !propType.IsCollection())
+        {
+          var newValue = CopyFrom(sourceValue);
+          prop.SetValue(targetObject, newValue);
+        }
+        else
+        {
+          var oldValue = prop.GetValue(targetObject);
+          CopyDeep(oldValue, sourceValue);
+        }
+      } catch (Exception ex)
+      {
+        Debug.WriteLine($"Can't copy property {prop.Name}. {ex.Message}");
+      }
+    }
   }
 }
 

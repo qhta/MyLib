@@ -11,3 +11,13 @@ D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.csproj
 D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.dll
 D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.xml
 D:\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.Dee.DC9A84FD.Up2Date
+D:\OneDrive\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.DeepCopy\obj\Debug\netstandard2.0\Qhta.DeepCopy.pdb

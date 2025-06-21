@@ -144,11 +144,23 @@ namespace Qhta.UnicodeBuild.Views
             var newText = Qhta.UnicodeBuild.Resources.WritingSystemType.ResourceManager.GetString(displayText);
             if (newText != null)
             {
-              item.DisplayText = newText;
+              item.DisplayText = newText.ToLower();
             }
-            else
+          }
+        }
+      }
+      else
+      if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Kind))
+      {
+        foreach (var item in e.ItemsSource)
+        {
+          if (!item.DisplayText.StartsWith("("))
+          {
+            var displayText = item.DisplayText.TitleCase();
+            var newText = Qhta.UnicodeBuild.Resources.WritingSystemKind.ResourceManager.GetString(displayText);
+            if (newText != null)
             {
-              //Debug.WriteLine($"No translation found for {displayText}");
+              item.DisplayText = newText.ToLower();
             }
           }
         }

@@ -212,29 +212,12 @@
         </sf:GridTextColumn>
 
         <sf:GridComboBoxColumn
-          DisplayMemberPath="FullName"
-          SortMode="Display"
-          MappingName="Parent"
-          Width="150"
-          ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableWritingSystems}"
-          >
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystem.Parent}" 
-                         ToolTip="{x:Static resources:WritingSystem.ParentTooltip}"  />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-        </sf:GridComboBoxColumn>
-
-        <sf:GridComboBoxColumn
           Width="100"
           SortMode="Display"
           MappingName="Type" 
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemTypes}"
           >
-          <!--FilterPopupTemplate="{StaticResource WritingSystemTypeFilterPopupTemplate}"-->
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
               <TextBlock Text="{x:Static resources:WritingSystem.Type}" 
@@ -244,7 +227,7 @@
           <sf:GridComboBoxColumn.ItemTemplate>
             <DataTemplate DataType="{x:Type models:WritingSystemType}">
               <TextBlock Text="{Binding 
-                              Converter={StaticResource WritingSystemTypeResourceConverter},
+                                  Converter={StaticResource WritingSystemTypeResourceConverter},
                                   ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}"                        
                          ToolTip="{Binding 
                               Converter={StaticResource WritingSystemTypeResourceConverter},
@@ -270,7 +253,7 @@
           <sf:GridComboBoxColumn.ItemTemplate>
             <DataTemplate DataType="{x:Type models:WritingSystemKind}">
               <TextBlock Text="{Binding 
-                              Converter={StaticResource WritingSystemKindResourceConverter},
+                                  Converter={StaticResource WritingSystemKindResourceConverter},
                                   ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}"                        
                          ToolTip="{Binding 
                               Converter={StaticResource WritingSystemKindResourceConverter},
@@ -278,6 +261,22 @@
                               ConverterParameter=Tooltip}"  />
             </DataTemplate>
           </sf:GridComboBoxColumn.ItemTemplate>
+        </sf:GridComboBoxColumn>
+
+        <sf:GridComboBoxColumn
+          DisplayMemberPath="FullName"
+          SortMode="Display"
+          MappingName="Parent"
+          Width="150"
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.SelectableWritingSystems}"
+        >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:WritingSystem.Parent}" 
+                         ToolTip="{x:Static resources:WritingSystem.ParentTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
         </sf:GridComboBoxColumn>
 
         <sf:GridTextColumn 
@@ -308,8 +307,8 @@
           Width="60">
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystem.ISO}" 
-                         ToolTip="{x:Static resources:WritingSystem.ISOTooltip}"  />
+              <TextBlock Text="{x:Static resources:WritingSystem.Iso}" 
+                         ToolTip="{x:Static resources:WritingSystem.IsoTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTextColumn>

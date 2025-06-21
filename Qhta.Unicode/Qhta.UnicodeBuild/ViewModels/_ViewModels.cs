@@ -1,4 +1,5 @@
-﻿using Qhta.Unicode.Models;
+﻿using Microsoft.VisualBasic;
+using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -36,6 +37,17 @@ public class _ViewModels: IDisposable
   {
     _Context = new _DbContext();
     {
+      foreach (var wst in _Context.WritingSystemTypes.ToList())
+      {
+        WritingSystemTypesList.Add(new WritingSystemTypeViewModel(wst));
+      }
+
+      foreach (var wsk in _Context.WritingSystemKinds.ToList())
+      {
+        WritingSystemKindsList.Add(new WritingSystemKindViewModel(wsk));
+      }
+
+
       foreach (var ur in _Context.UcdRanges
                  //.Include(ub => ub.WritingSystem)
                  //.Include(ub => ub.UcdRanges)
@@ -96,6 +108,8 @@ public class _ViewModels: IDisposable
   public Dictionary<int, WritingSystemViewModel> WritingSystemViewModels { get; set; } = new();
   public WritingSystemsCollection AllWritingSystems { get; set; } = new ();
   public WritingSystemsCollection TopWritingSystems { get; set; } = new ();
+  public List<WritingSystemTypeViewModel> WritingSystemTypesList { get; } = new();
+  public List<WritingSystemKindViewModel> WritingSystemKindsList { get; } = new();
   public Array WritingSystemTypes { get; } = Enum.GetValues(typeof(WritingSystemType));
   public Array WritingSystemKinds { get; } = Enum.GetValues(typeof(WritingSystemKind));
 
@@ -105,7 +119,7 @@ public class _ViewModels: IDisposable
   {
     get
     {
-      var list = _ViewModels.Instance.AllWritingSystems
+      var list = _ViewModels.Instance.AllWritingSystems.Where(item=> !item.Name.StartsWith("<")) // items with special names are not selectable
         .OrderBy(vm => vm.FullName).ToList();
       list.Insert(0, dummyWritingSystemViewModel);
       return list;
@@ -113,6 +127,7 @@ public class _ViewModels: IDisposable
   }
 
   readonly WritingSystemViewModel dummyWritingSystemViewModel = new WritingSystemViewModel(new WritingSystem { Name = "" });
+
   public void Dispose()
   {
     if (_Context!=null)
@@ -125,7 +140,14 @@ public class _ViewModels: IDisposable
 
   public int GetNewWritingSystemId()
   {
-    var maxId = _Context?.WritingSystems.Max(ws => ws.Id) ?? 0;
-    return maxId + 1;
+    var lastItem = _Context?.WritingSystems.OrderByDescending(ws => ws.Id).FirstOrDefault();
+    if (lastItem == null) return 1; // If no writing systems exist, start with ID 1.
+    var maxId = lastItem.Id ?? 0;
+    if (lastItem.Name=="" || lastItem.Name.StartsWith("<")) 
+    {
+      // If the last item has no name, or it has a special name we can use its ID directly.
+      return maxId;
+    }
+    return maxId+1;
   }
 }

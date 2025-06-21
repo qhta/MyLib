@@ -29,7 +29,8 @@ public class PropertyControlFactory : PropertyGridControlFactory
       return dp;
     }
 
-    return base.CreateControl(property, options);
+    var control= base.CreateControl(property, options);
+    return control;
   }
 
   /// <inheritdoc />
