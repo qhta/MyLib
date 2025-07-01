@@ -8,22 +8,54 @@
              xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
              xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="850" d:DesignWidth="800">
+             d:DesignHeight="850" d:DesignWidth="1600">
   <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <!-- Menu Bar -->
+    <Menu Grid.Row="0" Grid.ColumnSpan="2">
+      <!--<MenuItem Header="File">
+        <MenuItem Header="New" Command="New"/>
+        <MenuItem Header="Open" Command="Open"/>
+        <MenuItem Header="Save" Command="Save"/>
+        <Separator/>
+        <MenuItem Header="Exit" Command="Close"/>
+      </MenuItem>-->
+      <MenuItem Header="{x:Static resources:Strings.Edit}">
+        <!--<MenuItem Header="Undo" Command="Undo"/>
+        <MenuItem Header="Redo" Command="Redo"/>
+        <Separator/>-->
+        <MenuItem Header="{x:Static resources:Strings.Cut}" Command="Cut"/>
+        <MenuItem Header="{x:Static resources:Strings.Copy}" Command="Copy"/>
+        <MenuItem Header="{x:Static resources:Strings.Paste}" Command="Paste"/>
+      </MenuItem>
+      <MenuItem Header="Tools">
+        <MenuItem Header="{x:Static resources:CodePoint.ApplyScriptMapping}"
+          Command="{Binding Source={StaticResource ViewModels}, 
+          Path=Instance.ApplyScriptMappingCommand}"/>
+      </MenuItem>
+      <MenuItem Header="{x:Static resources:Strings.Help}">
+        <MenuItem Header="{x:Static resources:Strings.About}" Command="Help"/>
+      </MenuItem>
+    </Menu>
     <sf:SfDataGrid x:Name="CodePointDataGrid" 
-              DataContext ="{StaticResource ViewModels}"
-              ItemsSource ="{Binding Instance.UcdCodePoints}"
-              AllowDraggingColumns="True"
-              AllowEditing="True"
-              AllowFiltering="True"
-              AllowResizingColumns="True"
-              ColumnSizer="Auto"
-              HeaderRowHeight="26"
-              QueryRowHeight="DataGrid_OnQueryRowHeight"
-              AutoGenerateColumns="False"
-              GridValidationMode="InEdit"
-              EditTrigger="OnTap"
-              >
+                     Grid.Row="1"
+                     DataContext ="{StaticResource ViewModels}"
+                     ItemsSource ="{Binding Instance.UcdCodePoints}"
+                     AllowDraggingColumns="True"
+                     AllowEditing="True"
+                     AllowFiltering="True"
+                     AllowResizingColumns="True"
+                     ColumnSizer="Auto"
+                     HeaderRowHeight="26"
+                     QueryRowHeight="DataGrid_OnQueryRowHeight"
+                     AutoGenerateColumns="False"
+                     GridValidationMode="InEdit"
+                     EditTrigger="OnTap"
+    >
       <sf:SfDataGrid.Columns>
         <sf:GridTemplateColumn 
           MappingName="CP"
@@ -80,7 +112,7 @@
                 <TextBlock Grid.Column="0" Text="{Binding Glyph}" 
                            Padding="3"
                            FontSize="{Binding GlyphSize}"/>
-                 <sf:UpDown Grid.Column="1" 
+                <sf:UpDown Grid.Column="1" 
                             Value="{Binding GlyphSize}"
                             MinValue="12"
                             MaxValue="36"
@@ -122,7 +154,7 @@
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-                <TextBlock Text="{Binding UcdBlock.BlockName}" 
+              <TextBlock Text="{Binding UcdBlock.BlockName}" 
                            ToolTip="{Binding UcdBlock.Comment}" 
                            Padding="3"/>
             </DataTemplate>
@@ -150,11 +182,43 @@
                          Padding="3"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
-
         </sf:GridTemplateColumn>
 
+        <sf:GridComboBoxColumn 
+          MappingName="WritingSystem" 
+          HeaderText="WritingSystem" 
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.SelectableWritingSystems}"
+          VerticalAlignment="Top"
+          AllowEditing="True"
+          Width="200"
+        >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:CodePoint.WritingSystem}" 
+                         ToolTip="{x:Static resources:CodePoint.WritingSystemTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+          <sf:GridColumn.CellTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
+              <TextBlock Text="{Binding WritingSystem.Name}" 
+                         ToolTip="{Binding WritingSystem.Description}" 
+                         Padding="3"/>
+            </DataTemplate>
+          </sf:GridColumn.CellTemplate>
+        </sf:GridComboBoxColumn>
 
       </sf:SfDataGrid.Columns>
-    </sf:SfDataGrid>  
+    </sf:SfDataGrid>
+    <Grid x:Name="StatusBar"  Grid.Row="2" Height="Auto" Background="LightGray">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+      <TextBlock Grid.Column="0" Text="{Binding Source={StaticResource ViewModels}, Path=Instance.UcdCodePoints.StatusMessage}" VerticalAlignment="Center" Margin="5,0" />
+      <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Source={StaticResource ViewModels}, Path=Instance.UcdCodePoints.ProgressValue}" Height="20" />
+      <Button Grid.Column="2" Content="{x:Static resources:Strings.Cancel}" Height="26" Margin="5,0" Command="{Binding Source={StaticResource ViewModels}, Path=Instance.BreakApplyScriptMappingCommand}" />
+    </Grid>
   </Grid>
 </UserControl>

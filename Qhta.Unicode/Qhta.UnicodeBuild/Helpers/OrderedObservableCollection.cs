@@ -10,6 +10,8 @@ using System.Linq;
 public class OrderedObservableCollection<T>(Func<T, object> keySelector, IComparer<object>? comparer = null)
   : ObservableCollection<T>
 {
+  public bool IsLoaded { get; set; }
+
   private readonly Func<T, object> _keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
 
   protected override void InsertItem(int index, T item)

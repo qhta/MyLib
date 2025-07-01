@@ -115,19 +115,20 @@
     <PackageReference Include="Prism.Wpf" Version="9.0.537" />
     <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
     <PackageReference Include="Qhta.DeepCopy" Version="1.5.0" />
-    <PackageReference Include="Qhta.MVVM" Version="4.3.0" />
+    <PackageReference Include="Qhta.MVVM" Version="4.7.0" />
+    <PackageReference Include="Qhta.ObservableObjects" Version="3.7.0" />
     <PackageReference Include="Qhta.WPF.Converters" Version="1.4.0" />
     <PackageReference Include="Qhta.WPF.Utils" Version="3.4.0" />
-    <PackageReference Include="Syncfusion.Grid.Windows" Version="29.2.11" />
-    <PackageReference Include="Syncfusion.Grid.WPF" Version="29.2.11" />
-    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="29.2.11" />
-    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="29.2.11" />
-    <PackageReference Include="Syncfusion.SfInput.WPF" Version="29.2.11" />
-    <PackageReference Include="Syncfusion.SfTextInputLayout.WPF" Version="29.2.11" />
-    <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="29.2.11" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="29.2.11" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="29.2.11" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="29.2.11" />
+    <PackageReference Include="Syncfusion.Grid.Windows" Version="30.1.37" />
+    <PackageReference Include="Syncfusion.Grid.WPF" Version="30.1.37" />
+    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="30.1.37" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="30.1.37" />
+    <PackageReference Include="Syncfusion.SfInput.WPF" Version="30.1.37" />
+    <PackageReference Include="Syncfusion.SfTextInputLayout.WPF" Version="30.1.37" />
+    <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="30.1.37" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="30.1.37" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="30.1.37" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="30.1.37" />
     <PackageReference Include="System.Data.OleDb" Version="9.0.6" />
   </ItemGroup>
 
@@ -166,6 +167,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\MoveToNext.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\_Empty.png">
@@ -254,6 +258,9 @@
   <ItemGroup>
     <None Update="appSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Scripts.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

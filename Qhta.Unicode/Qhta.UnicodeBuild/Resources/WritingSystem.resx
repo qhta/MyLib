@@ -168,8 +168,7 @@
     <value>The type of writing system determines the nature of the characters in that system.</value>
   </data>
   <data name="KeyPhraseTooltip" xml:space="preserve">
-    <value>Key phrase should exist in a code point description to classify the code point to this writing system.
-Wildchars '*' can be used to define more sophisticated classification rules.</value>
+    <value>Key phrase should exist in a code point description to classify the code point to this writing system. Wildcards '*' can be used to define more sophisticated classification rules. E.g. a wildcard at the end of the key phrase means that it must occur at the beginning of the description.</value>
   </data>
   <data name="CtgTooltip" xml:space="preserve">
     <value>A category string is a value of "Ctg"  field of a code point which assigns the code point to this writing system. Wildcards '*' and alternative operators "|" can be used to define sophisticated classification rules.</value>
@@ -194,5 +193,11 @@ Wildchars '*' can be used to define more sophisticated classification rules.</va
   </data>
   <data name="Abbreviation" xml:space="preserve">
     <value>Abbreviation</value>
+  </data>
+  <data name="NewWritingSystemTitle" xml:space="preserve">
+    <value>New Writing System</value>
+  </data>
+  <data name="EditWritingSystemTitle" xml:space="preserve">
+    <value>Edit Writing System</value>
   </data>
 </root>

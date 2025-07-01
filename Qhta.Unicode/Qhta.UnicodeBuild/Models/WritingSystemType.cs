@@ -11,4 +11,5 @@ public enum WritingSystemType: byte
   notation = 5, // a system of symbols used to represent information in some convention
   set = 6, // a set of symbols that can be scattered across different ranges
   subset = 7, // a subset of symbols belonging to a set
+  artefact = 8, // an artefact of human culture
 }

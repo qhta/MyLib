@@ -37,7 +37,7 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
-      "Qhta.ObservableObjects/3.0.0": {
+      "Qhta.ObservableObjects/3.7.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
@@ -87,7 +87,7 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
-      "Qhta.ObservableObjects/3.0.0": {
+      "Qhta.ObservableObjects/3.7.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
@@ -158,7 +158,7 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Qhta.ObservableObjects/3.0.0": {
+    "Qhta.ObservableObjects/3.7.0": {
       "type": "project",
       "path": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj",
       "msbuildProject": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj"
@@ -166,10 +166,10 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Qhta.ObservableObjects >= 3.0.0"
+      "Qhta.ObservableObjects >= 3.7.0"
     ],
     "net6.0-windows7.0": [
-      "Qhta.ObservableObjects >= 3.0.0"
+      "Qhta.ObservableObjects >= 3.7.0"
     ]
   },
   "packageFolders": {
@@ -178,7 +178,7 @@
     "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.2.4\\ToolboxNuGetPackages": {}
   },
   "project": {
-    "version": "4.3.0",
+    "version": "4.7.0",
     "restore": {
       "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
       "projectName": "Qhta.MVVM",

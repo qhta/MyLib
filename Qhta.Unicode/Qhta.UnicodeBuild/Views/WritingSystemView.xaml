@@ -11,7 +11,7 @@
              xmlns:models="clr-namespace:Qhta.Unicode.Models"
              xmlns:sys="clr-namespace:System.Globalization;assembly=System.Runtime"
              mc:Ignorable="d" 
-             d:DataContext="{Binding Source={StaticResource ViewModels}, Path=Instance.AllWritingSystems.NewWritingSystem}"
+             d:DataContext="{Binding Source={StaticResource ViewModels}, Path=Instance.WritingSystems.NewWritingSystem}"
              d:DesignHeight="350" d:DesignWidth="400">
   <UserControl.Resources>
     <pt:ValidationErrorsToStringConverter x:Key="ValidationErrorsToStringConverter" />
@@ -200,6 +200,7 @@
     <TextBox Grid.Row="9" Grid.Column="1"
              Margin="{StaticResource RowMargin}"
              Padding="{StaticResource TextBoxPadding}"
-             Text="{Binding Ext}"/>
+             TextWrapping="Wrap"
+             Text="{Binding Description}"/>
   </Grid>
 </UserControl>

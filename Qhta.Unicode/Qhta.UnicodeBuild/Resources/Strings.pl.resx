@@ -174,4 +174,43 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="CannotBeEmpty" xml:space="preserve">
     <value>Nie może być pusta</value>
   </data>
+  <data name="New" xml:space="preserve">
+    <value>Nowy</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Właściwości</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="OperationCancelled" xml:space="preserve">
+    <value>Operację przerwano</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Błąd</value>
+  </data>
+  <data name="ErrorOcurred" xml:space="preserve">
+    <value>Wystąpił błąd: {0}</value>
+  </data>
+  <data name="OperationCompleted" xml:space="preserve">
+    <value>Operację zakończono pomyślnie.</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Nie znaleziono pliku {0}</value>
+  </data>
+  <data name="ErrorInLine" xml:space="preserve">
+    <value>Błąd w linii {0}</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Ładowanie {0}</value>
+  </data>
+  <data name="Updating" xml:space="preserve">
+    <value>Aktualizacja {0}</value>
+  </data>
+  <data name="WritingSystemNotFound" xml:space="preserve">
+    <value>Nie znaleziono systemu pisma {0}</value>
+  </data>
 </root>

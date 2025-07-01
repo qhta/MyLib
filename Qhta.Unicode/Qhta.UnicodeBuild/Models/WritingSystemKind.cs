@@ -26,4 +26,5 @@ public enum WritingSystemKind
   stenography = 20,  // an abbreviated symbolic writing method that increases speed and brevity of writing as compared to longhand, a more common method of writing a language
   syllabary = 21,  // a set of written symbols that represent the syllables or (more frequently) morae which make up words
   symbolic = 22,  // a set of symbols from a certain domain
+  pictophonetic = 23,  // a writing system that combines ideographic and phonetic elements
 }

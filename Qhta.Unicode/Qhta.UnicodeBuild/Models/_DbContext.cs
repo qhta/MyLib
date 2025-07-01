@@ -46,9 +46,9 @@ public partial class _DbContext : DbContext
         .Build();
 
       var connectionString = configuration.GetConnectionString("DefaultConnection");
-      optionsBuilder.UseJet(connectionString)
-        .LogTo((str)=>Debug.WriteLine(str), LogLevel.Information);
-      optionsBuilder.EnableSensitiveDataLogging(true);
+      optionsBuilder.UseJet(connectionString);
+      //.LogTo((str)=>Debug.WriteLine(str), LogLevel.Error);
+      //optionsBuilder.EnableSensitiveDataLogging(true);
     }
   }
 

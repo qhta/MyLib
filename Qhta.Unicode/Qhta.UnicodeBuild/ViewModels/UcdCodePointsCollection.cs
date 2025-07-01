@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 
 using Qhta.Unicode.Models;
@@ -11,9 +12,37 @@ public class UcdCodePointsCollection() : ObservableCollection<UcdCodePointViewMo
   public UcdCodePointViewModel Add(UcdCodePoint ws)
   {
     var vm = new UcdCodePointViewModel(ws);
-    _ViewModels.Instance.UcdCodePoints.Add(vm);
+    base.Add(vm);
+    IntDictionary[ws.Id] = vm;
     return vm;
   }
 
+  private readonly Dictionary<int, UcdCodePointViewModel> IntDictionary = new Dictionary<int, UcdCodePointViewModel>();
 
+  public UcdCodePointViewModel? FindById(int id)
+  {
+    return IntDictionary.GetValueOrDefault(id);
+  }
+
+  private int _progressValue;
+  public int ProgressValue
+  {
+    get => _progressValue;
+    set
+    {
+      _progressValue = value;
+      base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(ProgressValue)));
+    }
+  }
+
+  private string? _statusMessage;
+  public string? StatusMessage
+  {
+    get => _statusMessage;
+    set
+    {
+      _statusMessage = value;
+      base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(StatusMessage)));
+    }
+  }
 }

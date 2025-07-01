@@ -24,8 +24,6 @@ public class EnumToResourceConverter : IValueConverter
     }
   }
 
-  // Initialize the ResourceManager for the resource file
-
   public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
   {
     if (value == null) return null;
@@ -41,7 +39,7 @@ public class EnumToResourceConverter : IValueConverter
     // Retrieve the translation from the resource file
 
     string? translation = _resourceManager.GetString(resourceKey, culture);
-    Debug.WriteLine($"{resourceKey} [{culture}] = {translation}");
+    //Debug.WriteLine($"{resourceKey} [{culture}] = {translation}");
     return (translation ?? value.ToString())?.ToLower(); // Fallback to the enum value if no translation is found
   }
 

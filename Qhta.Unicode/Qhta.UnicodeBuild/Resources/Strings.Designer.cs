@@ -70,6 +70,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot be empty.
         /// </summary>
         public static string CannotBeEmpty {
@@ -142,11 +151,74 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error in line{0}.
+        /// </summary>
+        public static string ErrorInLine {
+            get {
+                return ResourceManager.GetString("ErrorInLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred: {0}.
+        /// </summary>
+        public static string ErrorOcurred {
+            get {
+                return ResourceManager.GetString("ErrorOcurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File not found: {0}.
+        /// </summary>
+        public static string FileNotFound {
+            get {
+                return ResourceManager.GetString("FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string Help {
             get {
                 return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Info {
+            get {
+                return ResourceManager.GetString("Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading {0}.
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string New {
+            get {
+                return ResourceManager.GetString("New", resourceCulture);
             }
         }
         
@@ -160,11 +232,38 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operation cancelled.
+        /// </summary>
+        public static string OperationCancelled {
+            get {
+                return ResourceManager.GetString("OperationCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation completed successfully..
+        /// </summary>
+        public static string OperationCompleted {
+            get {
+                return ResourceManager.GetString("OperationCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Paste.
         /// </summary>
         public static string Paste {
             get {
                 return ResourceManager.GetString("Paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Properties.
+        /// </summary>
+        public static string Properties {
+            get {
+                return ResourceManager.GetString("Properties", resourceCulture);
             }
         }
         
@@ -204,6 +303,24 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string UcdRangesTooltip {
             get {
                 return ResourceManager.GetString("UcdRangesTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating {0}.
+        /// </summary>
+        public static string Updating {
+            get {
+                return ResourceManager.GetString("Updating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Writing System {0} not found.
+        /// </summary>
+        public static string WritingSystemNotFound {
+            get {
+                return ResourceManager.GetString("WritingSystemNotFound", resourceCulture);
             }
         }
         

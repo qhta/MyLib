@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Qhta.UnicodeBuild.Helpers;
 
-public record CodeRange() : IComparable<CodeRange>
+public record CodeRange() : IComparable<CodeRange>, IComparable
 {
   public int Start { get; set; }
   public int? End { get; set; } // if null, it means the range is a single value
@@ -28,6 +28,14 @@ public record CodeRange() : IComparable<CodeRange>
     }
     return result;
   }
+
+  public int CompareTo(object? obj)
+  {
+    if (obj is CodeRange other)
+      return CompareTo(other);
+    throw new InvalidCastException();
+  }
+
   public static CodeRange Parse(string str)
   {
     if (TryParse(str, out var result))
@@ -95,5 +103,11 @@ public record CodeRange() : IComparable<CodeRange>
 
   public static implicit operator string?(CodeRange? value) => value?.ToString();
 
+  public bool Contains(int code)
+  {
+    if (End.HasValue)
+      return code >= Start && code <= End.Value;
+    return code == Start;
+  }
 
 }

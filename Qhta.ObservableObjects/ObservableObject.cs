@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Qhta.ObservableObjects
 {
@@ -36,7 +37,7 @@ namespace Qhta.ObservableObjects
     /// <summary>
     /// Specifies whether the notification action will be invoked asynchronously (with BeginInvoke)
     /// or synchronously (with Invoke). 
-    /// If not set directly for this instance, than <see cref="CommonBeginInvokeActionEnabled"/> is used.
+    /// If not set directly for this instance, then <see cref="CommonBeginInvokeActionEnabled"/> is used.
     /// </summary>
     public bool BeginInvokeActionEnabled
     {
@@ -47,7 +48,7 @@ namespace Qhta.ObservableObjects
     private bool? _BeginInvokeActionEnabled;
 
     /// <summary>
-    /// An object used to sychronize access.
+    /// An object used to synchronize access.
     /// </summary>
     public virtual object LockObject => new object();
 
@@ -68,8 +69,25 @@ namespace Qhta.ObservableObjects
     /// A method to raise the <see cref="PropertyChanged"/> event.
     /// </summary>
     /// <param name="propertyName">Name of the changed property</param>
+    /// <param name="oldValue">Old value of the property</param>
+    /// <param name="newValue">New value of the property</param>
+    public void NotifyPropertyChanged(string propertyName, object? oldValue, object? newValue) => NotifyPropertyChanged(this, propertyName, oldValue, newValue);
+
+    /// <summary>
+    /// A method to raise the <see cref="PropertyChanged"/> event.
+    /// </summary>
+    /// <param name="propertyName">Name of the changed property</param>
     /// <param name="sender">The object, which property was changed.</param>
-    public void NotifyPropertyChanged(object sender, string propertyName)
+    public void NotifyPropertyChanged(object sender, string propertyName) => NotifyPropertyChanged(sender, propertyName, null, null);
+
+    /// <summary>
+    /// A method to raise the <see cref="PropertyChanged"/> event.
+    /// </summary>
+    /// <param name="sender">The object, which property was changed.</param>
+    /// <param name="propertyName">Name of the changed property</param>
+    /// <param name="oldValue">Old value of the property</param>
+    /// <param name="newValue">New value of the property</param>
+    public void NotifyPropertyChanged(object sender, string propertyName, object? oldValue, object? newValue)
     {
       var propertyChangedEventHandler = PropertyChanged;
 
@@ -78,10 +96,12 @@ namespace Qhta.ObservableObjects
 
       var dispatcher = Dispatcher;
 
-      foreach (PropertyChangedEventHandler handler in propertyChangedEventHandler.GetInvocationList())
+      foreach (PropertyChangedEventHandler handler in propertyChangedEventHandler.GetInvocationList().Cast<PropertyChangedEventHandler>())
       {
 
-        var args = new PropertyChangedEventArgs(propertyName);
+        PropertyChangedEventArgs args = (oldValue == null && newValue == null) 
+          ? new PropertyChangedEventArgs(propertyName)
+          : new PropertyChanged2EventArgs(propertyName, oldValue, newValue);
         if (dispatcher != null)
         {
           try
@@ -115,26 +135,15 @@ namespace Qhta.ObservableObjects
 
     #region Enable synchronization from BindingOperations
     /// <summary>
-    /// Specifies whether the object is synchronized in multithread environment.
+    /// Specifies whether the object is synchronized in multi-thread environment.
     /// </summary>
-    public virtual bool IsSynchronized
-    {
-      get
-      {
-        return true;
-      }
-    }
+    public virtual bool IsSynchronized => true;
 
     /// <summary>
-    /// Object used to synchronize in multithread environment.
+    /// Object used to synchronize in multi-thread environment.
     /// </summary>
-    public virtual object SyncRoot
-    {
-      get
-      {
-        return LockObject;
-      }
-    }
+    public virtual object SyncRoot => LockObject;
+
     #endregion
 
   }

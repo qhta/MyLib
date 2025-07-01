@@ -1172,6 +1172,14 @@
             </summary>
             <param name="propertyName"></param>
         </member>
+        <member name="M:Qhta.MVVM.ViewModel.NotifyPropertyChanged(System.String,System.Object,System.Object)">
+            <summary>
+            A method to notify that a property has changed.
+            </summary>
+            <param name="propertyName"></param>
+            <param name="oldValue">Old value of the property</param>
+            <param name="newValue">New value of the property</param>
+        </member>
         <member name="P:Qhta.MVVM.ViewModel.IsValid">
             <summary>
             Specifies if the data of view model is valid.

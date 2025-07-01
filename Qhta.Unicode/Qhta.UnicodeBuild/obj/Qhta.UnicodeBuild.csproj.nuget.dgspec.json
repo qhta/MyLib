@@ -100,7 +100,11 @@
             },
             "Qhta.MVVM": {
               "target": "Package",
-              "version": "[4.3.0, )"
+              "version": "[4.7.0, )"
+            },
+            "Qhta.ObservableObjects": {
+              "target": "Package",
+              "version": "[3.7.0, )"
             },
             "Qhta.WPF.Converters": {
               "target": "Package",
@@ -112,43 +116,43 @@
             },
             "Syncfusion.Grid.WPF": {
               "target": "Package",
-              "version": "[29.2.11, )"
+              "version": "[30.1.37, )"
             },
             "Syncfusion.Grid.Windows": {
               "target": "Package",
-              "version": "[29.2.11, )"
+              "version": "[30.1.37, )"
             },
             "Syncfusion.PropertyGrid.WPF": {
               "target": "Package",
-              "version": "[29.2.11, )"
+              "version": "[30.1.37, )"
             },
             "Syncfusion.SfGrid.WPF": {
               "target": "Package",
-              "version": "[29.2.11, )"
+              "version": "[30.1.37, )"
             },
             "Syncfusion.SfInput.WPF": {
               "target": "Package",
-              "version": "[29.2.11, )"
+              "version": "[30.1.37, )"
             },
             "Syncfusion.SfTextInputLayout.WPF": {
               "target": "Package",
-              "version": "[29.2.11, )"
+              "version": "[30.1.37, )"
             },
             "Syncfusion.SfTreeView.WPF": {
               "target": "Package",
-              "version": "[29.2.11, )"
+              "version": "[30.1.37, )"
             },
             "Syncfusion.Shared.Base": {
               "target": "Package",
-              "version": "[29.2.11, )"
+              "version": "[30.1.37, )"
             },
             "Syncfusion.Shared.WPF": {
               "target": "Package",
-              "version": "[29.2.11, )"
+              "version": "[30.1.37, )"
             },
             "Syncfusion.Tools.WPF": {
               "target": "Package",
-              "version": "[29.2.11, )"
+              "version": "[30.1.37, )"
             },
             "System.Data.OleDb": {
               "target": "Package",

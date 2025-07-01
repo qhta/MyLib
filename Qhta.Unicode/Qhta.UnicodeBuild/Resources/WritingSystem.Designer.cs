@@ -124,6 +124,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Writing System.
+        /// </summary>
+        public static string EditWritingSystemTitle {
+            get {
+                return ResourceManager.GetString("EditWritingSystemTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ext.
         /// </summary>
         public static string Ext {
@@ -196,8 +205,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key phrase should exist in a code point description to classify the code point to this writing system.
-        ///Wildchars &apos;*&apos; can be used to define more sophisticated classification rules..
+        ///   Looks up a localized string similar to Key phrase should exist in a code point description to classify the code point to this writing system. Wildcards &apos;*&apos; can be used to define more sophisticated classification rules. E.g. a wildcard at the end of the key phrase means that it must occur at the beginning of the description..
         /// </summary>
         public static string KeyPhraseTooltip {
             get {
@@ -247,6 +255,15 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string NameTooltip {
             get {
                 return ResourceManager.GetString("NameTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Writing System.
+        /// </summary>
+        public static string NewWritingSystemTitle {
+            get {
+                return ResourceManager.GetString("NewWritingSystemTitle", resourceCulture);
             }
         }
         

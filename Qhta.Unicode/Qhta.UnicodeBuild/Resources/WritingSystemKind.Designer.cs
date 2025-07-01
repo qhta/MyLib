@@ -376,11 +376,29 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A set of graphical symbols that convey meaning through its visual resemblance to physical objects..
+        ///   Looks up a localized string similar to A writing system based on a set of graphical symbols that convey meaning through its visual resemblance to physical objects..
         /// </summary>
         public static string PictographicTooltip {
             get {
                 return ResourceManager.GetString("PictographicTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Picto-phonetic.
+        /// </summary>
+        public static string Pictophonetic {
+            get {
+                return ResourceManager.GetString("Pictophonetic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A writing system that combines ideographic and phonetic elements..
+        /// </summary>
+        public static string PictophoneticTooltip {
+            get {
+                return ResourceManager.GetString("PictophoneticTooltip", resourceCulture);
             }
         }
         

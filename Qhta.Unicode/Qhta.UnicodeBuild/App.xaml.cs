@@ -20,7 +20,7 @@ public partial class App : Application
 {
   protected override void OnStartup(StartupEventArgs e)
   {
-    Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NNaF5cXmBCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXxcd3VSQmdYU01+X0FWYUA=");
+    Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzkzMDU5MUAzMzMwMmUzMDJlMzAzYjMzMzAzYm5NRWxRdDZ2NU9wYnJldHk0TDFsN3lGTW04YjJqL3M2NzcvbnlHQ05DWGc9");
 
     //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("pl-PL");
     //var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();

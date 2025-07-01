@@ -15,11 +15,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A simple MVVM framework which enables worker threads to invoke UI notification vi" +
     "a ObservableObjects.")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("4.3.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("4.3+9847cf1b39b8e4982612242f62ae69a5d7051fa6")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("4.7.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("4.7+aa1846eb17b955e7bc9b4c132f02bee056c2bee0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.MVVM")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.MVVM")]
-[assembly: System.Reflection.AssemblyVersionAttribute("4.3.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("4.7.0.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 

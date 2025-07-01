@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:Qhta.UnicodeBuild.Views"
         mc:Ignorable="d"
-        d:DataContext="{Binding Source={StaticResource ViewModels}, Path=Instance.AllWritingSystems.NewWritingSystem}"
+        d:DataContext="{Binding Source={StaticResource ViewModels}, Path=Instance.WritingSystems.NewWritingSystem}"
         Title="New Writing System" Height="450" Width="400">
   <Grid>
     <Grid.RowDefinitions>
@@ -24,7 +24,7 @@
        <Button 
          Content="OK" 
          Command="{Binding RelativeSource={RelativeSource AncestorType=Window},
-            Path=AddWritingSystemCommand}"
+            Path=OkCommand}"
          CommandParameter="{Binding}"
          Margin="20,10" Padding="10,0"/>
     </StackPanel>

@@ -63,7 +63,7 @@ public partial class UcdRangeViewModel: ViewModel<UcdRange>, ILongTextViewModel
   {
     get
     {
-      var result = Model.WritingSystemId is null ? null : _ViewModels.Instance.WritingSystemViewModels[(int)Model.WritingSystemId];
+      var result = Model.WritingSystemId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.WritingSystemId);
       return result;
     }
     set => Model.WritingSystemId = value?.Id;

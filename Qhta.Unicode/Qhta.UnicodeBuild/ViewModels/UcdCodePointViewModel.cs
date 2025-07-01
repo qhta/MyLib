@@ -135,6 +135,36 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>
   public string? Title { get => Model.Title; set { if (Model.Title!=value) { Model.Title = value; NotifyPropertyChanged(nameof(Title)); } } }
   //public ICollection<Alias> Aliases { get; set; } = new List<Alias>();
 
+  public int? WritingSystemId { get => Model.WritingSystem; set { if (Model.WritingSystem != value) { Model.WritingSystem = value; NotifyPropertyChanged(nameof(WritingSystemId)); } } }
+
+  public WritingSystemViewModel? WritingSystem
+  {
+    get
+    {
+      var result = Model.WritingSystem is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.WritingSystem);
+      return result;
+    }
+    set
+    {
+      if (value is not null)
+      {
+        if (value.Id != WritingSystemId)
+        {
+          WritingSystemId = value?.Id;
+          NotifyPropertyChanged(nameof(WritingSystem));
+        }
+      }
+      else
+      {
+        if (WritingSystemId is not null)
+        {
+          WritingSystemId = null;
+          NotifyPropertyChanged(nameof(WritingSystem));
+        }
+      }
+    }
+  }
+
   public UcdBlockViewModel? UcdBlock
   {
     get

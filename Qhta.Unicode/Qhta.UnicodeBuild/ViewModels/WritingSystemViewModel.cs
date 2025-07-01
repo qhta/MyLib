@@ -37,15 +37,16 @@ public class WritingSystemViewModel(WritingSystem model)
 
   [AutoUpdateText]
   [Required]
-  public string Name
+  public string? Name
   {
     get => Model.Name;
     set
     {
       if (Model.Name != value)
       {
+        var oldValue = Model.Name;
         Model.Name = value;
-        NotifyPropertyChanged(nameof(Name));
+        NotifyPropertyChanged(nameof(Name), oldValue, value);
       }
     }
   }
@@ -179,21 +180,16 @@ public class WritingSystemViewModel(WritingSystem model)
   [Browsable(false)]
   public virtual WritingSystemViewModel? Parent
   {
-    get => _ViewModels.Instance.AllWritingSystems.FirstOrDefault(vm => vm.Id == Model.ParentId);
+    get => _ViewModels.Instance.WritingSystems.FirstOrDefault(vm => vm.Id == Model.ParentId);
     set
     {
       var parentId = value?.Id;
       if (parentId == 0)
         parentId = null;
-      //if (Model.Parent != parentId)
-      //{
+
       if (Parent != null)
       {
         Parent.Children?.Remove(this);
-      }
-      else
-      {
-        _ViewModels.Instance.TopWritingSystems.Remove(this);
       }
       Model.ParentId = parentId;
       NotifyPropertyChanged(nameof(Parent));
@@ -202,11 +198,7 @@ public class WritingSystemViewModel(WritingSystem model)
         Parent.Children?.Add(this);
         Parent.NotifyPropertyChanged(nameof(Children));
       }
-      else
-      {
-        _ViewModels.Instance.TopWritingSystems.Add(this);
-      }
-      //}
+      NotifyPropertyChanged(nameof(ParentId));
     }
   }
 
@@ -267,7 +259,7 @@ public class WritingSystemViewModel(WritingSystem model)
 
   public override string ToString()
   {
-    return Name;
+    return Name!;
   }
 
   [Browsable(false)] public string? LongText { get => Description; set => Description = value; }

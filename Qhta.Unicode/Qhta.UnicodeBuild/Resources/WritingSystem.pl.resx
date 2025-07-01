@@ -166,8 +166,7 @@
     <value>Rodzaj systemu pisma określa charakter znaków tego systemu.</value>
   </data>
   <data name="KeyPhraseTooltip" xml:space="preserve">
-    <value>Fraza kluczowa  powinna się znajdować w opisie punktu kodowego aby zaklasyfikować punkt kodowy do tego systemu pisma. 
-Można używać znaków wieloznacznych '*' do definiowania bardziej zaawansowanych reguł klasyfikacji.</value>
+    <value>Fraza kluczowa  powinna się znajdować w opisie punktu kodowego aby zaklasyfikować punkt kodowy do tego systemu pisma. Można używać znaków wieloznacznych '*' do definiowania bardziej zaawansowanych reguł klasyfikacji. Np. umieszczenie znaku '*' na końcu frazy kluczowej oznacza, że musi ona wystąpić na początku opisu.</value>
   </data>
   <data name="CtgTooltip" xml:space="preserve">
     <value>Łańcuch znaków kategorii to wartość pola "Ctg" punktu kodowego, która powoduje przydzielenie punktu kodowego do danego systemu pisma. Można używać znaków wieloznacznych '*' i operatorów alternatywy "|" do definiowania zaawansowanych reguł klasyfikacji.</value>
@@ -192,5 +191,11 @@ Można używać znaków wieloznacznych '*' do definiowania bardziej zaawansowany
   </data>
   <data name="Abbreviation" xml:space="preserve">
     <value>Skrót</value>
+  </data>
+  <data name="NewWritingSystemTitle" xml:space="preserve">
+    <value>Nowy system pisma</value>
+  </data>
+  <data name="EditWritingSystemTitle" xml:space="preserve">
+    <value>Edycja systemu pisma</value>
   </data>
 </root>

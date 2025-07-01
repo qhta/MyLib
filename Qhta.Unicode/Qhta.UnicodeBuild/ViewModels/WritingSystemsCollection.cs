@@ -1,46 +1,133 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 
 using Qhta.MVVM;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
+using Qhta.DeepCopy;
+using Qhta.ObservableObjects;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public class WritingSystemsCollection : OrderedObservableCollection<WritingSystemViewModel>
+public sealed class WritingSystemsCollection() : OrderedObservableCollection<WritingSystemViewModel>((item) => item.Name!)
 {
-  public WritingSystemsCollection(): base((item)=>item.Name)
-  {
-    //EvaluateIsUsedCommand = new RelayCommand(EvaluateIsUsed);
-    NewWritingSystemCommand = new RelayCommand<WritingSystemType?>(CreateNewWritingSystem);
-    DeleteWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(DeleteWritingSystem, CanDeleteWritingSystem);
-  }
+  
+
+  private Dictionary<int, WritingSystemViewModel> IntDictionary { get; set; } = new();
+  private Dictionary<string, WritingSystemViewModel> StringDictionary { get; set; } = new();
 
   public WritingSystemsCollection(WritingSystemViewModel parent, IEnumerable<WritingSystem> ws) : this()
   {
     Parent = parent;
     foreach (var w in ws)
     {
-      var vm = _ViewModels.Instance.AllWritingSystems.FirstOrDefault(item => item.Id == w.Id);
+      var vm = _ViewModels.Instance.WritingSystems.FirstOrDefault(item => item.Id == w.Id);
       if (vm == null)
       {
         vm = new WritingSystemViewModel(w);
-        if (this != _ViewModels.Instance.AllWritingSystems) _ViewModels.Instance.AllWritingSystems.Add(vm);
       }
       Add(vm);
     }
+    CollectionChanged += WritingSystemsCollection_CollectionChanged;
   }
+
+  private void WritingSystemsCollection_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+  {
+    if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+    {
+      foreach (WritingSystemViewModel vm in e.OldItems!)
+      {
+        if (vm.Id!=null)
+          IntDictionary.Remove((int)vm.Id!);
+        if (vm.Name != null && !vm.Name.StartsWith("<"))
+          StringDictionary.Remove(vm.Name);
+      }
+    }
+    else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+    {
+      foreach (WritingSystemViewModel vm in e.NewItems!)
+      {
+        IntDictionary.TryAdd((int)vm.Id!, vm);
+        if (!string.IsNullOrEmpty(vm.Name) && !vm.Name.StartsWith("<"))
+        {
+          StringDictionary.TryAdd(vm.Name, vm);
+        }
+      }
+    }
+  }
+
+  private void WritingSystemViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+  {
+    if (sender is not WritingSystemViewModel vm) return;
+    if (e.PropertyName == nameof(WritingSystemViewModel.Id))
+    {
+      if (vm.Id != null) IntDictionary.Add((int)vm.Id, vm);
+      //OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
+    }
+    if (e.PropertyName == nameof(WritingSystemViewModel.Name))
+    {
+      object? oldValue = null;
+      object? newValue = null;
+      if (e is PropertyChanged2EventArgs e2)
+      {
+        oldValue = e2.OldValue;
+        newValue = e2.NewValue;
+      }
+      else
+        newValue = vm.Name;
+
+      if (oldValue!=null)
+        StringDictionary.Remove(oldValue.ToString()!);
+      if (newValue is string newName && !String.IsNullOrEmpty(newName) && !newName.StartsWith('<')) StringDictionary.Add(newName, vm);
+      // Notify that the collection has changed, so that the UI can update
+      //OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
+    }
+    if (e.PropertyName == nameof(WritingSystemViewModel.ParentId))
+    {
+      OnPropertyChanged(new PropertyChangedEventArgs(nameof(TopWritingSystems)));
+    }
+  }
+
+
+  public WritingSystemViewModel? FindById(int Id)
+    => IntDictionary.GetValueOrDefault(Id);
+
+  public WritingSystemViewModel? FindByName(string name)
+  {
+    if (name.EndsWith(" Script", StringComparison.InvariantCultureIgnoreCase))
+      name = name.Substring(0, name.Length - 7);
+    var result = StringDictionary.GetValueOrDefault(name);
+    if (result == null)
+    {
+      if (name.Contains(' '))
+        result = StringDictionary.GetValueOrDefault(name.Replace(' ','-'));
+      else if (name.Contains('-'))
+        result = StringDictionary.GetValueOrDefault(name.Replace('-', ' '));
+    }
+    return result;
+  }
+
+
 
   public WritingSystemViewModel? Parent { get; }
 
   public WritingSystemViewModel Add(WritingSystem ws)
   {
-    var vm = _ViewModels.Instance.AllWritingSystems.FirstOrDefault(item => item.Id == ws.Id);
+    var vm = (!IsLoaded) ? null : _ViewModels.Instance.WritingSystems.FindById((int)ws.Id!);
     if (vm == null)
     {
       vm = new WritingSystemViewModel(ws);
-      _ViewModels.Instance.AllWritingSystems.Add(vm);
+      Add(vm);
     }
     return vm;
+  }
+
+  public new void Add(WritingSystemViewModel vm)
+  {
+    vm.PropertyChanged += WritingSystemViewModel_PropertyChanged;
+    base.Add(vm);
+    if (vm.Id != null) IntDictionary.Add((int)vm.Id, vm);
+    if (!String.IsNullOrEmpty(vm.Name) && !vm.Name.StartsWith("<")) StringDictionary.Add(vm.Name, vm);
   }
 
   //public RelayCommand EvaluateIsUsedCommand { get; }
@@ -53,48 +140,7 @@ public class WritingSystemsCollection : OrderedObservableCollection<WritingSyste
   //  }
   //}
 
-  public IRelayCommand NewWritingSystemCommand { get; }
-
-  private void CreateNewWritingSystem(WritingSystemType? newType)
-  {
-    var vm = new WritingSystemViewModel(new WritingSystem());
-    var model = vm.Model;
-    vm.Name = "<new "+newType.ToString()+">";
-    vm.Type = newType;
-    var vmWindow = new Views.EditWritingSystemWindow
-    {
-      AddMode = true,
-      DataContext = vm,
-      Owner = Application.Current.MainWindow,
-    };
-    vmWindow.ShowDialog();
-  }
-
-  public WritingSystemViewModel? NewWritingSystem
-  {
-    get
-    {
-      var data = new WritingSystem();
-      var viewModel = new WritingSystemViewModel(data);
-      return viewModel;
-    }
-  }
-
-  public RelayCommand<WritingSystemViewModel> DeleteWritingSystemCommand { get; }
+  public IEnumerable<WritingSystemViewModel> TopWritingSystems => Items.Where(item => item.ParentId == null);
 
 
-  private void DeleteWritingSystem(WritingSystemViewModel? item)
-  {
-    if (item == null) return;
-    if (!CanDeleteWritingSystem(item))
-      MessageBox.Show("Cannot delete writing system", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-  }
-
-  private bool CanDeleteWritingSystem(WritingSystemViewModel? item)
-  {
-    if (item == null) return false;
-
-    var ok = !item.IsUsed;
-    return ok;
-  }
 }

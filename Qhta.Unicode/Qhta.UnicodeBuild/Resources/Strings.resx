@@ -174,4 +174,43 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="CannotBeEmpty" xml:space="preserve">
     <value>Cannot be empty</value>
   </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="OperationCancelled" xml:space="preserve">
+    <value>Operation cancelled</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorOcurred" xml:space="preserve">
+    <value>An error occurred: {0}</value>
+  </data>
+  <data name="OperationCompleted" xml:space="preserve">
+    <value>Operation completed successfully.</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>File not found: {0}</value>
+  </data>
+  <data name="ErrorInLine" xml:space="preserve">
+    <value>Error in line{0}</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading {0}</value>
+  </data>
+  <data name="Updating" xml:space="preserve">
+    <value>Updating {0}</value>
+  </data>
+  <data name="WritingSystemNotFound" xml:space="preserve">
+    <value>Writing System {0} not found</value>
+  </data>
 </root>

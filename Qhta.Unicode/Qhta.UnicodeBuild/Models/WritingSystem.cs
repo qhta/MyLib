@@ -8,7 +8,7 @@ public partial class WritingSystem
 {
   public int? Id { get; set; }
 
-  public string Name { get; set; } = null!;
+  public string? Name { get; set; } = null!;
 
   public WritingSystemType? Type { get; set; }
 

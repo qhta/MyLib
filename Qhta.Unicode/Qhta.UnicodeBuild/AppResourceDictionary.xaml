@@ -31,6 +31,8 @@
     ResourceType="{x:Type resources:WritingSystemKind}" x:Key="WritingSystemKindResourceConverter"/>
   <helpers:CategoryResourceConverter x:Key="CategoryResourceConverter"/>
 
+  <Image x:Key="EditIcon" Source="/Assets/Edit.png" Width="16" Height="16"/>
+
   <Style x:Key="MenuItemObjectStyle" TargetType="MenuItem">
     <Setter Property="Header" Value="{Binding Header}" />
     <Setter Property="Icon" Value="{Binding Icon}" />
@@ -44,6 +46,15 @@
     <MenuItem Header="Paste" Command="Paste"/>
     <MenuItem Header="Cut" Command="Cut"/>
   </ContextMenu>
+
+  <Style TargetType="ContextMenu">
+    <Setter Property="Effect">
+      <Setter.Value>
+        <DropShadowEffect ShadowDepth="5" BlurRadius="10" Opacity="0.5" />
+      </Setter.Value>
+    </Setter>
+  </Style>
+
 
   <Style x:Key="FlatButtonStyle" TargetType="ButtonBase">
     <Setter Property="FontFamily" Value="Segoe UI Symbol"/>

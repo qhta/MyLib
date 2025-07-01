@@ -79,6 +79,24 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Artefact.
+        /// </summary>
+        public static string Artefact {
+            get {
+                return ResourceManager.GetString("Artefact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The artifact of the human culture in which the symbol was found..
+        /// </summary>
+        public static string ArtefactTooltip {
+            get {
+                return ResourceManager.GetString("ArtefactTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to family.
         /// </summary>
         public static string Family {

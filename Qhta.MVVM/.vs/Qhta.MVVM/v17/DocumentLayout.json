@@ -3,6 +3,23 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{0858F445-D0B0-4950-B52D-99D82E49A231}|..\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\qhta.observableobjects.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0858F445-D0B0-4950-B52D-99D82E49A231}|..\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\observableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\qhta.mvvm.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:qhta.mvvm.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0858F445-D0B0-4950-B52D-99D82E49A231}|..\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\propertychanged2eventargs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\relaycommand\u00601.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:relaycommand\u00601.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +30,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\viewmodel\u00601.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:viewmodel\u00601.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\datagridcolumnattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -102,15 +115,90 @@
       "DocumentGroups": [
         {
           "DockedWidth": 290,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 10,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{ebac7c74-3b95-5b1e-b483-338a08cbadf2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{be4d7042-ba3f-11d2-840e-00c04f9902c1}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
+              "Title": "Qhta.MVVM.csproj",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
+              "RelativeDocumentMoniker": "Qhta.MVVM.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
+              "RelativeToolTip": "Qhta.MVVM.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-07-01T11:02:15.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PropertyChanged2EventArgs.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\PropertyChanged2EventArgs.cs",
+              "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects\\PropertyChanged2EventArgs.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\PropertyChanged2EventArgs.cs",
+              "RelativeToolTip": "..\\Qhta.ObservableObjects\\PropertyChanged2EventArgs.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-01T10:51:30.496Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ObservableObject.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableObject.cs",
+              "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects\\ObservableObject.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableObject.cs",
+              "RelativeToolTip": "..\\Qhta.ObservableObjects\\ObservableObject.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAIwEkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-01T10:50:19.435Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Qhta.ObservableObjects.csproj",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
+              "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
+              "RelativeToolTip": "..\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-07-01T10:49:54.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "FilterAnd.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\FilterAnd.cs",
               "RelativeDocumentMoniker": "FilterAnd.cs",
@@ -122,7 +210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "FilterExpr.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\FilterExpr.cs",
               "RelativeDocumentMoniker": "FilterExpr.cs",
@@ -134,7 +222,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "FilterOr.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\FilterOr.cs",
               "RelativeDocumentMoniker": "FilterOr.cs",
@@ -146,7 +234,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "RelayCommand.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\RelayCommand.cs",
               "RelativeDocumentMoniker": "RelayCommand.cs",
@@ -158,7 +246,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "RelayCommand\u00601.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\RelayCommand\u00601.cs",
               "RelativeDocumentMoniker": "RelayCommand\u00601.cs",
@@ -166,12 +254,11 @@
               "RelativeToolTip": "RelayCommand\u00601.cs",
               "ViewState": "AgIAADYAAAAAAAAAAAAAAAUAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-12-02T16:23:57.832Z",
-              "EditorCaption": ""
+              "WhenOpened": "2023-12-02T16:23:57.832Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "readme.md",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\docs\\readme.md",
               "RelativeDocumentMoniker": "docs\\readme.md",
@@ -183,7 +270,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 21,
               "Title": "IFilteredCollection\u00601.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\IFilteredCollection\u00601.cs",
               "RelativeDocumentMoniker": "IFilteredCollection\u00601.cs",
@@ -195,7 +282,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "IFilter\u00601.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\IFilter\u00601.cs",
               "RelativeDocumentMoniker": "IFilter\u00601.cs",
@@ -207,7 +294,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "FilteredCollection\u00601.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\FilteredCollection\u00601.cs",
               "RelativeDocumentMoniker": "FilteredCollection\u00601.cs",
@@ -219,7 +306,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 20,
               "Title": "IFilter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\IFilter.cs",
               "RelativeDocumentMoniker": "IFilter.cs",
@@ -231,7 +318,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 22,
               "Title": "IFilteredCollection.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\IFilteredCollection.cs",
               "RelativeDocumentMoniker": "IFilteredCollection.cs",
@@ -243,7 +330,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "ListViewModel\u00601.IListViewModel.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ListViewModel\u00601.IListViewModel.cs",
               "RelativeDocumentMoniker": "ListViewModel\u00601.IListViewModel.cs",
@@ -255,7 +342,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "Command.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Command.cs",
               "RelativeDocumentMoniker": "Command.cs",
@@ -267,7 +354,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 23,
               "Title": "DisplayPropertyAttribute.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\DisplayPropertyAttribute.cs",
               "RelativeDocumentMoniker": "DisplayPropertyAttribute.cs",
@@ -279,7 +366,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "ListViewModel\u00601.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ListViewModel\u00601.cs",
               "RelativeDocumentMoniker": "ListViewModel\u00601.cs",
@@ -291,7 +378,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 16,
               "Title": "ListViewModel.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ListViewModel.cs",
               "RelativeDocumentMoniker": "ListViewModel.cs",
@@ -303,7 +390,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 17,
               "Title": "LazyLoadViewModel\u00601.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\LazyLoadViewModel\u00601.cs",
               "RelativeDocumentMoniker": "LazyLoadViewModel\u00601.cs",
@@ -321,13 +408,14 @@
               "RelativeDocumentMoniker": "ViewModel.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ViewModel.cs",
               "RelativeToolTip": "ViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-07-07T16:05:36.419Z"
+              "WhenOpened": "2023-07-07T16:05:36.419Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 24,
               "Title": "VisibleViewModel\u00601.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\VisibleViewModel\u00601.cs",
               "RelativeDocumentMoniker": "VisibleViewModel\u00601.cs",
@@ -339,7 +427,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 25,
               "Title": "VisibleViewModel.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\VisibleViewModel.cs",
               "RelativeDocumentMoniker": "VisibleViewModel.cs",
@@ -351,7 +439,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 26,
               "Title": "Visibility.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Visibility.cs",
               "RelativeDocumentMoniker": "Visibility.cs",
@@ -363,7 +451,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "DataGridColumnAttribute.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\DataGridColumnAttribute.cs",
               "RelativeDocumentMoniker": "DataGridColumnAttribute.cs",
@@ -375,7 +463,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "ViewModel\u00601.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ViewModel\u00601.cs",
               "RelativeDocumentMoniker": "ViewModel\u00601.cs",

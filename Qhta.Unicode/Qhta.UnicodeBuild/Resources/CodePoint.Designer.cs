@@ -61,6 +61,24 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply script mapping.
+        /// </summary>
+        public static string ApplyScriptMapping {
+            get {
+                return ResourceManager.GetString("ApplyScriptMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply script mapping from &quot;Scripts.txt&quot; file. You can get this file from the UCD data base at Unicode.org/public Web page..
+        /// </summary>
+        public static string ApplyScriptMappingTooltip {
+            get {
+                return ResourceManager.GetString("ApplyScriptMappingTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Code.
         /// </summary>
         public static string CP {
@@ -165,6 +183,24 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string UcdRangeTooltip {
             get {
                 return ResourceManager.GetString("UcdRangeTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Writing System.
+        /// </summary>
+        public static string WritingSystem {
+            get {
+                return ResourceManager.GetString("WritingSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Writing system to which this code point belongs. You can choose script, language or artifact, notation, character set or subset here..
+        /// </summary>
+        public static string WritingSystemTooltip {
+            get {
+                return ResourceManager.GetString("WritingSystemTooltip", resourceCulture);
             }
         }
     }

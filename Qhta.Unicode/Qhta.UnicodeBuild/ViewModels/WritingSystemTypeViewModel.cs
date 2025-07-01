@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-using Qhta.MVVM;
+﻿using Qhta.MVVM;
 using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;

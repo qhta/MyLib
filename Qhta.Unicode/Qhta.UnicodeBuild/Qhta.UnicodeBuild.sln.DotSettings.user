@@ -18,4 +18,5 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Qhta_002EUnicodeBuild_002FResources_002FSyncfusion_002EPropertyGrid_002EWpf/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Qhta_002EUnicodeBuild_002FResources_002FSyncfusion_002ESfGrid_002EWPF/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/UserDictionary/Words/=Headered/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Headered/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=pictophonetic/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
