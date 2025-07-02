@@ -9,7 +9,17 @@
              xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="850" d:DesignWidth="1600">
-  <Grid>
+    <UserControl.Resources>
+      <Style TargetType="sf:AdvancedFilterControl">
+        <Setter Property="CanGenerateUniqueItems" Value="False" />
+      </Style>
+
+      <Style x:Key="filterControlStyle" TargetType="sf:GridFilterControl">
+        <Setter Property="FilterMode" Value="AdvancedFilter" />
+      </Style>
+  </UserControl.Resources>
+
+    <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
@@ -55,7 +65,15 @@
                      AutoGenerateColumns="False"
                      GridValidationMode="InEdit"
                      EditTrigger="OnTap"
+                     EnableDataVirtualization="True" 
+                     FilterItemsPopulating="CodePointDataGrid_OnFilterItemsPopulating"
     >
+      <!--FilterPopupStyle="{StaticResource filterControlStyle}"
+
+      -->
+      <!--<sf:SfDataGrid.GroupColumnDescriptions>
+        <sf:GroupColumnDescription ColumnName="UcdRangeName" />
+      </sf:SfDataGrid.GroupColumnDescriptions>-->
       <sf:SfDataGrid.Columns>
         <sf:GridTemplateColumn 
           MappingName="CP"
@@ -139,7 +157,7 @@
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTextColumn>
 
-        <sf:GridTemplateColumn 
+        <!--<sf:GridTemplateColumn 
           MappingName="UcdBlock" 
           HeaderText="UcdBlock" 
           VerticalAlignment="Top"
@@ -160,29 +178,38 @@
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
 
-        </sf:GridTemplateColumn>
-
-        <sf:GridTemplateColumn 
-          MappingName="UcdRange" 
-          HeaderText="UcdRange" 
+        </sf:GridTemplateColumn>-->
+        <sf:GridTextColumn
+          MappingName="UcdBlockName" 
+          HeaderText="UcdBlock"
           VerticalAlignment="Top"
           AllowEditing="False"
           Width="200"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
+              <TextBlock Text="{x:Static resources:CodePoint.UcdBlock}" 
+                         ToolTip="{x:Static resources:CodePoint.UcdBlockTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+        </sf:GridTextColumn>
+
+
+        <sf:GridTextColumn
+          MappingName="UcdRangeName" 
+          HeaderText="UcdRange"
+          VerticalAlignment="Top"
+          AllowEditing="False"
+          Width="200"
+          >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
               <TextBlock Text="{x:Static resources:CodePoint.UcdRange}" 
                          ToolTip="{x:Static resources:CodePoint.UcdRangeTooltip}"  />
             </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-          <sf:GridColumn.CellTemplate>
-            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{Binding UcdRange.RangeName}" 
-                         ToolTip="{Binding UcdRange.Comment}" 
-                         Padding="3"/>
-            </DataTemplate>
-          </sf:GridColumn.CellTemplate>
-        </sf:GridTemplateColumn>
+          </sf:GridColumn.HeaderTemplate>        
+        </sf:GridTextColumn>
+
 
         <sf:GridComboBoxColumn 
           MappingName="WritingSystem" 

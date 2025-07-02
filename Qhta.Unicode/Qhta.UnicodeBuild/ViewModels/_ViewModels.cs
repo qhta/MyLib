@@ -83,8 +83,10 @@ public class _ViewModels : IDisposable
       }
       WritingSystems.IsLoaded = true;
 
+      int i = 0;
       foreach (var cp in _Context.CodePoints)
       {
+        if (i++ > 1000) break;
         UcdCodePoints.Add(cp);
       }
 
@@ -123,8 +125,19 @@ public class _ViewModels : IDisposable
       return list;
     }
   }
-
   readonly WritingSystemViewModel dummyWritingSystemViewModel = new WritingSystemViewModel(new WritingSystem { Name = "" });
+
+  public IEnumerable<UcdRangeViewModel> SelectableRanges
+  {
+    get
+    {
+      var list = _ViewModels.Instance.UcdRanges.Where(item => !String.IsNullOrWhiteSpace(item.RangeName))
+        .OrderBy(vm => vm.RangeName).ToList();
+      list.Insert(0, dummyRangeViewModel);
+      return list;
+    }
+  }
+  readonly UcdRangeViewModel dummyRangeViewModel = new UcdRangeViewModel(new UcdRange { Range = "" });
 
   public void Dispose()
   {

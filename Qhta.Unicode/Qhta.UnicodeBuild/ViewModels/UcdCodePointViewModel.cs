@@ -176,8 +176,9 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>
       return _UcdBlock;
     }
   }
-
   private UcdBlockViewModel? _UcdBlock;
+
+  public string? UcdBlockName => UcdBlock?.BlockName;
 
   public UcdRangeViewModel? UcdRange
   {
@@ -192,4 +193,6 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>
   }
 
   private UcdRangeViewModel? _UcdRange;
+
+  public string? UcdRangeName => UcdRange?.RangeName;
 }
