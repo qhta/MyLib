@@ -1,19 +1,126 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
+using Qhta.ObservableObjects;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public class UcdBlocksCollection : EntityCollection<UcdBlockViewModel>
+public sealed class UcdBlocksCollection() : OrderedObservableCollection<UcdBlockViewModel>((item) => item.Range!.Start!)
 {
-  public void Add(UcdBlock ub)
+
+  private Dictionary<int, UcdBlockViewModel> IntDictionary { get; set; } = new();
+  private Dictionary<string, UcdBlockViewModel> StringDictionary { get; set; } = new();
+
+  public UcdBlocksCollection(IEnumerable<UcdBlock> models) : this()
   {
-    var vm = new UcdBlockViewModel(ub);
-    Add(vm);
+    foreach (var model in models)
+    {
+      var vm = _ViewModels.Instance.UcdBlocks.FirstOrDefault(item => item.Id == model.Id);
+      if (vm == null)
+      {
+        vm = new UcdBlockViewModel(model);
+      }
+      Add(vm);
+    }
+    CollectionChanged += UcdBlocksCollection_CollectionChanged;
   }
 
-  public double MaxBlockNameWidth => this.Max(ub => ub.BlockName?.Length ?? 0)*12;
+  private void UcdBlocksCollection_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+  {
+    if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+    {
+      foreach (WritingSystemViewModel vm in e.OldItems!)
+      {
+        if (vm.Id != null)
+          IntDictionary.Remove((int)vm.Id!);
+        if (vm.Name != null && !vm.Name.StartsWith("<"))
+          StringDictionary.Remove(vm.Name);
+      }
+    }
+    else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+    {
+      foreach (UcdBlockViewModel vm in e.NewItems!)
+      {
+        IntDictionary.TryAdd((int)vm.Id!, vm);
+        if (!string.IsNullOrEmpty(vm.Name))
+        {
+          StringDictionary.TryAdd(vm.Name, vm);
+        }
+      }
+    }
+  }
+
+  private void WritingSystemViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+  {
+    if (sender is not UcdBlockViewModel vm) return;
+    if (e.PropertyName == nameof(UcdBlockViewModel.Id))
+    {
+      if (vm.Id != null) IntDictionary.Add((int)vm.Id, vm);
+      //OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
+    }
+    if (e.PropertyName == nameof(UcdBlockViewModel.Name))
+    {
+      object? oldValue = null;
+      object? newValue = null;
+      if (e is PropertyChanged2EventArgs e2)
+      {
+        oldValue = e2.OldValue;
+        newValue = e2.NewValue;
+      }
+      else
+        newValue = vm.Name;
+
+      if (oldValue != null)
+        StringDictionary.Remove(oldValue.ToString()!);
+      if (newValue is string newName && !String.IsNullOrEmpty(newName) && !newName.StartsWith('<')) StringDictionary.Add(newName, vm);
+      // Notify that the collection has changed, so that the UI can update
+      //OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
+    }
+  }
+
+
+  public UcdBlockViewModel? FindById(int Id)
+    => IntDictionary.GetValueOrDefault(Id);
+
+  public UcdBlockViewModel? FindByName(string name)
+  {
+    var result = StringDictionary.GetValueOrDefault(name);
+    if (result == null)
+    {
+      if (name.Contains(' '))
+        result = StringDictionary.GetValueOrDefault(name.Replace(' ', '-'));
+      else if (name.Contains('-'))
+        result = StringDictionary.GetValueOrDefault(name.Replace('-', ' '));
+    }
+    return result;
+  }
+
+
+
+  public UcdBlockViewModel Add(UcdBlock ws)
+  {
+    var vm = (!IsLoaded) ? null : _ViewModels.Instance.UcdBlocks.FindById((int)ws.Id!);
+    if (vm == null)
+    {
+      vm = new UcdBlockViewModel(ws);
+      Add(vm);
+    }
+    return vm;
+  }
+
+  public new void Add(UcdBlockViewModel vm)
+  {
+    vm.PropertyChanged += WritingSystemViewModel_PropertyChanged;
+    base.Add(vm);
+    if (vm.Id != null) IntDictionary.Add((int)vm.Id, vm);
+    if (!String.IsNullOrEmpty(vm.Name)) StringDictionary.Add(vm.Name, vm);
+  }
+
+
+  public double MaxBlockNameWidth => this.Max(ub => ub.Name?.Length ?? 0)*12;
 
 
 }

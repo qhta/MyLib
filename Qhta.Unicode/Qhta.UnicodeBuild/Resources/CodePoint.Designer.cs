@@ -61,20 +61,38 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply block mapping.
+        /// </summary>
+        public static string ApplyBlockMapping {
+            get {
+                return ResourceManager.GetString("ApplyBlockMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to apply block mapping from block ranges? All current &quot;block&quot; fields w be updated..
+        /// </summary>
+        public static string ApplyBlockMappingConfirm {
+            get {
+                return ResourceManager.GetString("ApplyBlockMappingConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply script mapping.
         /// </summary>
-        public static string ApplyScriptMapping {
+        public static string ApplyScriptMappingFromFile {
             get {
-                return ResourceManager.GetString("ApplyScriptMapping", resourceCulture);
+                return ResourceManager.GetString("ApplyScriptMappingFromFile", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Apply script mapping from &quot;Scripts.txt&quot; file. You can get this file from the UCD data base at Unicode.org/public Web page..
         /// </summary>
-        public static string ApplyScriptMappingTooltip {
+        public static string ApplyScriptMappingFromFileTooltip {
             get {
-                return ResourceManager.GetString("ApplyScriptMappingTooltip", resourceCulture);
+                return ResourceManager.GetString("ApplyScriptMappingFromFileTooltip", resourceCulture);
             }
         }
         

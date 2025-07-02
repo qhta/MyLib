@@ -75,8 +75,8 @@
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{Binding UcdBlock.BlockName}" 
-                         ToolTip="{Binding UcdBlock.Comment}" 
+              <TextBlock Text="{Binding UcdBlock.Name}" 
+                         ToolTip="{Binding UcdBlock.Description}" 
                          Padding="3"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>

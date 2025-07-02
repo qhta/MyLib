@@ -9,10 +9,10 @@ using PropertyTools.Wpf;
 
 using Qhta.MVVM;
 using Qhta.UnicodeBuild.ViewModels;
-
+using Syncfusion.Data;
+using Syncfusion.Data.Extensions;
 using Syncfusion.UI.Xaml.Grid;
-using Syncfusion.UI.Xaml.Grid.Helpers;
-using Syncfusion.UI.Xaml.ScrollAxis;
+
 
 namespace Qhta.UnicodeBuild.Controls;
 
@@ -27,7 +27,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
     FirstItemCommand = new RelayCommand(FirstItemExecute);
   }
 
-  public static DependencyProperty DataGridProperty = 
+  public static DependencyProperty DataGridProperty =
     DependencyProperty.Register(nameof(DataGrid), typeof(SfDataGrid), typeof(RecordNavigationBar),
       new PropertyMetadata(null, DataGridPropertyChanged));
 
@@ -45,19 +45,53 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
     }
   }
 
-  public SfDataGrid DataGrid
+  public SfDataGrid? DataGrid
   {
-    get => (SfDataGrid)GetValue(DataGridProperty);
+    get => (SfDataGrid?)GetValue(DataGridProperty);
     set => SetValue(DataGridProperty, value);
   }
 
-  public int RowsCount => DataGrid?.View?.Records.Count ?? 0;
+  public int RowsCount
+  => DataGrid?.View?.Records.Count ?? 0;
+  //{
+  //  get
+  //  {
+  //    if (DataGrid == null)
+  //      return 0;
+  //    if (DataGrid.EnableDataVirtualization)
+  //    {
+  //      QueryableCollectionView?
+  //        //ICollectionViewAdv? 
+  //          view = DataGrid?.View as QueryableCollectionView;
+  //      return view?.ViewSource.Count() ?? 0; // For virtualized data
+
+  //    }
+  //    else
+  //    {
+  //      if (DataGrid.ItemsSource is ICollectionView collectionView)
+  //      {
+  //        return collectionView.Cast<Object>().Count(); // For ICollectionView
+  //      }
+  //      else if (DataGrid.ItemsSource is IEnumerable<object> enumerable)
+  //      {
+  //        return enumerable.Count(); // For IEnumerable
+  //      }
+  //      else if (DataGrid.ItemsSource is IList list)
+  //      {
+  //        return list.Count; // For IList
+  //      }
+  //    }
+  //    return 0; // Default if no valid data source is found
+  //  }
+  //}
 
   public RelayCommand NextItemCommand { get; set; }
 
   public void NextItemExecute()
   {
     var dataGrid = DataGrid;
+    if (dataGrid == null)
+      return;
 
     var selectedIndex = dataGrid.SelectedIndex;
     if (selectedIndex >= RowsCount - 1)
@@ -73,7 +107,9 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   public void LastItemExecute()
   {
     var dataGrid = DataGrid;
-
+    if (dataGrid == null)
+      return;
+    
     var selectedIndex = RowsCount - 1;
 
     dataGrid.SelectedIndex = selectedIndex;
@@ -85,6 +121,8 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   public void PreviousItemExecute()
   {
     var dataGrid = DataGrid;
+    if (dataGrid == null)
+      return;
 
     var selectedIndex = dataGrid.SelectedIndex;
     if (selectedIndex <= 0)
@@ -100,6 +138,8 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   public void FirstItemExecute()
   {
     var dataGrid = DataGrid;
+    if (dataGrid == null)
+      return;
 
     var selectedIndex = 0;
 
@@ -111,6 +151,9 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   {
     //Debug.WriteLine($"selectedIndex = {selectedIndex}"); 
     var dataGrid = DataGrid;
+    if (dataGrid == null)
+      return;
+
     var rowColumnIndex = new Syncfusion.UI.Xaml.ScrollAxis.RowColumnIndex(selectedIndex + 1, 0);
 
     if (!dataGrid.IsLoaded)

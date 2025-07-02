@@ -24,7 +24,6 @@
     <sf:SfDataGrid x:Name="UcdBlocksDataGrid"
 
                    ItemsSource ="{Binding}"
-                   SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                    AllowDraggingColumns="True"
                    AllowEditing="True"
                    AllowFiltering="True"
@@ -36,6 +35,8 @@
                    ShowRowHeader="True"
                    EditTrigger="OnTap"
     >
+      <!--SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
+
       <!--<sf:SfDataGrid.DetailsViewDefinition>
         <sf:GridViewDefinition RelationalColumn="Ranges">
           <sf:GridViewDefinition.DataGrid>
@@ -132,8 +133,8 @@
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTemplateColumn>
         <sf:GridTextColumn 
-          MappingName="BlockName" 
-          HeaderText="BlockName" 
+          MappingName="Block" 
+          HeaderText="Name" 
           VerticalAlignment="Top"
           Width="300"
           >
@@ -162,8 +163,8 @@
           </sf:GridColumn.HeaderTemplate>
         </sf:GridComboBoxColumn>
         <helpers:LongTextColumn 
-          MappingName="Comment" 
-          HeaderText="Comment"
+          MappingName="Description" 
+          HeaderText="Description"
           Width="420"
           TextWrapping="Wrap"
           VerticalAlignment="Top"
@@ -171,7 +172,7 @@
           EditTemplate="{StaticResource LongTextEditTemplate}">
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:Strings.Comment}" />
+              <TextBlock Text="{x:Static resources:Strings.Description}" />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </helpers:LongTextColumn>

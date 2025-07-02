@@ -16,15 +16,15 @@ public sealed class WritingSystemsCollection() : OrderedObservableCollection<Wri
   private Dictionary<int, WritingSystemViewModel> IntDictionary { get; set; } = new();
   private Dictionary<string, WritingSystemViewModel> StringDictionary { get; set; } = new();
 
-  public WritingSystemsCollection(WritingSystemViewModel parent, IEnumerable<WritingSystem> ws) : this()
+  public WritingSystemsCollection(WritingSystemViewModel parent, IEnumerable<WritingSystem> models) : this()
   {
     Parent = parent;
-    foreach (var w in ws)
+    foreach (var model in models)
     {
-      var vm = _ViewModels.Instance.WritingSystems.FirstOrDefault(item => item.Id == w.Id);
+      var vm = _ViewModels.Instance.WritingSystems.FirstOrDefault(item => item.Id == model.Id);
       if (vm == null)
       {
-        vm = new WritingSystemViewModel(w);
+        vm = new WritingSystemViewModel(model);
       }
       Add(vm);
     }

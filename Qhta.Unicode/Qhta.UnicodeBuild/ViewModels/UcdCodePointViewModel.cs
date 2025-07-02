@@ -165,20 +165,38 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>
     }
   }
 
+  public int? UcdBlockId { get => Model.WritingSystem; set { if (Model.Block != value) { Model.Block = value; NotifyPropertyChanged(nameof(UcdBlockId)); } } }
+
   public UcdBlockViewModel? UcdBlock
   {
     get
     {
-      if (_UcdBlock is not null)
-        return _UcdBlock;
-      var code = Id;
-      _UcdBlock = _ViewModels.Instance.UcdBlocks.FirstOrDefault(x => x.Range != null && x.Range.Start <= code && x.Range.End >= code);
-      return _UcdBlock;
+      var result = Model.Block is null ? null : _ViewModels.Instance.UcdBlocks.FindById((int)Model.Block);
+      return result;
+    }
+    set
+    {
+      if (value is not null)
+      {
+        if (value.Id != UcdBlockId)
+        {
+          UcdBlockId = value?.Id;
+          NotifyPropertyChanged(nameof(UcdBlock));
+        }
+      }
+      else
+      {
+        if (UcdBlockId is not null)
+        {
+          UcdBlockId = null;
+          NotifyPropertyChanged(nameof(UcdBlock));
+        }
+      }
     }
   }
-  private UcdBlockViewModel? _UcdBlock;
+  //private UcdBlockViewModel? _UcdBlock;
 
-  public string? UcdBlockName => UcdBlock?.BlockName;
+  public string? UcdBlockName => UcdBlock?.Name;
 
   public UcdRangeViewModel? UcdRange
   {

@@ -7,6 +7,7 @@
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
              xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
+             xmlns:controls="clr-namespace:Qhta.UnicodeBuild.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="850" d:DesignWidth="1600">
     <UserControl.Resources>
@@ -27,13 +28,6 @@
     </Grid.RowDefinitions>
     <!-- Menu Bar -->
     <Menu Grid.Row="0" Grid.ColumnSpan="2">
-      <!--<MenuItem Header="File">
-        <MenuItem Header="New" Command="New"/>
-        <MenuItem Header="Open" Command="Open"/>
-        <MenuItem Header="Save" Command="Save"/>
-        <Separator/>
-        <MenuItem Header="Exit" Command="Close"/>
-      </MenuItem>-->
       <MenuItem Header="{x:Static resources:Strings.Edit}">
         <!--<MenuItem Header="Undo" Command="Undo"/>
         <MenuItem Header="Redo" Command="Redo"/>
@@ -43,9 +37,12 @@
         <MenuItem Header="{x:Static resources:Strings.Paste}" Command="Paste"/>
       </MenuItem>
       <MenuItem Header="Tools">
-        <MenuItem Header="{x:Static resources:CodePoint.ApplyScriptMapping}"
-          Command="{Binding Source={StaticResource ViewModels}, 
-          Path=Instance.ApplyScriptMappingCommand}"/>
+        <MenuItem Header="{x:Static resources:CodePoint.ApplyBlockMapping}"
+                  Command="{Binding Source={StaticResource ViewModels}, 
+                    Path=Instance.ApplyBlockMappingCommand}"/>
+        <MenuItem Header="{x:Static resources:CodePoint.ApplyScriptMappingFromFile}"
+                  Command="{Binding Source={StaticResource ViewModels}, 
+                    Path=Instance.ApplyScriptMappingCommand}"/>
       </MenuItem>
       <MenuItem Header="{x:Static resources:Strings.Help}">
         <MenuItem Header="{x:Static resources:Strings.About}" Command="Help"/>
@@ -67,6 +64,7 @@
                      EditTrigger="OnTap"
                      EnableDataVirtualization="True" 
                      FilterItemsPopulating="CodePointDataGrid_OnFilterItemsPopulating"
+
     >
       <!--FilterPopupStyle="{StaticResource filterControlStyle}"
 
@@ -157,11 +155,14 @@
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTextColumn>
 
-        <!--<sf:GridTemplateColumn 
+        <sf:GridComboBoxColumn x:Name="UcdBlockColumn"
           MappingName="UcdBlock" 
           HeaderText="UcdBlock" 
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.SelectableBlocks}"
+          DisplayMemberPath="Name" 
           VerticalAlignment="Top"
-          AllowEditing="False"
+          AllowEditing="True"
           Width="200"
         >
           <sf:GridColumn.HeaderTemplate>
@@ -172,28 +173,12 @@
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{Binding UcdBlock.BlockName}" 
-                           ToolTip="{Binding UcdBlock.Comment}" 
-                           Padding="3"/>
+              <TextBlock Text="{Binding UcdBlock.Name}" 
+                         ToolTip="{Binding UcdBlock.Description}" 
+                         Padding="3"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
-
-        </sf:GridTemplateColumn>-->
-        <sf:GridTextColumn
-          MappingName="UcdBlockName" 
-          HeaderText="UcdBlock"
-          VerticalAlignment="Top"
-          AllowEditing="False"
-          Width="200"
-        >
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:CodePoint.UcdBlock}" 
-                         ToolTip="{x:Static resources:CodePoint.UcdBlockTooltip}"  />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-        </sf:GridTextColumn>
-
+        </sf:GridComboBoxColumn>
 
         <sf:GridTextColumn
           MappingName="UcdRangeName" 
@@ -237,7 +222,12 @@
 
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
-    <Grid x:Name="StatusBar"  Grid.Row="2" Height="Auto" Background="LightGray">
+    <controls:RecordNavigationBar Grid.Row="2" DataGrid="{Binding ElementName=CodePointDataGrid}"/>
+    <Grid x:Name="StatusBar"  Grid.Row="2" Height="Auto" Background="LightGray" 
+          Visibility="{Binding Source={StaticResource ViewModels}, 
+                    Path=Instance.UcdCodePoints.IsBusy, 
+                   Converter={StaticResource BoolToVisibilityConverter}}">
+          
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="Auto" />
         <ColumnDefinition Width="*" />

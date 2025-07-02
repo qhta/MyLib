@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Qhta.Unicode.Models;
 
-[Table("CodePoints")]
+[Table("UcdCodePoints")]
 public partial class UcdCodePoint
 {
   [Column("Ord")]
@@ -43,7 +43,9 @@ public partial class UcdCodePoint
   public string? Lower { get; set; }
 
   public string? Title { get; set; }
-  
+
+  public int? Block { get; set; }
+
   public int? WritingSystem { get; set; }
 
   public virtual ICollection<Alias> Aliases { get; set; } = new List<Alias>();

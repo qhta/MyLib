@@ -159,10 +159,16 @@
   <data name="WritingSystemTooltip" xml:space="preserve">
     <value>Writing system to which this code point belongs. You can choose script, language or artifact, notation, character set or subset here.</value>
   </data>
-  <data name="ApplyScriptMapping" xml:space="preserve">
+  <data name="ApplyScriptMappingFromFile" xml:space="preserve">
     <value>Apply script mapping</value>
   </data>
-  <data name="ApplyScriptMappingTooltip" xml:space="preserve">
+  <data name="ApplyScriptMappingFromFileTooltip" xml:space="preserve">
     <value>Apply script mapping from "Scripts.txt" file. You can get this file from the UCD data base at Unicode.org/public Web page.</value>
+  </data>
+  <data name="ApplyBlockMapping" xml:space="preserve">
+    <value>Apply block mapping</value>
+  </data>
+  <data name="ApplyBlockMappingConfirm" xml:space="preserve">
+    <value>Do you really want to apply block mapping from block ranges? All current "block" fields w be updated.</value>
   </data>
 </root>

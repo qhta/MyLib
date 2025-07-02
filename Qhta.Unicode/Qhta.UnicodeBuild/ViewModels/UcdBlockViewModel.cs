@@ -30,7 +30,7 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
     }
   }
 
-  public string? BlockName
+  public string? Name
   {
     get => Model.BlockName;
     set
@@ -38,12 +38,12 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
       if (Model.BlockName != null)
       {
         Model.BlockName = value;
-        NotifyPropertyChanged(nameof(BlockName));
+        NotifyPropertyChanged(nameof(Name));
       }
     }
   }
 
-  public string? Comment
+  public string? Description
   {
     get => Model.Comment;
     set
@@ -51,7 +51,7 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
       if (Model.Comment != value)
       {
         Model.Comment = value;
-        NotifyPropertyChanged(nameof(Comment));
+        NotifyPropertyChanged(nameof(Description));
       }
     }
   }
@@ -85,7 +85,7 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
   public UcdRangeCollection? _Ranges;
 
   public bool CanExpandLongText => !string.IsNullOrEmpty(Model.Comment);
-  public string? LongText { get => Comment; set => Comment = value; }
+  public string? LongText { get => Description; set => Description = value; }
 
   private bool _IsLongTextExpanded = false;
   public bool IsLongTextExpanded

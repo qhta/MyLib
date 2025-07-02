@@ -24,14 +24,31 @@ public class UcdCodePointsCollection() : ObservableCollection<UcdCodePointViewMo
     return IntDictionary.GetValueOrDefault(id);
   }
 
+  private bool _isBusy;
+  public bool IsBusy
+  {
+    get => _isBusy;
+    set
+    {
+      if (value != _isBusy)
+      {
+        _isBusy = value;
+        base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsBusy)));
+      }
+    }
+  }
+
   private int _progressValue;
   public int ProgressValue
   {
     get => _progressValue;
     set
     {
-      _progressValue = value;
-      base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(ProgressValue)));
+      if (value != _progressValue)
+      {
+        _progressValue = value;
+        base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(ProgressValue)));
+      }
     }
   }
 

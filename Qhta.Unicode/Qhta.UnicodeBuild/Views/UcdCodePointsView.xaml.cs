@@ -1,14 +1,21 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Navigation;
+
+using PropertyTools.Wpf;
 
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.ViewModels;
 
 using Syncfusion.Data;
+//using CollectionViewExtensions = Syncfusion.UI.Xaml.Grid.CollectionViewExtensions;
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.Windows.Shared;
+
+using CollectionViewExtensions = Syncfusion.Data.CollectionViewExtensions;
 
 namespace Qhta.UnicodeBuild.Views;
 /// <summary>
@@ -71,24 +78,25 @@ public partial class UcdCodePointsView : UserControl
 
   private void CodePointDataGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e)
   {
-    //Debug.WriteLine($"Filtering {e.Column.MappingName}");
     if (e.Column.MappingName == "UcdBlock")
     {
-      e.FilterControl.FilterMode = FilterMode.CheckboxFilter;
-      var filterControlTemplate = e.FilterControl.Template;
-      if (filterControlTemplate != null)
+      GridFilterControl filterControl = e.FilterControl;
+      filterControl.SortOptionVisibility = Visibility.Collapsed;
+      filterControl.FilterMode = FilterMode.CheckboxFilter;
+      var selectableItems = _ViewModels.Instance.UcdBlocks.OrderBy(item => item.Name).ToArray();
+
+      UcdBlockFilters = selectableItems.Select(item => new FilterElement
       {
-        // Find the element by its Name within the template
-        if (filterControlTemplate.FindName("PART_CheckboxFilterControl", e.FilterControl) is CheckboxFilterControl checkboxFilterControl)
+        ActualValue = item,
+        FormattedString = (object obj) =>
         {
-          //Debug.WriteLine("Found CheckboxFilterControl in the template.");
-          var selectableNames = _ViewModels.Instance.UcdBlocks.Select(item => item.BlockName).ToArray();
-          checkboxFilterControl.ItemsSource = selectableNames;
-          e.ItemsSource = selectableNames.Select(name => new FilterElement { ActualValue = name }).ToArray();
-          // Perform operations on the checkboxFilterControl
-          e.Handled = true;
-        }
-      }
+          if (obj is FilterElement filterElement && filterElement.ActualValue is UcdBlockViewModel val)
+            return val.Name;
+          return "";
+        },
+      }).ToArray();
+      e.ItemsSource = UcdBlockFilters;
+      e.Handled = true;
     }
     else
     if (e.Column.MappingName == "UcdRangeName")
@@ -108,6 +116,47 @@ public partial class UcdCodePointsView : UserControl
           e.Handled = true;
         }
       }
+    }
+  }
+
+  private FilterElement[] UcdBlockFilters = null!;
+
+  private void BlockFilterControl_OkButtonClick(object? sender, OkButtonClikEventArgs e)
+  {
+    if (sender is not GridFilterControl filterControl)
+      return;
+    var filterPredicates = UcdBlockColumn.FilterPredicates;
+    filterPredicates.Clear();
+    foreach (var filterElement in UcdBlockFilters)
+    {
+      if (filterElement.IsSelected)
+      {
+        filterPredicates.Add(new FilterPredicate
+        {
+          FilterValue = filterElement.ActualValue,
+          FilterType = FilterType.Equals
+        });
+      }
+    }
+    if (CodePointDataGrid.View is CollectionViewAdv collectionView)
+    {
+      // Clear existing filters
+      collectionView.Filter = null;
+
+      // Define a new filter
+      var filterBlock = _ViewModels.Instance.UcdBlocks.FirstOrDefault(item => item.Id == 1);
+      collectionView.Filter = item =>
+      {
+        if (item is UcdCodePointViewModel codePoint)
+        {
+          // Example: Filter rows where GlyphSize is greater than 12
+          return codePoint.UcdBlock?.Id == 1;
+        }
+        return false;
+      };
+
+      // Refresh the view to apply the filter
+      collectionView.Refresh();
     }
   }
 

@@ -159,10 +159,16 @@
   <data name="WritingSystemTooltip" xml:space="preserve">
     <value>System pisania, do którego należy ten punkt kodu. Można wybrać skrypt, język lub artefakt, notację, zbiór lub podzbiór znaków.</value>
   </data>
-  <data name="ApplyScriptMapping" xml:space="preserve">
-    <value>Zastosuj mapowanie pism</value>
+  <data name="ApplyScriptMappingFromFile" xml:space="preserve">
+    <value>Zastosuj mapowanie pisma z pliku</value>
   </data>
-  <data name="ApplyScriptMappingTooltip" xml:space="preserve">
-    <value>Zastosuj mapowanie pism z pliku "Scripts.txt". Plik ten można pobrać z bazy danych UCD z witryny Unicode.org/public.</value>
+  <data name="ApplyScriptMappingFromFileTooltip" xml:space="preserve">
+    <value>Zastosuj mapowanie pisma z pliku "Scripts.txt". Plik ten można pobrać z bazy danych UCD z witryny Unicode.org/public.</value>
+  </data>
+  <data name="ApplyBlockMapping" xml:space="preserve">
+    <value>Zastosuj mapowanie bloków</value>
+  </data>
+  <data name="ApplyBlockMappingConfirm" xml:space="preserve">
+    <value>Czy na pewno chcesz zastosować mapowanie bloków na podstawie ich reguł? Jeśli tak, to wszystkie pola "blok" zostaną zaktualizowane.</value>
   </data>
 </root>
