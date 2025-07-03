@@ -135,38 +135,7 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>
   public string? Title { get => Model.Title; set { if (Model.Title!=value) { Model.Title = value; NotifyPropertyChanged(nameof(Title)); } } }
   //public ICollection<Alias> Aliases { get; set; } = new List<Alias>();
 
-  public int? WritingSystemId { get => Model.WritingSystem; set { if (Model.WritingSystem != value) { Model.WritingSystem = value; NotifyPropertyChanged(nameof(WritingSystemId)); } } }
-
-  public WritingSystemViewModel? WritingSystem
-  {
-    get
-    {
-      var result = Model.WritingSystem is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.WritingSystem);
-      return result;
-    }
-    set
-    {
-      if (value is not null)
-      {
-        if (value.Id != WritingSystemId)
-        {
-          WritingSystemId = value?.Id;
-          NotifyPropertyChanged(nameof(WritingSystem));
-        }
-      }
-      else
-      {
-        if (WritingSystemId is not null)
-        {
-          WritingSystemId = null;
-          NotifyPropertyChanged(nameof(WritingSystem));
-        }
-      }
-    }
-  }
-
-  public int? UcdBlockId { get => Model.WritingSystem; set { if (Model.Block != value) { Model.Block = value; NotifyPropertyChanged(nameof(UcdBlockId)); } } }
-
+  public int? UcdBlockId { get => Model.Script; set { if (Model.Block != value) { Model.Block = value; NotifyPropertyChanged(nameof(UcdBlockId)); } } }
   public UcdBlockViewModel? UcdBlock
   {
     get
@@ -186,7 +155,7 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>
       }
       else
       {
-        if (UcdBlockId is not null)
+        if (UcdBlockId is not null)                               
         {
           UcdBlockId = null;
           NotifyPropertyChanged(nameof(UcdBlock));
@@ -194,23 +163,208 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>
       }
     }
   }
-  //private UcdBlockViewModel? _UcdBlock;
 
-  public string? UcdBlockName => UcdBlock?.Name;
-
-  public UcdRangeViewModel? UcdRange
+  public int? AreaId { get => Model.Area; set { if (Model.Area != value) { Model.Area = value; NotifyPropertyChanged(nameof(AreaId)); } } }
+  public WritingSystemViewModel? Area
   {
     get
     {
-      if (_UcdRange is not null)
-        return _UcdRange;
-      var code = Id;
-      _UcdRange = _ViewModels.Instance.UcdRanges.FirstOrDefault(x => x.Contains(code));
-      return _UcdRange;
+      var result = Model.Area is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.Area);
+      return result;
+    }
+    set
+    {
+      if (value is not null)
+      {
+        if (value.Id != AreaId)
+        {
+          AreaId = value?.Id;
+          NotifyPropertyChanged(nameof(Area));
+        }
+      }
+      else
+      {
+        if (AreaId is not null)
+        {
+          AreaId = null;
+          NotifyPropertyChanged(nameof(Area));
+        }
+      }
     }
   }
 
-  private UcdRangeViewModel? _UcdRange;
+  public int? ScriptId { get => Model.Script; set { if (Model.Script != value) { Model.Script = value; NotifyPropertyChanged(nameof(ScriptId)); } } }
+  public WritingSystemViewModel? Script
+  {
+    get
+    {
+      var result = Model.Script is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.Script);
+      return result;
+    }
+    set
+    {
+      if (value is not null)
+      {
+        if (value.Id != ScriptId)
+        {
+          ScriptId = value?.Id;
+          NotifyPropertyChanged(nameof(Script));
+        }
+      }
+      else
+      {
+        if (ScriptId is not null)
+        {
+          ScriptId = null;
+          NotifyPropertyChanged(nameof(Script));
+        }
+      }
+    }
+  }
 
-  public string? UcdRangeName => UcdRange?.RangeName;
+  public int? LanguageId { get => Model.Language; set { if (Model.Language != value) { Model.Language = value; NotifyPropertyChanged(nameof(LanguageId)); } } }
+  public WritingSystemViewModel? Language
+  {
+    get
+    {
+      var result = Model.Language is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.Language);
+      return result;
+    }
+    set
+    {
+      if (value is not null)
+      {
+        if (value.Id != LanguageId)
+        {
+          LanguageId = value?.Id;
+          NotifyPropertyChanged(nameof(Language));
+        }
+      }
+      else
+      {
+        if (LanguageId is not null)
+        {
+          LanguageId = null;
+          NotifyPropertyChanged(nameof(Language));
+        }
+      }
+    }
+  }
+
+  public int? NotationId { get => Model.Notation; set { if (Model.Notation != value) { Model.Notation = value; NotifyPropertyChanged(nameof(NotationId)); } } }
+  public WritingSystemViewModel? Notation
+  {
+    get
+    {
+      var result = Model.Notation is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.Notation);
+      return result;
+    }
+    set
+    {
+      if (value is not null)
+      {
+        if (value.Id != NotationId)
+        {
+          NotationId = value?.Id;
+          NotifyPropertyChanged(nameof(Notation));
+        }
+      }
+      else
+      {
+        if (NotationId is not null)
+        {
+          NotationId = null;
+          NotifyPropertyChanged(nameof(Notation));
+        }
+      }
+    }
+  }
+
+  public int? SymbolSetId { get => Model.SymbolSet; set { if (Model.SymbolSet != value) { Model.SymbolSet = value; NotifyPropertyChanged(nameof(SymbolSetId)); } } }
+  public WritingSystemViewModel? SymbolSet
+  {
+    get
+    {
+      var result = Model.SymbolSet is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.SymbolSet);
+      return result;
+    }
+    set
+    {
+      if (value is not null)
+      {
+        if (value.Id != SymbolSetId)
+        {
+          SymbolSetId = value?.Id;
+          NotifyPropertyChanged(nameof(SymbolSet));
+        }
+      }
+      else
+      {
+        if (SymbolSetId is not null)
+        {
+          SymbolSetId = null;
+          NotifyPropertyChanged(nameof(SymbolSet));
+        }
+      }
+    }
+  }
+
+  public int? SubsetId { get => Model.Subset; set { if (Model.Subset != value) { Model.Subset = value; NotifyPropertyChanged(nameof(SubsetId)); } } }
+  public WritingSystemViewModel? Subset
+  {
+    get
+    {
+      var result = Model.Subset is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.Subset);
+      return result;
+    }
+    set
+    {
+      if (value is not null)
+      {
+        if (value.Id != SubsetId)
+        {
+          SubsetId = value?.Id;
+          NotifyPropertyChanged(nameof(Subset));
+        }
+      }
+      else
+      {
+        if (SubsetId is not null)
+        {
+          SubsetId = null;
+          NotifyPropertyChanged(nameof(Subset));
+        }
+      }
+    }
+  }
+
+  public int? ArtefactId { get => Model.Artefact; set { if (Model.Artefact != value) { Model.Artefact = value; NotifyPropertyChanged(nameof(ArtefactId)); } } }
+  public WritingSystemViewModel? Artefact
+  {
+    get
+    {
+      var result = Model.Artefact is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.Artefact);
+      return result;
+    }
+    set
+    {
+      if (value is not null)
+      {
+        if (value.Id != ArtefactId)
+        {
+          ArtefactId = value?.Id;
+          NotifyPropertyChanged(nameof(Artefact));
+        }
+      }
+      else
+      {
+        if (ArtefactId is not null)
+        {
+          ArtefactId = null;
+          NotifyPropertyChanged(nameof(Artefact));
+        }
+      }
+    }
+  }
+
 }

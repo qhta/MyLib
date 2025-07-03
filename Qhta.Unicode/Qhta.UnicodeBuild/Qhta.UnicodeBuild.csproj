@@ -67,6 +67,7 @@
     <Compile Remove="Models\Textcomp.cs" />
     <Compile Remove="Models\Uc.cs" />
     <Compile Remove="Models\UcdBlockWritingSystem.cs" />
+    <Compile Remove="Models\UcdRange.cs" />
     <Compile Remove="Models\UcdRangesStartEnd.cs" />
     <Compile Remove="Models\UnicodeData13.cs" />
     <Compile Remove="Models\Webding.cs" />
@@ -74,6 +75,9 @@
     <Compile Remove="Models\Word.cs" />
     <Compile Remove="Models\Zapfdingbat.cs" />
     <Compile Remove="ViewModels\ExtendedViewModel`1.cs" />
+    <Compile Remove="ViewModels\UcdRangeCollection.cs" />
+    <Compile Remove="ViewModels\UcdRangeViewModel.cs" />
+    <Compile Remove="Views\UcdRangesView.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,7 +90,6 @@
     <None Remove="Assets\Language.png" />
     <None Remove="Assets\Notation.png" />
     <None Remove="Assets\Script.png" />
-    <None Remove="Assets\Set.png" />
     <None Remove="Assets\Subset.png" />
     <None Remove="Assets\_Empty.png" />
   </ItemGroup>
@@ -96,6 +99,7 @@
     <Page Remove="Resources\SfBlendStyle.xaml" />
     <Page Remove="Resources\SfCollectionEditor.xaml" />
     <Page Remove="Resources\SfDataGrid.xaml" />
+    <Page Remove="Views\UcdRangesView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -160,7 +164,7 @@
     <Resource Include="Assets\Script.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\Set.png">
+    <Resource Include="Assets\SymbolSet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Subset.png">
@@ -258,6 +262,9 @@
   <ItemGroup>
     <None Update="appSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Block-WritingSystem.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Scripts.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

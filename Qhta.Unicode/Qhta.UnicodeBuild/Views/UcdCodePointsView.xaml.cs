@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using PropertyTools.Wpf;
 
 using Qhta.UnicodeBuild.Helpers;
+using Qhta.UnicodeBuild.Resources;
 using Qhta.UnicodeBuild.ViewModels;
 
 using Syncfusion.Data;
@@ -78,108 +79,65 @@ public partial class UcdCodePointsView : UserControl
 
   private void CodePointDataGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e)
   {
-    if (e.Column.MappingName == "UcdBlock")
+    if (e.Column.MappingName == nameof(UcdCodePointViewModel.UcdBlock))
+      SetBlockFilter();
+    else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Area))
+      SetWritingSystemFilter(_ViewModels.Instance.SelectableAreas);
+    else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Script))
+      SetWritingSystemFilter(_ViewModels.Instance.SelectableScripts);
+    else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Language))
+      SetWritingSystemFilter(_ViewModels.Instance.SelectableLanguages);
+    else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Notation))
+      SetWritingSystemFilter(_ViewModels.Instance.SelectableNotations);
+    else if (e.Column.MappingName == nameof(UcdCodePointViewModel.SymbolSet))
+      SetWritingSystemFilter(_ViewModels.Instance.SelectableSymbolSets);
+    else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Subset))
+      SetWritingSystemFilter(_ViewModels.Instance.SelectableSubsets);
+    else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Artefact))
+      SetWritingSystemFilter(_ViewModels.Instance.SelectableArtefacts);
+
+    void SetBlockFilter()
     {
       GridFilterControl filterControl = e.FilterControl;
       filterControl.SortOptionVisibility = Visibility.Collapsed;
       filterControl.FilterMode = FilterMode.CheckboxFilter;
       var selectableItems = _ViewModels.Instance.UcdBlocks.OrderBy(item => item.Name).ToArray();
 
-      UcdBlockFilters = selectableItems.Select(item => new FilterElement
+      var UcdBlockFilters = selectableItems.Select(item => new FilterElement
       {
         ActualValue = item,
         FormattedString = (object obj) =>
         {
           if (obj is FilterElement filterElement && filterElement.ActualValue is UcdBlockViewModel val)
-            return val.Name;
+            return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.EmptyItem;
           return "";
         },
       }).ToArray();
       e.ItemsSource = UcdBlockFilters;
       e.Handled = true;
     }
-    else
-    if (e.Column.MappingName == "UcdRangeName")
+
+    void SetWritingSystemFilter(IEnumerable<WritingSystemViewModel> sourceCollection)
     {
-      e.FilterControl.FilterMode = FilterMode.CheckboxFilter;
-      var filterControlTemplate = e.FilterControl.Template;
-      if (filterControlTemplate != null)
-      {
-        // Find the element by its Name within the template
-        if (filterControlTemplate.FindName("PART_CheckboxFilterControl", e.FilterControl) is CheckboxFilterControl checkboxFilterControl)
+      GridFilterControl filterControl = e.FilterControl;
+      filterControl.SortOptionVisibility = Visibility.Collapsed;
+      filterControl.FilterMode = FilterMode.CheckboxFilter;
+      var selectableItems = sourceCollection.OrderBy(item => item.Name).ToArray();
+
+      var WritingSystemFilters = selectableItems.Select(item => new FilterElement
+      { 
+        ActualValue = item,
+        FormattedString = (object obj) =>
         {
-          //Debug.WriteLine("Found CheckboxFilterControl in the template.");
-          var selectableNames = _ViewModels.Instance.UcdRanges.Select(item => item.RangeName).ToArray();
-          checkboxFilterControl.ItemsSource = selectableNames;
-          e.ItemsSource = selectableNames.Select(name => new FilterElement { ActualValue = name }).ToArray();
-          // Perform operations on the checkboxFilterControl
-          e.Handled = true;
-        }
-      }
+          if (obj is FilterElement filterElement && filterElement.ActualValue is WritingSystemViewModel val)
+            return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.EmptyItem;
+          return "";
+        },
+      }).ToArray();
+      e.ItemsSource = WritingSystemFilters;
+      e.Handled = true;
     }
   }
-
-  private FilterElement[] UcdBlockFilters = null!;
-
-  private void BlockFilterControl_OkButtonClick(object? sender, OkButtonClikEventArgs e)
-  {
-    if (sender is not GridFilterControl filterControl)
-      return;
-    var filterPredicates = UcdBlockColumn.FilterPredicates;
-    filterPredicates.Clear();
-    foreach (var filterElement in UcdBlockFilters)
-    {
-      if (filterElement.IsSelected)
-      {
-        filterPredicates.Add(new FilterPredicate
-        {
-          FilterValue = filterElement.ActualValue,
-          FilterType = FilterType.Equals
-        });
-      }
-    }
-    if (CodePointDataGrid.View is CollectionViewAdv collectionView)
-    {
-      // Clear existing filters
-      collectionView.Filter = null;
-
-      // Define a new filter
-      var filterBlock = _ViewModels.Instance.UcdBlocks.FirstOrDefault(item => item.Id == 1);
-      collectionView.Filter = item =>
-      {
-        if (item is UcdCodePointViewModel codePoint)
-        {
-          // Example: Filter rows where GlyphSize is greater than 12
-          return codePoint.UcdBlock?.Id == 1;
-        }
-        return false;
-      };
-
-      // Refresh the view to apply the filter
-      collectionView.Refresh();
-    }
-  }
-
-
 }
 
-//public class CustomFilter : IGridFilter
-//{
-//  public Predicate<object> Filter { get; private set; }
-
-//  public void ApplyFilter(GridColumn column, FilterPredicate filterPredicate, FilterType filterType)
-//  {
-//    if (filterPredicate == null || filterPredicate.FilterValue == null)
-//    {
-//      Filter = null; return;
-//    } 
-//    string filterValue = filterPredicate.FilterValue.ToString(); 
-//    Filter = new Predicate<object>(item => 
-//    { 
-//      var propertyValue = column.GetValue(item); 
-//      return propertyValue != null && propertyValue.ToString().Contains(filterValue);
-//    });
-//  }
-//  public void ClearFilter() { Filter = null; }
-//}
 

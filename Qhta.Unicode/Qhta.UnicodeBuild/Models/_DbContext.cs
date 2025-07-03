@@ -22,13 +22,9 @@ public partial class _DbContext : DbContext
   {
   }
 
-                                                 
-  public virtual DbSet<UcdBlock> UcdBlocks { get; set; }
-
-  
-  public virtual DbSet<UcdRange> UcdRanges { get; set; }
-
   public virtual DbSet<UcdCodePoint> CodePoints { get; set; }
+
+  public virtual DbSet<UcdBlock> UcdBlocks { get; set; }
 
   public virtual DbSet<WritingSystem> WritingSystems { get; set; }
 
@@ -98,30 +94,30 @@ public partial class _DbContext : DbContext
         .HasForeignKey(ub => ub.WritingSystemId);
     });
 
-    modelBuilder.Entity<UcdRange>(entity =>
-    {
-      entity.HasKey(e => e.Id).HasName("PrimaryKey");
+    //modelBuilder.Entity<UcdRange>(entity =>
+    //{
+    //  entity.HasKey(e => e.Id).HasName("PrimaryKey");
       
-      entity.HasIndex(e => e.Range, "Range");
-      entity.HasIndex(e => e.BlockId, "BlockID");
-      entity.HasIndex(e => e.WritingSystemId, "WritingSystemID");
+    //  entity.HasIndex(e => e.Range, "Range");
+    //  entity.HasIndex(e => e.BlockId, "BlockID");
+    //  entity.HasIndex(e => e.WritingSystemId, "WritingSystemID");
 
-      entity.Property(e => e.Range)
-              .HasMaxLength(12)
-              .HasColumnName("Range");
-      entity.Property(e => e.Language).HasMaxLength(255);
-      entity.Property(e => e.RangeName).HasMaxLength(255);
-      entity.Property(e => e.Standard).HasMaxLength(255);
-      entity.Property(e => e.WritingSystemId).HasColumnName("WritingSystemID");
+    //  entity.Property(e => e.Range)
+    //          .HasMaxLength(12)
+    //          .HasColumnName("Range");
+    //  entity.Property(e => e.Language).HasMaxLength(255);
+    //  entity.Property(e => e.RangeName).HasMaxLength(255);
+    //  entity.Property(e => e.Standard).HasMaxLength(255);
+    //  entity.Property(e => e.WritingSystemId).HasColumnName("WritingSystemID");
 
-      entity.HasOne(d => d.UcdBlock).WithMany(p => p.UcdRanges)
-        .HasForeignKey(d => d.BlockId);
+    //  entity.HasOne(d => d.UcdBlock).WithMany(p => p.UcdRanges)
+    //    .HasForeignKey(d => d.BlockId);
 
-      entity.HasOne(d => d.WritingSystem).WithMany(p => p.UcdRanges)
-        .HasForeignKey(d => d.WritingSystemId);
+    //  entity.HasOne(d => d.WritingSystem).WithMany(p => p.UcdRanges)
+    //    .HasForeignKey(d => d.WritingSystemId);
 
 
-    });
+    //});
 
     modelBuilder.Entity<UcdCodePoint>(entity =>
     {

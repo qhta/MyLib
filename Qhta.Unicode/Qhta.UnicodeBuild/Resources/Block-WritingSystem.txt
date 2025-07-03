@@ -1,0 +1,286 @@
+0100..017F	Latin
+0180..024F	Latin
+0250..02AF	IPA
+0300..036F	Combining Diacritic Symbols
+0500..052F	Cyrillic
+0530..058F	Armenian
+0590..05FF	Hebrew
+0700..074F	Syriac
+0750..077F	Arabic
+0780..07BF	Thaana
+07C0..07FF	Nko
+0800..083F	Samaritan
+0840..085F	Mandaic
+0860..086F	Syriac
+0870..089F	Arabic
+0980..09FF	Bengali
+0A00..0A7F	Gurmukhi
+0A80..0AFF	Gujarati
+0B00..0B7F	Oriya
+0B80..0BFF	Tamil
+0C00..0C7F	Telugu
+0C80..0CFF	Kannada
+0D00..0D7F	Malayalam
+0D80..0DFF	Sinhala
+0E80..0EFF	Lao
+1000..109F	Myanmar
+1100..11FF	Hangul
+1200..137F	Ethiopic
+1380..139F	Ethiopic
+13A0..13FF	Cherokee
+1400..167F	Canadian Aboriginal
+1680..169F	Ogham
+1700..171F	Tagalog
+1740..175F	Buhid
+1760..177F	Tagbanwa
+1780..17FF	Khmer
+18B0..18FF	Canadian Aboriginal
+1900..194F	Limbu
+1950..197F	Tai Le
+1980..19DF	New Tai Lue
+19E0..19FF	Khmer
+1A00..1A1F	Buginese
+1A20..1AAF	Tai Tham
+1AB0..1AFF	Combining Diacritic Symbols
+1B00..1B7F	Balinese
+1B80..1BBF	Sundanese
+1BC0..1BFF	Batak
+1C00..1C4F	Lepcha
+1C50..1C7F	Ol Chiki
+1C80..1C8F	Cyrillic
+1C90..1CBF	Georgian
+1CC0..1CCF	Sundanese
+1DC0..1DFF	Combining Diacritic Symbols
+1E00..1EFF	Latin
+1F00..1FFF	Greek
+20A0..20CF	Currency Symbols
+20D0..20FF	Combining Diacritic Symbols
+2190..21FF	Arrows and Harpoons
+2200..22FF	Mathematical
+2300..23FF	Technical and science
+2400..243F	Control Char Symbols
+2440..245F	OCR Symbols
+2460..24FF	Enclosed
+2500..257F	Box Drawings
+2580..259F	Block Drawings
+25A0..25FF	Shapes
+2600..26FF	Technical and science
+2700..27BF	Dingbat Symbols
+27C0..27EF	Mathematical
+27F0..27FF	Arrows
+2800..28FF	Braille
+2900..297F	Arrows and Harpoons
+2980..29FF	Mathematical
+2A00..2AFF	Mathematical
+2B00..2BFF	Arrows
+2C00..2C5F	Glagolitic
+2C60..2C7F	Latin
+2C80..2CFF	Coptic
+2D00..2D2F	Georgian
+2D30..2D7F	Tifinagh
+2D80..2DDF	Ethiopic
+2DE0..2DFF	Cyrillic
+2E00..2E7F	Punctuations
+2E80..2EFF	CJK Compatibility
+2F00..2FDF	Kangxi Radicals
+2FF0..2FFF	Ideographic Description Characters
+3100..312F	Bopomofo
+3130..318F	Hangul
+3190..319F	Kanbun
+31A0..31BF	Bopomofo
+31C0..31EF	CJK Compatibility
+31F0..31FF	Katakana
+3400..4DBF	CJK Unified Ideographs
+4DC0..4DFF	Hexagrams
+4E00..9FFF	CJK Unified Ideographs
+A000..A48F	Yi Syllable
+A490..A4CF	Yi Radicals
+A4D0..A4FF	Lisu
+A500..A63F	Vai
+A640..A69F	Cyrillic
+A6A0..A6FF	Bamum
+A700..A71F	Modi
+A800..A82F	Syloti Nagri
+A830..A83F	North Indic Numerics
+A840..A87F	Phags Pa
+A880..A8DF	Saurashtra
+A8E0..A8FF	Devanagari
+A930..A95F	Rejang
+A960..A97F	Hangul
+A9E0..A9FF	Myanmar
+AA00..AA5F	Cham
+AA60..AA7F	Myanmar
+AA80..AADF	Tai Viet
+AAE0..AAFF	Meetei Mayek
+AB00..AB2F	Ethiopic
+AB70..ABBF	Cherokee
+ABC0..ABFF	Meetei Mayek
+AC00..D7AF	Hangul
+D7B0..D7FF	Hangul
+D800..DB7F	Surrogates
+DB80..DBFF	Surrogates
+DC00..DFFF	Surrogates
+E000..F8FF	Private Use
+F900..FAFF	CJK Compatibility
+FE00..FE0F	Variation Selectors
+FE10..FE1F	Vertical Forms
+FE30..FE4F	CJK Compatibility
+FE50..FE6F	Small Forms
+FFF0..FFFF	Special Symbols
+10000..1007F	Linear B
+10080..100FF	Linear B
+10100..1013F	Aegean Numerals
+10140..1018F	Greek
+10280..1029F	Lycian
+102A0..102DF	Carian
+10300..1032F	Old Italic
+10330..1034F	Gothic
+10350..1037F	Old Permic
+10380..1039F	Ugaritic
+103A0..103DF	Old Persian
+10400..1044F	Deseret
+10450..1047F	Shavian
+10480..104AF	Osmanya
+104B0..104FF	Osage
+10500..1052F	Elbasan
+10530..1056F	Caucasian Albanian
+10570..105BF	Vithkuqi
+105C0..105FF	Todhri
+10600..1077F	Linear A
+10780..107BF	Latin
+10800..1083F	Cypriot
+10840..1085F	Imperial Aramaic
+10860..1087F	Palmyrene
+10880..108AF	Nabataean
+108E0..108FF	Hatran
+10900..1091F	Phoenician
+10920..1093F	Lydian
+10980..1099F	Meroitic Hieroglyphs
+109A0..109FF	Meroitic Cursive
+10A00..10A5F	Kharoshthi
+10A60..10A7F	Old South Arabian
+10A80..10A9F	Old North Arabian
+10AC0..10AFF	Manichaean
+10B00..10B3F	Avestan
+10B40..10B5F	Inscriptional Parthian
+10B60..10B7F	Inscriptional Pahlavi
+10B80..10BAF	Psalter Pahlavi
+10C00..10C4F	Old Turkic
+10C80..10CFF	Old Hungarian
+10D00..10D3F	Rohingya
+10D40..10D8F	Garay
+10E60..10E7F	Rumi Numerals
+10E80..10EBF	Yezidi
+10EC0..10EFF	Arabic
+10F00..10F2F	Sogdian
+10F30..10F6F	Sogdian
+10F70..10FAF	Old Uyghur
+10FB0..10FDF	Chorasmian
+10FE0..10FFF	Elymaic
+11000..1107F	Brahmi
+11080..110CF	Kaithi
+110D0..110FF	Sora Sompeng
+11100..1114F	Chakma
+11150..1117F	Mahajani
+11180..111DF	Sharada
+111E0..111FF	Sinhala
+11200..1124F	Khojki
+11280..112AF	Multani
+112B0..112FF	Khudawadi
+11380..113FF	Tulu Tigalari
+11400..1147F	Newa
+11480..114DF	Tirhuta
+11580..115FF	Siddham
+11600..1165F	Modi
+11660..1167F	Mongolian
+11680..116CF	Takri
+116D0..116FF	Myanmar
+1E900..1E95F	Ahom
+11800..1184F	Dogra
+118A0..118FF	Warang Citi
+11900..1195F	Dives Akuru
+119A0..119FF	Nandinagari
+11A00..11A4F	Zanabazar Square
+11A50..11AAF	Soyombo
+11AB0..11ABF	Canadian Aboriginal
+11AC0..11AFF	Pau Cin Hau
+11B00..11B5F	Devanagari
+11BC0..11BFF	Sunuwar
+11C00..11C6F	Bhaiksuki
+11C70..11CBF	Marchen
+11D00..11D5F	Masaram Gondi
+11D60..11DAF	Gunjala Gondi
+11EE0..11EFF	Makasar
+11F00..11F5F	Kawi
+11FB0..11FBF	Lisu
+11FC0..11FFF	Tamil
+12000..123FF	Cuneiform
+12400..1247F	Cuneiform
+12480..1254F	Cuneiform
+12F90..12FFF	Cypro-Minoan
+13000..1342F	Egyptian Hieroglyphs
+13430..1345F	Egyptian Hieroglyphs
+13460..143FF	Egyptian Hieroglyphs
+14400..1467F	Anatolian Hieroglyphs
+16100..1613F	Gurung Khema
+16800..16A3F	Bamum
+16A40..16A6F	Mro
+16A70..16ACF	Tangsa
+16AD0..16AFF	Bassa Vah
+16B00..16B8F	Pahawh Hmong
+16D40..16D7F	Kirat Rai
+16E40..16E9F	Medefaidrin
+16F00..16F9F	Miao
+17000..187FF	Tangut
+18800..18AFF	Tangut
+18B00..18CFF	Khitan Small
+18D00..18D7F	Tangut
+1AFF0..1AFFF	Japanese scripts
+1B170..1B2FF	Nushu
+1BC00..1BC9F	Duployan
+1BCA0..1BCAF	Shorthand Format Chars
+1D000..1D0FF	Musical Symbols
+1D200..1D24F	Greek
+1D2C0..1D2DF	Numeric Symbols
+1D2E0..1D2FF	Numeric Symbols
+1D300..1D35F	Yijing Symbols
+1D360..1D37F	Numeric Symbols
+1D400..1D7FF	Mathematical
+1D800..1DAAF	Signwriting
+1DF00..1DFFF	Latin
+1E000..1E02F	Glagolitic
+1E030..1E08F	Cyrillic
+1E100..1E14F	Nyiakeng Puachue Hmong
+1E290..1E2BF	Toto
+1E2C0..1E2FF	Wancho
+1E4D0..1E4FF	Nag Mundari
+1E5D0..1E5FF	Ol Onal
+1E7E0..1E7FF	Ethiopic
+1E800..1E8DF	Mende Kikakui
+1E900..1E95F	Adlam
+1EC70..1ECBF	Indic Siyaq Numerals
+1ED00..1ED4F	Ottoman Siyaq Numerals
+1EE00..1EEFF	Mathematical
+1F000..1F02F	Mahjong Tiles
+1F030..1F09F	Domino Tiles
+1F0A0..1F0FF	Playing Card Symbols
+1F100..1F1FF	Enclosed
+1F600..1F64F	Emoticons
+1F650..1F67F	Dingbat Symbols
+1F700..1F77F	Alchemical
+1F800..1F8FF	Arrows
+1FA00..1FA6F	Chess
+20000..2A6DF	CJK Unified Ideographs
+2A700..2B73F	CJK Unified Ideographs
+2B740..2B81F	CJK Unified Ideographs
+2B820..2CEAF	CJK Unified Ideographs
+2CEB0..2EBEF	CJK Unified Ideographs
+2EBF0..2EE5F	CJK Unified Ideographs
+2F800..2FA1F	CJK Compatibility
+30000..3134F	CJK Unified Ideographs
+31350..323AF	CJK Unified Ideographs
+E0000..E007F	Tags
+E0100..E01EF	Variation Selectors
+F0000..FFFFF	Private Use
+100000..10FFFF	Private Use
+

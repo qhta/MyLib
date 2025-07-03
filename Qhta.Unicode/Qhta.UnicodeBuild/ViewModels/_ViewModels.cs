@@ -1,18 +1,8 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-
-using Microsoft.VisualBasic;
+﻿using System.Windows;
 
 using Qhta.DeepCopy;
 using Qhta.MVVM;
 using Qhta.Unicode.Models;
-using Qhta.UnicodeBuild.Helpers;
-
-using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -60,16 +50,6 @@ public partial class _ViewModels : IDisposable
         WritingSystemKindsList.Add(new WritingSystemKindViewModel(wsk));
       }
 
-
-      foreach (var ur in _Context.UcdRanges
-                 //.Include(ub => ub.WritingSystem)
-                 //.Include(ub => ub.UcdRanges)
-                 .ToList())
-      {
-        UcdRanges.Add(ur);
-        //Debug.WriteLine($"{ub.BlockName}.UcdRanges = {ub.UcdRanges.Count}");
-      }
-
       foreach (var ub in _Context.UcdBlocks
                  .ToList())
       {
@@ -83,23 +63,20 @@ public partial class _ViewModels : IDisposable
       }
       WritingSystems.IsLoaded = true;
 
-      //int i = 0;
       foreach (var cp in _Context.CodePoints)
       {
-        //if (i++ >= 1000) break;
         UcdCodePoints.Add(cp);
       }
-
     }
 
     NewWritingSystemCommand = new RelayCommand<WritingSystemType?>(NewWritingSystemCommandExecute);
     EditWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(EditWritingSystemCommandExecute);
     DeleteWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(DeleteWritingSystemCommandExecute, CanDeleteWritingSystem);
-    ApplyScriptMappingCommand = new RelayCommand(ApplyScriptMappingCommandExecute);
-    BreakApplyScriptMappingCommand = new RelayCommand(BreakApplyScriptMappingCommandExecute);
-    ApplyScriptMappingBackgroundWorker.DoWork += ApplyScriptMapping_DoWork;
-    ApplyScriptMappingBackgroundWorker.ProgressChanged += ApplyScriptMapping_ProgressChanged;
-    ApplyScriptMappingBackgroundWorker.RunWorkerCompleted += ApplyScriptMapping_RunWorkerCompleted;
+    ApplyWritingSystemMappingCommand = new RelayCommand(ApplyWritingSystemMappingCommandExecute);
+    BreakApplyWritingSystemMappingCommand = new RelayCommand(BreakApplyWritingSystemMappingCommandExecute);
+    ApplyWritingSystemMappingBackgroundWorker.DoWork += ApplyWritingSystemMapping_DoWork;
+    ApplyWritingSystemMappingBackgroundWorker.ProgressChanged += ApplyWritingSystemMapping_ProgressChanged;
+    ApplyWritingSystemMappingBackgroundWorker.RunWorkerCompleted += ApplyWritingSystemMapping_RunWorkerCompleted;
     ApplyBlockMappingCommand = new RelayCommand(ApplyBlockMappingCommandExecute);
     BreakApplyBlockMappingCommand = new RelayCommand(BreakApplyBlockMappingCommandExecute);
     ApplyBlockMappingBackgroundWorker.DoWork += ApplyBlockMapping_DoWork;
@@ -108,21 +85,20 @@ public partial class _ViewModels : IDisposable
   }
 
 
+  public UcdCodePointsCollection UcdCodePoints { get; set; } = new();
   public UcdBlocksCollection UcdBlocks { get; set; } = new();
-  public UcdRangeCollection UcdRanges { get; set; } = new();
   public WritingSystemsCollection WritingSystems { get; set; } = new();
   public List<WritingSystemTypeViewModel> WritingSystemTypesList { get; } = new();
   public List<WritingSystemKindViewModel> WritingSystemKindsList { get; } = new();
   public Array WritingSystemTypes { get; } = Enum.GetValues(typeof(WritingSystemType));
   public Array WritingSystemKinds { get; } = Enum.GetValues(typeof(WritingSystemKind));
   public Array Categories { get; } = Enum.GetNames(typeof(UcdCategory));
-  public UcdCodePointsCollection UcdCodePoints { get; set; } = new();
 
   public IEnumerable<UcdBlockViewModel> SelectableBlocks
   {
     get
     {
-      var list = _ViewModels.Instance.UcdBlocks.Where(item => !String.IsNullOrEmpty(item.Name)) // items empty names are not selectable
+      var list = _ViewModels.Instance.UcdBlocks.Where(item => !String.IsNullOrEmpty(item.Name))
         .OrderBy(vm => vm.Name).ToList();
       list.Insert(0, dummyUcdBlockViewModel);
       return list;
@@ -130,39 +106,85 @@ public partial class _ViewModels : IDisposable
   }
   readonly UcdBlockViewModel dummyUcdBlockViewModel = new UcdBlockViewModel(new UcdBlock { BlockName = "" });
 
-  public IEnumerable<WritingSystemViewModel> SelectableWritingSystems
+  public IEnumerable<WritingSystemViewModel> SelectableAreas
   {
     get
     {
-      var list = _ViewModels.Instance.WritingSystems.Where(item => !item.Name!.StartsWith("<")) // items with special names are not selectable
+      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.Area)
         .OrderBy(vm => vm.FullName).ToList();
       list.Insert(0, dummyWritingSystemViewModel);
       return list;
     }
   }
-  readonly WritingSystemViewModel dummyWritingSystemViewModel = new WritingSystemViewModel(new WritingSystem { Name = "" });
 
-  public IEnumerable<UcdRangeViewModel> SelectableRanges
+
+  public IEnumerable<WritingSystemViewModel> SelectableScripts
   {
     get
     {
-      var list = _ViewModels.Instance.UcdRanges.Where(item => !String.IsNullOrWhiteSpace(item.RangeName))
-        .OrderBy(vm => vm.RangeName).ToList();
-      list.Insert(0, dummyRangeViewModel);
+      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.Script || item.Type == WritingSystemType.Family)
+        .OrderBy(vm => vm.FullName).ToList();
+      list.Insert(0, dummyWritingSystemViewModel);
       return list;
     }
   }
-  readonly UcdRangeViewModel dummyRangeViewModel = new UcdRangeViewModel(new UcdRange { Range = "" });
 
-  public void Dispose()
+  public IEnumerable<WritingSystemViewModel> SelectableLanguages
   {
-    if (_Context != null)
+    get
     {
-      _Context.SaveChanges();
-      _Context.Dispose();
-      _Context = null;
+      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.Language)
+        .OrderBy(vm => vm.FullName).ToList();
+      list.Insert(0, dummyWritingSystemViewModel);
+      return list;
     }
   }
+
+  public IEnumerable<WritingSystemViewModel> SelectableNotations
+  {
+    get
+    {
+      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.Notation)
+        .OrderBy(vm => vm.FullName).ToList();
+      list.Insert(0, dummyWritingSystemViewModel);
+      return list;
+    }
+  }
+
+  public IEnumerable<WritingSystemViewModel> SelectableSymbolSets
+  {
+    get
+    {
+      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.SymbolSet)
+        .OrderBy(vm => vm.FullName).ToList();
+      list.Insert(0, dummyWritingSystemViewModel);
+      return list;
+    }
+  }
+
+  public IEnumerable<WritingSystemViewModel> SelectableSubsets
+  {
+    get
+    {
+      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.Subset)
+        .OrderBy(vm => vm.FullName).ToList();
+      list.Insert(0, dummyWritingSystemViewModel);
+      return list;
+    }
+  }
+
+  public IEnumerable<WritingSystemViewModel> SelectableArtefacts
+  {
+    get
+    {
+      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.Artefact)
+        .OrderBy(vm => vm.FullName).ToList();
+      list.Insert(0, dummyWritingSystemViewModel);
+      return list;
+    }
+  }
+
+  readonly WritingSystemViewModel dummyWritingSystemViewModel = new WritingSystemViewModel(new WritingSystem { Name = "" });
 
   public int GetNewWritingSystemId()
   {
@@ -270,4 +292,9 @@ public partial class _ViewModels : IDisposable
     vmWindow.ShowDialog();
   }
 
+  public void Dispose()
+  {
+    ApplyWritingSystemMappingBackgroundWorker.Dispose();
+    ApplyBlockMappingBackgroundWorker.Dispose();
+  }
 }

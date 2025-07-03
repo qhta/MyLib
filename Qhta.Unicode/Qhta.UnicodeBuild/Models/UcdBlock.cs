@@ -23,5 +23,4 @@ public partial class UcdBlock
 
   public WritingSystem? WritingSystem { get; set; } // Navigation property
 
-  public virtual ICollection<UcdRange> UcdRanges { get; set; } = new List<UcdRange>();
 }

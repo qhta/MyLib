@@ -66,24 +66,6 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
     set => Model.WritingSystemId = value?.Id;
   }
 
-  public UcdRangeCollection Ranges
-  {
-    get
-    {
-      if (_Ranges == null)
-      {
-        _Ranges = new UcdRangeCollection();
-        foreach (var range in Model.UcdRanges)
-        {
-          var vm = new UcdRangeViewModel(range);
-          _Ranges.Add(vm);
-        }
-      }
-      return _Ranges;
-    }
-  } 
-  public UcdRangeCollection? _Ranges;
-
   public bool CanExpandLongText => !string.IsNullOrEmpty(Model.Comment);
   public string? LongText { get => Description; set => Description = value; }
 

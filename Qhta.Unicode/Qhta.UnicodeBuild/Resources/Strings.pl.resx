@@ -213,4 +213,7 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="WritingSystemNotFound" xml:space="preserve">
     <value>Nie znaleziono systemu pisma {0}</value>
   </data>
+  <data name="EmptyItem" xml:space="preserve">
+    <value>(Puste)</value>
+  </data>
 </root>

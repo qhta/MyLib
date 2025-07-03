@@ -151,6 +151,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Empty).
+        /// </summary>
+        public static string EmptyItem {
+            get {
+                return ResourceManager.GetString("EmptyItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {

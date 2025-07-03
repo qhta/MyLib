@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\App.xaml
-12-1058740686
+111527329135
 
-89-822159589
+851141457517
 266-1214752472
-AppResourceDictionary.xaml;Controls\RecordNavigationBar.xaml;InvisibleWindow.xaml;MainWindow.xaml;NewWindow.xaml;Themes\Generic.xaml;Views\EditWritingSystemWindow.xaml;Views\UcdBlocksView.xaml;Views\UcdCodePointsView.xaml;Views\UcdRangesView.xaml;Views\WritingSystemsView.xaml;Views\WritingSystemView.xaml;
+AppResourceDictionary.xaml;Controls\RecordNavigationBar.xaml;InvisibleWindow.xaml;MainWindow.xaml;NewWindow.xaml;Themes\Generic.xaml;Views\EditWritingSystemWindow.xaml;Views\UcdBlocksView.xaml;Views\UcdCodePointsView.xaml;Views\WritingSystemsView.xaml;Views\WritingSystemView.xaml;
 
 False
 

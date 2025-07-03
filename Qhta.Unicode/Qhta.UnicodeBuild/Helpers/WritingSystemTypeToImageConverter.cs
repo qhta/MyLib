@@ -12,13 +12,13 @@ public class WritingSystemTypeToImageConverter : IValueConverter
     {
       return type switch
       {
-        WritingSystemType.set => "pack://application:,,,/Assets/Set.png",
-        WritingSystemType.area => "pack://application:,,,/Assets/Area.png",
-        WritingSystemType.subset => "pack://application:,,,/Assets/Subset.png",
-        WritingSystemType.language => "pack://application:,,,/Assets/Language.png",
-        WritingSystemType.script => "pack://application:,,,/Assets/Script.png",
-        WritingSystemType.notation => "pack://application:,,,/Assets/Notation.png",
-        WritingSystemType.family => "pack://application:,,,/Assets/Family.png",
+        WritingSystemType.SymbolSet => "pack://application:,,,/Assets/SymbolSet.png",
+        WritingSystemType.Area => "pack://application:,,,/Assets/Area.png",
+        WritingSystemType.Subset => "pack://application:,,,/Assets/Subset.png",
+        WritingSystemType.Language => "pack://application:,,,/Assets/Language.png",
+        WritingSystemType.Script => "pack://application:,,,/Assets/Script.png",
+        WritingSystemType.Notation => "pack://application:,,,/Assets/Notation.png",
+        WritingSystemType.Family => "pack://application:,,,/Assets/Family.png",
         _ => "pack://application:,,,/Assets/_Empty.png"
       };
     }

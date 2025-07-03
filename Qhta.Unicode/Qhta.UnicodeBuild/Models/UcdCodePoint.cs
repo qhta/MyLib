@@ -46,7 +46,19 @@ public partial class UcdCodePoint
 
   public int? Block { get; set; }
 
-  public int? WritingSystem { get; set; }
+  public int? Area { get; set; }
+
+  public int? Script { get; set; }
+
+  public int? Language { get; set; }
+
+  public int? Notation { get; set; }
+
+  public int? SymbolSet { get; set; }
+
+  public int? Subset { get; set; }
+
+  public int? Artefact { get; set; }
 
   public virtual ICollection<Alias> Aliases { get; set; } = new List<Alias>();
 }

@@ -133,7 +133,7 @@
               Margin="{StaticResource RowMargin}"
               SelectedItem="{Binding Parent}"
               ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableWritingSystems}">
+            Path=Instance.SelectableScripts}">
     </ComboBox>
 
     <Label Grid.Row="4" Grid.Column="0" 

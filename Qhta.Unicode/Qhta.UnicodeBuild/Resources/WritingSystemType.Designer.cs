@@ -61,7 +61,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to area.
+        ///   Looks up a localized string similar to Area.
         /// </summary>
         public static string Area {
             get {
@@ -97,7 +97,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to family.
+        ///   Looks up a localized string similar to Family.
         /// </summary>
         public static string Family {
             get {
@@ -115,7 +115,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to language.
+        ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language {
             get {
@@ -133,7 +133,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to notation.
+        ///   Looks up a localized string similar to Notation.
         /// </summary>
         public static string Notation {
             get {
@@ -151,7 +151,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to script.
+        ///   Looks up a localized string similar to Script.
         /// </summary>
         public static string Script {
             get {
@@ -169,25 +169,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to set.
-        /// </summary>
-        public static string Set {
-            get {
-                return ResourceManager.GetString("Set", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A set of symbols that can be scattered across different Unicode ranges..
-        /// </summary>
-        public static string SetTooltip {
-            get {
-                return ResourceManager.GetString("SetTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to subset.
+        ///   Looks up a localized string similar to Subset.
         /// </summary>
         public static string Subset {
             get {
@@ -201,6 +183,24 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string SubsetTooltip {
             get {
                 return ResourceManager.GetString("SubsetTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symbol set.
+        /// </summary>
+        public static string SymbolSet {
+            get {
+                return ResourceManager.GetString("SymbolSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A set of symbols that can be scattered across different Unicode ranges..
+        /// </summary>
+        public static string SymbolSetTooltip {
+            get {
+                return ResourceManager.GetString("SymbolSetTooltip", resourceCulture);
             }
         }
     }

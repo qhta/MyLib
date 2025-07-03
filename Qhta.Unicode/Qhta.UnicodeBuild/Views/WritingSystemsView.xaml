@@ -17,7 +17,7 @@
     <Image x:Key="LanguageIcon" Source="/Assets/Language.png" Width="16" Height="16"/>
     <Image x:Key="ScriptIcon" Source="/Assets/Script.png" Width="16" Height="16"/>
     <Image x:Key="NotationIcon" Source="/Assets/Notation.png" Width="16" Height="16"/>
-    <Image x:Key="SetIcon" Source="/Assets/Set.png" Width="16" Height="16"/>
+    <Image x:Key="SetIcon" Source="/Assets/SymbolSet.png" Width="16" Height="16"/>
     <Image x:Key="SubsetIcon" Source="/Assets/Subset.png" Width="16" Height="16"/>
     <Image x:Key="EditIcon" Source="/Assets/Edit.png" Width="16" Height="16"/>
 
@@ -29,49 +29,49 @@
         Icon="{StaticResource AreaIcon}"
         Command="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.NewWritingSystemCommand}"
-        CommandParameter="{x:Static models:WritingSystemType.area}"/>
+        CommandParameter="{x:Static models:WritingSystemType.Area}"/>
       <helpers:MenuItemObject
                 Header="{x:Static resources:WritingSystemType.Family}" 
                 ToolTip="{x:Static resources:WritingSystemType.FamilyTooltip}" 
                 Icon="{StaticResource FamilyIcon}"
                 Command="{Binding Source={StaticResource ViewModels},
                       Path=Instance.NewWritingSystemCommand}"
-                CommandParameter="{x:Static models:WritingSystemType.family}"/>
+                CommandParameter="{x:Static models:WritingSystemType.Family}"/>
       <helpers:MenuItemObject
                 Header="{x:Static resources:WritingSystemType.Language}" 
                 ToolTip="{x:Static resources:WritingSystemType.LanguageTooltip}" 
                 Icon="{StaticResource LanguageIcon}"
                 Command="{Binding Source={StaticResource ViewModels}, 
                       Path=Instance.NewWritingSystemCommand}"
-                CommandParameter="{x:Static models:WritingSystemType.language}"/>
+                CommandParameter="{x:Static models:WritingSystemType.Language}"/>
       <helpers:MenuItemObject
                 Header="{x:Static resources:WritingSystemType.Script}" 
                 ToolTip="{x:Static resources:WritingSystemType.ScriptTooltip}" 
                 Icon="{StaticResource ScriptIcon}"
                 Command="{Binding Source={StaticResource ViewModels}, 
                       Path=Instance.NewWritingSystemCommand}"
-                CommandParameter="{x:Static models:WritingSystemType.script}"/>
+                CommandParameter="{x:Static models:WritingSystemType.Script}"/>
       <helpers:MenuItemObject
                 Header="{x:Static resources:WritingSystemType.Notation}" 
                 ToolTip="{x:Static resources:WritingSystemType.NotationTooltip}" 
                 Icon="{StaticResource NotationIcon}"
                 Command="{Binding Source={StaticResource ViewModels},
                       Path=Instance.NewWritingSystemCommand}"
-                CommandParameter="{x:Static models:WritingSystemType.notation}"/>
+                CommandParameter="{x:Static models:WritingSystemType.Notation}"/>
       <helpers:MenuItemObject
-                Header="{x:Static resources:WritingSystemType.Set}" 
-                ToolTip="{x:Static resources:WritingSystemType.SetTooltip}" 
+                Header="{x:Static resources:WritingSystemType.Subset}" 
+                ToolTip="{x:Static resources:WritingSystemType.SubsetTooltip}" 
                 Icon="{StaticResource SetIcon}"
                 Command="{Binding Source={StaticResource ViewModels}, 
                       Path=Instance.NewWritingSystemCommand}"
-                CommandParameter="{x:Static models:WritingSystemType.set}"/>
+                CommandParameter="{x:Static models:WritingSystemType.SymbolSet}"/>
       <helpers:MenuItemObject 
                 Header="{x:Static resources:WritingSystemType.Subset}" 
                 ToolTip="{x:Static resources:WritingSystemType.SubsetTooltip}" 
                 Icon="{StaticResource SubsetIcon}"
                 Command="{Binding Source={StaticResource ViewModels}, 
                       Path=Instance.NewWritingSystemCommand}"
-                CommandParameter="{x:Static models:WritingSystemType.subset}"/>
+                CommandParameter="{x:Static models:WritingSystemType.Subset}"/>
     </helpers:MenuItemCollection>
 
 
@@ -277,7 +277,7 @@
           MappingName="Parent"
           Width="150"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableWritingSystems}"
+            Path=Instance.SelectableScripts}"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>

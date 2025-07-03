@@ -33,14 +33,6 @@
       </TabItem>
       <TabItem MouseMove="TabItem_MouseMove">
         <TabItem.Header>
-          <TextBlock Text="{x:Static resources:Strings.UcdRanges}"
-                     ToolTip="{x:Static resources:Strings.UcdRangesTooltip}"
-                     PreviewMouseDown="TabItem_MouseDown"/>
-        </TabItem.Header>
-        <views:UcdRangesView/>
-      </TabItem>
-      <TabItem MouseMove="TabItem_MouseMove">
-        <TabItem.Header>
           <TextBlock Text="{x:Static resources:Strings.WritingSystems}"
                      ToolTip="{x:Static resources:Strings.WritingSystemsTooltip}"
                      PreviewMouseDown="TabItem_MouseDown"/>

@@ -79,20 +79,65 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply script mapping.
+        ///   Looks up a localized string similar to Apply code point mapping to Unicode blocks by checking block ranges..
         /// </summary>
-        public static string ApplyScriptMappingFromFile {
+        public static string ApplyBlockMappingTooltip {
             get {
-                return ResourceManager.GetString("ApplyScriptMappingFromFile", resourceCulture);
+                return ResourceManager.GetString("ApplyBlockMappingTooltip", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply script mapping from &quot;Scripts.txt&quot; file. You can get this file from the UCD data base at Unicode.org/public Web page..
+        ///   Looks up a localized string similar to Apply writing systems mapping.
         /// </summary>
-        public static string ApplyScriptMappingFromFileTooltip {
+        public static string ApplyWritingSystemsMappingFromFile {
             get {
-                return ResourceManager.GetString("ApplyScriptMappingFromFileTooltip", resourceCulture);
+                return ResourceManager.GetString("ApplyWritingSystemsMappingFromFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply code point mapping to scripts from a text file. The first column in a line should contain the character code or code range, the second column should contain the name of the script. The columns should be separated by tabs. The &apos;#&apos; character is treated as the first character of a comment that extends to the end of the line..
+        /// </summary>
+        public static string ApplyWritingSystemsMappingFromFileTooltip {
+            get {
+                return ResourceManager.GetString("ApplyWritingSystemsMappingFromFileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Area.
+        /// </summary>
+        public static string Area {
+            get {
+                return ResourceManager.GetString("Area", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Area is a Unicode block that define only first and last code points..
+        /// </summary>
+        public static string AreaTooltip {
+            get {
+                return ResourceManager.GetString("AreaTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Artefact.
+        /// </summary>
+        public static string Artefact {
+            get {
+                return ResourceManager.GetString("Artefact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Artefact of human culture, from which this code point originates..
+        /// </summary>
+        public static string ArtefactTooltip {
+            get {
+                return ResourceManager.GetString("ArtefactTooltip", resourceCulture);
             }
         }
         
@@ -151,6 +196,24 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language which uses this code point..
+        /// </summary>
+        public static string LanguageTooltip {
+            get {
+                return ResourceManager.GetString("LanguageTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
@@ -165,6 +228,78 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string NameTooltip {
             get {
                 return ResourceManager.GetString("NameTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notation.
+        /// </summary>
+        public static string Notation {
+            get {
+                return ResourceManager.GetString("Notation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notation in which this code point is defined..
+        /// </summary>
+        public static string NotationTooltip {
+            get {
+                return ResourceManager.GetString("NotationTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script.
+        /// </summary>
+        public static string Script {
+            get {
+                return ResourceManager.GetString("Script", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script which uses this code point..
+        /// </summary>
+        public static string ScriptTooltip {
+            get {
+                return ResourceManager.GetString("ScriptTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subset.
+        /// </summary>
+        public static string Subset {
+            get {
+                return ResourceManager.GetString("Subset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subset, to which this code point can be classified..
+        /// </summary>
+        public static string SubsetTooltip {
+            get {
+                return ResourceManager.GetString("SubsetTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symbol set.
+        /// </summary>
+        public static string SymbolSet {
+            get {
+                return ResourceManager.GetString("SymbolSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symbol set to which this code point belongs..
+        /// </summary>
+        public static string SymbolSetTooltip {
+            get {
+                return ResourceManager.GetString("SymbolSetTooltip", resourceCulture);
             }
         }
         

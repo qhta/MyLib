@@ -133,7 +133,7 @@
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTemplateColumn>
         <sf:GridTextColumn 
-          MappingName="Block" 
+          MappingName="Name" 
           HeaderText="Name" 
           VerticalAlignment="Top"
           Width="300"
@@ -151,7 +151,7 @@
           DisplayMemberPath="FullName"
           SortMode="Display"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-          Path=Instance.SelectableWritingSystems}"
+          Path=Instance.SelectableScripts}"
           VerticalAlignment="Top"
           Width="300"
           >

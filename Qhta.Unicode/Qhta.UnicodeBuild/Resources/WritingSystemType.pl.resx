@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Area" xml:space="preserve">
-    <value>obszar</value>
+    <value>Obszar</value>
   </data>
   <data name="Family" xml:space="preserve">
-    <value>rodzina</value>
+    <value>Rodzina</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>język</value>
+    <value>Język</value>
   </data>
   <data name="Script" xml:space="preserve">
-    <value>pismo</value>
+    <value>Pismo</value>
   </data>
   <data name="Notation" xml:space="preserve">
-    <value>notacja</value>
+    <value>Notacja</value>
   </data>
-  <data name="Set" xml:space="preserve">
-    <value>zbiór</value>
+  <data name="SymbolSet" xml:space="preserve">
+    <value>Zbiór symboli</value>
   </data>
   <data name="Subset" xml:space="preserve">
-    <value>podzbiór</value>
+    <value>Podzbiór</value>
   </data>
   <data name="AreaTooltip" xml:space="preserve">
     <value>Zakres punktów kodowych, które nie są definiowane indywidualnie.</value>
@@ -153,7 +153,7 @@
   <data name="NotationTooltip" xml:space="preserve">
     <value>System symboli służących do przedstawiania informacji w określonej konwencji.</value>
   </data>
-  <data name="SetTooltip" xml:space="preserve">
+  <data name="SymbolSetTooltip" xml:space="preserve">
     <value>Zbiór symboli, które mogą być rozrzucone w różnych zakresach Unicode.</value>
   </data>
   <data name="SubsetTooltip" xml:space="preserve">

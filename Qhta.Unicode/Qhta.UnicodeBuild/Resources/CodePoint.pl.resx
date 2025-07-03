@@ -159,16 +159,61 @@
   <data name="WritingSystemTooltip" xml:space="preserve">
     <value>System pisania, do którego należy ten punkt kodu. Można wybrać skrypt, język lub artefakt, notację, zbiór lub podzbiór znaków.</value>
   </data>
-  <data name="ApplyScriptMappingFromFile" xml:space="preserve">
-    <value>Zastosuj mapowanie pisma z pliku</value>
+  <data name="ApplyWritingSystemsMappingFromFile" xml:space="preserve">
+    <value>Zastosuj mapowanie z pliku</value>
   </data>
-  <data name="ApplyScriptMappingFromFileTooltip" xml:space="preserve">
-    <value>Zastosuj mapowanie pisma z pliku "Scripts.txt". Plik ten można pobrać z bazy danych UCD z witryny Unicode.org/public.</value>
+  <data name="ApplyWritingSystemsMappingFromFileTooltip" xml:space="preserve">
+    <value>Zastosuj mapowanie punktów kodowych do systemów pisma z pliku tekstowego. W pierwszej kolumnie w linii powinien być zapisany kod znaku lub zakres kodowy, w drugiej - nazwa systemu pisma. Kolumny powinny być oddzielone znakami tabulacji. Znak '#' jest traktowany jako pierwszy znak komentarza, który rozciąga się do końca linii.</value>
   </data>
   <data name="ApplyBlockMapping" xml:space="preserve">
     <value>Zastosuj mapowanie bloków</value>
   </data>
   <data name="ApplyBlockMappingConfirm" xml:space="preserve">
     <value>Czy na pewno chcesz zastosować mapowanie bloków na podstawie ich reguł? Jeśli tak, to wszystkie pola "blok" zostaną zaktualizowane.</value>
+  </data>
+  <data name="Script" xml:space="preserve">
+    <value>Pismo</value>
+  </data>
+  <data name="ScriptTooltip" xml:space="preserve">
+    <value>Pismo, które używa ten punkt kodowy.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Język</value>
+  </data>
+  <data name="LanguageTooltip" xml:space="preserve">
+    <value>Język, który używa ten punkt kodowy.</value>
+  </data>
+  <data name="Notation" xml:space="preserve">
+    <value>Notacja</value>
+  </data>
+  <data name="NotationTooltip" xml:space="preserve">
+    <value>Notacja, w której dany punkt kodowy jest zdefiniowany.</value>
+  </data>
+  <data name="SymbolSet" xml:space="preserve">
+    <value>Zbiór symbol</value>
+  </data>
+  <data name="SymbolSetTooltip" xml:space="preserve">
+    <value>Zbiór symboli, do którego należy ten punkt kodowy.</value>
+  </data>
+  <data name="Subset" xml:space="preserve">
+    <value>Podzbiór</value>
+  </data>
+  <data name="SubsetTooltip" xml:space="preserve">
+    <value>Podzbiór, do którego można zaklasyfikować ten punkt kodowy.</value>
+  </data>
+  <data name="Artefact" xml:space="preserve">
+    <value>Artefakt</value>
+  </data>
+  <data name="ArtefactTooltip" xml:space="preserve">
+    <value>Artefakt ludzkiej kultury, z której pochodzi ten punkt kodowy.</value>
+  </data>
+  <data name="ApplyBlockMappingTooltip" xml:space="preserve">
+    <value>Zastosuj mapowanie punktów kodowych do bloków Unicode przez sprawdzenie zakresów bloków.</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Obszar</value>
+  </data>
+  <data name="AreaTooltip" xml:space="preserve">
+    <value>Obszar jest blokiem Unicode definiującym tylko pierwszy i ostatni punkt kodowy.</value>
   </data>
 </root>

@@ -203,10 +203,10 @@ public class WritingSystemViewModel(WritingSystem model)
   }
 
   [Browsable(false)]
-  public IEnumerable<WritingSystemViewModel> Parents => _ViewModels.Instance.SelectableWritingSystems;
+  public IEnumerable<WritingSystemViewModel> Parents => _ViewModels.Instance.SelectableScripts;
 
   [Browsable(false)]
-  public virtual bool IsUsed => Model.UcdBlocks?.Count > 0 || Model.Children?.Count > 0 || Model.UcdRanges?.Count > 0;
+  public virtual bool IsUsed => Model.UcdBlocks?.Count > 0 || Model.Children?.Count > 0;
 
   [Browsable(false)]
   public virtual WritingSystemsCollection? Children
@@ -255,6 +255,13 @@ public class WritingSystemViewModel(WritingSystem model)
     if (other == null)
       return false;
     return Id == other.Id;
+  }
+
+  public new bool Equals(object? other)
+  {
+    if (other is WritingSystemViewModel otherVM)
+      return Equals(otherVM);
+    return false;
   }
 
   public override string ToString()

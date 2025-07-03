@@ -40,5 +40,4 @@ public partial class WritingSystem
 
   public virtual ICollection<UcdBlock>? UcdBlocks { get; set; }
 
-  public virtual ICollection<UcdRange>? UcdRanges { get; set; }
 }

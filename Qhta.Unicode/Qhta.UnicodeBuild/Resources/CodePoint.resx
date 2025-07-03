@@ -159,16 +159,61 @@
   <data name="WritingSystemTooltip" xml:space="preserve">
     <value>Writing system to which this code point belongs. You can choose script, language or artifact, notation, character set or subset here.</value>
   </data>
-  <data name="ApplyScriptMappingFromFile" xml:space="preserve">
-    <value>Apply script mapping</value>
+  <data name="ApplyWritingSystemsMappingFromFile" xml:space="preserve">
+    <value>Apply writing systems mapping</value>
   </data>
-  <data name="ApplyScriptMappingFromFileTooltip" xml:space="preserve">
-    <value>Apply script mapping from "Scripts.txt" file. You can get this file from the UCD data base at Unicode.org/public Web page.</value>
+  <data name="ApplyWritingSystemsMappingFromFileTooltip" xml:space="preserve">
+    <value>Apply code point mapping to scripts from a text file. The first column in a line should contain the character code or code range, the second column should contain the name of the script. The columns should be separated by tabs. The '#' character is treated as the first character of a comment that extends to the end of the line.</value>
   </data>
   <data name="ApplyBlockMapping" xml:space="preserve">
     <value>Apply block mapping</value>
   </data>
   <data name="ApplyBlockMappingConfirm" xml:space="preserve">
     <value>Do you really want to apply block mapping from block ranges? All current "block" fields w be updated.</value>
+  </data>
+  <data name="Script" xml:space="preserve">
+    <value>Script</value>
+  </data>
+  <data name="ScriptTooltip" xml:space="preserve">
+    <value>Script which uses this code point.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LanguageTooltip" xml:space="preserve">
+    <value>Language which uses this code point.</value>
+  </data>
+  <data name="Notation" xml:space="preserve">
+    <value>Notation</value>
+  </data>
+  <data name="NotationTooltip" xml:space="preserve">
+    <value>Notation in which this code point is defined.</value>
+  </data>
+  <data name="SymbolSet" xml:space="preserve">
+    <value>Symbol set</value>
+  </data>
+  <data name="SymbolSetTooltip" xml:space="preserve">
+    <value>Symbol set to which this code point belongs.</value>
+  </data>
+  <data name="Subset" xml:space="preserve">
+    <value>Subset</value>
+  </data>
+  <data name="SubsetTooltip" xml:space="preserve">
+    <value>Subset, to which this code point can be classified.</value>
+  </data>
+  <data name="Artefact" xml:space="preserve">
+    <value>Artefact</value>
+  </data>
+  <data name="ArtefactTooltip" xml:space="preserve">
+    <value>Artefact of human culture, from which this code point originates.</value>
+  </data>
+  <data name="ApplyBlockMappingTooltip" xml:space="preserve">
+    <value>Apply code point mapping to Unicode blocks by checking block ranges.</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="AreaTooltip" xml:space="preserve">
+    <value>Area is a Unicode block that define only first and last code points.</value>
   </data>
 </root>

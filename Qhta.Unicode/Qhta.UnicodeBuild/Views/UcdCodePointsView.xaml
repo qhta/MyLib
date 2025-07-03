@@ -38,11 +38,13 @@
       </MenuItem>
       <MenuItem Header="Tools">
         <MenuItem Header="{x:Static resources:CodePoint.ApplyBlockMapping}"
+                  ToolTip="{x:Static resources:CodePoint.ApplyBlockMappingTooltip}"
                   Command="{Binding Source={StaticResource ViewModels}, 
                     Path=Instance.ApplyBlockMappingCommand}"/>
-        <MenuItem Header="{x:Static resources:CodePoint.ApplyScriptMappingFromFile}"
+        <MenuItem Header="{x:Static resources:CodePoint.ApplyWritingSystemsMappingFromFile}"
+                  ToolTip="{x:Static resources:CodePoint.ApplyWritingSystemsMappingFromFileTooltip}"
                   Command="{Binding Source={StaticResource ViewModels}, 
-                    Path=Instance.ApplyScriptMappingCommand}"/>
+                    Path=Instance.ApplyWritingSystemMappingCommand}"/>
       </MenuItem>
       <MenuItem Header="{x:Static resources:Strings.Help}">
         <MenuItem Header="{x:Static resources:Strings.About}" Command="Help"/>
@@ -180,41 +182,176 @@
           </sf:GridColumn.CellTemplate>
         </sf:GridComboBoxColumn>
 
-        <sf:GridTextColumn
-          MappingName="UcdRangeName" 
-          HeaderText="UcdRange"
-          VerticalAlignment="Top"
-          AllowEditing="False"
-          Width="200"
-          >
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:CodePoint.UcdRange}" 
-                         ToolTip="{x:Static resources:CodePoint.UcdRangeTooltip}"  />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>        
-        </sf:GridTextColumn>
-
-
         <sf:GridComboBoxColumn 
-          MappingName="WritingSystem" 
-          HeaderText="WritingSystem" 
+          MappingName="Area" 
+          HeaderText="Area" 
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableWritingSystems}"
+            Path=Instance.SelectableAreas}"
+          DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
           Width="200"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:CodePoint.WritingSystem}" 
-                         ToolTip="{x:Static resources:CodePoint.WritingSystemTooltip}"  />
+              <TextBlock Text="{x:Static resources:CodePoint.Area}" 
+                         ToolTip="{x:Static resources:CodePoint.AreaTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{Binding WritingSystem.Name}" 
-                         ToolTip="{Binding WritingSystem.Description}" 
+              <TextBlock Text="{Binding Area.Name}" 
+                         ToolTip="{Binding Area.Description}" 
+                         Padding="3"/>
+            </DataTemplate>
+          </sf:GridColumn.CellTemplate>
+        </sf:GridComboBoxColumn>
+
+        <sf:GridComboBoxColumn 
+          MappingName="Script" 
+          HeaderText="Script" 
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.SelectableScripts}"
+          DisplayMemberPath="Name" 
+          VerticalAlignment="Top"
+          AllowEditing="True"
+          Width="200"
+        >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:CodePoint.Script}" 
+                         ToolTip="{x:Static resources:CodePoint.ScriptTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+          <sf:GridColumn.CellTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
+              <TextBlock Text="{Binding Script.Name}" 
+                         ToolTip="{Binding Script.Description}" 
+                         Padding="3"/>
+            </DataTemplate>
+          </sf:GridColumn.CellTemplate>
+        </sf:GridComboBoxColumn>
+
+        <sf:GridComboBoxColumn 
+          MappingName="Language" 
+          HeaderText="Language" 
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.SelectableLanguages}"
+          DisplayMemberPath="Name" 
+          VerticalAlignment="Top"
+          AllowEditing="True"
+          Width="200"
+        >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:CodePoint.Language}" 
+                         ToolTip="{x:Static resources:CodePoint.LanguageTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+          <sf:GridColumn.CellTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
+              <TextBlock Text="{Binding Language.Name}" 
+                         ToolTip="{Binding Language.Description}" 
+                         Padding="3"/>
+            </DataTemplate>
+          </sf:GridColumn.CellTemplate>
+        </sf:GridComboBoxColumn>
+
+        <sf:GridComboBoxColumn 
+          MappingName="Notation" 
+          HeaderText="Notation" 
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.SelectableNotations}"
+          DisplayMemberPath="Name" 
+          VerticalAlignment="Top"
+          AllowEditing="True"
+          Width="200"
+        >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:CodePoint.Notation}" 
+                         ToolTip="{x:Static resources:CodePoint.NotationTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+          <sf:GridColumn.CellTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
+              <TextBlock Text="{Binding Notation.Name}" 
+                         ToolTip="{Binding Notation.Description}" 
+                         Padding="3"/>
+            </DataTemplate>
+          </sf:GridColumn.CellTemplate>
+        </sf:GridComboBoxColumn>
+
+        <sf:GridComboBoxColumn 
+          MappingName="Set" 
+          HeaderText="Set" 
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.SelectableSymbolSets}"
+          DisplayMemberPath="Name" 
+          VerticalAlignment="Top"
+          AllowEditing="True"
+          Width="200"
+        >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:CodePoint.SymbolSet}" 
+                         ToolTip="{x:Static resources:CodePoint.SymbolSetTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+          <sf:GridColumn.CellTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
+              <TextBlock Text="{Binding SymbolSet.Name}" 
+                         ToolTip="{Binding SymbolSet.Description}" 
+                         Padding="3"/>
+            </DataTemplate>
+          </sf:GridColumn.CellTemplate>
+        </sf:GridComboBoxColumn>
+
+        <sf:GridComboBoxColumn 
+          MappingName="Subset" 
+          HeaderText="Subset" 
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.SelectableSubsets}"
+          DisplayMemberPath="Name" 
+          VerticalAlignment="Top"
+          AllowEditing="True"
+          Width="200"
+        >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:CodePoint.Subset}" 
+                         ToolTip="{x:Static resources:CodePoint.SubsetTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+          <sf:GridColumn.CellTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
+              <TextBlock Text="{Binding Subset.Name}" 
+                         ToolTip="{Binding Subset.Description}" 
+                         Padding="3"/>
+            </DataTemplate>
+          </sf:GridColumn.CellTemplate>
+        </sf:GridComboBoxColumn>
+
+        <sf:GridComboBoxColumn 
+          MappingName="Artefact" 
+          HeaderText="Artefact" 
+          ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.SelectableArtefacts}"
+          DisplayMemberPath="Name" 
+          VerticalAlignment="Top"
+          AllowEditing="True"
+          Width="200"
+        >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:CodePoint.Artefact}" 
+                         ToolTip="{x:Static resources:CodePoint.ArtefactTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+          <sf:GridColumn.CellTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
+              <TextBlock Text="{Binding Artefact.Name}" 
+                         ToolTip="{Binding Artefact.Description}" 
                          Padding="3"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
@@ -222,6 +359,7 @@
 
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
+
     <controls:RecordNavigationBar Grid.Row="2" DataGrid="{Binding ElementName=CodePointDataGrid}"/>
     <Grid x:Name="StatusBar"  Grid.Row="2" Height="Auto" Background="LightGray" 
           Visibility="{Binding Source={StaticResource ViewModels}, 
@@ -235,7 +373,9 @@
       </Grid.ColumnDefinitions>
       <TextBlock Grid.Column="0" Text="{Binding Source={StaticResource ViewModels}, Path=Instance.UcdCodePoints.StatusMessage}" VerticalAlignment="Center" Margin="5,0" />
       <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Source={StaticResource ViewModels}, Path=Instance.UcdCodePoints.ProgressValue}" Height="20" />
-      <Button Grid.Column="2" Content="{x:Static resources:Strings.Cancel}" Height="26" Margin="5,0" Command="{Binding Source={StaticResource ViewModels}, Path=Instance.BreakApplyScriptMappingCommand}" />
+      <Button Grid.Column="2" 
+              Content="{x:Static resources:Strings.Cancel}" Height="26" Margin="5,0" 
+              Command="{Binding Source={StaticResource ViewModels}, Path=Instance.BreakApplyWritingSystemMappingCommand}" />
     </Grid>
   </Grid>
 </UserControl>

@@ -2,9 +2,9 @@
 
 namespace Qhta.Unicode.Models;
 
-public class ScriptMapping
+public class WritingSystemMapping
 {
   [Key]
   public string Range { get; set; } = null!;
-  public string? Script { get; set; }
+  public string? WritingSystemName { get; set; }
 }
