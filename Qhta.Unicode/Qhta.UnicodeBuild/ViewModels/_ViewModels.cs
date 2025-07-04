@@ -94,97 +94,41 @@ public partial class _ViewModels : IDisposable
   public Array WritingSystemKinds { get; } = Enum.GetValues(typeof(WritingSystemKind));
   public Array Categories { get; } = Enum.GetNames(typeof(UcdCategory));
 
-  public IEnumerable<UcdBlockViewModel> SelectableBlocks
+  public IEnumerable<UcdBlockViewModel?> SelectableBlocks
   {
     get
     {
-      var list = _ViewModels.Instance.UcdBlocks.Where(item => !String.IsNullOrEmpty(item.Name))
-        .OrderBy(vm => vm.Name).ToList();
-      list.Insert(0, dummyUcdBlockViewModel);
+      List<UcdBlockViewModel?> list = new();
+      list.Insert(0, null);
+      list.AddRange( _ViewModels.Instance.UcdBlocks.Where(item => !String.IsNullOrEmpty(item.Name))
+        .OrderBy(vm => vm.Name));
       return list;
     }
   }
-  readonly UcdBlockViewModel dummyUcdBlockViewModel = new UcdBlockViewModel(new UcdBlock { BlockName = "" });
-
-  public IEnumerable<WritingSystemViewModel> SelectableAreas
+ 
+  public IEnumerable<WritingSystemViewModel?> GetSelectableWritingSystems(params WritingSystemType[] types)
   {
-    get
-    {
-      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.Area)
-        .OrderBy(vm => vm.FullName).ToList();
-      list.Insert(0, dummyWritingSystemViewModel);
+      List<WritingSystemViewModel?> list = new();
+      list.Insert(0, null);
+      list.AddRange(_ViewModels.Instance.WritingSystems.Where(item => item.Type !=null && types.Contains((WritingSystemType)item.Type))
+        .OrderBy(vm => vm.FullName));
       return list;
-    }
   }
+ 
+  public IEnumerable<WritingSystemViewModel?> SelectableAreas => GetSelectableWritingSystems(WritingSystemType.Area);
 
+  public IEnumerable<WritingSystemViewModel?> SelectableScripts =>
+    GetSelectableWritingSystems(WritingSystemType.Script, WritingSystemType.Family);
 
-  public IEnumerable<WritingSystemViewModel> SelectableScripts
-  {
-    get
-    {
-      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.Script || item.Type == WritingSystemType.Family)
-        .OrderBy(vm => vm.FullName).ToList();
-      list.Insert(0, dummyWritingSystemViewModel);
-      return list;
-    }
-  }
+  public IEnumerable<WritingSystemViewModel?> SelectableLanguages => GetSelectableWritingSystems(WritingSystemType.Language); 
 
-  public IEnumerable<WritingSystemViewModel> SelectableLanguages
-  {
-    get
-    {
-      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.Language)
-        .OrderBy(vm => vm.FullName).ToList();
-      list.Insert(0, dummyWritingSystemViewModel);
-      return list;
-    }
-  }
+  public IEnumerable<WritingSystemViewModel?> SelectableNotations => GetSelectableWritingSystems(WritingSystemType.Notation);
 
-  public IEnumerable<WritingSystemViewModel> SelectableNotations
-  {
-    get
-    {
-      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.Notation)
-        .OrderBy(vm => vm.FullName).ToList();
-      list.Insert(0, dummyWritingSystemViewModel);
-      return list;
-    }
-  }
+  public IEnumerable<WritingSystemViewModel?> SelectableSymbolSets => GetSelectableWritingSystems(WritingSystemType.SymbolSet);
 
-  public IEnumerable<WritingSystemViewModel> SelectableSymbolSets
-  {
-    get
-    {
-      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.SymbolSet)
-        .OrderBy(vm => vm.FullName).ToList();
-      list.Insert(0, dummyWritingSystemViewModel);
-      return list;
-    }
-  }
+  public IEnumerable<WritingSystemViewModel?> SelectableSubsets => GetSelectableWritingSystems(WritingSystemType.Subset);
 
-  public IEnumerable<WritingSystemViewModel> SelectableSubsets
-  {
-    get
-    {
-      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.Subset)
-        .OrderBy(vm => vm.FullName).ToList();
-      list.Insert(0, dummyWritingSystemViewModel);
-      return list;
-    }
-  }
-
-  public IEnumerable<WritingSystemViewModel> SelectableArtefacts
-  {
-    get
-    {
-      var list = _ViewModels.Instance.WritingSystems.Where(item => item.Type == WritingSystemType.Artefact)
-        .OrderBy(vm => vm.FullName).ToList();
-      list.Insert(0, dummyWritingSystemViewModel);
-      return list;
-    }
-  }
-
-  readonly WritingSystemViewModel dummyWritingSystemViewModel = new WritingSystemViewModel(new WritingSystem { Name = "" });
+  public IEnumerable<WritingSystemViewModel?> SelectableArtefacts => GetSelectableWritingSystems(WritingSystemType.Artefact);
 
   public int GetNewWritingSystemId()
   {
@@ -292,9 +236,34 @@ public partial class _ViewModels : IDisposable
     vmWindow.ShowDialog();
   }
 
+  private void ReleaseUnmanagedResources()
+  {
+    // TODO release unmanaged resources here
+  }
+
+  protected virtual void Dispose(bool disposing)
+  {
+    ReleaseUnmanagedResources();
+    if (disposing)
+    {
+      ApplyBlockMappingBackgroundWorker.Dispose();
+      ApplyWritingSystemMappingBackgroundWorker.Dispose();
+      if (_Context != null)
+      {
+        _Context.Dispose();
+        _Context = null;
+      }
+    }
+  }
+
   public void Dispose()
   {
-    ApplyWritingSystemMappingBackgroundWorker.Dispose();
-    ApplyBlockMappingBackgroundWorker.Dispose();
+    Dispose(true);
+    GC.SuppressFinalize(this);
+  }
+
+  ~_ViewModels()
+  {
+    Dispose(false);
   }
 }

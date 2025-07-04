@@ -101,7 +101,8 @@ public partial class UcdCodePointsView : UserControl
       GridFilterControl filterControl = e.FilterControl;
       filterControl.SortOptionVisibility = Visibility.Collapsed;
       filterControl.FilterMode = FilterMode.CheckboxFilter;
-      var selectableItems = _ViewModels.Instance.UcdBlocks.OrderBy(item => item.Name).ToArray();
+      filterControl.AllowBlankFilters = true;
+      var selectableItems = _ViewModels.Instance.SelectableBlocks.OrderBy(item => item?.Name ?? "").ToArray();
 
       var UcdBlockFilters = selectableItems.Select(item => new FilterElement
       {
@@ -110,19 +111,21 @@ public partial class UcdCodePointsView : UserControl
         {
           if (obj is FilterElement filterElement && filterElement.ActualValue is UcdBlockViewModel val)
             return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.EmptyItem;
-          return "";
+          return Strings.EmptyItem;
         },
       }).ToArray();
       e.ItemsSource = UcdBlockFilters;
       e.Handled = true;
     }
 
-    void SetWritingSystemFilter(IEnumerable<WritingSystemViewModel> sourceCollection)
+    void SetWritingSystemFilter(IEnumerable<WritingSystemViewModel?> sourceCollection)
     {
+      WritingSystemViewModel.LogEquals = true;
       GridFilterControl filterControl = e.FilterControl;
       filterControl.SortOptionVisibility = Visibility.Collapsed;
       filterControl.FilterMode = FilterMode.CheckboxFilter;
-      var selectableItems = sourceCollection.OrderBy(item => item.Name).ToArray();
+      filterControl.AllowBlankFilters = true;
+      var selectableItems = sourceCollection.OrderBy(item => item?.Name ?? "").ToArray();
 
       var WritingSystemFilters = selectableItems.Select(item => new FilterElement
       { 
@@ -131,7 +134,7 @@ public partial class UcdCodePointsView : UserControl
         {
           if (obj is FilterElement filterElement && filterElement.ActualValue is WritingSystemViewModel val)
             return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.EmptyItem;
-          return "";
+          return Strings.EmptyItem;
         },
       }).ToArray();
       e.ItemsSource = WritingSystemFilters;

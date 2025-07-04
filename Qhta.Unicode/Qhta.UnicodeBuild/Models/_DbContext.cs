@@ -11,7 +11,7 @@ using Syncfusion.Windows.Shared;
 
 namespace Qhta.Unicode.Models;
 
-public partial class _DbContext : DbContext
+public partial class _DbContext : DbContext, IDisposable
 {
   public _DbContext()
   {
@@ -50,7 +50,7 @@ public partial class _DbContext : DbContext
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
-   
+
     modelBuilder.Entity<Alias>(entity =>
     {
       entity.HasKey(e => new { e.Ord, e.Alias1 }).HasName("PrimaryKey");
@@ -97,7 +97,7 @@ public partial class _DbContext : DbContext
     //modelBuilder.Entity<UcdRange>(entity =>
     //{
     //  entity.HasKey(e => e.Id).HasName("PrimaryKey");
-      
+
     //  entity.HasIndex(e => e.Range, "Range");
     //  entity.HasIndex(e => e.BlockId, "BlockID");
     //  entity.HasIndex(e => e.WritingSystemId, "WritingSystemID");
@@ -173,7 +173,7 @@ public partial class _DbContext : DbContext
       entity.Property(e => e.Kind).HasMaxLength(15);
       entity.Property(e => e.ParentId).HasColumnName("ParentID");
       entity.Property(e => e.Type).HasMaxLength(10);
-              
+
 
 
       entity.HasOne(d => d.ParentSystem).WithMany(p => p.Children)
@@ -201,4 +201,34 @@ public partial class _DbContext : DbContext
   }
 
   partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+  private void ReleaseUnmanagedResources()
+  {
+    // TODO release unmanaged resources here
+  }
+
+  protected virtual void Dispose(bool disposing)
+  {
+    ReleaseUnmanagedResources();
+    if (disposing)
+    {
+      if (ChangeTracker.HasChanges())
+      {
+        Debug.WriteLine("DbContext has changes that were not saved.");
+        SaveChanges();
+      }
+    }
+  }
+
+  public override void Dispose()
+  {
+    Dispose(true);
+    base.Dispose();
+    GC.SuppressFinalize(this);
+  }
+
+  ~_DbContext()
+  {
+    Dispose(false);
+  }
 }

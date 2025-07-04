@@ -29,7 +29,7 @@ public class EnumToResourceConverter : IValueConverter
     if (value == null) return null;
 
     // Get the resource key based on the enum value
-    string? resourceKey = value.ToString()?.TitleCase();
+    string? resourceKey = value.ToString();
     if (resourceKey==null)
       return null;
     if (parameter is string param)
@@ -39,8 +39,10 @@ public class EnumToResourceConverter : IValueConverter
     // Retrieve the translation from the resource file
 
     string? translation = _resourceManager.GetString(resourceKey, culture);
+    if (translation == null) 
+      Debug.Assert(true);
     //Debug.WriteLine($"{resourceKey} [{culture}] = {translation}");
-    return (translation ?? value.ToString())?.ToLower(); // Fallback to the enum value if no translation is found
+    return (translation ?? value.ToString()); // Fallback to the enum value if no translation is found
   }
 
   public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

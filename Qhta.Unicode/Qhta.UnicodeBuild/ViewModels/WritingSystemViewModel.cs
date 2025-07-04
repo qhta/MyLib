@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using PropertyTools.DataAnnotations;
 using Qhta.MVVM;
@@ -14,7 +15,7 @@ using DescriptionAttribute = PropertyTools.DataAnnotations.DescriptionAttribute;
 namespace Qhta.UnicodeBuild.ViewModels;
 
 public class WritingSystemViewModel(WritingSystem model)
-  : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, INotifyDataErrorInfo
+  : ViewModel<WritingSystem>(model), ILongTextViewModel, /*IEquatable<WritingSystemViewModel>,*/ INotifyDataErrorInfo
 {
   public WritingSystemViewModel() : this(new WritingSystem())
   {
@@ -250,8 +251,11 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  public static bool LogEquals;
   public bool Equals(WritingSystemViewModel? other)
   {
+    if (LogEquals)
+      Debug.WriteLine($"Compare with other {other}");
     if (other == null)
       return false;
     return Id == other.Id;
@@ -259,6 +263,8 @@ public class WritingSystemViewModel(WritingSystem model)
 
   public new bool Equals(object? other)
   {
+    if (LogEquals)
+      Debug.WriteLine($"Compare with other object {other}");
     if (other is WritingSystemViewModel otherVM)
       return Equals(otherVM);
     return false;
@@ -298,7 +304,7 @@ public class WritingSystemViewModel(WritingSystem model)
       errors.Remove(propertyName);
       if (string.IsNullOrEmpty(Name))
         errors.Add(propertyName, new ValidationResultEx("Name cannot be empty", Severity.Error));
-      else 
+      else
       if (!Regex.IsMatch(Name, "^[a-zA-Z]+( [a-zA-Z0-9]+)*$"))
         errors.Add(propertyName, new ValidationResultEx("Invalid name string", Severity.Error));
       ok = false;
