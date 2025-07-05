@@ -223,4 +223,7 @@
   <data name="CtgTooltip" xml:space="preserve">
     <value>Unicode category to which this code point is assigned.</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
 </root>

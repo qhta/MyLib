@@ -75,7 +75,7 @@
                      QueryRowHeight="DataGrid_OnQueryRowHeight"
                      AutoGenerateColumns="False"
                      GridValidationMode="InEdit"
-                     EditTrigger="OnTap"
+                     EditTrigger="OnDoubleTap"
                      EnableDataVirtualization="True" 
                      FilterItemsPopulating="CodePointDataGrid_OnFilterItemsPopulating"
                      GridCopyOption="CopyData"
@@ -173,25 +173,27 @@
 
         <sf:GridComboBoxColumn x:Name="CtgColumn"
            MappingName="Category" 
-           HeaderText="Ctg" 
+           HeaderText="Category" 
            ItemsSource="{Binding Source={StaticResource ViewModels}, 
              Path=Instance.UnicodeCategoriesList}"
            DisplayMemberPath="Name"
            VerticalAlignment="Top"
            AllowEditing="False"
-           Width="50"
+           Width="150"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:CodePoint.Ctg}" 
-                         ToolTip="{x:Static resources:CodePoint.CtgTooltip}"  />
+              <TextBlock Text="{x:Static resources:CodePoint.Category}" 
+                         ToolTip="{x:Static resources:CodePoint.CtgTooltip}"  
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
               <TextBlock Text="{Binding Category.Name}" 
                          ToolTip="{Binding Category.Description}" 
-                         Padding="3"/>
+                         Padding="3"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
         </sf:GridComboBoxColumn>
@@ -219,7 +221,8 @@
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
               <TextBlock Text="{Binding UcdBlock.Name}" 
                          ToolTip="{Binding UcdBlock.Description}" 
-                         Padding="3"/>
+                         Padding="3"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
         </sf:GridComboBoxColumn>
@@ -239,14 +242,16 @@
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
               <TextBlock Text="{x:Static resources:CodePoint.Area}" 
-                         ToolTip="{x:Static resources:CodePoint.AreaTooltip}"  />
+                         ToolTip="{x:Static resources:CodePoint.AreaTooltip}"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
               <TextBlock Text="{Binding Area.Name}" 
                          ToolTip="{Binding Area.Description}" 
-                         Padding="3"/>
+                         Padding="3"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
         </sf:GridComboBoxColumn>
@@ -266,14 +271,16 @@
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
               <TextBlock Text="{x:Static resources:CodePoint.Script}" 
-                         ToolTip="{x:Static resources:CodePoint.ScriptTooltip}"  />
+                         ToolTip="{x:Static resources:CodePoint.ScriptTooltip}"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
               <TextBlock Text="{Binding Script.Name}" 
                          ToolTip="{Binding Script.Description}" 
-                         Padding="3"/>
+                         Padding="3"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
         </sf:GridComboBoxColumn>
@@ -293,14 +300,16 @@
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
               <TextBlock Text="{x:Static resources:CodePoint.Language}" 
-                         ToolTip="{x:Static resources:CodePoint.LanguageTooltip}"  />
+                         ToolTip="{x:Static resources:CodePoint.LanguageTooltip}"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
               <TextBlock Text="{Binding Language.Name}" 
                          ToolTip="{Binding Language.Description}" 
-                         Padding="3"/>
+                         Padding="3"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
         </sf:GridComboBoxColumn>
@@ -320,14 +329,16 @@
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
               <TextBlock Text="{x:Static resources:CodePoint.Notation}" 
-                         ToolTip="{x:Static resources:CodePoint.NotationTooltip}"  />
+                         ToolTip="{x:Static resources:CodePoint.NotationTooltip}"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
               <TextBlock Text="{Binding Notation.Name}" 
                          ToolTip="{Binding Notation.Description}" 
-                         Padding="3"/>
+                         Padding="3"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
         </sf:GridComboBoxColumn>
@@ -347,14 +358,16 @@
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
               <TextBlock Text="{x:Static resources:CodePoint.SymbolSet}" 
-                         ToolTip="{x:Static resources:CodePoint.SymbolSetTooltip}"  />
+                         ToolTip="{x:Static resources:CodePoint.SymbolSetTooltip}"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
               <TextBlock Text="{Binding SymbolSet.Name}" 
                          ToolTip="{Binding SymbolSet.Description}" 
-                         Padding="3"/>
+                         Padding="3"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
         </sf:GridComboBoxColumn>
@@ -374,14 +387,16 @@
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
               <TextBlock Text="{x:Static resources:CodePoint.Subset}" 
-                         ToolTip="{x:Static resources:CodePoint.SubsetTooltip}"  />
+                         ToolTip="{x:Static resources:CodePoint.SubsetTooltip}"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
               <TextBlock Text="{Binding Subset.Name}" 
                          ToolTip="{Binding Subset.Description}" 
-                         Padding="3"/>
+                         Padding="3"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
         </sf:GridComboBoxColumn>
@@ -401,14 +416,16 @@
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
               <TextBlock Text="{x:Static resources:CodePoint.Artefact}" 
-                         ToolTip="{x:Static resources:CodePoint.ArtefactTooltip}"  />
+                         ToolTip="{x:Static resources:CodePoint.ArtefactTooltip}"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
               <TextBlock Text="{Binding Artefact.Name}" 
                          ToolTip="{Binding Artefact.Description}" 
-                         Padding="3"/>
+                         Padding="3"
+                         ContextMenu="{StaticResource WriteSystemColumnContextMenu}"/>
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
         </sf:GridComboBoxColumn>

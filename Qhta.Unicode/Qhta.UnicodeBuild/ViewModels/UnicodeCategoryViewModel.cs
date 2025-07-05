@@ -15,7 +15,7 @@ public class UnicodeCategoryViewModel(UnicodeCategoryEntity model)
 
   public UcdCategory Id => model.Id;
 
-  public string Name => model.Ctg ?? string.Empty;
+  public string Name => model.Name ?? string.Empty;
 
   public string? Description => model.Name;
 

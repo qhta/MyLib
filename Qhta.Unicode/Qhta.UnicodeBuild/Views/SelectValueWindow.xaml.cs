@@ -39,6 +39,15 @@ public partial class SelectValueWindow : Window
     set => SetValue(SelectedItemProperty, value);
   }
 
+  public static DependencyProperty EmptyCellsOnlyProperty =
+      DependencyProperty.Register(nameof(EmptyCellsOnly), typeof(bool), typeof(SelectValueWindow), new PropertyMetadata(true));
+
+  public bool EmptyCellsOnly
+  {
+    get => (bool)GetValue(EmptyCellsOnlyProperty);
+    set => SetValue(EmptyCellsOnlyProperty, value);
+  }
+
   private void OkButton_OnClick(object sender, RoutedEventArgs e)
   {
      var window = Window.GetWindow(this);

@@ -151,6 +151,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fill empty cells only.
+        /// </summary>
+        public static string EmptyCellsOnly {
+            get {
+                return ResourceManager.GetString("EmptyCellsOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (Empty).
         /// </summary>
         public static string EmptyItem {
@@ -322,7 +331,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select {0}.
+        ///   Looks up a localized string similar to Select &quot;{0}&quot;.
         /// </summary>
         public static string SelectValueTitle {
             get {

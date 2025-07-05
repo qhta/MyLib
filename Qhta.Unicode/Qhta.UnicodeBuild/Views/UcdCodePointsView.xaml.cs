@@ -79,6 +79,9 @@ public partial class UcdCodePointsView : UserControl
 
   private void CodePointDataGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e)
   {
+    if (e.Column.MappingName == nameof(UcdCodePointViewModel.Category))
+      SetCategoryFilter();
+    else
     if (e.Column.MappingName == nameof(UcdCodePointViewModel.UcdBlock))
       SetBlockFilter();
     else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Area))
@@ -95,6 +98,29 @@ public partial class UcdCodePointsView : UserControl
       SetWritingSystemFilter(_ViewModels.Instance.SelectableSubsets);
     else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Artefact))
       SetWritingSystemFilter(_ViewModels.Instance.SelectableArtefacts);
+
+    void SetCategoryFilter()
+    {
+      GridFilterControl filterControl = e.FilterControl;
+      filterControl.SortOptionVisibility = Visibility.Collapsed;
+      filterControl.FilterMode = FilterMode.CheckboxFilter;
+      filterControl.AllowBlankFilters = true;
+      var selectableItems = _ViewModels.Instance.SelectableCategories.OrderBy(item => item?.Name ?? "").ToList();
+      selectableItems.Insert(0, null); // Add a blank item at the top
+
+      var UcdCategoryFilters = selectableItems.Select(item => new FilterElement
+      {
+        ActualValue = item,
+        FormattedString = (object obj) =>
+        {
+          if (obj is FilterElement filterElement && filterElement.ActualValue is UnicodeCategoryViewModel val)
+            return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.EmptyItem;
+          return Strings.EmptyItem;
+        },
+      }).ToArray();
+      e.ItemsSource = UcdCategoryFilters;
+      e.Handled = true;
+    }
 
     void SetBlockFilter()
     {

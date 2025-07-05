@@ -106,6 +106,17 @@ public partial class _ViewModels : IDisposable
   public Array WritingSystemKinds { get; } = Enum.GetValues(typeof(WritingSystemKind));
   public Array Categories { get; } = Enum.GetNames(typeof(UcdCategory));
 
+  public IEnumerable<UnicodeCategoryViewModel?> SelectableCategories
+  {
+    get
+    {
+      List<UnicodeCategoryViewModel?> list = new();
+      list.AddRange(_ViewModels.Instance.UnicodeCategoriesList.Where(item => !String.IsNullOrEmpty(item.Name))
+        .OrderBy(vm => vm.Name));
+      return list;
+    }
+  }
+
   public IEnumerable<UcdBlockViewModel?> SelectableBlocks
   {
     get

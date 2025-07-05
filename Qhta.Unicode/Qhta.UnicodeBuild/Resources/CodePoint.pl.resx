@@ -190,7 +190,7 @@
     <value>Notacja, w której dany punkt kodowy jest zdefiniowany.</value>
   </data>
   <data name="SymbolSet" xml:space="preserve">
-    <value>Zbiór symbol</value>
+    <value>Zbiór symboli</value>
   </data>
   <data name="SymbolSetTooltip" xml:space="preserve">
     <value>Zbiór symboli, do którego należy ten punkt kodowy.</value>
@@ -221,5 +221,8 @@
   </data>
   <data name="CtgTooltip" xml:space="preserve">
     <value>Kategoria Unicode, do której ten punkt kodowy jest przypisany.</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategoria</value>
   </data>
 </root>

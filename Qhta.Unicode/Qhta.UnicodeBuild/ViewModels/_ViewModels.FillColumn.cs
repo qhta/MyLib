@@ -31,34 +31,44 @@ public partial class _ViewModels
           var viewRecords = dataGrid.View.Records;
           var firstItem = viewRecords.FirstOrDefault();
           if (firstItem == null) return;
+          PrintParent(contentPresenter);
           var headerCellControl = VisualTreeHelperExt.FindAncestor<GridHeaderCellControl>(contentPresenter);
-          if (headerCellControl?.Column is GridComboBoxColumn comboBoxColumn)
+          var comboBoxColumn = headerCellControl?.Column as GridComboBoxColumn;
+          if (comboBoxColumn == null)
+          {
+            var column = dataGrid.CurrentColumn;
+            comboBoxColumn = column as GridComboBoxColumn;
+          }
+          if (comboBoxColumn!=null)
           {
             var mappingName = comboBoxColumn.MappingName;
             var property = firstItem.Data.GetType().GetProperty(mappingName);
             if (property == null) return;
             var propertyType = property.PropertyType;
-            if (propertyType == typeof(UcdBlockViewModel))
+            var itemsSource = comboBoxColumn.ItemsSource;
+            var selectValueWindow = new SelectValueWindow
             {
-              var itemsSource = _ViewModels.Instance.SelectableBlocks;
-              if (itemsSource is IList itemsList)
+              Prompt = String.Format(Resources.Strings.SelectValueTitle, mappingName),
+              ItemsSource = itemsSource
+            };
+            if (selectValueWindow.ShowDialog() == true)
+            {
+              var selectedValue = selectValueWindow.SelectedItem;
+              var emptyCellsOnly = selectValueWindow.EmptyCellsOnly;
+              if (selectedValue != null)
               {
-                itemsList.Insert(0, null); // Add a null item at the beginning
-              }
-              var selectValueWindow = new SelectValueWindow
-              {
-                Prompt = String.Format(Resources.Strings.SelectValueTitle, mappingName),
-                ItemsSource = itemsSource
-              };
-              if (selectValueWindow.ShowDialog() == true)
-              {
-                var selectedValue = selectValueWindow.SelectedItem;
-                if (selectedValue != null)
+                Debug.WriteLine($"Column: {mappingName}, Selected Value: {selectedValue}");
+                foreach (var record in viewRecords)
                 {
-                  Debug.WriteLine($"Column: {mappingName}, Selected Value: {selectedValue}");
-                  foreach (var record in viewRecords)
+                  if (record.Data is not null)
                   {
-                    if (record.Data is not null/* && record.Data.GetType().GetProperty(mappingName) is { } prop*/)
+                    if (emptyCellsOnly)
+                    {
+                      var currentValue = property.GetValue(record.Data);
+                      if (currentValue == null)
+                        property.SetValue(record.Data, selectedValue);
+                    }
+                    else
                     {
                       property.SetValue(record.Data, selectedValue);
                     }

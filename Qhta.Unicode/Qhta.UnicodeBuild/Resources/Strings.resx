@@ -235,9 +235,12 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
     <value>Fill column {0}</value>
   </data>
   <data name="SelectValueTitle" xml:space="preserve">
-    <value>Select {0}</value>
+    <value>Select "{0}"</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="EmptyCellsOnly" xml:space="preserve">
+    <value>Fill empty cells only</value>
   </data>
 </root>

@@ -12,6 +12,7 @@
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     <TextBlock 
       Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SelectValueWindow}},
@@ -34,9 +35,20 @@
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>
-    
     <WrapPanel 
       Grid.Row="2"
+      Orientation="Horizontal"
+      HorizontalAlignment="Left"
+      Margin="10,5"
+    >
+      <CheckBox 
+        IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SelectValueWindow}},
+          Path= EmptyCellsOnly}"
+        Content="{x:Static resources:Strings.EmptyCellsOnly}"
+                />
+    </WrapPanel>    
+    <WrapPanel 
+      Grid.Row="3"
       Orientation="Horizontal"
       HorizontalAlignment="Center"
       Margin="10,5"
