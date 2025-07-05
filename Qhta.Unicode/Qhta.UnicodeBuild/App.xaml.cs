@@ -13,6 +13,8 @@ using Syncfusion.Windows.Shared.Resources;
 
 namespace Qhta.UnicodeBuild;
 
+using ResourceStrings = Qhta.UnicodeBuild.Resources.Strings;
+
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
@@ -38,6 +40,16 @@ public partial class App : Application
 
   protected override void OnExit(ExitEventArgs e)
   {
+    if (_ViewModels.Instance.DBContext.ThereAreUnsavedChanges)
+    {
+      var result = MessageBox.Show(
+        ResourceStrings.UnsavedDataChanges, ResourceStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+      if (result == MessageBoxResult.No)
+        _ViewModels.Instance.DBContext.AutoSaveChanges = false;
+      else
+        _ViewModels.Instance.DBContext.AutoSaveChanges = true;
+    }
+
     _ViewModels.Instance.Dispose();
     base.OnExit(e);
   }

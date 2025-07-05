@@ -124,7 +124,7 @@
     <value>Unicode Blocks</value>
   </data>
   <data name="UcdRanges" xml:space="preserve">
-    <value>Unicode Ranges</value>
+    <value>s</value>
   </data>
   <data name="WritingSystems" xml:space="preserve">
     <value>Writing Systems</value>
@@ -215,5 +215,11 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   </data>
   <data name="EmptyItem" xml:space="preserve">
     <value>(Empty)</value>
+  </data>
+  <data name="UnsavedDataChanges" xml:space="preserve">
+    <value>There are unsaved data changes. Do you want to save them in the data base?</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
   </data>
 </root>

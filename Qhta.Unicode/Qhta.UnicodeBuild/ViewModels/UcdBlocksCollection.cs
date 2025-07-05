@@ -113,6 +113,8 @@ public sealed class UcdBlocksCollection() : OrderedObservableCollection<UcdBlock
 
   public new void Add(UcdBlockViewModel vm)
   {
+    if (String.IsNullOrEmpty(vm.Name))
+      return;
     vm.PropertyChanged += WritingSystemViewModel_PropertyChanged;
     base.Add(vm);
     if (vm.Id != null) IntDictionary.Add((int)vm.Id, vm);

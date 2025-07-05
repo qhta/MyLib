@@ -48,6 +48,34 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>
     }
   }
 
+  public UnicodeCategoryViewModel? Category
+  {
+    get
+    {
+      var result = Model.Ctg is null ? null : _ViewModels.Instance.UnicodeCategoriesList[(int)Convert.ToByte(Ctg)];
+      return result;
+    }
+    set
+    {
+      if (value is not null)
+      {
+        if (value.Id != Ctg)
+        {
+          Ctg = value?.Id;
+          NotifyPropertyChanged(nameof(Category));
+        }
+      }
+      else
+      {
+        if (Ctg is not null)
+        {
+          Ctg = null;
+          NotifyPropertyChanged(nameof(Category));
+        }
+      }
+    }
+  }
+
   public UcdCombination? Comb
   {
     get => (Model.Comb is null) ? null : (UcdCombination)Enum.ToObject(typeof(UcdCombination), Model.Comb);

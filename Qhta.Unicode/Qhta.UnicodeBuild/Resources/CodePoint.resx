@@ -216,4 +216,11 @@
   <data name="AreaTooltip" xml:space="preserve">
     <value>Area is a Unicode block that define only first and last code points.</value>
   </data>
+  <data name="Ctg" xml:space="preserve">
+    <value>Ctg</value>
+    <comment>@MutedRule(PunctuationTail)</comment>
+  </data>
+  <data name="CtgTooltip" xml:space="preserve">
+    <value>Unicode category to which this code point is assigned.</value>
+  </data>
 </root>

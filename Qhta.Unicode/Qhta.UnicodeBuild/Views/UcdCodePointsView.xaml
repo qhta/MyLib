@@ -10,17 +10,17 @@
              xmlns:controls="clr-namespace:Qhta.UnicodeBuild.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="850" d:DesignWidth="1600">
-    <UserControl.Resources>
-      <Style TargetType="sf:AdvancedFilterControl">
-        <Setter Property="CanGenerateUniqueItems" Value="False" />
-      </Style>
+  <UserControl.Resources>
+    <Style TargetType="sf:AdvancedFilterControl">
+      <Setter Property="CanGenerateUniqueItems" Value="False" />
+    </Style>
 
-      <Style x:Key="filterControlStyle" TargetType="sf:GridFilterControl">
-        <Setter Property="FilterMode" Value="AdvancedFilter" />
-      </Style>
+    <Style x:Key="filterControlStyle" TargetType="sf:GridFilterControl">
+      <Setter Property="FilterMode" Value="AdvancedFilter" />
+    </Style>
   </UserControl.Resources>
 
-    <Grid>
+  <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
@@ -66,9 +66,11 @@
                      EditTrigger="OnTap"
                      EnableDataVirtualization="True" 
                      FilterItemsPopulating="CodePointDataGrid_OnFilterItemsPopulating"
+                     GridCopyOption="CopyData"
 
     >
       <!--FilterPopupStyle="{StaticResource filterControlStyle}"
+                        CopyGridCellContent="CodePointDataGrid_OnCopyGridCellContent"
 
       -->
       <!--<sf:SfDataGrid.GroupColumnDescriptions>
@@ -157,11 +159,38 @@
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTextColumn>
 
+        <sf:GridComboBoxColumn x:Name="CtgColumn"
+           MappingName="Category" 
+           HeaderText="Ctg" 
+           ItemsSource="{Binding Source={StaticResource ViewModels}, 
+             Path=Instance.UnicodeCategoriesList}"
+           DisplayMemberPath="Name"
+           VerticalAlignment="Top"
+           AllowEditing="False"
+           Width="50"
+        >
+          <sf:GridColumn.HeaderTemplate>
+            <DataTemplate>
+              <TextBlock Text="{x:Static resources:CodePoint.Ctg}" 
+                         ToolTip="{x:Static resources:CodePoint.CtgTooltip}"  />
+            </DataTemplate>
+          </sf:GridColumn.HeaderTemplate>
+          <sf:GridColumn.CellTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
+              <TextBlock Text="{Binding Category.Name}" 
+                         ToolTip="{Binding Category.Description}" 
+                         Padding="3"/>
+            </DataTemplate>
+          </sf:GridColumn.CellTemplate>
+        </sf:GridComboBoxColumn>
+
         <sf:GridComboBoxColumn x:Name="UcdBlockColumn"
           MappingName="UcdBlock" 
           HeaderText="UcdBlock" 
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableBlocks}"
+            Path=Instance.SelectableBlocks,
+            Converter={StaticResource InsertItemConverter},
+            ConverterParameter={StaticResource BlankUcdBlock}}"
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
@@ -186,7 +215,9 @@
           MappingName="Area" 
           HeaderText="Area" 
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableAreas}"
+            Path=Instance.SelectableAreas,
+            Converter={StaticResource InsertItemConverter},
+            ConverterParameter={StaticResource BlankWritingSystem}}"
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
@@ -211,8 +242,10 @@
           MappingName="Script" 
           HeaderText="Script" 
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableScripts}"
-          DisplayMemberPath="Name" 
+            Path=Instance.SelectableScripts,
+            Converter={StaticResource InsertItemConverter},
+            ConverterParameter={StaticResource BlankWritingSystem}}"
+          DisplayMemberPath="Name"
           VerticalAlignment="Top"
           AllowEditing="True"
           Width="200"
@@ -236,7 +269,9 @@
           MappingName="Language" 
           HeaderText="Language" 
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableLanguages}"
+            Path=Instance.SelectableLanguages, 
+            Converter={StaticResource InsertItemConverter},
+            ConverterParameter={StaticResource BlankWritingSystem}}"
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
@@ -261,7 +296,9 @@
           MappingName="Notation" 
           HeaderText="Notation" 
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableNotations}"
+            Path=Instance.SelectableNotations,
+            Converter={StaticResource InsertItemConverter},
+            ConverterParameter={StaticResource BlankWritingSystem}}"
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
@@ -283,10 +320,12 @@
         </sf:GridComboBoxColumn>
 
         <sf:GridComboBoxColumn 
-          MappingName="Set" 
-          HeaderText="Set" 
+          MappingName="SymbolSet" 
+          HeaderText="SymbolSet" 
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableSymbolSets}"
+            Path=Instance.SelectableSymbolSets,
+            Converter={StaticResource InsertItemConverter},
+            ConverterParameter={StaticResource BlankWritingSystem}}"
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
@@ -311,7 +350,9 @@
           MappingName="Subset" 
           HeaderText="Subset" 
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableSubsets}"
+            Path=Instance.SelectableSubsets,
+            Converter={StaticResource InsertItemConverter},
+            ConverterParameter={StaticResource BlankWritingSystem}}"
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
@@ -336,7 +377,9 @@
           MappingName="Artefact" 
           HeaderText="Artefact" 
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableArtefacts}"
+            Path=Instance.SelectableArtefacts,
+            Converter={StaticResource InsertItemConverter},
+            ConverterParameter={StaticResource BlankWritingSystem}}"
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
@@ -365,7 +408,7 @@
           Visibility="{Binding Source={StaticResource ViewModels}, 
                     Path=Instance.UcdCodePoints.IsBusy, 
                    Converter={StaticResource BoolToVisibilityConverter}}">
-          
+
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="Auto" />
         <ColumnDefinition Width="*" />

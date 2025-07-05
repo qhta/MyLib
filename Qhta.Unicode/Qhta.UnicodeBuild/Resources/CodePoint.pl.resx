@@ -216,4 +216,10 @@
   <data name="AreaTooltip" xml:space="preserve">
     <value>Obszar jest blokiem Unicode definiującym tylko pierwszy i ostatni punkt kodowy.</value>
   </data>
+  <data name="Ctg" xml:space="preserve">
+    <value>Kat.</value>
+  </data>
+  <data name="CtgTooltip" xml:space="preserve">
+    <value>Kategoria Unicode, do której ten punkt kodowy jest przypisany.</value>
+  </data>
 </root>

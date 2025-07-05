@@ -216,4 +216,10 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="EmptyItem" xml:space="preserve">
     <value>(Puste)</value>
   </data>
+  <data name="UnsavedDataChanges" xml:space="preserve">
+    <value>Pewne zmiany danych nie zostały zapamiętane. Czy chcesz je zachować w bazie danych?</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Ostrzeżenie</value>
+  </data>
 </root>

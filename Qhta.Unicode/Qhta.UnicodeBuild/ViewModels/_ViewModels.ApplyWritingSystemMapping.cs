@@ -150,6 +150,9 @@ public partial class _ViewModels : IDisposable
             //Debug.WriteLine($"Set WritingSystem {WritingSystem.Name} for cp {cp:X4}");
             switch (WritingSystem.Type)
             {
+              case WritingSystemType.Area:
+                codePoint.Area = WritingSystem;
+                break;
               case WritingSystemType.Family:
               case WritingSystemType.Script:
                 codePoint.Script = WritingSystem;

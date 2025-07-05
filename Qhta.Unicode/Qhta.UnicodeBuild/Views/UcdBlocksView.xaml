@@ -151,7 +151,7 @@
           DisplayMemberPath="FullName"
           SortMode="Display"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-          Path=Instance.SelectableScripts}"
+          Path=Instance.SelectableWritingSystems}"
           VerticalAlignment="Top"
           Width="300"
           >

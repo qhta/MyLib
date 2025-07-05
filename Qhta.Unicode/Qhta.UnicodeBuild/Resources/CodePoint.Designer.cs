@@ -160,6 +160,24 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ctg.
+        /// </summary>
+        public static string Ctg {
+            get {
+                return ResourceManager.GetString("Ctg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode category to which this code point is assigned..
+        /// </summary>
+        public static string CtgTooltip {
+            get {
+                return ResourceManager.GetString("CtgTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Description {

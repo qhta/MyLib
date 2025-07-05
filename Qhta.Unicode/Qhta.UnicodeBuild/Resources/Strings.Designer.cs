@@ -296,7 +296,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unicode Ranges.
+        ///   Looks up a localized string similar to s.
         /// </summary>
         public static string UcdRanges {
             get {
@@ -316,11 +316,29 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are unsaved data changes. Do you want to save them in the data base?.
+        /// </summary>
+        public static string UnsavedDataChanges {
+            get {
+                return ResourceManager.GetString("UnsavedDataChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Updating {0}.
         /// </summary>
         public static string Updating {
             get {
                 return ResourceManager.GetString("Updating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
         

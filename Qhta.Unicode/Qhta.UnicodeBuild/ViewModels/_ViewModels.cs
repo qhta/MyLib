@@ -50,6 +50,16 @@ public partial class _ViewModels : IDisposable
         WritingSystemKindsList.Add(new WritingSystemKindViewModel(wsk));
       }
 
+      foreach (var wsk in _Context.WritingSystemKinds.ToList())
+      {
+        WritingSystemKindsList.Add(new WritingSystemKindViewModel(wsk));
+      }
+
+      foreach (var uc in _Context.UnicodeCategories.ToList())
+      {
+        UnicodeCategoriesList.Add(new UnicodeCategoryViewModel(uc));
+      }
+
       foreach (var ub in _Context.UcdBlocks
                  .ToList())
       {
@@ -90,6 +100,7 @@ public partial class _ViewModels : IDisposable
   public WritingSystemsCollection WritingSystems { get; set; } = new();
   public List<WritingSystemTypeViewModel> WritingSystemTypesList { get; } = new();
   public List<WritingSystemKindViewModel> WritingSystemKindsList { get; } = new();
+  public List<UnicodeCategoryViewModel> UnicodeCategoriesList { get; } = new();
   public Array WritingSystemTypes { get; } = Enum.GetValues(typeof(WritingSystemType));
   public Array WritingSystemKinds { get; } = Enum.GetValues(typeof(WritingSystemKind));
   public Array Categories { get; } = Enum.GetNames(typeof(UcdCategory));
@@ -99,7 +110,6 @@ public partial class _ViewModels : IDisposable
     get
     {
       List<UcdBlockViewModel?> list = new();
-      list.Insert(0, null);
       list.AddRange( _ViewModels.Instance.UcdBlocks.Where(item => !String.IsNullOrEmpty(item.Name))
         .OrderBy(vm => vm.Name));
       return list;
@@ -109,12 +119,14 @@ public partial class _ViewModels : IDisposable
   public IEnumerable<WritingSystemViewModel?> GetSelectableWritingSystems(params WritingSystemType[] types)
   {
       List<WritingSystemViewModel?> list = new();
-      list.Insert(0, null);
       list.AddRange(_ViewModels.Instance.WritingSystems.Where(item => item.Type !=null && types.Contains((WritingSystemType)item.Type))
         .OrderBy(vm => vm.FullName));
       return list;
   }
- 
+
+  public IEnumerable<WritingSystemViewModel?> SelectableWritingSystems =>
+    GetSelectableWritingSystems(WritingSystemType.Area, WritingSystemType.Family, WritingSystemType.Script, WritingSystemType.Notation, WritingSystemType.SymbolSet);
+
   public IEnumerable<WritingSystemViewModel?> SelectableAreas => GetSelectableWritingSystems(WritingSystemType.Area);
 
   public IEnumerable<WritingSystemViewModel?> SelectableScripts =>

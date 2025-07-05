@@ -1,0 +1,1396 @@
+0600..0604	Arabic
+0605	Arabic
+0606..0607	Arabic
+0608	Arabic
+0609..060A	Arabic
+060B	Arabic
+060C	Arabic
+060E..060F	Arabic
+0610..0614	Arabic
+0615	Arabic
+0617..061A	Arabic
+061B	Arabic
+061C	Arabic
+061D..061F	Arabic
+064B..0652	Arabic
+0653..0655	Arabic
+0656..065F	Arabic
+066A..066D	Arabic
+066E..066F	Arabic
+0670	Arabic
+0674	Arabic
+0675..0678	Arabic
+06D4	Arabic
+06D6..06ED	Arabic
+06F0..06F9	Arabic
+06FD..06FE	Arabic
+0750..076D	Arabic
+088E	Arabic
+0890..0891	Arabic
+0897	Arabic
+08AA..08AC	Arabic
+08B5	Arabic
+08D3..08E2	Arabic
+08EA..08EF	Arabic
+08F0..08F3	Arabic
+10EFC	Arabic
+10EFD..10EFF	Arabic
+FB60..FBB1	Arabic
+FBD3..FBE9	Arabic
+FBEA..FD3D	Arabic
+FD3E..FD3F	Arabic
+FD50..FDC7	Arabic
+FDCF	Arabic
+FDF0..FDFB	Arabic
+FDFC	Arabic
+FE70..FE72	Arabic
+FE73	Arabic
+FE74..FE7F	Arabic
+FE80..FEFC	Arabic
+FEFF	Arabic
+0531..0556	Armenian
+0559..055F	Armenian
+0560..0588	Armenian
+0589..058A	Armenian
+058F	Armenian
+12000..12399	Cuneiform
+12400..12464	Cuneiform
+12465..12466	Cuneiform
+12467..12468	Cuneiform
+12469..1246E	Cuneiform
+12470..12474	Cuneiform
+12480..12543	Cuneiform
+13000..1304F	Egyptian Hieroglyphs
+13050..13059	Egyptian Hieroglyphs
+1305A..13075	Egyptian Hieroglyphs
+13076..130D1	Egyptian Hieroglyphs
+130D2..130FD	Egyptian Hieroglyphs
+130FE..1313E	Egyptian Hieroglyphs
+1313F..1317E	Egyptian Hieroglyphs
+1317F..13187	Egyptian Hieroglyphs
+13188..1319A	Egyptian Hieroglyphs
+1319B..131A2	Egyptian Hieroglyphs
+131A3..131AC	Egyptian Hieroglyphs
+131AD..131EE	Egyptian Hieroglyphs
+131EF..1321F	Egyptian Hieroglyphs
+13220..13235	Egyptian Hieroglyphs
+13236..1324F	Egyptian Hieroglyphs
+13250..1329A	Egyptian Hieroglyphs
+1329B..132A7	Egyptian Hieroglyphs
+132A8..132AE	Egyptian Hieroglyphs
+132AF..132D0	Egyptian Hieroglyphs
+132D1..13306	Egyptian Hieroglyphs
+13307..13332	Egyptian Hieroglyphs
+13333..13362	Egyptian Hieroglyphs
+13362..133AE	Egyptian Hieroglyphs
+133AF..133CE	Egyptian Hieroglyphs
+133CF..133DA	Egyptian Hieroglyphs
+133DB..133E3	Egyptian Hieroglyphs
+133E4..1340C	Egyptian Hieroglyphs
+1340D..1342E	Egyptian Hieroglyphs
+1342F	Egyptian Hieroglyphs
+13430..13431	Egyptian Hieroglyphs
+13432..13435	Egyptian Hieroglyphs
+13436	Egyptian Hieroglyphs
+13437..13438	Egyptian Hieroglyphs
+13439..1343B	Egyptian Hieroglyphs
+1343C..1343F	Egyptian Hieroglyphs
+13440	Egyptian Hieroglyphs
+13441..13446	Egyptian Hieroglyphs
+13447..13455	Egyptian Hieroglyphs
+13460..13487	Egyptian Hieroglyphs
+13488..134A4	Egyptian Hieroglyphs
+134A5..134AF	Egyptian Hieroglyphs
+134B0..134C5	Egyptian Hieroglyphs
+134C6..134DA	Egyptian Hieroglyphs
+134DB..134FC	Egyptian Hieroglyphs
+134FD..1350F	Egyptian Hieroglyphs
+13510..1351E	Egyptian Hieroglyphs
+1351F..13526	Egyptian Hieroglyphs
+13527..1352A	Egyptian Hieroglyphs
+1352B..1354D	Egyptian Hieroglyphs
+1354E..13562	Egyptian Hieroglyphs
+13563..1356A	Egyptian Hieroglyphs
+1356B..1358D	Egyptian Hieroglyphs
+1358E..135A4	Egyptian Hieroglyphs
+135A5..135AE	Egyptian Hieroglyphs
+135AF..135DD	Egyptian Hieroglyphs
+135DE..135EA	Egyptian Hieroglyphs
+135EB..13603	Egyptian Hieroglyphs
+13604..1361B	Egyptian Hieroglyphs
+1361C	Egyptian Hieroglyphs
+1361D..1363C	Egyptian Hieroglyphs
+1363D	Egyptian Hieroglyphs
+1363E..13651	Egyptian Hieroglyphs
+13652..13661	Egyptian Hieroglyphs
+13662..1366E	Egyptian Hieroglyphs
+1366F..13689	Egyptian Hieroglyphs
+1368A..13697	Egyptian Hieroglyphs
+13698..136AF	Egyptian Hieroglyphs
+136B0..136B4	Egyptian Hieroglyphs
+136B5..136B8	Egyptian Hieroglyphs
+136B9..136C2	Egyptian Hieroglyphs
+136C3..136D3	Egyptian Hieroglyphs
+136D4..136EF	Egyptian Hieroglyphs
+136F0..136F5	Egyptian Hieroglyphs
+136F6..136FF	Egyptian Hieroglyphs
+13700..1370E	Egyptian Hieroglyphs
+1370F..13729	Egyptian Hieroglyphs
+1372A..1372C	Egyptian Hieroglyphs
+1372D..13731	Egyptian Hieroglyphs
+13732..13736	Egyptian Hieroglyphs
+13737..13743	Egyptian Hieroglyphs
+13744..13748	Egyptian Hieroglyphs
+13749..1375D	Egyptian Hieroglyphs
+1375E..13762	Egyptian Hieroglyphs
+13763..1376D	Egyptian Hieroglyphs
+1376E..1378C	Egyptian Hieroglyphs
+1378D..13791	Egyptian Hieroglyphs
+13792	Egyptian Hieroglyphs
+13793..13795	Egyptian Hieroglyphs
+13796..137CB	Egyptian Hieroglyphs
+137CC..137DE	Egyptian Hieroglyphs
+137DF..137E6	Egyptian Hieroglyphs
+137E7	Egyptian Hieroglyphs
+137E8..13803	Egyptian Hieroglyphs
+13804..1380A	Egyptian Hieroglyphs
+1380B..1381A	Egyptian Hieroglyphs
+1381B..1381D	Egyptian Hieroglyphs
+1381E..13820	Egyptian Hieroglyphs
+13821	Egyptian Hieroglyphs
+13822..1382A	Egyptian Hieroglyphs
+1382B..1382D	Egyptian Hieroglyphs
+1382E..1382F	Egyptian Hieroglyphs
+13830..13838	Egyptian Hieroglyphs
+13839..13842	Egyptian Hieroglyphs
+13843..13847	Egyptian Hieroglyphs
+13848	Egyptian Hieroglyphs
+13849..13850	Egyptian Hieroglyphs
+13851..13855	Egyptian Hieroglyphs
+13856	Egyptian Hieroglyphs
+13857..1385A	Egyptian Hieroglyphs
+1385B..13863	Egyptian Hieroglyphs
+13864..13870	Egyptian Hieroglyphs
+13871..13875	Egyptian Hieroglyphs
+13876..13877	Egyptian Hieroglyphs
+13878..1387C	Egyptian Hieroglyphs
+1387D..138AD	Egyptian Hieroglyphs
+138AE..138C7	Egyptian Hieroglyphs
+138C8..138D6	Egyptian Hieroglyphs
+138D7..138DD	Egyptian Hieroglyphs
+138DE..138E4	Egyptian Hieroglyphs
+138E5..138EF	Egyptian Hieroglyphs
+138F0	Egyptian Hieroglyphs
+138F1..138F4	Egyptian Hieroglyphs
+138F5	Egyptian Hieroglyphs
+138FF	Egyptian Hieroglyphs
+13900..13904	Egyptian Hieroglyphs
+13905..13906	Egyptian Hieroglyphs
+13907..13922	Egyptian Hieroglyphs
+13923..1392C	Egyptian Hieroglyphs
+1392D..13934	Egyptian Hieroglyphs
+13935..13936	Egyptian Hieroglyphs
+13937..13969	Egyptian Hieroglyphs
+1396A..13972	Egyptian Hieroglyphs
+13973..13975	Egyptian Hieroglyphs
+13976..13985	Egyptian Hieroglyphs
+13986..1398B	Egyptian Hieroglyphs
+1398C..1398E	Egyptian Hieroglyphs
+1398F	Egyptian Hieroglyphs
+13990	Egyptian Hieroglyphs
+13991..13993	Egyptian Hieroglyphs
+13994..13996	Egyptian Hieroglyphs
+13997..13998	Egyptian Hieroglyphs
+13999..1399D	Egyptian Hieroglyphs
+1399E	Egyptian Hieroglyphs
+1399F	Egyptian Hieroglyphs
+139A0..139A5	Egyptian Hieroglyphs
+139A6..139AF	Egyptian Hieroglyphs
+139B0..139B6	Egyptian Hieroglyphs
+139B7..139C1	Egyptian Hieroglyphs
+139C2	Egyptian Hieroglyphs
+139C3..139C4	Egyptian Hieroglyphs
+139C5..139C6	Egyptian Hieroglyphs
+139C7..139DA	Egyptian Hieroglyphs
+139DB..139EF	Egyptian Hieroglyphs
+139F0..139F6	Egyptian Hieroglyphs
+139F7..139FF	Egyptian Hieroglyphs
+13A00..13A04	Egyptian Hieroglyphs
+13A05..13A06	Egyptian Hieroglyphs
+13A07..13A0C	Egyptian Hieroglyphs
+13A0D..13A11	Egyptian Hieroglyphs
+13A12..13A18	Egyptian Hieroglyphs
+13A19..13A20	Egyptian Hieroglyphs
+13A21..13A2F	Egyptian Hieroglyphs
+13A30..13A31	Egyptian Hieroglyphs
+13A32..13A35	Egyptian Hieroglyphs
+13A36..13A4B	Egyptian Hieroglyphs
+13A4C..13A59	Egyptian Hieroglyphs
+13A5A..13A66	Egyptian Hieroglyphs
+13A67..13A74	Egyptian Hieroglyphs
+13A75..13A7B	Egyptian Hieroglyphs
+13A7C..13A85	Egyptian Hieroglyphs
+13A86..13A98	Egyptian Hieroglyphs
+13A99..13AA4	Egyptian Hieroglyphs
+13AA5..13AA9	Egyptian Hieroglyphs
+13AAA..13AAD	Egyptian Hieroglyphs
+13AAE..13AAF	Egyptian Hieroglyphs
+13AB0..13ABA	Egyptian Hieroglyphs
+13ABB..13ABC	Egyptian Hieroglyphs
+13ABD..13AC0	Egyptian Hieroglyphs
+13AC1..13AE4	Egyptian Hieroglyphs
+13AE5..13AE6	Egyptian Hieroglyphs
+13AE7	Egyptian Hieroglyphs
+13AE8..13B13	Egyptian Hieroglyphs
+13B14	Egyptian Hieroglyphs
+13B15..13B28	Egyptian Hieroglyphs
+13B29..13B56	Egyptian Hieroglyphs
+13B57..13B58	Egyptian Hieroglyphs
+13B59..13B5B	Egyptian Hieroglyphs
+13B5C..13B5F	Egyptian Hieroglyphs
+13B60..13B69	Egyptian Hieroglyphs
+13B6A..13B75	Egyptian Hieroglyphs
+1200..135A	Ethiopic
+135D..135F	Ethiopic
+1360..1368	Ethiopic
+1369..1371	Ethiopic
+1372..137C	Ethiopic
+1380..138F	Ethiopic
+1390..1399	Ethiopic
+1E7E0..1E7FE	Ethiopic
+2D80..2D92	Ethiopic
+2D93..2D96	Ethiopic
+2DA0..2DBE	Ethiopic
+2DC0..2DDE	Ethiopic
+AB01..AB0E	Ethiopic
+AB11..AB16	Ethiopic
+AB20..AB2E	Ethiopic
+10D40..10D49	Garay
+10D4A..10D4D	Garay
+10D4E..10D4F	Garay
+10D50..10D65	Garay
+10D69	Garay
+10D6A..10D6D	Garay
+10D6E..10D6F	Garay
+10D70..10D85	Garay
+10D8E..10D8F	Garay
+3131..3163	Hangul
+3164	Hangul
+3165..3186	Hangul
+3187..318E	Hangul
+AC00..D7AF	Hangul
+10D1C	Hanifi Rohingya
+10D1D..10D21	Hanifi Rohingya
+10D22	Hanifi Rohingya
+10D23	Hanifi Rohingya
+10D24..10D26	Hanifi Rohingya
+10D27	Hanifi Rohingya
+10D30..10D39	Hanifi Rohingya
+108FB..108FF	Hatran
+10857	Imperial Aramaic
+10858..1085F	Imperial Aramaic
+10B78..10B7F	Inscriptional Pahlavi
+10B58..10B5F	Inscriptional Parthian
+1AFF0..1AFF6	Japanese scripts
+1AFF7..1AFFE	Japanese scripts
+1B000	Japanese scripts
+1B001	Japanese scripts
+1B002..1B00F	Japanese scripts
+1B100..1B11E	Japanese scripts
+1B11F	Japanese scripts
+1B120..1B122	Japanese scripts
+1B132..1B152	Japanese scripts
+1B155..1B167	Japanese scripts
+10A00..10A06	Kharoshthi
+10A0C	Kharoshthi
+10A0D..10A0F	Kharoshthi
+10A38..10A3A	Kharoshthi
+10A3F	Kharoshthi
+10A44..10A48	Kharoshthi
+10A50..10A58	Kharoshthi
+0041..005A	Latin
+0061..007A	Latin
+0100..0148	Latin
+0149	Latin
+014A..017F	Latin
+0180..01BF	Latin
+01C0..01C3	Latin
+01C4..01CC	Latin
+01CD..01DC	Latin
+01DD..01FF	Latin
+0200..0217	Latin
+0218..021B	Latin
+021C..0229	Latin
+022A..0233	Latin
+0234..0236	Latin
+0237	Latin
+0238..0239	Latin
+023A..023E	Latin
+023F..0240	Latin
+0241..024F	Latin
+10780	Latin
+10781..107BA	Latin
+1AB0..1ABA	Latin
+1ACB..1ACE	Latin
+1DF0B..1DF10	Latin
+1DF11	Latin
+1DF12..1DF18	Latin
+1DF19..1DF1D	Latin
+1E9C..1E9D	Latin
+1E9E	Latin
+1E9F	Latin
+1EFA..1EFF	Latin
+2C60..2C66	Latin
+2C67..2C6C	Latin
+2C6D..2C74	Latin
+2C77..2C7D	Latin
+2C7E..2C7F	Latin
+A720..A721	Latin
+A722..A725	Latin
+A726..A72F	Latin
+A730..A778	Latin
+A779..A787	Latin
+A788..A78A	Latin
+A78B..A78C	Latin
+A78D	Latin
+A78E	Latin
+A790..A793	Latin
+A794..A795	Latin
+A798..A799	Latin
+A79A..A79F	Latin
+A7AA..A7AD	Latin
+A7F2..A7F3	Latin
+A7F4	Latin
+A7F5..A7F7	Latin
+A7F8..A7F9	Latin
+A7FA	Latin
+A7FB..A7FF	Latin
+AB5B..AB5F	Latin
+AB60..AB63	Latin
+10600..1069F	Linear A
+106A0..106B2	Linear A
+106B3..10726	Linear A
+10727..10736	Linear A
+10740..10755	Linear A
+10760..10767	Linear A
+10000..1003F	Linear B
+10040..1004D	Linear B
+10050..1005D	Linear B
+10080..1008D	Linear B
+1008E..10094	Linear B
+10095..10099	Linear B
+1009A..1009C	Linear B
+1009D..100DD	Linear B
+100DE..100FA	Linear B
+1F700..1F704	Alchemical
+1F705..1F70C	Alchemical
+1F70D..1F713	Alchemical
+1F714..1F719	Alchemical
+1F71A..1F71B	Alchemical
+1F71C..1F71F	Alchemical
+1F720..1F728	Alchemical
+1F729..1F72A	Alchemical
+1F72B..1F735	Alchemical
+1F736..1F75D	Alchemical
+1F75E..1F764	Alchemical
+1F765..1F76D	Alchemical
+1F76E..1F771	Alchemical
+1F772..1F773	Alchemical
+1F774	Alchemical
+1F775..1F776	Alchemical
+1F77B..1F77F	Alchemical
+2336..237A	APL
+2395	APL
+1FA00..1FA05	Chess
+1FA06..1FA08	Chess
+1FA09..1FA1A	Chess
+1FA1B..1FA1D	Chess
+1FA1E..1FA2F	Chess
+1FA30..1FA32	Chess
+1FA33..1FA44	Chess
+1FA45..1FA47	Chess
+1FA48..1FA4A	Chess
+1FA4B..1FA4D	Chess
+1FA4E..1FA53	Chess
+2654..2659	Chess
+265A..265F	Chess
+2BBA..2BBC	Chess
+2BF9..2BFE	Chess
+1FB00..1FB3B	Block Drawings
+1FB3C..1FB6F	Block Drawings
+1FB70..1FB80	Block Drawings
+1FB81	Block Drawings
+1FB82..1FB8B	Block Drawings
+1FB8C..1FB94	Block Drawings
+1FB95..1FB97	Block Drawings
+1FB98..1FB99	Block Drawings
+1FB9A..1FB9B	Block Drawings
+1FB9C..1FB9F	Block Drawings
+1FBA0..1FBAE	Block Drawings
+1FBAF	Block Drawings
+1FBCE..1FBCF	Block Drawings
+1FBD0..1FBDF	Block Drawings
+1FBE0..1FBEF	Block Drawings
+2580..2590	Block Drawings
+2591..2593	Block Drawings
+2594..2595	Block Drawings
+2500..2503	Box Drawings
+2504..250B	Box Drawings
+250C..254B	Box Drawings
+254C..254F	Box Drawings
+2550..2551	Box Drawings
+2552..256C	Box Drawings
+256D..2570	Box Drawings
+2571..2573	Box Drawings
+2574..257B	Box Drawings
+257C..257F	Box Drawings
+1F100	Enclosed
+1F101..1F10A	Enclosed
+1F10B..1F10C	Enclosed
+1F10D..1F10F	Enclosed
+1F110..1F129	Enclosed
+1F12A	Enclosed
+1F12B..1F12C	Enclosed
+1F12D..1F12F	Enclosed
+1F130..1F14F	Enclosed
+1F150	Enclosed
+1F16A..1F16C	Enclosed
+1F16D	Enclosed
+1F170..1F18F	Enclosed
+1F190..1F19A	Enclosed
+1F19B..1F1AC	Enclosed
+1F1AD	Enclosed
+1F200	Enclosed
+1F201..1F202	Enclosed
+1F210..1F231	Enclosed
+1F232..1F23B	Enclosed
+1F240..1F24B	Enclosed
+1F250..1F251	Enclosed
+1F260..1F265	Enclosed
+2460..2473	Enclosed
+2474..2487	Enclosed
+2488..249B	Enclosed
+249C..24B5	Enclosed
+24B6..24E9	Enclosed
+24EA	Enclosed
+24EB..24F4	Enclosed
+24F5..24FE	Enclosed
+24FF	Enclosed
+3200..320D	Enclosed
+320E..321C	Enclosed
+321D..321E	Enclosed
+3220..3234	Enclosed
+3244..3247	Enclosed
+3248..324F	Enclosed
+3250	Enclosed
+3251..325F	Enclosed
+3260..326D	Enclosed
+326E..327B	Enclosed
+327C..327D	Enclosed
+327E	Enclosed
+3280..32B0	Enclosed
+32B1..32BF	Enclosed
+32D0..32FE	Enclosed
+2BBE..2BBF	Circled
+2E80..2EF3	CJK Compatibility
+3000..3007	CJK Compatibility
+3008..300B	CJK Compatibility
+300C..300F	CJK Compatibility
+3010..3011	CJK Compatibility
+3012..3013	CJK Compatibility
+3014..301B	CJK Compatibility
+301C..301F	CJK Compatibility
+3020	CJK Compatibility
+3021..3029	CJK Compatibility
+302A..302F	CJK Compatibility
+3030	CJK Compatibility
+3031..3035	CJK Compatibility
+3036..3037	CJK Compatibility
+3038..303A	CJK Compatibility
+303B..303D	CJK Compatibility
+303E..303F	CJK Compatibility
+31C0..31E5	CJK Compatibility
+31EF	CJK Compatibility
+3300..3357	CJK Compatibility
+3358..3370	CJK Compatibility
+3400..4DBF	CJK Compatibility
+4E00..9FFF	CJK Compatibility
+F900..FAFF	CJK Compatibility
+FE30..FE44	CJK Compatibility
+FE45..FE46	CJK Compatibility
+FE47..FE48	CJK Compatibility
+FE49..FE4F	CJK Compatibility
+1F550..1F567	Clock Faces
+23BE..23CC	Dentistry Symbols
+2794	Dingbat Symbols
+2798..27AF	Dingbat Symbols
+27B1..27BE	Dingbat Symbols
+2780..2789	Dingbats Circled
+2776..277F	Dingbats Circled Negative
+278A..2793	Dingbats Circled Negative
+1D360..1D371	Counting Rods
+1D372..1D376	Counting Rods
+1D377..1D378	Counting Rods
+1F030	Domino Tiles
+1F031..1F037	Domino Tiles
+1F038..1F03E	Domino Tiles
+1F03F..1F045	Domino Tiles
+1F046..1F04C	Domino Tiles
+1F04D..1F053	Domino Tiles
+1F054..1F05A	Domino Tiles
+1F05B..1F061	Domino Tiles
+1F062	Domino Tiles
+1F063..1F069	Domino Tiles
+1F06A..1F070	Domino Tiles
+1F071..1F077	Domino Tiles
+1F078..1F07E	Domino Tiles
+1F07F..1F085	Domino Tiles
+1F086..1F08C	Domino Tiles
+1F08D..1F093	Domino Tiles
+1F600..1F637	Emoticons
+1F638..1F640	Emoticons
+1F641..1F644	Emoticons
+1F645..1F64F	Emoticons
+1F910..1F917	Emoticons
+1F920..1F92F	Emoticons
+1F9B0..1F9B3	Emoticons
+1FAE6..1FAE7	Emoticons
+2322..2323	Emoticons
+2639..263B	Emoticons
+2757	Heavy Symbols
+2795..2797	Heavy Symbols
+2630..2637	Yijing Symbols
+268A..268F	Yijing Symbols
+16FE0	Ideographic Symbols
+16FE1	Ideographic Symbols
+16FE2..16FE3	Ideographic Symbols
+16FE4	Ideographic Symbols
+16FF0..16FF1	Ideographic Symbols
+2FF0..2FFF	Ideographic Description Characters
+32C0..32CB	Ideographic Telegraph Symbols
+33E0..33FE	Ideographic Telegraph Symbols
+1EC71..1EC79	Indic Siyaq Numerals
+1EC7A..1EC82	Indic Siyaq Numerals
+1EC83..1EC8B	Indic Siyaq Numerals
+1EC8C..1EC94	Indic Siyaq Numerals
+1EC95..1EC9D	Indic Siyaq Numerals
+1EC9E..1ECA0	Indic Siyaq Numerals
+1ECA1..1ECA2	Indic Siyaq Numerals
+1ECA3..1ECAB	Indic Siyaq Numerals
+1ECAC	Indic Siyaq Numerals
+1ECB0	Indic Siyaq Numerals
+1ECB1..1ECB4	Indic Siyaq Numerals
+1F000..1F003	Mahjong Tiles
+1F004..1F006	Mahjong Tiles
+1F007..1F00F	Mahjong Tiles
+1F010..1F018	Mahjong Tiles
+1F019..1F021	Mahjong Tiles
+1F022..1F025	Mahjong Tiles
+1F026..1F029	Mahjong Tiles
+1F02A..1F02B	Mahjong Tiles
+1D400..1D433	Mathematical Bold
+1D4D0..1D503	Mathematical Bold Script
+1D538..1D59F	Mathematical Double-Struct
+1D504..1D537	Mathematical Fraktur
+1D434..1D457	Mathematical Italic
+1D7F6	Mathematical Monospace
+1D49C..1D4CF	Mathematical Script
+1D2E0..1D2F3	Mayan Numerals
+2669..266F	Musical Symbols
+274E	Squared Negative Symbols
+2440..2445	OCR Symbols
+2446..2449	OCR Symbols
+244A	OCR Symbols
+101D0..101FC	Phaistos Disk Symbols
+101FD	Phaistos Disk Symbols
+1F0A0	Playing Card Symbols
+1F0A1..1F0AE	Playing Card Symbols
+1F0B1..1F0BE	Playing Card Symbols
+1F0BF	Playing Card Symbols
+1F0C1..1F0CE	Playing Card Symbols
+1F0CF	Playing Card Symbols
+1F0D1..1F0DE	Playing Card Symbols
+1F0DF	Playing Card Symbols
+1F0E0..1F0F5	Playing Card Symbols
+2660..2667	Playing Card Symbols
+2764..2765	Playing Card Symbols
+10190..10195	Roman Symbols
+10196..1019A	Roman Symbols
+1019B..1019C	Roman Symbols
+2BF3..2BF8	Astrological Russian
+21E6..21F0	Astrological Symbols
+2609..260D	Astrological Symbols
+263D..2647	Astrological Symbols
+26B3..26B8	Astrological Symbols
+26B9..26BC	Astrological Symbols
+26E2	Astrological Symbols
+2B00..2B0D	Astrological Symbols
+2B95	Astrological Symbols
+2BC9	Astrological Symbols
+2BD3..2BE7	Astrological Symbols
+2BF0..2BF2	Astrological Symbols
+25A0..25AB	Squares
+25FB..25FE	Squares
+274F..2752	Squares
+29C9	Squares
+2B12..2B15	Squares
+2B1A..2B1E	Squares
+29C4..29C8	Squared Symbols
+237B	Control Char Symbols
+237D..237F	Control Char Symbols
+2400..2421	Control Char Symbols
+2422..2423	Control Char Symbols
+2424	Control Char Symbols
+2426	Control Char Symbols
+25F0..25F7	Control Char Symbols
+E0001	Tags
+E0020..E007E	Tags
+E007F	Tags
+E0100..E01EF	Variation Selectors
+FE00..FE0D	Variation Selectors
+FE0E..FE0F	Variation Selectors
+00BC..00BE	Vulgar Fractions
+1FA60..1FA6D	Xiangqi Symbols
+1F800..1F80B	Arrows
+1F810..1F81F	Arrows
+1F820..1F833	Arrows
+1F834..1F837	Arrows
+1F838..1F83B	Arrows
+1F83C..1F843	Arrows
+1F850..1F859	Arrows
+1F860..1F887	Arrows
+1F890..1F897	Arrows
+1F898..1F89B	Arrows
+1F89C..1F89F	Arrows
+1F8A0..1F8AB	Arrows
+1F8AC..1F8AD	Arrows
+1F8B0..1F8BB	Arrows
+1F8C0..1F8C1	Arrows
+1FBB4..1FBB8	Arrows
+27F0..27F4	Arrows
+27F5..27FF	Arrows
+2900..2918	Arrows
+291D..2926	Arrows
+2927..2932	Arrows
+2933..2941	Arrows
+2942..2949	Arrows
+2970	Arrows
+2971..297B	Arrows
+2B0E..2B11	Arrows
+2B30..2B4C	Arrows
+2B4D	Arrows
+2B60..2B87	Arrows
+2B88..2B8B	Arrows
+2B8C..2B8F	Arrows
+2B94	Arrows
+2BA0..2BA7	Arrows
+2BA8..2BAF	Arrows
+2BB0..2BB7	Arrows
+2BEC..2BEF	Arrows
+294A..2951	Harpoons
+2952..2961	Harpoons
+2962..296F	Harpoons
+25CB..25D7	Circles
+25D9..25E1	Circles
+25EF	Circles
+26AA..26AC	Circles
+274D	Circles
+29B5..29C3	Circles
+2B24	Circles
+2BCA..2BCB	Circles
+00D7	Math Symbols
+00F7	Math Symbols
+1D5A0..1D5D3	Math Symbols
+1D5D4..1D607	Math Symbols
+1D608..1D63B	Math Symbols
+1D670..1D6A3	Math Symbols
+1D6A4..1D6A5	Math Symbols
+1D6A8..1D6DA	Math Symbols
+1D6DB..1D6E1	Math Symbols
+1D6E2..1D714	Math Symbols
+1D715..1D71B	Math Symbols
+1D71C..1D755	Math Symbols
+1D756..1D788	Math Symbols
+1D789..1D78F	Math Symbols
+1D790..1D7C2	Math Symbols
+1D7C3..1D7C9	Math Symbols
+1D7CA..1D7CB	Math Symbols
+1D7CE..1D7D7	Math Symbols
+1D7D8..1D7E1	Math Symbols
+1D7E2..1D7EB	Math Symbols
+1D7EC..1D7F5	Math Symbols
+2200..2207	Math Symbols
+2208..220D	Math Symbols
+220E	Math Symbols
+220F..2211	Math Symbols
+2212..221D	Math Symbols
+221E	Math Symbols
+221F..2222	Math Symbols
+2223..2226	Math Symbols
+2227..2228	Math Symbols
+2229..222A	Math Symbols
+222B..2233	Math Symbols
+2234..2235	Math Symbols
+2236..2237	Math Symbols
+2238	Math Symbols
+2239	Math Symbols
+223A	Math Symbols
+223F	Math Symbols
+2240	Math Symbols
+2241..2281	Math Symbols
+2282..228B	Math Symbols
+228C..228E	Math Symbols
+228F..2292	Math Symbols
+2293..22A3	Math Symbols
+22A4..22A5	Math Symbols
+22A6..22B9	Math Symbols
+22BA..22BD	Math Symbols
+22BE..22BF	Math Symbols
+22C0..22C3	Math Symbols
+22C4..22C7	Math Symbols
+22C8	Math Symbols
+22C9..22CC	Math Symbols
+22CD	Math Symbols
+22CE..22CF	Math Symbols
+22D0..22D1	Math Symbols
+22D2..22D3	Math Symbols
+22D4..22ED	Math Symbols
+22EE..22F1	Math Symbols
+22F2..22FF	Math Symbols
+2308..230B	Math Symbols
+2320..2321	Math Symbols
+23AE..23AF	Math Symbols
+23B2..23B3	Math Symbols
+27C0..27C1	Math Symbols
+27C2	Math Symbols
+27C3..27C4	Math Symbols
+27C7	Math Symbols
+27C8..27C9	Math Symbols
+27CA	Math Symbols
+27CB	Math Symbols
+27CC	Math Symbols
+27CD	Math Symbols
+27CE..27CF	Math Symbols
+27D1..27D4	Math Symbols
+27D5..27D7	Math Symbols
+27E0..27E5	Math Symbols
+299B..29AF	Math Symbols
+29B0..29B4	Math Symbols
+29CA..29D0	Math Symbols
+29DC	Math Symbols
+29E3..29E6	Math Symbols
+29E7..29ED	Math Symbols
+29F4..29F7	Math Symbols
+29F8..29F9	Math Symbols
+29FA..29FB	Math Symbols
+29FE..29FF	Math Symbols
+2A00..2A09	Math Symbols
+2A0A..2A1C	Math Symbols
+2A1D..2A21	Math Symbols
+2A22..2A2E	Math Symbols
+2A2F..2A38	Math Symbols
+2A39..2A3F	Math Symbols
+2A40..2A50	Math Symbols
+2A51..2A63	Math Symbols
+2A64..2A65	Math Symbols
+2A66..2ABC	Math Symbols
+2ABD..2AD8	Math Symbols
+2AEE..2AF5	Math Symbols
+2AF6	Math Symbols
+2AF7..2AFB	Math Symbols
+2AFC..2AFF	Math Symbols
+A830..A835	North Indic Numerics
+A836..A837	North Indic Numerics
+A838	North Indic Numerics
+A839	North Indic Numerics
+0000..001F	Control Chars
+007F	Control Chars
+0080..009F	Control Chars
+034F	Control Chars
+27C5..27C6	Punctuations
+2E18..2E19	Punctuations
+2E2A..2E31	Punctuations
+2E33..2E34	Punctuations
+2E3C..2E3E	Punctuations
+2E3F	Punctuations
+2E40	Punctuations
+2E41..2E42	Punctuations
+2E43..2E44	Punctuations
+2E4A..2E54	Punctuations
+2E5D	Punctuations
+20A0..20C0	Currency Symbols
+02D8..02DD	Modifying Letters
+02EE	Modifying Letters
+0300..0333	Diacritic Symbols
+0334..0338	Diacritic Symbols
+0339..033F	Diacritic Symbols
+0342..0345	Diacritic Symbols
+0358	Diacritic Symbols
+035C..0362	Diacritic Symbols
+0363..036F	Diacritic Symbols
+0250..02A8	IPA
+02A9..02AD	IPA
+02AE..02AF	IPA
+02DE..02E4	IPA
+02EC..02ED	IPA
+0346..034A	IPA
+034B..034E	IPA
+1AC1..1AC5	IPA
+1AC7..1ACA	IPA
+1DF00..1DF07	IPA
+1DF08..1DF0A	IPA
+1DF1E	IPA
+23D1..23D9	Greek Metrical System
+2190..2199	Arrows and Harpoons
+219A..21AF	Arrows and Harpoons
+21B0..21B3	Arrows and Harpoons
+21B6..21B7	Arrows and Harpoons
+21BA..21BB	Arrows and Harpoons
+21BC..21C3	Arrows and Harpoons
+21C4..21CA	Arrows and Harpoons
+21CB..21CC	Arrows and Harpoons
+21CD..21D9	Arrows and Harpoons
+21DA..21E5	Arrows and Harpoons
+21F1..21F2	Arrows and Harpoons
+21F3	Arrows and Harpoons
+21F4..21FF	Arrows and Harpoons
+FE10..FE19	Vertical Forms
+FF01..FF5E	Halfwidth and Fullwidth Forms
+FF5F..FF60	Halfwidth and Fullwidth Forms
+FF61..FF64	Halfwidth and Fullwidth Forms
+FF65..FF9F	Halfwidth and Fullwidth Forms
+FFA0..FFDC	Halfwidth and Fullwidth Forms
+FFE0..FFE6	Halfwidth and Fullwidth Forms
+FFE8..FFEE	Halfwidth and Fullwidth Forms
+1BCA0..1BCA3	Shorthand Format Chars
+26E4..26E7	Pentagrams
+2919..291C	Arrowtails
+297C..297F	Arrowtails
+02EF..02FF	UPA
+0350..0357	UPA
+2095..209C	UPA
+1DFC	UPA
+1DFE..1DFF	UPA
+2B98..2B9F	Arrowheads
+2680..2685	Dice game
+1F7D5..1F7D8	Gaming symbols
+26C9..26CB	Gaming symbols
+1F780..1F783	Shapes
+1F781	Shapes
+1F784	Shapes
+1F785..1F789	Shapes
+1F78B	Shapes
+1F78C..1F78D	Shapes
+1F78E..1F793	Shapes
+1F794..1F795	Shapes
+1F796	Shapes
+1F797..1F799	Shapes
+1F79A..1F79B	Shapes
+1F79C	Shapes
+1F79D..1F79F	Shapes
+1F7A0	Shapes
+1F7A1..1F7A7	Shapes
+1F7A8..1F7AE	Shapes
+1F7AF..1F7B4	Shapes
+1F7B5..1F7BA	Shapes
+1F7BB..1F7BF	Shapes
+1F7C0..1F7C3	Shapes
+1F7C4..1F7C8	Shapes
+1F7C9..1F7CA	Shapes
+1F7CB..1F7CD	Shapes
+1F7CE..1F7D1	Shapes
+1F7D2..1F7D4	Shapes
+1F7D9..1F7E4	Shapes
+1F7E5..1F7EB	Shapes
+1F7F0	Shapes
+2BCC..2BCF	Shapes
+4DC0..4DFF	Han
+A000..A48F	Han
+A490..A4CF	Han
+1D100..1D105	Musical notations
+1D106..1D10C	Musical notations
+1D10D..1D10F	Musical notations
+1D110..1D113	Musical notations
+1D114..1D115	Musical notations
+1D116..1D11B	Musical notations
+1D11C..1D11D	Musical notations
+1D129	Musical notations
+1D12A..1D133	Musical notations
+1D134..1D135	Musical notations
+1D136..1D139	Musical notations
+1D143..1D15B	Musical notations
+1D15C..1D164	Musical notations
+1D165..1D166	Musical notations
+1D167..1D16C	Musical notations
+1D16D	Musical notations
+1D16E..1D172	Musical notations
+1D173..1D17A	Musical notations
+1D17B..1D18E	Musical notations
+1D18F..1D193	Musical notations
+1D194..1D1A5	Musical notations
+1D1A6..1D1A9	Musical notations
+1D1AA..1D1AD	Musical notations
+1D1AE..1D1B0	Musical notations
+1D1B1..1D1B5	Musical notations
+FFF9..FFFB	Japanese
+02B9..02D7	Phonetic notations
+1AC6	Phonetic notations
+2E17	Phonetic notations
+25B2..25C3	Triangles
+25E2..25E5	Triangles
+25E7..25EB	Triangles
+25F8..25FA	Triangles
+25FF	Triangles
+25AC..25AF	Rectangles
+26C6..26C8	Diamonds
+2B16..2B19	Diamonds
+2B25..2B26	Diamonds
+2B29	Diamonds
+2648..2653	Zodiac
+26CE	Zodiac
+2600..2608	Weather
+2614	Weather
+263C	Weather
+26C4..26C5	Weather
+2620..2623	Warnings
+26A0..26A1	Warnings
+1F680..1F6A4	Technical
+1F6A5..1F6A8	Technical
+1F6A9..1F6CA	Technical
+1F6CB..1F6CF	Technical
+1F6D0..1F6D2	Technical
+1F6DC..1F6E4	Technical
+1F6E5..1F6FC	Technical
+2300..2307	Technical
+2310..2319	Technical
+232C	Technical
+237C	Technical
+23CD	Technical
+23E2	Technical
+23E3	Technical
+23E4..23E5	Technical
+23E8	Technical
+23FB..23FD	Technical
+23FE	Technical
+2624..2625	Technical
+2672..267D	Technical
+2700..2705	Technical
+27D8..27DF	Technical
+29EE..29F3	Technical
+2ADE..2AED	Technical
+2E3A..2E3B	Technical
+238D..2394	Electrotechnical
+23DA..23DB	Electrotechnical
+23E6..23E7	Electrotechnical
+27B0	Electrotechnical
+27BF	Electrotechnical
+274C	Tic Tac Toe
+26CC..26CD	Traffic
+26CF..26E1	Traffic
+2B55	Traffic
+270D..2712	Writting symbols
+260E..260F	Telephone
+23B7..23B9	Terminal graphic
+23BA..23BD	Terminal graphic
+2427..2429	Terminal graphic
+2596..259F	Terminal graphic
+231A..231B	User interface symbols
+23E9..23FA	User interface symbols
+2722..273D	Stars, asterisks and snowflakes
+2742..274B	Stars, asterisks and snowflakes
+2B50..2B52	Stars, asterisks and snowflakes
+1F6D3..1F6D7	Map Symbols
+2690..269B	Map Symbols
+26E3	Map Symbols
+26E8..26FF	Map Symbols
+2706	Map Symbols
+2708	Map Symbols
+2B56..2B59	Map Symbols
+21B4..21B5	Keyboard Symbols
+21B9	Keyboard Symbols
+2324..2328	Keyboard Symbols
+232B	Keyboard Symbols
+2380..238C	Keyboard Symbols
+2396..239A	Keyboard Symbols
+23CE..23CF	Keyboard Symbols
+2425	Keyboard Symbols
+2B90..2B93	Keyboard Symbols
+2BB8..2BB9	Keyboard Symbols
+2616..2617	Japanese Chess Symbols
+2B1F..2B20	Pentagons
+2B53..2B54	Pentagons
+02E5..02E9	Tone
+02EA..02EB	Tone Marks
+0340..0341	Tone Marks
+2B4E	Tone Marks
+2B5A..2B5F	Tone Marks
+239B..23AD	Brackets
+23B0..23B1	Brackets
+23B4..23B6	Brackets
+23DC..23E1	Brackets
+27E6..27EF	Brackets
+2983..298C	Brackets
+298D..2990	Brackets
+2991..2998	Brackets
+29FC..29FD	Brackets
+2E20..2E21	Brackets
+2E22..2E25	Brackets
+2E26..2E29	Brackets
+2E55..2E58	Brackets
+2E59..2E5C	Brackets
+25D8	Bullets
+25E6	Bullets
+2BC0..2BC8	Centred shapes
+230C..230F	Typographic symbols
+231C..231F	Typographic symbols
+26C0..26C3	Draughts and Checkers
+2B21..2B23	Hexagons
+270A..270C	Rock, Paper, Scissors
+1F300..1F30C	Miscellaneous Symbols
+1F30D..1F310	Miscellaneous Symbols
+1F311..1F320	Miscellaneous Symbols
+1F321..1F32C	Miscellaneous Symbols
+1F32D..1F32F	Miscellaneous Symbols
+1F330..1F344	Miscellaneous Symbols
+1F345..1F353	Miscellaneous Symbols
+1F354..1F374	Miscellaneous Symbols
+1F375..1F37C	Miscellaneous Symbols
+1F378..1F379	Miscellaneous Symbols
+1F37D	Miscellaneous Symbols
+1F37E..1F37F	Miscellaneous Symbols
+1F380..1F397	Miscellaneous Symbols
+1F39E..1F3AD	Miscellaneous Symbols
+1F3B5..1F3BC	Miscellaneous Symbols
+1F3BD..1F3D3	Miscellaneous Symbols
+1F3D4..1F3F0	Miscellaneous Symbols
+1F3F1..1F3F4	Miscellaneous Symbols
+1F3F5..1F3F6	Miscellaneous Symbols
+1F3F7	Miscellaneous Symbols
+1F3FA	Miscellaneous Symbols
+1F3FB..1F3FF	Miscellaneous Symbols
+1F400..1F42C	Miscellaneous Symbols
+1F42D..1F43D	Miscellaneous Symbols
+1F43E..1F43F	Miscellaneous Symbols
+1F440..1F445	Miscellaneous Symbols
+1F446..1F450	Miscellaneous Symbols
+1F451..1F463	Miscellaneous Symbols
+1F464..1F477	Miscellaneous Symbols
+1F478..1F480	Miscellaneous Symbols
+1F481..1F483	Miscellaneous Symbols
+1F484..1F488	Miscellaneous Symbols
+1F489..1F48A	Miscellaneous Symbols
+1F48B..1F492	Miscellaneous Symbols
+1F493..1F49F	Miscellaneous Symbols
+1F4A0..1F4AD	Miscellaneous Symbols
+1F4AE..1F4AF	Miscellaneous Symbols
+1F4B0..1F4B9	Miscellaneous Symbols
+1F4BA..1F4DC	Miscellaneous Symbols
+1F4DD..1F4F6	Miscellaneous Symbols
+1F4F7..1F4FE	Miscellaneous Symbols
+1F4FF	Miscellaneous Symbols
+1F500..1F518	Miscellaneous Symbols
+1F519..1F51D	Miscellaneous Symbols
+1F51E..1F51F	Miscellaneous Symbols
+1F520..1F524	Miscellaneous Symbols
+1F525..1F52E	Miscellaneous Symbols
+1F52F..1F531	Miscellaneous Symbols
+1F532..1F539	Miscellaneous Symbols
+1F53A..1F53D	Miscellaneous Symbols
+1F53E..1F53F	Miscellaneous Symbols
+1F540..1F54E	Miscellaneous Symbols
+1F54F	Miscellaneous Symbols
+1F568..1F56C	Miscellaneous Symbols
+1F56D..1F576	Miscellaneous Symbols
+1F577..1F578	Miscellaneous Symbols
+1F579	Miscellaneous Symbols
+1F57A	Miscellaneous Symbols
+1F57B..1F58D	Miscellaneous Symbols
+1F58E..1F5A3	Miscellaneous Symbols
+1F5A4	Miscellaneous Symbols
+1F5A5..1F5B8	Miscellaneous Symbols
+1F5B9..1F5BE	Miscellaneous Symbols
+1F5BF..1F5DD	Miscellaneous Symbols
+1F5DE..1F5E0	Miscellaneous Symbols
+1F5E1..1F5E3	Miscellaneous Symbols
+1F5E4..1F5E7	Miscellaneous Symbols
+1F5E8..1F5F2	Miscellaneous Symbols
+1F5F3..1F5F9	Miscellaneous Symbols
+1F5FA	Miscellaneous Symbols
+1F5FD..1F5FF	Miscellaneous Symbols
+1F900..1F90B	Miscellaneous Symbols
+1F90C	Miscellaneous Symbols
+1F90D..1F90E	Miscellaneous Symbols
+1F90F	Miscellaneous Symbols
+1F918..1F91F	Miscellaneous Symbols
+1F930..1F937	Miscellaneous Symbols
+1F938..1F93F	Miscellaneous Symbols
+1F940..1F94F	Miscellaneous Symbols
+1F950..1F96F	Miscellaneous Symbols
+1F970..1F97A	Miscellaneous Symbols
+1F97B..1F97F	Miscellaneous Symbols
+1F980..1F9AD	Miscellaneous Symbols
+1F9AE..1F9AF	Miscellaneous Symbols
+1F9B4..1F9B7	Miscellaneous Symbols
+1F9B8..1F9B9	Miscellaneous Symbols
+1F9BA..1F9BF	Miscellaneous Symbols
+1F9C0..1F9CB	Miscellaneous Symbols
+1F9CC	Miscellaneous Symbols
+1F9CD..1F9CF	Miscellaneous Symbols
+1F9D0..1F9D8	Miscellaneous Symbols
+1F9D9..1F9DF	Miscellaneous Symbols
+1F9E0..1F9E6	Miscellaneous Symbols
+1F9E7..1F9E9	Miscellaneous Symbols
+1F9EA..1F9FF	Miscellaneous Symbols
+1FA70..1FA74	Miscellaneous Symbols
+1FA75..1FA77	Miscellaneous Symbols
+1FA78..1FA7C	Miscellaneous Symbols
+1FA80..1FA86	Miscellaneous Symbols
+1FA87..1FA89	Miscellaneous Symbols
+1FA8F..1FAAE	Miscellaneous Symbols
+1FAAF	Miscellaneous Symbols
+1FAB0..1FABF	Miscellaneous Symbols
+1FAC0..1FAC1	Miscellaneous Symbols
+1FAC2..1FAC5	Miscellaneous Symbols
+1FAC6	Miscellaneous Symbols
+1FACE..1FACF	Miscellaneous Symbols
+1FAD0..1FADC	Miscellaneous Symbols
+1FADF	Miscellaneous Symbols
+1FAE0..1FAE5	Miscellaneous Symbols
+1FAE8..1FAE9	Miscellaneous Symbols
+1FAF0..1FAF8	Miscellaneous Symbols
+1FBB0..1FBB3	Miscellaneous Symbols
+1FBB9..1FBBC	Miscellaneous Symbols
+1FBBD..1FBBF	Miscellaneous Symbols
+1FBC0..1FBCA	Miscellaneous Symbols
+1FBCB..1FBCD	Miscellaneous Symbols
+1FBF0..1FBF9	Miscellaneous Symbols
+2329..232A	Miscellaneous Symbols
+232D..2335	Miscellaneous Symbols
+23FF	Miscellaneous Symbols
+2610..2613	Miscellaneous Symbols
+2615	Miscellaneous Symbols
+2618..2619	Miscellaneous Symbols
+2638	Miscellaneous Symbols
+2668	Miscellaneous Symbols
+267E..267F	Miscellaneous Symbols
+269C..269D	Miscellaneous Symbols
+26BF	Miscellaneous Symbols
+2707	Miscellaneous Symbols
+2709	Miscellaneous Symbols
+2713..2718	Miscellaneous Symbols
+2756	Miscellaneous Symbols
+27D0	Miscellaneous Symbols
+2980..2982	Miscellaneous Symbols
+29D1..29D7	Miscellaneous Symbols
+2B97	Miscellaneous Symbols
+2BBD	Miscellaneous Symbols
+2BD0..2BD2	Miscellaneous Symbols
+2BE8..2BEB	Miscellaneous Symbols
+2BFF	Miscellaneous Symbols
+327F	Miscellaneous Symbols
+32CC..32CF	Miscellaneous Symbols
+32FF	Miscellaneous Symbols
+3371..337A	Miscellaneous Symbols
+337B..337E	Miscellaneous Symbols
+337F	Miscellaneous Symbols
+3380..3394	Miscellaneous Symbols
+3395..3398	Miscellaneous Symbols
+3399..33DF	Miscellaneous Symbols
+33FF	Miscellaneous Symbols
+2E00..2E0D	Dictionary Symbols
+2E1A..2E1B	Dictionary Symbols
+2E1E..2E1F	Dictionary Symbols
+2E32	Paleotype Transliteration Symbols
+2E35..2E39	Paleotype Transliteration Symbols
+2B2C..2B2F	Ellipses
+2AD9..2ADD	Forks
+2999..299A	Fences
+29D8..29DB	Fences
+1F650..1F667	Ornaments
+1F668..1F66B	Ornaments
+1F66C..1F66F	Ornaments
+1F670..1F675	Ornaments
+1F676..1F67D	Ornaments
+1F67E..1F67F	Ornaments
+2753..2755	Ornaments
+2768..2775	Ornaments
+273E..2741	Fleurons
+2766..2767	Fleurons
+058D..058E	Religious and Political Symbols
+0FD5..0FD8	Religious and Political Symbols
+2626..262F	Religious and Political Symbols
+2670..2671	Religious and Political Symbols
+2719..2721	Religious and Political Symbols
+26BD..26BE	Sport Symbols
+25C4..25C5	Pointers
+261A..261F	Pointers
+269E..269F	Closed Captioning Symbols
+26A2..26A9	Gender Symbols
+26B2	Gender Symbols
+26AD..26B1	Genealogical Symbols
+2686..2689	Go Markers
+23D0	Extensions
+2758..275A	Vertical Bars
+0020..002A	Common
+002B	Common
+002C..002F	Common
+0030..0039	Common
+003A..003B	Common
+003C..003E	Common
+003F..0040	Common
+005B..0060	Common
+007B..007E	Common
+1ABB..1ABE	Common
+202A..202E	Common
+202F	Common
+2030..2038	Common
+2039..203A	Common
+203B	Common
+203C	Common
+203D..2044	Common
+2045..2046	Common
+2047..2049	Common
+204A..2055	Common
+2056	Common
+2057	Common
+2058..205E	Common
+205F	Common
+2060	Common
+2061..2064	Common
+2066..2069	Common
+206A..206F	Common
+2070..207F	Common
+2080..2094	Common
+20D0..20DC	Common
+20DD..20E0	Common
+20E1	Common
+20E2..20E4	Common
+20E5..20F0	Common
+2100..2134	Common
+2135..2138	Common
+2139..213F	Common
+2140	Common
+2141..2144	Common
+2145..2149	Common
+214A..214D	Common
+214E	Common
+214F	Common
+2150..215F	Common
+2160..217F	Common
+2180..2183	Common
+2184	Common
+2185..2188	Common
+2189	Common
+218A..218B	Common
+1CC00..1CC04	Common
+1CC05..1CC07	Common
+1CC08..1CC1A	Common
+1CC1B..1CC20	Common
+1CC21..1CC2F	Common
+1CC30..1CC3F	Common
+1CC40..1CC47	Common
+1CC48..1CC6E	Common
+1CC6F	Common
+1CC70..1CC85	Common
+1CC86..1CC8F	Common
+1CC90..1CC91	Common
+1CC92..1CCA5	Common
+1CCA6..1CCB1	Common
+1CCB2..1CCB9	Common
+1CCBA..1CCD1	Common
+1CCD2..1CCD5	Common
+1CCD6..1CCEF	Common
+1CCF0..1CCF9	Common
+1CD00..1CDE5	Common
+1CDE6..1CDFF	Common
+1CE00..1CE0C	Common
+1CE0D..1CE0E	Common
+1CE0F..1CE15	Common
+1CE16..1CE19	Common
+1CE1A..1CE50	Common
+1CE51..1CE69	Common
+1CE90..1CEAF	Common
+1CEB0..1CEB3	Common
+1DC2..1DC3	Common
+1DC4..1DC9	Common
+1DCA	Common
+1DCB..1DCC	Common
+1DCD	Common
+1DCE..1DD2	Common
+1DD3..1DE6	Common
+1DE7..1DF4	Common
+1DF5	Common
+1DF6..1DF7	Common
+1DF8..1DFB	Common
+1DFD	Common
+1F1E6..1F1FF	Common
+2000..200A	Common
+200B..200F	Common
+2010..2015	Common
+2016..2017	Common
+2018..201F	Common
+2020..2027	Common
+2028..2029	Common
+A700..A707	Common
+A708..A711	Common
+A712..A716	Common
+A717..A71A	Common
+A71B..A71F	Common
+FE20..FE23	Common
+FE24..FE26	Common
+FE27..FE2D	Common
+FE2E..FE2F	Common
+FE50..FE6B	Common
+FFFC..FFFD	Common
+1100..1112	Hangul Choseong
+1113..115F	Hangul Choseong
+A960..A97C	Hangul Choseong
+1160..1175	Hangul Jungseong
+1176..11A7	Hangul Jungseong
+11A8..11C2	Hangul Jongseong
+11C3..11FF	Hangul Jongseong
+D7B0..D7C6	Hangul Jongseong
+D7CB..D7FB	Hangul Jongseong
+1D00..1D25	Phonetic Extensions
+1D26..1D2A	Phonetic Extensions
+1D2B	Phonetic Extensions
+1D5D..1D61	Phonetic Extensions
+1D62..1D65	Phonetic Extensions
+1D66..1D6A	Phonetic Extensions
+1D6B	Phonetic Extensions
+1D6C..1D76	Phonetic Extensions
+1D77..1D78	Phonetic Extensions
+1D79..1D7F	Phonetic Extensions
+1D80..1D8E	Phonetic Extensions
+1D8F..1D9A	Phonetic Extensions
+1D9B..1DBF	Phonetic Extensions
+10140..10174	Greek Acrophonic Numerals
+10175..1018B	Greek Papyrological numbers
+1018C..1018E	Greek Ancient symbols
+101A0	Greek Ancient symbols
+1D1B6..1D1C0	Mensural
+1D1C1..1D1C6	Mensural
+1D1C7..1D1CE	Mensural
+1D1CF	Mensural
+1D1D0..1D1D1	Gregorian Chant
+1D1D2	Gregorian Chant
+1D1D3..1D1DD	Gregorian Chant
+1D1DE	Kievan Chant
+1D1DF	Kievan Chant
+1D1E0..1D1E7	Kievan Chant
+1D1E8	Kievan Chant
+1D1E9..1D1EA	Persian Classical Music
+1D242..1D245	Greek Ancient Musical
+1D200..1D21C	Greek Ancient Vocalic
+1D21D..1D241	Greek Ancient Instrumental
+1D300	Tai Xuan Jing Symbols
+1D301..1D305	Tai Xuan Jing Symbols
+1D306..1D356	Tai Xuan Jing Symbols
+1EE00..1EE1F	Arabic Mathematical Alphabetic Symbols
+1EE21..1EE3B	Arabic Mathematical Alphabetic Symbols
+1EE42..1EE5F	Arabic Mathematical Alphabetic Symbols
+1EE61..1EE7E	Arabic Mathematical Alphabetic Symbols
+1EE80..1EE9B	Arabic Mathematical Alphabetic Symbols
+1EEA1..1EEBB	Arabic Mathematical Alphabetic Symbols
+1EEF0..1EEF1	Arabic Mathematical Alphabetic Symbols
+

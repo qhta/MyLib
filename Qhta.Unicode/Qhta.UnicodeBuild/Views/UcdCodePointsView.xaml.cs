@@ -102,7 +102,8 @@ public partial class UcdCodePointsView : UserControl
       filterControl.SortOptionVisibility = Visibility.Collapsed;
       filterControl.FilterMode = FilterMode.CheckboxFilter;
       filterControl.AllowBlankFilters = true;
-      var selectableItems = _ViewModels.Instance.SelectableBlocks.OrderBy(item => item?.Name ?? "").ToArray();
+      var selectableItems = _ViewModels.Instance.SelectableBlocks.OrderBy(item => item?.Name ?? "").ToList();
+      selectableItems.Insert(0, null); // Add a blank item at the top
 
       var UcdBlockFilters = selectableItems.Select(item => new FilterElement
       {
@@ -125,7 +126,8 @@ public partial class UcdCodePointsView : UserControl
       filterControl.SortOptionVisibility = Visibility.Collapsed;
       filterControl.FilterMode = FilterMode.CheckboxFilter;
       filterControl.AllowBlankFilters = true;
-      var selectableItems = sourceCollection.OrderBy(item => item?.Name ?? "").ToArray();
+      var selectableItems = sourceCollection.OrderBy(item => item?.Name ?? "").ToList();
+      selectableItems.Insert(0, null); // Add a blank item at the top
 
       var WritingSystemFilters = selectableItems.Select(item => new FilterElement
       { 
@@ -140,6 +142,11 @@ public partial class UcdCodePointsView : UserControl
       e.ItemsSource = WritingSystemFilters;
       e.Handled = true;
     }
+  }
+
+  private void CodePointDataGrid_OnCopyGridCellContent(object? sender, GridCopyPasteCellEventArgs e)
+  {
+    throw new NotImplementedException();
   }
 }
 

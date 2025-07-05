@@ -30,6 +30,9 @@
   <helpers:EnumToResourceConverter 
     ResourceType="{x:Type resources:WritingSystemKind}" x:Key="WritingSystemKindResourceConverter"/>
   <helpers:CategoryResourceConverter x:Key="CategoryResourceConverter"/>
+  <helpers:InsertItemConverter x:Key="InsertItemConverter"/>
+  <viewModels:WritingSystemViewModel x:Key="BlankWritingSystem"/>
+  <viewModels:UcdBlockViewModel x:Key="BlankUcdBlock"/>
 
   <Image x:Key="EditIcon" Source="/Assets/Edit.png" Width="16" Height="16"/>
 

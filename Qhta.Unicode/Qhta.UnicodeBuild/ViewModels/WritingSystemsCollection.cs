@@ -124,6 +124,8 @@ public sealed class WritingSystemsCollection() : OrderedObservableCollection<Wri
 
   public new void Add(WritingSystemViewModel vm)
   {
+    if (String.IsNullOrEmpty(vm.Name))
+      return;
     vm.PropertyChanged += WritingSystemViewModel_PropertyChanged;
     base.Add(vm);
     if (vm.Id != null) IntDictionary.Add((int)vm.Id, vm);

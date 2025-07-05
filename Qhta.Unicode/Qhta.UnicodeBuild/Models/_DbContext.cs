@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-
+using System.Windows;
+using EntityFrameworkCore.Jet.Data.Properties;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.VisualBasic;
 using Syncfusion.Windows.Shared;
 
 namespace Qhta.Unicode.Models;
@@ -31,6 +32,8 @@ public partial class _DbContext : DbContext, IDisposable
   public virtual DbSet<WritingSystemKindEntity> WritingSystemKinds { get; set; }
 
   public virtual DbSet<WritingSystemTypeEntity> WritingSystemTypes { get; set; }
+
+  public virtual DbSet<UnicodeCategoryEntity> UnicodeCategories { get; set; }
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
@@ -189,12 +192,13 @@ public partial class _DbContext : DbContext, IDisposable
       entity.HasIndex(e => e.Kind, "Kind").IsUnique();
     });
 
-    modelBuilder.Entity<WritingSystemTypeEntity>(entity =>
+    modelBuilder.Entity<UnicodeCategoryEntity>(entity =>
     {
       entity.Property(e => e.Id).HasConversion<byte>();
       entity.HasKey(e => e.Id).HasName("PrimaryKey");
-      entity.Property(e => e.Type).HasMaxLength(10);
-      entity.HasIndex(e => e.Type, "Type").IsUnique();
+      entity.Property(e => e.Ctg).HasMaxLength(2);
+      entity.HasIndex(e => e.Ctg, "Ctg").IsUnique();
+      entity.Property(e => e.Name).HasMaxLength(255);
     });
 
     OnModelCreatingPartial(modelBuilder);
@@ -207,15 +211,18 @@ public partial class _DbContext : DbContext, IDisposable
     // TODO release unmanaged resources here
   }
 
+  public bool ThereAreUnsavedChanges => ChangeTracker.HasChanges();
+  public bool AutoSaveChanges = true;
+
   protected virtual void Dispose(bool disposing)
   {
     ReleaseUnmanagedResources();
     if (disposing)
     {
-      if (ChangeTracker.HasChanges())
+      if (ChangeTracker.HasChanges() && AutoSaveChanges)
       {
-        Debug.WriteLine("DbContext has changes that were not saved.");
         SaveChanges();
+        Debug.WriteLine("DbContext changes saved automatically.");
       }
     }
   }
