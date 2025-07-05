@@ -92,6 +92,7 @@ public partial class _ViewModels : IDisposable
     ApplyBlockMappingBackgroundWorker.DoWork += ApplyBlockMapping_DoWork;
     ApplyBlockMappingBackgroundWorker.ProgressChanged += ApplyBlockMapping_ProgressChanged;
     ApplyBlockMappingBackgroundWorker.RunWorkerCompleted += ApplyBlockMapping_RunWorkerCompleted;
+    FillColumnCommand = new RelayCommand<object?>(FillColumnCommandExecute);
   }
 
 

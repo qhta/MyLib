@@ -1,0 +1,48 @@
+﻿<Window x:Class="Qhta.UnicodeBuild.Views.SelectValueWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Qhta.UnicodeBuild.Views"
+             xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
+             mc:Ignorable="d" 
+             Height="500" Width="300">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <TextBlock 
+      Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SelectValueWindow}},
+        Path= Prompt}"
+       Margin="10,5"
+      />
+    <ListBox 
+       Grid.Row="1"
+       ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SelectValueWindow}},
+        Path= ItemsSource}"
+       SelectedItem="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SelectValueWindow}},
+         Path= SelectedItem, Mode=TwoWay}"        
+       Margin="10,5"
+       >
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Name, FallbackValue=''}"
+                     ToolTip ="{Binding Description}"
+                     />
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    
+    <WrapPanel 
+      Grid.Row="2"
+      Orientation="Horizontal"
+      HorizontalAlignment="Center"
+      Margin="10,5"
+      >
+      <Button x:Name="OkButton" Content="{x:Static resources:Strings.OK}" Width="80" Click="OkButton_OnClick"/>
+      <Button x:Name="CancelButton" Content="{x:Static resources:Strings.Cancel}" Width="80" Click="CancelButton_OnClick" Margin="10,0,0,0"/>
+    </WrapPanel>
+  </Grid>
+</Window>

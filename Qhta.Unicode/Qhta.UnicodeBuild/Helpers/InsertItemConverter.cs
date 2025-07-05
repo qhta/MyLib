@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 
+
 namespace Qhta.UnicodeBuild.Helpers;
 
 /// <summary>

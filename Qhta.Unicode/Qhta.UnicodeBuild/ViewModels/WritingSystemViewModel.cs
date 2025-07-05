@@ -83,8 +83,6 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  [ItemsSourceProperty(nameof(Parents))]
-  [DisplayMemberPath("FullName")]
   [SelectedValuePath("Id")]
   public int? ParentId
   {
@@ -202,9 +200,6 @@ public class WritingSystemViewModel(WritingSystem model)
       NotifyPropertyChanged(nameof(ParentId));
     }
   }
-
-  [Browsable(false)]
-  public IEnumerable<WritingSystemViewModel> Parents => _ViewModels.Instance.SelectableScripts;
 
   [Browsable(false)]
   public virtual bool IsUsed => Model.UcdBlocks?.Count > 0 || Model.Children?.Count > 0;

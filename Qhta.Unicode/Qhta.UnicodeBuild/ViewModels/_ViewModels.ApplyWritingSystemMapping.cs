@@ -11,7 +11,7 @@ using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class _ViewModels : IDisposable
+public partial class _ViewModels
 {
   public WritingSystemMappingCollection WritingSystemMappings { get; set; } = new();
 

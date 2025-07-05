@@ -222,4 +222,22 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
+  <data name="FillColumn" xml:space="preserve">
+    <value>Fill column</value>
+  </data>
+  <data name="FillColumnTooltip" xml:space="preserve">
+    <value>Fill column with selected value</value>
+  </data>
+  <data name="SelectValue" xml:space="preserve">
+    <value>Select value</value>
+  </data>
+  <data name="FillColumnTitle" xml:space="preserve">
+    <value>Fill column {0}</value>
+  </data>
+  <data name="SelectValueTitle" xml:space="preserve">
+    <value>Select {0}</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>

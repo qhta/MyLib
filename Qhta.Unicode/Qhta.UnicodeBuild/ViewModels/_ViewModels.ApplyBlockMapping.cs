@@ -17,7 +17,7 @@ using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class _ViewModels : IDisposable
+public partial class _ViewModels
 {
 
   public IRelayCommand ApplyBlockMappingCommand { get; }

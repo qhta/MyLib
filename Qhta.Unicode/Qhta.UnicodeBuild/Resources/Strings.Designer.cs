@@ -196,6 +196,33 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fill column.
+        /// </summary>
+        public static string FillColumn {
+            get {
+                return ResourceManager.GetString("FillColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill column {0}.
+        /// </summary>
+        public static string FillColumnTitle {
+            get {
+                return ResourceManager.GetString("FillColumnTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill column with selected value.
+        /// </summary>
+        public static string FillColumnTooltip {
+            get {
+                return ResourceManager.GetString("FillColumnTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string Help {
@@ -241,6 +268,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Operation cancelled.
         /// </summary>
         public static string OperationCancelled {
@@ -273,6 +309,24 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string Properties {
             get {
                 return ResourceManager.GetString("Properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select value.
+        /// </summary>
+        public static string SelectValue {
+            get {
+                return ResourceManager.GetString("SelectValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select {0}.
+        /// </summary>
+        public static string SelectValueTitle {
+            get {
+                return ResourceManager.GetString("SelectValueTitle", resourceCulture);
             }
         }
         
