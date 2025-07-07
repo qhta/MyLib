@@ -15,7 +15,7 @@ using DescriptionAttribute = PropertyTools.DataAnnotations.DescriptionAttribute;
 namespace Qhta.UnicodeBuild.ViewModels;
 
 public class WritingSystemViewModel(WritingSystem model)
-  : ViewModel<WritingSystem>(model), ILongTextViewModel, /*IEquatable<WritingSystemViewModel>,*/ INotifyDataErrorInfo
+  : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, INotifyDataErrorInfo
 {
   public WritingSystemViewModel() : this(new WritingSystem())
   {
@@ -253,22 +253,31 @@ public class WritingSystemViewModel(WritingSystem model)
       Debug.WriteLine($"Compare with other {other}");
     if (other == null)
       return false;
+    if (this.Name==null || other.Name == null)
+    {
+      Debug.WriteLine($"WritingSystemViewModel.Equals: Name is empty for {this} or {other}");
+      return true;
+    }
     return Id == other.Id;
   }
 
-  public new bool Equals(object? other)
-  {
-    if (LogEquals)
-      Debug.WriteLine($"Compare with other object {other}");
-    if (other is WritingSystemViewModel otherVM)
-      return Equals(otherVM);
-    return false;
-  }
-
-  public override string ToString()
-  {
-    return Name!;
-  }
+  //public override bool Equals(object? other)
+  //{
+  //  if (LogEquals)
+  //    Debug.WriteLine($"Compare {this} with other object {other}");
+  //  if (other is string str)
+  //  {
+  //    if (str==null)
+  //    {
+  //      Debug.WriteLine($"WritingSystemViewModel.Equals: Name is empty for {other}");
+  //      return true;
+  //    }
+  //  }
+  //  else
+  //  if (other is WritingSystemViewModel otherVM)
+  //    return Equals(otherVM);
+  //  return false;
+  //}
 
   [Browsable(false)] public string? LongText { get => Description; set => Description = value; }
   [Browsable(false)] public bool CanExpandLongText => !string.IsNullOrEmpty(Model.Description);
@@ -333,5 +342,14 @@ public class WritingSystemViewModel(WritingSystem model)
 
   }
   public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+
+  public override String ToString()
+  {
+    if (Name == null)
+      return "<null>";
+    if (Name == "")
+      return "<empty>";
+    return Name + " " + Type?.ToString()?.ToLower();
+  }
 
 }

@@ -78,6 +78,7 @@
                      EditTrigger="OnDoubleTap"
                      EnableDataVirtualization="True" 
                      FilterItemsPopulating="CodePointDataGrid_OnFilterItemsPopulating"
+                     FilterChanging="CodePointDataGrid_OnFilterChanging"
                      GridCopyOption="CopyData"
 
     >

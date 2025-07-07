@@ -232,7 +232,7 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
     <value>Wybierz wartość</value>
   </data>
   <data name="FillColumnTitle" xml:space="preserve">
-    <value>Wypełnij kolumnę {0]</value>
+    <value>Wypełnij kolumnę {0}</value>
   </data>
   <data name="SelectValueTitle" xml:space="preserve">
     <value>Wybierz "{0}"</value>
@@ -242,5 +242,8 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   </data>
   <data name="EmptyCellsOnly" xml:space="preserve">
     <value>Wypełniaj tylko puste komórki</value>
+  </data>
+  <data name="NonEmptyItem" xml:space="preserve">
+    <value>(Nie puste)</value>
   </data>
 </root>

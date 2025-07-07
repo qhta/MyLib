@@ -277,6 +277,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Not empty).
+        /// </summary>
+        public static string NonEmptyItem {
+            get {
+                return ResourceManager.GetString("NonEmptyItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string OK {

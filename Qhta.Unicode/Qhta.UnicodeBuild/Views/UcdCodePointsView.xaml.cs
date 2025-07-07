@@ -81,8 +81,7 @@ public partial class UcdCodePointsView : UserControl
   {
     if (e.Column.MappingName == nameof(UcdCodePointViewModel.Category))
       SetCategoryFilter();
-    else
-    if (e.Column.MappingName == nameof(UcdCodePointViewModel.UcdBlock))
+    else if (e.Column.MappingName == nameof(UcdCodePointViewModel.UcdBlock))
       SetBlockFilter();
     else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Area))
       SetWritingSystemFilter(_ViewModels.Instance.SelectableAreas);
@@ -103,10 +102,12 @@ public partial class UcdCodePointsView : UserControl
     {
       GridFilterControl filterControl = e.FilterControl;
       filterControl.SortOptionVisibility = Visibility.Collapsed;
-      filterControl.FilterMode = FilterMode.CheckboxFilter;
+      filterControl.FilterMode = FilterMode.Both;
       filterControl.AllowBlankFilters = true;
       var selectableItems = _ViewModels.Instance.SelectableCategories.OrderBy(item => item?.Name ?? "").ToList();
-      selectableItems.Insert(0, null); // Add a blank item at the top
+      selectableItems.Insert(0, null); // Add a null item at the top
+      selectableItems.Insert(1, new UnicodeCategoryViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty category
+
 
       var UcdCategoryFilters = selectableItems.Select(item => new FilterElement
       {
@@ -114,7 +115,7 @@ public partial class UcdCodePointsView : UserControl
         FormattedString = (object obj) =>
         {
           if (obj is FilterElement filterElement && filterElement.ActualValue is UnicodeCategoryViewModel val)
-            return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.EmptyItem;
+            return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.NonEmptyItem;
           return Strings.EmptyItem;
         },
       }).ToArray();
@@ -126,18 +127,18 @@ public partial class UcdCodePointsView : UserControl
     {
       GridFilterControl filterControl = e.FilterControl;
       filterControl.SortOptionVisibility = Visibility.Collapsed;
-      filterControl.FilterMode = FilterMode.CheckboxFilter;
+      filterControl.FilterMode = FilterMode.Both;
       filterControl.AllowBlankFilters = true;
       var selectableItems = _ViewModels.Instance.SelectableBlocks.OrderBy(item => item?.Name ?? "").ToList();
-      selectableItems.Insert(0, null); // Add a blank item at the top
-
+      selectableItems.Insert(0, null); // Add a null item at the top
+      selectableItems.Insert(1, new UcdBlockViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty block
       var UcdBlockFilters = selectableItems.Select(item => new FilterElement
       {
         ActualValue = item,
         FormattedString = (object obj) =>
         {
           if (obj is FilterElement filterElement && filterElement.ActualValue is UcdBlockViewModel val)
-            return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.EmptyItem;
+            return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.NonEmptyItem;
           return Strings.EmptyItem;
         },
       }).ToArray();
@@ -150,10 +151,11 @@ public partial class UcdCodePointsView : UserControl
       WritingSystemViewModel.LogEquals = true;
       GridFilterControl filterControl = e.FilterControl;
       filterControl.SortOptionVisibility = Visibility.Collapsed;
-      filterControl.FilterMode = FilterMode.CheckboxFilter;
+      filterControl.FilterMode = FilterMode.Both;
       filterControl.AllowBlankFilters = true;
       var selectableItems = sourceCollection.OrderBy(item => item?.Name ?? "").ToList();
-      selectableItems.Insert(0, null); // Add a blank item at the top
+      selectableItems.Insert(0, null); // Add a null item at the top
+      selectableItems.Insert(1, new WritingSystemViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty writing system
 
       var WritingSystemFilters = selectableItems.Select(item => new FilterElement
       { 
@@ -161,7 +163,7 @@ public partial class UcdCodePointsView : UserControl
         FormattedString = (object obj) =>
         {
           if (obj is FilterElement filterElement && filterElement.ActualValue is WritingSystemViewModel val)
-            return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.EmptyItem;
+            return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.NonEmptyItem;
           return Strings.EmptyItem;
         },
       }).ToArray();
@@ -170,9 +172,51 @@ public partial class UcdCodePointsView : UserControl
     }
   }
 
-  private void CodePointDataGrid_OnCopyGridCellContent(object? sender, GridCopyPasteCellEventArgs e)
+  private void CodePointDataGrid_OnFilterChanging(object? sender, GridFilterEventArgs e)
   {
-    throw new NotImplementedException();
+    if (e.FilterPredicates==null)
+      return;
+    foreach (var predicate in e.FilterPredicates)
+    {
+      if (predicate is not null)
+      {
+        if (predicate.FilterValue is string)
+        {
+          predicate.FilterBehavior = FilterBehavior.StringTyped;
+          predicate.FilterMode = ColumnFilter.DisplayText;
+          continue; // Skip further processing for null values
+        }
+        else
+        if (predicate.FilterValue is UnicodeCategoryViewModel ctg)
+        {
+          if (ctg.Name == null)
+          {
+            predicate.FilterBehavior = FilterBehavior.StringTyped;
+            predicate.FilterType = FilterType.NotEquals;
+            predicate.FilterValue = null;
+          }
+        }
+        else
+        if (predicate.FilterValue is UcdBlockViewModel bl)
+        {
+          if (bl.Name == null)
+          {
+            predicate.FilterBehavior = FilterBehavior.StringTyped;
+            predicate.FilterType = FilterType.NotEquals;
+            predicate.FilterValue = null;
+          }
+        }
+        else
+        if (predicate.FilterValue is WritingSystemViewModel wm)
+        {
+          if (wm.Name == null)
+          {
+            predicate.FilterType = FilterType.NotEquals;
+            predicate.FilterValue = null;
+          }
+        }
+      }
+    }
   }
 }
 
