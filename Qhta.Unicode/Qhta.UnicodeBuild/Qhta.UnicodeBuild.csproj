@@ -13,6 +13,8 @@
     <Compile Remove="Controls\GridDefinitionBase.cs" />
     <Compile Remove="Helpers\DataGridHelper.cs" />
     <Compile Remove="Helpers\LongTextCell.cs" />
+    <Compile Remove="Helpers\PropertyControlFactory.cs" />
+    <Compile Remove="Helpers\PropertyModelOperator.cs" />
     <Compile Remove="Helpers\TreeViewHelper.cs" />
     <Compile Remove="Models\Abbreviation.cs" />
     <Compile Remove="Models\AbbreviationCategory.cs" />
@@ -78,6 +80,7 @@
     <Compile Remove="ViewModels\ExtendedViewModel`1.cs" />
     <Compile Remove="ViewModels\UcdRangeCollection.cs" />
     <Compile Remove="ViewModels\UcdRangeViewModel.cs" />
+    <Compile Remove="ViewModels\_ViewModels.LoadData.cs" />
     <Compile Remove="Views\UcdRangesView.xaml.cs" />
   </ItemGroup>
 
@@ -117,24 +120,25 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.6" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.6" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.6" />
-    <PackageReference Include="Prism.Wpf" Version="9.0.537" />
-    <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
     <PackageReference Include="Qhta.DeepCopy" Version="1.5.0" />
     <PackageReference Include="Qhta.MVVM" Version="4.7.0" />
-    <PackageReference Include="Qhta.ObservableObjects" Version="3.7.0" />
     <PackageReference Include="Qhta.WPF.Converters" Version="1.4.0" />
     <PackageReference Include="Qhta.WPF.Utils" Version="3.4.0" />
-    <PackageReference Include="Syncfusion.Grid.Windows" Version="30.1.38" />
-    <PackageReference Include="Syncfusion.Grid.WPF" Version="30.1.38" />
+    <PackageReference Include="Syncfusion.Grid.Windows" Version="30.1.39" />
+    <PackageReference Include="Syncfusion.Grid.WPF" Version="30.1.39" />
     <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="30.1.38" />
     <PackageReference Include="Syncfusion.SfGrid.WPF" Version="30.1.38" />
     <PackageReference Include="Syncfusion.SfInput.WPF" Version="30.1.38" />
     <PackageReference Include="Syncfusion.SfTextInputLayout.WPF" Version="30.1.38" />
     <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="30.1.38" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="30.1.38" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="30.1.38" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="30.1.38" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="30.1.39" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="30.1.39" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="30.1.39" />
     <PackageReference Include="System.Data.OleDb" Version="9.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Qhta.ObservableObjects\Qhta.ObservableObjects.csproj" />
   </ItemGroup>
 
   <ItemGroup>

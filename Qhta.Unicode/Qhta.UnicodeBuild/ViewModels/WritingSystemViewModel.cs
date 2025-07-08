@@ -5,13 +5,10 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using PropertyTools.DataAnnotations;
 using Qhta.MVVM;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
-using BrowsableAttribute = PropertyTools.DataAnnotations.BrowsableAttribute;
-using DisplayNameAttribute = PropertyTools.DataAnnotations.DisplayNameAttribute;
-using DescriptionAttribute = PropertyTools.DataAnnotations.DescriptionAttribute;
+
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -37,7 +34,7 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  [AutoUpdateText]
+
   [Required]
   public string? Name
   {
@@ -84,8 +81,7 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  [SelectedValuePath("Id")]
-  public int? ParentId
+ public int? ParentId
   {
     get => Model.ParentId;
     set

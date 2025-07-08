@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Qhta.ObservableObjects
 {
@@ -27,7 +28,7 @@ namespace Qhta.ObservableObjects
       NotifyCollectionChangedEventArgs args)
     {
       var dispatcher = Dispatcher;
-      foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList())
+      foreach (NotifyCollectionChangedEventHandler handler in notifyCollectionChangedEventHandler.GetInvocationList().OfType<NotifyCollectionChangedEventHandler>())
       {
         if (dispatcher != null)
         {
@@ -58,7 +59,6 @@ namespace Qhta.ObservableObjects
       }
     }
 
-
     /// <summary>
     /// Invokes <see cref="HandleCollectionChangedEvent"/> handle method.
     /// </summary>
@@ -66,6 +66,7 @@ namespace Qhta.ObservableObjects
     /// <param name="args"></param>
     public virtual void NotifyCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
     {
+      
       if (CollectionChanged != null)
       {
         HandleCollectionChangedEvent(sender, CollectionChanged, args);

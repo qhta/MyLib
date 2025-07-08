@@ -8,33 +8,59 @@
     ".NETCoreApp,Version=v6.0": {
       "TestObservableObjectWpfApp/1.0.0": {
         "dependencies": {
-          "Qhta.ObservableObjects": "3.0.0",
-          "Qhta.WPF.Behaviors": "1.2.0"
+          "Qhta.ObservableObjects": "3.8.0",
+          "Qhta.WPF.Behaviors": "1.4.0"
         },
         "runtime": {
           "TestObservableObjectWpfApp.dll": {}
         }
       },
-      "System.Collections.Immutable/6.0.0": {
+      "Qhta.MVVM/3.3.0": {
         "dependencies": {
+          "Qhta.ObservableObjects": "3.8.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.MVVM.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.3.0.0"
+          }
+        }
+      },
+      "Qhta.WPF.Behaviors/1.4.0": {
+        "dependencies": {
+          "Qhta.MVVM": "3.3.0",
+          "Qhta.ObservableObjects": "3.8.0"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Qhta.WPF.Behaviors.dll": {
+            "assemblyVersion": "1.4.0.0",
+            "fileVersion": "1.4.0.0"
+          }
+        }
+      },
+      "System.Collections.Immutable/9.0.6": {
+        "dependencies": {
+          "System.Memory": "4.5.5",
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Collections.Immutable.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.625.26613"
+          }
         }
       },
+      "System.Memory/4.5.5": {},
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
-      "Qhta.ObservableObjects/3.0.0": {
+      "Qhta.ObservableObjects/3.8.0": {
         "dependencies": {
-          "System.Collections.Immutable": "6.0.0"
+          "System.Collections.Immutable": "9.0.6"
         },
         "runtime": {
-          "Qhta.ObservableObjects.dll": {}
-        }
-      },
-      "Qhta.WPF.Behaviors/1.2.0": {
-        "dependencies": {
-          "Qhta.ObservableObjects": "3.0.0"
-        },
-        "runtime": {
-          "Qhta.WPF.Behaviors.dll": {}
+          "Qhta.ObservableObjects.dll": {
+            "assemblyVersion": "3.8.0.0",
+            "fileVersion": "3.8.0.0"
+          }
         }
       }
     }
@@ -45,12 +71,33 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.Collections.Immutable/6.0.0": {
+    "Qhta.MVVM/3.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-l4zZJ1WU2hqpQQHXz1rvC3etVZN+2DLmQMO79FhOTZHMn8tDRr+WU287sbomD0BETlmKDn0ygUgVy9k5xkkJdA==",
-      "path": "system.collections.immutable/6.0.0",
-      "hashPath": "system.collections.immutable.6.0.0.nupkg.sha512"
+      "sha512": "sha512-CWYpmlS9gWxsPV/Z8LA/Bo7+9cae9Qu+zzEwH0U/JjH2llPEqP4Yraa6gNKfaDXp2fKEe/k8z4vO1KWZU5eAIQ==",
+      "path": "qhta.mvvm/3.3.0",
+      "hashPath": "qhta.mvvm.3.3.0.nupkg.sha512"
+    },
+    "Qhta.WPF.Behaviors/1.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-U3C3RAhUgTEkX0Z3OKv8pP2vrZKN/VL/7EfyY7BmfJl4F4D+znUk7EI33razxClQSjrugcTYVzy0uA9uDx5g2Q==",
+      "path": "qhta.wpf.behaviors/1.4.0",
+      "hashPath": "qhta.wpf.behaviors.1.4.0.nupkg.sha512"
+    },
+    "System.Collections.Immutable/9.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lqvXJBZ9KtKKffQt9PgHj5aCdm8HGpPOZQgN3sHRN8j2Yjh+KANkdomhv8QybsBk3/YDDG83OdIWcsfQfdRglw==",
+      "path": "system.collections.immutable/9.0.6",
+      "hashPath": "system.collections.immutable.9.0.6.nupkg.sha512"
+    },
+    "System.Memory/4.5.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
+      "path": "system.memory/4.5.5",
+      "hashPath": "system.memory.4.5.5.nupkg.sha512"
     },
     "System.Runtime.CompilerServices.Unsafe/6.0.0": {
       "type": "package",
@@ -59,12 +106,7 @@
       "path": "system.runtime.compilerservices.unsafe/6.0.0",
       "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
     },
-    "Qhta.ObservableObjects/3.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Qhta.WPF.Behaviors/1.2.0": {
+    "Qhta.ObservableObjects/3.8.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -21,57 +21,47 @@ public partial class _ViewModels
 
   private void FillColumnCommandExecute(object? sender)
   {
-    if (sender is TextBlock textBlock)
+    if (sender is SfDataGrid dataGrid)
     {
-      if (textBlock.TemplatedParent is ContentPresenter contentPresenter)
+      var column = dataGrid.CurrentColumn;
+      if (column != null)
       {
-        var dataGrid = VisualTreeHelperExt.FindAncestor<SfDataGrid>(contentPresenter);
-        if (dataGrid != null)
+        var viewRecords = dataGrid.View.Records;
+        var firstItem = viewRecords.FirstOrDefault();
+        if (firstItem == null) return;
+
+        if (column is GridComboBoxColumn comboBoxColumn)
         {
-          var viewRecords = dataGrid.View.Records;
-          var firstItem = viewRecords.FirstOrDefault();
-          if (firstItem == null) return;
-          //PrintParent(contentPresenter);
-          var headerCellControl = VisualTreeHelperExt.FindAncestor<GridHeaderCellControl>(contentPresenter);
-          var comboBoxColumn = headerCellControl?.Column as GridComboBoxColumn;
-          if (comboBoxColumn == null)
+          var mappingName = comboBoxColumn.MappingName;
+          var property = firstItem.Data.GetType().GetProperty(mappingName);
+          if (property == null) return;
+          var propertyType = property.PropertyType;
+          var itemsSource = comboBoxColumn.ItemsSource;
+          var selectValueWindow = new SelectValueWindow
           {
-            var column = dataGrid.CurrentColumn;
-            comboBoxColumn = column as GridComboBoxColumn;
-          }
-          if (comboBoxColumn!=null)
+            Prompt = String.Format(Resources.Strings.SelectValueTitle, mappingName),
+            ItemsSource = itemsSource
+          };
+          if (selectValueWindow.ShowDialog() == true)
           {
-            var mappingName = comboBoxColumn.MappingName;
-            var property = firstItem.Data.GetType().GetProperty(mappingName);
-            if (property == null) return;
-            var propertyType = property.PropertyType;
-            var itemsSource = comboBoxColumn.ItemsSource;
-            var selectValueWindow = new SelectValueWindow
+            var selectedValue = selectValueWindow.SelectedItem;
+            var emptyCellsOnly = selectValueWindow.EmptyCellsOnly;
+            if (selectedValue != null)
             {
-              Prompt = String.Format(Resources.Strings.SelectValueTitle, mappingName),
-              ItemsSource = itemsSource
-            };
-            if (selectValueWindow.ShowDialog() == true)
-            {
-              var selectedValue = selectValueWindow.SelectedItem;
-              var emptyCellsOnly = selectValueWindow.EmptyCellsOnly;
-              if (selectedValue != null)
+              //Debug.WriteLine($"Setting column: {mappingName}, Selected Value: {selectedValue}");
+              foreach (var record in viewRecords)
               {
-                //Debug.WriteLine($"Setting column: {mappingName}, Selected Value: {selectedValue}");
-                foreach (var record in viewRecords)
+                if (record.Data is not null)
                 {
-                  if (record.Data is not null)
+                  if (emptyCellsOnly)
                   {
-                    if (emptyCellsOnly)
-                    {
-                      var currentValue = property.GetValue(record.Data);
-                      if (currentValue == null)
-                        property.SetValue(record.Data, selectedValue);
-                    }
-                    else
-                    {
+                    var currentValue = property.GetValue(record.Data);
+                    if (currentValue == null)
                       property.SetValue(record.Data, selectedValue);
-                    }
+                  }
+                  else
+                  {
+                    property.SetValue(record.Data, selectedValue);
                   }
                 }
               }
@@ -80,6 +70,67 @@ public partial class _ViewModels
         }
       }
     }
+    //private void FillColumnCommandExecute(object? sender)
+    //{
+    //  if (sender is TextBlock textBlock)
+    //  {
+    //    if (textBlock.TemplatedParent is ContentPresenter contentPresenter)
+    //    {
+    //      var dataGrid = VisualTreeHelperExt.FindAncestor<SfDataGrid>(contentPresenter);
+    //      if (dataGrid != null)
+    //      {
+    //        var viewRecords = dataGrid.View.Records;
+    //        var firstItem = viewRecords.FirstOrDefault();
+    //        if (firstItem == null) return;
+    //        //PrintParent(contentPresenter);
+    //        var headerCellControl = VisualTreeHelperExt.FindAncestor<GridHeaderCellControl>(contentPresenter);
+    //        var comboBoxColumn = headerCellControl?.Column as GridComboBoxColumn;
+    //        if (comboBoxColumn == null)
+    //        {
+    //          var column = dataGrid.CurrentColumn;
+    //          comboBoxColumn = column as GridComboBoxColumn;
+    //        }
+    //        if (comboBoxColumn != null)
+    //        {
+    //          var mappingName = comboBoxColumn.MappingName;
+    //          var property = firstItem.Data.GetType().GetProperty(mappingName);
+    //          if (property == null) return;
+    //          var propertyType = property.PropertyType;
+    //          var itemsSource = comboBoxColumn.ItemsSource;
+    //          var selectValueWindow = new SelectValueWindow
+    //          {
+    //            Prompt = String.Format(Resources.Strings.SelectValueTitle, mappingName),
+    //            ItemsSource = itemsSource
+    //          };
+    //          if (selectValueWindow.ShowDialog() == true)
+    //          {
+    //            var selectedValue = selectValueWindow.SelectedItem;
+    //            var emptyCellsOnly = selectValueWindow.EmptyCellsOnly;
+    //            if (selectedValue != null)
+    //            {
+    //              //Debug.WriteLine($"Setting column: {mappingName}, Selected Value: {selectedValue}");
+    //              foreach (var record in viewRecords)
+    //              {
+    //                if (record.Data is not null)
+    //                {
+    //                  if (emptyCellsOnly)
+    //                  {
+    //                    var currentValue = property.GetValue(record.Data);
+    //                    if (currentValue == null)
+    //                      property.SetValue(record.Data, selectedValue);
+    //                  }
+    //                  else
+    //                  {
+    //                    property.SetValue(record.Data, selectedValue);
+    //                  }
+    //                }
+    //              }
+    //            }
+    //          }
+    //        }
+    //      }
+    //    }
+    //  }
 
     //bool PrintParent(object? obj)
     //{

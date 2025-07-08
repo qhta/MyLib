@@ -895,6 +895,21 @@
                 index is less than 0. -or- index is greater than Count.
             </exception>
         </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.InsertItem(System.Int32,`0)">
+            <summary>
+                Inserts an element into the list at the specified
+                index.
+            </summary>
+            <param name="index">
+                The zero-based index at which item should be inserted.
+            </param>
+            <param name="item">
+                The object to insert. The value can be null for reference types.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is less than 0. -or- index is greater than Count.
+            </exception>
+        </member>
         <member name="M:Qhta.ObservableObjects.ObservableList`1.InsertRange(System.Int32,System.Collections.Generic.IEnumerable{`0})">
             <summary>
                 Inserts the elements of a collection into the list
@@ -1201,12 +1216,12 @@
             <summary>
             Specifies whether the notification action will be invoked asynchronously (with BeginInvoke)
             or synchronously (with Invoke). 
-            If not set directly for this instance, than <see cref="P:Qhta.ObservableObjects.ObservableObject.CommonBeginInvokeActionEnabled"/> is used.
+            If not set directly for this instance, then <see cref="P:Qhta.ObservableObjects.ObservableObject.CommonBeginInvokeActionEnabled"/> is used.
             </summary>
         </member>
         <member name="P:Qhta.ObservableObjects.ObservableObject.LockObject">
             <summary>
-            An object used to sychronize access.
+            An object used to synchronize access.
             </summary>
         </member>
         <member name="E:Qhta.ObservableObjects.ObservableObject.PropertyChanged">
@@ -1220,6 +1235,14 @@
             </summary>
             <param name="propertyName">Name of the changed property</param>
         </member>
+        <member name="M:Qhta.ObservableObjects.ObservableObject.NotifyPropertyChanged(System.String,System.Object,System.Object)">
+            <summary>
+            A method to raise the <see cref="E:Qhta.ObservableObjects.ObservableObject.PropertyChanged"/> event.
+            </summary>
+            <param name="propertyName">Name of the changed property</param>
+            <param name="oldValue">Old value of the property</param>
+            <param name="newValue">New value of the property</param>
+        </member>
         <member name="M:Qhta.ObservableObjects.ObservableObject.NotifyPropertyChanged(System.Object,System.String)">
             <summary>
             A method to raise the <see cref="E:Qhta.ObservableObjects.ObservableObject.PropertyChanged"/> event.
@@ -1227,15 +1250,47 @@
             <param name="propertyName">Name of the changed property</param>
             <param name="sender">The object, which property was changed.</param>
         </member>
+        <member name="M:Qhta.ObservableObjects.ObservableObject.NotifyPropertyChanged(System.Object,System.String,System.Object,System.Object)">
+            <summary>
+            A method to raise the <see cref="E:Qhta.ObservableObjects.ObservableObject.PropertyChanged"/> event.
+            </summary>
+            <param name="sender">The object, which property was changed.</param>
+            <param name="propertyName">Name of the changed property</param>
+            <param name="oldValue">Old value of the property</param>
+            <param name="newValue">New value of the property</param>
+        </member>
         <member name="P:Qhta.ObservableObjects.ObservableObject.IsSynchronized">
             <summary>
-            Specifies whether the object is synchronized in multithread environment.
+            Specifies whether the object is synchronized in multi-thread environment.
             </summary>
         </member>
         <member name="P:Qhta.ObservableObjects.ObservableObject.SyncRoot">
             <summary>
-            Object used to synchronize in multithread environment.
+            Object used to synchronize in multi-thread environment.
             </summary>
+        </member>
+        <member name="T:Qhta.ObservableObjects.PropertyChanged2EventArgs">
+            <summary>
+              Event args for property changed event that includes old and new values.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.PropertyChanged2EventArgs.OldValue">
+            <summary>
+            Old value of the property.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.PropertyChanged2EventArgs.NewValue">
+            <summary>
+            New value of the property.
+            </summary>
+        </member>
+        <member name="M:Qhta.ObservableObjects.PropertyChanged2EventArgs.#ctor(System.String,System.Object,System.Object)">
+            <summary>
+            Constructor for PropertyChanged2EventArgs with property name, old value and new value.
+            </summary>
+            <param name="propertyName"></param>
+            <param name="oldValue"></param>
+            <param name="newValue"></param>
         </member>
     </members>
 </doc>

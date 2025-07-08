@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 
 using Qhta.MVVM;
@@ -84,7 +85,7 @@ public sealed class WritingSystemsCollection() : OrderedObservableCollection<Wri
     }
     if (e.PropertyName == nameof(WritingSystemViewModel.ParentId))
     {
-      OnPropertyChanged(new PropertyChangedEventArgs(nameof(TopWritingSystems)));
+      NotifyPropertyChanged(nameof(TopWritingSystems));
     }
   }
 
@@ -124,6 +125,7 @@ public sealed class WritingSystemsCollection() : OrderedObservableCollection<Wri
 
   public new void Add(WritingSystemViewModel vm)
   {
+    //ObservableCollection<WritingSystemViewModel>
     if (String.IsNullOrEmpty(vm.Name))
       return;
     vm.PropertyChanged += WritingSystemViewModel_PropertyChanged;
@@ -142,7 +144,7 @@ public sealed class WritingSystemsCollection() : OrderedObservableCollection<Wri
   //  }
   //}
 
-  public IEnumerable<WritingSystemViewModel> TopWritingSystems => Items.Where(item => item.ParentId == null);
+  public IEnumerable<WritingSystemViewModel> TopWritingSystems => base.Items.Where(item => item.ParentId == null);
 
 
 }

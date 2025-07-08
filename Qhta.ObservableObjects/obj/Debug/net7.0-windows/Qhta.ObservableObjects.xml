@@ -319,7 +319,7 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="F:Qhta.ObservableObjects.ObservableList`1._Items">
+        <member name="F:Qhta.ObservableObjects.ObservableList`1.Items">
             <summary>
             Internal ImmutableList
             </summary>
@@ -881,6 +881,21 @@
             </returns>
         </member>
         <member name="M:Qhta.ObservableObjects.ObservableList`1.Insert(System.Int32,`0)">
+            <summary>
+                Inserts an element into the list at the specified
+                index.
+            </summary>
+            <param name="index">
+                The zero-based index at which item should be inserted.
+            </param>
+            <param name="item">
+                The object to insert. The value can be null for reference types.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                index is less than 0. -or- index is greater than Count.
+            </exception>
+        </member>
+        <member name="M:Qhta.ObservableObjects.ObservableList`1.InsertItem(System.Int32,`0)">
             <summary>
                 Inserts an element into the list at the specified
                 index.

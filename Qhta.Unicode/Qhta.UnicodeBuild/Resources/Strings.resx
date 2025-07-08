@@ -252,4 +252,7 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="SaveData" xml:space="preserve">
     <value>Save data (ctrl-S)</value>
   </data>
+  <data name="Tools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
 </root>

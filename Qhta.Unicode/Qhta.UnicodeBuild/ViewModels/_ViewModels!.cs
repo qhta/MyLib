@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows;
-
+using System.Windows.Threading;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 using Qhta.DeepCopy;
@@ -76,34 +76,43 @@ public partial class _ViewModels : ViewModel, IDisposable
       }
       WritingSystems.IsLoaded = true;
 
-      //var codePointsArray = _Context.CodePoints.ToArray();
-      //var codePointsLoaded = new UcdCodePointsCollection();
-      //for (int i=0; i<1000; i++)
-      //{
-      //  var cp = codePointsArray[i];
-      //  UcdCodePoints.Add(codePointsLoaded.Add(cp));
-      //}
+      var codePointsArray = _Context.CodePoints.ToArray();
 
-      //Task.Factory.StartNew(() =>
-      //{
-      //  for (int i = 1000; i < codePointsArray.Count(); i++)
-      //  {
-      //    var cp = codePointsArray[i];
-      //    codePointsLoaded.Add(cp);
-      //  }
-      //}).ContinueWith(t =>
-      //{
-      //  UcdCodePoints = codePointsLoaded;
-      //  NotifyPropertyChanged(nameof(UcdCodePoints));
-      //  UcdCodePoints.IsLoaded = true;
-      //  UcdCodePoints.StatusMessage = null;
-      //}, TaskScheduler.FromCurrentSynchronizationContext());
+      for (int i = 0; i < 1000; i++)
+      {
+        var cp = codePointsArray[i];
+        UcdCodePoints.Add(cp);
+      }
+
+      Task.Factory.StartNew(() =>
+      {
+        for (int i = 1000; i < codePointsArray.Count(); i++)
+        {
+          var cp = codePointsArray[i];
+          UcdCodePoints.Add(cp);
+          if (i % 1000 == 0)
+          {
+            //UcdCodePoints = codePointsLoaded;
+            // Report progress every 1000 items
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+              UcdCodePoints.ProgressValue = (i * 100) / codePointsArray.Count();
+            }, DispatcherPriority.Background);
+          }
+        }
+      }).ContinueWith(t =>
+      {
+ 
+        NotifyPropertyChanged(nameof(UcdCodePoints));
+        UcdCodePoints.IsLoaded = true;
+        UcdCodePoints.StatusMessage = null;
+      }, TaskScheduler.FromCurrentSynchronizationContext());
     }
 
-    LoadDataBackgroundWorker.DoWork += LoadData_DoWork;
-    LoadDataBackgroundWorker.ProgressChanged += LoadData_ProgressChanged;
-    LoadDataBackgroundWorker.RunWorkerCompleted += LoadData_RunWorkerCompleted;
-    LoadDataBackgroundWorker.RunWorkerAsync();
+    //LoadDataBackgroundWorker.DoWork += LoadData_DoWork;
+    //LoadDataBackgroundWorker.ProgressChanged += LoadData_ProgressChanged;
+    //LoadDataBackgroundWorker.RunWorkerCompleted += LoadData_RunWorkerCompleted;
+    //LoadDataBackgroundWorker.RunWorkerAsync();
     Debug.WriteLine("LoadStarted");
     NewWritingSystemCommand = new RelayCommand<WritingSystemType?>(NewWritingSystemCommandExecute);
     EditWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(EditWritingSystemCommandExecute);

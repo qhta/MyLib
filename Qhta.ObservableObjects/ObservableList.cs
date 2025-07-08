@@ -50,9 +50,9 @@ namespace Qhta.ObservableObjects
     /// Internal ImmutableList
     /// </summary>
 #if ImmutableItems
-    protected ImmutableList<T> _Items;
+    protected ImmutableList<T> Items;
 #else
-    protected List<T> _Items;
+    protected List<T> Items;
 #endif
     #region constructors
 
@@ -62,7 +62,7 @@ namespace Qhta.ObservableObjects
     public ObservableList()
     {
 #if ImmutableItems
-      _Items = ImmutableList.Create<T>();
+      Items = ImmutableList.Create<T>();
 #else
       _Items = new List<T>();
 #endif
@@ -75,7 +75,7 @@ namespace Qhta.ObservableObjects
     public ObservableList(IEnumerable<T> items)
     {
 #if ImmutableItems
-      _Items = items.ToImmutableList<T>();
+      Items = items.ToImmutableList<T>();
 #else
       _Items = new List<T>(items);
 #endif
@@ -87,18 +87,7 @@ namespace Qhta.ObservableObjects
     /// <summary>
     /// Specifies whether collection size is fixed.
     /// </summary>
-    public bool IsFixedSize
-    {
-      get
-      {
-          return _IsFixedSize;
-      }
-      set
-      {
-        _IsFixedSize = value;
-      }
-    }
-    private bool _IsFixedSize;
+    public bool IsFixedSize { get; set; }
 
     /// <summary>
     /// Specifies whether collection is read only.
@@ -129,7 +118,7 @@ namespace Qhta.ObservableObjects
       get
       {
         //Debug.WriteLine($"Get({index})" + $" {DateTime.Now.TimeOfDay}");
-        return _Items[index];
+        return Items[index];
       }
       set
       {
@@ -145,7 +134,7 @@ namespace Qhta.ObservableObjects
     {
       get
       {
-        var count = _Items.Count;
+        var count = Items.Count;
         return count;
       }
     }
@@ -155,14 +144,14 @@ namespace Qhta.ObservableObjects
     /// </summary>
     /// <param name="index">Index of the changed item.</param>
     /// <param name="value">Value to set.</param>
-    public void SetItem(int index, T value)
+    public virtual void SetItem(int index, T value)
     {
       //Debug.WriteLine($"SetItem({index},value)" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        var oldItem = _Items[index];
+        var oldItem = Items[index];
 #if ImmutableItems
-        _Items = _Items.SetItem(index, value);
+        Items = Items.SetItem(index, value);
 #else
         _Items[index] = value;
 #endif
@@ -183,9 +172,9 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"Add({item})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        var index = _Items.Count;
+        var index = Items.Count;
 #if ImmutableItems
-        _Items = _Items.Add(item);
+        Items = Items.Add(item);
 #else
         _Items.Add(item);
 #endif
@@ -212,11 +201,11 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"AddRange({collection.Count()})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        var index = _Items.Count;
+        var index = Items.Count;
         var list = new List<T>(collection);
 #if ImmutableItems
-        var oldItems = _Items;
-        var newItems = _Items = _Items.AddRange(list);
+        var oldItems = Items;
+        var newItems = Items = Items.AddRange(list);
 #else
         _Items.AddRange(list);
 #endif
@@ -245,7 +234,7 @@ namespace Qhta.ObservableObjects
     /// </returns>
     public ReadOnlyCollection<T>? AsReadOnly()
     {
-      return _Items as ReadOnlyCollection<T>;
+      return Items as ReadOnlyCollection<T>;
     }
 
     /// <summary>
@@ -267,7 +256,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public int BinarySearch(T item)
     {
-      return _Items.BinarySearch(item);
+      return Items.BinarySearch(item);
     }
 
     /// <summary>
@@ -294,7 +283,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public int BinarySearch(T item, IComparer<T> comparer)
     {
-      return _Items.BinarySearch(item, comparer);
+      return Items.BinarySearch(item, comparer);
     }
 
     /// <summary>
@@ -328,7 +317,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public int BinarySearch(int index, int count, T item, IComparer<T> comparer)
     {
-      return _Items.BinarySearch(index, count, item, comparer);
+      return Items.BinarySearch(index, count, item, comparer);
     }
 
     /// <summary>
@@ -342,7 +331,7 @@ namespace Qhta.ObservableObjects
         //var _notificationDelay = NotificationDelay;
         //NotificationDelay = 0;
 #if ImmutableItems
-        _Items = ImmutableList<T>.Empty;
+        Items = ImmutableList<T>.Empty;
 #else
         _Items.Clear();
 #endif
@@ -362,7 +351,7 @@ namespace Qhta.ObservableObjects
     /// <returns>true if item is found in the list; otherwise, false.</returns>
     public bool Contains(T item)
     {
-      return _Items.Contains(item);
+      return Items.Contains(item);
     }
 
 #if ImmutableItems
@@ -379,7 +368,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public ImmutableList<TOutput> ConvertAll<TOutput>(Func<T, TOutput> converter)
     {
-      return _Items.ConvertAll(converter);
+      return Items.ConvertAll(converter);
     }
 #endif
 
@@ -408,7 +397,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public void CopyTo(int index, T[] array, int arrayIndex, int count)
     {
-      _Items.CopyTo(index, array, arrayIndex, count);
+      Items.CopyTo(index, array, arrayIndex, count);
     }
 
     /// <summary>
@@ -432,7 +421,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public void CopyTo(T[] array, int arrayIndex)
     {
-      _Items.CopyTo(array, arrayIndex);
+      Items.CopyTo(array, arrayIndex);
     }
 
     /// <summary>
@@ -452,7 +441,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public void CopyTo(T[] array)
     {
-      _Items.CopyTo(array);
+      Items.CopyTo(array);
     }
 
     /// <summary>
@@ -472,7 +461,7 @@ namespace Qhta.ObservableObjects
     /// </exception>
     public bool Exists(Predicate<T> match)
     {
-      return _Items.Exists(match);
+      return Items.Exists(match);
     }
 
     ///<summary>
@@ -492,7 +481,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public T? Find(Predicate<T> match)
     {
-      return _Items.Find(match);
+      return Items.Find(match);
     }
 
 #if ImmutableItems
@@ -514,7 +503,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public ImmutableList<T> FindAll(Predicate<T> match)
     {
-      return _Items.FindAll(match);
+      return Items.FindAll(match);
     }
 #endif
 
@@ -549,7 +538,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindIndex(int startIndex, int count, Predicate<T> match)
     {
-      return _Items.FindIndex(startIndex, count, match);
+      return Items.FindIndex(startIndex, count, match);
     }
 
 
@@ -578,7 +567,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindIndex(int startIndex, Predicate<T> match)
     {
-      return _Items.FindIndex(startIndex, match);
+      return Items.FindIndex(startIndex, match);
     }
 
     ///<summary>
@@ -599,7 +588,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindIndex(Predicate<T> match)
     {
-      return _Items.FindIndex(match);
+      return Items.FindIndex(match);
     }
 
     ///<summary>
@@ -619,7 +608,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public T? FindLast(Predicate<T> match)
     {
-      return _Items.FindLast(match);
+      return Items.FindLast(match);
     }
 
     ///<summary>
@@ -652,7 +641,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindLastIndex(int startIndex, int count, Predicate<T> match)
     {
-      return _Items.FindLastIndex(startIndex, count, match);
+      return Items.FindLastIndex(startIndex, count, match);
     }
 
     ///<summary>
@@ -680,7 +669,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindLastIndex(int startIndex, Predicate<T> match)
     {
-      return _Items.FindLastIndex(startIndex, match);
+      return Items.FindLastIndex(startIndex, match);
     }
 
     ///<summary>
@@ -701,7 +690,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int FindLastIndex(Predicate<T> match)
     {
-      return _Items.FindLastIndex(match);
+      return Items.FindLastIndex(match);
     }
 
     ///<summary>
@@ -720,7 +709,7 @@ namespace Qhta.ObservableObjects
     {
       lock (LockObject)
       {
-        _Items.ForEach(action);
+        Items.ForEach(action);
         NotifyCollectionChanged(
           this,
           new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
@@ -738,9 +727,9 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"GetEnumerator()" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        for (int i = 0; i < _Items.Count; i++)
+        for (int i = 0; i < Items.Count; i++)
         {
-          var item = _Items[i];
+          var item = Items[i];
           yield return item;
         }
       }
@@ -767,7 +756,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public ImmutableList<T> GetRange(int index, int count)
     {
-      return _Items.GetRange(index, count);
+      return Items.GetRange(index, count);
     }
 #endif
 
@@ -799,7 +788,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int IndexOf(T item, int index, int count)
     {
-      return _Items.IndexOf(item, index, count);
+      return Items.IndexOf(item, index, count);
     }
 
     ///<summary>
@@ -824,7 +813,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int IndexOf(T item, int index)
     {
-      return _Items.IndexOf(item, index);
+      return Items.IndexOf(item, index);
     }
 
     ///<summary>
@@ -841,7 +830,7 @@ namespace Qhta.ObservableObjects
     ///</returns>
     public int IndexOf(T item)
     {
-      return _Items.IndexOf(item);
+      return Items.IndexOf(item);
     }
 
     ///<summary>
@@ -857,13 +846,28 @@ namespace Qhta.ObservableObjects
     ///<exception cref="ArgumentOutOfRangeException">
     ///    index is less than 0. -or- index is greater than Count.
     ///</exception>
-    public void Insert(int index, T item)
+    public void Insert(int index, T item) => InsertItem(index, item);
+
+    ///<summary>
+    ///    Inserts an element into the list at the specified
+    ///    index.
+    ///</summary>
+    ///<param name="index">
+    ///    The zero-based index at which item should be inserted.
+    ///</param>
+    ///<param name="item">
+    ///    The object to insert. The value can be null for reference types.
+    ///</param>
+    ///<exception cref="ArgumentOutOfRangeException">
+    ///    index is less than 0. -or- index is greater than Count.
+    ///</exception>
+    protected virtual void InsertItem(int index, T item)
     {
       //Debug.WriteLine($"Insert({index},{item})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
 #if ImmutableItems
-        _Items = _Items.Insert(index, item);
+        Items = Items.Insert(index, item);
 #else
         _Items.Insert(index, item);
 #endif
@@ -873,7 +877,6 @@ namespace Qhta.ObservableObjects
         NotifyPropertyChanged(nameof(Count));
       }
     }
-
 
     ///<summary>
     ///    Inserts the elements of a collection into the list
@@ -899,7 +902,7 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
 #if ImmutableItems
-        _Items = _Items.InsertRange(index, collection);
+        Items = Items.InsertRange(index, collection);
 #else
         _Items.InsertRange(index, collection);
 #endif
@@ -924,7 +927,7 @@ namespace Qhta.ObservableObjects
     ///</returns>
     public int LastIndexOf(T item)
     {
-      return _Items.LastIndexOf(item);
+      return Items.LastIndexOf(item);
     }
 
     ///<summary>
@@ -949,7 +952,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int LastIndexOf(T item, int index)
     {
-      return _Items.LastIndexOf(item, index);
+      return Items.LastIndexOf(item, index);
     }
 
     ///<summary>
@@ -979,7 +982,7 @@ namespace Qhta.ObservableObjects
     ///</exception>
     public int LastIndexOf(T item, int index, int count)
     {
-      return _Items.LastIndexOf(item, index, count);
+      return Items.LastIndexOf(item, index, count);
     }
 
     ///<summary>
@@ -998,12 +1001,12 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"Remove({item})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        int index = _Items.IndexOf(item);
+        int index = Items.IndexOf(item);
         if (index < 0)
           return false;
 
 #if ImmutableItems
-        _Items = _Items.RemoveAt(index);
+        Items = Items.RemoveAt(index);
 #else
         _Items.RemoveAt(index);
 #endif
@@ -1034,7 +1037,7 @@ namespace Qhta.ObservableObjects
       {
         var removeList = this.Where(item => match(item)).ToList();
 #if ImmutableItems
-        _Items = _Items.RemoveAll(match);
+        Items = Items.RemoveAll(match);
 #else
         _Items.RemoveAll(match);
 #endif
@@ -1060,9 +1063,9 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"RemoveAt({index})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        var value = _Items[index];
+        var value = Items[index];
 #if ImmutableItems
-        _Items = _Items.RemoveAt(index);
+        Items = Items.RemoveAt(index);
 #else
         _Items.RemoveAt(index);
 #endif
@@ -1093,13 +1096,13 @@ namespace Qhta.ObservableObjects
       //Debug.WriteLine($"RemoveRange({index},{count})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
       {
-        var count1 = _Items.Count - index;
+        var count1 = Items.Count - index;
         if (count1 < count)
           count = count1;
         var items = new T[count];
-        _Items.CopyTo(index, items, 0, count);
+        Items.CopyTo(index, items, 0, count);
 #if ImmutableItems
-        _Items = _Items.RemoveRange(index, count);
+        Items = Items.RemoveRange(index, count);
 #else
         _Items.RemoveRange(index, count);
 #endif
@@ -1131,7 +1134,7 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
 #if ImmutableItems
-        _Items = _Items.Reverse(index, count);
+        Items = Items.Reverse(index, count);
 #else
         _Items.Reverse(index, count);
 #endif
@@ -1151,7 +1154,7 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
 #if ImmutableItems
-        _Items = _Items.Reverse();
+        Items = Items.Reverse();
 #else
         _Items.Reverse();
 #endif
@@ -1181,7 +1184,7 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
 #if ImmutableItems
-        _Items = _Items.Sort(comparison);
+        Items = Items.Sort(comparison);
 #else
         _Items.Sort(comparison);
 #endif
@@ -1224,7 +1227,7 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
 #if ImmutableItems
-        _Items = _Items.Sort(index, count, comparer);
+        Items = Items.Sort(index, count, comparer);
 #else
         _Items.Sort(index, count, comparer);
 #endif
@@ -1249,7 +1252,7 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
 #if ImmutableItems
-        _Items = _Items.Sort();
+        Items = Items.Sort();
 #else
         _Items.Sort();
 #endif
@@ -1282,7 +1285,7 @@ namespace Qhta.ObservableObjects
       lock (LockObject)
       {
 #if ImmutableItems
-        _Items = _Items.Sort(comparer);
+        Items = Items.Sort(comparer);
 #else
         _Items.Sort(comparer);
 #endif
@@ -1301,7 +1304,7 @@ namespace Qhta.ObservableObjects
     /// </returns>
     public T[] ToArray()
     {
-      return _Items.ToArray();
+      return Items.ToArray();
     }
 
     ///<summary>
@@ -1323,7 +1326,7 @@ namespace Qhta.ObservableObjects
     public bool TrueForAll(Predicate<T> match)
     {
       //Debug.WriteLine($"TrueForAll()" + $" {DateTime.Now.TimeOfDay}");
-      return _Items.TrueForAll(match);
+      return Items.TrueForAll(match);
     }
 
     #endregion
@@ -1341,7 +1344,7 @@ namespace Qhta.ObservableObjects
       else
       {
 #if ImmutableItems
-        var arr = _Items.ToImmutableArray();
+        var arr = Items.ToImmutableArray();
 #else
         var arr = _Items.ToArray();
 #endif

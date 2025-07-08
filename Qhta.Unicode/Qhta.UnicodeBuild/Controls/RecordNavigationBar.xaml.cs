@@ -5,7 +5,6 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using PropertyTools.Wpf;
 
 using Qhta.MVVM;
 using Qhta.UnicodeBuild.ViewModels;

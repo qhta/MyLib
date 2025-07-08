@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using Microsoft.DotNet.DesignTools.Protocol.Values;
 using Microsoft.DotNet.DesignTools.ViewModels;
-using PropertyTools.DataAnnotations;
 using Qhta.MVVM;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;

@@ -14,7 +14,7 @@
              d:DataContext="{Binding Source={StaticResource ViewModels}, Path=Instance.WritingSystems.NewWritingSystem}"
              d:DesignHeight="350" d:DesignWidth="400">
   <UserControl.Resources>
-    <pt:ValidationErrorsToStringConverter x:Key="ValidationErrorsToStringConverter" />
+    <!--<pt:ValidationErrorsToStringConverter x:Key="ValidationErrorsToStringConverter" />-->
     <DataTemplate x:Key="EmptyDataTemplate"/>
     <ControlTemplate x:Key="CategoryControlTemplate"  TargetType="{x:Type HeaderedContentControl}">
       <Grid Margin="0 8 0 0">

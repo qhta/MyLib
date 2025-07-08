@@ -1,11 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Q3O1ddZOf74=",
+  "dgSpecHash": "Yc2KXHzVzzY=",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\8.0.0\\system.collections.immutable.8.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\9.0.6\\system.collections.immutable.9.0.6.nupkg.sha512"
   ],
   "logs": []
 }

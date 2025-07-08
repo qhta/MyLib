@@ -23,8 +23,8 @@
   <helpers:CodePointValueConverter x:Key="CodePointValueConverter"/>
   <converters:NegateValueConverter x:Key="NegateValueConverter"/>
   <helpers:WritingSystemTypeToImageConverter x:Key="TypeToImageConverter" />
-  <helpers:PropertyControlFactory x:Key="PropertyControlFactory"/>
-  <helpers:PropertyModelOperator x:Key="PropertyModelOperator"/>
+  <!--<helpers:PropertyControlFactory x:Key="PropertyControlFactory"/>
+  <helpers:PropertyModelOperator x:Key="PropertyModelOperator"/>-->
   <helpers:EnumToResourceConverter 
     ResourceType="{x:Type resources:WritingSystemType}" x:Key="WritingSystemTypeResourceConverter"/>
   <helpers:EnumToResourceConverter 

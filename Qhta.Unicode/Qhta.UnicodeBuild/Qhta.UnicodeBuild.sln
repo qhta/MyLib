@@ -5,6 +5,8 @@ VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.UnicodeBuild", "Qhta.UnicodeBuild.csproj", "{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.ObservableObjects", "..\..\Qhta.ObservableObjects\Qhta.ObservableObjects.csproj", "{45CE4A55-A88D-9531-667B-503AEC9020B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45CE4A55-A88D-9531-667B-503AEC9020B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45CE4A55-A88D-9531-667B-503AEC9020B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45CE4A55-A88D-9531-667B-503AEC9020B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45CE4A55-A88D-9531-667B-503AEC9020B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

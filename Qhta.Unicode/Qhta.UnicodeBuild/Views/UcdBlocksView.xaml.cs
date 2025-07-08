@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Diagnostics;
 using System.Windows.Controls;
-using PropertyTools.Wpf;
 
 using Qhta.MVVM;
 using Qhta.UnicodeBuild.Helpers;

@@ -33,7 +33,7 @@ public class UcdCodePointsCollection() : OrderedObservableCollection<UcdCodePoin
       if (value != _isBusy)
       {
         _isBusy = value;
-        base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsBusy)));
+        base.NotifyPropertyChanged(nameof(IsBusy));
       }
     }
   }
@@ -47,7 +47,7 @@ public class UcdCodePointsCollection() : OrderedObservableCollection<UcdCodePoin
       if (value != _progressValue)
       {
         _progressValue = value;
-        base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(ProgressValue)));
+        base.NotifyPropertyChanged(nameof(ProgressValue));
       }
     }
   }
@@ -59,7 +59,7 @@ public class UcdCodePointsCollection() : OrderedObservableCollection<UcdCodePoin
     set
     {
       _statusMessage = value;
-      base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(StatusMessage)));
+      base.NotifyPropertyChanged(nameof(StatusMessage));
     }
   }
 

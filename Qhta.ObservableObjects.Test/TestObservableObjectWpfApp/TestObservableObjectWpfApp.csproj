@@ -8,8 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Qhta.WPF.Behaviors" Version="1.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Qhta.ObservableObjects\Qhta.ObservableObjects.csproj" />
-    <ProjectReference Include="..\..\Qhta.WPF.Behaviors\Qhta.WPF.Behaviors.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,7 +9,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 public class OrderedObservableCollection<T>(Func<T, object> keySelector, IComparer<object>? comparer = null)
-  : ObservableCollection<T>
+  : Qhta.ObservableObjects.ObservableList<T>, IList<T>
+//    : ObservableCollection<T>, IList<T>
 {
   public bool IsLoaded
   //{
@@ -27,10 +28,11 @@ public class OrderedObservableCollection<T>(Func<T, object> keySelector, ICompar
         {
           // Recalculate the row header column width when loaded
           //_RowHeaderColumnWidth = CalculateRowHeaderColumnWidth();
-          OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs(nameof(Count)));
-
+          //OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs(nameof(Count)));
+          NotifyPropertyChanged(nameof(Count));
         }
-        OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs(nameof(IsLoaded)));
+        NotifyPropertyChanged(nameof(IsLoaded));
+        //OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs(nameof(IsLoaded)));
         //OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs(nameof(RowHeaderColumnWidth)));
       }
     }
@@ -61,7 +63,7 @@ public class OrderedObservableCollection<T>(Func<T, object> keySelector, ICompar
     //Debug.WriteLine($"{item} added at {index}");
   }
 
-  protected override void SetItem(int index, T item)
+  public override void SetItem(int index, T item)
   {
     RemoveAt(index);
     InsertItem(GetInsertIndex(item), item);

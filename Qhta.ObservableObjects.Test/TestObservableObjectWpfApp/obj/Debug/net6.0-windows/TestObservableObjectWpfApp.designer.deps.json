@@ -5,7 +5,88 @@
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v6.0": {}
+    ".NETCoreApp,Version=v6.0": {
+      "Qhta.MVVM/3.3.0": {
+        "dependencies": {
+          "Qhta.ObservableObjects": "3.8.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.MVVM.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.3.0.0"
+          }
+        }
+      },
+      "Qhta.WPF.Behaviors/1.4.0": {
+        "dependencies": {
+          "Qhta.MVVM": "3.3.0",
+          "Qhta.ObservableObjects": "3.8.0"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Qhta.WPF.Behaviors.dll": {
+            "assemblyVersion": "1.4.0.0",
+            "fileVersion": "1.4.0.0"
+          }
+        }
+      },
+      "System.Collections.Immutable/9.0.6": {
+        "dependencies": {
+          "System.Memory": "4.5.5",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Collections.Immutable.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.625.26613"
+          }
+        }
+      },
+      "System.Memory/4.5.5": {},
+      "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+        "runtime": {
+          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.52210"
+          }
+        }
+      }
+    }
   },
-  "libraries": {}
+  "libraries": {
+    "Qhta.MVVM/3.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CWYpmlS9gWxsPV/Z8LA/Bo7+9cae9Qu+zzEwH0U/JjH2llPEqP4Yraa6gNKfaDXp2fKEe/k8z4vO1KWZU5eAIQ==",
+      "path": "qhta.mvvm/3.3.0",
+      "hashPath": "qhta.mvvm.3.3.0.nupkg.sha512"
+    },
+    "Qhta.WPF.Behaviors/1.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-U3C3RAhUgTEkX0Z3OKv8pP2vrZKN/VL/7EfyY7BmfJl4F4D+znUk7EI33razxClQSjrugcTYVzy0uA9uDx5g2Q==",
+      "path": "qhta.wpf.behaviors/1.4.0",
+      "hashPath": "qhta.wpf.behaviors.1.4.0.nupkg.sha512"
+    },
+    "System.Collections.Immutable/9.0.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lqvXJBZ9KtKKffQt9PgHj5aCdm8HGpPOZQgN3sHRN8j2Yjh+KANkdomhv8QybsBk3/YDDG83OdIWcsfQfdRglw==",
+      "path": "system.collections.immutable/9.0.6",
+      "hashPath": "system.collections.immutable.9.0.6.nupkg.sha512"
+    },
+    "System.Memory/4.5.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
+      "path": "system.memory/4.5.5",
+      "hashPath": "system.memory.4.5.5.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
+      "path": "system.runtime.compilerservices.unsafe/6.0.0",
+      "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    }
+  }
 }
