@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +16,7 @@ using DescriptionAttribute = PropertyTools.DataAnnotations.DescriptionAttribute;
 namespace Qhta.UnicodeBuild.ViewModels;
 
 public class WritingSystemViewModel(WritingSystem model)
-  : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, INotifyDataErrorInfo
+  : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, IComparable<WritingSystemViewModel>, INotifyDataErrorInfo
 {
   public WritingSystemViewModel() : this(new WritingSystem())
   {
@@ -255,7 +256,8 @@ public class WritingSystemViewModel(WritingSystem model)
       return false;
     if (this.Name==null || other.Name == null)
     {
-      Debug.WriteLine($"WritingSystemViewModel.Equals: Name is empty for {this} or {other}");
+      if (LogEquals)
+        Debug.WriteLine($"WritingSystemViewModel.Equals: Name is empty for {this} or {other}");
       return true;
     }
     return Id == other.Id;
@@ -342,6 +344,18 @@ public class WritingSystemViewModel(WritingSystem model)
 
   }
   public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+
+  public int CompareTo(WritingSystemViewModel? other)
+  {
+    if (other is null) return 1;
+    if (Id==null && other.Id == null)
+      return 0;
+    if (Id == null)
+      return -1;
+    if (other.Id == null)
+      return 1;
+    return  ((int)Id).CompareTo((int)(other.Id));
+  }
 
   public override String ToString()
   {

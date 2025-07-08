@@ -11,6 +11,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="850" d:DesignWidth="1600">
   <UserControl.Resources>
+
     <Style TargetType="sf:AdvancedFilterControl">
       <Setter Property="CanGenerateUniqueItems" Value="False" />
     </Style>
@@ -37,6 +38,7 @@
     </Grid.RowDefinitions>
     <!-- Menu Bar -->
     <Menu Grid.Row="0" Grid.ColumnSpan="2">
+      <StaticResource ResourceKey="DataMenu"/>
       <MenuItem Header="{x:Static resources:Strings.Edit}">
         <!--<MenuItem Header="Undo" Command="Undo"/>
         <MenuItem Header="Redo" Command="Redo"/>
@@ -81,8 +83,15 @@
                      FilterChanging="CodePointDataGrid_OnFilterChanging"
                      GridCopyOption="CopyData"
 
+
     >
-      <!--FilterPopupStyle="{StaticResource filterControlStyle}"
+      <!--
+                     RowHeaderWidth="{Binding Instance.UcdCodePoints.RowHeaderColumnWidth}"
+      
+                           SelectionUnit="Any"
+                     SelectionMode="Extended"
+                     ShowRowHeader="True"
+      FilterPopupStyle="{StaticResource filterControlStyle}"
                         CopyGridCellContent="CodePointDataGrid_OnCopyGridCellContent"
 
       -->

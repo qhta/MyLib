@@ -14,7 +14,7 @@ using BrowsableAttribute = System.ComponentModel.BrowsableAttribute;
 using ReadOnlyAttribute = System.ComponentModel.ReadOnlyAttribute;
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>
+public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeightProvider
 {
   /// <inheritdoc />
   public UcdCodePointViewModel(UcdCodePoint model) : base(model)
@@ -395,4 +395,18 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>
     }
   }
 
+  private double _RowHeight = 24;
+
+  public double RowHeight
+  {
+    get => _RowHeight;
+    set
+    {
+      if (_RowHeight != value)
+      {
+        _RowHeight = value;
+        NotifyPropertyChanged(nameof(RowHeight));
+      }
+    }
+  }
 }

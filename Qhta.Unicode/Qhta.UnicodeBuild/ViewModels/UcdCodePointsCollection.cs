@@ -7,7 +7,7 @@ using Qhta.UnicodeBuild.Helpers;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public class UcdCodePointsCollection() : ObservableCollection<UcdCodePointViewModel>()
+public class UcdCodePointsCollection() : OrderedObservableCollection<UcdCodePointViewModel>((item) => item.Id)
 {
   public UcdCodePointViewModel Add(UcdCodePoint ws)
   {
@@ -62,4 +62,6 @@ public class UcdCodePointsCollection() : ObservableCollection<UcdCodePointViewMo
       base.OnPropertyChanged(new PropertyChangedEventArgs(nameof(StatusMessage)));
     }
   }
+
+  //public override int DataRecordsCount => _ViewModels.Instance.DBContext.CodePoints.Count();
 }

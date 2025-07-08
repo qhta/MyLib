@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
+
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 using Qhta.DeepCopy;
 using Qhta.MVVM;
@@ -6,7 +9,7 @@ using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class _ViewModels : IDisposable
+public partial class _ViewModels : ViewModel, IDisposable
 {
   public static _ViewModels Instance
   {
@@ -73,12 +76,35 @@ public partial class _ViewModels : IDisposable
       }
       WritingSystems.IsLoaded = true;
 
-      foreach (var cp in _Context.CodePoints)
-      {
-        UcdCodePoints.Add(cp);
-      }
+      //var codePointsArray = _Context.CodePoints.ToArray();
+      //var codePointsLoaded = new UcdCodePointsCollection();
+      //for (int i=0; i<1000; i++)
+      //{
+      //  var cp = codePointsArray[i];
+      //  UcdCodePoints.Add(codePointsLoaded.Add(cp));
+      //}
+
+      //Task.Factory.StartNew(() =>
+      //{
+      //  for (int i = 1000; i < codePointsArray.Count(); i++)
+      //  {
+      //    var cp = codePointsArray[i];
+      //    codePointsLoaded.Add(cp);
+      //  }
+      //}).ContinueWith(t =>
+      //{
+      //  UcdCodePoints = codePointsLoaded;
+      //  NotifyPropertyChanged(nameof(UcdCodePoints));
+      //  UcdCodePoints.IsLoaded = true;
+      //  UcdCodePoints.StatusMessage = null;
+      //}, TaskScheduler.FromCurrentSynchronizationContext());
     }
 
+    LoadDataBackgroundWorker.DoWork += LoadData_DoWork;
+    LoadDataBackgroundWorker.ProgressChanged += LoadData_ProgressChanged;
+    LoadDataBackgroundWorker.RunWorkerCompleted += LoadData_RunWorkerCompleted;
+    LoadDataBackgroundWorker.RunWorkerAsync();
+    Debug.WriteLine("LoadStarted");
     NewWritingSystemCommand = new RelayCommand<WritingSystemType?>(NewWritingSystemCommandExecute);
     EditWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(EditWritingSystemCommandExecute);
     DeleteWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(DeleteWritingSystemCommandExecute, CanDeleteWritingSystem);
@@ -93,6 +119,8 @@ public partial class _ViewModels : IDisposable
     ApplyBlockMappingBackgroundWorker.ProgressChanged += ApplyBlockMapping_ProgressChanged;
     ApplyBlockMappingBackgroundWorker.RunWorkerCompleted += ApplyBlockMapping_RunWorkerCompleted;
     FillColumnCommand = new RelayCommand<object?>(FillColumnCommandExecute);
+    SaveDataCommand = new RelayCommand(SaveCommandExecute, SaveCommandCanExecute);
+    InitSaveDataTimer();
   }
 
 

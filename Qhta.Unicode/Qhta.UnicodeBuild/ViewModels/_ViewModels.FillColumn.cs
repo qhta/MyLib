@@ -31,7 +31,7 @@ public partial class _ViewModels
           var viewRecords = dataGrid.View.Records;
           var firstItem = viewRecords.FirstOrDefault();
           if (firstItem == null) return;
-          PrintParent(contentPresenter);
+          //PrintParent(contentPresenter);
           var headerCellControl = VisualTreeHelperExt.FindAncestor<GridHeaderCellControl>(contentPresenter);
           var comboBoxColumn = headerCellControl?.Column as GridComboBoxColumn;
           if (comboBoxColumn == null)
@@ -57,7 +57,7 @@ public partial class _ViewModels
               var emptyCellsOnly = selectValueWindow.EmptyCellsOnly;
               if (selectedValue != null)
               {
-                Debug.WriteLine($"Column: {mappingName}, Selected Value: {selectedValue}");
+                //Debug.WriteLine($"Setting column: {mappingName}, Selected Value: {selectedValue}");
                 foreach (var record in viewRecords)
                 {
                   if (record.Data is not null)
@@ -81,30 +81,30 @@ public partial class _ViewModels
       }
     }
 
-    bool PrintParent(object? obj)
-    {
-      if (obj is null) return false;
-      if (obj is FrameworkElement fe)
-      {
-        Debug.WriteLine($"Parent: {fe.GetType().Name}");
-        if (PrintParent(fe.Parent))
-          return true;
-        return PrintTemplatedParent(fe.TemplatedParent);
-      }
-      return false;
-    }
+    //bool PrintParent(object? obj)
+    //{
+    //  if (obj is null) return false;
+    //  if (obj is FrameworkElement fe)
+    //  {
+    //    Debug.WriteLine($"Parent: {fe.GetType().Name}");
+    //    if (PrintParent(fe.Parent))
+    //      return true;
+    //    return PrintTemplatedParent(fe.TemplatedParent);
+    //  }
+    //  return false;
+    //}
 
-    bool PrintTemplatedParent(object? obj)
-    {
-      if (obj is null) return false;
-      if (obj is FrameworkElement fe)
-      {
-        Debug.WriteLine($"TemplatedParent: {fe.GetType().Name}");
-        if (PrintParent(fe.Parent))
-          return true;
-        return PrintTemplatedParent(fe.TemplatedParent);
-      }
-      return false;
-    }
+    //bool PrintTemplatedParent(object? obj)
+    //{
+    //  if (obj is null) return false;
+    //  if (obj is FrameworkElement fe)
+    //  {
+    //    Debug.WriteLine($"TemplatedParent: {fe.GetType().Name}");
+    //    if (PrintParent(fe.Parent))
+    //      return true;
+    //    return PrintTemplatedParent(fe.TemplatedParent);
+    //  }
+    //  return false;
+    //}
   }
 }

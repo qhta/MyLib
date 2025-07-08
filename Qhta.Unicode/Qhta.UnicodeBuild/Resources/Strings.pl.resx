@@ -246,4 +246,10 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="NonEmptyItem" xml:space="preserve">
     <value>(Nie puste)</value>
   </data>
+  <data name="Data" xml:space="preserve">
+    <value>Dane</value>
+  </data>
+  <data name="SaveData" xml:space="preserve">
+    <value>Zapisz dane (ctrl-S)</value>
+  </data>
 </root>

@@ -44,6 +44,12 @@
     <Setter Property="CommandParameter" Value="{Binding CommandParameter}" />
   </Style>
 
+  <MenuItem x:Key="DataMenu"
+            Header="{x:Static resources:Strings.Data}">
+    <MenuItem Header="{x:Static resources:Strings.SaveData}" 
+              Command="{Binding Source={StaticResource ViewModels}, Path=Instance.SaveDataCommand}" />
+  </MenuItem>
+
   <ContextMenu x:Key="CommonContextMenu">
     <MenuItem Header="Copy" Command="Copy"/>
     <MenuItem Header="Paste" Command="Paste"/>
@@ -258,7 +264,9 @@
   </Style>
 
   <Style TargetType="sf:GridRowHeaderCell">
-    <Setter Property="Template">
+    <Setter Property="Background" Value="Silver"/>
+    <!--<Setter Property="Width" Value="200" />-->
+    <!--<Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="sf:GridRowHeaderCell">
           <Border x:Name="PART_RowHeaderCellBorder"
@@ -270,13 +278,14 @@
                          VerticalAlignment="Top"
                          Margin="0,3,0,0"
                          Text="{Binding RowIndex,RelativeSource={RelativeSource TemplatedParent}}"
-                         TextAlignment="Center" />
+                         TextAlignment="Center" 
+                         />
               <controls:RowResizer Background="LightGray" MaxRowHeight="240"/>
             </Grid>
           </Border>
         </ControlTemplate>
       </Setter.Value>
-    </Setter>
+    </Setter>-->
   </Style>
 
   <!--<DataTemplate x:Key="WritingSystemTypeFilterPopupTemplate">

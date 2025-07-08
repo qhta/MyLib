@@ -246,4 +246,10 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="NonEmptyItem" xml:space="preserve">
     <value>(Not empty)</value>
   </data>
+  <data name="Data" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="SaveData" xml:space="preserve">
+    <value>Save data (ctrl-S)</value>
+  </data>
 </root>

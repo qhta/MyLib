@@ -7,9 +7,9 @@ using Qhta.UnicodeBuild.Helpers;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
-public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel, IRowHeightProvider, IComparable
+public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel, IRowHeightProvider, IComparable<UcdBlockViewModel>
 {
-  public UcdBlockViewModel(): base(new UcdBlock())
+  public UcdBlockViewModel() : base(new UcdBlock())
   {
     // Initialize any additional properties or collections here if needed
   }
@@ -104,25 +104,17 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
     }
   }
 
-  public int CompareTo(object? obj)
+
+  public int CompareTo(UcdBlockViewModel? other)
   {
-    if (obj is UcdBlockViewModel other)
-    {
-      if (Range == null || other.Range == null)
-      {
-        return 0; // or throw an exception if Range should never be null
-      }
-      return Range.Start!.CompareTo(other.Range.Start!);
-    }
-    throw new ArgumentException("Object is not a UcdBlockViewModel", nameof(obj));
+    if (other is null) return 1;
+    if (Id == null && other.Id == null)
+      return 0;
+    if (Id == null)
+      return -1;
+    if (other.Id == null)
+      return 1;
+    return ((int)Id).CompareTo((int)(other.Id));
   }
 
-  //public override bool Equals(object? obj)
-  //{
-  //  if (obj is UcdBlockViewModel other)
-  //  {
-  //    return Id == other.Id && Range == other.Range && Name == other.Name && Description == other.Description;
-  //  }
-  //  return obj == null;
-  //}
 }

@@ -222,7 +222,7 @@ public partial class _DbContext : DbContext, IDisposable
       if (ChangeTracker.HasChanges() && AutoSaveChanges)
       {
         SaveChanges();
-        Debug.WriteLine("DbContext changes saved automatically.");
+        Debug.WriteLine("Data changes saved automatically.");
       }
     }
   }

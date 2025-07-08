@@ -32,21 +32,10 @@ public partial class UcdCodePointsView : UserControl
 
   private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
   {
-    if (sender is SfDataGrid dataGrid && e.RowIndex > 0 && e.RowIndex <= dataGrid.View.Records.Count)
-    {
-      LongTextColumn.OnQueryRowHeight(sender, e);
-      var rowIndex = e.RowIndex - 1;
-      var rowData = dataGrid.View.Records[rowIndex].Data as UcdCodePointViewModel;
-      var glyphSize = (rowData?.GlyphSize ?? 12);
-      var rowHeight = (glyphSize * 200) / 100;
-      if (rowHeight > e.Height)
-      {
-        e.Height = rowHeight;
-        e.Handled = true;
-        Debug.WriteLine($"Row {rowIndex} height = {rowHeight}");
-      }
-    }
-
+    RowHeightProvider.OnQueryRowHeight(sender, e);
+    if (e.Handled)
+      return;
+    LongTextColumn.OnQueryRowHeight(sender, e);
   }
 
   private void UpDown_OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -148,7 +137,7 @@ public partial class UcdCodePointsView : UserControl
 
     void SetWritingSystemFilter(IEnumerable<WritingSystemViewModel?> sourceCollection)
     {
-      WritingSystemViewModel.LogEquals = true;
+      //WritingSystemViewModel.LogEquals = true;
       GridFilterControl filterControl = e.FilterControl;
       filterControl.SortOptionVisibility = Visibility.Collapsed;
       filterControl.FilterMode = FilterMode.Both;

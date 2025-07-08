@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Net.Mime;
 
 namespace Qhta.UnicodeBuild.Helpers;
 
@@ -10,7 +11,31 @@ using System.Linq;
 public class OrderedObservableCollection<T>(Func<T, object> keySelector, IComparer<object>? comparer = null)
   : ObservableCollection<T>
 {
-  public bool IsLoaded { get; set; }
+  public bool IsLoaded
+  //{
+  //  get;
+  //  set;
+  //}
+  {
+    get => _IsLoaded;
+    set
+    {
+      if (value != _IsLoaded)
+      {
+        _IsLoaded = value;
+        if (_IsLoaded)
+        {
+          // Recalculate the row header column width when loaded
+          //_RowHeaderColumnWidth = CalculateRowHeaderColumnWidth();
+          OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs(nameof(Count)));
+
+        }
+        OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs(nameof(IsLoaded)));
+        //OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs(nameof(RowHeaderColumnWidth)));
+      }
+    }
+  }
+  private bool _IsLoaded;
 
   private readonly Func<T, object> _keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
 
@@ -53,4 +78,34 @@ public class OrderedObservableCollection<T>(Func<T, object> keySelector, ICompar
     }
     return Count;
   }
-}
+
+  //public Double RowHeaderColumnWidth
+  //{
+  //  get
+  //  {
+  //    if (!IsLoaded)
+  //      return 50;
+  //    if (_RowHeaderColumnWidth == 0)
+  //      _RowHeaderColumnWidth = CalculateRowHeaderColumnWidth();
+  //    return _RowHeaderColumnWidth;
+  //  }
+  //}
+
+  //private double _RowHeaderColumnWidth;
+
+  //public virtual Double CalculateRowHeaderColumnWidth()
+  //{
+  //  //if (Count == 0)
+  //    return 50; // Default width if no items
+  //  var count = DataRecordsCount; 
+  //  var digits = (int)Math.Round(Math.Log10(Convert.ToDouble(count)));
+  //  if (digits < 0)
+  //    digits = 1;
+  //  var text = new string('8', digits);
+  //  text = " " + text+" "; // Add a space for padding
+  //  var width = TextSizeEvaluator.EvaluateTextWidth(text);// 12 pixels per digit, plus 6 for padding
+  //  return width;
+  //}
+
+  //public virtual int DataRecordsCount => Count;
+}                         

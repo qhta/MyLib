@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Windows.Data;
 using PropertyTools.Wpf;
 
 using Qhta.MVVM;
@@ -37,12 +37,19 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
     {
       if (e.NewValue is SfDataGrid dataGrid)
       {
-        dataGrid.Loaded += (s, e) =>
-        {
-          recordNavigationBar.NotifyPropertyChanged(nameof(RowsCount));
-        };
+        recordNavigationBar.DataGridChanged(dataGrid);
+        //dataGrid.Loaded += (s, e) =>
+        //{
+        //  recordNavigationBar.NotifyPropertyChanged(nameof(RowsCount));
+        //};
       }
     }
+  }
+
+  private void DataGridChanged(SfDataGrid dataGrid)
+  {
+    SetBinding(RowsCountProperty, new Binding("ItemsSource.Count") { Source = dataGrid });
+
   }
 
   public SfDataGrid? DataGrid
@@ -51,8 +58,34 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
     set => SetValue(DataGridProperty, value);
   }
 
+
+
+  //private static void RowsCountPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+  //{
+  //  if (d is RecordNavigationBar recordNavigationBar)
+  //  {
+  //    if (e.NewValue is int dataGrid)
+  //    {
+  //      dataGrid.Loaded += (s, e) =>
+  //      {
+  //        recordNavigationBar.NotifyPropertyChanged(nameof(RowsCount));
+  //      };
+  //    }
+  //  }
+  //}
+
+
+  public static DependencyProperty RowsCountProperty =
+    DependencyProperty.Register(nameof(RowsCount), typeof(int), typeof(RecordNavigationBar),
+      new PropertyMetadata(null));
+
   public int RowsCount
-  => DataGrid?.View?.Records.Count ?? 0;
+  {
+    get => (int)GetValue(RowsCountProperty);
+    set => SetValue(RowsCountProperty, value);
+  }
+
+  //public int RowsCount
   //{
   //  get
   //  {
@@ -61,7 +94,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   //    if (DataGrid.EnableDataVirtualization)
   //    {
   //      QueryableCollectionView?
-  //        //ICollectionViewAdv? 
+  //          //ICollectionViewAdv? 
   //          view = DataGrid?.View as QueryableCollectionView;
   //      return view?.ViewSource.Count() ?? 0; // For virtualized data
 
