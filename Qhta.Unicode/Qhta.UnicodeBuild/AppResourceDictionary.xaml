@@ -23,8 +23,6 @@
   <helpers:CodePointValueConverter x:Key="CodePointValueConverter"/>
   <converters:NegateValueConverter x:Key="NegateValueConverter"/>
   <helpers:WritingSystemTypeToImageConverter x:Key="TypeToImageConverter" />
-  <!--<helpers:PropertyControlFactory x:Key="PropertyControlFactory"/>
-  <helpers:PropertyModelOperator x:Key="PropertyModelOperator"/>-->
   <helpers:EnumToResourceConverter 
     ResourceType="{x:Type resources:WritingSystemType}" x:Key="WritingSystemTypeResourceConverter"/>
   <helpers:EnumToResourceConverter 
@@ -263,6 +261,16 @@
     </Style.Triggers>
   </Style>
 
+  <Style TargetType="sf:GridRowHeaderIndentCell">
+    <Setter Property="Background" Value="Silver"/>
+  </Style>
+
+  <Style TargetType="sf:GridHeaderCellControl">
+    <Setter Property="Background" Value="Silver"/>
+    <Setter Property="Foreground" Value="#FF404040" />
+  </Style>
+
+
   <Style TargetType="sf:GridRowHeaderCell">
     <Setter Property="Background" Value="Silver"/>
     <!--<Setter Property="Width" Value="200" />-->
@@ -286,6 +294,9 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>-->
+  </Style>
+  <Style TargetType="sf:FilterToggleButton">
+    <Setter Property="Foreground" Value="#FF404040" />
   </Style>
 
   <!--<DataTemplate x:Key="WritingSystemTypeFilterPopupTemplate">

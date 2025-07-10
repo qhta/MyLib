@@ -44,7 +44,6 @@ namespace Qhta.UnicodeBuild
             e.Handled = true;
           }
         }
-
       }
     }
 

@@ -21,7 +21,10 @@
     </Style>
 
   </UserControl.Resources>
-
+  <UserControl.CommandBindings>
+    <CommandBinding Command="Save" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Copy" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+  </UserControl.CommandBindings>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -30,11 +33,13 @@
     </Grid.RowDefinitions>
     <!-- Menu Bar -->
     <Menu Grid.Row="0" Grid.ColumnSpan="2">
-      <StaticResource ResourceKey="DataMenu"/>
+      <MenuItem Header="{x:Static resources:Strings.Data}">
+        <MenuItem Header="{x:Static resources:Strings.Save}" Command="Save"/>
+      </MenuItem>
       <MenuItem Header="{x:Static resources:Strings.Edit}">
-        <!--<MenuItem Header="Undo" Command="Undo"/>
+        <MenuItem Header="Undo" Command="Undo"/>
         <MenuItem Header="Redo" Command="Redo"/>
-        <Separator/>-->
+        <Separator/>
         <MenuItem Header="{x:Static resources:Strings.Cut}" Command="Cut"/>
         <MenuItem Header="{x:Static resources:Strings.Copy}" Command="Copy"/>
         <MenuItem Header="{x:Static resources:Strings.Paste}" Command="Paste"/>
@@ -71,25 +76,28 @@
                      AllowEditing="True"
                      AllowFiltering="True"
                      AllowResizingColumns="True"
+                     AllowSorting="True"
+                     AllowTriStateSorting="True"
                      ColumnSizer="Auto"
                      HeaderRowHeight="26"
                      QueryRowHeight="DataGrid_OnQueryRowHeight"
                      AutoGenerateColumns="False"
                      GridValidationMode="InEdit"
-                     EditTrigger="OnDoubleTap"
+                     EditTrigger="OnTap"
                      EnableDataVirtualization="True" 
                      FilterItemsPopulating="CodePointDataGrid_OnFilterItemsPopulating"
                      FilterChanging="CodePointDataGrid_OnFilterChanging"
-                     GridCopyOption="CopyData"
-
+                     GridCopyOption="CopyData,IncludeFormat"
+                     SelectionUnit="Any"
+                     SelectionMode="Extended"
+                     ShowRowHeader="True"
 
     >
       <!--
                      RowHeaderWidth="{Binding Instance.UcdCodePoints.RowHeaderColumnWidth}"
       
-                           SelectionUnit="Any"
-                     SelectionMode="Extended"
-                     ShowRowHeader="True"
+                           GridCopyContent="CodePointDataGrid_OnGridCopyContent"
+
       FilterPopupStyle="{StaticResource filterControlStyle}"
                         CopyGridCellContent="CodePointDataGrid_OnCopyGridCellContent"
 

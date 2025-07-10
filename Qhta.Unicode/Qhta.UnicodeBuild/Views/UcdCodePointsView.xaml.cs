@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
 
@@ -84,6 +85,16 @@ public partial class UcdCodePointsView : UserControl
       SetWritingSystemFilter(_ViewModels.Instance.SelectableSubsets);
     else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Artefact))
       SetWritingSystemFilter(_ViewModels.Instance.SelectableArtefacts);
+    else
+      SetAdvancedFilter();
+
+    void SetAdvancedFilter()
+    {
+      GridFilterControl filterControl = e.FilterControl;
+      filterControl.SortOptionVisibility = Visibility.Collapsed;
+      filterControl.FilterMode = FilterMode.AdvancedFilter;
+      filterControl.AllowBlankFilters = true;
+    }
 
     void SetCategoryFilter()
     {
@@ -204,6 +215,48 @@ public partial class UcdCodePointsView : UserControl
         }
       }
     }
+  }
+
+  private void CommandBinding_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+  {
+    if (e.Command is RoutedCommand command)
+    {
+      if (command == ApplicationCommands.Save)
+        e.CanExecute = _ViewModels.Instance.DbContext?.ThereAreUnsavedChanges ?? false;
+      else if (command == ApplicationCommands.Copy)
+        e.CanExecute = (_ViewModels.Instance.UcdCodePoints)?.IsLoaded ?? false;
+      else
+        e.CanExecute = true; // Default to true for other commands
+    }
+    Debug.WriteLine($"CommandBinding_OnCanExecute({sender}, {(e.Command as RoutedUICommand)?.Text})={e.CanExecute}");
+  }
+
+  private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+  {
+    Debug.WriteLine($"CommandBinding_OnExecuted({sender}, {(e.Command as RoutedUICommand)?.Text})");
+    if (e.Command is RoutedUICommand command)
+    {
+      if (command == ApplicationCommands.Save)
+      {
+        _ViewModels.Instance.DbContext?.SaveChanges();
+        Debug.WriteLine("Data changes saved");
+      }
+      if (command == ApplicationCommands.Copy)
+        _ViewModels.Instance.CopyData(CodePointDataGrid);
+      //else if (command == ApplicationCommands.Delete)
+      //{
+      //  _ViewModels.Instance.DeleteSelectedCodePoint();
+      //}
+      else
+      {
+        Debug.WriteLine($"Command {command.Text} executed");
+      }
+    }
+  }
+
+  private void CodePointDataGrid_OnGridCopyContent(object? sender, GridCopyPasteEventArgs e)
+  {
+    e.Handled = true;
   }
 }
 

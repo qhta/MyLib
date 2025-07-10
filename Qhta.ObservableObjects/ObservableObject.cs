@@ -9,7 +9,7 @@ namespace Qhta.ObservableObjects
   /// Class that notifies other objects when its properties are changed.
   /// Implements interface <see cref="INotifyPropertyChanged"/>.
   /// </summary>
-  public class ObservableObject : INotifyPropertyChanged
+  public class ObservableObject : INotifyPropertyChanged, ILazyLoad
   {
     /// <summary>
     /// Common static dispatcher for notifying actions.
@@ -146,5 +146,22 @@ namespace Qhta.ObservableObjects
 
     #endregion
 
+    /// <summary>
+    /// Determines whether the object is loaded.
+    /// </summary>
+    public virtual bool IsLoaded
+    {
+      get => _IsLoaded;
+      set
+      {
+        if (value != _IsLoaded)
+        {
+          _IsLoaded = value;
+          NotifyPropertyChanged(nameof(IsLoaded));
+        }
+      }
+    }
+
+    private bool _IsLoaded;
   }
 }

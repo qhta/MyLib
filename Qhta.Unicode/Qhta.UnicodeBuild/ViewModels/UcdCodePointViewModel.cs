@@ -8,7 +8,7 @@ using Microsoft.DotNet.DesignTools.ViewModels;
 using Qhta.MVVM;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
-
+using Syncfusion.UI.Xaml.TreeGrid;
 using BrowsableAttribute = System.ComponentModel.BrowsableAttribute;
 using ReadOnlyAttribute = System.ComponentModel.ReadOnlyAttribute;
 namespace Qhta.UnicodeBuild.ViewModels;
@@ -27,7 +27,30 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   //[Range(typeof(int),"0","0xFFFFFF")]
   //[ReadOnly(true)]
   public CodePoint CP { get => Model.Code!; set { if (Model.Code !=value) { Model.Code = value!; NotifyPropertyChanged(nameof(CP)); } } }
-  public string? Glyph { get => Model.Glyph; set { if (Model.Glyph!=value) { Model.Glyph = value; NotifyPropertyChanged(nameof(Glyph)); } } }
+  public string? Glyph
+  {
+    get
+    {
+      var str = Model.Glyph;
+      if (str is null)
+        return null;
+      if (str.Length == 2)
+          return str;
+      if (str.Length == 1)
+      {
+        var ch = str[0];
+        if (char.IsSurrogate(ch) || char.IsControl(ch) || char.IsWhiteSpace(ch) || ch=='"' /*|| (ch>='\u007F' && ch <= '\u00A0')*/)
+        {
+          return null;
+        }
+        else
+        {
+          return str;
+        }
+      }
+      return null;
+    }
+}
   public int GlyphSize { get => _GlyphSize; set { if (_GlyphSize != value) { _GlyphSize = value; NotifyPropertyChanged(nameof(GlyphSize)); } } }
   private int _GlyphSize = 12;
   public string? CharName { get => Model.CharName; set { if (Model.CharName!=value) { Model.CharName = value; NotifyPropertyChanged(nameof(CharName)); } } }

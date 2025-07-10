@@ -23,7 +23,7 @@ public partial class _ViewModels : ViewModel, IDisposable
     }
   }
 
-  public _DbContext DBContext
+  public _DbContext DbContext
   {
     get
     {
@@ -109,11 +109,6 @@ public partial class _ViewModels : ViewModel, IDisposable
       }, TaskScheduler.FromCurrentSynchronizationContext());
     }
 
-    //LoadDataBackgroundWorker.DoWork += LoadData_DoWork;
-    //LoadDataBackgroundWorker.ProgressChanged += LoadData_ProgressChanged;
-    //LoadDataBackgroundWorker.RunWorkerCompleted += LoadData_RunWorkerCompleted;
-    //LoadDataBackgroundWorker.RunWorkerAsync();
-    Debug.WriteLine("LoadStarted");
     NewWritingSystemCommand = new RelayCommand<WritingSystemType?>(NewWritingSystemCommandExecute);
     EditWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(EditWritingSystemCommandExecute);
     DeleteWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(DeleteWritingSystemCommandExecute, CanDeleteWritingSystem);
@@ -128,8 +123,6 @@ public partial class _ViewModels : ViewModel, IDisposable
     ApplyBlockMappingBackgroundWorker.ProgressChanged += ApplyBlockMapping_ProgressChanged;
     ApplyBlockMappingBackgroundWorker.RunWorkerCompleted += ApplyBlockMapping_RunWorkerCompleted;
     FillColumnCommand = new RelayCommand<object?>(FillColumnCommandExecute);
-    SaveDataCommand = new RelayCommand(SaveCommandExecute, SaveCommandCanExecute);
-    InitSaveDataTimer();
   }
 
 
@@ -273,7 +266,7 @@ public partial class _ViewModels : ViewModel, IDisposable
         prop.SetValue(item.Model, null);
       }
     }
-    _ViewModels.Instance.DBContext.SaveChanges();
+    _ViewModels.Instance.DbContext.SaveChanges();
   }
 
   private bool CanDeleteWritingSystem(WritingSystemViewModel? item)

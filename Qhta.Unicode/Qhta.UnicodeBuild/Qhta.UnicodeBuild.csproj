@@ -81,6 +81,7 @@
     <Compile Remove="ViewModels\UcdRangeCollection.cs" />
     <Compile Remove="ViewModels\UcdRangeViewModel.cs" />
     <Compile Remove="ViewModels\_ViewModels.LoadData.cs" />
+    <Compile Remove="ViewModels\_ViewModels.SaveData.cs" />
     <Compile Remove="Views\UcdRangesView.xaml.cs" />
   </ItemGroup>
 

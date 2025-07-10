@@ -11,12 +11,12 @@ public partial class _ViewModels
 
   public bool SaveCommandCanExecute()
   {
-    return DBContext.ChangeTracker.HasChanges();
+    return DbContext.ChangeTracker.HasChanges();
   }
 
   public void SaveCommandExecute()
   {
-    DBContext.SaveChanges();
+    DbContext.SaveChanges();
     Debug.WriteLine("Data changes saved");
   }
 

@@ -93,7 +93,7 @@ public partial class EditWritingSystemWindow : Window
       }
       // Copy properties from newItem to existingItem
       DeepCopier.CopyDeep<WritingSystemViewModel>(existingItem, newItem);
-      _ViewModels.Instance.DBContext.SaveChanges();
+      _ViewModels.Instance.DbContext.SaveChanges();
       if (changeParentChildren)
       {
         // Add the updated item to the new parent's children collection if it has a parent
@@ -111,8 +111,8 @@ public partial class EditWritingSystemWindow : Window
     else
     {
       // Add a new writing system to the database and the view model collection
-      _ViewModels.Instance.DBContext.WritingSystems.Add(ws);
-      _ViewModels.Instance.DBContext.SaveChanges();
+      _ViewModels.Instance.DbContext.WritingSystems.Add(ws);
+      _ViewModels.Instance.DbContext.SaveChanges();
       _ViewModels.Instance.WritingSystems.Add(newItem);
       if (newItem.ParentId != null)
       {

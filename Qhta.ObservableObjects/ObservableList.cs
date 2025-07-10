@@ -1581,8 +1581,29 @@ namespace Qhta.ObservableObjects
       base.NotifyCollectionChanged(sender, args);
       InNotifyCallback = false;
     }
-  }
 
+    /// <summary>
+    /// Determines whether the object is loaded.
+    /// </summary>
+    public override bool IsLoaded
+    {
+      get => _IsLoaded;
+      set
+      {
+        if (value != _IsLoaded)
+        {
+          _IsLoaded = value;
+          if (_IsLoaded)
+          {
+            NotifyPropertyChanged(nameof(Count));
+          }
+          NotifyPropertyChanged(nameof(IsLoaded));
+        }
+      }
+    }
+
+    private bool _IsLoaded;
+  }
 
 }
 

@@ -12,32 +12,6 @@ public class OrderedObservableCollection<T>(Func<T, object> keySelector, ICompar
   : Qhta.ObservableObjects.ObservableList<T>, IList<T>
 //    : ObservableCollection<T>, IList<T>
 {
-  public bool IsLoaded
-  //{
-  //  get;
-  //  set;
-  //}
-  {
-    get => _IsLoaded;
-    set
-    {
-      if (value != _IsLoaded)
-      {
-        _IsLoaded = value;
-        if (_IsLoaded)
-        {
-          // Recalculate the row header column width when loaded
-          //_RowHeaderColumnWidth = CalculateRowHeaderColumnWidth();
-          //OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs(nameof(Count)));
-          NotifyPropertyChanged(nameof(Count));
-        }
-        NotifyPropertyChanged(nameof(IsLoaded));
-        //OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs(nameof(IsLoaded)));
-        //OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs(nameof(RowHeaderColumnWidth)));
-      }
-    }
-  }
-  private bool _IsLoaded;
 
   private readonly Func<T, object> _keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
 

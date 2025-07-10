@@ -13,8 +13,8 @@
         DragOver="Window_DragOver"
         Drop="Window_Drop">
   <Window.InputBindings>
-    <KeyBinding Modifiers="Ctrl" Key="S" 
-                Command="{Binding Source={StaticResource ViewModels}, Path=Instance.SaveDataCommand}" />
+    <KeyBinding Modifiers="Ctrl" Key="S" Command="Save" />
+    <KeyBinding Modifiers="Ctrl" Key="C" Command="Copy" />
   </Window.InputBindings>
   <Grid>
 

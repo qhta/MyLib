@@ -40,14 +40,14 @@ public partial class App : Application
 
   protected override void OnExit(ExitEventArgs e)
   {
-    if (_ViewModels.Instance.DBContext.ThereAreUnsavedChanges)
+    if (_ViewModels.Instance.DbContext.ThereAreUnsavedChanges)
     {
       var result = MessageBox.Show(
         ResourceStrings.UnsavedDataChanges, ResourceStrings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning);
       if (result == MessageBoxResult.No)
-        _ViewModels.Instance.DBContext.AutoSaveChanges = false;
+        _ViewModels.Instance.DbContext.AutoSaveChanges = false;
       else
-        _ViewModels.Instance.DBContext.AutoSaveChanges = true;
+        _ViewModels.Instance.DbContext.AutoSaveChanges = true;
     }
 
     _ViewModels.Instance.Dispose();

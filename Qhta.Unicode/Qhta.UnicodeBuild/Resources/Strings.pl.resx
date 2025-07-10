@@ -250,9 +250,12 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
     <value>Dane</value>
   </data>
   <data name="SaveData" xml:space="preserve">
-    <value>Zapisz dane (ctrl-S)</value>
+    <value>Zapisz dane (Ctrl-S)</value>
   </data>
   <data name="Tools" xml:space="preserve">
     <value>Narzędzia</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Zapisz</value>
   </data>
 </root>
