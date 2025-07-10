@@ -82,6 +82,7 @@
     <Compile Remove="ViewModels\UcdRangeViewModel.cs" />
     <Compile Remove="ViewModels\_ViewModels.LoadData.cs" />
     <Compile Remove="ViewModels\_ViewModels.SaveData.cs" />
+    <Compile Remove="ViewModels\_ViewModels.SelectColumn.cs" />
     <Compile Remove="Views\UcdRangesView.xaml.cs" />
   </ItemGroup>
 
@@ -103,7 +104,6 @@
     <Page Remove="Resources\SfAeroNormalColor.xaml" />
     <Page Remove="Resources\SfBlendStyle.xaml" />
     <Page Remove="Resources\SfCollectionEditor.xaml" />
-    <Page Remove="Resources\SfDataGrid.xaml" />
     <Page Remove="Views\UcdRangesView.xaml" />
   </ItemGroup>
 

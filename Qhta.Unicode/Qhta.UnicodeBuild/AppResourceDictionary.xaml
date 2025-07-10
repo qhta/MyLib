@@ -9,9 +9,9 @@
                     xmlns:controls="clr-namespace:Qhta.UnicodeBuild.Controls"
                     xmlns:models="clr-namespace:Qhta.Unicode.Models"
                     x:Class="Qhta.UnicodeBuild.AppResourceDictionary">
-  <!--<ResourceDictionary.MergedDictionaries>
+  <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary Source="Resources/SfDataGrid.xaml"/>
-  </ResourceDictionary.MergedDictionaries>-->
+  </ResourceDictionary.MergedDictionaries>
   <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
@@ -44,8 +44,8 @@
 
   <MenuItem x:Key="DataMenu"
             Header="{x:Static resources:Strings.Data}">
-    <MenuItem Header="{x:Static resources:Strings.SaveData}" 
-              Command="{Binding Source={StaticResource ViewModels}, Path=Instance.SaveDataCommand}" />
+    <MenuItem Header="{x:Static resources:Strings.Save}" 
+              Command="Save" />
   </MenuItem>
 
   <ContextMenu x:Key="CommonContextMenu">
@@ -261,40 +261,6 @@
     </Style.Triggers>
   </Style>
 
-  <Style TargetType="sf:GridRowHeaderIndentCell">
-    <Setter Property="Background" Value="Silver"/>
-  </Style>
-
-  <Style TargetType="sf:GridHeaderCellControl">
-    <Setter Property="Background" Value="Silver"/>
-    <Setter Property="Foreground" Value="#FF404040" />
-  </Style>
-
-
-  <Style TargetType="sf:GridRowHeaderCell">
-    <Setter Property="Background" Value="Silver"/>
-    <!--<Setter Property="Width" Value="200" />-->
-    <!--<Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="sf:GridRowHeaderCell">
-          <Border x:Name="PART_RowHeaderCellBorder"
-                  Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid Height="{Binding RowHeight, Mode=TwoWay}">
-              <TextBlock HorizontalAlignment="Center"
-                         VerticalAlignment="Top"
-                         Margin="0,3,0,0"
-                         Text="{Binding RowIndex,RelativeSource={RelativeSource TemplatedParent}}"
-                         TextAlignment="Center" 
-                         />
-              <controls:RowResizer Background="LightGray" MaxRowHeight="240"/>
-            </Grid>
-          </Border>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>-->
-  </Style>
   <Style TargetType="sf:FilterToggleButton">
     <Setter Property="Foreground" Value="#FF404040" />
   </Style>

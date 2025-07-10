@@ -118,7 +118,8 @@
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
               <TextBlock Text="{x:Static resources:CodePoint.CP}" 
-                         ToolTip="{x:Static resources:CodePoint.CPTooltip}"  />
+                         ToolTip="{x:Static resources:CodePoint.CPTooltip}" 
+                         PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown"/>
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTemplateColumn>

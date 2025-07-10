@@ -16,7 +16,7 @@ public partial class _ViewModels
 
   public void CopyData(SfDataGrid dataGrid)
   {
-    var selectedCells = dataGrid.GetSelectedCells();
+    //var selectedCells = dataGrid.GetSelectedCells();
     //if (selectedCells.Count == 0)
     //  dataGrid.SelectionController.SelectAll();
 

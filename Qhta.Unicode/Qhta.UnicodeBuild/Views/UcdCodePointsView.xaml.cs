@@ -258,6 +258,11 @@ public partial class UcdCodePointsView : UserControl
   {
     e.Handled = true;
   }
+
+  private void UIElement_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+  {
+    throw new NotImplementedException();
+  }
 }
 
 

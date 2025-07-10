@@ -42,7 +42,6 @@ public partial class _ViewModels
       var cp = codePointsArray[i];
       UcdCodePoints.Add(cp);
     }
-
   }
 
   private void LoadData(BackgroundWorker worker, DoWorkEventArgs e)

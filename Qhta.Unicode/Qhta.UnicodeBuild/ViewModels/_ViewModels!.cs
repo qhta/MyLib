@@ -92,8 +92,6 @@ public partial class _ViewModels : ViewModel, IDisposable
           UcdCodePoints.Add(cp);
           if (i % 1000 == 0)
           {
-            //UcdCodePoints = codePointsLoaded;
-            // Report progress every 1000 items
             Application.Current.Dispatcher.Invoke(() =>
             {
               UcdCodePoints.ProgressValue = (i * 100) / codePointsArray.Count();
