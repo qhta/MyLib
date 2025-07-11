@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net8.0": {
-      "System.Collections.Immutable/9.0.6": {
+      "System.Collections.Immutable/9.0.7": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Collections.Immutable.dll": {
@@ -20,7 +20,7 @@
       }
     },
     "net8.0-windows7.0": {
-      "System.Collections.Immutable/9.0.6": {
+      "System.Collections.Immutable/9.0.7": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Collections.Immutable.dll": {
@@ -38,7 +38,7 @@
       }
     },
     "net9.0": {
-      "System.Collections.Immutable/9.0.6": {
+      "System.Collections.Immutable/9.0.7": {
         "type": "package",
         "compile": {
           "lib/net9.0/System.Collections.Immutable.dll": {
@@ -56,7 +56,7 @@
       }
     },
     "net9.0-windows7.0": {
-      "System.Collections.Immutable/9.0.6": {
+      "System.Collections.Immutable/9.0.7": {
         "type": "package",
         "compile": {
           "lib/net9.0/System.Collections.Immutable.dll": {
@@ -75,10 +75,10 @@
     }
   },
   "libraries": {
-    "System.Collections.Immutable/9.0.6": {
-      "sha512": "lqvXJBZ9KtKKffQt9PgHj5aCdm8HGpPOZQgN3sHRN8j2Yjh+KANkdomhv8QybsBk3/YDDG83OdIWcsfQfdRglw==",
+    "System.Collections.Immutable/9.0.7": {
+      "sha512": "0WeYGUWsWXA0e2CZU+TelZR+tFu3Fg1FwS2GikIrrFEFRKLBS2MyFNlJD3h1G94S6gnl4lVijF7JY3vAmTKVjw==",
       "type": "package",
-      "path": "system.collections.immutable/9.0.6",
+      "path": "system.collections.immutable/9.0.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -98,7 +98,7 @@
         "lib/net9.0/System.Collections.Immutable.xml",
         "lib/netstandard2.0/System.Collections.Immutable.dll",
         "lib/netstandard2.0/System.Collections.Immutable.xml",
-        "system.collections.immutable.9.0.6.nupkg.sha512",
+        "system.collections.immutable.9.0.7.nupkg.sha512",
         "system.collections.immutable.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -106,16 +106,16 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "System.Collections.Immutable >= 9.0.6"
+      "System.Collections.Immutable >= 9.0.7"
     ],
     "net8.0-windows7.0": [
-      "System.Collections.Immutable >= 9.0.6"
+      "System.Collections.Immutable >= 9.0.7"
     ],
     "net9.0": [
-      "System.Collections.Immutable >= 9.0.6"
+      "System.Collections.Immutable >= 9.0.7"
     ],
     "net9.0-windows7.0": [
-      "System.Collections.Immutable >= 9.0.6"
+      "System.Collections.Immutable >= 9.0.7"
     ]
   },
   "packageFolders": {
@@ -191,7 +191,7 @@
         "dependencies": {
           "System.Collections.Immutable": {
             "target": "Package",
-            "version": "[9.0.6, )"
+            "version": "[9.0.7, )"
           }
         },
         "imports": [
@@ -217,7 +217,7 @@
         "dependencies": {
           "System.Collections.Immutable": {
             "target": "Package",
-            "version": "[9.0.6, )"
+            "version": "[9.0.7, )"
           }
         },
         "imports": [
@@ -243,7 +243,7 @@
         "dependencies": {
           "System.Collections.Immutable": {
             "target": "Package",
-            "version": "[9.0.6, )"
+            "version": "[9.0.7, )"
           }
         },
         "imports": [
@@ -269,7 +269,7 @@
         "dependencies": {
           "System.Collections.Immutable": {
             "target": "Package",
-            "version": "[9.0.6, )"
+            "version": "[9.0.7, )"
           }
         },
         "imports": [

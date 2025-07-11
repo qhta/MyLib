@@ -72,7 +72,7 @@
           "dependencies": {
             "System.Collections.Immutable": {
               "target": "Package",
-              "version": "[9.0.6, )"
+              "version": "[9.0.7, )"
             }
           },
           "imports": [
@@ -98,7 +98,7 @@
           "dependencies": {
             "System.Collections.Immutable": {
               "target": "Package",
-              "version": "[9.0.6, )"
+              "version": "[9.0.7, )"
             }
           },
           "imports": [
@@ -124,7 +124,7 @@
           "dependencies": {
             "System.Collections.Immutable": {
               "target": "Package",
-              "version": "[9.0.6, )"
+              "version": "[9.0.7, )"
             }
           },
           "imports": [
@@ -150,7 +150,7 @@
           "dependencies": {
             "System.Collections.Immutable": {
               "target": "Package",
-              "version": "[9.0.6, )"
+              "version": "[9.0.7, )"
             }
           },
           "imports": [

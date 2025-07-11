@@ -8,19 +8,19 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Classes to use replace ObservableCollection when used in background task.</description>
-    <repository type="git" commit="5f1a38a419d7c7642f34f9b31bcb4d317bc4eed8" />
+    <repository type="git" commit="87c90474c5bb2221bc705b9dbee13ef509d572c8" />
     <dependencies>
       <group targetFramework="net8.0">
-        <dependency id="System.Collections.Immutable" version="9.0.6" exclude="Build,Analyzers" />
+        <dependency id="System.Collections.Immutable" version="9.0.7" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net8.0-windows7.0">
-        <dependency id="System.Collections.Immutable" version="9.0.6" exclude="Build,Analyzers" />
+        <dependency id="System.Collections.Immutable" version="9.0.7" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net9.0">
-        <dependency id="System.Collections.Immutable" version="9.0.6" exclude="Build,Analyzers" />
+        <dependency id="System.Collections.Immutable" version="9.0.7" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net9.0-windows7.0">
-        <dependency id="System.Collections.Immutable" version="9.0.6" exclude="Build,Analyzers" />
+        <dependency id="System.Collections.Immutable" version="9.0.7" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
