@@ -1,8 +1,11 @@
 ﻿using System.Diagnostics;
 using System.DirectoryServices.ActiveDirectory;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using System.Windows.Threading;
+
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 using Qhta.MVVM;
 using Qhta.UnicodeBuild.Helpers;
@@ -14,56 +17,126 @@ namespace Qhta.UnicodeBuild.ViewModels;
 public partial class _ViewModels
 {
 
-  public void CopyData(SfDataGrid dataGrid)
+  private record GridColumnInfo(GridColumn Column, string MappingName, PropertyInfo ValuePropertyInfo, PropertyInfo? DisplayPropertyInfo)
   {
-    //var selectedCells = dataGrid.GetSelectedCells();
-    //if (selectedCells.Count == 0)
-    //  dataGrid.SelectionController.SelectAll();
+    public GridColumn Column { get; } = Column;
+    public string MappingName { get; } = MappingName;
+    public PropertyInfo ValuePropertyInfo { get; } = ValuePropertyInfo;
+    public PropertyInfo? DisplayPropertyInfo { get; } = DisplayPropertyInfo;
+  }
 
-    dataGrid.GridCopyPaste.Copy();
-
-    IDataObject? dataObject = null; 
-     for (int i = 0; i < 1000; i++)
-     {
-       try
-       {
-         dataObject = Clipboard.GetDataObject();
-       }
-       catch (Exception ex)
-       {
-         Debug.WriteLine($"Error getting clipboard data object: {ex.Message}");
-         // Wait a bit and try again
-         System.Threading.Thread.Sleep(100);
-      } 
-    }
-    if (dataObject == null)
+  public void CopyData(SfDataGrid grid)
+  {
+    try
     {
-      Debug.WriteLine("Clipboard data object is null.");
-      return;
-    }
-    var formats = dataObject.GetFormats();
-    if (formats == null || formats.Length == 0)
-    {
-      Debug.WriteLine("Clipboard data object has no formats.");
-      return;
-    }
-    var unicodeTextFormat = formats.FirstOrDefault(f => f == DataFormats.UnicodeText);
-    if (unicodeTextFormat != null)
-    {
-      var text = dataObject.GetData(unicodeTextFormat) as string;
-      Debug.WriteLine($"Unicode text is:");
-      Debug.WriteLine(text);
-      Clipboard.Clear();
-      if (text == null)
+      GridColumn[] columnsToCopy = grid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
+      if (!columnsToCopy.Any())
       {
-        Debug.WriteLine("Unicode text is null.");
-        return;
+        columnsToCopy = grid.Columns.ToArray();
       }
-      Clipboard.SetText(text, TextDataFormat.UnicodeText);
+
+      var rowsToCopy = grid.SelectionController.SelectedRows.Select(row => row.RowData).ToArray();
+      if (!rowsToCopy.Any())
+      {
+        rowsToCopy = grid.View.Records.Select(record => record.Data).ToArray();
+      }
+      var rowDataType = rowsToCopy.FirstOrDefault()?.GetType();
+
+
+      GridColumnInfo?[]? columnInfos = null;
+      if (rowDataType != null)
+      {
+        columnInfos = columnsToCopy.Select(column =>
+        {
+          var mappingPropertyInfo = column.GetType().GetProperty("MappingName");
+          if (mappingPropertyInfo == null)
+          {
+            Debug.WriteLine($"Property 'MappingName' not found in column type '{column.GetType().Name}'.");
+            return null;
+          }
+          var mappingName = (string?)mappingPropertyInfo.GetValue(column);
+          if (mappingName == null)
+          {
+            Debug.WriteLine($"Mapping name is null for column '{column.HeaderText ?? column.MappingName}'.");
+            return null;
+          }
+          var valuePropertyInfo = rowDataType.GetProperty(mappingName);
+          if (valuePropertyInfo == null)
+          {
+            Debug.WriteLine($"Property '{mappingName} not found in column type '{rowDataType}'.");
+            return null;
+          }
+          PropertyInfo? displayPropertyInfo = null;
+          if (column is GridComboBoxColumn comboBoxColumn)
+          {
+            var displayMemberPath = comboBoxColumn.DisplayMemberPath;
+            if (!string.IsNullOrEmpty(displayMemberPath))
+            {
+              displayPropertyInfo = valuePropertyInfo.PropertyType.GetProperty(displayMemberPath);
+              if (displayPropertyInfo == null)
+              {
+                Debug.WriteLine($"Display property '{displayMemberPath}' not found in type '{valuePropertyInfo.PropertyType.Name}'.");
+                return null;
+              }
+              return new GridColumnInfo(column, mappingName, valuePropertyInfo, displayPropertyInfo);
+            }
+          }
+          return new GridColumnInfo(column, mappingName, valuePropertyInfo, displayPropertyInfo);
+        }).Where(info => info != null).ToArray();
+      }
+      var content = new List<string>();
+
+      var headers = GetHeaders(grid, columnsToCopy);
+      var headerLine = string.Join("\t", headers);
+      content.Add(headerLine); ;
+      //Debug.WriteLine($"{headerLine}'.");
+      Clipboard.SetText(headerLine);
+
+      if (columnInfos != null && columnInfos.Any())
+      {
+        //await Task.Factory.StartNew(() =>
+        //{
+
+        foreach (var row in rowsToCopy)
+        {
+          var cellValues = columnsToCopy.Select(column =>
+          {
+            var cellInfo = new GridCellInfo(column, row, null, -1, false);
+            var columnInfo = columnInfos?.FirstOrDefault(info => info?.MappingName == column.MappingName);
+            var cellData = GetCellData(cellInfo, columnInfo!);
+            return cellData?.ToString() ?? string.Empty;
+          }).ToArray();
+          var line = string.Join("\t", cellValues);
+          //Debug.WriteLine($"{line}");
+          content.Add(line);
+
+        }
+        Clipboard.Clear();
+        var text = string.Join(Environment.NewLine, content);
+        Clipboard.SetText(text, TextDataFormat.Text);
+        //});
+      }
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine(e);
     }
   }
 
-  public object? GetCellData(GridCellInfo cellInfo)
+  private string[] GetHeaders(SfDataGrid grid, GridColumn[] columns)
+  {
+    List<string> result = new();
+    foreach (var column in columns)
+    {
+      if (column.HeaderText != null)
+        result.Add(column.HeaderText);
+      else
+        result.Add(column.MappingName);
+    }
+    return result.ToArray();
+  }
+
+  private object? GetCellData(GridCellInfo cellInfo, GridColumnInfo columnInfo)
   {
     var rowData = cellInfo.RowData;
     if (rowData == null)
@@ -71,48 +144,25 @@ public partial class _ViewModels
       Debug.WriteLine("Row data is null.");
       return null;
     }
-    var column = cellInfo.Column;
-    if (column == null)
-    {
-      Debug.WriteLine("Column is null.");
-      return null;
-    }
+    var column = columnInfo.Column;
     var rowDataType = rowData.GetType();
-    var propertyInfo = rowDataType.GetProperty(column.MappingName);
-    if (propertyInfo == null)
-    {
-      Debug.WriteLine($"Property '{column.MappingName}' not found in row data type '{rowDataType.Name}'.");
-      return null;
-    }
+    var propertyInfo = columnInfo.ValuePropertyInfo;
+
+    //if (columnInfo.MappingName=="Category")
+    //  Debug.Assert(true);
+    var str = "";
     var cellValue = propertyInfo.GetValue(rowData);
-    if (cellValue == null)
+    if (columnInfo.DisplayPropertyInfo != null)
     {
-      Debug.WriteLine("Cell value is null.");
-      return null;
-    }
-    if (column is GridComboBoxColumn comboBoxColumn)
-    {
-      var displayMemberPath = comboBoxColumn.DisplayMemberPath;
-      if (!String.IsNullOrEmpty(displayMemberPath))
+      if (cellValue != null)
       {
-        var displayPropertyInfo = cellValue.GetType().GetProperty(displayMemberPath);
-        if (displayPropertyInfo != null)
-        {
-          cellValue = displayPropertyInfo.GetValue(cellValue);
-          if (cellValue == null)
-          {
-            Debug.WriteLine($"Display property '{displayMemberPath}' is null.");
-            return null;
-          }
-        }
-        else
-        {
-          Debug.WriteLine($"Display property '{displayMemberPath}' not found in row data type '{rowDataType.Name}'.");
-          return null;
-        }
+        var val = columnInfo.DisplayPropertyInfo.GetValue(cellValue);
+        str = (val is string str1) ? str1 : val?.ToString() ?? string.Empty;
       }
     }
-    return cellValue?.ToString();
-    throw new NotImplementedException("This method is not fully implemented yet. Please implement the logic to retrieve the cell data based on the property info.");
+    else str = cellValue?.ToString() ?? string.Empty;
+    //Debug.Write($"{columnInfo.MappingName} = {str}");
+    return str;
+
   }
 }

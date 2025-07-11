@@ -254,10 +254,13 @@ public partial class UcdCodePointsView : UserControl
     }
   }
 
-  private void CodePointDataGrid_OnGridCopyContent(object? sender, GridCopyPasteEventArgs e)
-  {
-    e.Handled = true;
-  }
+  //private void CodePointDataGrid_OnGridCopyContent(object? sender, GridCopyPasteEventArgs e)
+  //{
+  //  if (sender is not SfDataGrid grid)
+  //    return;
+  //  _ViewModels.Instance.CopyGrid(grid);
+  //  e.Handled = true;
+  //}
 
   private void UIElement_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
   {

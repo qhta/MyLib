@@ -34,4 +34,7 @@
     <Setter Property="Background" Value="Silver"/>
   </Style>
 
+  <DataTemplate x:Key="DataGridHeaderTooltipTemplate">
+
+  </DataTemplate>
 </ResourceDictionary>

@@ -88,7 +88,7 @@
                      FilterItemsPopulating="CodePointDataGrid_OnFilterItemsPopulating"
                      FilterChanging="CodePointDataGrid_OnFilterChanging"
                      GridCopyOption="CopyData,IncludeFormat"
-                     SelectionUnit="Any"
+                     SelectionUnit="Row"
                      SelectionMode="Extended"
                      ShowRowHeader="True"
 
@@ -96,7 +96,7 @@
       <!--
                      RowHeaderWidth="{Binding Instance.UcdCodePoints.RowHeaderColumnWidth}"
       
-                           GridCopyContent="CodePointDataGrid_OnGridCopyContent"
+                         GridCopyContent="CodePointDataGrid_OnGridCopyContent"
 
       FilterPopupStyle="{StaticResource filterControlStyle}"
                         CopyGridCellContent="CodePointDataGrid_OnCopyGridCellContent"
@@ -108,7 +108,7 @@
       <sf:SfDataGrid.Columns>
         <sf:GridTemplateColumn 
           MappingName="CP"
-          HeaderText="CP" 
+          HeaderText="{x:Static resources:CodePoint.CP}" 
           VerticalAlignment="Top"
           GridValidationMode="InEdit"
           ColumnFilter="DisplayText"
@@ -125,7 +125,7 @@
         </sf:GridTemplateColumn>
         <sf:GridTextColumn 
           MappingName="CharName" 
-          HeaderText="CharName" 
+          HeaderText="{x:Static resources:CodePoint.Name}"
           VerticalAlignment="Top"
           Width="100"
           >
@@ -139,7 +139,7 @@
 
         <sf:GridTemplateColumn 
           MappingName="Glyph" 
-          HeaderText="Glyph" 
+          HeaderText="{x:Static resources:CodePoint.Glyph}"
           VerticalAlignment="Top"
           Width="34"
           AllowFiltering="False"
@@ -148,8 +148,8 @@
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{x:Static resources:CodePoint.Glyph}" 
-                         ToolTip="{x:Static resources:CodePoint.GlyphTooltip}"  />
+              <TextBlock Text="{x:Static resources:CodePoint.Glyph}"
+                         ToolTip="{x:Static resources:CodePoint.GlyphTooltip}" />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
@@ -176,7 +176,7 @@
 
         <sf:GridTextColumn 
           MappingName="Description" 
-          HeaderText="Description" 
+          HeaderText="{x:Static resources:CodePoint.Description}" 
           VerticalAlignment="Top"
           AllowEditing="False"
           Width="300"
@@ -191,7 +191,7 @@
 
         <sf:GridComboBoxColumn x:Name="CtgColumn"
            MappingName="Category" 
-           HeaderText="Category" 
+           HeaderText="{x:Static resources:CodePoint.Category}"
            ItemsSource="{Binding Source={StaticResource ViewModels}, 
              Path=Instance.UnicodeCategoriesList}"
            DisplayMemberPath="Name"
@@ -218,7 +218,7 @@
 
         <sf:GridComboBoxColumn x:Name="UcdBlockColumn"
           MappingName="UcdBlock" 
-          HeaderText="UcdBlock" 
+          HeaderText="{x:Static resources:CodePoint.UcdBlock}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableBlocks,
             Converter={StaticResource InsertItemConverter},
@@ -247,7 +247,7 @@
 
         <sf:GridComboBoxColumn 
           MappingName="Area" 
-          HeaderText="Area" 
+          HeaderText="{x:Static resources:CodePoint.Area}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableAreas,
             Converter={StaticResource InsertItemConverter},
@@ -276,7 +276,7 @@
 
         <sf:GridComboBoxColumn 
           MappingName="Script" 
-          HeaderText="Script" 
+          HeaderText="{x:Static resources:CodePoint.Script}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableScripts,
             Converter={StaticResource InsertItemConverter},
@@ -305,7 +305,7 @@
 
         <sf:GridComboBoxColumn 
           MappingName="Language" 
-          HeaderText="Language" 
+          HeaderText="{x:Static resources:CodePoint.Language}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableLanguages, 
             Converter={StaticResource InsertItemConverter},
@@ -334,7 +334,7 @@
 
         <sf:GridComboBoxColumn 
           MappingName="Notation" 
-          HeaderText="Notation" 
+          HeaderText="{x:Static resources:CodePoint.Notation}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableNotations,
             Converter={StaticResource InsertItemConverter},
@@ -363,7 +363,7 @@
 
         <sf:GridComboBoxColumn 
           MappingName="SymbolSet" 
-          HeaderText="SymbolSet" 
+          HeaderText="{x:Static resources:CodePoint.SymbolSet}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableSymbolSets,
             Converter={StaticResource InsertItemConverter},
@@ -392,7 +392,7 @@
 
         <sf:GridComboBoxColumn 
           MappingName="Subset" 
-          HeaderText="Subset" 
+          HeaderText="{x:Static resources:CodePoint.Subset}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableSubsets,
             Converter={StaticResource InsertItemConverter},
@@ -421,7 +421,7 @@
 
         <sf:GridComboBoxColumn 
           MappingName="Artefact" 
-          HeaderText="Artefact" 
+          HeaderText="{x:Static resources:CodePoint.Artefact}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableArtefacts,
             Converter={StaticResource InsertItemConverter},
