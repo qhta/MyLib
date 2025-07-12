@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Classes to use replace ObservableCollection when used in background task.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("3.9.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.9+87c90474c5bb2221bc705b9dbee13ef509d572c8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.9+f1584f7b35f754532e5b19329b3287bd844861de")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.ObservableObjects")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.ObservableObjects")]
 [assembly: System.Reflection.AssemblyVersionAttribute("3.9.0.0")]
