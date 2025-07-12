@@ -11,7 +11,6 @@ using Qhta.UnicodeBuild.Resources;
 using Qhta.UnicodeBuild.ViewModels;
 
 using Syncfusion.Data;
-//using CollectionViewExtensions = Syncfusion.UI.Xaml.Grid.CollectionViewExtensions;
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.Windows.Shared;
 
@@ -26,6 +25,7 @@ public partial class UcdCodePointsView : UserControl
   public UcdCodePointsView()
   {
     InitializeComponent();
+    CodePointDataGrid.GridCopyContent += CodePointDataGrid_OnGridCopyContent;
   }
 
 
@@ -254,13 +254,13 @@ public partial class UcdCodePointsView : UserControl
     }
   }
 
-  //private void CodePointDataGrid_OnGridCopyContent(object? sender, GridCopyPasteEventArgs e)
-  //{
-  //  if (sender is not SfDataGrid grid)
-  //    return;
-  //  _ViewModels.Instance.CopyGrid(grid);
-  //  e.Handled = true;
-  //}
+  private void CodePointDataGrid_OnGridCopyContent(object? sender, GridCopyPasteEventArgs e)
+  {
+    if (sender is not SfDataGrid grid)
+      return;
+    _ViewModels.Instance.CopyData(grid);
+    e.Handled = true;
+  }
 
   private void UIElement_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
   {
