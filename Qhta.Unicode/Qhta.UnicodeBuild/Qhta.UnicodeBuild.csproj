@@ -17,6 +17,7 @@
     <Compile Remove="Helpers\PropertyControlFactory.cs" />
     <Compile Remove="Helpers\PropertyModelOperator.cs" />
     <Compile Remove="Helpers\SelectableWritingSystemCollectionFilter.cs" />
+    <Compile Remove="Helpers\TextSizeEvaluator.cs" />
     <Compile Remove="Helpers\TreeViewHelper.cs" />
     <Compile Remove="Models\Abbreviation.cs" />
     <Compile Remove="Models\AbbreviationCategory.cs" />

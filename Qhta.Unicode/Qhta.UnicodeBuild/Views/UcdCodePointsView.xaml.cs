@@ -6,7 +6,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using Qhta.SF.Tools;
-using Qhta.ST.Tools;
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.Resources;
 using Qhta.UnicodeBuild.ViewModels;
@@ -225,11 +224,17 @@ public partial class UcdCodePointsView : UserControl
       if (command == ApplicationCommands.Save)
         e.CanExecute = _ViewModels.Instance.DbContext?.ThereAreUnsavedChanges ?? false;
       else if (command == ApplicationCommands.Copy)
-        e.CanExecute = (_ViewModels.Instance.UcdCodePoints)?.IsLoaded ?? false;
+        e.CanExecute = ((_ViewModels.Instance.UcdCodePoints)?.IsLoaded ?? false) && Controller.CanCopyData(CodePointDataGrid);
+      else if (command == ApplicationCommands.Cut)
+        e.CanExecute = ((_ViewModels.Instance.UcdCodePoints)?.IsLoaded ?? false) && Controller.CanCutData(CodePointDataGrid);
+      else if (command == ApplicationCommands.Paste)
+        e.CanExecute = ((_ViewModels.Instance.UcdCodePoints)?.IsLoaded ?? false) && Controller.CanPasteData(CodePointDataGrid);
+      else if (command == ApplicationCommands.Delete)
+        e.CanExecute = ((_ViewModels.Instance.UcdCodePoints)?.IsLoaded ?? false) && Controller.CanDeleteData(CodePointDataGrid);
       else
         e.CanExecute = true; // Default to true for other commands
     }
-    Debug.WriteLine($"CommandBinding_OnCanExecute({sender}, {(e.Command as RoutedUICommand)?.Text})={e.CanExecute}");
+    //Debug.WriteLine($"CommandBinding_OnCanExecute({sender}, {(e.Command as RoutedUICommand)?.Text})={e.CanExecute}");
   }
 
   private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -242,15 +247,17 @@ public partial class UcdCodePointsView : UserControl
         _ViewModels.Instance.DbContext?.SaveChanges();
         Debug.WriteLine("Data changes saved");
       }
-      if (command == ApplicationCommands.Copy)
+      else if (command == ApplicationCommands.Copy)
         Controller.CopyData(CodePointDataGrid);
-      //else if (command == ApplicationCommands.Delete)
-      //{
-      //  _ViewModels.Instance.DeleteSelectedCodePoint();
-      //}
+      else if (command == ApplicationCommands.Cut)
+        Controller.CutData(CodePointDataGrid);
+      else if (command == ApplicationCommands.Paste)
+        Controller.PasteData(CodePointDataGrid);
+      else if (command == ApplicationCommands.Delete)
+        Controller.DeleteData(CodePointDataGrid);
       else
       {
-        Debug.WriteLine($"Command {command.Text} executed");
+        Debug.WriteLine($"Command {command.Text} not executed");
       }
     }
   }

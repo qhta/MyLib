@@ -23,11 +23,17 @@
   <UserControl.CommandBindings>
     <CommandBinding Command="Save" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
     <CommandBinding Command="Copy" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Cut" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Paste" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Delete" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
   </UserControl.CommandBindings>
 
   <UserControl.InputBindings>
     <KeyBinding Modifiers="Ctrl" Key="S" Command="Save" />
     <KeyBinding Modifiers="Ctrl" Key="C" Command="Copy" />
+    <KeyBinding Modifiers="Ctrl" Key="X" Command="Cut" />
+    <KeyBinding Modifiers="Ctrl" Key="V" Command="Paste" />
+    <KeyBinding Key="Delete" Command="Delete" />
   </UserControl.InputBindings>
   <Grid>
     <Grid.RowDefinitions>

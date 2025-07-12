@@ -22,6 +22,19 @@
     <Compile Update="RecordNavigationBar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="DataStrings.Designer.cs">
+      <DependentUpon>DataStrings.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="DataStrings.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>DataStrings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 

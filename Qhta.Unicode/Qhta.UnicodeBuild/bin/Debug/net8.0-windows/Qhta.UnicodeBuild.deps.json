@@ -1671,6 +1671,11 @@
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
+        },
+        "resources": {
+          "pl/Qhta.SF.Tools.resources.dll": {
+            "locale": "pl"
+          }
         }
       }
     }

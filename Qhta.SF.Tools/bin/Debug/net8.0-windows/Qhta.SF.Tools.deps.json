@@ -19,6 +19,11 @@
         },
         "runtime": {
           "Qhta.SF.Tools.dll": {}
+        },
+        "resources": {
+          "pl/Qhta.SF.Tools.resources.dll": {
+            "locale": "pl"
+          }
         }
       },
       "HtmlAgilityPack/1.8.9": {

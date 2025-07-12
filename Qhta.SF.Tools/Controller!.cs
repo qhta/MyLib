@@ -1,0 +1,116 @@
+﻿using System.Collections;
+using System.Diagnostics;
+using System.Reflection;
+
+using Syncfusion.UI.Xaml.Grid;
+
+namespace Qhta.SF.Tools;
+
+public static partial class Controller
+{
+  private static GridColumnInfo?[] GetGridColumnInfos(GridColumn[] columnsToCopy, Type rowDataType, bool write)
+  {
+    var columnInfos = columnsToCopy.Select(column =>
+    {
+      var mappingPropertyInfo = column.GetType().GetProperty("MappingName");
+      if (mappingPropertyInfo == null)
+      {
+        Debug.WriteLine($"Property 'MappingName' not found in column type '{column.GetType().Name}'.");
+        return null;
+      }
+      var mappingName = (string?)mappingPropertyInfo.GetValue(column);
+      if (mappingName == null)
+      {
+        Debug.WriteLine($"Mapping name is null for column '{column.HeaderText ?? column.MappingName}'.");
+        return null;
+      }
+      var valuePropertyInfo = rowDataType.GetProperty(mappingName);
+      if (valuePropertyInfo == null)
+      {
+        Debug.WriteLine($"Property '{mappingName} not found in column type '{rowDataType}'.");
+        return null;
+      }
+      PropertyInfo? displayPropertyInfo = null;
+      GridColumnInfo gridColumnInfo = new GridColumnInfo(column, mappingName, valuePropertyInfo);
+      if (column is GridComboBoxColumn comboBoxColumn)
+      {
+        var displayMemberPath = comboBoxColumn.DisplayMemberPath;
+        if (!string.IsNullOrEmpty(displayMemberPath))
+        {
+          displayPropertyInfo = valuePropertyInfo.PropertyType.GetProperty(displayMemberPath);
+          if (displayPropertyInfo == null)
+          {
+            Debug.WriteLine($"Display property '{displayMemberPath}' not found in type '{valuePropertyInfo.PropertyType.Name}'.");
+            return null;
+          }
+          gridColumnInfo.DisplayPropertyInfo = displayPropertyInfo;
+        }
+        if (write)
+        {
+          gridColumnInfo.ItemsSource = comboBoxColumn.ItemsSource;
+        }
+      }
+
+
+      return gridColumnInfo;
+    }).Where(info => info != null).ToArray();
+    return columnInfos;
+  }
+
+  private static string[] GetHeaders(SfDataGrid grid, GridColumn[] columns)
+  {
+    List<string> result = new();
+    foreach (var column in columns)
+    {
+      if (column.HeaderText != null)
+        result.Add(column.HeaderText);
+      else
+        result.Add(column.MappingName);
+    }
+    return result.ToArray();
+  }
+
+  private static object? GetCellData(GridCellInfo cellInfo, GridColumnInfo columnInfo)
+  {
+    var rowData = cellInfo.RowData;
+    if (rowData == null)
+    {
+      Debug.WriteLine("Row data is null.");
+      return null;
+    }
+    var column = columnInfo.Column;
+    var rowDataType = rowData.GetType();
+    var propertyInfo = columnInfo.ValuePropertyInfo;
+
+    //if (columnInfo.MappingName=="Category")
+    //  Debug.Assert(true);
+    var str = "";
+    var cellValue = propertyInfo.GetValue(rowData);
+    if (columnInfo.DisplayPropertyInfo != null)
+    {
+      if (cellValue != null)
+      {
+        var val = columnInfo.DisplayPropertyInfo.GetValue(cellValue);
+        str = (val is string str1) ? str1 : val?.ToString() ?? string.Empty;
+      }
+    }
+    else str = cellValue?.ToString() ?? string.Empty;
+    //Debug.Write($"{columnInfo.MappingName} = {str}");
+    return str;
+  }
+
+  private static void SetCellData(GridCellInfo cellInfo, GridColumnInfo columnInfo, object? value)
+  {
+    var rowData = cellInfo.RowData;
+    if (rowData == null)
+    {
+      Debug.WriteLine("Row data is null.");
+      return;
+    }
+    var column = columnInfo.Column;
+    var rowDataType = rowData.GetType();
+    var propertyInfo = columnInfo.ValuePropertyInfo;
+
+    propertyInfo.SetValue(rowData, value);
+  }
+}
