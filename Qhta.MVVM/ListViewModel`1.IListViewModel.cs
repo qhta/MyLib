@@ -311,7 +311,7 @@ namespace Qhta.MVVM
     /// <summary>
     /// Enumerable of all items.
     /// </summary>
-    public IEnumerable<object> Items => this;
+    public new IEnumerable<object> Items => this;
 
     private bool inSelectAll;
 

@@ -9,6 +9,7 @@
              xmlns:vm="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              xmlns:models="clr-namespace:Qhta.Unicode.Models"
              xmlns:sys="clr-namespace:System.Globalization;assembly=System.Runtime"
+             xmlns:tools="clr-namespace:Qhta.SF.Tools;assembly=Qhta.SF.Tools"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <UserControl.Resources>
@@ -342,7 +343,7 @@
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTextColumn>
-        <helpers:LongTextColumn 
+        <tools:LongTextColumn 
           MappingName="Description" 
           HeaderText="Description"
           Width="420"
@@ -355,7 +356,7 @@
               <TextBlock Text="{x:Static resources:Strings.Description}" />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
-        </helpers:LongTextColumn>
+        </tools:LongTextColumn>
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
     <Button x:Name="NewWritingSystemButton"

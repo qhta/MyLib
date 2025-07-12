@@ -6,13 +6,15 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-
+using Qhta.MVVM;
+using Qhta.SF.Tools;
 using Qhta.UnicodeBuild.ViewModels;
 
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.UI.Xaml.ScrollAxis;
 using Syncfusion.Windows.Shared;
 using Qhta.UnicodeBuild.Helpers;
+using Qhta.WPF.Utils;
 
 namespace Qhta.UnicodeBuild
 {

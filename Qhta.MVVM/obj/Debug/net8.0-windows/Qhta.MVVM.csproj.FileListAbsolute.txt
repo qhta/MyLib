@@ -1,0 +1,16 @@
+D:\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.MVVM.deps.json
+D:\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.MVVM.dll
+D:\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.MVVM.pdb
+D:\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.MVVM.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0-windows\Qhta.MVVM.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0-windows\Qhta.MVVM.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0-windows\Qhta.MVVM.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0-windows\Qhta.MVVM.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0-windows\Qhta.MVVM.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0-windows\Qhta.MVVM.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0-windows\Qhta.MVVM.csproj.Up2Date
+D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0-windows\Qhta.MVVM.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0-windows\refint\Qhta.MVVM.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0-windows\Qhta.MVVM.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0-windows\Qhta.MVVM.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0-windows\ref\Qhta.MVVM.dll

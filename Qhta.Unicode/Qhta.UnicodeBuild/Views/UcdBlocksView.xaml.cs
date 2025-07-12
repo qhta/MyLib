@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows.Controls;
 
 using Qhta.MVVM;
+using Qhta.SF.Tools;
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.ViewModels;
 using Syncfusion.UI.Xaml.Grid;

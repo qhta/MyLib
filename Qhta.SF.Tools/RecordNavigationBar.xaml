@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Qhta.SF.Tools.RecordNavigationBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Qhta.SF.Tools"
+             mc:Ignorable="d" 
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             d:DesignHeight="24" d:DesignWidth="200">
+  <Grid>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+      <Button Style="{StaticResource FlatButtonStyle}"
+              Command="{Binding FirstItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+              CommandParameter="{Binding DataGrid}" 
+              Margin="2,0">
+        <Image Source="/Assets/MoveToFirst.png" Height="16"/>
+      </Button>
+      <RepeatButton Style="{StaticResource FlatButtonStyle}"
+              Command="{Binding PreviousItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+              CommandParameter="{Binding DataGrid}" 
+              Margin="2">
+        <Image Source="/Assets/MoveToPrevious.png" Height="16"/>
+      </RepeatButton>
+      <TextBlock Text="{Binding DataGrid.SelectedIndex,
+                    Converter={StaticResource AddingConverter},
+                    ConverterParameter=1}" 
+                 Width="{Binding ElementName=CountTextBlock, Path=ActualWidth}"
+                 TextAlignment="Right"
+                 Margin="4"/>
+      <TextBlock Text=" / " VerticalAlignment="Center"/>
+      <TextBlock x:Name="CountTextBlock"
+                 Text="{Binding RowsCount}" 
+                 TextAlignment="Left"
+                 Margin="4"/>
+      <RepeatButton Style="{StaticResource FlatButtonStyle}"
+              Command="{Binding NextItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+              CommandParameter="{Binding DataGrid}" 
+              Margin="2">
+        <Image Source="/Assets/MoveToNext.png" Height="16"/>
+      </RepeatButton>
+      <Button 
+              Style="{StaticResource FlatButtonStyle}"
+              Command="{Binding LastItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+              CommandParameter="{Binding DataGrid}" 
+              Margin="2">
+        <Image Source="/Assets/MoveToLast.png" Height="16"/>
+      </Button>
+    </StackPanel>
+  </Grid>
+</UserControl>

@@ -5,7 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
-
+using Qhta.SF.Tools;
+using Qhta.ST.Tools;
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.Resources;
 using Qhta.UnicodeBuild.ViewModels;
@@ -91,7 +92,7 @@ public partial class UcdCodePointsView : UserControl
     void SetAdvancedFilter()
     {
       GridFilterControl filterControl = e.FilterControl;
-      filterControl.SortOptionVisibility = Visibility.Collapsed;
+      filterControl.SortOptionVisibility = Visibility.Visible;
       filterControl.FilterMode = FilterMode.AdvancedFilter;
       filterControl.AllowBlankFilters = true;
     }
@@ -99,7 +100,7 @@ public partial class UcdCodePointsView : UserControl
     void SetCategoryFilter()
     {
       GridFilterControl filterControl = e.FilterControl;
-      filterControl.SortOptionVisibility = Visibility.Collapsed;
+      filterControl.SortOptionVisibility = Visibility.Visible;
       filterControl.FilterMode = FilterMode.Both;
       filterControl.AllowBlankFilters = true;
       var selectableItems = _ViewModels.Instance.SelectableCategories.OrderBy(item => item?.Name ?? "").ToList();
@@ -124,7 +125,7 @@ public partial class UcdCodePointsView : UserControl
     void SetBlockFilter()
     {
       GridFilterControl filterControl = e.FilterControl;
-      filterControl.SortOptionVisibility = Visibility.Collapsed;
+      filterControl.SortOptionVisibility = Visibility.Visible;
       filterControl.FilterMode = FilterMode.Both;
       filterControl.AllowBlankFilters = true;
       var selectableItems = _ViewModels.Instance.SelectableBlocks.OrderBy(item => item?.Name ?? "").ToList();
@@ -148,7 +149,7 @@ public partial class UcdCodePointsView : UserControl
     {
       //WritingSystemViewModel.LogEquals = true;
       GridFilterControl filterControl = e.FilterControl;
-      filterControl.SortOptionVisibility = Visibility.Collapsed;
+      filterControl.SortOptionVisibility = Visibility.Visible;
       filterControl.FilterMode = FilterMode.Both;
       filterControl.AllowBlankFilters = true;
       var selectableItems = sourceCollection.OrderBy(item => item?.Name ?? "").ToList();
@@ -242,7 +243,7 @@ public partial class UcdCodePointsView : UserControl
         Debug.WriteLine("Data changes saved");
       }
       if (command == ApplicationCommands.Copy)
-        _ViewModels.Instance.CopyData(CodePointDataGrid);
+        Controller.CopyData(CodePointDataGrid);
       //else if (command == ApplicationCommands.Delete)
       //{
       //  _ViewModels.Instance.DeleteSelectedCodePoint();
@@ -258,14 +259,10 @@ public partial class UcdCodePointsView : UserControl
   {
     if (sender is not SfDataGrid grid)
       return;
-    _ViewModels.Instance.CopyData(grid);
+    Controller.CopyData(grid);
     e.Handled = true;
   }
 
-  private void UIElement_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-  {
-    throw new NotImplementedException();
-  }
 }
 
 

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Qhta.SF.Tools;
 using Qhta.TextUtils;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;

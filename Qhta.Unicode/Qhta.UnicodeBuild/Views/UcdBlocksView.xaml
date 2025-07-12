@@ -3,13 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Qhta.UnicodeBuild.Views"
-             xmlns:models="clr-namespace:Qhta.Unicode.Models"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
-             xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
-             xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
-             xmlns:controls="clr-namespace:Qhta.UnicodeBuild.Controls"
+             xmlns:tools="clr-namespace:Qhta.SF.Tools;assembly=Qhta.SF.Tools"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -162,7 +158,7 @@
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridComboBoxColumn>
-        <helpers:LongTextColumn 
+        <tools:LongTextColumn 
           MappingName="Description" 
           HeaderText="Description"
           Width="420"
@@ -175,10 +171,10 @@
               <TextBlock Text="{x:Static resources:Strings.Description}" />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
-        </helpers:LongTextColumn>
+        </tools:LongTextColumn>
       </sf:SfDataGrid.Columns>
 
     </sf:SfDataGrid>
-    <controls:RecordNavigationBar Grid.Row="1" DataGrid="{Binding ElementName=UcdBlocksDataGrid}"/>
+    <tools:RecordNavigationBar Grid.Row="1" DataGrid="{Binding ElementName=UcdBlocksDataGrid}"/>
   </Grid>
 </UserControl>

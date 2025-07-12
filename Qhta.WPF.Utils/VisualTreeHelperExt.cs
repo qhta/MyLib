@@ -49,6 +49,24 @@
     #endregion // Get Visuals
 
     /// <summary>
+    /// Find a Parent or templated parent of the specified type.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="child"></param>
+    /// <returns></returns>
+    public static T? FindParent<T>(this DependencyObject child) where T : DependencyObject
+    {
+      if (child is FrameworkElement fe)
+      {
+        if (fe.Parent is T TParent) return TParent;
+        if (fe.Parent != null) return FindParent<T>(fe.Parent);
+        if (fe.TemplatedParent is T TTemplatedParent) return TTemplatedParent;
+        if (fe.TemplatedParent != null) return FindParent<T>(fe.TemplatedParent);
+      }
+      return null;
+    }
+
+    /// <summary>
     /// Finds a root visual parent.
     /// </summary>
     /// <param name="obj"></param>
@@ -56,11 +74,12 @@
     public static DependencyObject? FindRootVisualParent(DependencyObject obj)
     {
       DependencyObject? result = null;
-      while (obj!=null)
+      DependencyObject? obj1 = obj;
+      while (obj1 != null)
       {
-        obj = VisualTreeHelper.GetParent(obj);
-        if (obj!=null)
-        result = obj;
+        obj1 = VisualTreeHelper.GetParent(obj1);
+        if (obj1 != null)
+          result = obj1;
       }
       return result;
     }
@@ -71,13 +90,14 @@
     /// <typeparam name="T"></typeparam>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public static T? FindRootVisualParent<T>(DependencyObject obj) where T: FrameworkElement
+    public static T? FindRootVisualParent<T>(DependencyObject obj) where T : FrameworkElement
     {
       T? result = null;
-      while (obj != null)
+      DependencyObject? obj1 = obj;
+      while (obj1 != null)
       {
-        obj = VisualTreeHelper.GetParent(obj);
-        if (obj is T parent)
+        obj1 = VisualTreeHelper.GetParent(obj1);
+        if (obj1 is T parent)
           result = parent;
       }
       return result;
@@ -117,7 +137,7 @@
       DependencyObject? result = obj;
       do
       {
-        var parent= VisualTreeHelper.GetParent(result);
+        var parent = VisualTreeHelper.GetParent(result);
         if (parent == null && result is FrameworkElement element)
         {
           parent = element.TemplatedParent;
@@ -186,7 +206,7 @@
         if (inline is AnchoredBlock block)
           return block.Blocks.Count;
         if (inline is InlineUIContainer container)
-          return container.Child!=null ? 1 : 0;
+          return container.Child != null ? 1 : 0;
         return 0;
       }
       else
@@ -254,7 +274,7 @@
       for (int i = 0; i < c; i++)
       {
         var child = VisualTreeHelper.GetChild(obj, i);
-        if (child is T element && element.Name==elementName)
+        if (child is T element && element.Name == elementName)
           return child as T;
       }
       for (int i = 0; i < c; i++)
@@ -280,8 +300,8 @@
       for (int i = 0; i < c; i++)
       {
         var child = VisualTreeHelper.GetChild(obj, i);
-        for (int j=0; j<subtypes.Count(); j++)
-          if (child is T && (child.GetType()==subtypes[j] || child.GetType().IsSubclassOf(subtypes[j])))
+        for (int j = 0; j < subtypes.Count(); j++)
+          if (child is T && (child.GetType() == subtypes[j] || child.GetType().IsSubclassOf(subtypes[j])))
             return child as T;
       }
       for (int i = 0; i < c; i++)
@@ -299,7 +319,7 @@
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-   public static IInputElement? FindFirstFocusableDescendant(DependencyObject obj)
+    public static IInputElement? FindFirstFocusableDescendant(DependencyObject obj)
     {
       IInputElement? focusableElement = null;
 
@@ -308,16 +328,16 @@
       {
         DependencyObject child = VisualTreeHelper.GetChild(obj, i);
         if (child is IInputElement inputElement)
-            {
-        if (null != inputElement && inputElement.Focusable)
         {
-          focusableElement = inputElement;
+          if (null != inputElement && inputElement.Focusable)
+          {
+            focusableElement = inputElement;
+          }
+          else
+          {
+            focusableElement = FindFirstFocusableDescendant(child);
+          }
         }
-        else
-        {
-          focusableElement = FindFirstFocusableDescendant(child);
-        }
-      }
       }
       return focusableElement;
     }
@@ -399,14 +419,14 @@
     /// <returns></returns>
     public static IEnumerable<FrameworkElement> FindColumnsContent(ListViewItem listViewItem)
     {
-      GridViewRowPresenter? rowPresenter =  FindDescendant<GridViewRowPresenter>(listViewItem);
+      GridViewRowPresenter? rowPresenter = FindDescendant<GridViewRowPresenter>(listViewItem);
       int colCount = 0;
-      if (rowPresenter!=null)
+      if (rowPresenter != null)
         colCount = VisualTreeHelper.GetChildrenCount(rowPresenter);
       FrameworkElement[] result = new FrameworkElement[colCount];
       for (int i = 0; i < colCount; i++)
         if (VisualTreeHelper.GetChild(rowPresenter, i) is FrameworkElement frameworkElement)
-        result[i] = frameworkElement;
+          result[i] = frameworkElement;
       return result;
     }
 
@@ -416,7 +436,7 @@
     /// <typeparam name="ElementType"></typeparam>
     /// <param name="listViewItem"></param>
     /// <returns></returns>
-    public static IEnumerable<ElementType> FindColumnsContent<ElementType>(ListViewItem listViewItem) where ElementType: FrameworkElement
+    public static IEnumerable<ElementType> FindColumnsContent<ElementType>(ListViewItem listViewItem) where ElementType : FrameworkElement
     {
       var columns = FindColumnsContent(listViewItem).ToArray();
       int colCount = columns.Count();

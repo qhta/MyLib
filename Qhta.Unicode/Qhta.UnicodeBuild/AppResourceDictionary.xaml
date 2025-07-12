@@ -6,18 +6,17 @@
                     xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
                     xmlns:sf="http://schemas.syncfusion.com/wpf"
                     xmlns:mvvm="clr-namespace:Qhta.MVVM;assembly=Qhta.MVVM"
-                    xmlns:controls="clr-namespace:Qhta.UnicodeBuild.Controls"
-                    xmlns:models="clr-namespace:Qhta.Unicode.Models"
+                    xmlns:sfTools="clr-namespace:Qhta.SF.Tools;assembly=Qhta.SF.Tools"
                     x:Class="Qhta.UnicodeBuild.AppResourceDictionary">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="Resources/SfDataGrid.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/Qhta.SF.Tools;component/SfDataGrid.xaml" />
   </ResourceDictionary.MergedDictionaries>
   <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
   <converters:AddingConverter x:Key="AddingConverter"/>
-  <helpers:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
-  <helpers:MappingNameBinder x:Key="MappingNameBinder"/>
+  <sfTools:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
+  <sfTools:MappingNameBinder x:Key="MappingNameBinder"/>
   <helpers:CodeRangeComparer x:Key="CodeRangeComparer"/>
   <helpers:CodeRangeValueConverter x:Key="CodeRangeValueConverter"/>
   <helpers:CodePointValueConverter x:Key="CodePointValueConverter"/>
@@ -155,7 +154,7 @@
       />
   </DataTemplate>
 
-  <DataTemplate x:Key="LongTextCellTemplate" DataType="{x:Type viewModels:ILongTextViewModel}">
+  <DataTemplate x:Key="LongTextCellTemplate" DataType="{x:Type mvvm:ILongTextViewModel}">
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
@@ -190,7 +189,7 @@
     </Grid>
   </DataTemplate>
 
-  <DataTemplate x:Key="LongTextEditTemplate" DataType="{x:Type viewModels:ILongTextViewModel}">
+  <DataTemplate x:Key="LongTextEditTemplate" DataType="{x:Type mvvm:ILongTextViewModel}">
     <Grid x:Name="EditedGrid">
       <TextBlock 
         Text="{Binding Path=LongText}" 

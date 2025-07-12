@@ -6,11 +6,13 @@ using System.Diagnostics;
 using Microsoft.DotNet.DesignTools.Protocol.Values;
 using Microsoft.DotNet.DesignTools.ViewModels;
 using Qhta.MVVM;
+using Qhta.SF.Tools;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 using Syncfusion.UI.Xaml.TreeGrid;
 using BrowsableAttribute = System.ComponentModel.BrowsableAttribute;
 using ReadOnlyAttribute = System.ComponentModel.ReadOnlyAttribute;
+#pragma warning disable CA1416
 namespace Qhta.UnicodeBuild.ViewModels;
 
 public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeightProvider

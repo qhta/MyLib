@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:helpers="clr-namespace:Qhta.UnicodeBuild.Helpers"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
              xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
-             xmlns:controls="clr-namespace:Qhta.UnicodeBuild.Controls"
+             xmlns:tools="clr-namespace:Qhta.SF.Tools;assembly=Qhta.SF.Tools"
              mc:Ignorable="d" 
              d:DesignHeight="850" d:DesignWidth="1600">
   <UserControl.Resources>
@@ -123,8 +122,7 @@
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
               <TextBlock Text="{x:Static resources:CodePoint.CP}" 
-                         ToolTip="{x:Static resources:CodePoint.CPTooltip}" 
-                         PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown"/>
+                         ToolTip="{x:Static resources:CodePoint.CPTooltip}" />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTemplateColumn>
@@ -287,6 +285,7 @@
             Converter={StaticResource InsertItemConverter},
             ConverterParameter={StaticResource BlankWritingSystem}}"
           DisplayMemberPath="Name"
+          SortMode="Display"
           VerticalAlignment="Top"
           AllowEditing="True"
           Width="200"
@@ -456,7 +455,7 @@
       </sf:SfDataGrid.Columns>
     </sf:SfDataGrid>
 
-    <controls:RecordNavigationBar Grid.Row="2" DataGrid="{Binding ElementName=CodePointDataGrid}"/>
+    <tools:RecordNavigationBar Grid.Row="2" DataGrid="{Binding ElementName=CodePointDataGrid}"/>
     <Grid x:Name="StatusBar"  Grid.Row="2" Height="Auto" Background="LightGray" 
           Visibility="{Binding Source={StaticResource ViewModels}, 
                     Path=Instance.UcdCodePoints.IsBusy, 
