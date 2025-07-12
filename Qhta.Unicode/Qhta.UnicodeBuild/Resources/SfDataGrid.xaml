@@ -8,6 +8,7 @@
   <helpers:SfDataGridColumnConverter x:Key="GridColumnConverter"/>
   <Style TargetType="sf:GridRowHeaderIndentCell">
     <Setter Property="Background" Value="Silver"/>
+    <EventSetter Event="PreviewMouseDown" Handler="GridRowHeaderIndentCell_MouseLeftButtonDown"/>
   </Style>
 
   <Style TargetType="sf:GridHeaderCellControl">

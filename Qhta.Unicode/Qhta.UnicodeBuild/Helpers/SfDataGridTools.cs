@@ -83,4 +83,31 @@ public partial class SfDataGridTools : ResourceDictionary
     }
   }
 
+  private void GridRowHeaderIndentCell_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+  {
+    //Debug.WriteLine($"Grid_OnPreviewMouseLeftButtonDown({sender})");
+    e.Handled = true;
+
+    if (sender is GridRowHeaderIndentCell indentCell)
+    {
+      var grid = indentCell.FindParent<SfDataGrid>();
+      if (grid == null) return;
+
+      var isSelected = grid.GetSelectedCells().Any();
+      if (isSelected)
+      {
+        grid.SelectionController.ClearSelections(false);
+      }
+      else
+      {
+        isSelected = grid.Columns.FirstOrDefault(SfDataGridColumnBehavior.GetIsSelected) is not null;
+        isSelected = !isSelected;
+        foreach (var column in grid.Columns)
+        {
+          SfDataGridColumnBehavior.SetIsSelected(column, isSelected);
+        }
+      }
+    }
+  }
+
 }
