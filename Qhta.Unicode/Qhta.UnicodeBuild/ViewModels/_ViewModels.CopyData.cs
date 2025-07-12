@@ -11,6 +11,7 @@ using Qhta.MVVM;
 using Qhta.UnicodeBuild.Helpers;
 
 using Syncfusion.UI.Xaml.Grid;
+using Syncfusion.Windows.Shared;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -29,13 +30,22 @@ public partial class _ViewModels
   {
     try
     {
-      GridColumn[] columnsToCopy = grid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
+      var selectedCells = grid.GetSelectedCells().ToArray();
+      GridColumn[] columnsToCopy;
+      if (selectedCells.Length != 0)
+        columnsToCopy = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
+      else
+        columnsToCopy = grid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
       if (!columnsToCopy.Any())
       {
         columnsToCopy = grid.Columns.ToArray();
       }
 
-      var rowsToCopy = grid.SelectionController.SelectedRows.Select(row => row.RowData).ToArray();
+      object[] rowsToCopy;
+      if (selectedCells.Length != 0)
+        rowsToCopy = selectedCells.Select(cell => cell.RowData).Distinct().ToArray();
+      else
+        rowsToCopy = grid.SelectionController.SelectedRows.Select(row => row.RowData).ToArray();
       if (!rowsToCopy.Any())
       {
         rowsToCopy = grid.View.Records.Select(record => record.Data).ToArray();
@@ -46,49 +56,14 @@ public partial class _ViewModels
       GridColumnInfo?[]? columnInfos = null;
       if (rowDataType != null)
       {
-        columnInfos = columnsToCopy.Select(column =>
-        {
-          var mappingPropertyInfo = column.GetType().GetProperty("MappingName");
-          if (mappingPropertyInfo == null)
-          {
-            Debug.WriteLine($"Property 'MappingName' not found in column type '{column.GetType().Name}'.");
-            return null;
-          }
-          var mappingName = (string?)mappingPropertyInfo.GetValue(column);
-          if (mappingName == null)
-          {
-            Debug.WriteLine($"Mapping name is null for column '{column.HeaderText ?? column.MappingName}'.");
-            return null;
-          }
-          var valuePropertyInfo = rowDataType.GetProperty(mappingName);
-          if (valuePropertyInfo == null)
-          {
-            Debug.WriteLine($"Property '{mappingName} not found in column type '{rowDataType}'.");
-            return null;
-          }
-          PropertyInfo? displayPropertyInfo = null;
-          if (column is GridComboBoxColumn comboBoxColumn)
-          {
-            var displayMemberPath = comboBoxColumn.DisplayMemberPath;
-            if (!string.IsNullOrEmpty(displayMemberPath))
-            {
-              displayPropertyInfo = valuePropertyInfo.PropertyType.GetProperty(displayMemberPath);
-              if (displayPropertyInfo == null)
-              {
-                Debug.WriteLine($"Display property '{displayMemberPath}' not found in type '{valuePropertyInfo.PropertyType.Name}'.");
-                return null;
-              }
-              return new GridColumnInfo(column, mappingName, valuePropertyInfo, displayPropertyInfo);
-            }
-          }
-          return new GridColumnInfo(column, mappingName, valuePropertyInfo, displayPropertyInfo);
-        }).Where(info => info != null).ToArray();
+        columnInfos = GetGridColumnInfos(columnsToCopy, rowDataType);
       }
       var content = new List<string>();
 
       var headers = GetHeaders(grid, columnsToCopy);
       var headerLine = string.Join("\t", headers);
-      content.Add(headerLine); ;
+      content.Add(headerLine);
+      ;
       //Debug.WriteLine($"{headerLine}'.");
       Clipboard.SetText(headerLine);
 
@@ -103,7 +78,7 @@ public partial class _ViewModels
           {
             var cellInfo = new GridCellInfo(column, row, null, -1, false);
             var columnInfo = columnInfos?.FirstOrDefault(info => info?.MappingName == column.MappingName);
-            var cellData = GetCellData(cellInfo, columnInfo!);
+            var cellData = columnInfo != null ? GetCellData(cellInfo, columnInfo) : null;
             return cellData?.ToString() ?? string.Empty;
           }).ToArray();
           var line = string.Join("\t", cellValues);
@@ -115,12 +90,55 @@ public partial class _ViewModels
         var text = string.Join(Environment.NewLine, content);
         Clipboard.SetText(text, TextDataFormat.Text);
         //});
+        Debug.WriteLine($"Copy data completed");
       }
-    }
-    catch (Exception e)
+    } catch (Exception e)
     {
       Console.WriteLine(e);
     }
+  }
+
+  private static GridColumnInfo?[] GetGridColumnInfos(GridColumn[] columnsToCopy, Type rowDataType)
+  {
+    GridColumnInfo?[] columnInfos;
+    columnInfos = columnsToCopy.Select(column =>
+    {
+      var mappingPropertyInfo = column.GetType().GetProperty("MappingName");
+      if (mappingPropertyInfo == null)
+      {
+        Debug.WriteLine($"Property 'MappingName' not found in column type '{column.GetType().Name}'.");
+        return null;
+      }
+      var mappingName = (string?)mappingPropertyInfo.GetValue(column);
+      if (mappingName == null)
+      {
+        Debug.WriteLine($"Mapping name is null for column '{column.HeaderText ?? column.MappingName}'.");
+        return null;
+      }
+      var valuePropertyInfo = rowDataType.GetProperty(mappingName);
+      if (valuePropertyInfo == null)
+      {
+        Debug.WriteLine($"Property '{mappingName} not found in column type '{rowDataType}'.");
+        return null;
+      }
+      PropertyInfo? displayPropertyInfo = null;
+      if (column is GridComboBoxColumn comboBoxColumn)
+      {
+        var displayMemberPath = comboBoxColumn.DisplayMemberPath;
+        if (!string.IsNullOrEmpty(displayMemberPath))
+        {
+          displayPropertyInfo = valuePropertyInfo.PropertyType.GetProperty(displayMemberPath);
+          if (displayPropertyInfo == null)
+          {
+            Debug.WriteLine($"Display property '{displayMemberPath}' not found in type '{valuePropertyInfo.PropertyType.Name}'.");
+            return null;
+          }
+          return new GridColumnInfo(column, mappingName, valuePropertyInfo, displayPropertyInfo);
+        }
+      }
+      return new GridColumnInfo(column, mappingName, valuePropertyInfo, displayPropertyInfo);
+    }).Where(info => info != null).ToArray();
+    return columnInfos;
   }
 
   private string[] GetHeaders(SfDataGrid grid, GridColumn[] columns)

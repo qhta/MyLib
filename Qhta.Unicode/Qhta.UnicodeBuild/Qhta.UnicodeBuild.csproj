@@ -123,7 +123,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.7" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="Qhta.DeepCopy" Version="1.5.0" />
-    <PackageReference Include="Qhta.MVVM" Version="4.7.0" />
+    <PackageReference Include="Qhta.MVVM" Version="4.8.0" />
+    <PackageReference Include="Qhta.ObservableObjects" Version="4.0.0" />
     <PackageReference Include="Qhta.WPF.Converters" Version="1.4.0" />
     <PackageReference Include="Qhta.WPF.Utils" Version="3.4.0" />
     <PackageReference Include="Syncfusion.Grid.Windows" Version="30.1.39" />
@@ -137,10 +138,6 @@
     <PackageReference Include="Syncfusion.Shared.WPF" Version="30.1.39" />
     <PackageReference Include="Syncfusion.Tools.WPF" Version="30.1.39" />
     <PackageReference Include="System.Data.OleDb" Version="9.0.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Qhta.ObservableObjects\Qhta.ObservableObjects.csproj" />
   </ItemGroup>
 
   <ItemGroup>

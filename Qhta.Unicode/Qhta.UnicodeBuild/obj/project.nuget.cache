@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "emK3pVyk3Pc=",
+  "dgSpecHash": "G0SL1zbjJDM=",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Qhta.UnicodeBuild.csproj",
   "expectedPackageFiles": [
@@ -49,7 +49,8 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\2.0.0\\qhta.collections.2.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.deepcopy\\1.5.0\\qhta.deepcopy.1.5.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.htmlutils\\2.1.0\\qhta.htmlutils.2.1.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\4.7.0\\qhta.mvvm.4.7.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\4.8.0\\qhta.mvvm.4.8.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\4.0.0\\qhta.observableobjects.4.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.ordnumbers\\2.3.0\\qhta.ordnumbers.2.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.2.0\\qhta.textutils.3.2.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.11\\qhta.typeutils.1.3.11.nupkg.sha512",
