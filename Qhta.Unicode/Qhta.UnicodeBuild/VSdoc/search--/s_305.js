@@ -1,0 +1,1 @@
+search_result['305']=["topic_0000000000000116.html","CodePoint Class","A strongly-typed resource class, for looking up localized strings, etc."];

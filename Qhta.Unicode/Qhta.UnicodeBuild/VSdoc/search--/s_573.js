@@ -1,0 +1,1 @@
+search_result['573']=["topic_00000000000001FA.html","_ViewModels.SelectableAreas Property","Collection of selectable areas, which are a type of writing system."];

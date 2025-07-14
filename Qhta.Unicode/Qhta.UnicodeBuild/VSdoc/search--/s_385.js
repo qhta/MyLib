@@ -1,0 +1,1 @@
+search_result['385']=["topic_000000000000015C.html","Strings.NewWritingSystem Property","Looks up a localized string similar to New Writing System."];

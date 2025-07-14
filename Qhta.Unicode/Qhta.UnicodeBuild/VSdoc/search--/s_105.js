@@ -1,0 +1,1 @@
+search_result['105']=["topic_0000000000000028.html","MenuItemObject.Command Property","Command associated with the menu item, which can be an ICommand or null."];

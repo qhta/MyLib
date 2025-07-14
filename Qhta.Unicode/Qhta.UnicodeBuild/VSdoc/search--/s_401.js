@@ -1,0 +1,1 @@
+search_result['401']=["topic_000000000000016C.html","Strings.UcdRangesTooltip Property","Looks up a localized string similar to A Unicode range is a contiguous range of numeric character codes (code points) of the Unicode character set that have the specific rules of use and translation. ..."];

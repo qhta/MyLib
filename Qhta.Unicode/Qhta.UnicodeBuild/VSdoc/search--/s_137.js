@@ -1,0 +1,1 @@
+search_result['137']=["topic_0000000000000035.html","ValidationResultEx(String, IEnumerable\u0026lt;String\u0026gt;, Severity) Constructor","Initializes a new instance of the ValidationResultEx class."];

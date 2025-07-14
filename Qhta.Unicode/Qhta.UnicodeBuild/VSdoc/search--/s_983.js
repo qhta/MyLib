@@ -1,0 +1,1 @@
+search_result['983']=["topic_00000000000002EC.html","RowResizer Class","A Thumb control that allows resizing of rows in a SfDataGrid.\r\nIt is typically used at the bottom of the row header of a grid to adjust the height of rows.\r\nThis class was written on the basis of the ..."];

@@ -1,0 +1,1 @@
+search_result['705']=["topic_000000000000025A.html","UnicodeCategoryViewModel.Name Property","Name of the Unicode category, typically used for display purposes."];

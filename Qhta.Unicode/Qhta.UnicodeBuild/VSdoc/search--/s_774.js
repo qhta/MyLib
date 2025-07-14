@@ -1,0 +1,1 @@
+search_result['774']=["topic_000000000000027F.html","WritingSystemViewModel.Kind Property","Gets or sets the kind of writing system represented by this instance."];

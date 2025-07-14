@@ -1,0 +1,1 @@
+search_result['95']=["topic_0000000000000023.html","MenuItemObject Class","MenuItemObject is a class that represents a menu item with properties for header, icon, tooltip, command, and command parameter."];

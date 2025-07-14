@@ -1,0 +1,1 @@
+search_result['501']=["topic_00000000000001BC.html","WritingSystemKind.Ideographic Property","Looks up a localized string similar to Ideographic."];

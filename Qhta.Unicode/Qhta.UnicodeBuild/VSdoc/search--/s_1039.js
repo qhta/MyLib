@@ -1,0 +1,1 @@
+search_result['1039']=["topic_0000000000000306.html","UndoMgr.Enabled Property","Determines whether the Record/Undo/Redo functionality is enabled."];

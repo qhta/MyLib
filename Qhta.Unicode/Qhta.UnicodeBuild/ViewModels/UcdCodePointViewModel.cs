@@ -4,6 +4,8 @@ using Qhta.MVVM;
 using Qhta.SF.Tools;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
+using Qhta.UndoManager;
+using Qhta.UnicodeBuild.Actions;
 
 #pragma warning disable CA1416
 namespace Qhta.UnicodeBuild.ViewModels;
@@ -176,7 +178,20 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   /// <summary>
   /// Identifier of the Unicode code point block, which is used to group code points into blocks.
   /// </summary>
-  public int? UcdBlockId { get => Model.Script; set { if (Model.Block != value) { Model.Block = value; NotifyPropertyChanged(nameof(UcdBlockId)); } } }
+  public int? UcdBlockId
+  {
+    get => Model.Block; 
+    set 
+    {
+      if (Model.Block != value)
+      {
+        UndoMgr.Record(new ChangePropertyAction(), new ChangePropertyArgs(this, nameof(UcdBlockId), UcdBlockId, value));
+        Model.Block = value; 
+        NotifyPropertyChanged(nameof(UcdBlockId));
+        NotifyPropertyChanged(nameof(UcdBlock));
+      }
+    }
+  }
   /// <summary>
   /// Exposes the Unicode code point block as a view model.
   /// </summary>

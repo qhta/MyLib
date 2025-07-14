@@ -1,0 +1,1 @@
+search_result['544']=["topic_00000000000001E2.html","WritingSystemType.NotationTooltip Property","Looks up a localized string similar to Notation is a system of symbols used to represent information in some convention.."];

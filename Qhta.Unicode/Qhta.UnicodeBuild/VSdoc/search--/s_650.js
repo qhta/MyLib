@@ -1,0 +1,1 @@
+search_result['650']=["topic_000000000000022D.html","UcdCodePointsCollection.ProgressValue Property","Progress value indicating the current state of a long-running operation, such as loading or processing data."];

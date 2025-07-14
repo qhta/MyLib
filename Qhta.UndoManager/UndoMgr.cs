@@ -10,11 +10,6 @@ namespace Qhta.UndoManager;
 public static class UndoMgr
 {
   /// <summary>
-  /// Dictionary to hold available actions and their corresponding undo/redo actions.
-  /// </summary>
-  private static readonly BiDiDictionary<IAction, IAction> AvailableActions = new();
-
-  /// <summary>
   /// Entry record for storing action and its arguments in the undo/redo stacks.
   /// </summary>
   /// <param name="Action"></param>
@@ -54,41 +49,26 @@ public static class UndoMgr
   /// <summary>
   /// Flag to indicate if the Undo functionality is available.
   /// </summary>
-  public static bool IsUndoAvailable { get; } = UndoStack.Any() && !IsUndoing && !IsRecording && !IsRecording;
+  public static bool IsUndoAvailable => UndoStack.Any() && !IsUndoing && !IsRecording && !IsRecording;
 
   /// <summary>
   /// Flag to indicate if the Redo functionality is available.
   /// </summary>
-  public static bool IsRedoAvailable { get; } = RedoStack.Any() && !IsUndoing && !IsRecording && !IsRecording;
+  public static bool IsRedoAvailable => RedoStack.Any() && !IsUndoing && !IsRecording && !IsRecording;
 
   /// <summary>
   /// Flag to indicate if the recording functionality is available.
   /// </summary>
-  public static bool IsRecordingAvailable { get; } = AvailableActions.Any() && !IsUndoing && !IsRecording && !IsRecording;
-
-  /// <summary>
-  /// Registers an action with its corresponding undo action.
-  /// </summary>
-  /// <param name="action"></param>
-  /// <param name="undoAction"></param>
-  public static void RegisterActions(IAction action, IAction undoAction)
-  {
-    if (AvailableActions.ContainsKey(action))
-      AvailableActions[action] = undoAction;
-    else
-      AvailableActions.Add(action, undoAction);
-  }
+  public static bool IsRecordingAvailable => !IsUndoing && !IsRecording && !IsRecording;
 
   /// <summary>
   /// Records an action with its arguments for undo functionality.
   /// </summary>
   /// <param name="action"></param>
   /// <param name="args"></param>
-  public static void Record(IAction action, params object[] args)
+  public static void Record(IAction action, object args)
   {
     if (!Enabled || !IsRecordingAvailable)
-      return;
-    if (!AvailableActions.ContainsKey(action))
       return;
     UndoStack.Push(new UndoRedoEntry(action, args));
   }
@@ -105,11 +85,8 @@ public static class UndoMgr
       return;
     IsUndoing = true;
     var entry = UndoStack.Pop();
-    if (AvailableActions.TryGetValue(entry.Action, out var undoAction))
-    {
-      undoAction.Execute(entry.Args);
-      RedoStack.Push(entry);
-    }
+    entry.Action.Undo(entry.Args);
+    RedoStack.Push(entry);
     IsUndoing = false;
   }
 

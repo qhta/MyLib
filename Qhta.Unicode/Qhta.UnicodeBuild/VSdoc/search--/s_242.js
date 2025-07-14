@@ -1,0 +1,1 @@
+search_result['242']=["topic_00000000000000B2.html","UcdCodePoint.Title Property","Code point for the title case version of the character, if applicable."];

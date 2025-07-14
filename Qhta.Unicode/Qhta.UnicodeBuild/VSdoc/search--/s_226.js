@@ -1,0 +1,1 @@
+search_result['226']=["topic_00000000000000A2.html","UcdCodePoint.Glyph Property","Visual representation of the Unicode code point, typically one character or two characters for diacritical marks."];

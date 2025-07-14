@@ -1,0 +1,1 @@
+search_result['903']=["topic_00000000000002C4.html","Controller.CutData Method","Performs a cut operation on the data in the specified SfDataGrid."];

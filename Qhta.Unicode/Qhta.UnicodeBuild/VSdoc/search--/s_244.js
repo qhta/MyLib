@@ -1,0 +1,1 @@
+search_result['244']=["topic_00000000000000B4.html","UcdCodePoint.Area Property","Identifier for the area writing system that this code point is associated with, if applicable."];

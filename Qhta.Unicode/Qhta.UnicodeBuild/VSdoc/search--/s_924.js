@@ -1,0 +1,1 @@
+search_result['924']=["topic_00000000000002CF.html","DoubleUtil.GreaterThanOrClose Method","Determines whether the first double value is less than or equal to the second value, considering a specified tolerance."];

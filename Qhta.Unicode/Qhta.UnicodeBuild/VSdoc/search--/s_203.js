@@ -1,0 +1,1 @@
+search_result['203']=["topic_0000000000000060.html","UcdBidir Enumeration","Unicode Bidirectional Character Types"];

@@ -1,0 +1,1 @@
+search_result['471']=["topic_00000000000001A3.html","WritingSystem.Type Property","Looks up a localized string similar to Type."];

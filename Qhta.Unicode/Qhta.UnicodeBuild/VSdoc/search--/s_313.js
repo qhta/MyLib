@@ -1,0 +1,1 @@
+search_result['313']=["topic_0000000000000119.html","CodePoint.ApplyBlockMapping Property","Looks up a localized string similar to Apply block mapping."];

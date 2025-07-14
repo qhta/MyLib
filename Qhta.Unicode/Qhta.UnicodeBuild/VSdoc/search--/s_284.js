@@ -1,0 +1,1 @@
+search_result['284']=["topic_00000000000000EC.html","WritingSystemKind Enumeration","Specifies the kind of writing system used to represent language or symbols."];

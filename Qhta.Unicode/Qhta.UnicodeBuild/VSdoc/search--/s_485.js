@@ -1,0 +1,1 @@
+search_result['485']=["topic_00000000000001AC.html","WritingSystemKind.Alphabet Property","Looks up a localized string similar to Alphabet."];

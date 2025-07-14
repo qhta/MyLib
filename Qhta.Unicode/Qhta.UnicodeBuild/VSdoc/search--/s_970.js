@@ -1,0 +1,1 @@
+search_result['970']=["topic_00000000000002E4.html","RecordNavigationBar.PreviousItemCommand Property","Command to navigate to the previous item in the SfDataGrid."];

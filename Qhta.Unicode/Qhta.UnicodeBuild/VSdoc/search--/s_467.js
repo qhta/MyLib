@@ -1,0 +1,1 @@
+search_result['467']=["topic_000000000000019F.html","WritingSystem.NameTooltip Property","Looks up a localized string similar to Writing system name is a unique name starting with a letter and optionally containing letters, digits and spaces.."];

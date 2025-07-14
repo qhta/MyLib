@@ -1,0 +1,1 @@
+search_result['500']=["topic_00000000000001BB.html","WritingSystemKind.HieroglyphicTooltip Property","Looks up a localized string similar to An ancient writing system that combines ideographic, logographic, syllabic and alphabetic elements.."];

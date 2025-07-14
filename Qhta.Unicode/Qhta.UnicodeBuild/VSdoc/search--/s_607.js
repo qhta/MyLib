@@ -1,0 +1,1 @@
+search_result['607']=["topic_0000000000000215.html","AliasViewModel.Type Property","Type of the alias, which is represented as an enumeration value."];

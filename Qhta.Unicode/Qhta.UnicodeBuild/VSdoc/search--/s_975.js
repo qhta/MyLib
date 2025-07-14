@@ -1,0 +1,1 @@
+search_result['975']=["topic_00000000000002E9.html","RecordNavigationBar.NotifyPropertyChanged Method","Notifies subscribers that a property value has changed."];

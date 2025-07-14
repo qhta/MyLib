@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Threading;
 
-using Qhta.DeepCopy;
 using Qhta.MVVM;
+using Qhta.UndoManager;
 using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;
@@ -49,6 +49,7 @@ public partial class _ViewModels : ViewModel, IDisposable
 
   private _ViewModels()
   {
+    UndoMgr.Enabled = false;
     _Context = new _DbContext();
     {
       foreach (var wst in _Context.WritingSystemTypes.ToList())
@@ -129,6 +130,7 @@ public partial class _ViewModels : ViewModel, IDisposable
     ApplyBlockMappingBackgroundWorker.ProgressChanged += ApplyBlockMapping_ProgressChanged;
     ApplyBlockMappingBackgroundWorker.RunWorkerCompleted += ApplyBlockMapping_RunWorkerCompleted;
     FillColumnCommand = new RelayCommand<object?>(FillColumnCommandExecute);
+    UndoMgr.Enabled = true;
   }
 
   /// <summary>

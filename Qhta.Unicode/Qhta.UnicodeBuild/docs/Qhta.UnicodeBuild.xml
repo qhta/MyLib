@@ -4,6 +4,55 @@
         <name>Qhta.UnicodeBuild</name>
     </assembly>
     <members>
+        <member name="T:Qhta.UnicodeBuild.Actions.ChangePropertyArgs">
+            <summary>
+            Arguments for changing a property.
+            </summary>
+            <param name="Target">Target object</param>
+            <param name="PropertyName">Name of the changed property</param>
+            <param name="OldValue">Old value of the property</param>
+            <param name="NewValue">New value of the property</param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Actions.ChangePropertyArgs.#ctor(System.Object,System.String,System.Object,System.Object)">
+            <summary>
+            Arguments for changing a property.
+            </summary>
+            <param name="Target">Target object</param>
+            <param name="PropertyName">Name of the changed property</param>
+            <param name="OldValue">Old value of the property</param>
+            <param name="NewValue">New value of the property</param>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Actions.ChangePropertyArgs.Target">
+            <summary>Target object</summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Actions.ChangePropertyArgs.PropertyName">
+            <summary>Name of the changed property</summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Actions.ChangePropertyArgs.OldValue">
+            <summary>Old value of the property</summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Actions.ChangePropertyArgs.NewValue">
+            <summary>New value of the property</summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Actions.ChangePropertyAction">
+            <summary>
+            Action for changing a property.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Actions.ChangePropertyAction.Execute(System.Object)">
+            <summary>
+            Executes the action to change a property.
+            </summary>
+            <param name="args"></param>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Actions.ChangePropertyAction.Undo(System.Object)">
+            <summary>
+            Undoes the action to change a property, restoring the old value.
+            </summary>
+            <param name="args"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="T:Qhta.UnicodeBuild.App">
             <summary>
             Interaction logic for App.xaml
@@ -375,6 +424,40 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="T:Qhta.UnicodeBuild.Helpers.EntityCollection`1">
+            <summary>
+            OrderedObservableCollection is a collection that maintains its items in a sorted order based on a key selector function.
+            It is a base class for collections that need to be ordered by a specific property or value of the items.
+            It uses ObservableList&lt;T&gt; as a base class to provide observable collection functionality.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="keySelector"></param>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.EntityCollection`1.#ctor(System.Func{`0,System.Object},System.Collections.Generic.IComparer{System.Object})">
+            <summary>
+            OrderedObservableCollection is a collection that maintains its items in a sorted order based on a key selector function.
+            It is a base class for collections that need to be ordered by a specific property or value of the items.
+            It uses ObservableList&lt;T&gt; as a base class to provide observable collection functionality.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="keySelector"></param>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.EntityCollection`1.InsertItem(System.Int32,`0)">
+            <summary>
+            Inserts an item at the specified index in the collection, maintaining the order based on the key selector.
+            </summary>
+            <param name="index"></param>
+            <param name="item"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.EntityCollection`1.SetItem(System.Int32,`0)">
+            <summary>
+            Sets the item at the specified index in the collection, removing it from its old position and inserting it in the correct order based on the key selector.
+            </summary>
+            <param name="index"></param>
+            <param name="item"></param>
+        </member>
         <member name="T:Qhta.UnicodeBuild.Helpers.EnumItem`1">
             <summary>
             EnumItem is a record type that represents an item in an enumeration and its associated name.
@@ -557,40 +640,6 @@
             <returns>
             A converted value. If the method returns <c>null</c>, the valid <c>null</c> value is used.
             </returns>
-        </member>
-        <member name="T:Qhta.UnicodeBuild.Helpers.OrderedObservableCollection`1">
-            <summary>
-            OrderedObservableCollection is a collection that maintains its items in a sorted order based on a key selector function.
-            It is a base class for collections that need to be ordered by a specific property or value of the items.
-            It uses ObservableList&lt;T&gt; as a base class to provide observable collection functionality.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="keySelector"></param>
-            <param name="comparer"></param>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Helpers.OrderedObservableCollection`1.#ctor(System.Func{`0,System.Object},System.Collections.Generic.IComparer{System.Object})">
-            <summary>
-            OrderedObservableCollection is a collection that maintains its items in a sorted order based on a key selector function.
-            It is a base class for collections that need to be ordered by a specific property or value of the items.
-            It uses ObservableList&lt;T&gt; as a base class to provide observable collection functionality.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="keySelector"></param>
-            <param name="comparer"></param>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Helpers.OrderedObservableCollection`1.InsertItem(System.Int32,`0)">
-            <summary>
-            Inserts an item at the specified index in the collection, maintaining the order based on the key selector.
-            </summary>
-            <param name="index"></param>
-            <param name="item"></param>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Helpers.OrderedObservableCollection`1.SetItem(System.Int32,`0)">
-            <summary>
-            Sets the item at the specified index in the collection, removing it from its old position and inserting it in the correct order based on the key selector.
-            </summary>
-            <param name="index"></param>
-            <param name="item"></param>
         </member>
         <member name="T:Qhta.UnicodeBuild.Helpers.ValidationResultEx">
             <summary>
@@ -3013,6 +3062,16 @@
         <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.NewWritingSystem">
             <summary>
             Gets a new instance of <see cref="T:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel"/> initialized with a new <see cref="T:Qhta.Unicode.Models.WritingSystem"/> entity.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.UndoCommand">
+            <summary>
+            Command to undo the last action.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.RedoCommand">
+            <summary>
+            Command to redo the last action.
             </summary>
         </member>
         <member name="T:Qhta.UnicodeBuild.Views.EditWritingSystemWindow">

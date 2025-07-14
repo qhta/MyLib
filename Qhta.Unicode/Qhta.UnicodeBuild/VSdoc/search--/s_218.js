@@ -1,0 +1,1 @@
+search_result['218']=["topic_0000000000000081.html","UcdCategory Enumeration","Represents the Unicode character categories as defined by the Unicode Standard."];

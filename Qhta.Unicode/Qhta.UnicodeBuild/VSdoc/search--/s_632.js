@@ -1,0 +1,1 @@
+search_result['632']=["topic_0000000000000220.html","UcdBlockViewModel.Range Property","Code range of the block, represented as a string in the format \"XXXX..YYYY\"."];

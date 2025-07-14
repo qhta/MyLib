@@ -1,0 +1,1 @@
+search_result['80']=["topic_000000000000001E.html","InsertItemConverter Class","This converter is used to insert an item into a collection.\r\nInserted item is passed as a parameter to the converter\r\nand is inserted at the start of the collection.\r\nIt is used for adding a new item ..."];

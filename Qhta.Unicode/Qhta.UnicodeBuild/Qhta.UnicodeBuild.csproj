@@ -14,6 +14,7 @@
   <ItemGroup>
     <Compile Remove="Helpers\DataGridHelper.cs" />
     <Compile Remove="Helpers\DoubleUtil.cs" />
+    <Compile Remove="Helpers\EntityViewModel.cs" />
     <Compile Remove="Helpers\LayoutDoubleUtil.cs" />
     <Compile Remove="Helpers\LongTextCell.cs" />
     <Compile Remove="Helpers\PropertyControlFactory.cs" />

@@ -1,0 +1,1 @@
+search_result['464']=["topic_000000000000019C.html","WritingSystem.KindTooltip Property","Looks up a localized string similar to The type of writing system determines the nature of the characters in that system.."];

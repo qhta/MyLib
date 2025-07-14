@@ -1,0 +1,1 @@
+search_result['519']=["topic_00000000000001CE.html","WritingSystemKind.SemiSyllabary Property","Looks up a localized string similar to Semi-syllabary."];

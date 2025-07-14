@@ -1,0 +1,1 @@
+search_result['649']=["topic_000000000000022C.html","UcdCodePointsCollection.IsBusy Property","Indicates whether the collection is currently busy with an operation, such as loading or processing data."];

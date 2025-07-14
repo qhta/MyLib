@@ -1,0 +1,1 @@
+search_result['1047']=["topic_000000000000030E.html","UndoMgr.Record Method","Records an action with its arguments for undo functionality."];

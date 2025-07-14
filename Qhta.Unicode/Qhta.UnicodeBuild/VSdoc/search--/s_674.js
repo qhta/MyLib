@@ -1,0 +1,1 @@
+search_result['674']=["topic_0000000000000240.html","UcdCodePointViewModel.OldDescription Property","Old description of the Unicode code point, if applicable.\r\nIt is a read-only property that returns a nullable string value."];

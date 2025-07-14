@@ -1,0 +1,1 @@
+search_result['364']=["topic_0000000000000147.html","Strings.Copy Property","Looks up a localized string similar to Copy."];

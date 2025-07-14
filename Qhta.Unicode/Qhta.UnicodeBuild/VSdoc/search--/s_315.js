@@ -1,0 +1,1 @@
+search_result['315']=["topic_000000000000011B.html","CodePoint.ApplyBlockMappingTooltip Property","Looks up a localized string similar to Apply code point mapping to Unicode blocks by checking block ranges.."];

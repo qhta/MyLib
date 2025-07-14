@@ -1,0 +1,1 @@
+search_result['585']=["topic_0000000000000204.html","_ViewModels.ApplyBlockMappingCommand Property","Command to apply block mappings to Unicode code points.\r\nA list of mappings is read from a file, and each code point in the specified blocks is updated with the corresponding UcdBlock."];

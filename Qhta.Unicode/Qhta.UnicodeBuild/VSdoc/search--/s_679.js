@@ -1,0 +1,1 @@
+search_result['679']=["topic_0000000000000245.html","UcdCodePointViewModel.Aliases Property","Alias collection for the Unicode code point, which contains alternative names of the code point."];

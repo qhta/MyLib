@@ -1,0 +1,1 @@
+search_result['275']=["topic_00000000000000E3.html","WritingSystem.Ctg Property","Unicode Category (Ctg) code, which may be used to classify the writing system using the Ctg field of the CodePoints."];

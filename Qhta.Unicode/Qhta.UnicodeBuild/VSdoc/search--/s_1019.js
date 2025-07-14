@@ -1,0 +1,1 @@
+search_result['1019']=["topic_0000000000000301.html","SfDataGridTools Class","Provides utility methods for handling mouse interactions with the header and row header cells in a SfDataGrid."];

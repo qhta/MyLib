@@ -1,0 +1,1 @@
+search_result['488']=["topic_00000000000001AF.html","WritingSystemKind.ConstructedTooltip Property","Looks up a localized string similar to A language whose phonology, grammar, orthography, and vocabulary, instead of having developed naturally, are consciously devised for some purpose.."];

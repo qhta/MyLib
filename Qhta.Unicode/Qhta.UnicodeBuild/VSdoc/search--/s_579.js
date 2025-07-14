@@ -1,0 +1,1 @@
+search_result['579']=["topic_0000000000000200.html","_ViewModels.SelectableArtefacts Property","Collection of selectable artefacts, which are a type of writing system."];

@@ -1,0 +1,1 @@
+search_result['547']=["topic_00000000000001E5.html","WritingSystemType.Subset Property","Looks up a localized string similar to Subset."];

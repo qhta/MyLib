@@ -1,0 +1,1 @@
+search_result['576']=["topic_00000000000001FD.html","_ViewModels.SelectableNotations Property","Collection of selectable notations, which are a type of writing system."];

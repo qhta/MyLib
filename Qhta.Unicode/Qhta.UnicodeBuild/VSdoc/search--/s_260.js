@@ -1,0 +1,1 @@
+search_result['260']=["topic_00000000000000D9.html","UnicodeCategoryEntity.Ctg Property","Two-letter code representing the Unicode category, typically used for classification purposes."];

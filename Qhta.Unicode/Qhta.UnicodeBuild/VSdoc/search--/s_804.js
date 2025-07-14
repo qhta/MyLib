@@ -1,0 +1,1 @@
+search_result['804']=["topic_0000000000000298.html","EditWritingSystemWindow.AddMode Property","AddMode property indicates whether the window is in add mode or edit mode."];

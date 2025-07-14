@@ -1,0 +1,1 @@
+search_result['472']=["topic_00000000000001A4.html","WritingSystem.TypeTooltip Property","Looks up a localized string similar to The type of writing system determines the primary purpose of the system.."];

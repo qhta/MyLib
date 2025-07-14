@@ -1,0 +1,1 @@
+search_result['348']=["topic_000000000000013C.html","CodePoint.WritingSystemTooltip Property","Looks up a localized string similar to Writing system to which this code point belongs. You can choose script, language or artifact, notation, character set or subset here.."];

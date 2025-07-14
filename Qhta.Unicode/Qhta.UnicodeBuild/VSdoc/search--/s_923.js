@@ -1,0 +1,1 @@
+search_result['923']=["topic_00000000000002CE.html","DoubleUtil.AreClose Method","Determines whether two double values are close to each other within a specified tolerance."];

@@ -1,0 +1,1 @@
+search_result['259']=["topic_00000000000000D8.html","UnicodeCategoryEntity.Id Property","Identifier for the Unicode category, which is an enumeration value of type UcdCategory."];

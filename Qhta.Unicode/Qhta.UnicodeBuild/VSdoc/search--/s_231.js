@@ -1,0 +1,1 @@
+search_result['231']=["topic_00000000000000A7.html","UcdCodePoint.Comb Property","Combining class of the Unicode code point, which indicates how the character combines with other characters."];

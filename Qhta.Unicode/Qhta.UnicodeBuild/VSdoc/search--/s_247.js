@@ -1,0 +1,1 @@
+search_result['247']=["topic_00000000000000B7.html","UcdCodePoint.Notation Property","Identifier for the notation that this code point is associated with, if applicable."];

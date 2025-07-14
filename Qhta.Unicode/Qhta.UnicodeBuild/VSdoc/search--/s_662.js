@@ -1,0 +1,1 @@
+search_result['662']=["topic_0000000000000234.html","UcdCodePointViewModel.GlyphSize Property","Size of the glyph in points. This is used for rendering the glyph in a UI.\r\nit is a read/write property."];

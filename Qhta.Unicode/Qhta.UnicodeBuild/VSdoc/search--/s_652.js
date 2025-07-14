@@ -1,0 +1,1 @@
+search_result['652']=["topic_000000000000022F.html","UcdCodePointViewModel Class","ViewModel for a Unicode code point, providing properties and methods to interact with the underlying model."];

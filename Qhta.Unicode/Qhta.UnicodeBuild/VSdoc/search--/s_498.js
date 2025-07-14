@@ -1,0 +1,1 @@
+search_result['498']=["topic_00000000000001B9.html","WritingSystemKind.GraphicalTooltip Property","Looks up a localized string similar to A set of graphical shapes for individual use or used to construct drawings.."];

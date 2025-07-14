@@ -1,0 +1,1 @@
+search_result['683']=["topic_0000000000000249.html","UcdCodePointViewModel.Area Property","Exposes the area writing system as a view model."];

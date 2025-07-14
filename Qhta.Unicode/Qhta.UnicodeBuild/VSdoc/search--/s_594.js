@@ -1,0 +1,1 @@
+search_result['594']=["topic_000000000000020D.html","_ViewModels.DeleteWritingSystemCommand Property","Command to delete a writing system."];

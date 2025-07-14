@@ -1,0 +1,1 @@
+search_result['735']=["topic_0000000000000269.html","WritingSystemMappingViewModel.Range Property","Range of code points that this mapping applies to."];

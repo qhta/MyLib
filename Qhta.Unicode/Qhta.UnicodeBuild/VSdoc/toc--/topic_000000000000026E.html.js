@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"SOLUTION-WIDE PROPERTIES Reference","topic_0000000000000312.html"],['538',"Qhta.UnicodeBuild.ViewModels Namespace","topic_00000000000001E9.html"],['682',"WritingSystemsCollection Class","topic_000000000000026B.html"],['687',"Methods","topic_000000000000026B_methods--.html"],['691',"FindById Method","topic_000000000000026E.html"]];

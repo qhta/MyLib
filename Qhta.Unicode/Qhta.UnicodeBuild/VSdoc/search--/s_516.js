@@ -1,0 +1,1 @@
+search_result['516']=["topic_00000000000001CB.html","WritingSystemKind.PictographicTooltip Property","Looks up a localized string similar to A writing system based on a set of graphical symbols that convey meaning through its visual resemblance to physical objects.."];

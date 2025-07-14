@@ -1,0 +1,1 @@
+search_result['668']=["topic_000000000000023A.html","UcdCodePointViewModel.Bidir Property","Bidirectional category of the Unicode code point, which indicates how the character behaves in bidirectional text.\r\nIt is a read-only property."];

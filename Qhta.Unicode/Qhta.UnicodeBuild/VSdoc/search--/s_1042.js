@@ -1,0 +1,1 @@
+search_result['1042']=["topic_0000000000000309.html","UndoMgr.IsRecording Property","Flag to indicate if the application is currently recording an action."];

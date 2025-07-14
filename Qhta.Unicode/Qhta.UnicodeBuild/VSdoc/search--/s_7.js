@@ -1,0 +1,1 @@
+search_result['7']=["topic_0000000000000002.html","CategoryResourceConverter.Convert Method","Converts a category name to its corresponding resource string."];

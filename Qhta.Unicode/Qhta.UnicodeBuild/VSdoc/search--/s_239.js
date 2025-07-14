@@ -1,0 +1,1 @@
+search_result['239']=["topic_00000000000000AF.html","UcdCodePoint.Comment Property","A comment or additional information about the Unicode code point, which may provide context or usage notes."];

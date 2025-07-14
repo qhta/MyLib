@@ -1,0 +1,1 @@
+search_result['720']=["topic_0000000000000264.html","WritingSystemMappingCollection Class","A collection of writing system mappings, which associates Unicode code point ranges with writing systems."];

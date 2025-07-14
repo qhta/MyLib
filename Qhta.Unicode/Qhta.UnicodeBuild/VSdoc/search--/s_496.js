@@ -1,0 +1,1 @@
+search_result['496']=["topic_00000000000001B7.html","WritingSystemKind.FormTooltip Property","Looks up a localized string similar to A set of characters with a special presentation form.."];

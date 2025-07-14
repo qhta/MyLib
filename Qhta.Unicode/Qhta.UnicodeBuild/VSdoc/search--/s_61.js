@@ -1,0 +1,1 @@
+search_result['61']=["topic_0000000000000015.html","EnumList\u0026lt;T\u0026gt; Constructor","Automatically populates the list with enum values of type T."];

@@ -1,0 +1,1 @@
+search_result['481']=["topic_00000000000001A8.html","WritingSystemKind.Abjad Property","Looks up a localized string similar to Abjad."];

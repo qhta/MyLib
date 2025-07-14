@@ -15,16 +15,17 @@
             </summary>
             <param name="args"></param>
         </member>
+        <member name="M:Qhta.UndoManager.IAction.Undo(System.Object)">
+            <summary>
+            Undoes the action with the provided arguments, restoring the previous state.
+            </summary>
+            <param name="args"></param>
+        </member>
         <member name="T:Qhta.UndoManager.UndoMgr">
             <summary>
             Manager class for Undo/Redo functionality in application.
             Records actions and manages undo/redo stacks.
             Only registered actions can be undone or redone.
-            </summary>
-        </member>
-        <member name="F:Qhta.UndoManager.UndoMgr.AvailableActions">
-            <summary>
-            Dictionary to hold available actions and their corresponding undo/redo actions.
             </summary>
         </member>
         <member name="T:Qhta.UndoManager.UndoMgr.UndoRedoEntry">
@@ -92,14 +93,7 @@
             Flag to indicate if the recording functionality is available.
             </summary>
         </member>
-        <member name="M:Qhta.UndoManager.UndoMgr.RegisterActions(Qhta.UndoManager.IAction,Qhta.UndoManager.IAction)">
-            <summary>
-            Registers an action with its corresponding undo action.
-            </summary>
-            <param name="action"></param>
-            <param name="undoAction"></param>
-        </member>
-        <member name="M:Qhta.UndoManager.UndoMgr.Record(Qhta.UndoManager.IAction,System.Object[])">
+        <member name="M:Qhta.UndoManager.UndoMgr.Record(Qhta.UndoManager.IAction,System.Object)">
             <summary>
             Records an action with its arguments for undo functionality.
             </summary>

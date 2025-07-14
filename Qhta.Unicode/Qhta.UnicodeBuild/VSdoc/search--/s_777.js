@@ -1,0 +1,1 @@
+search_result['777']=["topic_0000000000000282.html","WritingSystemViewModel.Ctg Property","Code for the Unicode Category (Ctg) of the writing system."];

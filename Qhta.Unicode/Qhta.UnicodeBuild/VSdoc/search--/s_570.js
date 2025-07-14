@@ -1,0 +1,1 @@
+search_result['570']=["topic_00000000000001F7.html","_ViewModels.SelectableBlocks Property","Collection of selectable Unicode blocks exposed to the UI as an enumerable."];

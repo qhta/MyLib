@@ -1,0 +1,1 @@
+search_result['274']=["topic_00000000000000E2.html","WritingSystem.KeyPhrase Property","Key phrase which identifies the writing system in CodePoint Description field.\r\nIt may contain a wildcard character (\u0027*\u0027) which tells the system\r\nwhether the key phrase is placed at the beginning or a..."];

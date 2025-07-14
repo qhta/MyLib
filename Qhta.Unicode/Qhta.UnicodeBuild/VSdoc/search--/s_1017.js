@@ -1,0 +1,1 @@
+search_result['1017']=["topic_00000000000002FF.html","SfDataGridColumnConverter.Convert Method","Converts a GridColumn object to a specified property value based on the provided parameter."];

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 using Qhta.SF.Tools;
+using Qhta.UndoManager;
 using Qhta.UnicodeBuild.Resources;
 using Qhta.UnicodeBuild.ViewModels;
 
@@ -229,6 +230,10 @@ public partial class UcdCodePointsView : UserControl
         e.CanExecute = ((_ViewModels.Instance.UcdCodePoints)?.IsLoaded ?? false) && Controller.CanPasteData(CodePointDataGrid);
       else if (command == ApplicationCommands.Delete)
         e.CanExecute = ((_ViewModels.Instance.UcdCodePoints)?.IsLoaded ?? false) && Controller.CanDeleteData(CodePointDataGrid);
+      else if (command == ApplicationCommands.Undo)
+        e.CanExecute = UndoMgr.IsUndoAvailable;
+      else if (command == ApplicationCommands.Redo)
+        e.CanExecute = UndoMgr.IsRedoAvailable;
       else
         e.CanExecute = true; // Default to true for other commands
     }
@@ -253,6 +258,13 @@ public partial class UcdCodePointsView : UserControl
         Controller.PasteData(CodePointDataGrid);
       else if (command == ApplicationCommands.Delete)
         Controller.DeleteData(CodePointDataGrid);
+      else if (command == ApplicationCommands.Undo)
+      {
+        UndoMgr.Undo();
+        CodePointDataGrid.UpdateLayout();
+      }
+      else if (command == ApplicationCommands.Redo)
+        UndoMgr.Redo();
       else
       {
         Debug.WriteLine($"Command {command.Text} not executed");

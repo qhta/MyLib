@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"SOLUTION-WIDE PROPERTIES Reference","topic_0000000000000312.html"],['4',"Qhta.SF.Tools Namespace","topic_00000000000002BE.html"],['59',"RowResizer Class","topic_00000000000002EC.html"],['61',"Properties","topic_00000000000002EC_props--.html"],['66',"ShowsPreview Property","topic_00000000000002EF.html"]];

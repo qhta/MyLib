@@ -1,0 +1,1 @@
+search_result['772']=["topic_000000000000027D.html","WritingSystemViewModel.FullName Property","Full name of the writing system, combining the name and type in a readable format.\r\nIt is used for display purposes in the UI."];

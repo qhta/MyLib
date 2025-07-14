@@ -1,0 +1,1 @@
+search_result['546']=["topic_00000000000001E4.html","WritingSystemType.ScriptTooltip Property","Looks up a localized string similar to Script is a set of symbols used to write a language.."];

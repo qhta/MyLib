@@ -1,0 +1,1 @@
+search_result['515']=["topic_00000000000001CA.html","WritingSystemKind.Pictographic Property","Looks up a localized string similar to Pictographic."];

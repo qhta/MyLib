@@ -1,0 +1,1 @@
+search_result['173']=["topic_0000000000000049.html","_DbContext.WritingSystemKinds Property","Gets or sets the collection of writing system kinds in the database."];

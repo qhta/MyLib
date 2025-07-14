@@ -26,6 +26,8 @@
     <CommandBinding Command="Cut" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
     <CommandBinding Command="Paste" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
     <CommandBinding Command="Delete" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Undo" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Redo" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
   </UserControl.CommandBindings>
 
   <UserControl.InputBindings>

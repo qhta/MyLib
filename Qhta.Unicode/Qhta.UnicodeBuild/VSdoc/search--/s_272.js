@@ -1,0 +1,1 @@
+search_result['272']=["topic_00000000000000E0.html","WritingSystem.Kind Property","A kind of writing system, such as alphabet, syllabary, or logographic."];

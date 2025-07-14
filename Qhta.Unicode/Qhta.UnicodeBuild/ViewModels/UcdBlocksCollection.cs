@@ -7,7 +7,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <summary>
 /// Specialized collection for UCD blocks, providing methods to find blocks by ID or name.
 /// </summary>
-public sealed class UcdBlocksCollection() : OrderedObservableCollection<UcdBlockViewModel>((item) => item.Range!.Start!)
+public sealed class UcdBlocksCollection() : EntityCollection<UcdBlockViewModel>((item) => item.Range!.Start!)
 {
 
   private Dictionary<int, UcdBlockViewModel> IntDictionary { get; set; } = new();

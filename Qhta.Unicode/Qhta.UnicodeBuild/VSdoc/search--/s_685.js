@@ -1,0 +1,1 @@
+search_result['685']=["topic_000000000000024B.html","UcdCodePointViewModel.Script Property","Exposes the script writing system as a view model."];

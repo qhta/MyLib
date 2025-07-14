@@ -1,0 +1,1 @@
+search_result['502']=["topic_00000000000001BD.html","WritingSystemKind.IdeographicTooltip Property","Looks up a localized string similar to A writing system consisting of symbols that represents ideas or concepts independent of any particular language.."];

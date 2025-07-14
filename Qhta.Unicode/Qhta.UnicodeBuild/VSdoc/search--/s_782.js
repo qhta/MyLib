@@ -1,0 +1,1 @@
+search_result['782']=["topic_0000000000000287.html","WritingSystemViewModel.Parent Property","Exposed property for the parent writing system as a ViewModel."];

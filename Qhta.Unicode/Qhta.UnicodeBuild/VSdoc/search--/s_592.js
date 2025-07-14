@@ -1,0 +1,1 @@
+search_result['592']=["topic_000000000000020B.html","_ViewModels.BreakApplyWritingSystemMappingCommandExecute Method","Executes the command to break the apply writing system mapping operation."];

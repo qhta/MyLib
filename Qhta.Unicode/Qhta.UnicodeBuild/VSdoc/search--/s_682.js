@@ -1,0 +1,1 @@
+search_result['682']=["topic_0000000000000248.html","UcdCodePointViewModel.AreaId Property","Identifier of the area writing system associated with this Unicode code point, if applicable."];

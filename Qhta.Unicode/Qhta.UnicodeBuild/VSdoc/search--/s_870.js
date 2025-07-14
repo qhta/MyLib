@@ -1,0 +1,1 @@
+search_result['870']=["topic_00000000000002B7.html","AppResourceDictionary Constructor","Handler methods for various events in the application."];

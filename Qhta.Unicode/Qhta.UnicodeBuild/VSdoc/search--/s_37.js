@@ -1,0 +1,1 @@
+search_result['37']=["topic_000000000000000C.html","CodeRangeValidationRule.Validate Method","Validates the input value to ensure it is a valid code range in the format \"XXXX..YYYY\"."];

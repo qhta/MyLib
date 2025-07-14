@@ -1,0 +1,1 @@
+search_result['473']=["topic_00000000000001A5.html","WritingSystemKind Class","A strongly-typed resource class, for looking up localized strings, etc."];

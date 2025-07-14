@@ -1,0 +1,1 @@
+search_result['240']=["topic_00000000000000B0.html","UcdCodePoint.Upper Property","Code point for the upper case version of the character, if applicable."];

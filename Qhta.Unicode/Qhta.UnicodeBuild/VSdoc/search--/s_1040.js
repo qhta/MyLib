@@ -1,0 +1,1 @@
+search_result['1040']=["topic_0000000000000307.html","UndoMgr.IsUndoing Property","Flag to indicate if the application is currently undoing an action."];

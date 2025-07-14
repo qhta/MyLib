@@ -1,0 +1,1 @@
+search_result['399']=["topic_000000000000016A.html","Strings.UcdBlocksTooltip Property","Looks up a localized string similar to A Unicode block is one of contiguous ranges of numeric character codes (code points) of the Unicode character set that are defined by the Unicode Consortium for ..."];

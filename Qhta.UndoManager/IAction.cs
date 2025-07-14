@@ -10,4 +10,10 @@ public interface IAction
   /// </summary>
   /// <param name="args"></param>
   public void Execute(object? args);
+
+  /// <summary>
+  /// Undoes the action with the provided arguments, restoring the previous state.
+  /// </summary>
+  /// <param name="args"></param>
+  public void Undo(object? args);
 }

@@ -1,0 +1,1 @@
+search_result['326']=["topic_0000000000000126.html","CodePoint.CtgTooltip Property","Looks up a localized string similar to Unicode category to which this code point is assigned.."];

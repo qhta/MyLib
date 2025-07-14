@@ -1,0 +1,1 @@
+search_result['252']=["topic_00000000000000BC.html","UcdCombination Enumeration","Enumeration representing the combination classes of Unicode characters.\r\nIt is encoded in the CodePoint Comb field to classify how characters combine with base characters."];

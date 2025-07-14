@@ -7,7 +7,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <summary>
 /// Specialized collection for managing writing systems.
 /// </summary>
-public sealed class WritingSystemsCollection() : OrderedObservableCollection<WritingSystemViewModel>((item) => item.Name!)
+public sealed class WritingSystemsCollection() : EntityCollection<WritingSystemViewModel>((item) => item.Name!)
 {
 
   private Dictionary<int, WritingSystemViewModel> IntDictionary { get; set; } = new();

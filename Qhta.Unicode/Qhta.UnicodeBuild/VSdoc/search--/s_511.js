@@ -1,0 +1,1 @@
+search_result['511']=["topic_00000000000001C6.html","WritingSystemKind.Numerical Property","Looks up a localized string similar to Numerical."];

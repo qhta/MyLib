@@ -1,0 +1,1 @@
+search_result['419']=["topic_0000000000000179.html","UcdBlock.RangeTooltip Property","Looks up a localized string similar to Range of the Unicode block is a string consisting of two codepoints separated by two periods. Each codepoint is a hexadecimal numbers of four or more digits.."];

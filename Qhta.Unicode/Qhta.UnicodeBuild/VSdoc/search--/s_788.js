@@ -1,0 +1,1 @@
+search_result['788']=["topic_000000000000028D.html","WritingSystemViewModel.IsLongTextExpanded Property","Indicates whether the long text is expanded in the UI."];

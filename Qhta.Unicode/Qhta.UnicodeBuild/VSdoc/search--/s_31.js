@@ -1,0 +1,1 @@
+search_result['31']=["topic_000000000000000B.html","CodeRangeValidationRule Class","Validation rule for checking if a string is a valid code range."];

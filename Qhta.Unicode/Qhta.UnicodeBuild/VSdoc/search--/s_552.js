@@ -1,0 +1,1 @@
+search_result['552']=["topic_00000000000001EA.html","_ViewModels Class","Manages the view models for the application.\r\nIt is a singleton class that provides access to the database context and various collections of view models."];

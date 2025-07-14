@@ -1,0 +1,1 @@
+search_result['333']=["topic_000000000000012D.html","CodePoint.Name Property","Looks up a localized string similar to Name."];

@@ -1,0 +1,1 @@
+search_result['676']=["topic_0000000000000242.html","UcdCodePointViewModel.Upper Property","Uppercase representation of the Unicode code point, if applicable.\r\nIt is a read-only property that returns a nullable CodePoint value."];

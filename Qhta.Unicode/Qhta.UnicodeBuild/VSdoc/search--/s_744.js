@@ -1,0 +1,1 @@
+search_result['744']=["topic_000000000000026D.html","WritingSystemsCollection Constructor","Initializes a new instance of the WritingSystemsCollection class using the specified parent view model and a collection of writing system models."];

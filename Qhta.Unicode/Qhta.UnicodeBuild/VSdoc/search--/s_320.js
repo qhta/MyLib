@@ -1,0 +1,1 @@
+search_result['320']=["topic_0000000000000120.html","CodePoint.Artefact Property","Looks up a localized string similar to Artefact."];

@@ -1,0 +1,1 @@
+search_result['675']=["topic_0000000000000241.html","UcdCodePointViewModel.Comment Property","Comment associated with the Unicode code point, if applicable.\r\nIt is a read-only property that returns a nullable string value."];

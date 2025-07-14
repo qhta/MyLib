@@ -1,0 +1,1 @@
+search_result['647']=["topic_000000000000022A.html","UcdCodePointsCollection.Add Method","Adds a new UcdCodePointViewModel to the collection based on the specified UcdCodePoint."];

@@ -1,0 +1,1 @@
+search_result['402']=["topic_000000000000016D.html","Strings.UnsavedDataChanges Property","Looks up a localized string similar to There are unsaved data changes. Do you want to save them in the data base?."];

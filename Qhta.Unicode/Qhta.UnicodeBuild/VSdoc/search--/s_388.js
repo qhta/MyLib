@@ -1,0 +1,1 @@
+search_result['388']=["topic_000000000000015F.html","Strings.OperationCancelled Property","Looks up a localized string similar to Operation cancelled."];

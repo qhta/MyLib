@@ -1,0 +1,1 @@
+search_result['321']=["topic_0000000000000121.html","CodePoint.ArtefactTooltip Property","Looks up a localized string similar to Artefact of human culture, from which this code point originates.."];

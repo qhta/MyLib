@@ -1,0 +1,1 @@
+search_result['213']=["topic_000000000000007C.html","UcdBlock.Start Property","Integer representing the starting code point of the block, which is typically the first code point in the range."];

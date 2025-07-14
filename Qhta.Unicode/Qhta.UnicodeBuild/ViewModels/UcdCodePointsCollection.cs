@@ -6,7 +6,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <summary>
 /// Specialized collection for managing Unicode code points.
 /// </summary>
-public class UcdCodePointsCollection() : OrderedObservableCollection<UcdCodePointViewModel>((item) => item.Id)
+public class UcdCodePointsCollection() : EntityCollection<UcdCodePointViewModel>((item) => item.Id)
 {
   /// <summary>
   /// Adds a new <see cref="UcdCodePointViewModel"/> to the collection based on the specified <see

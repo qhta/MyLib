@@ -1,0 +1,1 @@
+search_result['1007']=["topic_00000000000002FA.html","SfDataGridColumnBehavior.GetIsSelected Method","Gets whether the column is selected."];

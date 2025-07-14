@@ -1,0 +1,1 @@
+search_result['524']=["topic_00000000000001D3.html","WritingSystemKind.SyllabaryTooltip Property","Looks up a localized string similar to A set of written symbols that represent the syllables or (more frequently) morae which make up words.."];

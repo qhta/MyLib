@@ -1,0 +1,1 @@
+search_result['751']=["topic_0000000000000272.html","WritingSystemsCollection.TopWritingSystems Property","Gets the top-level writing systems in the collection, which are those without a parent."];

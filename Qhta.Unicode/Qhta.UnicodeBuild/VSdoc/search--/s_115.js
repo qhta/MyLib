@@ -1,0 +1,1 @@
+search_result['115']=["topic_000000000000002D.html","OrderedObservableCollection\u0026lt;T\u0026gt; Class","OrderedObservableCollection is a collection that maintains its items in a sorted order based on a key selector function.\r\nIt is a base class for collections that need to be ordered by a specific prope..."];

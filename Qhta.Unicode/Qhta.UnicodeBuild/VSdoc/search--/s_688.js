@@ -1,0 +1,1 @@
+search_result['688']=["topic_000000000000024E.html","UcdCodePointViewModel.NotationId Property","Identifier of the notation writing system associated with this Unicode code point, if applicable."];

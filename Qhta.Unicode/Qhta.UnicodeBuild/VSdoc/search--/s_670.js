@@ -1,0 +1,1 @@
+search_result['670']=["topic_000000000000023C.html","UcdCodePointViewModel.DecDigitVal Property","Decimal digit value of the Unicode code point, if applicable.\r\nIt is a read-only property that returns a nullable byte value."];

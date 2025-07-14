@@ -1,0 +1,1 @@
+search_result['659']=["topic_0000000000000231.html","UcdCodePointViewModel.Id Property","Identifier for the code point, typically a unique integer value.\r\nIt is a read-only property that retrieves the Id from the underlying model."];

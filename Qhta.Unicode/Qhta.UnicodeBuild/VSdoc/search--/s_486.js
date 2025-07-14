@@ -1,0 +1,1 @@
+search_result['486']=["topic_00000000000001AD.html","WritingSystemKind.AlphabetTooltip Property","Looks up a localized string similar to A standard set of letters written to represent particular sounds in a spoken language.."];

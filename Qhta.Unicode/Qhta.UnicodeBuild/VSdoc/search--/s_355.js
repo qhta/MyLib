@@ -1,0 +1,1 @@
+search_result['355']=["topic_000000000000013E.html","Strings.ResourceManager Property","Returns the cached ResourceManager instance used by this class."];

@@ -1,0 +1,1 @@
+search_result['470']=["topic_00000000000001A2.html","WritingSystem.ParentTooltip Property","Looks up a localized string similar to Writing system parent is used to organize systems in a hierarchy.."];

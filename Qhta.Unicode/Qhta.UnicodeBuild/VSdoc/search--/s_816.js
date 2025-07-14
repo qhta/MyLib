@@ -1,0 +1,1 @@
+search_result['816']=["topic_000000000000029F.html","SelectValueWindow.Prompt Property","Prompt text displayed in the window, guiding the user on what to select."];

@@ -1,0 +1,1 @@
+search_result['715']=["topic_000000000000025F.html","WritingSystemKindViewModel Constructor","Initializes a new instance of the WritingSystemKindViewModel class using a default WritingSystemKindEntity."];
