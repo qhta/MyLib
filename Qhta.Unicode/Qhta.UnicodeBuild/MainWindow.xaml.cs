@@ -21,14 +21,18 @@ public partial class MainWindow : Window
 
   }
 
-  private Timer _backgroundTimer;
+  private readonly Timer _backgroundTimer;
 
   private void TimerProc(object? state)
   {
     try
     {
       Dispatcher.Invoke(() => OnBackgroundTimerTick(this, EventArgs.Empty));
-    } catch (Exception e)
+    } catch (System.Threading.Tasks.TaskCanceledException)
+    {
+      _backgroundTimer.Dispose();
+    }
+    catch (Exception e)
     {
       Console.WriteLine(e);
       throw;
