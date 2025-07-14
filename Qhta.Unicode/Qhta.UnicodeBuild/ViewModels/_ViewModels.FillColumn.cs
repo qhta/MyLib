@@ -1,22 +1,17 @@
 ﻿using System.Collections;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 
 using Qhta.MVVM;
-using Qhta.TypeUtils;
-using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Views;
-using Qhta.WPF.Utils;
 
 using Syncfusion.UI.Xaml.Grid;
-using Syncfusion.UI.Xaml.Grid.Helpers;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
 public partial class _ViewModels
 {
+  /// <summary>
+  /// Command to fill the current column in the data grid with a selected value.
+  /// </summary>
   public IRelayCommand FillColumnCommand { get; }
 
   private void FillColumnCommandExecute(object? sender)

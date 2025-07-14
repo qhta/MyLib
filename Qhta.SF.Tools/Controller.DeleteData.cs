@@ -8,6 +8,12 @@ namespace Qhta.SF.Tools;
 public static partial class Controller
 {
 
+  /// <summary>
+  /// Determines whether data can be deleted from the specified data grid.
+  /// This method checks if all selected columns are editable and not read-only.
+  /// </summary>
+  /// <param name="grid"></param>
+  /// <returns></returns>
   public static bool CanDeleteData(SfDataGrid grid)
   {
     try
@@ -31,6 +37,10 @@ public static partial class Controller
     return false;
   }
 
+  /// <summary>
+  /// Performs a delete operation on the data in the specified <see cref="SfDataGrid"/>.
+  /// </summary>
+  /// <param name="grid"></param>
   public static void DeleteData(SfDataGrid grid)
   {
     try

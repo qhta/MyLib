@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+
 using Qhta.SF.Tools;
 using Qhta.TextUtils;
 using Qhta.Unicode.Models;
-using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.ViewModels;
 
 using Syncfusion.UI.Xaml.Grid;
@@ -13,156 +13,158 @@ using Syncfusion.UI.Xaml.TreeView.Engine;
 
 using DropPosition = Syncfusion.UI.Xaml.TreeView.DropPosition;
 
-namespace Qhta.UnicodeBuild.Views
+namespace Qhta.UnicodeBuild.Views;
+
+/// <summary>
+/// View for displaying and managing writing systems.
+/// </summary>
+public partial class WritingSystemsView : UserControl
 {
   /// <summary>
-  /// Interaction logic for WritingSystemsView.xaml
+  /// Initializes a new instance of the <see cref="WritingSystemsView"/> class.
   /// </summary>
-  public partial class WritingSystemsView : UserControl
+  public WritingSystemsView()
   {
-    public WritingSystemsView()
+    InitializeComponent();
+  }
+
+  private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
+  {
+    LongTextColumn.OnQueryRowHeight(sender, e);
+  }
+
+
+  private void WritingSystemsTreeView_OnSelectionChanged(object? sender, ItemSelectionChangedEventArgs e)
+  {
+    if (isSyncFromDataGrid)
     {
-      InitializeComponent();
-    }
-
-    private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
-    {
-      LongTextColumn.OnQueryRowHeight(sender, e);
-    }
-
-
-    private void WritingSystemsTreeView_OnSelectionChanged(object? sender, ItemSelectionChangedEventArgs e)
-    {
-      if (isSyncFromDataGrid)
-      {
-        isSyncFromDataGrid = false;
-        return;
-      }
-      isSyncFromTreeView = true;
-      //Debug.WriteLine($"TreeViewSelectionChanged {e.NewValue}");
-      WritingSystemsDataGrid.SelectedItem = e.AddedItems.FirstOrDefault();
-      var rowIndex = WritingSystemsDataGrid.ResolveToRowIndex(WritingSystemsDataGrid.SelectedItem);
-      var rowColumnIndex = new RowColumnIndex(rowIndex, 0);
-      WritingSystemsDataGrid.ScrollInView(rowColumnIndex);
-      isSyncFromTreeView = false;
-    }
-
-    private void WritingSystemsTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-    {
-      if (isSyncFromDataGrid)
-      {
-        isSyncFromDataGrid = false;
-        return;
-      }
-      isSyncFromTreeView = true;
-      //Debug.WriteLine($"TreeViewSelectionChanged {e.NewValue}");
-      WritingSystemsDataGrid.SelectedItem = e.NewValue;
-      var rowIndex = WritingSystemsDataGrid.ResolveToRowIndex(WritingSystemsDataGrid.SelectedItem);
-      var rowColumnIndex = new RowColumnIndex(rowIndex, 0);
-      WritingSystemsDataGrid.ScrollInView(rowColumnIndex);
-      isSyncFromTreeView = false;
-    }
-
-    private bool isSyncFromTreeView;
-    private bool isSyncFromDataGrid;
-
-    private void WritingSystemsDataGrid_OnSelectionChanged(object? sender, GridSelectionChangedEventArgs e)
-    {
-      if (isSyncFromTreeView)
-      {
-        isSyncFromTreeView = false;
-        return;
-      }
-      isSyncFromDataGrid = true;
-      var newValue = e.AddedItems.FirstOrDefault();
-      if (newValue is GridRowInfo gridRowInfo)
-      {
-        if (gridRowInfo.RowData is WritingSystemViewModel selectedItem)
-        {
-          //Debug.WriteLine($"DataGridSelectionChanged {selectedItem.Name}");
-          //WritingSystemsTreeView.SetSelectedItemInTreeView(selectedItem);
-        }
-      }
       isSyncFromDataGrid = false;
+      return;
     }
+    isSyncFromTreeView = true;
+    //Debug.WriteLine($"TreeViewSelectionChanged {e.NewValue}");
+    WritingSystemsDataGrid.SelectedItem = e.AddedItems.FirstOrDefault();
+    var rowIndex = WritingSystemsDataGrid.ResolveToRowIndex(WritingSystemsDataGrid.SelectedItem);
+    var rowColumnIndex = new RowColumnIndex(rowIndex, 0);
+    WritingSystemsDataGrid.ScrollInView(rowColumnIndex);
+    isSyncFromTreeView = false;
+  }
 
-    private void WritingSystemsTreeView_OnItemDropped(object? sender, TreeViewItemDroppedEventArgs e)
+  private void WritingSystemsTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+  {
+    if (isSyncFromDataGrid)
     {
-      TreeViewNode draggingNode = e.DraggingNodes.First();
-      TreeViewNode targetNode = e.TargetNode;
-      if (draggingNode.Content is WritingSystemViewModel item && targetNode.Content is WritingSystemViewModel target && target!=item)
+      isSyncFromDataGrid = false;
+      return;
+    }
+    isSyncFromTreeView = true;
+    //Debug.WriteLine($"TreeViewSelectionChanged {e.NewValue}");
+    WritingSystemsDataGrid.SelectedItem = e.NewValue;
+    var rowIndex = WritingSystemsDataGrid.ResolveToRowIndex(WritingSystemsDataGrid.SelectedItem);
+    var rowColumnIndex = new RowColumnIndex(rowIndex, 0);
+    WritingSystemsDataGrid.ScrollInView(rowColumnIndex);
+    isSyncFromTreeView = false;
+  }
+
+  private bool isSyncFromTreeView;
+  private bool isSyncFromDataGrid;
+
+  private void WritingSystemsDataGrid_OnSelectionChanged(object? sender, GridSelectionChangedEventArgs e)
+  {
+    if (isSyncFromTreeView)
+    {
+      isSyncFromTreeView = false;
+      return;
+    }
+    isSyncFromDataGrid = true;
+    var newValue = e.AddedItems.FirstOrDefault();
+    if (newValue is GridRowInfo gridRowInfo)
+    {
+      if (gridRowInfo.RowData is WritingSystemViewModel selectedItem)
       {
-        //Debug.WriteLine($"Item dropped {item} -({e.DropPosition})-> {target}");
-        WritingSystemViewModel? parent = target;
-        if (e.DropPosition is DropPosition.DropBelow or DropPosition.DropAbove)
-          parent = target.Parent;
-        if (parent != null)
-        {
-          //Debug.WriteLine($"{parent}.Children = {parent.ChildrenCount}");
-          if (parent.Children != null && parent.Children.Contains(item))
-          {
-            //Debug.WriteLine($"Removing {item} from {parent}");
-            parent.Children.Remove(item);
-          }
-          item.Parent = parent;
-        }
-        else
-        {
-          item.Parent = parent;
-        }
+        //Debug.WriteLine($"DataGridSelectionChanged {selectedItem.Name}");
+        //WritingSystemsTreeView.SetSelectedItemInTreeView(selectedItem);
       }
     }
+    isSyncFromDataGrid = false;
+  }
 
-    private void WritingSystemsDataGrid_OnAddNewRowInitiating(object? sender, AddNewRowInitiatingEventArgs e)
+  private void WritingSystemsTreeView_OnItemDropped(object? sender, TreeViewItemDroppedEventArgs e)
+  {
+    TreeViewNode draggingNode = e.DraggingNodes.First();
+    TreeViewNode targetNode = e.TargetNode;
+    if (draggingNode.Content is WritingSystemViewModel item && targetNode.Content is WritingSystemViewModel target && target!=item)
     {
-      var data = new WritingSystem();
-      data.Id = _ViewModels.Instance.GetNewWritingSystemId();
-      var viewModel = new WritingSystemViewModel(data);
-      //_ViewModels.Instance.AllWritingSystems.Add(viewModel);
-      //_ViewModels.Instance.TopWritingSystems.Add(viewModel);
-      e.NewObject = viewModel;
-    }
-
-    private void NewWritingSystemButton_OnClick(object sender, RoutedEventArgs e)
-    {
-      var button = sender as Button;
-      if (button?.ContextMenu != null)
+      //Debug.WriteLine($"Item dropped {item} -({e.DropPosition})-> {target}");
+      WritingSystemViewModel? parent = target;
+      if (e.DropPosition is DropPosition.DropBelow or DropPosition.DropAbove)
+        parent = target.Parent;
+      if (parent != null)
       {
-        button.ContextMenu.PlacementTarget = button;
-        button.ContextMenu.IsOpen = true;
-      }
-    }
-
-    private void WritingSystemsDataGrid_OnFilterItemsPopulated(object? sender, GridFilterItemsPopulatedEventArgs e)
-    {
-      if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Type))
-      {
-        foreach (var item in e.ItemsSource)
+        //Debug.WriteLine($"{parent}.Children = {parent.ChildrenCount}");
+        if (parent.Children != null && parent.Children.Contains(item))
         {
-          if (!item.DisplayText.StartsWith("("))
-          {
-            var displayText = item.DisplayText.TitleCase();
-            var newText = Qhta.UnicodeBuild.Resources.WritingSystemType.ResourceManager.GetString(displayText);
-            if (newText != null)
-            {
-              item.DisplayText = newText.ToLower();
-            }
-          }
+          //Debug.WriteLine($"Removing {item} from {parent}");
+          parent.Children.Remove(item);
         }
+        item.Parent = parent;
       }
       else
-      if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Kind))
       {
-        foreach (var item in e.ItemsSource)
+        item.Parent = parent;
+      }
+    }
+  }
+
+  private void WritingSystemsDataGrid_OnAddNewRowInitiating(object? sender, AddNewRowInitiatingEventArgs e)
+  {
+    var data = new WritingSystem();
+    data.Id = _ViewModels.Instance.GetNewWritingSystemId();
+    var viewModel = new WritingSystemViewModel(data);
+    //_ViewModels.Instance.AllWritingSystems.Add(viewModel);
+    //_ViewModels.Instance.TopWritingSystems.Add(viewModel);
+    e.NewObject = viewModel;
+  }
+
+  private void NewWritingSystemButton_OnClick(object sender, RoutedEventArgs e)
+  {
+    var button = sender as Button;
+    if (button?.ContextMenu != null)
+    {
+      button.ContextMenu.PlacementTarget = button;
+      button.ContextMenu.IsOpen = true;
+    }
+  }
+
+  private void WritingSystemsDataGrid_OnFilterItemsPopulated(object? sender, GridFilterItemsPopulatedEventArgs e)
+  {
+    if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Type))
+    {
+      foreach (var item in e.ItemsSource)
+      {
+        if (!item.DisplayText.StartsWith("("))
         {
-          if (!item.DisplayText.StartsWith("("))
+          var displayText = item.DisplayText.TitleCase();
+          var newText = Qhta.UnicodeBuild.Resources.WritingSystemType.ResourceManager.GetString(displayText);
+          if (newText != null)
           {
-            var displayText = item.DisplayText.TitleCase();
-            var newText = Qhta.UnicodeBuild.Resources.WritingSystemKind.ResourceManager.GetString(displayText);
-            if (newText != null)
-            {
-              item.DisplayText = newText.ToLower();
-            }
+            item.DisplayText = newText.ToLower();
+          }
+        }
+      }
+    }
+    else
+    if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Kind))
+    {
+      foreach (var item in e.ItemsSource)
+      {
+        if (!item.DisplayText.StartsWith("("))
+        {
+          var displayText = item.DisplayText.TitleCase();
+          var newText = Qhta.UnicodeBuild.Resources.WritingSystemKind.ResourceManager.GetString(displayText);
+          if (newText != null)
+          {
+            item.DisplayText = newText.ToLower();
           }
         }
       }

@@ -1,5 +1,12 @@
 ﻿namespace Qhta.Unicode.Models;
 
+/// <summary>
+/// Represents the Unicode character categories as defined by the Unicode Standard.
+/// </summary>
+/// <remarks>The <see cref="UcdCategory"/> enumeration provides a set of named constants that correspond to the 
+/// general categories of characters in the Unicode character database. These categories are used to  classify
+/// characters based on their general properties, such as being a letter, number, punctuation,  or symbol. This
+/// classification is useful for text processing and analysis tasks.</remarks>
 public enum UcdCategory: byte
 {
   /// <summary>

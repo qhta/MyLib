@@ -258,4 +258,19 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
   </data>
+  <data name="TooLongValue" xml:space="preserve">
+    <value>Za długa wartość</value>
+  </data>
+  <data name="InvalidCodePointFormat" xml:space="preserve">
+    <value>Błędny format punktu kodowego {0}. Oczekiwana wartość szesnastkowa.</value>
+  </data>
+  <data name="InvalidCodeRangeFormat" xml:space="preserve">
+    <value>Błędny format zakresu kodowego: {0}. Oczekiwane dwie wartości szesnastkowe oddzielone dwiema kropkami. Może być tylko jedna wartość.</value>
+  </data>
+  <data name="EndValueMustBeGreater" xml:space="preserve">
+    <value>Wartość końcowa musi być większa lub równa wartości początkowej.</value>
+  </data>
+  <data name="CannotDeleteWritingSystem" xml:space="preserve">
+    <value>Nie można usunąć systemu pisma, gdyż jest używany w innych encjach.</value>
+  </data>
 </root>

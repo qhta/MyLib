@@ -101,9 +101,6 @@
 
     <helpers:EnumValues x:Key="WritingSystemTypeValue"
                      EnumType="{x:Type models:WritingSystemType}" />
-    <DataTemplate x:Key="WritingSystemTypeFilterPopupTemplate">
-      <helpers:ComboBoxFilterControls/>
-    </DataTemplate>
   </UserControl.Resources>
   <Grid>
     <Grid.RowDefinitions>

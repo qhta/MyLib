@@ -19,8 +19,8 @@ public class ValidationResultEx : ValidationResult
   /// Initializes a new instance of the <see cref="ValidationResultEx"/> class.
   /// </summary>
   /// <param name="errorMessage">The error message.</param>
-  /// <param name="memeberNames">The memeber names.</param>
-  public ValidationResultEx(string errorMessage, IEnumerable<string> memeberNames) : base(errorMessage, memeberNames) { }
+  /// <param name="memberNames">The member names.</param>
+  public ValidationResultEx(string errorMessage, IEnumerable<string> memberNames) : base(errorMessage, memberNames) { }
 
   /// <summary>
   /// Initializes a new instance of the <see cref="ValidationResultEx"/> class.
@@ -42,9 +42,9 @@ public class ValidationResultEx : ValidationResult
   /// Initializes a new instance of the <see cref="ValidationResultEx"/> class.
   /// </summary>
   /// <param name="errorMessage">The error message.</param>
-  /// <param name="memeberNames">The memeber names.</param>
+  /// <param name="memberNames">The member names.</param>
   /// <param name="severity">The severity, default is Error</param>
-  public ValidationResultEx(string errorMessage, IEnumerable<string> memeberNames, Severity severity = Severity.Error) : base(errorMessage, memeberNames)
+  public ValidationResultEx(string errorMessage, IEnumerable<string> memberNames, Severity severity = Severity.Error) : base(errorMessage, memberNames)
   {
     this.Severity = severity;
   }

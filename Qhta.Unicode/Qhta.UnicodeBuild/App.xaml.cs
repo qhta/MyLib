@@ -1,12 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using System.Configuration;
-using System.Data;
-using System.Globalization;
-using System.Reflection;
-using System.Resources;
+﻿using System.Reflection;
 using System.Windows;
 
-using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.ViewModels;
 
 using Syncfusion.Windows.Shared.Resources;
@@ -20,6 +14,10 @@ using ResourceStrings = Qhta.UnicodeBuild.Resources.Strings;
 /// </summary>
 public partial class App : Application
 {
+  /// <summary>
+  /// Method that is called when the application starts.
+  /// </summary>
+  /// <param name="e"></param>
   protected override void OnStartup(StartupEventArgs e)
   {
     Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzkzMDU5MUAzMzMwMmUzMDJlMzAzYjMzMzAzYm5NRWxRdDZ2NU9wYnJldHk0TDFsN3lGTW04YjJqL3M2NzcvbnlHQ05DWGc9");
@@ -38,6 +36,10 @@ public partial class App : Application
       "Qhta.UnicodeBuilder.Resources.Syncfusion.PropertyGrid.WPF.pl"); // Namespace + resource file name
   }
 
+  /// <summary>
+  /// Method that is called when the application exits.
+  /// </summary>
+  /// <param name="e"></param>
   protected override void OnExit(ExitEventArgs e)
   {
     if (_ViewModels.Instance.DbContext.ThereAreUnsavedChanges)

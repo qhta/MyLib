@@ -13,9 +13,15 @@ namespace Qhta.UnicodeBuild.ViewModels;
 
 public partial class _ViewModels
 {
-  public WritingSystemMappingCollection WritingSystemMappings { get; set; } = new();
-
+  /// <summary>
+  /// Command to apply writing system mappings from a file.
+  /// </summary>
   public IRelayCommand ApplyWritingSystemMappingCommand { get; }
+
+  /// <summary>
+  /// Collection of writing system mappings to be applied to Unicode code points.
+  /// </summary>
+  public WritingSystemMappingCollection WritingSystemMappings { get; set; } = new();
 
   private void ApplyWritingSystemMappingCommandExecute()
   {
@@ -180,11 +186,16 @@ public partial class _ViewModels
         }
       }
     }
-
   }
 
+  /// <summary>
+  /// Command to break the apply writing system mapping operation.
+  /// </summary>
   public IRelayCommand BreakApplyWritingSystemMappingCommand { get; }
 
+  /// <summary>
+  /// Executes the command to break the apply writing system mapping operation.
+  /// </summary>
   public void BreakApplyWritingSystemMappingCommandExecute()
   {
     if (ApplyWritingSystemMappingBackgroundWorker.IsBusy)
@@ -193,6 +204,9 @@ public partial class _ViewModels
     }
   }
 
+  /// <summary>
+  /// Background worker for applying writing system mappings to Unicode code points.
+  /// </summary>
   public BackgroundWorker ApplyWritingSystemMappingBackgroundWorker = new BackgroundWorker
   {
     WorkerReportsProgress = true,

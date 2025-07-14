@@ -1,27 +1,34 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+
 using Qhta.MVVM;
-using Qhta.SF.Tools;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
+/// <summary>
+/// ViewModel for a writing system.
+/// </summary>
+/// <param name="model"></param>
 public class WritingSystemViewModel(WritingSystem model)
   : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, IComparable<WritingSystemViewModel>, INotifyDataErrorInfo
 {
+  /// <summary>
+  /// Initializes a new instance of the <see cref="WritingSystemViewModel"/> class with the specified model.
+  /// </summary>
   public WritingSystemViewModel() : this(new WritingSystem())
   {
-    //Debug.WriteLine($"WritingSystemViewModel() {this}");
   }
 
-  [Browsable(false)]
+  /// <summary>
+  /// Gets or sets the identifier for the model.
+  /// </summary>
   public int? Id
   {
     get => Model.Id;
@@ -35,7 +42,10 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-
+  /// <summary>
+  /// Gets or sets the name of the writing system.
+  /// It is required property and must not be null or empty.
+  /// </summary>
   [Required]
   public string? Name
   {
@@ -51,10 +61,17 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  [Browsable(false)]
+  /// <summary>
+  /// Full name of the writing system, combining the name and type in a readable format.
+  /// It is used for display purposes in the UI.
+  /// </summary>
   public string FullName => Model.Name + " " + Type.ToString()?.ToLower();
 
 
+  /// <summary>
+  /// Type of the writing system, such as script, language, or notation.
+  /// It is a required property and must not be null.
+  /// </summary>
   [Required]
   public WritingSystemType? Type
   {
@@ -69,6 +86,9 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  /// <summary>
+  /// Gets or sets the kind of writing system represented by this instance.
+  /// </summary>
   public WritingSystemKind? Kind
   {
     get => Model.Kind;
@@ -82,7 +102,10 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
- public int? ParentId
+  /// <summary>
+  /// Identifier of the parent writing system, if this writing system is a child of another.
+  /// </summary>
+  public int? ParentId
   {
     get => Model.ParentId;
     set
@@ -95,6 +118,9 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  /// <summary>
+  /// Key phrase which identifies the writing system in CodePoint Description field.
+  /// </summary>
   public string? KeyPhrase
   {
     get => Model.KeyPhrase;
@@ -108,6 +134,9 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  /// <summary>
+  /// Code for the Unicode Category (Ctg) of the writing system.
+  /// </summary>
   public string? Ctg
   {
     get => Model.Ctg;
@@ -121,6 +150,9 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  /// <summary>
+  /// ISO code for the writing system, if applicable.
+  /// </summary>
   public string? Iso
   {
     get => Model.Iso;
@@ -134,6 +166,9 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  /// <summary>
+  /// Abbreviation for the writing system used in the target serialization method.
+  /// </summary>
   public string? Abbr
   {
     get => Model.Abbr;
@@ -147,6 +182,9 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  /// <summary>
+  /// Extension string added to the Abbr field to provide unique identification for the writing system.
+  /// </summary>
   public string? Ext
   {
     get => Model.Ext;
@@ -160,6 +198,9 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
+  /// <summary>
+  /// Description of the writing system, providing additional context or information.
+  /// </summary>
   [DataType(DataType.MultilineText)]
   public string? Description
   {
@@ -174,7 +215,9 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  [Browsable(false)]
+  /// <summary>
+  /// Exposed property for the parent writing system as a ViewModel.
+  /// </summary>
   public virtual WritingSystemViewModel? Parent
   {
     get => _ViewModels.Instance.WritingSystems.FirstOrDefault(vm => vm.Id == Model.ParentId);
@@ -199,10 +242,14 @@ public class WritingSystemViewModel(WritingSystem model)
     }
   }
 
-  [Browsable(false)]
+  /// <summary>
+  /// Provides information about whether this writing system is used in any UCD blocks or has children.
+  /// </summary>
   public virtual bool IsUsed => Model.UcdBlocks?.Count > 0 || Model.Children?.Count > 0;
 
-  [Browsable(false)]
+  /// <summary>
+  /// Collection of child writing systems associated with this writing system.
+  /// </summary>
   public virtual WritingSystemsCollection? Children
   {
     get
@@ -212,25 +259,15 @@ public class WritingSystemViewModel(WritingSystem model)
         if (Model.Children == null)
           return null;
         _Children = new WritingSystemsCollection(this, Model.Children.OrderBy(ws => ws.Name).ToList());
-        _Children.CollectionChanged += Children_CollectionChanged;
       }
       return _Children;
     }
-    //set => _Children = value;
   }
-
-
-  private void Children_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-  {
-    //Debug.WriteLine($"Children_CollectionChanged({sender}, {e.Action}, {e.NewItems?.Cast<WritingSystemViewModel>().FirstOrDefault()}, {e.NewStartingIndex})");
-  }
-
   private WritingSystemsCollection? _Children;
-  [Browsable(false)]
-  public int ChildrenCount => Children?.Count ?? 0;
 
-  private bool _isExpanded;
-  [Browsable(false)]
+  /// <summary>
+  /// Indicates whether the current item is expanded.
+  /// </summary>
   public bool IsExpanded
   {
     get => _isExpanded;
@@ -243,46 +280,23 @@ public class WritingSystemViewModel(WritingSystem model)
       }
     }
   }
+  private bool _isExpanded;
 
-  public static bool LogEquals;
-  public bool Equals(WritingSystemViewModel? other)
-  {
-    if (LogEquals)
-      Debug.WriteLine($"Compare with other {other}");
-    if (other == null)
-      return false;
-    if (this.Name==null || other.Name == null)
-    {
-      if (LogEquals)
-        Debug.WriteLine($"WritingSystemViewModel.Equals: Name is empty for {this} or {other}");
-      return true;
-    }
-    return Id == other.Id;
-  }
+  #region ILongTextViewModel implementation
 
-  //public override bool Equals(object? other)
-  //{
-  //  if (LogEquals)
-  //    Debug.WriteLine($"Compare {this} with other object {other}");
-  //  if (other is string str)
-  //  {
-  //    if (str==null)
-  //    {
-  //      Debug.WriteLine($"WritingSystemViewModel.Equals: Name is empty for {other}");
-  //      return true;
-  //    }
-  //  }
-  //  else
-  //  if (other is WritingSystemViewModel otherVM)
-  //    return Equals(otherVM);
-  //  return false;
-  //}
+  /// <summary>
+  /// Long text property is the Description property of the writing system.
+  /// </summary>
+  public string? LongText { get => Description; set => Description = value; }
 
-  [Browsable(false)] public string? LongText { get => Description; set => Description = value; }
-  [Browsable(false)] public bool CanExpandLongText => !string.IsNullOrEmpty(Model.Description);
+  /// <summary>
+  /// Can the long text be expanded in the UI?
+  /// </summary>
+  public bool CanExpandLongText => LongText!=null && LongText.Length > 100;
 
-  private bool _IsLongTextExpanded;
-  [Browsable(false)]
+  /// <summary>
+  /// Indicates whether the long text is expanded in the UI.
+  /// </summary>
   public bool IsLongTextExpanded
   {
     get => _IsLongTextExpanded;
@@ -296,9 +310,17 @@ public class WritingSystemViewModel(WritingSystem model)
       }
     }
   }
+  private bool _IsLongTextExpanded;
+  #endregion
 
   private readonly Dictionary<string, ValidationResultEx> errors = new();
 
+  #region Validation functionality
+  /// <summary>
+  /// Validates the specified property of the writing system.
+  /// </summary>
+  /// <param name="propertyName"></param>
+  /// <returns></returns>
   public bool Validate(string propertyName)
   {
     bool ok = true;
@@ -331,8 +353,17 @@ public class WritingSystemViewModel(WritingSystem model)
     yield return null;
   }
 
+  /// <summary>
+  /// Checks if there are any validation errors in the writing system.
+  /// </summary>
   public bool HasErrors => errors.Count > 0;
 
+  /// <summary>
+  /// Adds an error message for the specified property.
+  /// </summary>
+  /// <param name="propertyName"></param>
+  /// <param name="message"></param>
+  /// <param name="severity"></param>
   public void AddError(string propertyName, string message, Severity severity = Severity.Error)
   {
     errors.Remove(propertyName);
@@ -340,8 +371,33 @@ public class WritingSystemViewModel(WritingSystem model)
     ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
 
   }
+  /// <summary>
+  /// Event that is raised when the validation errors for a property change.
+  /// </summary>
   public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
+  #endregion
+
+
+  /// <summary>
+  /// Compares this instance with another <see cref="WritingSystemViewModel"/> instance for equality.
+  /// </summary>
+  /// <param name="other"></param>
+  /// <returns></returns>
+  public bool Equals(WritingSystemViewModel? other)
+  {
+    if (other == null)
+      return false;
+    if (this.Name == null || other.Name == null)
+      return true;
+    return Id == other.Id;
+  }
+
+  /// <summary>
+  /// Compares this instance with another <see cref="WritingSystemViewModel"/> instance using the Id property.
+  /// </summary>
+  /// <param name="other"></param>
+  /// <returns></returns>
   public int CompareTo(WritingSystemViewModel? other)
   {
     if (other is null) return 1;
@@ -354,6 +410,10 @@ public class WritingSystemViewModel(WritingSystem model)
     return  ((int)Id).CompareTo((int)(other.Id));
   }
 
+  /// <summary>
+  /// Converts the writing system to a string representation.
+  /// </summary>
+  /// <returns></returns>
   public override String ToString()
   {
     if (Name == null)

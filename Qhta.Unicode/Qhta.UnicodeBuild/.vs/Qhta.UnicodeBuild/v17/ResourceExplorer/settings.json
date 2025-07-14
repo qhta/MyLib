@@ -12,9 +12,6 @@
     "fr-FR"
   ],
   "VisibleColumnKeys": [
-    "name",
-    "neutral-comment",
-    "pl",
-    "neutral-value"
+    "name"
   ]
 }

@@ -1,19 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-
-using Qhta.ObservableObjects;
+﻿using Qhta.ObservableObjects;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
+/// <summary>
+/// Specialized collection for UCD blocks, providing methods to find blocks by ID or name.
+/// </summary>
 public sealed class UcdBlocksCollection() : OrderedObservableCollection<UcdBlockViewModel>((item) => item.Range!.Start!)
 {
 
   private Dictionary<int, UcdBlockViewModel> IntDictionary { get; set; } = new();
   private Dictionary<string, UcdBlockViewModel> StringDictionary { get; set; } = new();
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="UcdBlocksCollection"/> class built from an existing collection of UcdBlock models.
+  /// </summary>
+  /// <param name="models"></param>
   public UcdBlocksCollection(IEnumerable<UcdBlock> models) : this()
   {
     foreach (var model in models)
@@ -81,10 +84,19 @@ public sealed class UcdBlocksCollection() : OrderedObservableCollection<UcdBlock
     }
   }
 
-
+  /// <summary>
+  /// Finds a UcdBlockViewModel by its ID.
+  /// </summary>
+  /// <param name="Id"></param>
+  /// <returns></returns>
   public UcdBlockViewModel? FindById(int Id)
     => IntDictionary.GetValueOrDefault(Id);
 
+  /// <summary>
+  /// Finds a UcdBlockViewModel by its name.
+  /// </summary>
+  /// <param name="name"></param>
+  /// <returns></returns>
   public UcdBlockViewModel? FindByName(string name)
   {
     var result = StringDictionary.GetValueOrDefault(name);
@@ -98,8 +110,11 @@ public sealed class UcdBlocksCollection() : OrderedObservableCollection<UcdBlock
     return result;
   }
 
-
-
+  /// <summary>
+  /// Adds a new UcdBlockViewModel on the existing UcdBlock entity to the collection if it does not already exist.
+  /// </summary>
+  /// <param name="ws"></param>
+  /// <returns></returns>
   public UcdBlockViewModel Add(UcdBlock ws)
   {
     var vm = (!IsLoaded) ? null : _ViewModels.Instance.UcdBlocks.FindById((int)ws.Id!);
@@ -111,6 +126,10 @@ public sealed class UcdBlocksCollection() : OrderedObservableCollection<UcdBlock
     return vm;
   }
 
+  /// <summary>
+  /// Adds a new UcdBlockViewModel to the collection, ensuring it has a valid name.
+  /// </summary>
+  /// <param name="vm"></param>
   public new void Add(UcdBlockViewModel vm)
   {
     if (String.IsNullOrEmpty(vm.Name))
@@ -120,9 +139,5 @@ public sealed class UcdBlocksCollection() : OrderedObservableCollection<UcdBlock
     if (vm.Id != null) IntDictionary.Add((int)vm.Id, vm);
     if (!String.IsNullOrEmpty(vm.Name)) StringDictionary.Add(vm.Name, vm);
   }
-
-
-  public double MaxBlockNameWidth => this.Max(ub => ub.Name?.Length ?? 0)*12;
-
 
 }

@@ -1,23 +1,21 @@
-﻿using System.Collections;
-using System.Diagnostics;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 using Qhta.MVVM;
 using Qhta.SF.Tools;
-using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.ViewModels;
+
 using Syncfusion.UI.Xaml.Grid;
-using Syncfusion.UI.Xaml.Grid.Helpers;
-using Syncfusion.UI.Xaml.ScrollAxis;
 
 namespace Qhta.UnicodeBuild.Views;
 
 /// <summary>
-/// Interaction logic for UcdBlocksView.xaml
-/// 
+/// View for displaying Unicode character blocks in a data grid.
 /// </summary>
 public partial class UcdBlocksView : UserControl
 {
+  /// <summary>
+  /// Initializes a new instance of the <see cref="UcdBlocksView"/> class.
+  /// </summary>
   public UcdBlocksView()
   {
     InitializeComponent();
@@ -36,9 +34,12 @@ public partial class UcdBlocksView : UserControl
     LongTextColumn.OnQueryRowHeight(sender, e);
   }
 
+  /// <summary>
+  /// Command to navigate to the next item in the data grid.
+  /// </summary>
   public RelayCommand<SfDataGrid> NextItemCommand { get; set; }
 
-  public void NextItemExecute(SfDataGrid? dataGrid)
+  private void NextItemExecute(SfDataGrid? dataGrid)
   {
     if (dataGrid == null) return;
 
@@ -65,9 +66,12 @@ public partial class UcdBlocksView : UserControl
     dataGrid.View.MoveCurrentTo(selectedItem);
   }
 
+  /// <summary>
+  /// Command to navigate to the last item in the data grid.
+  /// </summary>
   public RelayCommand<SfDataGrid> LastItemCommand { get; set; }
 
-  public void LastItemExecute(SfDataGrid? dataGrid)
+  private void LastItemExecute(SfDataGrid? dataGrid)
   {
     if (dataGrid == null) return;
 
@@ -91,9 +95,12 @@ public partial class UcdBlocksView : UserControl
     dataGrid.View.MoveCurrentTo(selectedItem);
   }
 
+  /// <summary>
+  /// Command to navigate to the previous item in the data grid.
+  /// </summary>
   public RelayCommand<SfDataGrid> PreviousItemCommand { get; set; }
 
-  public void PreviousItemExecute(SfDataGrid? dataGrid)
+  private void PreviousItemExecute(SfDataGrid? dataGrid)
   {
     if (dataGrid == null) return;
 
@@ -120,9 +127,12 @@ public partial class UcdBlocksView : UserControl
     dataGrid.View.MoveCurrentTo(selectedItem);
   }
 
+  /// <summary>
+  /// Command to navigate to the first item in the data grid.
+  /// </summary>
   public RelayCommand<SfDataGrid> FirstItemCommand { get; set; }
 
-  public void FirstItemExecute(SfDataGrid? dataGrid)
+  private void FirstItemExecute(SfDataGrid? dataGrid)
   {
     if (dataGrid == null) return;
 

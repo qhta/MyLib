@@ -6,6 +6,9 @@ using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.SF.Tools;
 
+/// <summary>
+/// Controller class for managing SfDataGrid operations.
+/// </summary>
 public static partial class Controller
 {
   private static GridColumnInfo?[] GetGridColumnInfos(GridColumn[] columnsToCopy, Type rowDataType, bool write)
@@ -30,14 +33,13 @@ public static partial class Controller
         Debug.WriteLine($"Property '{mappingName} not found in column type '{rowDataType}'.");
         return null;
       }
-      PropertyInfo? displayPropertyInfo = null;
       GridColumnInfo gridColumnInfo = new GridColumnInfo(column, mappingName, valuePropertyInfo);
       if (column is GridComboBoxColumn comboBoxColumn)
       {
         var displayMemberPath = comboBoxColumn.DisplayMemberPath;
         if (!string.IsNullOrEmpty(displayMemberPath))
         {
-          displayPropertyInfo = valuePropertyInfo.PropertyType.GetProperty(displayMemberPath);
+          var displayPropertyInfo = valuePropertyInfo.PropertyType.GetProperty(displayMemberPath);
           if (displayPropertyInfo == null)
           {
             Debug.WriteLine($"Display property '{displayMemberPath}' not found in type '{valuePropertyInfo.PropertyType.Name}'.");
@@ -70,7 +72,7 @@ public static partial class Controller
     return result.ToArray();
   }
 
-  private static object? GetCellData(GridCellInfo cellInfo, GridColumnInfo columnInfo)
+  private static string? GetCellData(GridCellInfo cellInfo, GridColumnInfo columnInfo)
   {
     var rowData = cellInfo.RowData;
     if (rowData == null)
@@ -99,7 +101,7 @@ public static partial class Controller
     return str;
   }
 
-  private static void SetCellData(GridCellInfo cellInfo, GridColumnInfo columnInfo, object? value)
+  private static void SetCellData(GridCellInfo cellInfo, GridColumnInfo columnInfo, string? value)
   {
     var rowData = cellInfo.RowData;
     if (rowData == null)

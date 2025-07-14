@@ -258,4 +258,19 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="TooLongValue" xml:space="preserve">
+    <value>Too long value</value>
+  </data>
+  <data name="InvalidCodePointFormat" xml:space="preserve">
+    <value>Invalid code point format: {0}. Hexadecimal value expected.</value>
+  </data>
+  <data name="InvalidCodeRangeFormat" xml:space="preserve">
+    <value>Invalid code range format: {0}. Two hexadecimal value expected separated with two dots. A single value is allowed.</value>
+  </data>
+  <data name="EndValueMustBeGreater" xml:space="preserve">
+    <value>End value must be greater than or equal to start value.</value>
+  </data>
+  <data name="CannotDeleteWritingSystem" xml:space="preserve">
+    <value>Cannot delete writing system as it is used in other entities.</value>
+  </data>
 </root>

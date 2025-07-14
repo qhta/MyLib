@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 using Qhta.DeepCopy;
@@ -10,8 +8,14 @@ using Qhta.UnicodeBuild.ViewModels;
 
 namespace Qhta.UnicodeBuild.Views;
 
+/// <summary>
+/// Window for editing a writing system.
+/// </summary>
 public partial class EditWritingSystemWindow : Window
 {
+  /// <summary>
+  /// Initializes a new instance of the <see cref="EditWritingSystemWindow"/> class.
+  /// </summary>
   public EditWritingSystemWindow()
   {
     InitializeComponent();
@@ -21,12 +25,18 @@ public partial class EditWritingSystemWindow : Window
     CancelCommand = new RelayCommand(CancelCommand_Executed);
   }
 
+  /// <summary>
+  /// AddMode property indicates whether the window is in add mode or edit mode.
+  /// </summary>
   public bool AddMode
   {
     get => (bool)GetValue(AddModeProperty);
     set => SetValue(AddModeProperty, value);
   }
 
+  /// <summary>
+  /// DependencyProperty for the AddMode property.
+  /// </summary>
   public static DependencyProperty AddModeProperty = DependencyProperty.Register(
     nameof(AddMode),
     typeof(bool),
@@ -38,7 +48,7 @@ public partial class EditWritingSystemWindow : Window
     (d as EditWritingSystemWindow)?.AddModeChanged(e.NewValue);
   }
 
-  public void AddModeChanged(object? newValue)
+  private void AddModeChanged(object? newValue)
   {
     if (newValue is bool addMode)
     {
@@ -50,19 +60,9 @@ public partial class EditWritingSystemWindow : Window
   }
 
 
-  //private void EditWritingSystemWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-  //{
-  //  if (e.NewValue is WritingSystemViewModel vm)
-  //    vm.PropertyChanged += Vm_PropertyChanged;
-  //}
-
-  //private void Vm_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-  //{
-  //  var addCommand = OkCommand;
-  //  var ok = addCommand.CanExecute(DataContext as WritingSystemViewModel);
-  //  addCommand.NotifyCanExecuteChanged();
-  //}
-
+  /// <summary>
+  /// OK command that is executed when the user clicks the OK button.
+  /// </summary>
   public RelayCommand<WritingSystemViewModel> OkCommand { get; }
 
 
@@ -160,6 +160,9 @@ public partial class EditWritingSystemWindow : Window
     return ok;
   }
 
+  /// <summary>
+  /// Cancel command that is executed when the user clicks the Cancel button.
+  /// </summary>
   public ICommand CancelCommand { get; }
 
   private void CancelCommand_Executed()

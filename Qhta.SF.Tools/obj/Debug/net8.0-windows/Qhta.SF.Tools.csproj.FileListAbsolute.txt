@@ -24,3 +24,4 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Too
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\pl\Qhta.SF.Tools.resources.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools.DataStrings.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools.DataStrings.pl.resources
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\bin\Debug\net8.0-windows\Qhta.SF.Tools.xml

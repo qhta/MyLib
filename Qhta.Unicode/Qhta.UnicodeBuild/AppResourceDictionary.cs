@@ -18,8 +18,14 @@ using Qhta.WPF.Utils;
 
 namespace Qhta.UnicodeBuild
 {
+  /// <summary>
+  /// 
+  /// </summary>
   public partial class AppResourceDictionary : ResourceDictionary
   {
+    /// <summary>
+    /// Handler methods for various events in the application.
+    /// </summary>
     public AppResourceDictionary()
     {
       InitializeComponent();
@@ -28,8 +34,6 @@ namespace Qhta.UnicodeBuild
 
     private T? FirstDescendant<T>(DependencyObject? parent, Predicate<T> predicate) where T : DependencyObject
     {
-      //OrientedCellsPanel
-      //GridDetailsViewExpanderCell
       var parentObject = parent;
       if (parent is T content)
       {

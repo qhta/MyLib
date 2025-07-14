@@ -1,13 +1,16 @@
-﻿using System.Diagnostics;
-using System.Net.Mime;
-
-namespace Qhta.UnicodeBuild.Helpers;
+﻿namespace Qhta.UnicodeBuild.Helpers;
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
+/// <summary>
+/// OrderedObservableCollection is a collection that maintains its items in a sorted order based on a key selector function.
+/// It is a base class for collections that need to be ordered by a specific property or value of the items.
+/// It uses ObservableList&lt;T&gt; as a base class to provide observable collection functionality.
+/// </summary>
+/// <typeparam name="T"></typeparam>
+/// <param name="keySelector"></param>
+/// <param name="comparer"></param>
 public class OrderedObservableCollection<T>(Func<T, object> keySelector, IComparer<object>? comparer = null)
   : Qhta.ObservableObjects.ObservableList<T>, IList<T>
 //    : ObservableCollection<T>, IList<T>
@@ -15,6 +18,11 @@ public class OrderedObservableCollection<T>(Func<T, object> keySelector, ICompar
 
   private readonly Func<T, object> _keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
 
+  /// <summary>
+  /// Inserts an item at the specified index in the collection, maintaining the order based on the key selector.
+  /// </summary>
+  /// <param name="index"></param>
+  /// <param name="item"></param>
   protected override void InsertItem(int index, T item)
   {
     var oldIndex = IndexOf(item);
@@ -37,6 +45,11 @@ public class OrderedObservableCollection<T>(Func<T, object> keySelector, ICompar
     //Debug.WriteLine($"{item} added at {index}");
   }
 
+  /// <summary>
+  /// Sets the item at the specified index in the collection, removing it from its old position and inserting it in the correct order based on the key selector.
+  /// </summary>
+  /// <param name="index"></param>
+  /// <param name="item"></param>
   public override void SetItem(int index, T item)
   {
     RemoveAt(index);
@@ -55,33 +68,4 @@ public class OrderedObservableCollection<T>(Func<T, object> keySelector, ICompar
     return Count;
   }
 
-  //public Double RowHeaderColumnWidth
-  //{
-  //  get
-  //  {
-  //    if (!IsLoaded)
-  //      return 50;
-  //    if (_RowHeaderColumnWidth == 0)
-  //      _RowHeaderColumnWidth = CalculateRowHeaderColumnWidth();
-  //    return _RowHeaderColumnWidth;
-  //  }
-  //}
-
-  //private double _RowHeaderColumnWidth;
-
-  //public virtual Double CalculateRowHeaderColumnWidth()
-  //{
-  //  //if (Count == 0)
-  //    return 50; // Default width if no items
-  //  var count = DataRecordsCount; 
-  //  var digits = (int)Math.Round(Math.Log10(Convert.ToDouble(count)));
-  //  if (digits < 0)
-  //    digits = 1;
-  //  var text = new string('8', digits);
-  //  text = " " + text+" "; // Add a space for padding
-  //  var width = TextSizeEvaluator.EvaluateTextWidth(text);// 12 pixels per digit, plus 6 for padding
-  //  return width;
-  //}
-
-  //public virtual int DataRecordsCount => Count;
 }                         

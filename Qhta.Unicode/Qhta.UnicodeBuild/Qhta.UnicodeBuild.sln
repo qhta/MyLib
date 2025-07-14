@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.UnicodeBuild", "Qhta.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.SF.Tools", "..\..\Qhta.SF.Tools\Qhta.SF.Tools.csproj", "{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.UndoManager", "..\..\Qhta.UndoManager\Qhta.UndoManager.csproj", "{B9F75327-B01B-46B8-B2B5-66178460EF90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9F75327-B01B-46B8-B2B5-66178460EF90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9F75327-B01B-46B8-B2B5-66178460EF90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9F75327-B01B-46B8-B2B5-66178460EF90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9F75327-B01B-46B8-B2B5-66178460EF90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

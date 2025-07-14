@@ -1,12 +1,15 @@
 ﻿using System.Windows.Controls;
-using Syncfusion.Windows.PropertyGrid;
 
 namespace Qhta.UnicodeBuild.Views;
+
 /// <summary>
-/// Interaction logic for WritingSystem.xaml
+/// View for creating and editing a single instance of writing systems.
 /// </summary>
 public partial class WritingSystemView : UserControl
 {
+  /// <summary>
+  /// Initializes a new instance of the <see cref="WritingSystemView"/> class.
+  /// </summary>
   public WritingSystemView()
   {
     InitializeComponent();

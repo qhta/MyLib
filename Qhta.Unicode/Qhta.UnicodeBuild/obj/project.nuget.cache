@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gtV6+Hwj+z4=",
+  "dgSpecHash": "ZIO9TbFurfI=",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Qhta.UnicodeBuild.csproj",
   "expectedPackageFiles": [
@@ -46,13 +46,13 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.winforms.designer.sdk\\1.6.0\\microsoft.winforms.designer.sdk.1.6.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.135\\microsoft.xaml.behaviors.wpf.1.1.135.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\2.0.0\\qhta.collections.2.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\5.1.0\\qhta.collections.5.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.deepcopy\\1.5.0\\qhta.deepcopy.1.5.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.htmlutils\\2.1.0\\qhta.htmlutils.2.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\4.10.0\\qhta.mvvm.4.10.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\4.0.0\\qhta.observableobjects.4.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.ordnumbers\\2.3.0\\qhta.ordnumbers.2.3.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.1.1\\qhta.textutils.3.1.1.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.6.0\\qhta.textutils.3.6.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.4.0\\qhta.typeutils.1.4.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.wpf.converters\\1.4.0\\qhta.wpf.converters.1.4.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.wpf.utils\\3.5.0\\qhta.wpf.utils.3.5.0.nupkg.sha512",

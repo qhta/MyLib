@@ -8,7 +8,11 @@ namespace Qhta.SF.Tools;
 public static partial class Controller
 {
 
-
+  /// <summary>
+  /// Performs a cut or copy operation on the data in the specified <see cref="SfDataGrid"/>.
+  /// </summary>
+  /// <param name="grid"></param>
+  /// <param name="cut"></param>
   public static void CutCopyData(SfDataGrid grid, bool cut)
   {
     try

@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Threading;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 using Qhta.DeepCopy;
 using Qhta.MVVM;
@@ -9,8 +7,15 @@ using Qhta.Unicode.Models;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
+/// <summary>
+/// Manages the view models for the application.
+/// It is a singleton class that provides access to the database context and various collections of view models.
+/// </summary>
 public partial class _ViewModels : ViewModel, IDisposable
 {
+  /// <summary>
+  /// Instance property to access the singleton instance of the _ViewModels class.
+  /// </summary>
   public static _ViewModels Instance
   {
     get
@@ -23,6 +28,9 @@ public partial class _ViewModels : ViewModel, IDisposable
     }
   }
 
+  /// <summary>
+  /// Gets the database context for the application.
+  /// </summary>
   public _DbContext DbContext
   {
     get
@@ -123,17 +131,46 @@ public partial class _ViewModels : ViewModel, IDisposable
     FillColumnCommand = new RelayCommand<object?>(FillColumnCommandExecute);
   }
 
-
+  /// <summary>
+  /// Code points collection representing Unicode code points.
+  /// </summary>
   public UcdCodePointsCollection UcdCodePoints { get; set; } = new();
+  /// <summary>
+  /// Blocks collection representing Unicode blocks.
+  /// </summary>
   public UcdBlocksCollection UcdBlocks { get; set; } = new();
+  /// <summary>
+  /// Writing systems collection representing various writing systems.
+  /// </summary>
   public WritingSystemsCollection WritingSystems { get; set; } = new();
+  /// <summary>
+  /// List of all writing system types exposed to the UI.
+  /// </summary>
   public List<WritingSystemTypeViewModel> WritingSystemTypesList { get; } = new();
+  /// <summary>
+  /// List of all writing system kinds exposed to the UI.
+  /// </summary>
   public List<WritingSystemKindViewModel> WritingSystemKindsList { get; } = new();
+  /// <summary>
+  /// List of all Unicode categories exposed to the UI.
+  /// </summary>
   public List<UnicodeCategoryViewModel> UnicodeCategoriesList { get; } = new();
+  /// <summary>
+  /// Collection of writing system types exposed to the UI as an array.
+  /// </summary>
   public Array WritingSystemTypes { get; } = Enum.GetValues(typeof(WritingSystemType));
+  /// <summary>
+  /// Collection of writing system kinds exposed to the UI as an array.
+  /// </summary>
   public Array WritingSystemKinds { get; } = Enum.GetValues(typeof(WritingSystemKind));
+  /// <summary>
+  /// Collection of Unicode categories exposed to the UI as an array.
+  /// </summary>
   public Array Categories { get; } = Enum.GetNames(typeof(UcdCategory));
 
+  /// <summary>
+  /// Collection of selectable Unicode categories exposed to the UI as an enumerable.
+  /// </summary>
   public IEnumerable<UnicodeCategoryViewModel?> SelectableCategories
   {
     get
@@ -145,6 +182,9 @@ public partial class _ViewModels : ViewModel, IDisposable
     }
   }
 
+  /// <summary>
+  /// Collection of selectable Unicode blocks exposed to the UI as an enumerable.
+  /// </summary>
   public IEnumerable<UcdBlockViewModel?> SelectableBlocks
   {
     get
@@ -155,7 +195,12 @@ public partial class _ViewModels : ViewModel, IDisposable
       return list;
     }
   }
- 
+
+  /// <summary>
+  /// Collection of selectable writing systems based on their types.
+  /// </summary>
+  /// <param name="types"></param>
+  /// <returns></returns>
   public IEnumerable<WritingSystemViewModel?> GetSelectableWritingSystems(params WritingSystemType[] types)
   {
       List<WritingSystemViewModel?> list = new();
@@ -164,24 +209,51 @@ public partial class _ViewModels : ViewModel, IDisposable
       return list;
   }
 
+  /// <summary>
+  /// Collection of selectable writing systems that can be used in the UI.
+  /// </summary>
   public IEnumerable<WritingSystemViewModel?> SelectableWritingSystems =>
     GetSelectableWritingSystems(WritingSystemType.Area, WritingSystemType.Family, WritingSystemType.Script, WritingSystemType.Notation, WritingSystemType.SymbolSet);
 
+  /// <summary>
+  /// Collection of selectable areas, which are a type of writing system.
+  /// </summary>
   public IEnumerable<WritingSystemViewModel?> SelectableAreas => GetSelectableWritingSystems(WritingSystemType.Area);
 
-  public IEnumerable<WritingSystemViewModel?> SelectableScripts =>
-    GetSelectableWritingSystems(WritingSystemType.Script, WritingSystemType.Family);
+  /// <summary>
+  /// Collection of selectable families, which are a type of writing system.
+  /// </summary>
+  public IEnumerable<WritingSystemViewModel?> SelectableScripts => GetSelectableWritingSystems(WritingSystemType.Script, WritingSystemType.Family);
 
-  public IEnumerable<WritingSystemViewModel?> SelectableLanguages => GetSelectableWritingSystems(WritingSystemType.Language); 
+  /// <summary>
+  /// Collection of selectable languages, which are a type of writing system.
+  /// </summary>
+  public IEnumerable<WritingSystemViewModel?> SelectableLanguages => GetSelectableWritingSystems(WritingSystemType.Language);
 
+  /// <summary>
+  /// Collection of selectable notations, which are a type of writing system.
+  /// </summary>
   public IEnumerable<WritingSystemViewModel?> SelectableNotations => GetSelectableWritingSystems(WritingSystemType.Notation);
 
+  /// <summary>
+  /// Collection of selectable symbol sets, which are a type of writing system.
+  /// </summary>
   public IEnumerable<WritingSystemViewModel?> SelectableSymbolSets => GetSelectableWritingSystems(WritingSystemType.SymbolSet);
 
+  /// <summary>
+  /// C
+  /// </summary>
   public IEnumerable<WritingSystemViewModel?> SelectableSubsets => GetSelectableWritingSystems(WritingSystemType.Subset);
 
+  /// <summary>
+  /// Collection of selectable artefacts, which are a type of writing system.
+  /// </summary>
   public IEnumerable<WritingSystemViewModel?> SelectableArtefacts => GetSelectableWritingSystems(WritingSystemType.Artefact);
 
+  /// <summary>
+  /// Gets the next available writing system ID.
+  /// </summary>
+  /// <returns></returns>
   public int GetNewWritingSystemId()
   {
     var lastItem = _Context?.WritingSystems.OrderByDescending(ws => ws.Id).FirstOrDefault();
@@ -195,107 +267,13 @@ public partial class _ViewModels : ViewModel, IDisposable
     return maxId + 1;
   }
 
-  public IRelayCommand NewWritingSystemCommand { get; }
-
-  private void NewWritingSystemCommandExecute(WritingSystemType? newType)
-  {
-    var vm = FindEmptyWritingSystemViewModel();
-    // ReSharper disable once ConvertIfStatementToNullCoalescingExpression
-    if (vm == null)
-    {
-      // No empty writing system view model found, create a new one
-      vm = NewWritingSystem;
-    }
-    else
-    {
-      var existingItem = vm;
-      vm = (WritingSystemViewModel?)DeepCopier
-        .CopyFrom(existingItem); // Create a copy of the existing empty writing system view model
-    }
-    if (vm is null) return;
-    vm.Type = newType;
-    var vmWindow = new Views.EditWritingSystemWindow
-    {
-      AddMode = true,
-      DataContext = vm,
-      Owner = Application.Current.MainWindow,
-    };
-    vmWindow.ShowDialog();
-  }
-
-  private WritingSystemViewModel? FindEmptyWritingSystemViewModel()
-  {
-    var existingItem = _ViewModels.Instance.WritingSystems.LastOrDefault(item => item.Name!.StartsWith("<"));
-    return existingItem;
-  }
-
-  public WritingSystemViewModel NewWritingSystem
-  {
-    get
-    {
-      var data = new WritingSystem();
-      var viewModel = new WritingSystemViewModel(data);
-      return viewModel;
-    }
-  }
-
-  public RelayCommand<WritingSystemViewModel> DeleteWritingSystemCommand { get; }
-
-
-  private void DeleteWritingSystemCommandExecute(WritingSystemViewModel? item)
-  {
-    if (item == null) return;
-    if (!CanDeleteWritingSystem(item))
-    {
-      MessageBox.Show("Cannot delete writing system", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-      return;
-    }
-    // Writing system entity is not really deleted, just marked as deleted
-    item.Name = "<deleted>";
-    if (item.Parent != null)
-    {
-      item.Parent.Children?.Remove(item);
-      item.Parent.NotifyPropertyChanged(nameof(WritingSystemViewModel.Children));
-    }
-    foreach (var prop in item.Model.GetType().GetProperties())
-    {
-      if (prop.Name != nameof(WritingSystemViewModel.Id) && prop.Name != nameof(WritingSystemViewModel.Name) && prop.CanWrite)
-      {
-        prop.SetValue(item.Model, null);
-      }
-    }
-    _ViewModels.Instance.DbContext.SaveChanges();
-  }
-
-  private bool CanDeleteWritingSystem(WritingSystemViewModel? item)
-  {
-    if (item == null) return false;
-
-    var ok = !item.IsUsed;
-    return ok;
-  }
-
-  public IRelayCommand EditWritingSystemCommand { get; }
-
-  private void EditWritingSystemCommandExecute(WritingSystemViewModel? item)
-  {
-    var vmWindow = new Views.EditWritingSystemWindow
-    {
-      AddMode = false,
-      DataContext = item,
-      Owner = Application.Current.MainWindow,
-    };
-    vmWindow.ShowDialog();
-  }
-
-  private void ReleaseUnmanagedResources()
-  {
-    // TODO release unmanaged resources here
-  }
-
+  #region IDisposable implementation
+  /// <summary>
+  /// Dispatches the Dispose method to clean up resources.
+  /// </summary>
+  /// <param name="disposing"></param>
   protected virtual void Dispose(bool disposing)
   {
-    ReleaseUnmanagedResources();
     if (disposing)
     {
       ApplyBlockMappingBackgroundWorker.Dispose();
@@ -308,14 +286,21 @@ public partial class _ViewModels : ViewModel, IDisposable
     }
   }
 
+  /// <summary>
+  /// Disposes the _ViewModels instance and releases resources.
+  /// </summary>
   public void Dispose()
   {
     Dispose(true);
     GC.SuppressFinalize(this);
   }
 
+  /// <summary>
+  /// Destructs the _ViewModels instance and releases resources.
+  /// </summary>
   ~_ViewModels()
   {
     Dispose(false);
   }
+  #endregion
 }

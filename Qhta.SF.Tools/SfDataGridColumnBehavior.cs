@@ -7,8 +7,16 @@ using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.SF.Tools;
 
+/// <summary>
+/// A behavior class for managing the selection state of a <see cref="GridColumn"/> in a Syncfusion DataGrid.
+/// </summary>
 public class SfDataGridColumnBehavior : Behavior<GridColumn>
 {
+  /// <summary>
+  /// Gets whether the column is selected.
+  /// </summary>
+  /// <param name="obj"></param>
+  /// <returns></returns>
   public static bool GetIsSelected(DependencyObject obj)
   {
     var column = (obj is GridHeaderCellControl header) ? header.Column : obj as GridColumn;
@@ -19,6 +27,11 @@ public class SfDataGridColumnBehavior : Behavior<GridColumn>
     return result;
   }
 
+  /// <summary>
+  /// Sets the selection state of the column.
+  /// </summary>
+  /// <param name="obj"></param>
+  /// <param name="value"></param>
   public static void SetIsSelected(DependencyObject obj, bool value)
   {
     var column = (obj is GridHeaderCellControl header) ? header.Column : obj as GridColumn;
@@ -28,13 +41,23 @@ public class SfDataGridColumnBehavior : Behavior<GridColumn>
     column.SetValue(IsSelectedProperty, value);
   }
 
+  /// <summary>
+  /// Attached dependency property that indicates whether the column is selected.
+  /// </summary>
   public static readonly DependencyProperty IsSelectedProperty =
     DependencyProperty.RegisterAttached
     (
       "IsSelected", typeof(bool), typeof(SfDataGridColumnBehavior),
       new PropertyMetadata(false, OnIsSelectedChanged));
 
-
+  /// <summary>
+  /// Handles changes to the IsSelected property of a GridColumn.
+  /// </summary>
+  /// <remarks>This method updates the styles of the GridColumn based on its selection state. If the column is
+  /// selected, it applies the "SelectedColumnHeaderStyle" and "SelectedGridStyle" resources. If not selected, it resets
+  /// the header style to its default and applies the "UnselectedGridStyle" to the cell style.</remarks>
+  /// <param name="d">The dependency object that represents the GridColumn whose IsSelected property has changed.</param>
+  /// <param name="e">The event data that contains information about the property change, including the new value.</param>
   private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
   {
     var column = d as GridColumn;
@@ -51,7 +74,6 @@ public class SfDataGridColumnBehavior : Behavior<GridColumn>
     {
       // Reset to default style or template
       column.ClearValue(GridColumnBase.HeaderStyleProperty);
-      //column.ClearValue(GridColumnBase.CellStyleProperty);
       column.CellStyle = Application.Current.FindResource("UnselectedGridStyle") as Style;
     }
   }

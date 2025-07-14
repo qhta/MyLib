@@ -1,0 +1,652 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.SF.Tools</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.SF.Tools.Controller">
+            <summary>
+            Controller class for managing SfDataGrid operations.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.CanCopyData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be copied from the specified data grid.
+            </summary>
+            <param name="grid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance to check for copy capability.</param>
+            <returns><see langword="true"/> if data can be copied from the specified grid; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.CopyData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a copy operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="grid"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.CutCopyData(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean)">
+            <summary>
+            Performs a cut or copy operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="grid"></param>
+            <param name="cut"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.CanCutData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be cut from the specified data grid.
+            This method checks if all selected columns are editable and not read-only.
+            </summary>
+            <param name="grid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.CutData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a cut operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="grid"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.CanDeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be deleted from the specified data grid.
+            This method checks if all selected columns are editable and not read-only.
+            </summary>
+            <param name="grid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.DeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a delete operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="grid"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.CanPasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be pasted into the specified data grid.
+            </summary>
+            <param name="grid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.PasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a paste operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="grid"></param>
+        </member>
+        <member name="T:Qhta.SF.Tools.DataStrings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.DeleteAllDataConfirmation">
+            <summary>
+              Looks up a localized string similar to Do you really want to delete all data?.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.DoubleUtil">
+            <summary>
+            Utility class for comparing double values with a specified tolerance.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.DoubleUtil.AreClose(System.Double,System.Double,System.Double)">
+            <summary>
+            Determines whether two double values are close to each other within a specified tolerance.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="tolerance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.DoubleUtil.GreaterThanOrClose(System.Double,System.Double,System.Double)">
+            <summary>
+            Determines whether the first double value is less than or equal to the second value, considering a specified tolerance.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="tolerance"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.SF.Tools.GridColumnInfo">
+            <summary>
+            Information about a grid column, including its mapping name and value property.
+            It is needed if we want to operate on the data in the grid in the background thread,
+            as in this case operations on the grid (and on the grid column) are not possible.
+            </summary>
+            <param name="Column"></param>
+            <param name="MappingName"></param>
+            <param name="ValuePropertyInfo"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.GridColumnInfo.#ctor(Syncfusion.UI.Xaml.Grid.GridColumn,System.String,System.Reflection.PropertyInfo)">
+            <summary>
+            Information about a grid column, including its mapping name and value property.
+            It is needed if we want to operate on the data in the grid in the background thread,
+            as in this case operations on the grid (and on the grid column) are not possible.
+            </summary>
+            <param name="Column"></param>
+            <param name="MappingName"></param>
+            <param name="ValuePropertyInfo"></param>
+        </member>
+        <member name="P:Qhta.SF.Tools.GridColumnInfo.Column">
+            <summary>
+            Identifies the column in the grid.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.GridColumnInfo.MappingName">
+            <summary>
+            Mapping name of the column, which corresponds to the property name in the data source.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.GridColumnInfo.ValuePropertyInfo">
+            <summary>
+            Gets the <see cref="T:System.Reflection.PropertyInfo"/> object that represents the metadata of the value property.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.GridColumnInfo.DisplayPropertyInfo">
+            <summary>
+            Gets or sets the <see cref="T:System.Reflection.PropertyInfo"/> object that represents the property to be displayed.
+            It is an optional property, used for example in <see cref="T:Syncfusion.UI.Xaml.Grid.GridComboBoxColumn"/> to display the value from the items source.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.GridColumnInfo.ItemsSource">
+            <summary>
+            Gets or sets the collection of items to be displayed.
+            it is an optional property, used for example in <see cref="T:Syncfusion.UI.Xaml.Grid.GridComboBoxColumn"/> to provide the items source for the combo box.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.IRowHeightProvider">
+            <summary>
+            Interface for providing row height in a data grid.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.IRowHeightProvider.RowHeight">
+            <summary>
+            Gets or sets the height of a row in the grid.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.LongTextColumn">
+            <summary>
+            Represents a column in a data grid that adjusts its row height based on the content length.
+            </summary>
+            <remarks>The <see cref="T:Qhta.SF.Tools.LongTextColumn"/> class is designed to work with data grids where the row height needs
+            to be dynamically adjusted to fit the content of cells containing long text. It listens to the <see
+            cref="T:Syncfusion.UI.Xaml.Grid.QueryRowHeightEventArgs"/> to determine the appropriate height for each row based on the text content and the
+            expansion state of the text.</remarks>
+        </member>
+        <member name="M:Qhta.SF.Tools.LongTextColumn.OnQueryRowHeight(System.Object,Syncfusion.UI.Xaml.Grid.QueryRowHeightEventArgs)">
+            <summary>
+            Adjusts the height of a row in a <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> based on the content of long text columns.
+            </summary>
+            <remarks>This method calculates the required height for a row by evaluating the content of columns that
+            implement <see cref="T:Qhta.SF.Tools.LongTextColumn"/>. If the data associated with the row implements <see
+            cref="T:Qhta.MVVM.ILongTextViewModel"/> and the long text is expanded, the method sets the row height to accommodate the text.
+            The height is adjusted only if the row index is valid and the text is not empty. The method marks the event as
+            handled after setting the height.</remarks>
+            <param name="sender">The source of the event, typically an instance of <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.</param>
+            <param name="e">The event data containing information about the row height query.</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.LongTextColumn.GetCellText(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object)">
+            <summary>
+            Retrieves the text representation of a cell's value from a specified data item and column.
+            </summary>
+            <param name="column">The column that specifies which property of the data item to retrieve.</param>
+            <param name="dataItem">The data item from which the cell value is extracted.</param>
+            <returns>A string representation of the cell's value. Returns an empty string if the property is not found or the value is
+            null.</returns>
+        </member>
+        <member name="T:Qhta.SF.Tools.MappingNameBinder">
+            <summary>
+            A value converter that retrieves the mapping name from a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/> or a <see cref="T:System.Windows.Data.Binding"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.MappingNameBinder.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a given value to a specific target type using the provided culture information.
+            </summary>
+            <param name="value">The value to be converted. This can be a <see cref="T:System.Windows.Data.Binding"/> or a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/> object.</param>
+            <param name="targetType">The type to which the value is to be converted. This parameter is not used in the conversion logic.</param>
+            <param name="parameter">An optional parameter for the conversion. This parameter is not used in the conversion logic.</param>
+            <param name="culture">The culture to be used in the conversion process. This parameter is not used in the conversion logic.</param>
+            <returns>The source object if the value is a <see cref="T:System.Windows.Data.Binding"/>; the string representation of the property value
+            specified by the MappingName if the value is a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/>; otherwise,
+            an empty string.</returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.MappingNameBinder.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented method for converting back from the target type to the source type.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.SF.Tools.MappingNameToValueConverter">
+            <summary>
+            A value converter that retrieves the value of a property specified by the mapping name from a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.MappingNameToValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/> value to a string representation based on the value of the mapped property.
+            </summary>
+            <remarks>The method checks if the <paramref name="value"/> is a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/> and if its
+            column is a <see cref="T:Syncfusion.UI.Xaml.Grid.GridTextColumn"/>. It then retrieves the property value from the data context using the
+            column's mapping name. If the mapping name is null or empty, or if the property cannot be found, the method
+            returns an empty string.</remarks>
+            <param name="value">The value to convert, expected to be of type <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/>.</param>
+            <param name="targetType">The type to which the value is being converted. This parameter is not used in the conversion process.</param>
+            <param name="parameter">An optional parameter for the conversion. This parameter is not used in the conversion process.</param>
+            <param name="culture">The culture to use in the conversion process. This parameter is not used in the conversion process.</param>
+            <returns>A string representation of the property value specified by the column mapping name if the conversion is
+            successful; otherwise, an empty string.</returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.MappingNameToValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented method for converting back from the target type to the source type.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.SF.Tools.RecordNavigationBar">
+            <summary>
+            Navigation bar for navigating through records in a <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            It provides commands to navigate to the first, previous, next, and last records.
+            It also displays the current record number and the total number of records in the grid.
+            It should be placed under the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <summary>
+            RecordNavigationBar
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.RecordNavigationBar.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.SF.Tools.RecordNavigationBar"/> class.
+            </summary>
+            <remarks>This constructor sets up the navigation commands for moving between records. It initializes the
+            component and assigns commands for navigating to the next, last, previous, and first items.</remarks>
+        </member>
+        <member name="F:Qhta.SF.Tools.RecordNavigationBar.DataGridProperty">
+            <summary>
+            Dependency property for the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> associated with this navigation bar.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.RecordNavigationBar.DataGridChanged(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Updates the binding of the <see cref="F:Qhta.SF.Tools.RecordNavigationBar.RowsCountProperty"/> to reflect the current item count of the specified data
+            grid.
+            </summary>
+            <remarks>This method sets a binding on the <see cref="F:Qhta.SF.Tools.RecordNavigationBar.RowsCountProperty"/> to the item count of the
+            provided data grid's data source. Ensure that the <paramref name="dataGrid"/> is not <see langword="null"/> before
+            calling this method.</remarks>
+            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> whose item count is used to update the binding. Cannot be <see langword="null"/>.</param>
+        </member>
+        <member name="P:Qhta.SF.Tools.RecordNavigationBar.DataGrid">
+            <summary>
+            Gets or sets the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance associated with this component.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.RecordNavigationBar.RowsCountProperty">
+            <summary>
+            Dependency property for the number of rows in the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.RecordNavigationBar.RowsCount">
+            <summary>
+            Gets or sets the number of rows in the collection.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.RecordNavigationBar.NextItemCommand">
+            <summary>
+            Command to navigate to the next item in the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.RecordNavigationBar.NextItemExecute">
+            <summary>
+            Selects the next item in the data grid, if available.
+            </summary>
+            <remarks>This method increments the selected index of the data grid by one, provided that the data grid is
+            not null and the current selection is not the last item. If the selection is successfully updated, the new item is
+            scrolled into view.</remarks>
+        </member>
+        <member name="P:Qhta.SF.Tools.RecordNavigationBar.LastItemCommand">
+            <summary>
+            Command to navigate to the last item in the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.RecordNavigationBar.LastItemExecute">
+            <summary>
+            Selects the last item in the data grid and scrolls it into view.  
+            </summary>
+            <remarks>This method sets the selected index of the data grid to the last item and ensures it is visible
+            by scrolling it into view. If the data grid is not initialized, the method exits without making changes.</remarks>
+        </member>
+        <member name="P:Qhta.SF.Tools.RecordNavigationBar.PreviousItemCommand">
+            <summary>
+            Command to navigate to the previous item in the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.RecordNavigationBar.PreviousItemExecute">
+            <summary>
+            Selects the previous item in the data grid, if possible.
+            </summary>
+            <remarks>This method decreases the selected index of the data grid by one, if the current selection is not
+            already at the first item. If the data grid is null or the first item is selected, the method does
+            nothing.</remarks>
+        </member>
+        <member name="P:Qhta.SF.Tools.RecordNavigationBar.FirstItemCommand">
+            <summary>
+            Command to navigate to the first item in the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.RecordNavigationBar.FirstItemExecute">
+            <summary>
+            Selects and executes the first item in the data grid.
+            </summary>
+            <remarks>This method sets the selected index of the data grid to the first item and ensures it is scrolled
+            into view. If the data grid is not initialized, the method exits without performing any action.</remarks>
+        </member>
+        <member name="M:Qhta.SF.Tools.RecordNavigationBar.ScrollInView(System.Int32)">
+            <summary>
+            This method scrolls the specified row into view in the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+        </member>
+        <member name="E:Qhta.SF.Tools.RecordNavigationBar.PropertyChanged">
+            <summary>
+            Occurs when a property value changes.
+            </summary>
+            <remarks>This event is typically used to notify clients, such as user interfaces, that a property value
+            has changed.</remarks>
+        </member>
+        <member name="M:Qhta.SF.Tools.RecordNavigationBar.NotifyPropertyChanged(System.String)">
+            <summary>
+            Notifies subscribers that a property value has changed.
+            </summary>
+            <remarks>This method raises the <see cref="E:Qhta.SF.Tools.RecordNavigationBar.PropertyChanged"/> event, which is used to notify listeners,
+            typically UI elements, that a property value has changed.</remarks>
+            <param name="propertyName">The name of the property that changed. This value is optional and can be automatically supplied by the compiler.</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.RecordNavigationBar.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.RowHeightProvider">
+            <summary>
+            Provides functionality to determine the height of rows in a data grid.
+            </summary>
+            <remarks>This class contains methods that interact with data grid events to set row heights based on the data
+            context.</remarks>
+        </member>
+        <member name="M:Qhta.SF.Tools.RowHeightProvider.OnQueryRowHeight(System.Object,Syncfusion.UI.Xaml.Grid.QueryRowHeightEventArgs)">
+            <summary>
+            Handles the query for row height in a data grid, setting the height based on the data context.
+            </summary>
+            <remarks>This method checks if the data context for the specified row index implements <see
+            cref="T:Qhta.SF.Tools.IRowHeightProvider"/>. If so, and the row height is not set to <see cref="F:System.Double.NaN"/>, it assigns the row
+            height from the data context to the event arguments and marks the event as handled.</remarks>
+            <param name="sender">The source of the event, typically an instance of <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.</param>
+            <param name="e">The <see cref="T:Syncfusion.UI.Xaml.Grid.QueryRowHeightEventArgs"/> containing event data, including the row index and a property to set the
+            row height.</param>
+        </member>
+        <member name="T:Qhta.SF.Tools.RowResizer">
+            <summary>
+            A <see cref="T:System.Windows.Controls.Primitives.Thumb"/> control that allows resizing of rows in a <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            It is typically used at the bottom of the row header of a grid to adjust the height of rows.
+            This class was written on the basis of the <see cref="T:System.Windows.Controls.GridSplitter"/> class, but adapted for rows.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.RowResizer.#ctor">
+            <summary>
+            Instantiates a new instance of a RowResizer.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.RowResizer.ShowsPreviewProperty">
+            <summary>
+            DependencyProperty for the <see cref="P:Qhta.SF.Tools.RowResizer.ShowsPreview"/> property.
+            Default value is false
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.RowResizer.ShowsPreview">
+            <summary>
+            Indicates whether to Preview the column resizing without updating layout.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.RowResizer.PreviewStyleProperty">
+            <summary>
+            DependencyProperty for the PreviewStyle property.
+            Default value is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.RowResizer.PreviewStyle">
+            <summary>
+             Style used to render the Preview.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.RowResizer.DragIncrementProperty">
+            <summary>
+            DependencyProperty for the DragIncrement property.
+            Default Value is 1.0
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.RowResizer.DragIncrement">
+            <summary>
+            Restricts resizer to move a multiple of the specified units.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.RowResizer.MinRowHeightProperty">
+            <summary>
+            DependencyProperty for the MinRowHeight property.
+            Default value is 24.0
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.RowResizer.MinRowHeight">
+            <summary>
+                Minimum height of the Row being resized.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.RowResizer.MaxRowHeightProperty">
+            <summary>
+            DependencyProperty for the MaxRowHeight property.
+            Default value is 120.0
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.RowResizer.MaxRowHeight">
+            <summary>
+              Maximum height of the Row being resized.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.RowResizer.OnRenderSizeChanged(System.Windows.SizeChangedInfo)">
+            <summary>
+            Override for <seealso cref="M:System.Windows.UIElement.OnRenderSizeChanged(System.Windows.SizeChangedInfo)"/>
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.RowResizer.PreviewAdorner.GetVisualChild(System.Int32)">
+             <summary>
+               Derived class must implement to support Visual children. The method must return
+            child at the specified index. Index must be between 0 and GetVisualChildrenCount-1.
+            
+                By default, a Visual does not have any children.
+            
+              Remark: 
+                   During this virtual call it is not valid to modify the Visual tree. 
+             </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.RowResizer.PreviewAdorner.VisualChildrenCount">
+             <summary>
+              Derived classes override this property to enable the Visual code to enumerate 
+              the Visual children. Derived classes need to return the number of children
+              from this method.
+            
+                By default, a Visual does not have any children.
+            
+              Remark: During this virtual method the Visual tree must not be modified.
+             </summary>        
+        </member>
+        <member name="M:Qhta.SF.Tools.RowResizer.RoundLayoutValue(System.Double,System.Double)">
+            <summary>
+            Calculates the value to be used for layout rounding at high DPI.
+            </summary>
+            <param name="value">Input value to be rounded.</param>
+            <param name="dpiScale">Ratio of screen's DPI to layout DPI</param>
+            <returns>Adjusted value that will produce layout rounding on screen at high dpi.</returns>
+            <remarks>This is a layout helper method. It takes DPI into account and also does not return
+            the rounded value if it is unacceptable for layout, e.g. Infinity or NaN. It's a helper associated with
+            UseLayoutRounding  property and should not be used as a general rounding utility.</remarks>
+        </member>
+        <member name="T:Qhta.SF.Tools.SfDataGridColumnBehavior">
+            <summary>
+            A behavior class for managing the selection state of a <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> in a Syncfusion DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridColumnBehavior.GetIsSelected(System.Windows.DependencyObject)">
+            <summary>
+            Gets whether the column is selected.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridColumnBehavior.SetIsSelected(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Sets the selection state of the column.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.SF.Tools.SfDataGridColumnBehavior.IsSelectedProperty">
+            <summary>
+            Attached dependency property that indicates whether the column is selected.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridColumnBehavior.OnIsSelectedChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Handles changes to the IsSelected property of a GridColumn.
+            </summary>
+            <remarks>This method updates the styles of the GridColumn based on its selection state. If the column is
+            selected, it applies the "SelectedColumnHeaderStyle" and "SelectedGridStyle" resources. If not selected, it resets
+            the header style to its default and applies the "UnselectedGridStyle" to the cell style.</remarks>
+            <param name="d">The dependency object that represents the GridColumn whose IsSelected property has changed.</param>
+            <param name="e">The event data that contains information about the property change, including the new value.</param>
+        </member>
+        <member name="T:Qhta.SF.Tools.SfDataGridColumnConverter">
+            <summary>
+            Provides a mechanism to convert <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> objects to specific property values for data binding in a
+            <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <remarks>This converter is used to extract specific properties from <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> instances, such
+            as the selection state.</remarks>
+        </member>
+        <member name="F:Qhta.SF.Tools.SfDataGridColumnConverter.LogIt">
+            <summary>
+            Debug flag to enable or disable logging of conversion operations.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridColumnConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> object to a specified property value based on the provided parameter.
+            </summary>
+            <param name="value">The object to convert, expected to be of type <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/>.</param>
+            <param name="targetType">The type to which the value is being converted. This parameter is not used in the conversion process.</param>
+            <param name="parameter">A string specifying the property name to retrieve from the <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/>. Must be "IsSelected".</param>
+            <param name="culture">The culture to use in the converter. This parameter is not used in the conversion process.</param>
+            <returns>The value of the specified property from the <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/>. For "IsSelected", returns the selection
+            state.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown if <paramref name="parameter"/> is not a string or if the property name is not recognized.</exception>
+            <exception cref="T:System.NotImplementedException">Thrown if <paramref name="value"/> is not of type <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/>.</exception>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridColumnConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented method for converting back from the target type to the source type.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.SF.Tools.SfDataGridTools">
+            <summary>
+            Provides utility methods for handling mouse interactions with the header and row header cells in a <see
+            cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <remarks>This class contains methods that manage the selection behavior of columns and rows when interacting
+            with the grid's header cells. It supports features such as toggling column selection and clearing or setting
+            selections based on user input.</remarks>
+            <summary>
+            SfDataGridTools
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridTools.GridHeaderCellControl_MouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the mouse left button down event on a <see cref="T:Syncfusion.UI.Xaml.Grid.GridHeaderCellControl"/>. This method toggles the
+            IsSelected state of the column when the header cell is clicked. It also manages the selection of multiple
+            columns based on the Shift and Control keys pressed during the click event.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+            <remarks>If the column enables filtering or sorting, then selection is possible only if the mouse click
+            position omits filter icon or sorting icon on the right of the header control. This condition allows the method
+            to be handled on th PreviewMouseLeftButtonDown event of the header cell control, ensuring that the sorting
+            functionality is not triggered when the user intends to select the column instead.
+            </remarks>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridTools.GridRowHeaderIndentCell_MouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the left mouse button down event on a grid row header indent cell to toggle the selection of the whole grid.
+            </summary>
+            <remarks>This method toggles the selection state of the grid's columns. If any cells are currently
+            selected, it clears the selection. Otherwise, it selects or deselects all columns based on their current
+            state.</remarks>
+            <param name="sender">The source of the event, expected to be a <see cref="T:Syncfusion.UI.Xaml.Grid.GridRowHeaderIndentCell"/>.</param>
+            <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridTools.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

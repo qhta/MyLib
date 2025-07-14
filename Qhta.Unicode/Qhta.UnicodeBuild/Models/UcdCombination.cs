@@ -1,5 +1,9 @@
 ﻿namespace Qhta.Unicode.Models;
 
+/// <summary>
+/// Enumeration representing the combination classes of Unicode characters.
+/// It is encoded in the CodePoint Comb field to classify how characters combine with base characters.
+/// </summary>
 public enum UcdCombination
 {
   /// <summary>
@@ -15,7 +19,7 @@ public enum UcdCombination
   /// </summary>
   TibetanSubjoinedLetters = 6,
   /// <summary>
-  /// Nuktas
+  /// Nuktas - special combining mode in which the combining character is placed at the bottom of the base character, often used in Indic scripts.
   /// </summary>
   Nuktas = 7,
   /// <summary>
@@ -23,7 +27,7 @@ public enum UcdCombination
   /// </summary>
   KanaVoicedMarks = 8,
   /// <summary>
-  /// Viramas
+  /// Viramas - a special combining character used in Indic scripts to indicate the absence of an inherent vowel sound in a consonant, allowing for the formation of consonant clusters.
   /// </summary>
   Viramas = 9,
   /// <summary>

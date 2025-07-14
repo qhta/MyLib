@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.UndoManager</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.UndoManager.IAction">
+            <summary>
+            Interface for actions that can be executed with arguments.
+            </summary>
+        </member>
+        <member name="M:Qhta.UndoManager.IAction.Execute(System.Object)">
+            <summary>
+            Executes the action with the provided arguments.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="T:Qhta.UndoManager.UndoMgr">
+            <summary>
+            Manager class for Undo/Redo functionality in application.
+            Records actions and manages undo/redo stacks.
+            Only registered actions can be undone or redone.
+            </summary>
+        </member>
+        <member name="F:Qhta.UndoManager.UndoMgr.AvailableActions">
+            <summary>
+            Dictionary to hold available actions and their corresponding undo/redo actions.
+            </summary>
+        </member>
+        <member name="T:Qhta.UndoManager.UndoMgr.UndoRedoEntry">
+            <summary>
+            Entry record for storing action and its arguments in the undo/redo stacks.
+            </summary>
+            <param name="Action"></param>
+            <param name="Args"></param>
+        </member>
+        <member name="M:Qhta.UndoManager.UndoMgr.UndoRedoEntry.#ctor(Qhta.UndoManager.IAction,System.Object)">
+            <summary>
+            Entry record for storing action and its arguments in the undo/redo stacks.
+            </summary>
+            <param name="Action"></param>
+            <param name="Args"></param>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoMgr.UndoRedoEntry.Action">
+            <summary></summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoMgr.UndoRedoEntry.Args">
+            <summary></summary>
+        </member>
+        <member name="F:Qhta.UndoManager.UndoMgr.UndoStack">
+            <summary>
+            Undo stack to keep track of executed actions for undo functionality.
+            </summary>
+        </member>
+        <member name="F:Qhta.UndoManager.UndoMgr.RedoStack">
+            <summary>
+            Redo stack to keep track of undone actions for redo functionality.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoMgr.Enabled">
+            <summary>
+            Determines whether the Record/Undo/Redo functionality is enabled.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoMgr.IsUndoing">
+            <summary>
+            Flag to indicate if the application is currently undoing an action.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoMgr.IsRedoing">
+            <summary>
+            Flag to indicate if the application is currently redoing an action.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoMgr.IsRecording">
+            <summary>
+            Flag to indicate if the application is currently recording an action.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoMgr.IsUndoAvailable">
+            <summary>
+            Flag to indicate if the Undo functionality is available.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoMgr.IsRedoAvailable">
+            <summary>
+            Flag to indicate if the Redo functionality is available.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoMgr.IsRecordingAvailable">
+            <summary>
+            Flag to indicate if the recording functionality is available.
+            </summary>
+        </member>
+        <member name="M:Qhta.UndoManager.UndoMgr.RegisterActions(Qhta.UndoManager.IAction,Qhta.UndoManager.IAction)">
+            <summary>
+            Registers an action with its corresponding undo action.
+            </summary>
+            <param name="action"></param>
+            <param name="undoAction"></param>
+        </member>
+        <member name="M:Qhta.UndoManager.UndoMgr.Record(Qhta.UndoManager.IAction,System.Object[])">
+            <summary>
+            Records an action with its arguments for undo functionality.
+            </summary>
+            <param name="action"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.UndoManager.UndoMgr.Undo">
+            <summary>
+            Reverts the last operation performed, if undo is available.
+            </summary>
+            <remarks>This method checks if undo functionality is enabled and if there is an operation available to
+            undo. If both conditions are met, it executes the undo operation and prepares the operation for potential
+            redo.</remarks>
+        </member>
+        <member name="M:Qhta.UndoManager.UndoMgr.Redo">
+            <summary>
+            Re-executes the last undone action if redo is available.
+            </summary>
+            <remarks>This method checks if redo operations are enabled,
+            and then it executes the action and updates the undo and redo stacks accordingly.</remarks>
+        </member>
+    </members>
+</doc>

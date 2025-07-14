@@ -5,8 +5,14 @@ using System.Windows.Controls;
 
 namespace Qhta.UnicodeBuild
 {
+  /// <summary>
+  /// A simple invisible window used to handle drag-and-drop operations for TabItems.
+  /// </summary>
   public partial class InvisibleWindow : Window
   {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InvisibleWindow"/> class.
+    /// </summary>
     public InvisibleWindow()
     {
       InitializeComponent();

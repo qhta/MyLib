@@ -1,18 +1,34 @@
-﻿using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
+
 using Qhta.WPF.Utils;
+
 using Syncfusion.UI.Xaml.Grid;
-using Syncfusion.Windows.Controls.Cells;
 
 namespace Qhta.SF.Tools;
 
+/// <summary>
+/// Provides utility methods for handling mouse interactions with the header and row header cells in a <see
+/// cref="SfDataGrid"/>.
+/// </summary>
+/// <remarks>This class contains methods that manage the selection behavior of columns and rows when interacting
+/// with the grid's header cells. It supports features such as toggling column selection and clearing or setting
+/// selections based on user input.</remarks>
 public partial class SfDataGridTools : ResourceDictionary
 {
 
+  /// <summary>
+  /// Handles the mouse left button down event on a <see cref="GridHeaderCellControl"/>. This method toggles the
+  /// IsSelected state of the column when the header cell is clicked. It also manages the selection of multiple
+  /// columns based on the Shift and Control keys pressed during the click event.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  /// <remarks>If the column enables filtering or sorting, then selection is possible only if the mouse click
+  /// position omits filter icon or sorting icon on the right of the header control. This condition allows the method
+  /// to be handled on th PreviewMouseLeftButtonDown event of the header cell control, ensuring that the sorting
+  /// functionality is not triggered when the user intends to select the column instead.
+  /// </remarks>
   private void GridHeaderCellControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
   {
     //Debug.WriteLine($"Grid_OnPreviewMouseLeftButtonDown({sender})");
@@ -105,6 +121,14 @@ public partial class SfDataGridTools : ResourceDictionary
     }
   }
 
+  /// <summary>
+  /// Handles the left mouse button down event on a grid row header indent cell to toggle the selection of the whole grid.
+  /// </summary>
+  /// <remarks>This method toggles the selection state of the grid's columns. If any cells are currently
+  /// selected, it clears the selection. Otherwise, it selects or deselects all columns based on their current
+  /// state.</remarks>
+  /// <param name="sender">The source of the event, expected to be a <see cref="GridRowHeaderIndentCell"/>.</param>
+  /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
   private void GridRowHeaderIndentCell_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
   {
     //Debug.WriteLine($"Grid_OnPreviewMouseLeftButtonDown({sender})");

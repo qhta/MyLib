@@ -12,6 +12,11 @@ using Syncfusion.Windows.Controls.Grid;
 
 namespace Qhta.SF.Tools;
 
+/// <summary>
+/// A <see cref="Thumb"/> control that allows resizing of rows in a <see cref="SfDataGrid"/>.
+/// It is typically used at the bottom of the row header of a grid to adjust the height of rows.
+/// This class was written on the basis of the <see cref="GridSplitter"/> class, but adapted for rows.
+/// </summary>
 public class RowResizer : Thumb
 {
 
@@ -46,6 +51,10 @@ public class RowResizer : Thumb
 
   #region Properties
 
+  /// <summary>
+  /// DependencyProperty for the <see cref="ShowsPreview"/> property.
+  /// Default value is false
+  /// </summary>
   public static readonly DependencyProperty ShowsPreviewProperty
       = DependencyProperty.Register(nameof(ShowsPreview),
                                     typeof(bool),
@@ -62,8 +71,8 @@ public class RowResizer : Thumb
   }
 
   /// <summary>
-  ///     The DependencyProperty for the PreviewStyle property.
-  ///     Default Value:      null
+  /// DependencyProperty for the PreviewStyle property.
+  /// Default value is null.
   /// </summary>
   public static readonly DependencyProperty PreviewStyleProperty =
               DependencyProperty.Register(
@@ -73,7 +82,7 @@ public class RowResizer : Thumb
                           new FrameworkPropertyMetadata(null));
 
   /// <summary>
-  ///     The Style used to render the Preview.
+  ///  Style used to render the Preview.
   /// </summary>
   public Style PreviewStyle
   {
@@ -89,8 +98,8 @@ public class RowResizer : Thumb
 
 
   /// <summary>
-  ///     The DependencyProperty for the DragIncrement property.
-  ///     Default Value:      1.0
+  /// DependencyProperty for the DragIncrement property.
+  /// Default Value is 1.0
   /// </summary>
   public static readonly DependencyProperty DragIncrementProperty =
               DependencyProperty.Register(
@@ -101,7 +110,7 @@ public class RowResizer : Thumb
                           new ValidateValueCallback(IsValidDelta));
 
   /// <summary>
-  ///     Restricts resizer to move a multiple of the specified units.
+  /// Restricts resizer to move a multiple of the specified units.
   /// </summary>
   public double DragIncrement
   {
@@ -110,8 +119,8 @@ public class RowResizer : Thumb
   }
 
   /// <summary>
-  ///     The DependencyProperty for the MinRowHeight property.
-  ///     Default Value:      24.0
+  /// DependencyProperty for the MinRowHeight property.
+  /// Default value is 24.0
   /// </summary>
   public static readonly DependencyProperty MinRowHeightProperty =
     DependencyProperty.Register(
@@ -131,8 +140,8 @@ public class RowResizer : Thumb
   }
 
   /// <summary>
-  ///     The DependencyProperty for the MaxRowHeight property.
-  ///     Default Value:      120.0
+  /// DependencyProperty for the MaxRowHeight property.
+  /// Default value is 120.0
   /// </summary>
   public static readonly DependencyProperty MaxRowHeightProperty =
     DependencyProperty.Register(
@@ -143,7 +152,7 @@ public class RowResizer : Thumb
       new ValidateValueCallback(IsValidDelta));
 
   /// <summary>
-  ///     Restricts resizer to move a multiple of the specified units.
+  ///   Maximum height of the Row being resized.
   /// </summary>
   public double MaxRowHeight
   {
@@ -199,7 +208,7 @@ public class RowResizer : Thumb
 
     /// <summary>
     ///   Derived class must implement to support Visual children. The method must return
-    ///    the child at the specified index. Index must be between 0 and GetVisualChildrenCount-1.
+    ///child at the specified index. Index must be between 0 and GetVisualChildrenCount-1.
     ///
     ///    By default, a Visual does not have any children.
     ///

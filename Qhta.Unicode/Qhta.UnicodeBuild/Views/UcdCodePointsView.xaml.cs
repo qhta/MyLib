@@ -1,12 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Navigation;
+
 using Qhta.SF.Tools;
-using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.Resources;
 using Qhta.UnicodeBuild.ViewModels;
 
@@ -14,14 +11,15 @@ using Syncfusion.Data;
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.Windows.Shared;
 
-using CollectionViewExtensions = Syncfusion.Data.CollectionViewExtensions;
-
 namespace Qhta.UnicodeBuild.Views;
 /// <summary>
-/// Interaction logic for CodePointsView.xaml
+/// View for displaying Unicode code points collection.
 /// </summary>
 public partial class UcdCodePointsView : UserControl
 {
+  /// <summary>
+  /// Initializes a new instance of the <see cref="UcdCodePointsView"/> class.
+  /// </summary>
   public UcdCodePointsView()
   {
     InitializeComponent();

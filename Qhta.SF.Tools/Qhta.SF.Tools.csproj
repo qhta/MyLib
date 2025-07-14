@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\docs\Qhta.SF.Tools.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,6 +37,10 @@
       <LastGenOutput>DataStrings.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="docs\" />
   </ItemGroup>
 
 

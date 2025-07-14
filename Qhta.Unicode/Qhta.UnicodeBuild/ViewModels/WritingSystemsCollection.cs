@@ -1,22 +1,28 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows;
-
-using Qhta.MVVM;
+﻿using Qhta.ObservableObjects;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
-using Qhta.DeepCopy;
-using Qhta.ObservableObjects;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
+/// <summary>
+/// Specialized collection for managing writing systems.
+/// </summary>
 public sealed class WritingSystemsCollection() : OrderedObservableCollection<WritingSystemViewModel>((item) => item.Name!)
 {
-  
 
   private Dictionary<int, WritingSystemViewModel> IntDictionary { get; set; } = new();
   private Dictionary<string, WritingSystemViewModel> StringDictionary { get; set; } = new();
+  
+  /// <summary>
+  /// Parent writing system view model, if this collection is a child of another writing system.
+  /// </summary>
+  public WritingSystemViewModel? Parent { get; }
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="WritingSystemsCollection"/> class using the specified parent view model and a collection of writing system models.
+  /// </summary>
+  /// <param name="parent"></param>
+  /// <param name="models"></param>
   public WritingSystemsCollection(WritingSystemViewModel parent, IEnumerable<WritingSystem> models) : this()
   {
     Parent = parent;
@@ -32,6 +38,14 @@ public sealed class WritingSystemsCollection() : OrderedObservableCollection<Wri
     CollectionChanged += WritingSystemsCollection_CollectionChanged;
   }
 
+  /// <summary>
+  /// Handles changes to the writing systems collection by updating internal dictionaries.
+  /// </summary>
+  /// <remarks>This method updates the <c>IntDictionary</c> and <c>StringDictionary</c> based on the action
+  /// performed on the collection. If items are removed, their identifiers and names are removed from the dictionaries.
+  /// If items are added, they are added to the dictionaries, provided their names do not start with "&lt;".</remarks>
+  /// <param name="sender">The source of the event, typically the collection that has changed.</param>
+  /// <param name="e">The event data containing information about the change.</param>
   private void WritingSystemsCollection_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
   {
     if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
@@ -89,10 +103,19 @@ public sealed class WritingSystemsCollection() : OrderedObservableCollection<Wri
     }
   }
 
-
+  /// <summary>
+  /// Finds a writing system by its identifier.
+  /// </summary>
+  /// <param name="Id"></param>
+  /// <returns></returns>
   public WritingSystemViewModel? FindById(int Id)
     => IntDictionary.GetValueOrDefault(Id);
 
+  /// <summary>
+  /// Finds a writing system by its name.
+  /// </summary>
+  /// <param name="name"></param>
+  /// <returns></returns>
   public WritingSystemViewModel? FindByName(string name)
   {
     if (name.EndsWith(" Script", StringComparison.InvariantCultureIgnoreCase))
@@ -108,10 +131,11 @@ public sealed class WritingSystemsCollection() : OrderedObservableCollection<Wri
     return result;
   }
 
-
-
-  public WritingSystemViewModel? Parent { get; }
-
+  /// <summary>
+  /// Adds a writing system to the collection, creating a new view model if it does not already exist.
+  /// </summary>
+  /// <param name="ws"></param>
+  /// <returns></returns>
   public WritingSystemViewModel Add(WritingSystem ws)
   {
     var vm = (!IsLoaded) ? null : _ViewModels.Instance.WritingSystems.FindById((int)ws.Id!);
@@ -123,6 +147,10 @@ public sealed class WritingSystemsCollection() : OrderedObservableCollection<Wri
     return vm;
   }
 
+  /// <summary>
+  /// Adds a writing system view model to the collection, ensuring it has a valid name and is not already present.
+  /// </summary>
+  /// <param name="vm"></param>
   public new void Add(WritingSystemViewModel vm)
   {
     //ObservableCollection<WritingSystemViewModel>
@@ -134,16 +162,9 @@ public sealed class WritingSystemsCollection() : OrderedObservableCollection<Wri
     if (!String.IsNullOrEmpty(vm.Name) && !vm.Name.StartsWith("<")) StringDictionary.Add(vm.Name, vm);
   }
 
-  //public RelayCommand EvaluateIsUsedCommand { get; }
-
-  //private void EvaluateIsUsed()
-  //{
-  //  foreach (var vm in this)
-  //  {
-  //    vm.IsUsed = vm.Model.UcdBlocks?.Count > 0 || vm.Model.Children?.Count > 0 || vm.Model.UcdRanges?.Count > 0;
-  //  }
-  //}
-
+  /// <summary>
+  /// Gets the top-level writing systems in the collection, which are those without a parent.
+  /// </summary>
   public IEnumerable<WritingSystemViewModel> TopWritingSystems => base.Items.Where(item => item.ParentId == null);
 
 

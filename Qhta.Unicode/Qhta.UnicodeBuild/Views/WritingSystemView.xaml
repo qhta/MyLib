@@ -11,7 +11,8 @@
              xmlns:models="clr-namespace:Qhta.Unicode.Models"
              xmlns:sys="clr-namespace:System.Globalization;assembly=System.Runtime"
              mc:Ignorable="d" 
-             d:DataContext="{Binding Source={StaticResource ViewModels}, Path=Instance.WritingSystems.NewWritingSystem}"
+             d:DataContext="{Binding Source={StaticResource ViewModels}, 
+                     Path=Instance.WritingSystems.NewWritingSystem}"
              d:DesignHeight="350" d:DesignWidth="400">
   <UserControl.Resources>
     <!--<pt:ValidationErrorsToStringConverter x:Key="ValidationErrorsToStringConverter" />-->
@@ -87,7 +88,7 @@
              ToolTip="{x:Static resources:WritingSystem.TypeTooltip}"/>
     <ComboBox Grid.Row="1" Grid.Column="1"
                 Margin="{StaticResource RowMargin}"
-                SelectedItem="{Binding Type}"
+                SelectedItem="{Binding Name}"
                 ItemsSource="{Binding Source={StaticResource ViewModels}, 
                   Path=Instance.WritingSystemTypes}">
       <ComboBox.ItemTemplate>

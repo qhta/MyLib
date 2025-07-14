@@ -1,15 +1,40 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace Qhta.Unicode.Models;
 
-namespace Qhta.Unicode.Models;
-
+/// <summary>
+/// Enumeration representing different types of writing systems.
+/// </summary>
 public enum WritingSystemType: byte
 {
-  Area = 1, // a range of code points that are not defined individually
-  Family = 2, // a set of scripts or other writing systems
-  Script = 3, // a set of symbols used to write a language
-  Language = 4, // a structured system of communication that consists of grammar and vocabulary
-  Notation = 5, // a system of symbols used to represent information in some convention
-  SymbolSet = 6, // a set of symbols that can be scattered across different ranges
+  /// <summary>
+  /// A range of code points that are not defined individually
+  /// </summary>
+  Area = 1,
+  /// <summary>
+  /// A set of writing systems or scripts that share common characteristics
+  /// </summary>
+  Family = 2,
+  /// <summary>
+  /// A script is a set of symbols used to write a language, which may include letters, numbers, punctuation, and other characters.
+  /// </summary>
+  Script = 3,
+  /// <summary>
+  /// A language is a structured system of communication that consists of grammar and vocabulary, used by a community for communication.
+  /// </summary>
+  Language = 4,
+  /// <summary>
+  /// Notation is a system of symbols used to represent information in some convention, often used in mathematics, music, or other specialized fields.
+  /// </summary>
+  Notation = 5,
+  /// <summary>
+  /// SymbolSet is a collection of symbols that can be used in various contexts. Unlike notation, there are no specific rules for use. 
+  /// </summary>
+  SymbolSet = 6,
+  /// <summary>
+  /// A subset is a collection of symbols that belongs to a larger set, often used to represent a specific part of that set.
+  /// </summary>
   Subset = 7, // a subset of symbols belonging to a set
+  /// <summary>
+  /// An artefact is an object made or modified by humans, often used in archaeology or anthropology to study past cultures.
+  /// </summary>
   Artefact = 8, // an artefact of human culture
 }

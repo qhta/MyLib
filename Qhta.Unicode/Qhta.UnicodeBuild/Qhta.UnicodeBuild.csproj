@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\docs\Qhta.UnicodeBuild.xml</DocumentationFile>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
 
@@ -145,6 +147,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Qhta.SF.Tools\Qhta.SF.Tools.csproj" />
+    <ProjectReference Include="..\..\Qhta.UndoManager\Qhta.UndoManager.csproj" />
   </ItemGroup>
 
   <ItemGroup>

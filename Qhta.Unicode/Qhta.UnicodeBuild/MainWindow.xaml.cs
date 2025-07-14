@@ -3,14 +3,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-using Qhta.UnicodeBuild.ViewModels;
-
-using Syncfusion.UI.Xaml.TreeView.Engine;
-
 namespace Qhta.UnicodeBuild
 {
+  /// <summary>
+  /// Main window for the application.
+  /// </summary>
   public partial class MainWindow : Window
   {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainWindow"/> class.
+    /// </summary>
     public MainWindow()
     {
       InitializeComponent();

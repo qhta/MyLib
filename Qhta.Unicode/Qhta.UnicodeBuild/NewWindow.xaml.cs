@@ -7,10 +7,13 @@ using System.Windows.Input;
 namespace Qhta.UnicodeBuild
 {
   /// <summary>
-  /// Interaction logic for NewWindow.xaml
+  /// New window for displaying and managing TabItems.
   /// </summary>
   public partial class NewWindow : Window
   {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NewWindow"/> class.
+    /// </summary>
     public NewWindow()
     {
       InitializeComponent();

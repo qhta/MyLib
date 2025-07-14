@@ -1,25 +1,21 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
 
-using Microsoft.VisualBasic;
 using Microsoft.Win32;
 
-using Qhta.DeepCopy;
 using Qhta.MVVM;
-using Qhta.Unicode.Models;
-using Qhta.UnicodeBuild.Helpers;
-
-using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
 public partial class _ViewModels
 {
 
+  /// <summary>
+  /// Command to apply block mappings to Unicode code points.
+  /// A list of mappings is read from a file, and each code point in the specified blocks is updated with the corresponding UcdBlock.
+  /// </summary>
   public IRelayCommand ApplyBlockMappingCommand { get; }
 
   private void ApplyBlockMappingCommandExecute()
@@ -85,9 +81,14 @@ public partial class _ViewModels
     }
   }
 
-
+  /// <summary>
+  /// Command to break the apply block mapping operation.
+  /// </summary>
   public IRelayCommand BreakApplyBlockMappingCommand { get; }
 
+  /// <summary>
+  /// Executes the command to break the apply block mapping operation.
+  /// </summary>
   public void BreakApplyBlockMappingCommandExecute()
   {
     if (ApplyBlockMappingBackgroundWorker.IsBusy)
@@ -96,6 +97,9 @@ public partial class _ViewModels
     }
   }
 
+  /// <summary>
+  /// Background worker for applying block mappings to Unicode code points.
+  /// </summary>
   public BackgroundWorker ApplyBlockMappingBackgroundWorker = new BackgroundWorker
   {
     WorkerReportsProgress = true,

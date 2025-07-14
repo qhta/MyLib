@@ -1,40 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Windows;
-using EntityFrameworkCore.Jet.Data.Properties;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic;
-using Syncfusion.Windows.Shared;
 
 namespace Qhta.Unicode.Models;
 
+/// <summary>
+/// Database context for the Unicode data model. Contains DbSet properties for various entities such as UcdCodePoint, UcdBlock, WritingSystem, etc.
+/// </summary>
 public partial class _DbContext : DbContext, IDisposable
 {
+  /// <summary>
+  /// Default constructor for the _DbContext.
+  /// </summary>
   public _DbContext()
   {
   }
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="_DbContext"/> class using the specified options.
+  /// </summary>
+  /// <param name="options">The options to be used by the <see cref="_DbContext"/>. This parameter cannot be null.</param>
   public _DbContext(DbContextOptions<_DbContext> options)
       : base(options)
   {
   }
 
+  /// <summary>
+  /// Gets or sets the collection of Unicode code points.
+  /// </summary>
   public virtual DbSet<UcdCodePoint> CodePoints { get; set; }
 
+  /// <summary>
+  /// Gets or sets the collection of Unicode Character Database (UCD) blocks.
+  /// </summary>
   public virtual DbSet<UcdBlock> UcdBlocks { get; set; }
 
+  /// <summary>
+  /// Gets or sets the collection of writing systems available in the database.
+  /// </summary>
   public virtual DbSet<WritingSystem> WritingSystems { get; set; }
 
+  /// <summary>
+  /// Gets or sets the collection of writing system kinds in the database.
+  /// </summary>
   public virtual DbSet<WritingSystemKindEntity> WritingSystemKinds { get; set; }
 
+  /// <summary>
+  /// Gets or sets the collection of writing system types in the database.
+  /// </summary>
   public virtual DbSet<WritingSystemTypeEntity> WritingSystemTypes { get; set; }
 
+  /// <summary>
+  /// Gets or sets the collection of Unicode category entities.
+  /// </summary>
   public virtual DbSet<UnicodeCategoryEntity> UnicodeCategories { get; set; }
 
+  /// <summary>
+  /// Configures the database context options.
+  /// </summary>
+  /// <remarks>This method is called automatically by the framework to configure the database context. It sets
+  /// up the connection string from the "appSettings.json" file if the options are not already configured.</remarks>
+  /// <param name="optionsBuilder">The builder used to configure the database context options.</param>
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
     if (!optionsBuilder.IsConfigured)
@@ -51,14 +79,22 @@ public partial class _DbContext : DbContext, IDisposable
     }
   }
 
+  /// <summary>
+  /// Configures the entity framework model for the context.
+  /// </summary>
+  /// <remarks>This method is used to define the schema of the database by configuring entity properties, keys,
+  /// relationships, and constraints. It is called when the model for a derived context has been initialized, but before
+  /// the model has been locked down and used to initialize the context.</remarks>
+  /// <param name="modelBuilder">The <see cref="ModelBuilder"/> used to configure the model for the context.</param>
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
 
     modelBuilder.Entity<Alias>(entity =>
     {
-      entity.HasKey(e => new { e.Ord, e.Alias1 }).HasName("PrimaryKey");
-
-      entity.Property(e => e.Alias1).HasColumnName("Alias");
+      entity.HasKey(e => new { e.Ord, Name = e.Name }).HasName("PrimaryKey");
+      entity.Property(e => e.Name).HasColumnName("Alias");
+      entity.Property(e => e.Name).HasMaxLength(255);
+      entity.Property(e => e.Type).HasConversion<byte>();
 
       entity.HasOne(d => d.UcdCodePoint).WithMany(p => p.Aliases)
               .HasForeignKey(d => d.Ord)
@@ -66,26 +102,12 @@ public partial class _DbContext : DbContext, IDisposable
               .HasConstraintName("UnicodeDataAliases");
     });
 
-    //modelBuilder.Entity<AliasType>(entity =>
-    //{
-    //  entity.HasKey(e => e.Id).HasName("PrimaryKey");
-
-    //  entity.Property(e => e.Id).HasColumnName("ID");
-    //  entity.Property(e => e.Type).HasMaxLength(255);
-    //});
-
-
     modelBuilder.Entity<UcdBlock>(entity =>
     {
       entity.HasKey(e => e.Id).HasName("PrimaryKey");
-
       entity.HasIndex(e => e.Id, "ID");
-
       entity.HasIndex(e => e.WritingSystemId, "WritingSystemID");
-
-      entity.Property(e => e.Id)
-              .HasColumnType("counter")
-              .HasColumnName("ID");
+      entity.Property(e => e.Id).HasColumnType("counter").HasColumnName("ID");
       entity.Property(e => e.BlockName).HasMaxLength(255);
       entity.Property(e => e.End).HasDefaultValue(0);
       entity.Property(e => e.Range).HasMaxLength(255);
@@ -97,40 +119,17 @@ public partial class _DbContext : DbContext, IDisposable
         .HasForeignKey(ub => ub.WritingSystemId);
     });
 
-    //modelBuilder.Entity<UcdRange>(entity =>
-    //{
-    //  entity.HasKey(e => e.Id).HasName("PrimaryKey");
-
-    //  entity.HasIndex(e => e.Range, "Range");
-    //  entity.HasIndex(e => e.BlockId, "BlockID");
-    //  entity.HasIndex(e => e.WritingSystemId, "WritingSystemID");
-
-    //  entity.Property(e => e.Range)
-    //          .HasMaxLength(12)
-    //          .HasColumnName("Range");
-    //  entity.Property(e => e.Language).HasMaxLength(255);
-    //  entity.Property(e => e.RangeName).HasMaxLength(255);
-    //  entity.Property(e => e.Standard).HasMaxLength(255);
-    //  entity.Property(e => e.WritingSystemId).HasColumnName("WritingSystemID");
-
-    //  entity.HasOne(d => d.UcdBlock).WithMany(p => p.UcdRanges)
-    //    .HasForeignKey(d => d.BlockId);
-
-    //  entity.HasOne(d => d.WritingSystem).WithMany(p => p.UcdRanges)
-    //    .HasForeignKey(d => d.WritingSystemId);
-
-
-    //});
-
     modelBuilder.Entity<UcdCodePoint>(entity =>
     {
       entity.HasKey(e => e.Id).HasName("PrimaryKey");
 
       entity.HasIndex(e => e.CharName, "CharName");
+      entity.Property(e => e.CharName).HasMaxLength(255);
       entity.Property(e => e.Bidir).HasMaxLength(3);
       entity.Property(e => e.Code).HasMaxLength(6);
       entity.Property(e => e.Comment).HasMaxLength(255);
       entity.Property(e => e.Ctg).HasMaxLength(2);
+      entity.Property(e => e.Comb).HasConversion<byte?>();
       entity.Property(e => e.DecDigitVal).HasMaxLength(1);
       entity.Property(e => e.Decomposition).HasMaxLength(255);
       entity.Property(e => e.Description).HasMaxLength(255);
@@ -147,49 +146,44 @@ public partial class _DbContext : DbContext, IDisposable
     modelBuilder.Entity<WritingSystem>(entity =>
     {
       entity.HasKey(e => e.Id).HasName("PrimaryKey");
-
       entity.HasIndex(e => new { e.Abbr, e.Ext }, "Abbr").IsUnique();
-
       entity.HasIndex(e => e.Ctg, "Ctg").IsUnique();
-
       entity.HasIndex(e => new { e.Name, e.Type }, "FullName").IsUnique();
-
       entity.HasIndex(e => e.KeyPhrase, "KeyPhrase").IsUnique();
-
       entity.HasIndex(e => e.ParentId, "ParentID");
-
       entity.HasIndex(e => e.Kind, "Kind");
       entity.HasIndex(e => e.Type, "Type");
       entity.Property(e => e.Type).HasConversion<byte>();
       entity.Property(e => e.Kind).HasConversion<byte>();
-
-      entity.Property(e => e.Id)
-              .HasColumnName("ID");
+      entity.Property(e => e.Id).HasColumnName("ID");
       entity.Property(e => e.Name).HasMaxLength(255);
       entity.Property(e => e.KeyPhrase).HasMaxLength(255);
       entity.Property(e => e.Abbr).HasMaxLength(255);
       entity.Property(e => e.Ctg).HasMaxLength(2);
       entity.Property(e => e.Ext).HasMaxLength(10);
-      entity.Property(e => e.Iso)
-              .HasMaxLength(255)
-              .HasColumnName("ISO");
+      entity.Property(e => e.Iso).HasMaxLength(255).HasColumnName("ISO");
       entity.Property(e => e.Kind).HasMaxLength(15);
       entity.Property(e => e.ParentId).HasColumnName("ParentID");
       entity.Property(e => e.Type).HasMaxLength(10);
-
-
-
       entity.HasOne(d => d.ParentSystem).WithMany(p => p.Children)
               .HasForeignKey(d => d.ParentId)
               .HasConstraintName("WritingSystemsWritingSystems");
+    });
+
+    modelBuilder.Entity<WritingSystemTypeEntity>(entity =>
+    {
+      entity.Property(e => e.Id).HasConversion<byte>();
+      entity.HasKey(e => e.Id).HasName("PrimaryKey");
+      entity.Property(e => e.Name).HasMaxLength(10);
+      entity.HasIndex(e => e.Name, "Type").IsUnique();
     });
 
     modelBuilder.Entity<WritingSystemKindEntity>(entity =>
     {
       entity.Property(e => e.Id).HasConversion<byte>();
       entity.HasKey(e => e.Id).HasName("PrimaryKey");
-      entity.Property(e => e.Kind).HasMaxLength(15);
-      entity.HasIndex(e => e.Kind, "Kind").IsUnique();
+      entity.Property(e => e.Name).HasMaxLength(15);
+      entity.HasIndex(e => e.Name, "Kind").IsUnique();
     });
 
     modelBuilder.Entity<UnicodeCategoryEntity>(entity =>
@@ -206,17 +200,23 @@ public partial class _DbContext : DbContext, IDisposable
 
   partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-  private void ReleaseUnmanagedResources()
-  {
-    // TODO release unmanaged resources here
-  }
-
+  #region IDisposable implementation
+  /// <summary>
+  /// Gets a value indicating whether there are unsaved changes in the current context.
+  /// </summary>
   public bool ThereAreUnsavedChanges => ChangeTracker.HasChanges();
+
+  /// <summary>
+  /// Allows automatic saving of changes to the database when the context is disposed.
+  /// </summary>
   public bool AutoSaveChanges = true;
 
+  /// <summary>
+  /// Disposes the context and saves changes if there are any unsaved changes.
+  /// </summary>
+  /// <param name="disposing"></param>
   protected virtual void Dispose(bool disposing)
   {
-    ReleaseUnmanagedResources();
     if (disposing)
     {
       if (ChangeTracker.HasChanges() && AutoSaveChanges)
@@ -227,6 +227,12 @@ public partial class _DbContext : DbContext, IDisposable
     }
   }
 
+  /// <summary>
+  /// Releases all resources used by the current instance of the class.
+  /// </summary>
+  /// <remarks>This method should be called when the object is no longer needed to free up resources. It calls
+  /// the protected <c>Dispose(bool disposing)</c> method with the <c>disposing</c> parameter set to <see
+  /// langword="true"/> and suppresses finalization.</remarks>
   public override void Dispose()
   {
     Dispose(true);
@@ -234,8 +240,12 @@ public partial class _DbContext : DbContext, IDisposable
     GC.SuppressFinalize(this);
   }
 
+  /// <summary>
+  /// Destructs the context and releases all resources used by it.
+  /// </summary>
   ~_DbContext()
   {
     Dispose(false);
   }
+  #endregion
 }

@@ -88,6 +88,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot delete writing system as it is used in other entities..
+        /// </summary>
+        public static string CannotDeleteWritingSystem {
+            get {
+                return ResourceManager.GetString("CannotDeleteWritingSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Code Points.
         /// </summary>
         public static string CodePoints {
@@ -178,6 +187,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End value must be greater than or equal to start value..
+        /// </summary>
+        public static string EndValueMustBeGreater {
+            get {
+                return ResourceManager.GetString("EndValueMustBeGreater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
@@ -255,6 +273,24 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string Info {
             get {
                 return ResourceManager.GetString("Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid code point format: {0}. Hexadecimal value expected..
+        /// </summary>
+        public static string InvalidCodePointFormat {
+            get {
+                return ResourceManager.GetString("InvalidCodePointFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid code range format: {0}. Two hexadecimal value expected separated with two dots. A single value is allowed..
+        /// </summary>
+        public static string InvalidCodeRangeFormat {
+            get {
+                return ResourceManager.GetString("InvalidCodeRangeFormat", resourceCulture);
             }
         }
         
@@ -372,6 +408,15 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string SelectValueTitle {
             get {
                 return ResourceManager.GetString("SelectValueTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Too long value.
+        /// </summary>
+        public static string TooLongValue {
+            get {
+                return ResourceManager.GetString("TooLongValue", resourceCulture);
             }
         }
         

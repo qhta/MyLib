@@ -1,5 +1,8 @@
 ﻿namespace Qhta.Unicode.Models;
 
+/// <summary>
+/// Unicode Bidirectional Character Types
+/// </summary>
 public enum UcdBidir
 {
 /// <summary>
@@ -35,7 +38,7 @@ AN = 6,
 /// </summary>
 CS = 7,
 /// <summary>
-/// Nonspacing mark
+/// Non-spacing mark
 /// </summary>
 NSM = 8,
 /// <summary>
@@ -63,7 +66,7 @@ ON = 13,
 /// </summary>
 LRE = 14,
 /// <summary>
-/// Left-To-Rigth Override
+/// Left-To-Right Override
 /// </summary>
 LRO = 15,
 /// <summary>

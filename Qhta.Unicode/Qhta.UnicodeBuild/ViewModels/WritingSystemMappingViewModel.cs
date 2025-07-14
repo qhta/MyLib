@@ -1,17 +1,25 @@
 ﻿using Qhta.MVVM;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
-using Qhta.UnicodeBuild.Resources;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
+/// <summary>
+/// ViewModel for <see cref="WritingSystemMapping"/>.
+/// </summary>
+/// <param name="WritingSystemMapping"></param>
 public class WritingSystemMappingViewModel(WritingSystemMapping WritingSystemMapping) : ViewModel<WritingSystemMapping>(WritingSystemMapping)
 {
+  /// <summary>
+  /// Initializes a new instance of the <see cref="WritingSystemMappingViewModel"/> class with a new <see cref="WritingSystemMapping"/> model.
+  /// </summary>
   public WritingSystemMappingViewModel() : this(new WritingSystemMapping())
   {
-    //Debug.WriteLine($"WritingSystemViewModel() {this}");
   }
 
+  /// <summary>
+  /// Range of code points that this mapping applies to.
+  /// </summary>
   public CodeRange Range
   {
     get => Model.Range!;
@@ -25,6 +33,9 @@ public class WritingSystemMappingViewModel(WritingSystemMapping WritingSystemMap
     }
   }
 
+  /// <summary>
+  /// Writing system associated with this mapping.
+  /// </summary>
   public WritingSystemViewModel? WritingSystem
   {
     get
