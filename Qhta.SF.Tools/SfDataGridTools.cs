@@ -43,21 +43,31 @@ public partial class SfDataGridTools : ResourceDictionary
       if (grid == null) return;
       if (column.AllowFiltering || column.AllowSorting)
       {
-        int limit = 0;
+        int rightMarginLimit = 0;
         if (column.AllowFiltering)
         {
           // If the column allows filtering, we can check if the mouse is on the filter icon
-          limit += 20; // Assuming the filter icon is 20px wide
+          rightMarginLimit += 20; // Assuming the filter icon is 20px wide
         }
         if (column.AllowSorting)
         {
           // If the column allows sorting, we can check if the mouse is on the sort icon
-          limit += 20; // Assuming the sort icon is 20px wide
+          rightMarginLimit += 20; // Assuming the sort icon is 20px wide
         }
+        // Small margins are used to avoid accidental selection when clicking near the left or right edge of the header cell
+        if (rightMarginLimit == 0)
+          rightMarginLimit = 3; 
+        int leftMarginLimit = 3; // Assuming a small margin on the left side
         var mousePosition = e.GetPosition(headerCellControl);
-        if (mousePosition.X >= headerCellControl.ActualWidth - limit)
+        if (mousePosition.X >= headerCellControl.ActualWidth - rightMarginLimit)
         {
           // If mouse is on the filter icon, do open filter popup instead of selecting the column
+          return;
+        }
+        if (mousePosition.X <= leftMarginLimit)
+        {
+          // If mouse is near the left edge, do not select the column.
+          // Instead, the user may click on the column separator line to resize the column.
           return;
         }
       }
