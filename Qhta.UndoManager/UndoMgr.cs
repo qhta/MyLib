@@ -9,12 +9,6 @@ namespace Qhta.UndoManager;
 /// </summary>
 public static class UndoMgr
 {
-  /// <summary>
-  /// Entry record for storing action and its arguments in the undo/redo stacks.
-  /// </summary>
-  /// <param name="Action"></param>
-  /// <param name="Args"></param>
-  private record UndoRedoEntry(IAction Action, object? Args);
 
   /// <summary>
   /// Undo stack to keep track of executed actions for undo functionality.
@@ -47,19 +41,29 @@ public static class UndoMgr
   public static bool IsRecording { get; set; } = false;
 
   /// <summary>
+  /// Flag to indicate if the application is currently recording a group of actions;
+  /// </summary>
+  public static bool IsGrouping { get; set; } = false;
+
+  /// <summary>
   /// Flag to indicate if the Undo functionality is available.
   /// </summary>
-  public static bool IsUndoAvailable => UndoStack.Any() && !IsUndoing && !IsRecording && !IsRecording;
+  public static bool IsUndoAvailable => UndoStack.Any() && !IsUndoing && !IsRedoing && !IsRecording;
 
   /// <summary>
   /// Flag to indicate if the Redo functionality is available.
   /// </summary>
-  public static bool IsRedoAvailable => RedoStack.Any() && !IsUndoing && !IsRecording && !IsRecording;
+  public static bool IsRedoAvailable => RedoStack.Any() && !IsUndoing && !IsRedoing && !IsRecording;
 
   /// <summary>
   /// Flag to indicate if the recording functionality is available.
   /// </summary>
-  public static bool IsRecordingAvailable => !IsUndoing && !IsRecording && !IsRecording;
+  public static bool IsRecordingAvailable => !IsUndoing && !IsRecording;
+  
+  /// <summary>
+  /// Flag to indicate if the grouping functionality is available.
+  /// </summary>
+  public static bool IsGroupingAvailable => !IsGrouping && !IsRecording;
 
   /// <summary>
   /// Records an action with its arguments for undo functionality.
@@ -70,7 +74,12 @@ public static class UndoMgr
   {
     if (!Enabled || !IsRecordingAvailable)
       return;
-    UndoStack.Push(new UndoRedoEntry(action, args));
+    if (IsGrouping)
+    {
+      actionGroup?.Group.Add(new UndoRedoEntry(action, args));
+    }
+    else
+      UndoStack.Push(new UndoRedoEntry(action, args));
   }
 
   /// <summary>
@@ -104,5 +113,31 @@ public static class UndoMgr
     entry.Action.Execute(entry.Args);
     UndoStack.Push(entry);
     IsRedoing = false;
+  }
+
+  private static ActionGroup? actionGroup = null;
+
+  /// <summary>
+  /// Starts recording a group of actions.
+  /// </summary>
+  public static void StartGrouping()
+  {
+    if (!Enabled || !IsGroupingAvailable)
+      return;
+    IsGrouping = true;
+    actionGroup = new ActionGroup();
+  }
+
+  /// <summary>
+  /// Starts recording a group of actions.
+  /// </summary>
+  public static void StopGrouping()
+  {
+    if (!Enabled || !IsGrouping)
+      return;
+    IsGrouping = false;
+    if (actionGroup == null)
+      throw new InvalidOperationException("No action group is currently being recorded.");
+    UndoStack.Push(new UndoRedoEntry(actionGroup, null));
   }
 }

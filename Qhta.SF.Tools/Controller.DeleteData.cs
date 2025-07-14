@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 
+using Qhta.UndoManager;
+
 using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.SF.Tools;
@@ -70,9 +72,9 @@ public static partial class Controller
         rowsSelected = grid.View.Records.Select(record => record.Data).ToArray();
       }
 
-      if (noColumnsSelected && noRowsSelected && rowsSelected.Length>0)
+      if (noColumnsSelected && noRowsSelected && rowsSelected.Length > 0)
       {
-        if (MessageBox.Show(DataStrings.DeleteAllDataConfirmation, null, MessageBoxButton.YesNo)== MessageBoxResult.No)
+        if (MessageBox.Show(DataStrings.DeleteAllDataConfirmation, null, MessageBoxButton.YesNo) == MessageBoxResult.No)
           return;
 
       }
@@ -91,7 +93,7 @@ public static partial class Controller
       {
         //await Task.Factory.StartNew(() =>
         //{
-
+        UndoMgr.StartGrouping();
         foreach (var row in rowsSelected)
         {
           foreach (var column in selectedColumns)
@@ -105,6 +107,7 @@ public static partial class Controller
           }
 
         }
+        UndoMgr.StopGrouping();
         //});
         Debug.WriteLine($"Delete data completed");
       }
