@@ -77,14 +77,19 @@
             <param name="callback">A delegate to invoke through the dispatcher.</param>
             <returns>The value returned by callback.</returns>
         </member>
-        <member name="T:Qhta.ObservableObjects.ILazyLoad">
+        <member name="T:Qhta.ObservableObjects.ILoadable">
             <summary>
-            Interface for object with lazy-loading functionality.
+            Interface for observable objects that can be loaded.
             </summary>
         </member>
-        <member name="P:Qhta.ObservableObjects.ILazyLoad.IsLoaded">
+        <member name="P:Qhta.ObservableObjects.ILoadable.IsLoaded">
             <summary>
             Determines whether the object is loaded.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ILoadable.Loaded">
+            <summary>
+            Event that is raised when the object is fully loaded.
             </summary>
         </member>
         <member name="T:Qhta.ObservableObjects.ObservableCollectionObject">
@@ -1198,11 +1203,6 @@
             <param name="sender"></param>
             <param name="args"></param>
         </member>
-        <member name="P:Qhta.ObservableObjects.ObservableList`1.IsLoaded">
-            <summary>
-            Determines whether the object is loaded.
-            </summary>
-        </member>
         <member name="T:Qhta.ObservableObjects.ObservableObject">
             <summary>
             Class that notifies other objects when its properties are changed.
@@ -1287,6 +1287,11 @@
         <member name="P:Qhta.ObservableObjects.ObservableObject.IsLoaded">
             <summary>
             Determines whether the object is loaded.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableObject.Loaded">
+            <summary>
+            Gets or sets the event handler that is invoked when the component is fully loaded.
             </summary>
         </member>
         <member name="T:Qhta.ObservableObjects.PropertyChanged2EventArgs">

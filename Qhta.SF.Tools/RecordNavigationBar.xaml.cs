@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
 using Qhta.MVVM;
-
+using Qhta.ObservableObjects;
 using Syncfusion.UI.Xaml.Grid;
 
 
@@ -47,10 +48,6 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
       if (e.NewValue is SfDataGrid dataGrid)
       {
         recordNavigationBar.DataGridChanged(dataGrid);
-        //dataGrid.Loaded += (s, e) =>
-        //{
-        //  recordNavigationBar.NotifyPropertyChanged(nameof(RowsCount));
-        //};
       }
     }
   }
@@ -66,6 +63,29 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   private void DataGridChanged(SfDataGrid dataGrid)
   {
     SetBinding(RowsCountProperty, new Binding("ItemsSource.Count") { Source = dataGrid });
+    dataGrid.Loaded += (s, e) =>
+    {
+      BindRowsCount(dataGrid);
+    };
+  }
+
+
+  private void BindRowsCount(SfDataGrid dataGrid)
+  {
+    if (dataGrid.ItemsSource is ILoadable loadable)
+    {
+      loadable.Loaded += (object? sender, EventArgs e) =>
+      {
+        dataGrid.View.CollectionChanged += (s, e) =>
+        {
+          //Debug.WriteLine($"CollectionChanged: {dataGrid.View.Records.Count}");
+          RowsCount = dataGrid.View.Records.Count;
+          //Debug.WriteLine($"BindRowsCount: {dataGrid.View.Records.Count}");
+        };
+        NotifyPropertyChanged(nameof(RowsCount));
+
+      };
+    }
 
   }
 

@@ -9,7 +9,7 @@ namespace Qhta.ObservableObjects
   /// Class that notifies other objects when its properties are changed.
   /// Implements interface <see cref="INotifyPropertyChanged"/>.
   /// </summary>
-  public class ObservableObject : INotifyPropertyChanged, ILazyLoad
+  public class ObservableObject : INotifyPropertyChanged, ILoadable
   {
     /// <summary>
     /// Common static dispatcher for notifying actions.
@@ -99,7 +99,7 @@ namespace Qhta.ObservableObjects
       foreach (PropertyChangedEventHandler handler in propertyChangedEventHandler.GetInvocationList().Cast<PropertyChangedEventHandler>())
       {
 
-        PropertyChangedEventArgs args = (oldValue == null && newValue == null) 
+        PropertyChangedEventArgs args = (oldValue == null && newValue == null)
           ? new PropertyChangedEventArgs(propertyName)
           : new PropertyChanged2EventArgs(propertyName, oldValue, newValue);
         if (dispatcher != null)
@@ -158,10 +158,26 @@ namespace Qhta.ObservableObjects
         {
           _IsLoaded = value;
           NotifyPropertyChanged(nameof(IsLoaded));
+          if (_IsLoaded && Loaded != null)
+          {
+            try
+            {
+              Loaded.Invoke(this, EventArgs.Empty);
+            } catch (Exception ex)
+            {
+              Debug.WriteLine($"{ex.GetType()} thrown in {this.GetType()} Loaded event invoke:\n {ex.Message}");
+            }
+          }
         }
       }
     }
 
     private bool _IsLoaded;
+
+
+    /// <summary>
+    /// Gets or sets the event handler that is invoked when the component is fully loaded.
+    /// </summary>
+    public EventHandler? Loaded { get; set; }
   }
 }

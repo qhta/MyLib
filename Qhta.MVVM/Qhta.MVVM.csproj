@@ -4,7 +4,7 @@
     <TargetFrameworks>net8.0; net8.0-windows;net9.0; net9.0-windows</TargetFrameworks>
     <Authors>Yarreck Qhta</Authors>
     <Description>A simple MVVM framework which enables worker threads to invoke UI notification via ObservableObjects.</Description>
-    <Version>4.10</Version>
+    <Version>4.12</Version>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <AutoRedirectBindings>true</AutoRedirectBindings>

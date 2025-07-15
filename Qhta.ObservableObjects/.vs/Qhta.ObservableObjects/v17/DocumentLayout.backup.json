@@ -3,18 +3,36 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5261D3D2-9A24-47F0-8473-4ABD76935FB3}|..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableObjectWpfApp.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects.test\\testobservableobjectwpfapp\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5261D3D2-9A24-47F0-8473-4ABD76935FB3}|..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableObjectWpfApp.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects.test\\testobservableobjectwpfapp\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\qhta.observableobjects.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|solutionrelative:qhta.observableobjects.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\observablecollectionobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|solutionrelative:observablecollectionobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\observablelist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|solutionrelative:observablelist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\observableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|solutionrelative:observableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5261D3D2-9A24-47F0-8473-4ABD76935FB3}|..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableObjectWpfApp.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects.test\\testobservableobjectwpfapp\\testobservableobjectwpfapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\iloadable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|solutionrelative:iloadable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\9.0.6\\buildTransitive\\netcoreapp2.0\\System.Collections.Immutable.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5261D3D2-9A24-47F0-8473-4ABD76935FB3}|..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableObjectWpfApp.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects.test\\testobservableobjectwpfapp\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5261D3D2-9A24-47F0-8473-4ABD76935FB3}|..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableObjectWpfApp.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects.test\\testobservableobjectwpfapp\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5261D3D2-9A24-47F0-8473-4ABD76935FB3}|..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableObjectWpfApp.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects.test\\testobservableobjectwpfapp\\testobservabledictionary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -32,10 +50,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\observabledictionary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|solutionrelative:observabledictionary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\observableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|solutionrelative:observableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\idispatcherbridge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -80,21 +94,73 @@
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
+              "Title": "TestObservableObjectWpfApp.csproj",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableObjectWpfApp.csproj",
+              "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableObjectWpfApp.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableObjectWpfApp.csproj",
+              "RelativeToolTip": "..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableObjectWpfApp.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-07-15T14:56:51.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ILoadable.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ILoadable.cs",
+              "RelativeDocumentMoniker": "ILoadable.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ILoadable.cs",
+              "RelativeToolTip": "ILoadable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T14:54:07.242Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ObservableCollectionObject.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableCollectionObject.cs",
+              "RelativeDocumentMoniker": "ObservableCollectionObject.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableCollectionObject.cs",
+              "RelativeToolTip": "ObservableCollectionObject.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T13:39:07.644Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "System.Collections.Immutable.targets",
+              "DocumentMoniker": "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\9.0.6\\buildTransitive\\netcoreapp2.0\\System.Collections.Immutable.targets",
+              "ToolTip": "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\9.0.6\\buildTransitive\\netcoreapp2.0\\System.Collections.Immutable.targets",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-07-08T13:37:09.122Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Qhta.ObservableObjects.csproj",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
               "RelativeDocumentMoniker": "Qhta.ObservableObjects.csproj",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
               "RelativeToolTip": "Qhta.ObservableObjects.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAABqAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2025-05-17T08:41:08.604Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "TestObservableDictionary.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableDictionary.cs",
               "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableDictionary.cs",
@@ -102,24 +168,22 @@
               "RelativeToolTip": "..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableDictionary.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T08:41:08.779Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T08:41:08.779Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\MainWindow.xaml",
               "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\MainWindow.xaml",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\MainWindow.xaml",
               "RelativeToolTip": "..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-17T08:41:08.784Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T08:41:08.784Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "Test.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\Test.cs",
               "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\Test.cs",
@@ -127,12 +191,11 @@
               "RelativeToolTip": "..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\Test.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAASwC8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T08:41:08.785Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T08:41:08.785Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "TestObservableList.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableList.cs",
               "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableList.cs",
@@ -140,12 +203,11 @@
               "RelativeToolTip": "..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableList.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T08:41:08.787Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T08:41:08.787Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\MainWindow.xaml.cs",
@@ -153,12 +215,11 @@
               "RelativeToolTip": "..\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\MainWindow.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T08:41:08.79Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T08:41:08.79Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "readme.md",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\docs\\readme.md",
               "RelativeDocumentMoniker": "docs\\readme.md",
@@ -166,25 +227,24 @@
               "RelativeToolTip": "docs\\readme.md",
               "ViewState": "AgIAAAcAAAAAAAAAAABBwBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-05-17T08:41:08.791Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T08:41:08.791Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "ObservableList.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableList.cs",
               "RelativeDocumentMoniker": "ObservableList.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableList.cs",
               "RelativeToolTip": "ObservableList.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAAFADAABFAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACEAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-17T08:41:08.793Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "ObservableDictionary.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableDictionary.cs",
               "RelativeDocumentMoniker": "ObservableDictionary.cs",
@@ -192,25 +252,24 @@
               "RelativeToolTip": "ObservableDictionary.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADUBAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T08:41:08.796Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T08:41:08.796Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 3,
               "Title": "ObservableObject.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableObject.cs",
               "RelativeDocumentMoniker": "ObservableObject.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableObject.cs",
               "RelativeToolTip": "ObservableObject.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAowAoAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAJYAAAAAAAAAAAAAAKwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-17T08:41:08.798Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "IDispatcherBridge.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\IDispatcherBridge.cs",
               "RelativeDocumentMoniker": "IDispatcherBridge.cs",
@@ -218,8 +277,7 @@
               "RelativeToolTip": "IDispatcherBridge.cs",
               "ViewState": "AgIAAC0AAAAAAAAAAAAIwE0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T08:41:08.799Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T08:41:08.799Z"
             }
           ]
         }

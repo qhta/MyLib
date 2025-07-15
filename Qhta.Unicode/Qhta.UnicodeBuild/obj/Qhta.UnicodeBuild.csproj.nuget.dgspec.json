@@ -64,7 +64,7 @@
             },
             "Qhta.MVVM": {
               "target": "Package",
-              "version": "[4.10.0, )"
+              "version": "[4.12.0, )"
             },
             "Qhta.TypeUtils": {
               "target": "Package",
@@ -76,23 +76,23 @@
             },
             "Syncfusion.Grid.WPF": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.Grid.Windows": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.SfGrid.WPF": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.Shared.Base": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.Tools.WPF": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             }
           },
           "imports": [
@@ -292,11 +292,11 @@
             },
             "Qhta.MVVM": {
               "target": "Package",
-              "version": "[4.10.0, )"
+              "version": "[4.12.0, )"
             },
             "Qhta.ObservableObjects": {
               "target": "Package",
-              "version": "[4.0.0, )"
+              "version": "[4.2.0, )"
             },
             "Qhta.WPF.Converters": {
               "target": "Package",
@@ -308,43 +308,43 @@
             },
             "Syncfusion.Grid.WPF": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.Grid.Windows": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.PropertyGrid.WPF": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.SfGrid.WPF": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.SfInput.WPF": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.SfTextInputLayout.WPF": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.SfTreeView.WPF": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.Shared.Base": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.Shared.WPF": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "Syncfusion.Tools.WPF": {
               "target": "Package",
-              "version": "[30.1.39, )"
+              "version": "[30.1.40, )"
             },
             "System.Data.OleDb": {
               "target": "Package",

@@ -18,7 +18,7 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-      "Qhta.ObservableObjects/3.9.0": {
+      "Qhta.ObservableObjects/4.2.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
@@ -49,7 +49,7 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-      "Qhta.ObservableObjects/3.9.0": {
+      "Qhta.ObservableObjects/4.2.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
@@ -80,7 +80,7 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-      "Qhta.ObservableObjects/3.9.0": {
+      "Qhta.ObservableObjects/4.2.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
@@ -111,7 +111,7 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-      "Qhta.ObservableObjects/3.9.0": {
+      "Qhta.ObservableObjects/4.2.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
@@ -155,7 +155,7 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Qhta.ObservableObjects/3.9.0": {
+    "Qhta.ObservableObjects/4.2.0": {
       "type": "project",
       "path": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj",
       "msbuildProject": "../Qhta.ObservableObjects/Qhta.ObservableObjects.csproj"
@@ -163,16 +163,16 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Qhta.ObservableObjects >= 3.9.0"
+      "Qhta.ObservableObjects >= 4.2.0"
     ],
     "net8.0-windows7.0": [
-      "Qhta.ObservableObjects >= 3.9.0"
+      "Qhta.ObservableObjects >= 4.2.0"
     ],
     "net9.0": [
-      "Qhta.ObservableObjects >= 3.9.0"
+      "Qhta.ObservableObjects >= 4.2.0"
     ],
     "net9.0-windows7.0": [
-      "Qhta.ObservableObjects >= 3.9.0"
+      "Qhta.ObservableObjects >= 4.2.0"
     ]
   },
   "packageFolders": {
@@ -181,7 +181,7 @@
     "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.2.4\\ToolboxNuGetPackages": {}
   },
   "project": {
-    "version": "4.10.0",
+    "version": "4.12.0",
     "restore": {
       "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
       "projectName": "Qhta.MVVM",
@@ -277,7 +277,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       },
       "net8.0-windows7.0": {
         "targetAlias": "net8.0-windows",
@@ -297,7 +297,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       },
       "net9.0": {
         "targetAlias": "net9.0",
@@ -317,7 +317,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       },
       "net9.0-windows7.0": {
         "targetAlias": "net9.0-windows",
@@ -337,7 +337,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

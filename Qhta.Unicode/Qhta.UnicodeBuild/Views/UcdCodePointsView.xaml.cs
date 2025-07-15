@@ -25,7 +25,7 @@ public partial class UcdCodePointsView : UserControl
   {
     InitializeComponent();
     CodePointDataGrid.GridCopyContent += CodePointDataGrid_OnGridCopyContent;
-    CodePointDataGrid.KeyDown += CodePointDataGrid_KeyDown;
+    CodePointDataGrid.PreviewKeyDown += CodePointDataGrid_KeyDown;
   }
 
 

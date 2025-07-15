@@ -1,4 +1,7 @@
-﻿namespace Qhta.UnicodeBuild.Helpers;
+﻿using Qhta.ObservableObjects;
+using Qhta.SF.Tools;
+
+namespace Qhta.UnicodeBuild.Helpers;
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +15,7 @@ using System.Collections.Generic;
 /// <param name="keySelector"></param>
 /// <param name="comparer"></param>
 public class EntityCollection<T>(Func<T, object> keySelector, IComparer<object>? comparer = null)
-  : Qhta.ObservableObjects.ObservableList<T>, IList<T>
+  : Qhta.ObservableObjects.ObservableList<T>
 //    : ObservableCollection<T>, IList<T>
 {
 
