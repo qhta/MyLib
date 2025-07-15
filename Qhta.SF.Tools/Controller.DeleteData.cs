@@ -49,15 +49,15 @@ public static partial class Controller
     {
       var noColumnsSelected = false;
       var selectedCells = grid.GetSelectedCells().ToArray();
-      GridColumn[] selectedColumns;
+      GridColumn[] columnsToDelete;
       if (selectedCells.Length != 0)
-        selectedColumns = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
+        columnsToDelete = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
       else
-        selectedColumns = grid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
-      if (!selectedColumns.Any())
+        columnsToDelete = grid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
+      if (!columnsToDelete.Any())
       {
         noColumnsSelected = true;
-        selectedColumns = grid.Columns.ToArray();
+        columnsToDelete = grid.Columns.ToArray();
       }
 
       var noRowsSelected = false;
@@ -72,45 +72,50 @@ public static partial class Controller
         rowsSelected = grid.View.Records.Select(record => record.Data).ToArray();
       }
 
+      if (rowsSelected.Length == 0)
+      {
+        Debug.WriteLine("DeleteData: No rows to delete.");
+        return;
+      }
+
       if (noColumnsSelected && noRowsSelected && rowsSelected.Length > 0)
       {
         if (MessageBox.Show(DataStrings.DeleteAllDataConfirmation, null, MessageBoxButton.YesNo) == MessageBoxResult.No)
           return;
 
       }
-      var rowDataType = rowsSelected.FirstOrDefault()?.GetType();
-
-
-      GridColumnInfo?[]? columnInfos = null;
-      if (rowDataType != null)
+      var rowDataType = GetRowDataType(grid);
+      if (rowDataType == null)
       {
-        columnInfos = GetGridColumnInfos(selectedColumns, rowDataType, true);
+        Debug.WriteLine("DeleteData: No row data type found.");
+        return;
       }
-      var content = new List<string>();
 
-
-      if (columnInfos != null && columnInfos.Any())
+      GridColumnInfo?[]? columnInfos = GetGridColumnInfos(columnsToDelete, rowDataType, true);
+      if (!columnInfos.Any())
       {
-        //await Task.Factory.StartNew(() =>
-        //{
-        UndoMgr.StartGrouping();
-        foreach (var row in rowsSelected)
+        Debug.WriteLine("DeleteData: No columns data to delete.");
+        return;
+      }
+      //await Task.Factory.StartNew(() =>
+      //{
+      UndoMgr.StartGrouping();
+      foreach (var row in rowsSelected)
+      {
+        foreach (var column in columnsToDelete)
         {
-          foreach (var column in selectedColumns)
+          var cellInfo = new GridCellInfo(column, row, null, -1, false);
+          var columnInfo = columnInfos?.FirstOrDefault(info => info?.MappingName == column.MappingName);
+          if (columnInfo != null)
           {
-            var cellInfo = new GridCellInfo(column, row, null, -1, false);
-            var columnInfo = columnInfos?.FirstOrDefault(info => info?.MappingName == column.MappingName);
-            if (columnInfo != null)
-            {
-              SetCellData(cellInfo, columnInfo, null);
-            }
+            SetCellData(cellInfo, columnInfo, null);
           }
-
         }
-        UndoMgr.StopGrouping();
-        //});
-        Debug.WriteLine($"Delete data completed");
+
       }
+      UndoMgr.StopGrouping();
+      //});
+      Debug.WriteLine($"Delete data completed");
     }
     catch (Exception e)
     {

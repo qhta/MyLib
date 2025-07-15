@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
+using Qhta.TypeUtils;
 
 using Syncfusion.UI.Xaml.Grid;
 
@@ -11,9 +12,22 @@ namespace Qhta.SF.Tools;
 /// </summary>
 public static partial class Controller
 {
-  private static GridColumnInfo?[] GetGridColumnInfos(GridColumn[] columnsToCopy, Type rowDataType, bool write)
+
+  private static Type? GetRowDataType(SfDataGrid grid)
   {
-    var columnInfos = columnsToCopy.Select(column =>
+    var itemsSource = grid.View?.SourceCollection;
+    if (itemsSource == null)
+    {
+      Debug.WriteLine("ItemsSource is null.");
+      return null;
+    }
+    var itemType = TypeUtils.TypeUtils.GetElementType(itemsSource.GetType());
+    return itemType;
+  }
+
+  private static GridColumnInfo?[] GetGridColumnInfos(GridColumn[] columns, Type rowDataType, bool write)
+  {
+    var columnInfos = columns.Select(column =>
     {
       var mappingPropertyInfo = column.GetType().GetProperty("MappingName");
       if (mappingPropertyInfo == null)
@@ -101,7 +115,7 @@ public static partial class Controller
     return str;
   }
 
-  private static void SetCellData(GridCellInfo cellInfo, GridColumnInfo columnInfo, string? value)
+  private static void SetCellData(GridCellInfo cellInfo, GridColumnInfo columnInfo, string? str)
   {
     var rowData = cellInfo.RowData;
     if (rowData == null)
@@ -112,7 +126,22 @@ public static partial class Controller
     var column = columnInfo.Column;
     var rowDataType = rowData.GetType();
     var propertyInfo = columnInfo.ValuePropertyInfo;
-
+    object? value = str;
+    if (columnInfo.ItemsSource!=null && !String.IsNullOrEmpty(str))
+    {
+      if (columnInfo.DisplayPropertyInfo != null)
+        value = columnInfo.ItemsSource.Cast<object>()
+                  .FirstOrDefault(item => columnInfo.DisplayPropertyInfo.GetValue(item)?.ToString() == str);
+      else
+        // If no display property, use the ToString() method of the item
+        value = columnInfo.ItemsSource.Cast<object>()
+          .FirstOrDefault(item => item.ToString() == str);
+      if (value==null)
+      {
+        Debug.WriteLine($"Value '{str}' not found in items source for column '{columnInfo.MappingName}'.");
+        return;
+      }
+    }
     propertyInfo.SetValue(rowData, value);
   }
 }

@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
+using Qhta.UndoManager;
+
 namespace Qhta.UnicodeBuild;
 
 /// <summary>
@@ -47,6 +49,20 @@ public partial class MainWindow : Window
   /// <param name="e"></param>
   private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
   {
+    if (e.Key == Key.Z && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+    {
+      if (UndoMgr.IsUndoAvailable)
+        UndoMgr.Undo();
+      e.Handled = true;
+      return;
+    }
+    if (e.Key == Key.Z && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+    {
+      if (UndoMgr.IsUndoAvailable)
+        UndoMgr.Undo();
+      e.Handled = true;
+      return;
+    }
     if (e.Key == Key.Return && Keyboard.Modifiers == ModifierKeys.Shift)
     {
       var focusedElement = Keyboard.FocusedElement;

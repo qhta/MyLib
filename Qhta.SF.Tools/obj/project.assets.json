@@ -4695,6 +4695,7 @@
     "net8.0-windows7.0": [
       "Microsoft.Xaml.Behaviors.Wpf >= 1.1.135",
       "Qhta.MVVM >= 4.10.0",
+      "Qhta.TypeUtils >= 1.4.0",
       "Qhta.UndoManager >= 1.0.0",
       "Qhta.WPF.Utils >= 3.5.0",
       "Syncfusion.Grid.WPF >= 30.1.39",
@@ -4770,6 +4771,10 @@
           "Qhta.MVVM": {
             "target": "Package",
             "version": "[4.10.0, )"
+          },
+          "Qhta.TypeUtils": {
+            "target": "Package",
+            "version": "[1.4.0, )"
           },
           "Qhta.WPF.Utils": {
             "target": "Package",

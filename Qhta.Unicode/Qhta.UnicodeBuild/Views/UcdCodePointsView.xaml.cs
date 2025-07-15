@@ -25,6 +25,7 @@ public partial class UcdCodePointsView : UserControl
   {
     InitializeComponent();
     CodePointDataGrid.GridCopyContent += CodePointDataGrid_OnGridCopyContent;
+    CodePointDataGrid.KeyDown += CodePointDataGrid_KeyDown;
   }
 
 
@@ -155,7 +156,7 @@ public partial class UcdCodePointsView : UserControl
       selectableItems.Insert(1, new WritingSystemViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty writing system
 
       var WritingSystemFilters = selectableItems.Select(item => new FilterElement
-      { 
+      {
         ActualValue = item,
         FormattedString = (object obj) =>
         {
@@ -171,7 +172,7 @@ public partial class UcdCodePointsView : UserControl
 
   private void CodePointDataGrid_OnFilterChanging(object? sender, GridFilterEventArgs e)
   {
-    if (e.FilterPredicates==null)
+    if (e.FilterPredicates == null)
       return;
     foreach (var predicate in e.FilterPredicates)
     {
@@ -280,6 +281,43 @@ public partial class UcdCodePointsView : UserControl
     e.Handled = true;
   }
 
+
+  private void CodePointDataGrid_KeyDown(object sender, KeyEventArgs e)
+  {
+    if (sender is not SfDataGrid grid)
+      return;
+    switch (e.Key)
+    {
+      case Key.C when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
+      {
+        if (Controller.CanCopyData(grid))
+          Controller.CopyData(grid);
+        e.Handled = true;
+        return;
+      }
+      case Key.X when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
+      {
+        if (Controller.CanCutData(grid))
+          Controller.CutData(grid);
+        e.Handled = true;
+        return;
+      }
+      case Key.V when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
+      {
+        if (Controller.CanPasteData(grid))
+          Controller.PasteData(grid);
+        e.Handled = true;
+        return;
+      }
+      case Key.Delete:
+      {
+        if (Controller.CanDeleteData(grid))
+          Controller.DeleteData(grid);
+        e.Handled = true;
+        return;
+      }
+    }
+  }
 }
 
 

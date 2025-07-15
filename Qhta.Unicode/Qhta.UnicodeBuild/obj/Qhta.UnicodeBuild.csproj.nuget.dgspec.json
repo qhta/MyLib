@@ -66,6 +66,10 @@
               "target": "Package",
               "version": "[4.10.0, )"
             },
+            "Qhta.TypeUtils": {
+              "target": "Package",
+              "version": "[1.4.0, )"
+            },
             "Qhta.WPF.Utils": {
               "target": "Package",
               "version": "[3.5.0, )"
