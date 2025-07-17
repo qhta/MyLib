@@ -1,4 +1,6 @@
-﻿using Syncfusion.UI.Xaml.Grid;
+﻿using System.Diagnostics;
+
+using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.SF.Tools;
 
@@ -20,14 +22,19 @@ public static class RowHeightProvider
   /// row height.</param>
   public static void OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
   {
-    if (sender is SfDataGrid dataGrid && e.RowIndex > 0 && e.RowIndex <= dataGrid.View.Records.Count)
+    if (sender is SfDataGrid dataGrid)
     {
-      if (dataGrid.View.Records[e.RowIndex - 1].Data is IRowHeightProvider viewModel)
+      int rowIndex = e.RowIndex;
+      //Debug.WriteLine($"OnQueryRowHeight invoked for {dataGrid.Name} in row {rowIndex}");
+      if (rowIndex > 0 && rowIndex <= dataGrid.View.Records.Count)
       {
-        if (Double.IsNaN(viewModel.RowHeight))
-          return;
-        e.Height = viewModel.RowHeight;
-        e.Handled = true;
+        if (dataGrid.View.Records[rowIndex - 1].Data is IRowHeightProvider viewModel)
+        {
+          if (Double.IsNaN(viewModel.RowHeight))
+            return;
+          e.Height = viewModel.RowHeight;
+          e.Handled = true;
+        }
       }
     }
   }

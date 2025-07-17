@@ -180,15 +180,25 @@
                    HeaderRowHeight="26"
                    QueryRowHeight="DataGrid_OnQueryRowHeight"
                    AutoGenerateColumns="False"
-                   SelectionUnit="Row"
                    SelectionChanged="WritingSystemsDataGrid_OnSelectionChanged"
                    EditTrigger="OnTap"
                    ContextMenu="{StaticResource WritingSystemsContextMenu}"
                    RecordContextMenu="{StaticResource WritingSystemsRowContextMenu}"
                    FilterItemsPopulated="WritingSystemsDataGrid_OnFilterItemsPopulated"
+                   AllowSorting="True"
+                   AllowTriStateSorting="True"
+
+                   EnableDataVirtualization="True" 
+                   FilterItemsPopulating="WritingSystemsGrid_OnFilterItemsPopulating"
+                   FilterChanging="WritingSystemsGrid_OnFilterChanging"
+                   GridCopyOption="CopyData,IncludeFormat"
+                   SelectionUnit="Any"
+                   SelectionMode="Extended"
+                   ShowRowHeader="True"
                    >
+      <!--GridValidationMode="InEdit"-->
       <sf:SfDataGrid.Columns>
-        <sf:GridCheckBoxColumn
+        <!--<sf:GridCheckBoxColumn
           Width="70"
           MappingName="IsUsed">
           <sf:GridColumn.HeaderTemplate>
@@ -197,7 +207,7 @@
                          ToolTip="{x:Static resources:WritingSystem.IsUsedTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
-        </sf:GridCheckBoxColumn>
+        </sf:GridCheckBoxColumn>-->
 
         <sf:GridTextColumn 
           Width="150"

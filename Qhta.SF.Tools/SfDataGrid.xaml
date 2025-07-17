@@ -3,39 +3,241 @@
                     xmlns:sf="http://schemas.syncfusion.com/wpf"
                     xmlns:sfx="clr-namespace:Syncfusion.UI.Xaml.Grid;assembly=Syncfusion.SfGrid.WPF"
                     xmlns:tools="clr-namespace:Qhta.SF.Tools"
-                    x:Class="Qhta.SF.Tools.SfDataGridTools"
-                    >
-  <tools:SfDataGridColumnConverter x:Key="GridColumnConverter"/>
+                    x:Class="Qhta.SF.Tools.SfDataGridTools">
+  <tools:SfDataGridColumnConverter x:Key="GridColumnConverter" />
   <Style TargetType="sf:GridRowHeaderIndentCell">
-    <Setter Property="Background" Value="Silver"/>
-    <EventSetter Event="PreviewMouseDown" Handler="GridRowHeaderIndentCell_MouseLeftButtonDown"/>
+    <Setter Property="Background" Value="Silver" />
+    <EventSetter Event="PreviewMouseDown" Handler="GridRowHeaderIndentCell_MouseLeftButtonDown" />
   </Style>
 
   <Style TargetType="sf:GridHeaderCellControl">
-    <Setter Property="Foreground" Value="#FF404040"/>
-    <Setter Property="Background" Value="Silver"/>
-    <EventSetter Event="PreviewMouseDown" Handler="GridHeaderCellControl_MouseLeftButtonDown"/>
+    <Setter Property="Foreground" Value="#FF404040" />
+    <Setter Property="Background" Value="Silver" />
+    <EventSetter Event="PreviewMouseDown" Handler="GridHeaderCellControl_MouseLeftButtonDown" />
   </Style>
 
   <Style TargetType="sf:GridHeaderCellControl" x:Key="SelectedColumnHeaderStyle">
-    <Setter Property="Foreground" Value="#FF404040"/>
-    <Setter Property="Background" Value="#FFA0A0A0"/>
-    <EventSetter Event="PreviewMouseDown" Handler="GridHeaderCellControl_MouseLeftButtonDown"/>
+    <Setter Property="Foreground" Value="#FF404040" />
+    <Setter Property="Background" Value="#FFA0A0A0" />
+    <EventSetter Event="PreviewMouseDown" Handler="GridHeaderCellControl_MouseLeftButtonDown" />
   </Style>
 
-  <Style TargetType="sf:GridRowHeaderCell">
-    <Setter Property="Background" Value="Silver"/>
+
+  <DataTemplate x:Key="ResizeableGridRowHeaderDataTemplate">
+    <ContentPresenter Content="{DynamicResource GridHeaderCellControlStyle}" />
+  </DataTemplate>
+
+  <Style TargetType="{x:Type sf:GridRowHeaderCell}">
+    <Setter Property="Background" Value="Silver" />
+    <EventSetter Event="PreviewMouseDown" Handler="GridRowHeaderCell_MouseLeftButtonDown" />
+    <EventSetter Event="PreviewMouseMove" Handler="GridRowHeaderCell_MouseMove" />
+    <EventSetter Event="PreviewMouseUp" Handler="GridRowHeaderCell_MouseLeftButtonUp" />
+    <!--<Setter Property"BorderBrush" Value="#FF808080" />
+    <Setter Property"BorderThickness" Value="0,0,1,1" />
+    <Setter Property"Padding" Value="0,0,0,0" />
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    <Setter Property"IsTabStop" Value="False" />
+    <Setter Property"Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type sf:GridRowHeaderCell}">
+          <Border Name="PART_RowHeaderCellBorder" Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup x:Name="BorderStates">
+                <VisualState x:Name="NormalCell" />
+                <VisualState x:Name="TableSummaryCell">
+                  <Storyboard BeginTime="0">
+                    <ThicknessAnimationUsingKeyFrames Storyboard.TargetName="PART_RowHeaderCellBorder"
+                                                      Storyboard.TargetProperty="(Border.BorderThickness)">
+                      <EasingThicknessKeyFrame KeyTime="0" Value="0" />
+                    </ThicknessAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Fixed_NormalCell">
+                  <Storyboard BeginTime="0">
+                    <ThicknessAnimationUsingKeyFrames BeginTime="0" Duration="1"
+                                                      Storyboard.TargetName="PART_RowHeaderCellBorder"
+                                                      Storyboard.TargetProperty="BorderThickness">
+                      <EasingThicknessKeyFrame KeyTime="0" Value="0, 1, 1, 1" />
+                    </ThicknessAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+              </VisualStateGroup>
+              <VisualStateGroup x:Name="IndicationStates">
+                <VisualState x:Name="Normal">
+                  <Storyboard>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RowHeaderIndicatorGrid"
+                                                   Storyboard.TargetProperty="(UIElement.Visibility)">
+                      <DiscreteObjectKeyFrame KeyTime="0">
+                        <ObjectKeyFrame.Value>
+                          <Visibility>
+                            Collapsed
+                          </Visibility>
+                        </ObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Error_CurrentRow">
+                  <Storyboard>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RowHeaderIndicator"
+                                                   Storyboard.TargetProperty="Data">
+                      <DiscreteObjectKeyFrame KeyTime="0">
+                        <ObjectKeyFrame.Value>
+                          <Geometry>
+                            F1 M 397.333,276.552L 395.445,274.666L 392,278.112L 388.555,274.666L 386.667,276.552L 390.113,279.999L 386.667,283.445L 388.555,285.334L 392,281.887L 395.445,285.334L 397.333,283.445L 393.887,279.999L 397.333,276.552 Z
+                          </Geometry>
+                        </ObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="PART_RowHeaderIndicator"
+                                                  Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                      <EasingColorKeyFrame KeyTime="0" Value="#FFFF3D2E" />
+                    </ColorAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Error">
+                  <Storyboard>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RowHeaderIndicator"
+                                                   Storyboard.TargetProperty="Data">
+                      <DiscreteObjectKeyFrame KeyTime="0">
+                        <ObjectKeyFrame.Value>
+                          <Geometry>
+                            F1 M 397.333,276.552L 395.445,274.666L 392,278.112L 388.555,274.666L 386.667,276.552L 390.113,279.999L 386.667,283.445L 388.555,285.334L 392,281.887L 395.445,285.334L 397.333,283.445L 393.887,279.999L 397.333,276.552 Z
+                          </Geometry>
+                        </ObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="PART_RowHeaderIndicator"
+                                                  Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                      <EasingColorKeyFrame KeyTime="0" Value="#FFEC777C" />
+                    </ColorAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="CurrentRow">
+                  <Storyboard>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RowHeaderIndicator"
+                                                   Storyboard.TargetProperty="Data">
+                      <DiscreteObjectKeyFrame KeyTime="0">
+                        <ObjectKeyFrame.Value>
+                          <Geometry>
+                            F1 M 390.741,274.667L 387.928,274.667L 393.048,280L 387.927,285.333L 390.741,285.333L 396.073,280L 390.741,274.667 Z
+                          </Geometry>
+                        </ObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ToolTip"
+                                                   Storyboard.TargetProperty="(UIElement.Visibility)">
+                      <DiscreteObjectKeyFrame KeyTime="0">
+                        <ObjectKeyFrame.Value>
+                          <Visibility>
+                            Collapsed
+                          </Visibility>
+                        </ObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="EditingRow">
+                  <Storyboard>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RowHeaderIndicator"
+                                                   Storyboard.TargetProperty="Data">
+                      <DiscreteObjectKeyFrame KeyTime="0">
+                        <ObjectKeyFrame.Value>
+                          <Geometry>
+                            M6.8007798,1.7332839 L8.97791,3.9143763 2.8868401,10.034073 0,10.666874 0.70837402,7.8491302 z M9.1967516,0.00016105175 C9.5903473,-0.0053596497 9.9693098,0.13107061 10.251301,0.41431141 10.856801,1.0224026 10.794301,2.067961 10.110801,2.7515601 L7.9219999,0.5588423 C8.2858057,0.19500291 8.7506762,0.0064178705 9.1967516,0.00016105175z
+                          </Geometry>
+                        </ObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ToolTip"
+                                                   Storyboard.TargetProperty="(UIElement.Visibility)">
+                      <DiscreteObjectKeyFrame KeyTime="0">
+                        <ObjectKeyFrame.Value>
+                          <Visibility>
+                            Collapsed
+                          </Visibility>
+                        </ObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="AddNewRow">
+                  <Storyboard>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RowHeaderIndicator"
+                                                   Storyboard.TargetProperty="Data">
+                      <DiscreteObjectKeyFrame KeyTime="0">
+                        <ObjectKeyFrame.Value>
+                          <Geometry>
+                            F1 M 397.333,278.825L 393.176,278.825L 393.176,274.667L 390.824,274.667L 390.824,278.825L 386.667,278.825L 386.667,281.175L 390.824,281.175L 390.824,285.333L 393.176,285.333L 393.176,281.175L 397.333,281.175L 397.333,278.825 Z
+                          </Geometry>
+                        </ObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ToolTip"
+                                                   Storyboard.TargetProperty="(UIElement.Visibility)">
+                      <DiscreteObjectKeyFrame KeyTime="0">
+                        <ObjectKeyFrame.Value>
+                          <Visibility>
+                            Collapsed
+                          </Visibility>
+                        </ObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="FilterRow">
+                  <Storyboard>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_RowHeaderIndicator"
+                                                   Storyboard.TargetProperty="Data">
+                      <DiscreteObjectKeyFrame KeyTime="0">
+                        <ObjectKeyFrame.Value>
+                          <Geometry>
+                            F1M12,6L12,7L13,7L13,8L14,8L14,9L15,9L15,13L17,14L17,9L18,9L18,8L19,8L19,7L20,7L20,6z
+                          </Geometry>
+                        </ObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ToolTip"
+                                                   Storyboard.TargetProperty="(UIElement.Visibility)">
+                      <DiscreteObjectKeyFrame KeyTime="0">
+                        <ObjectKeyFrame.Value>
+                          <Visibility>
+                            Collapsed
+                          </Visibility>
+                        </ObjectKeyFrame.Value>
+                      </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Grid Grid.Name="PART_RowHeaderIndicatorGrid" Panel.Background="#00FFFFFF">
+              <Path Path.Name="PART_RowHeaderIndicator" FrameworkElement.Width="8.146" FrameworkElement.Height="8.146"
+                    FrameworkElement.HorizontalAlignment="Center" FrameworkElement.VerticalAlignment="Center"
+                    Shape.Fill="#FF303030" Shape.Stretch="Fill" />
+              <ToolTipService.ToolTip>
+                <ToolTip ToolTip.Name="PART_ToolTip" Background="#FFDB000C" ToolTip.Placement="Left"
+                         ToolTip.PlacementRectangle="20,0,0,0"
+                         FrameworkElement.Tag="{TemplateBinding sf:GridRowHeaderCell.RowErrorMessage}"
+                         Template="{StaticResource ValidationToolTipTemplate}" />
+              </ToolTipService.ToolTip>
+            </Grid>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>-->
   </Style>
+
 
   <Style TargetType="sfx:GridCell" x:Key="UnselectedGridStyle">
-    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Background" Value="Transparent" />
   </Style>
 
   <Style TargetType="sfx:GridCell" x:Key="SelectedGridStyle">
-    <Setter Property="Background" Value="Silver"/>
+    <Setter Property="Background" Value="Silver" />
   </Style>
 
-  <DataTemplate x:Key="DataGridHeaderTooltipTemplate">
-
-  </DataTemplate>
+  <DataTemplate x:Key="DataGridHeaderTooltipTemplate" />
 </ResourceDictionary>

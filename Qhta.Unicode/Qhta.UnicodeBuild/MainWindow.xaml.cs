@@ -49,7 +49,7 @@ public partial class MainWindow : Window
   /// <param name="e"></param>
   private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
   {
-    Debug.WriteLine($"MainWindow_PreviewKeyDown: {e.Key} {Keyboard.Modifiers}");
+    //Debug.WriteLine($"MainWindow_PreviewKeyDown: {e.Key} {Keyboard.Modifiers}");
     if (e.Key == Key.Z && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
     {
       if (UndoMgr.IsUndoAvailable)
@@ -168,7 +168,7 @@ public partial class MainWindow : Window
   {
     if (e.Data.GetDataPresent(typeof(TabItem)))
     {
-      Debug.WriteLine($"Drag Enter ");
+      //Debug.WriteLine($"Drag Enter ");
       e.Effects = DragDropEffects.Move;
       e.Handled = true;
     }
@@ -180,7 +180,7 @@ public partial class MainWindow : Window
     {
       Point dropPosition = e.GetPosition(this);
       e.Effects = DragDropEffects.Move;
-      Debug.WriteLine($"Drag Over ({dropPosition.X}, {dropPosition.Y}) {tabItem.Header} -> {e.Effects}");
+      //Debug.WriteLine($"Drag Over ({dropPosition.X}, {dropPosition.Y}) {tabItem.Header} -> {e.Effects}");
       e.Handled = true;
     }
   }

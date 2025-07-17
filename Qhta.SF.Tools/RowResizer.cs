@@ -451,12 +451,12 @@ public class RowResizer : Thumb
   }
 
   // Set the grid row height
-  private static void SetRowHeight(SfDataGrid grid, int index, double height)
+  private static void SetRowHeight(SfDataGrid dataGrid, int index, double height)
   {
-    if (grid.View.Records[index].Data is IRowHeightProvider data)
+    if (dataGrid.View.Records[index].Data is IRowHeightProvider data)
     {
       data.RowHeight = height;
-      grid.View.Refresh();
+      dataGrid.View.Refresh();
     }
   }
 
@@ -465,14 +465,14 @@ public class RowResizer : Thumb
   // Get the minimum and maximum Delta can be given definition constraints (MinWidth/MaxWidth)
   private void GetDeltaConstraints(out double minDelta, out double maxDelta)
   {
-    var grid = _resizeData?.Grid;
-    if (_resizeData == null || grid == null)
+    var dataGrid = _resizeData?.Grid;
+    if (_resizeData == null || dataGrid == null)
     {
       minDelta = 0;
       maxDelta = 0;
       return;
     }
-    double definitionLen = GetRowHeight(grid, _resizeData.RowIndex);
+    double definitionLen = GetRowHeight(dataGrid, _resizeData.RowIndex);
     double definitionMin = MinRowHeight;
     double definitionMax = MaxRowHeight;
 
@@ -486,7 +486,7 @@ public class RowResizer : Thumb
     //Debug.WriteLine($"verticalChange = {verticalChange}");
     if (_resizeData == null)
       return;
-    var grid = _resizeData.Grid;
+    var dataGrid = _resizeData.Grid;
     var index = _resizeData.RowIndex;
 
     Debug.Assert(_resizeData != null, "_resizeData should not be null when calling MoveResizer");
@@ -502,7 +502,7 @@ public class RowResizer : Thumb
     var delta = verticalChange;
     if (this.UseLayoutRounding) delta = RoundLayoutValue(delta, dpi.DpiScaleY);
 
-    double actualRowHeight = GetRowHeight(grid, index);
+    double actualRowHeight = GetRowHeight(dataGrid, index);
     //Debug.WriteLine($"actualRowHeight = {actualRowHeight}");
 
     GetDeltaConstraints(out var min, out var max);
@@ -519,7 +519,7 @@ public class RowResizer : Thumb
 
     double newHeight = actualRowHeight + delta;
     //Debug.WriteLine($"newHeight = {newHeight}");
-    SetRowHeight(grid, index, newHeight);
+    SetRowHeight(dataGrid, index, newHeight);
   }
 
   #endregion

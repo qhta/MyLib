@@ -513,6 +513,68 @@
             the rounded value if it is unacceptable for layout, e.g. Infinity or NaN. It's a helper associated with
             UseLayoutRounding  property and should not be used as a general rounding utility.</remarks>
         </member>
+        <member name="T:Qhta.SF.Tools.SfDataGridBehavior">
+            <summary>
+            A behavior class for managing the state of a Syncfusion DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridBehavior.GetAllowRowResizing(System.Windows.DependencyObject)">
+            <summary>
+            Gets whether the grid allows to resize rows by dragging a bottom edge of row-header cell.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridBehavior.SetAllowRowResizing(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Sets whether the grid allows to resize rows by dragging a bottom edge of row-header cell.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.SF.Tools.SfDataGridBehavior.AllowRowResizingProperty">
+            <summary>
+            Attached dependency property that indicates whether the grid allows to resize rows by dragging a bottom edge of row-header cell.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridBehavior.GetIsRowResizing(System.Windows.DependencyObject)">
+            <summary>
+            Gets whether the grid is now resizing rows by dragging a bottom edge of row-header cell.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridBehavior.SetIsRowResizing(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Sets whether the grid is now resizing rows by dragging a bottom edge of row-header cell.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.SF.Tools.SfDataGridBehavior.IsRowResizingProperty">
+            <summary>
+            Attached dependency property that indicates whether the grid is now resizing rows by dragging a bottom edge of row-header cell.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridBehavior.GetStartOffset(System.Windows.DependencyObject)">
+            <summary>
+            Gets the start offset for resizing rows in the grid. This is the difference between actual row height and the initial position of the mouse when resizing starts.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridBehavior.SetStartOffset(System.Windows.DependencyObject,System.Double)">
+            <summary>
+            Sets the start offset for resizing rows in the grid. This is the difference between actual row height and the initial position of the mouse when resizing starts.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.SF.Tools.SfDataGridBehavior.StartOffsetProperty">
+            <summary>
+            Attached dependency property for the start offset for resizing rows in the grid. This is the difference between actual row height and the initial position of the mouse when resizing starts.
+            </summary>
+        </member>
         <member name="T:Qhta.SF.Tools.SfDataGridColumnBehavior">
             <summary>
             A behavior class for managing the selection state of a <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> in a Syncfusion DataGrid.
@@ -619,6 +681,30 @@
             state.</remarks>
             <param name="sender">The source of the event, expected to be a <see cref="T:Syncfusion.UI.Xaml.Grid.GridRowHeaderIndentCell"/>.</param>
             <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridTools.GridRowHeaderCell_MouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the mouse left button down event on a <see cref="T:Syncfusion.UI.Xaml.Grid.GridRowHeaderCell"/> to start resizing the row height.
+            This method checks if the data grid allows row resizing and if the click is near the bottom edge of the row header cell.
+            If so, it sets the state of the grid to indicate that row resizing is in progress.
+            Resizing a specific row requires the <see cref="T:Qhta.SF.Tools.IRowHeightProvider"/> interface to be implemented by the data context of the row header cell.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridTools.GridRowHeaderCell_MouseMove(System.Object,System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Handles the mouse move event on a <see cref="T:Syncfusion.UI.Xaml.Grid.GridRowHeaderCell"/> to resize the row height.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridTools.GridRowHeaderCell_MouseLeftButtonUp(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the mouse left button up event on a <see cref="T:Syncfusion.UI.Xaml.Grid.GridRowHeaderCell"/> to stop resizing the row height.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
         </member>
         <member name="M:Qhta.SF.Tools.SfDataGridTools.InitializeComponent">
             <summary>

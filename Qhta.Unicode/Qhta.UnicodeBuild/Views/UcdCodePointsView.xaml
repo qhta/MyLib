@@ -103,6 +103,7 @@
                      SelectionUnit="Any"
                      SelectionMode="Extended"
                      ShowRowHeader="True"
+                     tools:SfDataGridBehavior.AllowRowResizing="True"
 
     >
       <!--
@@ -190,7 +191,7 @@
           HeaderText="{x:Static resources:CodePoint.Description}" 
           VerticalAlignment="Top"
           AllowEditing="False"
-          Width="300"
+          Width="200"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -237,7 +238,7 @@
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
-          Width="200"
+          Width="150"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -266,7 +267,7 @@
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
-          Width="200"
+          Width="100"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -296,7 +297,7 @@
           SortMode="Display"
           VerticalAlignment="Top"
           AllowEditing="True"
-          Width="200"
+          Width="100"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -325,7 +326,7 @@
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
-          Width="200"
+          Width="100"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -354,7 +355,7 @@
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
-          Width="200"
+          Width="100"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -383,7 +384,7 @@
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
-          Width="200"
+          Width="100"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -412,7 +413,7 @@
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
-          Width="200"
+          Width="100"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -441,7 +442,7 @@
           DisplayMemberPath="Name" 
           VerticalAlignment="Top"
           AllowEditing="True"
-          Width="200"
+          Width="100"
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>

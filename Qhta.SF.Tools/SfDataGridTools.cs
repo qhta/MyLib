@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 
 using Qhta.WPF.Utils;
@@ -16,7 +17,7 @@ namespace Qhta.SF.Tools;
 /// selections based on user input.</remarks>
 public partial class SfDataGridTools : ResourceDictionary
 {
-
+  const int ResizeMargin = 5;
   /// <summary>
   /// Handles the mouse left button down event on a <see cref="GridHeaderCellControl"/>. This method toggles the
   /// IsSelected state of the column when the header cell is clicked. It also manages the selection of multiple
@@ -33,64 +34,51 @@ public partial class SfDataGridTools : ResourceDictionary
   {
     //Debug.WriteLine($"Grid_OnPreviewMouseLeftButtonDown({sender})");
 
-
-
     if (sender is GridHeaderCellControl headerCellControl)
     {
       var column = headerCellControl.Column;
       if (column == null) return;
-      var grid = headerCellControl.FindParent<SfDataGrid>();
-      if (grid == null) return;
+      var dataGrid = headerCellControl.FindParent<SfDataGrid>();
+      if (dataGrid == null) return;
       if (column.AllowFiltering || column.AllowSorting)
       {
-        int rightMarginLimit = 0;
+        var rightMarginLimit = 0;
         if (column.AllowFiltering)
-        {
           // If the column allows filtering, we can check if the mouse is on the filter icon
           rightMarginLimit += 20; // Assuming the filter icon is 20px wide
-        }
         if (column.AllowSorting)
-        {
           // If the column allows sorting, we can check if the mouse is on the sort icon
           rightMarginLimit += 20; // Assuming the sort icon is 20px wide
-        }
         // Small margins are used to avoid accidental selection when clicking near the left or right edge of the header cell
         if (rightMarginLimit == 0)
-          rightMarginLimit = 3; 
-        int leftMarginLimit = 3; // Assuming a small margin on the left side
+          rightMarginLimit = ResizeMargin;
+        var leftMarginLimit = ResizeMargin; // Assuming a small margin on the left side
         var mousePosition = e.GetPosition(headerCellControl);
         if (mousePosition.X >= headerCellControl.ActualWidth - rightMarginLimit)
-        {
           // If mouse is on the filter icon, do open filter popup instead of selecting the column
           return;
-        }
         if (mousePosition.X <= leftMarginLimit)
-        {
           // If mouse is near the left edge, do not select the column.
           // Instead, the user may click on the column separator line to resize the column.
           return;
-        }
       }
 
       var isSelected = SfDataGridColumnBehavior.GetIsSelected(column);
       isSelected = !isSelected;
 
       if (!Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) && !Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
-      {
         // Clear selection if Shift or Control is not pressed
-        foreach (var col in grid.Columns)
-        {
-          if (col != column) SfDataGridColumnBehavior.SetIsSelected(col, false);
-        }
-      }
+        foreach (var col in dataGrid.Columns)
+          if (col != column)
+            SfDataGridColumnBehavior.SetIsSelected(col, false);
       if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) && isSelected)
       {
-        int selectedColumnIndex = grid.Columns.IndexOf(column);
+        var selectedColumnIndex = dataGrid.Columns.IndexOf(column);
         int? lastPreviousSelectedColumnIndex = null;
         int? firstNextSelectedColumnIndex = null;
-        for (int i = 0; i < grid.Columns.Count; i++)
+        for (var i = 0; i < dataGrid.Columns.Count; i++)
         {
-          var col = grid.Columns[i];
+          var col = dataGrid.Columns[i];
           if (SfDataGridColumnBehavior.GetIsSelected(col))
           {
             if (i < selectedColumnIndex) lastPreviousSelectedColumnIndex = i;
@@ -102,25 +90,21 @@ public partial class SfDataGridTools : ResourceDictionary
           if (lastPreviousSelectedColumnIndex != null && (firstNextSelectedColumnIndex == null ||
                                                           firstNextSelectedColumnIndex - selectedColumnIndex >=
                                                           selectedColumnIndex - lastPreviousSelectedColumnIndex))
-          {
             // Select all columns from last previous selected to current
-            for (int i = lastPreviousSelectedColumnIndex.Value + 1; i < selectedColumnIndex; i++)
+            for (var i = lastPreviousSelectedColumnIndex.Value + 1; i < selectedColumnIndex; i++)
             {
-              var col = grid.Columns[i];
+              var col = dataGrid.Columns[i];
               if (col != column) SfDataGridColumnBehavior.SetIsSelected(col, isSelected);
             }
-          }
           if (firstNextSelectedColumnIndex != null && (lastPreviousSelectedColumnIndex == null ||
                                                        firstNextSelectedColumnIndex - selectedColumnIndex >=
                                                        selectedColumnIndex - lastPreviousSelectedColumnIndex))
-          {
             // Select all columns from current to first next selected
-            for (int i = selectedColumnIndex + 1; i < firstNextSelectedColumnIndex.Value; i++)
+            for (var i = selectedColumnIndex + 1; i < firstNextSelectedColumnIndex.Value; i++)
             {
-              var col = grid.Columns[i];
+              var col = dataGrid.Columns[i];
               if (col != column) SfDataGridColumnBehavior.SetIsSelected(col, isSelected);
             }
-          }
         }
       }
       SfDataGridColumnConverter.LogIt = true;
@@ -146,22 +130,114 @@ public partial class SfDataGridTools : ResourceDictionary
 
     if (sender is GridRowHeaderIndentCell indentCell)
     {
-      var grid = indentCell.FindParent<SfDataGrid>();
-      if (grid == null) return;
+      var dataGrid = indentCell.FindParent<SfDataGrid>();
+      if (dataGrid == null) return;
 
-      var isSelected = grid.GetSelectedCells().Any();
+      var isSelected = dataGrid.GetSelectedCells().Any();
       if (isSelected)
       {
-        grid.SelectionController.ClearSelections(false);
+        dataGrid.SelectionController.ClearSelections(false);
       }
       else
       {
-        isSelected = grid.Columns.FirstOrDefault(SfDataGridColumnBehavior.GetIsSelected) is not null;
+        isSelected = dataGrid.Columns.FirstOrDefault(SfDataGridColumnBehavior.GetIsSelected) is not null;
         isSelected = !isSelected;
-        foreach (var column in grid.Columns)
+        foreach (var column in dataGrid.Columns) SfDataGridColumnBehavior.SetIsSelected(column, isSelected);
+      }
+    }
+  }
+
+  /// <summary>
+  /// Handles the mouse left button down event on a <see cref="GridRowHeaderCell"/> to start resizing the row height.
+  /// This method checks if the data grid allows row resizing and if the click is near the bottom edge of the row header cell.
+  /// If so, it sets the state of the grid to indicate that row resizing is in progress.
+  /// Resizing a specific row requires the <see cref="IRowHeightProvider"/> interface to be implemented by the data context of the row header cell.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  private void GridRowHeaderCell_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+  {
+    if (e.ChangedButton != MouseButton.Left)
+      return;
+
+    if (sender is GridRowHeaderCell headerCell)
+    {
+      var dataGrid = headerCell.FindParent<SfDataGrid>();
+      if (dataGrid == null) return;
+
+      if (headerCell.DataContext is not IRowHeightProvider rowHeightProvider)
+        return;
+
+      var position = e.GetPosition(headerCell);
+      var actualHeight = headerCell.ActualHeight;
+      if (position.Y >= actualHeight - ResizeMargin)
+      {
+        // Click is just above the bottom edge of the row header cell
+
+        if (SfDataGridBehavior.GetAllowRowResizing(dataGrid))
         {
-          SfDataGridColumnBehavior.SetIsSelected(column, isSelected);
+          if (!SfDataGridBehavior.GetIsRowResizing(dataGrid))
+          {
+            // If the grid allows row resizing and is not currently resizing rows, set the state to resizing
+            SfDataGridBehavior.SetStartOffset(dataGrid, actualHeight - position.Y);
+            SfDataGridBehavior.SetIsRowResizing(dataGrid, true);
+            Mouse.Capture(headerCell);
+            e.Handled = true;
+          }
         }
+      }
+    }
+  }
+
+  /// <summary>
+  /// Handles the mouse move event on a <see cref="GridRowHeaderCell"/> to resize the row height.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  private void GridRowHeaderCell_MouseMove(object sender, MouseEventArgs e)
+  {
+    if (sender is GridRowHeaderCell headerCell)
+    {
+      var dataGrid = headerCell.FindParent<SfDataGrid>();
+      if (dataGrid == null) return;
+
+      if (headerCell.DataContext is not IRowHeightProvider rowHeightProvider)
+        return;
+
+      if (SfDataGridBehavior.GetIsRowResizing(dataGrid))
+      {
+        var position = e.GetPosition(headerCell);
+        var actualHeight = headerCell.ActualHeight;
+        var requestedHeight = position.Y + SfDataGridBehavior.GetStartOffset(dataGrid);
+
+        rowHeightProvider.RowHeight = requestedHeight;
+        //Debug.WriteLine($"Resized to {requestedHeight}");
+        e.Handled = true;
+        dataGrid.View.Refresh();
+      }
+    }
+  }
+
+  /// <summary>
+  /// Handles the mouse left button up event on a <see cref="GridRowHeaderCell"/> to stop resizing the row height.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  private void GridRowHeaderCell_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+  {
+    if (e.ChangedButton != MouseButton.Left)
+      return;
+
+    if (sender is GridRowHeaderCell headerCell)
+    {
+      var grid = headerCell.FindParent<SfDataGrid>();
+      if (grid == null) return;
+
+      if (SfDataGridBehavior.GetIsRowResizing(grid))
+      {
+        SfDataGridBehavior.SetIsRowResizing(grid, false);
+        Mouse.Capture(null);
+        e.Handled = true;
       }
     }
   }

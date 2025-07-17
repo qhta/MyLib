@@ -2,17 +2,16 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
 using Qhta.SF.Tools;
 using Qhta.UndoManager;
 using Qhta.UnicodeBuild.Resources;
 using Qhta.UnicodeBuild.ViewModels;
-
 using Syncfusion.Data;
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.Windows.Shared;
 
 namespace Qhta.UnicodeBuild.Views;
+
 /// <summary>
 /// View for displaying Unicode code points collection.
 /// </summary>
@@ -54,13 +53,10 @@ public partial class UcdCodePointsView : UserControl
       var column = dataGrid.Columns.FirstOrDefault(item => item.MappingName == "Glyph");
       if (column == null)
         return;
-      var glyphSize = (rowData?.GlyphSize ?? 12);
+      var glyphSize = rowData?.GlyphSize ?? 12;
       var colWidth = glyphSize - 12 + 34;
-      if (colWidth > column.Width)
-      {
-        column.Width = colWidth;
-        //Debug.WriteLine($"Column {column.MappingName} width = {colWidth}");
-      }
+      if (colWidth > column.Width) column.Width = colWidth;
+      //Debug.WriteLine($"Column {column.MappingName} width = {colWidth}");
       dataGrid.View.Refresh();
     }
   }
@@ -90,7 +86,7 @@ public partial class UcdCodePointsView : UserControl
 
     void SetAdvancedFilter()
     {
-      GridFilterControl filterControl = e.FilterControl;
+      var filterControl = e.FilterControl;
       filterControl.SortOptionVisibility = Visibility.Visible;
       filterControl.FilterMode = FilterMode.AdvancedFilter;
       filterControl.AllowBlankFilters = true;
@@ -98,14 +94,14 @@ public partial class UcdCodePointsView : UserControl
 
     void SetCategoryFilter()
     {
-      GridFilterControl filterControl = e.FilterControl;
+      var filterControl = e.FilterControl;
       filterControl.SortOptionVisibility = Visibility.Visible;
       filterControl.FilterMode = FilterMode.Both;
       filterControl.AllowBlankFilters = true;
       var selectableItems = _ViewModels.Instance.SelectableCategories.OrderBy(item => item?.Name ?? "").ToList();
       selectableItems.Insert(0, null); // Add a null item at the top
-      selectableItems.Insert(1, new UnicodeCategoryViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty category
-
+      selectableItems.Insert(1,
+        new UnicodeCategoryViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty category
 
       var UcdCategoryFilters = selectableItems.Select(item => new FilterElement
       {
@@ -113,9 +109,9 @@ public partial class UcdCodePointsView : UserControl
         FormattedString = (object obj) =>
         {
           if (obj is FilterElement filterElement && filterElement.ActualValue is UnicodeCategoryViewModel val)
-            return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.NonEmptyItem;
+            return !string.IsNullOrEmpty(val.Name) ? val.Name : Strings.NonEmptyItem;
           return Strings.EmptyItem;
-        },
+        }
       }).ToArray();
       e.ItemsSource = UcdCategoryFilters;
       e.Handled = true;
@@ -123,22 +119,23 @@ public partial class UcdCodePointsView : UserControl
 
     void SetBlockFilter()
     {
-      GridFilterControl filterControl = e.FilterControl;
+      var filterControl = e.FilterControl;
       filterControl.SortOptionVisibility = Visibility.Visible;
       filterControl.FilterMode = FilterMode.Both;
       filterControl.AllowBlankFilters = true;
       var selectableItems = _ViewModels.Instance.SelectableBlocks.OrderBy(item => item?.Name ?? "").ToList();
       selectableItems.Insert(0, null); // Add a null item at the top
-      selectableItems.Insert(1, new UcdBlockViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty block
+      selectableItems.Insert(1,
+        new UcdBlockViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty block
       var UcdBlockFilters = selectableItems.Select(item => new FilterElement
       {
         ActualValue = item,
         FormattedString = (object obj) =>
         {
           if (obj is FilterElement filterElement && filterElement.ActualValue is UcdBlockViewModel val)
-            return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.NonEmptyItem;
+            return !string.IsNullOrEmpty(val.Name) ? val.Name : Strings.NonEmptyItem;
           return Strings.EmptyItem;
-        },
+        }
       }).ToArray();
       e.ItemsSource = UcdBlockFilters;
       e.Handled = true;
@@ -147,13 +144,14 @@ public partial class UcdCodePointsView : UserControl
     void SetWritingSystemFilter(IEnumerable<WritingSystemViewModel?> sourceCollection)
     {
       //WritingSystemViewModel.LogEquals = true;
-      GridFilterControl filterControl = e.FilterControl;
+      var filterControl = e.FilterControl;
       filterControl.SortOptionVisibility = Visibility.Visible;
       filterControl.FilterMode = FilterMode.Both;
       filterControl.AllowBlankFilters = true;
       var selectableItems = sourceCollection.OrderBy(item => item?.Name ?? "").ToList();
       selectableItems.Insert(0, null); // Add a null item at the top
-      selectableItems.Insert(1, new WritingSystemViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty writing system
+      selectableItems.Insert(1,
+        new WritingSystemViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty writing system
 
       var WritingSystemFilters = selectableItems.Select(item => new FilterElement
       {
@@ -161,9 +159,9 @@ public partial class UcdCodePointsView : UserControl
         FormattedString = (object obj) =>
         {
           if (obj is FilterElement filterElement && filterElement.ActualValue is WritingSystemViewModel val)
-            return !String.IsNullOrEmpty(val.Name) ? val.Name : Strings.NonEmptyItem;
+            return !string.IsNullOrEmpty(val.Name) ? val.Name : Strings.NonEmptyItem;
           return Strings.EmptyItem;
-        },
+        }
       }).ToArray();
       e.ItemsSource = WritingSystemFilters;
       e.Handled = true;
@@ -175,7 +173,6 @@ public partial class UcdCodePointsView : UserControl
     if (e.FilterPredicates == null)
       return;
     foreach (var predicate in e.FilterPredicates)
-    {
       if (predicate is not null)
       {
         if (predicate.FilterValue is string)
@@ -184,8 +181,7 @@ public partial class UcdCodePointsView : UserControl
           predicate.FilterMode = ColumnFilter.DisplayText;
           continue; // Skip further processing for null values
         }
-        else
-        if (predicate.FilterValue is UnicodeCategoryViewModel ctg)
+        else if (predicate.FilterValue is UnicodeCategoryViewModel ctg)
         {
           if (ctg.Name == null)
           {
@@ -194,8 +190,7 @@ public partial class UcdCodePointsView : UserControl
             predicate.FilterValue = null;
           }
         }
-        else
-        if (predicate.FilterValue is UcdBlockViewModel bl)
+        else if (predicate.FilterValue is UcdBlockViewModel bl)
         {
           if (bl.Name == null)
           {
@@ -204,8 +199,7 @@ public partial class UcdCodePointsView : UserControl
             predicate.FilterValue = null;
           }
         }
-        else
-        if (predicate.FilterValue is WritingSystemViewModel wm)
+        else if (predicate.FilterValue is WritingSystemViewModel wm)
         {
           if (wm.Name == null)
           {
@@ -214,7 +208,6 @@ public partial class UcdCodePointsView : UserControl
           }
         }
       }
-    }
   }
 
   private void CommandBinding_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -224,13 +217,17 @@ public partial class UcdCodePointsView : UserControl
       if (command == ApplicationCommands.Save)
         e.CanExecute = _ViewModels.Instance.DbContext?.ThereAreUnsavedChanges ?? false;
       else if (command == ApplicationCommands.Copy)
-        e.CanExecute = ((_ViewModels.Instance.UcdCodePoints)?.IsLoaded ?? false) && Controller.CanCopyData(CodePointDataGrid);
+        e.CanExecute = (_ViewModels.Instance.UcdCodePoints?.IsLoaded ?? false) &&
+                       Controller.CanCopyData(CodePointDataGrid);
       else if (command == ApplicationCommands.Cut)
-        e.CanExecute = ((_ViewModels.Instance.UcdCodePoints)?.IsLoaded ?? false) && Controller.CanCutData(CodePointDataGrid);
+        e.CanExecute = (_ViewModels.Instance.UcdCodePoints?.IsLoaded ?? false) &&
+                       Controller.CanCutData(CodePointDataGrid);
       else if (command == ApplicationCommands.Paste)
-        e.CanExecute = ((_ViewModels.Instance.UcdCodePoints)?.IsLoaded ?? false) && Controller.CanPasteData(CodePointDataGrid);
+        e.CanExecute = (_ViewModels.Instance.UcdCodePoints?.IsLoaded ?? false) &&
+                       Controller.CanPasteData(CodePointDataGrid);
       else if (command == ApplicationCommands.Delete)
-        e.CanExecute = ((_ViewModels.Instance.UcdCodePoints)?.IsLoaded ?? false) && Controller.CanDeleteData(CodePointDataGrid);
+        e.CanExecute = (_ViewModels.Instance.UcdCodePoints?.IsLoaded ?? false) &&
+                       Controller.CanDeleteData(CodePointDataGrid);
       else if (command == ApplicationCommands.Undo)
         e.CanExecute = UndoMgr.IsUndoAvailable;
       else if (command == ApplicationCommands.Redo)
@@ -243,7 +240,7 @@ public partial class UcdCodePointsView : UserControl
 
   private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
   {
-    Debug.WriteLine($"CommandBinding_OnExecuted({sender}, {(e.Command as RoutedUICommand)?.Text})");
+    //Debug.WriteLine($"CommandBinding_OnExecuted({sender}, {(e.Command as RoutedUICommand)?.Text})");
     if (e.Command is RoutedUICommand command)
     {
       if (command == ApplicationCommands.Save)
@@ -252,20 +249,30 @@ public partial class UcdCodePointsView : UserControl
         Debug.WriteLine("Data changes saved");
       }
       else if (command == ApplicationCommands.Copy)
+      {
         Controller.CopyData(CodePointDataGrid);
+      }
       else if (command == ApplicationCommands.Cut)
+      {
         Controller.CutData(CodePointDataGrid);
+      }
       else if (command == ApplicationCommands.Paste)
+      {
         Controller.PasteData(CodePointDataGrid);
+      }
       else if (command == ApplicationCommands.Delete)
+      {
         Controller.DeleteData(CodePointDataGrid);
+      }
       else if (command == ApplicationCommands.Undo)
       {
         UndoMgr.Undo();
         CodePointDataGrid.UpdateLayout();
       }
       else if (command == ApplicationCommands.Redo)
+      {
         UndoMgr.Redo();
+      }
       else
       {
         Debug.WriteLine($"Command {command.Text} not executed");
@@ -281,10 +288,9 @@ public partial class UcdCodePointsView : UserControl
     e.Handled = true;
   }
 
-
   private void CodePointDataGrid_KeyDown(object sender, KeyEventArgs e)
   {
-    Debug.WriteLine($"CodePointDataGrid_PreviewKeyDown: {e.Key} {Keyboard.Modifiers}");
+    //Debug.WriteLine($"CodePointDataGrid_KeyDown: {e.Key} {Keyboard.Modifiers}");
     if (sender is not SfDataGrid grid)
       return;
     switch (e.Key)
@@ -320,5 +326,3 @@ public partial class UcdCodePointsView : UserControl
     }
   }
 }
-
-
