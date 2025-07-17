@@ -26,8 +26,8 @@ public partial class UcdCodePointsView : UserControl
     InitializeComponent();
     CodePointDataGrid.GridCopyContent += CodePointDataGrid_OnGridCopyContent;
     CodePointDataGrid.PreviewKeyDown += CodePointDataGrid_KeyDown;
+    CodePointDataGrid.KeyDown += CodePointDataGrid_KeyDown;
   }
-
 
   private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
   {
@@ -284,6 +284,7 @@ public partial class UcdCodePointsView : UserControl
 
   private void CodePointDataGrid_KeyDown(object sender, KeyEventArgs e)
   {
+    Debug.WriteLine($"CodePointDataGrid_PreviewKeyDown: {e.Key} {Keyboard.Modifiers}");
     if (sender is not SfDataGrid grid)
       return;
     switch (e.Key)

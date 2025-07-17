@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -7,6 +8,7 @@ using System.Windows.Data;
 
 using Qhta.MVVM;
 using Qhta.ObservableObjects;
+using Syncfusion.Data;
 using Syncfusion.UI.Xaml.Grid;
 
 
@@ -65,6 +67,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
     SetBinding(RowsCountProperty, new Binding("ItemsSource.Count") { Source = dataGrid });
     dataGrid.Loaded += (s, e) =>
     {
+      Debug.WriteLine($"DataGrid {dataGrid.Name} Loaded");
       BindRowsCount(dataGrid);
     };
   }
@@ -74,19 +77,44 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   {
     if (dataGrid.ItemsSource is ILoadable loadable)
     {
-      loadable.Loaded += (object? sender, EventArgs e) =>
+      if (dataGrid.View != null)
       {
-        dataGrid.View.CollectionChanged += (s, e) =>
+        //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to Records.Count.");
+        //SetBinding(RowsCountProperty, new Binding("Records.Count") { Source = dataGrid.View, Mode=BindingMode.OneWay });
+        Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to CollectionChanged event.");
+        dataGrid.View.CollectionChanged += ViewOnCollectionChanged(dataGrid);
+      }
+      else
+      {
+        Debug.WriteLine($"DataGrid {dataGrid.Name} View is null, binding to Loaded event.");
+        loadable.Loaded += (object? sender, EventArgs e) =>
         {
-          //Debug.WriteLine($"CollectionChanged: {dataGrid.View.Records.Count}");
-          RowsCount = dataGrid.View.Records.Count;
-          //Debug.WriteLine($"BindRowsCount: {dataGrid.View.Records.Count}");
+          Debug.WriteLine($"DataGrid {dataGrid.Name} View Loaded");
+          if (dataGrid.View != null)
+          {
+            //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to Records.Count.");
+            //SetBinding(RowsCountProperty, new Binding("Records.Count") { Source = dataGrid.View, Mode = BindingMode.OneWay });
+            Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to CollectionChanged event.");
+            dataGrid.View.CollectionChanged += ViewOnCollectionChanged(dataGrid);
+          }
+          else
+            Debug.WriteLine($"DataGrid {dataGrid.Name} View is null");
         };
-        NotifyPropertyChanged(nameof(RowsCount));
-
-      };
+      }
+      if (dataGrid.View?.Records != null)
+        RowsCount = dataGrid.View.Records.Count;
     }
+  }
 
+
+  private NotifyCollectionChangedEventHandler? ViewOnCollectionChanged(SfDataGrid dataGrid)
+  {
+    return (s, e) =>
+    {
+      //Debug.WriteLine($"DataGrid {dataGrid.Name} View CollectionChanged {e.Action}");
+      RowsCount = dataGrid.View.Records.Count;
+      //Debug.WriteLine($"RowsCount: {dataGrid.View.Records.Count}");
+    };
   }
 
   /// <summary>
@@ -158,7 +186,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
     var dataGrid = DataGrid;
     if (dataGrid == null)
       return;
-    
+
     var selectedIndex = RowsCount - 1;
 
     dataGrid.SelectedIndex = selectedIndex;

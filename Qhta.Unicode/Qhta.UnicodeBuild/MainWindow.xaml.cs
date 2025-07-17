@@ -49,6 +49,7 @@ public partial class MainWindow : Window
   /// <param name="e"></param>
   private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
   {
+    Debug.WriteLine($"MainWindow_PreviewKeyDown: {e.Key} {Keyboard.Modifiers}");
     if (e.Key == Key.Z && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
     {
       if (UndoMgr.IsUndoAvailable)
@@ -56,10 +57,10 @@ public partial class MainWindow : Window
       e.Handled = true;
       return;
     }
-    if (e.Key == Key.Z && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+    if (e.Key == Key.Y && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
     {
-      if (UndoMgr.IsUndoAvailable)
-        UndoMgr.Undo();
+      if (UndoMgr.IsRedoAvailable)
+        UndoMgr.Redo();
       e.Handled = true;
       return;
     }
@@ -78,6 +79,26 @@ public partial class MainWindow : Window
         };
 
         focusedControl.RaiseEvent(keyEventArgs);
+        if (keyEventArgs.Handled)
+        {
+          e.Handled = true;
+        }
+      }
+    }
+    if (MainTabControl.SelectedItem is TabItem selectedTab)
+    {
+      if (selectedTab.Content is FrameworkElement content)
+      {
+        // Forward the key event to the content of the selected tab
+        var keyEventArgs = new KeyEventArgs(
+          Keyboard.PrimaryDevice,
+          PresentationSource.FromVisual(content)!,
+          0,
+          e.Key)
+        {
+          RoutedEvent = Keyboard.KeyDownEvent
+        };
+        content.RaiseEvent(keyEventArgs);
         if (keyEventArgs.Handled)
         {
           e.Handled = true;
