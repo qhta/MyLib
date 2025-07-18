@@ -232,6 +232,7 @@
           Width="100"
           SortMode="Display"
           MappingName="Type" 
+          VerticalAlignment="Top"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemTypes}"
           >
@@ -258,6 +259,7 @@
           Width="100"
           SortMode="Display"
           MappingName="Kind"
+          VerticalAlignment="Top"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemKinds}"
           >
@@ -284,6 +286,7 @@
           DisplayMemberPath="FullName"
           SortMode="Display"
           MappingName="Parent"
+          VerticalAlignment="Top"
           Width="150"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableScripts}"
@@ -299,6 +302,7 @@
         <sf:GridTextColumn 
           HeaderText="Key phrase"
           MappingName="KeyPhrase"
+          VerticalAlignment="Top"
           CellTemplate="{StaticResource TextCellTemplate}">
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -310,6 +314,7 @@
         <sf:GridTextColumn 
           HeaderText="Ctg"
           MappingName="Ctg"
+          VerticalAlignment="Top"
           Width="60">
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -321,6 +326,7 @@
         <sf:GridTextColumn 
           HeaderText="ISO"
           MappingName="Iso"
+          VerticalAlignment="Top"
           Width="60">
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -332,6 +338,7 @@
         <sf:GridTextColumn 
           HeaderText="Abbr"
           MappingName="Abbr"
+          VerticalAlignment="Top"
           Width="60">
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
@@ -343,6 +350,7 @@
         <sf:GridTextColumn 
           HeaderText="Ext" 
           MappingName="Ext"
+          VerticalAlignment="Top"
           Width="60">
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
