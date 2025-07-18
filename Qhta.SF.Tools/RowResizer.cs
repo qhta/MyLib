@@ -27,7 +27,6 @@ public class RowResizer : Thumb
     VerticalAlignmentProperty.OverrideMetadata(typeof(RowResizer), new FrameworkPropertyMetadata(VerticalAlignment.Bottom));
     HeightProperty.OverrideMetadata(typeof(RowResizer), new FrameworkPropertyMetadata(5.0));
     CursorProperty.OverrideMetadata(typeof(RowResizer), new FrameworkPropertyMetadata(Cursors.SizeNS));
-    BackgroundProperty.OverrideMetadata(typeof(RowResizer), new FrameworkPropertyMetadata(Brushes.Aqua));
 
     EventManager.RegisterClassHandler(typeof(RowResizer), Thumb.PreviewMouseDownEvent, new MouseButtonEventHandler(RowResizer.OnMouseLeftButtonDown));
     EventManager.RegisterClassHandler(typeof(RowResizer), Thumb.PreviewMouseMoveEvent, new MouseEventHandler(RowResizer.OnMouseMove));
