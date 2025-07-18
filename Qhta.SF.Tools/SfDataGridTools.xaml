@@ -3,10 +3,11 @@
                     xmlns:sf="http://schemas.syncfusion.com/wpf"
                     xmlns:sfx="clr-namespace:Syncfusion.UI.Xaml.Grid;assembly=Syncfusion.SfGrid.WPF"
                     xmlns:tools="clr-namespace:Qhta.SF.Tools"
+                    xmlns:converters="clr-namespace:Qhta.WPF.Converters;assembly=Qhta.WPF.Converters"
+                    xmlns:mvvm="clr-namespace:Qhta.MVVM;assembly=Qhta.MVVM"
                     x:Class="Qhta.SF.Tools.SfDataGridTools">
-  <!--<ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="SfDataGridRowHeaderCell.xaml" />
-  </ResourceDictionary.MergedDictionaries>-->
+  <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+  <tools:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
 
   <Style x:Key="{x:Type tools:RowResizer}" Style.TargetType="{x:Type tools:RowResizer}" >
     <Setter Property="Control.Background" Value="#01000000" />
@@ -196,7 +197,9 @@
                     VerticalAlignment="Center" 
                     Fill="#FF303030" 
                     Stretch="Fill" />
-              <tools:RowResizer/>
+              <tools:RowResizer Visibility="{Binding Path=(tools:SfDataGridBehavior.AllowRowResizing), 
+                         RelativeSource={RelativeSource AncestorType={x:Type sf:SfDataGrid}}, 
+                         Converter={StaticResource BoolToVisibilityConverter}}" />
               <ToolTipService.ToolTip>
                 <ToolTip Name="PART_ToolTip" Background="#FFDB000C" Placement="Left" 
                            PlacementRectangle="20,0,0,0" Tag="{TemplateBinding sf:GridRowHeaderCell.RowErrorMessage}" 
@@ -256,4 +259,85 @@
     <Setter Property="SelectionMode" Value="Extended" />
     <Setter Property="ShowRowHeader" Value="True" />
   </Style>
+
+  <DataTemplate x:Key="TextCellTemplate" DataType="{x:Type mvvm:IViewModel}">
+    <TextBlock      
+      Text="{Binding Path=TemplatedParent, 
+      RelativeSource={RelativeSource AncestorType=ContentPresenter}, 
+      Converter={StaticResource MappingNameToValueConverter}}"
+      Padding="2"
+      />
+  </DataTemplate>
+
+  <DataTemplate x:Key="LongTextCellTemplate" DataType="{x:Type mvvm:ILongTextViewModel}">
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <TextBlock 
+        x:Name="LongTextBlock"
+        Text="{Binding Path=LongText}" 
+        Padding="3"
+        TextWrapping="Wrap"
+        />
+      <Button 
+        Grid.Column="1"
+        Visibility="{Binding CanExpandLongText, 
+          Converter={StaticResource BoolToVisibilityConverter}}"
+        Height="20"
+        VerticalAlignment="Top"
+        Background="Transparent"
+        BorderThickness="0"
+        BorderBrush="Transparent"
+        Content="▼"
+        Click="ShowPopup_Click"/>
+      <!--<controls:RowResizer Grid.Column="0" Grid.ColumnSpan="2" MaxRowHeight="360" Background="LightGray"/>-->
+      <Popup Grid.Column="0" Grid.ColumnSpan="2" x:Name="LongTextPopup" Placement="Mouse" StaysOpen="false">
+        <Border Background="LightGray" BorderBrush="Black" BorderThickness="1" Padding="3" 
+                >
+          <TextBlock 
+            Text="{Binding Path=LongText}" 
+            TextWrapping="Wrap"/>
+        </Border>
+      </Popup>
+    </Grid>
+  </DataTemplate>
+
+  <DataTemplate x:Key="LongTextEditTemplate" DataType="{x:Type mvvm:ILongTextViewModel}">
+    <Grid x:Name="EditedGrid">
+      <TextBlock 
+        Text="{Binding Path=LongText}" 
+        Padding="3"
+        TextWrapping="Wrap"/>
+      <Popup 
+         x:Name="LongTextEditPopup" 
+         PlacementTarget="{Binding 
+           RelativeSource={RelativeSource AncestorType={x:Type Grid}},
+           BindsDirectlyToSource=true}"
+         Placement = "Bottom"
+         VerticalOffset="{Binding
+           RelativeSource={RelativeSource AncestorType={x:Type Grid}},
+           Path=ActualHeight,
+           Converter = {StaticResource NegateValueConverter}}"
+         Width="{Binding
+           RelativeSource={RelativeSource AncestorType={x:Type Grid}},
+           Path=ActualWidth}"
+         IsOpen = "true"   
+         StaysOpen="false">
+        <Border Background="White" BorderBrush="Black" BorderThickness="1" Padding="3" 
+        >
+          <TextBox 
+            Text="{Binding Path=LongText}" 
+            BorderThickness="0"
+            BorderBrush="Transparent"
+            TextWrapping="Wrap"
+            AcceptsReturn="True"
+            sf:FocusManagerHelper.FocusedElement ="True"
+            />
+        </Border>
+      </Popup>
+    </Grid>
+  </DataTemplate>
+
 </ResourceDictionary>

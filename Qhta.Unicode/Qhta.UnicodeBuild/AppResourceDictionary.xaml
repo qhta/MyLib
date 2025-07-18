@@ -9,13 +9,12 @@
                     xmlns:sfTools="clr-namespace:Qhta.SF.Tools;assembly=Qhta.SF.Tools"
                     x:Class="Qhta.UnicodeBuild.AppResourceDictionary">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="pack://application:,,,/Qhta.SF.Tools;component/SfDataGrid.xaml" />
+    <ResourceDictionary Source="pack://application:,,,/Qhta.SF.Tools;component/SfDataGridTools.xaml" />
   </ResourceDictionary.MergedDictionaries>
   <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
   <converters:AddingConverter x:Key="AddingConverter"/>
-  <sfTools:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
   <sfTools:MappingNameBinder x:Key="MappingNameBinder"/>
   <helpers:CodeRangeComparer x:Key="CodeRangeComparer"/>
   <helpers:CodeRangeValueConverter x:Key="CodeRangeValueConverter"/>
@@ -144,86 +143,6 @@
     </TextBox>
   </DataTemplate>
 
-  <DataTemplate x:Key="TextCellTemplate" DataType="{x:Type mvvm:IViewModel}">
-    <TextBlock      
-      Text="{Binding Path=TemplatedParent, 
-      RelativeSource={RelativeSource AncestorType=ContentPresenter}, 
-      Converter={StaticResource MappingNameToValueConverter}}"
-      Padding="2"
-      ContextMenu="{StaticResource CommonContextMenu}" 
-      />
-  </DataTemplate>
-
-  <DataTemplate x:Key="LongTextCellTemplate" DataType="{x:Type mvvm:ILongTextViewModel}">
-    <Grid>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="Auto"/>
-      </Grid.ColumnDefinitions>
-      <TextBlock 
-        x:Name="LongTextBlock"
-        Text="{Binding Path=LongText}" 
-        Padding="3"
-        TextWrapping="Wrap"
-        />
-      <Button 
-        Grid.Column="1"
-        Visibility="{Binding CanExpandLongText, 
-          Converter={StaticResource BoolToVisibilityConverter}}"
-        Height="20"
-        VerticalAlignment="Top"
-        Background="Transparent"
-        BorderThickness="0"
-        BorderBrush="Transparent"
-        Content="▼"
-        Click="ShowPopup_Click"/>
-      <!--<controls:RowResizer Grid.Column="0" Grid.ColumnSpan="2" MaxRowHeight="360" Background="LightGray"/>-->
-      <Popup Grid.Column="0" Grid.ColumnSpan="2" x:Name="LongTextPopup" Placement="Mouse" StaysOpen="false">
-        <Border Background="LightGray" BorderBrush="Black" BorderThickness="1" Padding="3" 
-                >
-          <TextBlock 
-            Text="{Binding Path=LongText}" 
-            TextWrapping="Wrap"/>
-        </Border>
-      </Popup>
-    </Grid>
-  </DataTemplate>
-
-  <DataTemplate x:Key="LongTextEditTemplate" DataType="{x:Type mvvm:ILongTextViewModel}">
-    <Grid x:Name="EditedGrid">
-      <TextBlock 
-        Text="{Binding Path=LongText}" 
-        Padding="3"
-        TextWrapping="Wrap"/>
-      <Popup 
-         x:Name="LongTextEditPopup" 
-         PlacementTarget="{Binding 
-           RelativeSource={RelativeSource AncestorType={x:Type Grid}},
-           BindsDirectlyToSource=true}"
-         Placement = "Bottom"
-         VerticalOffset="{Binding
-           RelativeSource={RelativeSource AncestorType={x:Type Grid}},
-           Path=ActualHeight,
-           Converter = {StaticResource NegateValueConverter}}"
-         Width="{Binding
-           RelativeSource={RelativeSource AncestorType={x:Type Grid}},
-           Path=ActualWidth}"
-         IsOpen = "true"   
-         StaysOpen="false">
-        <Border Background="White" BorderBrush="Black" BorderThickness="1" Padding="3" 
-        >
-          <TextBox 
-            Text="{Binding Path=LongText}" 
-            BorderThickness="0"
-            BorderBrush="Transparent"
-            TextWrapping="Wrap"
-            AcceptsReturn="True"
-            sf:FocusManagerHelper.FocusedElement ="True"
-            />
-        </Border>
-      </Popup>
-    </Grid>
-  </DataTemplate>
 
   <helpers:MultiValueToStringConverter x:Key="MultiValueToStringConverter" />
 

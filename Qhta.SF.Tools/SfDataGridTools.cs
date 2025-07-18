@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 
 using Qhta.WPF.Utils;
 
@@ -143,6 +146,33 @@ public partial class SfDataGridTools : ResourceDictionary
         isSelected = dataGrid.Columns.FirstOrDefault(SfDataGridColumnBehavior.GetIsSelected) is not null;
         isSelected = !isSelected;
         foreach (var column in dataGrid.Columns) SfDataGridColumnBehavior.SetIsSelected(column, isSelected);
+      }
+    }
+  }
+
+  private void ShowPopup_Click(object sender, RoutedEventArgs e)
+  {
+    if (sender is Button button)
+    {
+      if (VisualTreeHelper.GetParent(button) is Grid grid)
+      {
+        var popup = grid.Children.OfType<Popup>().FirstOrDefault();
+        if (popup != null)
+        {
+          var cell = button.FindParent<GridCell>();
+          if (cell != null)
+          {
+            var dataGrid = cell.FindParent<SfDataGrid>();
+            if (dataGrid != null)
+            {
+              popup.PlacementTarget = cell;
+              popup.Placement = PlacementMode.Bottom;
+              popup.VerticalOffset = -cell.ActualHeight;
+              popup.Width = cell.ActualWidth;
+              popup.IsOpen = true;
+            }
+          }
+        }
       }
     }
   }

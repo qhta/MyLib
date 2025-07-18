@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Windows.Media;
+
 using Qhta.MVVM;
+
 using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.SF.Tools;
@@ -15,7 +17,18 @@ namespace Qhta.SF.Tools;
 public class LongTextColumn : GridTemplateColumn
 {
   /// <summary>
+  /// Gets the default font name used by the application.
+  /// </summary>
+  public static string DefaultFont { get; set; } = "Segoe UI";
+  /// <summary>
+  /// Gets the default font size used by the application.
+  /// </summary>
+  public static double DefaultFontSize { get; set; } = 12;
+
+  /// <summary>
   /// Adjusts the height of a row in a <see cref="SfDataGrid"/> based on the content of long text columns.
+  /// Default font is <see cref="DefaultFont"/> and default font size is <see cref="DefaultFontSize"/>.
+  /// These properties can be set to change the font used for text evaluation.
   /// </summary>
   /// <remarks>This method calculates the required height for a row by evaluating the content of columns that
   /// implement <see cref="LongTextColumn"/>. If the data associated with the row implements <see
@@ -41,17 +54,7 @@ public class LongTextColumn : GridTemplateColumn
           if (!viewModel.IsLongTextExpanded)
             return;
           var maxWidth = longTextColumn.ActualWidth - 6;
-          var formattedText = new FormattedText(
-            longText,
-            System.Globalization.CultureInfo.CurrentCulture,
-            System.Windows.FlowDirection.LeftToRight, 
-            new Typeface("Segoe UI"),
-            12,
-            Brushes.Black,
-            new NumberSubstitution(),
-            1);
-          formattedText.MaxTextWidth = maxWidth;
-          var cellHeight = formattedText.Height + 12; // Add some padding
+          var cellHeight = EvaluateTextHeight(longText, maxWidth) + +12; // Add some padding;
           if (cellHeight > maxRowHeight)
             maxRowHeight = cellHeight;
         }
@@ -59,6 +62,30 @@ public class LongTextColumn : GridTemplateColumn
         e.Handled = true;
       }
     }
+  }
+
+  /// <summary>
+  /// Evaluates the height of a given long text string based on a specified maximum width.
+  /// </summary>
+  /// <param name="longText">Text to evaluate</param>
+  /// <param name="maxWidth">Maximum text width i one line</param>
+  /// <param name="fontName">Name of the font used for evaluation</param>
+  /// <param name="fontSize">Em size of the font used for evaluation</param>
+  /// <returns></returns>
+  public static double EvaluateTextHeight(string longText, double maxWidth, string fontName = "Segoe UI", double fontSize = 12.0 )
+  {
+    var formattedText = new FormattedText(
+      longText,
+      System.Globalization.CultureInfo.CurrentCulture,
+      System.Windows.FlowDirection.LeftToRight,
+      new Typeface(fontName),
+      fontSize,
+      Brushes.Black,
+      new NumberSubstitution(),
+      1);
+    formattedText.MaxTextWidth = maxWidth;
+    var textHeight = formattedText.Height;
+    return textHeight;
   }
 
   /// <summary>

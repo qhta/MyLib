@@ -187,9 +187,21 @@
             cref="T:Syncfusion.UI.Xaml.Grid.QueryRowHeightEventArgs"/> to determine the appropriate height for each row based on the text content and the
             expansion state of the text.</remarks>
         </member>
+        <member name="P:Qhta.SF.Tools.LongTextColumn.DefaultFont">
+            <summary>
+            Gets the default font name used by the application.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.LongTextColumn.DefaultFontSize">
+            <summary>
+            Gets the default font size used by the application.
+            </summary>
+        </member>
         <member name="M:Qhta.SF.Tools.LongTextColumn.OnQueryRowHeight(System.Object,Syncfusion.UI.Xaml.Grid.QueryRowHeightEventArgs)">
             <summary>
             Adjusts the height of a row in a <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> based on the content of long text columns.
+            Default font is <see cref="P:Qhta.SF.Tools.LongTextColumn.DefaultFont"/> and default font size is <see cref="P:Qhta.SF.Tools.LongTextColumn.DefaultFontSize"/>.
+            These properties can be set to change the font used for text evaluation.
             </summary>
             <remarks>This method calculates the required height for a row by evaluating the content of columns that
             implement <see cref="T:Qhta.SF.Tools.LongTextColumn"/>. If the data associated with the row implements <see
@@ -198,6 +210,16 @@
             handled after setting the height.</remarks>
             <param name="sender">The source of the event, typically an instance of <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.</param>
             <param name="e">The event data containing information about the row height query.</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.LongTextColumn.EvaluateTextHeight(System.String,System.Double,System.String,System.Double)">
+            <summary>
+            Evaluates the height of a given long text string based on a specified maximum width.
+            </summary>
+            <param name="longText">Text to evaluate</param>
+            <param name="maxWidth">Maximum text width i one line</param>
+            <param name="fontName">Name of the font used for evaluation</param>
+            <param name="fontSize">Em size of the font used for evaluation</param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.SF.Tools.LongTextColumn.GetCellText(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object)">
             <summary>

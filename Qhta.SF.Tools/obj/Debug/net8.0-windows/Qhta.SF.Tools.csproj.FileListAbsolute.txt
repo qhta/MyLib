@@ -11,11 +11,9 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\refint\Qhta
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\ref\Qhta.SF.Tools.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools.csproj.AssemblyReference.cache
-D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SfDataGrid.g.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools_MarkupCompile.cache
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools_MarkupCompile.lref
-D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SfDataGrid.baml
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools.g.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\RecordNavigationBar.g.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\RecordNavigationBar.baml
@@ -29,3 +27,5 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\bin\Debug\net8.0-windows\Qhta.UndoMa
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\bin\Debug\net8.0-windows\Qhta.UndoManager.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF..B2B5105A.Up2Date
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SfDataGridRowHeaderCell.baml
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SfDataGridTools.g.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SfDataGridTools.baml

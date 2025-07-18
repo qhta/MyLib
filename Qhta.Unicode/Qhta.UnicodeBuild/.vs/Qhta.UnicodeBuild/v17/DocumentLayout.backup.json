@@ -3,61 +3,74 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\sfdatagrid.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\viewmodels\\writingsystemviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:viewmodels\\writingsystemviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\1524100608136493b69c957be88bdb680c310451994ccfcf5ffa68703a40e4ec\\GridRowHeaderCell.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\irowheightprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\sfdatagridrowheadercell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\longtextcolumn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\views\\writingsystemsview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:views\\writingsystemsview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\sfdatagridtools.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\appresourcedictionary.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:appresourcedictionary.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\67b0c191dda3d865bb149a784e12048b5de5a07c7e7ac058e203c06f4dabd6da\\GridVirtualizingCellRendererBase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\c308c287c9239a20c6f1577bb4e9155d4c3bb23e4453d31f067452d7a1cf6708\\ColumnSizerBase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\sfdatagridtools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\appresourcedictionary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:appresourcedictionary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\rowheightprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\sfdatagridbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\rowresizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\AppData\\Local\\JetBrains\\Shared\\vAny\\DecompilerCache\\metadata\\ff53308d451c403fa9cdbce1d082acfa9800\\4b\\6a1a1d53\\ViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\sfdatagridtools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\views\\writingsystemsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:views\\writingsystemsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\views\\ucdcodepointsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:views\\ucdcodepointsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\38fc9d6c24dd0da6547bd337f019bfca595de4691034acd838e7d592cb6847ab\\ValidationHelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\views\\editwritingsystemwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:views\\editwritingsystemwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\b5fe962fa9b41c8863fa55481a7d63e2ecb733595d44cb5d3c03999323e3ec8d\\DataValidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\viewmodels\\writingsystemtypeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:viewmodels\\writingsystemtypeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\OneDrive\\VS\\Temp\\Control\\Themes\\Generic.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\viewmodels\\writingsystemscollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:viewmodels\\writingsystemscollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\67b0c191dda3d865bb149a784e12048b5de5a07c7e7ac058e203c06f4dabd6da\\GridVirtualizingCellRendererBase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\sfdatagridrowheadercell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\views\\ucdcodepointsview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:views\\ucdcodepointsview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\881715d20ee87415e59f064b5e420e3b963c0cac348ebccb77afc0eb3fbb6710\\SfDataGrid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\sfdatagridbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\AppData\\Local\\JetBrains\\Shared\\vAny\\DecompilerCache\\metadata\\cb1031aefb084631bf0d0b0013fbe0b026e400\\46\\84ee88fc\\SfGridBase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\AppData\\Local\\JetBrains\\Shared\\vAny\\DecompilerCache\\metadata\\cb1031aefb084631bf0d0b0013fbe0b026e400\\1e\\172dac2d\\SfDataGrid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\OneDrive\\VS\\Temp\\Styles\\Styles.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\views\\writingsystemsview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:views\\writingsystemsview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -67,7 +80,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 378,
-          "SelectedChildIndex": 25,
+          "SelectedChildIndex": 16,
           "Children": [
             {
               "$type": "Bookmark",
@@ -104,61 +117,156 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "GridRowHeaderCell.cs",
-              "DocumentMoniker": "C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\1524100608136493b69c957be88bdb680c310451994ccfcf5ffa68703a40e4ec\\GridRowHeaderCell.cs",
-              "ToolTip": "C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\1524100608136493b69c957be88bdb680c310451994ccfcf5ffa68703a40e4ec\\GridRowHeaderCell.cs [Read Only]",
-              "ViewState": "AgIAADsAAAAAAAAAAAAYwFYAAAAFAAAAAAAAAA==",
+              "Title": "IRowHeightProvider.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\IRowHeightProvider.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.Tools\\IRowHeightProvider.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\IRowHeightProvider.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.Tools\\IRowHeightProvider.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-18T13:38:22.326Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\qhta1\\AppData\\Local\\JetBrains\\Shared\\vAny\\DecompilerCache\\metadata\\ff53308d451c403fa9cdbce1d082acfa9800\\4b\\6a1a1d53\\ViewModel.cs",
-              "ToolTip": "C:\\Users\\qhta1\\AppData\\Local\\JetBrains\\Shared\\vAny\\DecompilerCache\\metadata\\ff53308d451c403fa9cdbce1d082acfa9800\\4b\\6a1a1d53\\ViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T19:30:23.217Z",
+              "WhenOpened": "2025-07-18T18:02:18.194Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ValidationHelper.cs",
-              "DocumentMoniker": "C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\38fc9d6c24dd0da6547bd337f019bfca595de4691034acd838e7d592cb6847ab\\ValidationHelper.cs",
-              "ToolTip": "C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\38fc9d6c24dd0da6547bd337f019bfca595de4691034acd838e7d592cb6847ab\\ValidationHelper.cs [Read Only]",
-              "ViewState": "AgIAAFEBAAAAAAAAAAAvwGoBAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T19:30:09.315Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "DataValidation.cs",
-              "DocumentMoniker": "C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\b5fe962fa9b41c8863fa55481a7d63e2ecb733595d44cb5d3c03999323e3ec8d\\DataValidation.cs",
-              "ToolTip": "C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\b5fe962fa9b41c8863fa55481a7d63e2ecb733595d44cb5d3c03999323e3ec8d\\DataValidation.cs [Read Only]",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAYwF8AAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T19:09:16.15Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 6,
               "Title": "GridVirtualizingCellRendererBase.cs",
               "DocumentMoniker": "C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\67b0c191dda3d865bb149a784e12048b5de5a07c7e7ac058e203c06f4dabd6da\\GridVirtualizingCellRendererBase.cs",
               "ToolTip": "C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\67b0c191dda3d865bb149a784e12048b5de5a07c7e7ac058e203c06f4dabd6da\\GridVirtualizingCellRendererBase.cs [Read Only]",
               "ViewState": "AgIAAAMBAAAAAAAAAAAYwB4BAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T18:13:03.556Z",
+              "WhenOpened": "2025-07-18T17:36:55.575Z",
               "EditorCaption": " [Read Only]"
             },
             {
               "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ColumnSizerBase.cs",
+              "DocumentMoniker": "C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\c308c287c9239a20c6f1577bb4e9155d4c3bb23e4453d31f067452d7a1cf6708\\ColumnSizerBase.cs",
+              "ToolTip": "C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\c308c287c9239a20c6f1577bb4e9155d4c3bb23e4453d31f067452d7a1cf6708\\ColumnSizerBase.cs [Read Only]",
+              "ViewState": "AgIAANQAAAAAAAAAAAAYwO8AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-18T17:34:06.789Z",
+              "EditorCaption": " [Read Only]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AppResourceDictionary.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\AppResourceDictionary.cs",
+              "RelativeDocumentMoniker": "AppResourceDictionary.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\AppResourceDictionary.cs",
+              "RelativeToolTip": "AppResourceDictionary.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAvwFgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-18T17:32:36.305Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "LongTextColumn.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\LongTextColumn.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.Tools\\LongTextColumn.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\LongTextColumn.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.Tools\\LongTextColumn.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAB4AAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-18T17:28:20.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "RowHeightProvider.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\RowHeightProvider.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.Tools\\RowHeightProvider.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\RowHeightProvider.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.Tools\\RowHeightProvider.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-18T15:07:59.501Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "WritingSystemsView.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\WritingSystemsView.xaml",
+              "RelativeDocumentMoniker": "Views\\WritingSystemsView.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\WritingSystemsView.xaml",
+              "RelativeToolTip": "Views\\WritingSystemsView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-07-18T15:00:21.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "EditWritingSystemWindow.xaml.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\EditWritingSystemWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\EditWritingSystemWindow.xaml.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\EditWritingSystemWindow.xaml.cs",
+              "RelativeToolTip": "Views\\EditWritingSystemWindow.xaml.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAvwEgAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-18T14:58:10.359Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WritingSystemViewModel.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\ViewModels\\WritingSystemViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\WritingSystemViewModel.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\ViewModels\\WritingSystemViewModel.cs",
+              "RelativeToolTip": "ViewModels\\WritingSystemViewModel.cs",
+              "ViewState": "AgIAAA8BAAAAAAAAAAAvwB8BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-18T14:56:57.222Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "WritingSystemTypeViewModel.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\ViewModels\\WritingSystemTypeViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\WritingSystemTypeViewModel.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\ViewModels\\WritingSystemTypeViewModel.cs",
+              "RelativeToolTip": "ViewModels\\WritingSystemTypeViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-18T14:55:33.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "WritingSystemsCollection.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\ViewModels\\WritingSystemsCollection.cs",
+              "RelativeDocumentMoniker": "ViewModels\\WritingSystemsCollection.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\ViewModels\\WritingSystemsCollection.cs",
+              "RelativeToolTip": "ViewModels\\WritingSystemsCollection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-18T14:55:23.014Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AppResourceDictionary.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\AppResourceDictionary.xaml",
+              "RelativeDocumentMoniker": "AppResourceDictionary.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\AppResourceDictionary.xaml",
+              "RelativeToolTip": "AppResourceDictionary.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-07-18T14:50:46.255Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "SfDataGridRowHeaderCell.xaml",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\SfDataGridRowHeaderCell.xaml",
               "RelativeDocumentMoniker": "..\\..\\Qhta.SF.Tools\\SfDataGridRowHeaderCell.xaml",
@@ -171,61 +279,31 @@
             {
               "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "SfDataGrid.cs",
-              "DocumentMoniker": "C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\881715d20ee87415e59f064b5e420e3b963c0cac348ebccb77afc0eb3fbb6710\\SfDataGrid.cs",
-              "ToolTip": "C:\\Users\\qhta1\\AppData\\Local\\Temp\\.vsdbgsrc\\881715d20ee87415e59f064b5e420e3b963c0cac348ebccb77afc0eb3fbb6710\\SfDataGrid.cs [Read Only]",
-              "ViewState": "AgIAAIARAAAAAAAAAAAYwJsRAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T17:25:35.751Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "RowResizer.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\RowResizer.cs",
               "RelativeDocumentMoniker": "..\\..\\Qhta.SF.Tools\\RowResizer.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\RowResizer.cs",
               "RelativeToolTip": "..\\..\\Qhta.SF.Tools\\RowResizer.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABwAAABnAAAAAAAAAA==",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAYwIsAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-17T14:40:54.995Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 14,
               "Title": "UcdCodePointsView.xaml",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\UcdCodePointsView.xaml",
               "RelativeDocumentMoniker": "Views\\UcdCodePointsView.xaml",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\UcdCodePointsView.xaml",
               "RelativeToolTip": "Views\\UcdCodePointsView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-07-17T14:32:25.881Z"
+              "WhenOpened": "2025-07-17T14:32:25.881Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "SfGridBase.cs",
-              "DocumentMoniker": "C:\\Users\\qhta1\\AppData\\Local\\JetBrains\\Shared\\vAny\\DecompilerCache\\metadata\\cb1031aefb084631bf0d0b0013fbe0b026e400\\46\\84ee88fc\\SfGridBase.cs",
-              "ToolTip": "C:\\Users\\qhta1\\AppData\\Local\\JetBrains\\Shared\\vAny\\DecompilerCache\\metadata\\cb1031aefb084631bf0d0b0013fbe0b026e400\\46\\84ee88fc\\SfGridBase.cs",
-              "ViewState": "AgIAAN4AAAAAAAAAAAAAABIAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T11:41:05.238Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "SfDataGrid.cs",
-              "DocumentMoniker": "C:\\Users\\qhta1\\AppData\\Local\\JetBrains\\Shared\\vAny\\DecompilerCache\\metadata\\cb1031aefb084631bf0d0b0013fbe0b026e400\\1e\\172dac2d\\SfDataGrid.cs",
-              "ToolTip": "C:\\Users\\qhta1\\AppData\\Local\\JetBrains\\Shared\\vAny\\DecompilerCache\\metadata\\cb1031aefb084631bf0d0b0013fbe0b026e400\\1e\\172dac2d\\SfDataGrid.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAcwDAAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T11:39:24.305Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 19,
               "Title": "UcdCodePointsView.xaml.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\UcdCodePointsView.xaml.cs",
               "RelativeDocumentMoniker": "Views\\UcdCodePointsView.xaml.cs",
@@ -238,73 +316,51 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "SfDataGridTools.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\SfDataGridTools.cs",
               "RelativeDocumentMoniker": "..\\..\\Qhta.SF.Tools\\SfDataGridTools.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\SfDataGridTools.cs",
               "RelativeToolTip": "..\\..\\Qhta.SF.Tools\\SfDataGridTools.cs",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAAAJUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAswLIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-17T11:34:41.794Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Generic.xaml",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Temp\\Control\\Themes\\Generic.xaml",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\Temp\\Control\\Themes\\Generic.xaml",
-              "ToolTip": "D:\\OneDrive\\VS\\Temp\\Control\\Themes\\Generic.xaml",
-              "RelativeToolTip": "..\\..\\..\\..\\Temp\\Control\\Themes\\Generic.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-07-17T11:03:44.677Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Styles.xaml",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Temp\\Styles\\Styles.xaml",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\Temp\\Styles\\Styles.xaml",
-              "ToolTip": "D:\\OneDrive\\VS\\Temp\\Styles\\Styles.xaml",
-              "RelativeToolTip": "..\\..\\..\\..\\Temp\\Styles\\Styles.xaml",
-              "ViewState": "AgIAAK0AAAAAAAAAAAAlwMYAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-07-17T11:03:07.723Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 3,
               "Title": "WritingSystemsView.xaml.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\WritingSystemsView.xaml.cs",
               "RelativeDocumentMoniker": "Views\\WritingSystemsView.xaml.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\WritingSystemsView.xaml.cs",
               "RelativeToolTip": "Views\\WritingSystemsView.xaml.cs",
-              "ViewState": "AgIAAKQAAAAAAAAAAAAvwL0AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACMAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T10:55:03.996Z"
+              "WhenOpened": "2025-07-17T10:55:03.996Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 11,
               "Title": "SfDataGridBehavior.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\SfDataGridBehavior.cs",
               "RelativeDocumentMoniker": "..\\..\\Qhta.SF.Tools\\SfDataGridBehavior.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\SfDataGridBehavior.cs",
               "RelativeToolTip": "..\\..\\Qhta.SF.Tools\\SfDataGridBehavior.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAcwC4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAcwDQAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T10:54:55.408Z"
+              "WhenOpened": "2025-07-17T10:54:55.408Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SfDataGrid.xaml",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\SfDataGrid.xaml",
-              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.Tools\\SfDataGrid.xaml",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\SfDataGrid.xaml*",
-              "RelativeToolTip": "..\\..\\Qhta.SF.Tools\\SfDataGrid.xaml*",
+              "DocumentIndex": 4,
+              "Title": "SfDataGridTools.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\SfDataGridTools.xaml",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.Tools\\SfDataGridTools.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\SfDataGridTools.xaml",
+              "RelativeToolTip": "..\\..\\Qhta.SF.Tools\\SfDataGridTools.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-07-17T10:49:08.852Z",
               "EditorCaption": ""

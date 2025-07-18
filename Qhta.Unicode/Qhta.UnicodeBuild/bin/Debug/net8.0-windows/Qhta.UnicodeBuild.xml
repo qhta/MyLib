@@ -2808,31 +2808,6 @@
             Indicates whether the long text is expanded in the UI.
             </summary>
         </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.Validate(System.String)">
-            <summary>
-            Validates the specified property of the writing system.
-            </summary>
-            <param name="propertyName"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.HasErrors">
-            <summary>
-            Checks if there are any validation errors in the writing system.
-            </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.AddError(System.String,System.String,Qhta.UnicodeBuild.Helpers.Severity)">
-            <summary>
-            Adds an error message for the specified property.
-            </summary>
-            <param name="propertyName"></param>
-            <param name="message"></param>
-            <param name="severity"></param>
-        </member>
-        <member name="E:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.ErrorsChanged">
-            <summary>
-            Event that is raised when the validation errors for a property change.
-            </summary>
-        </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.Equals(Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel)">
             <summary>
             Compares this instance with another <see cref="T:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel"/> instance for equality.
@@ -2852,6 +2827,11 @@
             Converts the writing system to a string representation.
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.RowHeight">
+            <summary>
+            Stores the height of a row in the UI.
+            </summary>
         </member>
         <member name="T:Qhta.UnicodeBuild.ViewModels._ViewModels">
             <summary>

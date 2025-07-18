@@ -86,32 +86,6 @@ namespace Qhta.UnicodeBuild
         }
     }
 
-    private void ShowPopup_Click(object sender, RoutedEventArgs e)
-    {
-      if (sender is Button button)
-      {
-        if (VisualTreeHelper.GetParent(button) is Grid grid)
-        {
-          var popup = grid.Children.OfType<Popup>().FirstOrDefault();
-          if (popup != null)
-          {
-            var cell = button.FindParent<GridCell>();
-            if (cell != null)
-            {
-              var dataGrid = cell.FindParent<SfDataGrid>();
-              if (dataGrid != null)
-              {
-                popup.PlacementTarget = cell;
-                popup.Placement = PlacementMode.Bottom;
-                popup.VerticalOffset = -cell.ActualHeight;
-                popup.Width = cell.ActualWidth;
-                popup.IsOpen = true;
-              }
-            }
-          }
-        }
-      }
-    }
 
   }
 }

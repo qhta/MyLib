@@ -195,6 +195,7 @@
                    SelectionUnit="Any"
                    SelectionMode="Extended"
                    ShowRowHeader="True"
+                   tools:SfDataGridBehavior.AllowRowResizing="True"
                    >
       <!--GridValidationMode="InEdit"-->
       <sf:SfDataGrid.Columns>

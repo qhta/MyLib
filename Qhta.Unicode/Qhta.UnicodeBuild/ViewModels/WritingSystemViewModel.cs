@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 using Qhta.MVVM;
+using Qhta.SF.Tools;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 
@@ -17,7 +18,8 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// </summary>
 /// <param name="model"></param>
 public class WritingSystemViewModel(WritingSystem model)
-  : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, IComparable<WritingSystemViewModel>, INotifyDataErrorInfo
+  : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, IComparable<WritingSystemViewModel>,// INotifyDataErrorInfo
+  IRowHeightProvider
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="WritingSystemViewModel"/> class with the specified model.
@@ -292,7 +294,20 @@ public class WritingSystemViewModel(WritingSystem model)
   /// <summary>
   /// Can the long text be expanded in the UI?
   /// </summary>
-  public bool CanExpandLongText => LongText!=null && LongText.Length > 100;
+  public bool CanExpandLongText
+  {
+    get
+    {
+      var longText = LongText;
+      if (longText == null)
+        return false;
+      var maxRowHeight = LongTextColumn.EvaluateTextHeight(longText, 100);
+      var actualRowHeight = RowHeight;
+      if (double.IsNaN(actualRowHeight))
+        actualRowHeight = 26;
+      return maxRowHeight > actualRowHeight;
+    }
+  }
 
   /// <summary>
   /// Indicates whether the long text is expanded in the UI.
@@ -315,68 +330,68 @@ public class WritingSystemViewModel(WritingSystem model)
 
   private readonly Dictionary<string, ValidationResultEx> errors = new();
 
-  #region Validation functionality
-  /// <summary>
-  /// Validates the specified property of the writing system.
-  /// </summary>
-  /// <param name="propertyName"></param>
-  /// <returns></returns>
-  public bool Validate(string propertyName)
-  {
-    bool ok = true;
-    if (propertyName == nameof(Name))
-    {
-      errors.Remove(propertyName);
-      if (string.IsNullOrEmpty(Name))
-        errors.Add(propertyName, new ValidationResultEx("Name cannot be empty", Severity.Error));
-      else
-      if (!Regex.IsMatch(Name, "^[a-zA-Z]+( [a-zA-Z0-9]+)*$"))
-        errors.Add(propertyName, new ValidationResultEx("Invalid name string", Severity.Error));
-      ok = false;
-    }
-    else
-    {
-      errors.Remove(propertyName);
-      ok = true;
-    }
+  //#region Validation functionality
+  ///// <summary>
+  ///// Validates the specified property of the writing system.
+  ///// </summary>
+  ///// <param name="propertyName"></param>
+  ///// <returns></returns>
+  //public bool Validate(string propertyName)
+  //{
+  //  bool ok = true;
+  //  if (propertyName == nameof(Name))
+  //  {
+  //    errors.Remove(propertyName);
+  //    if (string.IsNullOrEmpty(Name))
+  //      errors.Add(propertyName, new ValidationResultEx("Name cannot be empty", Severity.Error));
+  //    else
+  //    if (!Regex.IsMatch(Name, "^[a-zA-Z]+( [a-zA-Z0-9]+)*$"))
+  //      errors.Add(propertyName, new ValidationResultEx("Invalid name string", Severity.Error));
+  //    ok = false;
+  //  }
+  //  else
+  //  {
+  //    errors.Remove(propertyName);
+  //    ok = true;
+  //  }
 
-    ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-    return ok;
-  }
+  //  ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+  //  return ok;
+  //}
 
-  IEnumerable INotifyDataErrorInfo.GetErrors(string? propertyName)
-  {
-    if (propertyName != null && errors.TryGetValue(propertyName, out var error))
-    {
-      yield return error;
-    }
-    yield return null;
-  }
+  //IEnumerable INotifyDataErrorInfo.GetErrors(string? propertyName)
+  //{
+  //  if (propertyName != null && errors.TryGetValue(propertyName, out var error))
+  //  {
+  //    yield return error;
+  //  }
+  //  yield return null;
+  //}
 
-  /// <summary>
-  /// Checks if there are any validation errors in the writing system.
-  /// </summary>
-  public bool HasErrors => errors.Count > 0;
+  ///// <summary>
+  ///// Checks if there are any validation errors in the writing system.
+  ///// </summary>
+  //public bool HasErrors => errors.Count > 0;
 
-  /// <summary>
-  /// Adds an error message for the specified property.
-  /// </summary>
-  /// <param name="propertyName"></param>
-  /// <param name="message"></param>
-  /// <param name="severity"></param>
-  public void AddError(string propertyName, string message, Severity severity = Severity.Error)
-  {
-    errors.Remove(propertyName);
-    errors.Add(propertyName, new ValidationResultEx(message, severity));
-    ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+  ///// <summary>
+  ///// Adds an error message for the specified property.
+  ///// </summary>
+  ///// <param name="propertyName"></param>
+  ///// <param name="message"></param>
+  ///// <param name="severity"></param>
+  //public void AddError(string propertyName, string message, Severity severity = Severity.Error)
+  //{
+  //  errors.Remove(propertyName);
+  //  errors.Add(propertyName, new ValidationResultEx(message, severity));
+  //  ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
 
-  }
-  /// <summary>
-  /// Event that is raised when the validation errors for a property change.
-  /// </summary>
-  public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+  //}
+  ///// <summary>
+  ///// Event that is raised when the validation errors for a property change.
+  ///// </summary>
+  //public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
-  #endregion
+  //#endregion
 
 
   /// <summary>
@@ -423,4 +438,13 @@ public class WritingSystemViewModel(WritingSystem model)
     return Name + " " + Type?.ToString()?.ToLower();
   }
 
+  /// <summary>
+  /// Stores the height of a row in the UI.
+  /// </summary>
+  public double RowHeight { get; set; } = Double.NaN;
+
+  /// <summary>
+  /// Stores the height of a row in the UI.
+  /// </summary>
+  public double MaxRowHeight { get; set; } = Double.NaN;
 }

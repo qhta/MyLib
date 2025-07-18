@@ -69,8 +69,8 @@ public partial class EditWritingSystemWindow : Window
   private void SaveData(WritingSystemViewModel? newItem)
   {
     if (newItem == null) return;
-    if (!Validate(newItem))
-      return;
+    //if (!Validate(newItem))
+    //  return;
 
     var ws = newItem.Model;
     var existingItem = _ViewModels.Instance.WritingSystems.FirstOrDefault(item => item.Id == ws.Id);
@@ -133,32 +133,32 @@ public partial class EditWritingSystemWindow : Window
     Close();
   }
 
-  private bool Validate(WritingSystemViewModel newItem)
-  {
-    var ok = !newItem.HasErrors;
-    if (ok)
-    {
-      foreach (var item in _ViewModels.Instance.WritingSystems)
-      {
-        if (item != newItem && item.Id!=newItem.Id && item.Name == newItem.Name && item.Type == newItem.Type)
-        {
-          if (newItem.Type != null)
-          {
-            var errorMsg = Qhta.UnicodeBuild.Resources.WritingSystem.NameAlreadyExistsMessage ??
-                           "{0} already exists.";
-            errorMsg = string.Format(errorMsg,
-              Qhta.UnicodeBuild.Resources.WritingSystemType.ResourceManager.GetString(item.Type.ToString()!) + " " + item.Name);
+  //private bool Validate(WritingSystemViewModel newItem)
+  //{
+  //  var ok = !newItem.HasErrors;
+  //  if (ok)
+  //  {
+  //    foreach (var item in _ViewModels.Instance.WritingSystems)
+  //    {
+  //      if (item != newItem && item.Id!=newItem.Id && item.Name == newItem.Name && item.Type == newItem.Type)
+  //      {
+  //        if (newItem.Type != null)
+  //        {
+  //          var errorMsg = Qhta.UnicodeBuild.Resources.WritingSystem.NameAlreadyExistsMessage ??
+  //                         "{0} already exists.";
+  //          errorMsg = string.Format(errorMsg,
+  //            Qhta.UnicodeBuild.Resources.WritingSystemType.ResourceManager.GetString(item.Type.ToString()!) + " " + item.Name);
 
-            newItem.AddError(nameof(newItem.Name),
-              errorMsg, Severity.Error);
-            ok = false;
-          }
-          break;
-        }
-      }
-    }
-    return ok;
-  }
+  //          newItem.AddError(nameof(newItem.Name),
+  //            errorMsg, Severity.Error);
+  //          ok = false;
+  //        }
+  //        break;
+  //      }
+  //    }
+  //  }
+  //  return ok;
+  //}
 
   /// <summary>
   /// Cancel command that is executed when the user clicks the Cancel button.
