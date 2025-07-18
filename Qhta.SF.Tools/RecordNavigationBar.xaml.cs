@@ -67,7 +67,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
     SetBinding(RowsCountProperty, new Binding("ItemsSource.Count") { Source = dataGrid });
     dataGrid.Loaded += (s, e) =>
     {
-      Debug.WriteLine($"DataGrid {dataGrid.Name} Loaded");
+      //Debug.WriteLine($"DataGrid {dataGrid.Name} Loaded");
       BindRowsCount(dataGrid);
     };
   }
@@ -81,24 +81,20 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
       {
         //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to Records.Count.");
         //SetBinding(RowsCountProperty, new Binding("Records.Count") { Source = dataGrid.View, Mode=BindingMode.OneWay });
-        Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to CollectionChanged event.");
+        //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to CollectionChanged event.");
         dataGrid.View.CollectionChanged += ViewOnCollectionChanged(dataGrid);
       }
       else
       {
-        Debug.WriteLine($"DataGrid {dataGrid.Name} View is null, binding to Loaded event.");
+        //Debug.WriteLine($"DataGrid {dataGrid.Name} View is null, binding to Loaded event.");
         loadable.Loaded += (object? sender, EventArgs e) =>
         {
-          Debug.WriteLine($"DataGrid {dataGrid.Name} View Loaded");
+          //Debug.WriteLine($"DataGrid {dataGrid.Name} View Loaded");
           if (dataGrid.View != null)
           {
-            //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to Records.Count.");
-            //SetBinding(RowsCountProperty, new Binding("Records.Count") { Source = dataGrid.View, Mode = BindingMode.OneWay });
-            Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to CollectionChanged event.");
+            //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to CollectionChanged event.");
             dataGrid.View.CollectionChanged += ViewOnCollectionChanged(dataGrid);
           }
-          else
-            Debug.WriteLine($"DataGrid {dataGrid.Name} View is null");
         };
       }
       if (dataGrid.View?.Records != null)

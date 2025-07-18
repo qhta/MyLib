@@ -28,3 +28,4 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\bin\Debug\net8.0-windows\Qhta.SF.Too
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\bin\Debug\net8.0-windows\Qhta.UndoManager.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\bin\Debug\net8.0-windows\Qhta.UndoManager.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF..B2B5105A.Up2Date
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SfDataGridRowHeaderCell.baml
