@@ -798,7 +798,10 @@
           "System.Configuration.ConfigurationManager": "7.0.0"
         },
         "runtime": {
-          "Qhta.Conversion.dll": {}
+          "Qhta.Conversion.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
         }
       }
     }

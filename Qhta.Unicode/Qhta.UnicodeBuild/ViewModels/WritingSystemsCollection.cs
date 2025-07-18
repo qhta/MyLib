@@ -34,6 +34,7 @@ public sealed class WritingSystemsCollection() : EntityCollection<WritingSystemV
         vm = new WritingSystemViewModel(model);
       }
       Add(vm);
+      vm.Collection = this; // Set the collection reference for the view model
     }
     CollectionChanged += WritingSystemsCollection_CollectionChanged;
   }
@@ -167,5 +168,22 @@ public sealed class WritingSystemsCollection() : EntityCollection<WritingSystemV
   /// </summary>
   public IEnumerable<WritingSystemViewModel> TopWritingSystems => base.Items.Where(item => item.ParentId == null);
 
-
+  /// <summary>
+  /// Column width for the long text in the UI.
+  /// </summary>
+  public double LongTextColumnWidth
+  {
+    get => _longTextColumnWidth;
+    set
+    {
+      if (double.IsNaN(value))
+        return;
+      if (_longTextColumnWidth != value)
+      {
+        _longTextColumnWidth = value;
+        NotifyPropertyChanged(nameof(LongTextColumnWidth));
+      }
+    }
+  }
+  private double _longTextColumnWidth = 420; // Default width
 }

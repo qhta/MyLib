@@ -1,0 +1,335 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{076326AE-9E04-4504-8B3A-D78457A52A4E}|ConversionTest\\ConversionTest.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\conversiontest\\conversiontest.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{076326AE-9E04-4504-8B3A-D78457A52A4E}|ConversionTest\\ConversionTest.csproj|solutionrelative:conversiontest\\conversiontest.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\docs\\readme.md||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|solutionrelative:docs\\readme.md||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\datetimetypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|solutionrelative:datetimetypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\stringtypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|solutionrelative:stringtypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\basetypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|solutionrelative:basetypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\anyuritypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|solutionrelative:anyuritypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\arraytypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|solutionrelative:arraytypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\numerictypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|solutionrelative:numerictypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\base64typeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|solutionrelative:base64typeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\qhta.conversion.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|solutionrelative:qhta.conversion.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\valuetypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|solutionrelative:valuetypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{076326AE-9E04-4504-8B3A-D78457A52A4E}|ConversionTest\\ConversionTest.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\conversiontest\\valuetypeconvertertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{076326AE-9E04-4504-8B3A-D78457A52A4E}|ConversionTest\\ConversionTest.csproj|solutionrelative:conversiontest\\valuetypeconvertertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{076326AE-9E04-4504-8B3A-D78457A52A4E}|ConversionTest\\ConversionTest.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\conversiontest\\convertertestdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{076326AE-9E04-4504-8B3A-D78457A52A4E}|ConversionTest\\ConversionTest.csproj|solutionrelative:conversiontest\\convertertestdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{076326AE-9E04-4504-8B3A-D78457A52A4E}|ConversionTest\\ConversionTest.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\conversiontest\\datetimetypeconvertertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{076326AE-9E04-4504-8B3A-D78457A52A4E}|ConversionTest\\ConversionTest.csproj|solutionrelative:conversiontest\\datetimetypeconvertertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\timespantypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9B2C887-849B-44BD-ABFF-192E2B17489B}|Qhta.Conversion.csproj|solutionrelative:timespantypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{076326AE-9E04-4504-8B3A-D78457A52A4E}|ConversionTest\\ConversionTest.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\conversiontest\\timespantypeconvertertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{076326AE-9E04-4504-8B3A-D78457A52A4E}|ConversionTest\\ConversionTest.csproj|solutionrelative:conversiontest\\timespantypeconvertertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\qhta1\\AppData\\Local\\SourceServer\\2b7926876cc0be507c49f67f0fd5fadd226b4e7cbf3c1bbb06fc29eeb268a49f\\src\\NUnitFramework\\framework\\Assert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 16,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{be4d7042-ba3f-11d2-840e-00c04f9902c1}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{605322a2-17ae-43f4-b60f-766556e46c87}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ConversionTest.csproj",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ConversionTest\\ConversionTest.csproj",
+              "RelativeDocumentMoniker": "ConversionTest\\ConversionTest.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ConversionTest\\ConversionTest.csproj",
+              "RelativeToolTip": "ConversionTest\\ConversionTest.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2023-07-18T18:49:54.989Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StringTypeConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\StringTypeConverter.cs",
+              "RelativeDocumentMoniker": "StringTypeConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\StringTypeConverter.cs",
+              "RelativeToolTip": "StringTypeConverter.cs",
+              "ViewState": "AQIAAIAAAAAAAAAAAAAtwKYAAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-07-18T14:40:53.305Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BaseTypeConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\BaseTypeConverter.cs",
+              "RelativeDocumentMoniker": "BaseTypeConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\BaseTypeConverter.cs",
+              "RelativeToolTip": "BaseTypeConverter.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAgwCMAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-07-18T14:25:58.452Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AnyUriTypeConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\AnyUriTypeConverter.cs",
+              "RelativeDocumentMoniker": "AnyUriTypeConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\AnyUriTypeConverter.cs",
+              "RelativeToolTip": "AnyUriTypeConverter.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAgwAUAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-07-18T14:23:28.901Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "readme.md",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\docs\\readme.md",
+              "RelativeDocumentMoniker": "docs\\readme.md",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\docs\\readme.md",
+              "RelativeToolTip": "docs\\readme.md",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAADUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2023-07-18T14:18:05.233Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "NumericTypeConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\NumericTypeConverter.cs",
+              "RelativeDocumentMoniker": "NumericTypeConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\NumericTypeConverter.cs",
+              "RelativeToolTip": "NumericTypeConverter.cs",
+              "ViewState": "AQIAAL0AAAAAAAAAAAAtwM4AAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-07-18T14:11:40.477Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Base64TypeConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Base64TypeConverter.cs",
+              "RelativeDocumentMoniker": "Base64TypeConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Base64TypeConverter.cs",
+              "RelativeToolTip": "Base64TypeConverter.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAtwCUAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-07-18T14:05:27.188Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ArrayTypeConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ArrayTypeConverter.cs",
+              "RelativeDocumentMoniker": "ArrayTypeConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ArrayTypeConverter.cs",
+              "RelativeToolTip": "ArrayTypeConverter.cs",
+              "ViewState": "AQIAAH8AAAAAAAAAAAD4v5AAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-07-18T13:38:44.167Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Qhta.Collections.csproj",
+              "DocumentMoniker": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
+              "ToolTip": "D:\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2023-07-18T13:36:25.706Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ValueTypeConverterTest.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ConversionTest\\ValueTypeConverterTest.cs",
+              "RelativeDocumentMoniker": "ConversionTest\\ValueTypeConverterTest.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ConversionTest\\ValueTypeConverterTest.cs",
+              "RelativeToolTip": "ConversionTest\\ValueTypeConverterTest.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAtwCUAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-07-18T13:34:40.395Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ConverterTestData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ConversionTest\\ConverterTestData.cs",
+              "RelativeDocumentMoniker": "ConversionTest\\ConverterTestData.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ConversionTest\\ConverterTestData.cs",
+              "RelativeToolTip": "ConversionTest\\ConverterTestData.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-07-18T13:34:19.929Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Qhta.Conversion.csproj",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj",
+              "RelativeDocumentMoniker": "Qhta.Conversion.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj",
+              "RelativeToolTip": "Qhta.Conversion.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAA6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2023-07-18T13:30:35.148Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "TimeSpanTypeConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\TimeSpanTypeConverter.cs",
+              "RelativeDocumentMoniker": "TimeSpanTypeConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\TimeSpanTypeConverter.cs",
+              "RelativeToolTip": "TimeSpanTypeConverter.cs",
+              "ViewState": "AQIAAEcAAAAAAAAAAAAAwGUAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2022-10-31T06:00:21.959Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "TimeSpanTypeConverterTest.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ConversionTest\\TimeSpanTypeConverterTest.cs",
+              "RelativeDocumentMoniker": "ConversionTest\\TimeSpanTypeConverterTest.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ConversionTest\\TimeSpanTypeConverterTest.cs",
+              "RelativeToolTip": "ConversionTest\\TimeSpanTypeConverterTest.cs",
+              "ViewState": "AQIAAGcAAAAAAAAAAAAYwIAAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2022-10-31T05:56:53.253Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ValueTypeConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ValueTypeConverter.cs",
+              "RelativeDocumentMoniker": "ValueTypeConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ValueTypeConverter.cs",
+              "RelativeToolTip": "ValueTypeConverter.cs",
+              "ViewState": "AQIAAKgAAAAAAAAAAAD4v60AAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2022-10-31T05:20:33.283Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "DateTimeTypeConverterTest.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ConversionTest\\DateTimeTypeConverterTest.cs",
+              "RelativeDocumentMoniker": "ConversionTest\\DateTimeTypeConverterTest.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ConversionTest\\DateTimeTypeConverterTest.cs",
+              "RelativeToolTip": "ConversionTest\\DateTimeTypeConverterTest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2022-10-30T08:37:23.976Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Assert.cs",
+              "DocumentMoniker": "C:\\Users\\qhta1\\AppData\\Local\\SourceServer\\2b7926876cc0be507c49f67f0fd5fadd226b4e7cbf3c1bbb06fc29eeb268a49f\\src\\NUnitFramework\\framework\\Assert.cs",
+              "ToolTip": "C:\\Users\\qhta1\\AppData\\Local\\SourceServer\\2b7926876cc0be507c49f67f0fd5fadd226b4e7cbf3c1bbb06fc29eeb268a49f\\src\\NUnitFramework\\framework\\Assert.cs",
+              "ViewState": "AQIAAIYBAAAAAAAAAAAWwJQBAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2022-10-30T08:37:06.502Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DateTimeTypeConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\DateTimeTypeConverter.cs",
+              "RelativeDocumentMoniker": "DateTimeTypeConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\DateTimeTypeConverter.cs",
+              "RelativeToolTip": "DateTimeTypeConverter.cs",
+              "ViewState": "AQIAACEAAAAAAAAAAIA7wDgAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2022-10-30T08:21:17.573Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

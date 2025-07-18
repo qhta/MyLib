@@ -354,7 +354,7 @@
         <tools:LongTextColumn 
           MappingName="Description" 
           HeaderText="Description"
-          Width="420"
+          Width="{Binding Instance.WritingSystems.LongTextColumnWidth, Source={StaticResource ViewModels}, Mode=TwoWay}"
           TextWrapping="Wrap"
           VerticalAlignment="Top"
           CellTemplate="{StaticResource LongTextCellTemplate}"

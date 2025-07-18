@@ -7,6 +7,7 @@
                     xmlns:mvvm="clr-namespace:Qhta.MVVM;assembly=Qhta.MVVM"
                     x:Class="Qhta.SF.Tools.SfDataGridTools">
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+  <converters:NegateValueConverter x:Key="NegateValueConverter"/>
   <tools:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
 
   <Style x:Key="{x:Type tools:RowResizer}" Style.TargetType="{x:Type tools:RowResizer}" >

@@ -16,7 +16,7 @@ namespace Qhta.WPF.Converters
     public object? Convert (object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (value == null)
-        throw new ArgumentNullException ("value");
+        return null;
       return DoConvert(value, targetType, parameter, culture);
     }
 
@@ -26,7 +26,7 @@ namespace Qhta.WPF.Converters
     public object? ConvertBack (object? value, Type targetType, object? parameter, CultureInfo culture)
     {
       if (value == null)
-        throw new ArgumentNullException("value");
+        return null;
       return DoConvert(value, targetType, parameter, culture);
     }
 

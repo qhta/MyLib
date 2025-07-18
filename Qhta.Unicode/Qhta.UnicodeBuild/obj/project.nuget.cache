@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "r+NAasTzCls=",
+  "dgSpecHash": "ZH0KhIGuvpQ=",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Qhta.UnicodeBuild.csproj",
   "expectedPackageFiles": [
@@ -54,7 +54,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.ordnumbers\\2.3.0\\qhta.ordnumbers.2.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.6.0\\qhta.textutils.3.6.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.4.0\\qhta.typeutils.1.4.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.wpf.converters\\1.4.0\\qhta.wpf.converters.1.4.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.wpf.converters\\1.5.0\\qhta.wpf.converters.1.5.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.wpf.utils\\3.5.0\\qhta.wpf.utils.3.5.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A package with value type converter class.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.1.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.1+a20e36ef2f0bc612e6d1d8380101699fe67faa11")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.1+73aa45527c1044cc6e98d259c08dbcc74544ecfa")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.Conversion")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.Conversion")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.1.0.0")]

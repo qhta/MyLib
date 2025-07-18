@@ -29,6 +29,11 @@ public class WritingSystemViewModel(WritingSystem model)
   }
 
   /// <summary>
+  /// Collection that this writing system belongs to.
+  /// </summary>
+  public WritingSystemsCollection? Collection { get; set; }
+
+  /// <summary>
   /// Gets or sets the identifier for the model.
   /// </summary>
   public int? Id
@@ -301,13 +306,16 @@ public class WritingSystemViewModel(WritingSystem model)
       var longText = LongText;
       if (longText == null)
         return false;
-      var maxRowHeight = LongTextColumn.EvaluateTextHeight(longText, 100);
+      var collectionLongTextColumnWidth = Collection?.LongTextColumnWidth ?? 300;
+      var maxRowHeight = LongTextColumn.EvaluateTextHeight(longText, collectionLongTextColumnWidth);
       var actualRowHeight = RowHeight;
       if (double.IsNaN(actualRowHeight))
         actualRowHeight = 26;
       return maxRowHeight > actualRowHeight;
     }
   }
+
+
 
   /// <summary>
   /// Indicates whether the long text is expanded in the UI.

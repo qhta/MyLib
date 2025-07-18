@@ -10,3 +10,12 @@ D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Conversion.xml
 D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\netstandard2.0\Qhta.Conversion.dll
 D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\netstandard2.0\Qhta.Conversion.xml
 D:\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\netstandard2.0\Qhta.Conversion.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\netstandard2.0\Qhta.Conversion.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\netstandard2.0\Qhta.Conversion.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\netstandard2.0\Qhta.Conversion.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\netstandard2.0\Qhta.Conversion.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\netstandard2.0\Qhta.Conversion.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\netstandard2.0\Qhta.Conversion.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\netstandard2.0\Qhta.Conversion.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\netstandard2.0\Qhta.Conversion.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\netstandard2.0\Qhta.Conversion.pdb

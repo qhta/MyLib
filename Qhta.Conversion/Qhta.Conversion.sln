@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.Conversion", "Qhta.Con
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConversionTest", "ConversionTest\ConversionTest.csproj", "{076326AE-9E04-4504-8B3A-D78457A52A4E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.Collections", "..\Qhta.Collections\Qhta.Collections.csproj", "{94FD6866-9ED3-43C1-9598-E7931B868631}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{076326AE-9E04-4504-8B3A-D78457A52A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{076326AE-9E04-4504-8B3A-D78457A52A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{076326AE-9E04-4504-8B3A-D78457A52A4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94FD6866-9ED3-43C1-9598-E7931B868631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94FD6866-9ED3-43C1-9598-E7931B868631}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94FD6866-9ED3-43C1-9598-E7931B868631}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94FD6866-9ED3-43C1-9598-E7931B868631}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2654,6 +2654,11 @@
             Gets the top-level writing systems in the collection, which are those without a parent.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.LongTextColumnWidth">
+            <summary>
+            Column width for the long text in the UI.
+            </summary>
+        </member>
         <member name="T:Qhta.UnicodeBuild.ViewModels.WritingSystemTypeViewModel">
             <summary>
             ViewModel for the WritingSystemTypeEntity.
@@ -2708,6 +2713,11 @@
         <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel"/> class with the specified model.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.Collection">
+            <summary>
+            Collection that this writing system belongs to.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.Id">
@@ -2829,6 +2839,11 @@
             <returns></returns>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.RowHeight">
+            <summary>
+            Stores the height of a row in the UI.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.MaxRowHeight">
             <summary>
             Stores the height of a row in the UI.
             </summary>
@@ -4328,6 +4343,36 @@
         <member name="M:Qhta.Unicode.Models._DbContext.Finalize">
             <summary>
             Destructs the context and releases all resources used by it.
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
             </summary>
         </member>
     </members>

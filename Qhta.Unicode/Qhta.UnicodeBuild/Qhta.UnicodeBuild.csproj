@@ -131,7 +131,7 @@
     <PackageReference Include="Qhta.DeepCopy" Version="1.5.0" />
     <PackageReference Include="Qhta.MVVM" Version="4.12.0" />
     <PackageReference Include="Qhta.ObservableObjects" Version="4.2.0" />
-    <PackageReference Include="Qhta.WPF.Converters" Version="1.4.0" />
+    <PackageReference Include="Qhta.WPF.Converters" Version="1.5.0" />
     <PackageReference Include="Qhta.WPF.Utils" Version="3.5.0" />
     <PackageReference Include="Syncfusion.Grid.Windows" Version="30.1.40" />
     <PackageReference Include="Syncfusion.Grid.WPF" Version="30.1.40" />

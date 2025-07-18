@@ -30,7 +30,9 @@ public partial class WritingSystemsView : UserControl
 
   private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
   {
-    LongTextColumn.OnQueryRowHeight(sender, e);
+    RowHeightProvider.OnQueryRowHeight(sender, e);
+    if (!e.Handled)
+      LongTextColumn.OnQueryRowHeight(sender, e);
   }
 
   private void WritingSystemsTreeView_OnSelectionChanged(object? sender, ItemSelectionChangedEventArgs e)
