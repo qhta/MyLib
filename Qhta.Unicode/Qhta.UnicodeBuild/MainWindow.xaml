@@ -12,14 +12,13 @@
         DragEnter="Window_DragEnter"
         DragOver="Window_DragOver"
         Drop="Window_Drop">
-  <Window.InputBindings>
+  <!--<Window.InputBindings>
     <KeyBinding Modifiers="Ctrl" Key="S" Command="Save" />
     <KeyBinding Modifiers="Ctrl" Key="C" Command="Copy" />
     <KeyBinding Modifiers="Ctrl" Key="X" Command="Cut" />
     <KeyBinding Modifiers="Ctrl" Key="V" Command="Paste" />
     <KeyBinding Key="Delete" Command="Delete" />
-
-  </Window.InputBindings>
+  </Window.InputBindings>-->
   <Grid>
 
     <TabControl Name="MainTabControl">

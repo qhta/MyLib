@@ -53,16 +53,20 @@ public partial class MainWindow : Window
     if (e.Key == Key.Z && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
     {
       if (UndoMgr.IsUndoAvailable)
+      {
         UndoMgr.Undo();
-      e.Handled = true;
-      return;
+        e.Handled = true;
+        return;
+      }
     }
     if (e.Key == Key.Y && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
     {
       if (UndoMgr.IsRedoAvailable)
+      {
         UndoMgr.Redo();
-      e.Handled = true;
-      return;
+        e.Handled = true;
+        return;
+      }
     }
     if (e.Key == Key.Return && Keyboard.Modifiers == ModifierKeys.Shift)
     {

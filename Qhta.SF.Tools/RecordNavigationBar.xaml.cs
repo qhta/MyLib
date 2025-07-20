@@ -107,9 +107,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   {
     return (s, e) =>
     {
-      //Debug.WriteLine($"DataGrid {dataGrid.Name} View CollectionChanged {e.Action}");
       RowsCount = dataGrid.View.Records.Count;
-      //Debug.WriteLine($"RowsCount: {dataGrid.View.Records.Count}");
     };
   }
 
