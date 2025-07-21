@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Qhta.SF.Tools")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c7042839b94c3585c3c820ebebd819e4ff300ef")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e43fe0d959979b9e1fef231f21ec98f618290df7")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.SF.Tools")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.SF.Tools")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

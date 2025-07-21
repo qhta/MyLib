@@ -1,13 +1,16 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
 using Qhta.WPF.Utils;
-
+using Syncfusion.Linq;
 using Syncfusion.UI.Xaml.Grid;
+using Syncfusion.UI.Xaml.Grid.Helpers;
 
 namespace Qhta.SF.Tools;
 
@@ -175,6 +178,65 @@ public partial class SfDataGridTools : ResourceDictionary
         }
       }
     }
+  }
+
+  private void LongTextEditPopup_OnOpened(object? sender, EventArgs e)
+  {
+    if (sender is Popup popup)
+    {
+      if (popup.PlacementTarget is Grid grid)
+      {
+        var dataGrid = grid.FindParent<SfDataGrid>();
+        if (dataGrid != null)
+        {
+          var visualContainer = dataGrid.GetVisualContainer();
+          if (visualContainer?.ScrollOwner is { } scrollViewer)
+          {
+            scrollViewer.ScrollChanged += ScrollViewer_ScrollChanged;
+          }
+          // Adjust the popup position to align with the cell
+          //popup.HorizontalOffset = cell.ActualWidth / 2 - popup.ActualWidth / 2;
+          //popup.VerticalOffset = -cell.ActualHeight;
+        }
+      }
+    }
+  }
+
+  private void ScrollViewer_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
+  {
+    var popup = GetOpenLongTextEditPopup();
+    if (popup != null && popup.PlacementTarget!=null)
+    {
+      var gridCell = VisualTreeHelperExt.FindParent<GridCell>(popup.PlacementTarget);
+      if (gridCell != null && gridCell.ColumnBase.GridColumn is LongTextColumn)
+      {
+        var transform = gridCell.TransformToAncestor(Application.Current.MainWindow!);
+        var topLeft = transform.Transform(new Point(0, 0));
+
+        // Calculate the bottom-left corner by adding the cell's height
+        var bottomLeft = new Point(topLeft.X, topLeft.Y + gridCell.ActualHeight);
+
+        // Transform the coordinates to screen coordinates
+        var position = Application.Current.MainWindow!.PointToScreen(bottomLeft);
+        popup.VerticalOffset = position.Y;
+        popup.VerticalOffset = -gridCell.ActualHeight;
+      }
+    }
+  }
+
+  private Popup? GetOpenLongTextEditPopup()
+  {
+    foreach (Window window in Application.Current.Windows)
+    {
+      foreach (Popup popup in VisualTreeHelperExt.FindAllDescendants<Popup>(window))
+      {
+        if (popup.IsOpen && popup.Name == "LongTextEditPopup")
+        {
+          return popup;
+        }
+      }
+    }
+    return null;
   }
 
 }

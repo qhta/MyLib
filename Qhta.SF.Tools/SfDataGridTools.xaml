@@ -325,7 +325,8 @@
            RelativeSource={RelativeSource AncestorType={x:Type Grid}},
            Path=ActualWidth}"
          IsOpen = "true"   
-         StaysOpen="false">
+         StaysOpen="false"
+         Opened="LongTextEditPopup_OnOpened">
         <Border Background="White" BorderBrush="Black" BorderThickness="1" Padding="3" 
         >
           <TextBox 
