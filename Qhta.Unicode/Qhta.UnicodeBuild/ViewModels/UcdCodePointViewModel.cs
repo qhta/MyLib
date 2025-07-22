@@ -13,7 +13,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <summary>
 /// ViewModel for a Unicode code point, providing properties and methods to interact with the underlying model.
 /// </summary>
-public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeightProvider
+public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeightProvider, IErrorMessageProvider
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="UcdCodePointViewModel"/> class with the specified model.
@@ -487,4 +487,12 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   private double _RowHeight = 24;
   #endregion
 
+  #region IErrorMessageProvider implementation
+
+  /// <summary>
+  /// Gets or sets an error message associated with the view model.
+  /// </summary>
+  public string ErrorMessage { get; set; }
+
+  #endregion
 }

@@ -217,17 +217,13 @@ public partial class UcdCodePointsView : UserControl
       if (command == ApplicationCommands.Save)
         e.CanExecute = _ViewModels.Instance.DbContext?.ThereAreUnsavedChanges ?? false;
       else if (command == ApplicationCommands.Copy)
-        e.CanExecute = (_ViewModels.Instance.UcdCodePoints?.IsLoaded ?? false) &&
-                       Controller.CanCopyData(CodePointDataGrid);
+        e.CanExecute = Controller.CanCopyData(CodePointDataGrid);
       else if (command == ApplicationCommands.Cut)
-        e.CanExecute = (_ViewModels.Instance.UcdCodePoints?.IsLoaded ?? false) &&
-                       Controller.CanCutData(CodePointDataGrid);
+        e.CanExecute = Controller.CanCutData(CodePointDataGrid);
       else if (command == ApplicationCommands.Paste)
-        e.CanExecute = (_ViewModels.Instance.UcdCodePoints?.IsLoaded ?? false) &&
-                       Controller.CanPasteData(CodePointDataGrid);
+        e.CanExecute = Controller.CanPasteData(CodePointDataGrid);
       else if (command == ApplicationCommands.Delete)
-        e.CanExecute = (_ViewModels.Instance.UcdCodePoints?.IsLoaded ?? false) &&
-                       Controller.CanDeleteData(CodePointDataGrid);
+        e.CanExecute = Controller.CanDeleteData(CodePointDataGrid);
       else if (command == ApplicationCommands.Undo)
         e.CanExecute = UndoMgr.IsUndoAvailable;
       else if (command == ApplicationCommands.Redo)
@@ -272,6 +268,7 @@ public partial class UcdCodePointsView : UserControl
       else if (command == ApplicationCommands.Redo)
       {
         UndoMgr.Redo();
+        CodePointDataGrid.UpdateLayout();
       }
       else
       {

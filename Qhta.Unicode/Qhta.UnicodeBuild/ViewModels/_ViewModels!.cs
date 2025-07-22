@@ -95,21 +95,28 @@ public partial class _ViewModels : ViewModel, IDisposable
 
       Task.Factory.StartNew(() =>
       {
-        for (int i = 1000; i < codePointsArray.Count(); i++)
+        for (int g = 1; g <= codePointsArray.Count() / 1000; g++)
         {
-          var cp = codePointsArray[i];
-          UcdCodePoints.Add(cp);
-          if (i % 1000 == 0)
+          int i = 0;
+          lock (UcdCodePoints)
           {
-            Application.Current.Dispatcher.Invoke(() =>
+            for (; i < 1000; i++)
+            {
+              if (i + g * 1000 >= codePointsArray.Count()) break;
+              var cp = codePointsArray[g];
+              UcdCodePoints.Add(cp);
+            }
+          }
+          Application.Current.Dispatcher.BeginInvoke(() =>
             {
               UcdCodePoints.ProgressValue = (i * 100) / codePointsArray.Count();
-            }, DispatcherPriority.Background);
-          }
+            });
+          //Thread.Sleep(100);
+
         }
       }).ContinueWith(t =>
       {
- 
+
         NotifyPropertyChanged(nameof(UcdCodePoints));
         UcdCodePoints.IsLoaded = true;
         UcdCodePoints.StatusMessage = null;
@@ -192,7 +199,7 @@ public partial class _ViewModels : ViewModel, IDisposable
     get
     {
       List<UcdBlockViewModel?> list = new();
-      list.AddRange( _ViewModels.Instance.UcdBlocks.Where(item => !String.IsNullOrEmpty(item.Name))
+      list.AddRange(_ViewModels.Instance.UcdBlocks.Where(item => !String.IsNullOrEmpty(item.Name))
         .OrderBy(vm => vm.Name));
       return list;
     }
@@ -205,10 +212,10 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// <returns></returns>
   public IEnumerable<WritingSystemViewModel?> GetSelectableWritingSystems(params WritingSystemType[] types)
   {
-      List<WritingSystemViewModel?> list = new();
-      list.AddRange(_ViewModels.Instance.WritingSystems.Where(item => item.Type !=null && types.Contains((WritingSystemType)item.Type))
-        .OrderBy(vm => vm.FullName));
-      return list;
+    List<WritingSystemViewModel?> list = new();
+    list.AddRange(_ViewModels.Instance.WritingSystems.Where(item => item.Type != null && types.Contains((WritingSystemType)item.Type))
+      .OrderBy(vm => vm.FullName));
+    return list;
   }
 
   /// <summary>

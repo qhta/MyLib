@@ -27,11 +27,11 @@
     <Setter Property="Background" Value="Silver" />
     <Setter Property="BorderBrush" Value="#FF808080" />
     <Setter Property="BorderThickness" Value="0,0,1,1" />
-    <Setter Property="Control.Foreground" Value="#FF303030" />
+    <Setter Property="Foreground" Value="#FF303030" />
     <Setter Property="Padding" Value="0,0,0,0" />
     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
     <Setter Property="IsTabStop" Value="False" />
-
+    <Setter Property="RowErrorMessage" Value="{Binding ErrorMessage}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate>
@@ -204,7 +204,7 @@
               <ToolTipService.ToolTip>
                 <ToolTip Name="PART_ToolTip" Background="#FFDB000C" Placement="Left" 
                            PlacementRectangle="20,0,0,0" Tag="{TemplateBinding sf:GridRowHeaderCell.RowErrorMessage}" 
-                           Template="{DynamicResource ValidationToolTipTemplate}" />
+                           Template="{DynamicResource ValidationToolTipTemplate}" Visibility="Collapsed"/>
               </ToolTipService.ToolTip>
             </Grid>
           </Border>

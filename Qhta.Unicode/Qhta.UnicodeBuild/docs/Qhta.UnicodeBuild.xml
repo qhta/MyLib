@@ -2453,6 +2453,11 @@
             Simple property to provide the height of the row in a UI.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.ErrorMessage">
+            <summary>
+            Gets or sets an error message associated with the view model.
+            </summary>
+        </member>
         <member name="T:Qhta.UnicodeBuild.ViewModels.UnicodeCategoryViewModel">
             <summary>
             ViewModel for representing a Unicode category.

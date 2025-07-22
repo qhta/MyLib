@@ -55,7 +55,7 @@
             <summary>
             Performs a delete operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
             </summary>
-            <param name="grid"></param>
+            <param name="dataGrid"></param>
         </member>
         <member name="M:Qhta.SF.Tools.Controller.CanPasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
             <summary>
@@ -97,6 +97,48 @@
             <summary>
               Looks up a localized string similar to Do you really want to delete all data?.
             </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.DelRecordArgs">
+            <summary>
+            Arguments for changing a property.
+            </summary>
+            <param name="DataList">Target object</param>
+            <param name="Index">Number index of the record</param>
+            <param name="DataObject">Old value of the property</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.DelRecordArgs.#ctor(System.Collections.IList,System.Nullable{System.Int32},System.Object)">
+            <summary>
+            Arguments for changing a property.
+            </summary>
+            <param name="DataList">Target object</param>
+            <param name="Index">Number index of the record</param>
+            <param name="DataObject">Old value of the property</param>
+        </member>
+        <member name="P:Qhta.SF.Tools.DelRecordArgs.DataList">
+            <summary>Target object</summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DelRecordArgs.Index">
+            <summary>Number index of the record</summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DelRecordArgs.DataObject">
+            <summary>Old value of the property</summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.DelRecordAction">
+            <summary>
+            Undo/redo action for deleting records in a data grid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.DelRecordAction.Execute(System.Object)">
+            <summary>
+            Deletes a record in a data grid.
+            </summary>
+            <param name="args">Must be <see cref="T:Qhta.SF.Tools.DelRecordArgs"/></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.DelRecordAction.Undo(System.Object)">
+            <summary>
+            Undo a delete action.
+            </summary>
+            <param name="args">Must be <see cref="T:Qhta.SF.Tools.DelRecordArgs"/></param>
         </member>
         <member name="T:Qhta.SF.Tools.DoubleUtil">
             <summary>
@@ -166,6 +208,16 @@
             <summary>
             Gets or sets the collection of items to be displayed.
             it is an optional property, used for example in <see cref="T:Syncfusion.UI.Xaml.Grid.GridComboBoxColumn"/> to provide the items source for the combo box.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.IErrorMessageProvider">
+            <summary>
+            Interface for providing error message.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.IErrorMessageProvider.ErrorMessage">
+            <summary>
+            Gets or sets an error message.
             </summary>
         </member>
         <member name="T:Qhta.SF.Tools.IRowHeightProvider">

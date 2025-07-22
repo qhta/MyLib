@@ -126,6 +126,8 @@ public static partial class Controller
     var column = columnInfo.Column;
     var rowDataType = rowData.GetType();
     var propertyInfo = columnInfo.ValuePropertyInfo;
+    if (!propertyInfo.CanWrite)
+      return;
     object? value = str;
     if (columnInfo.ItemsSource!=null && !String.IsNullOrEmpty(str))
     {

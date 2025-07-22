@@ -1,8 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System.Collections;
+using System.Diagnostics;
 using System.Windows;
 
 using Qhta.UndoManager;
 
+using Syncfusion.Data;
 using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.SF.Tools;
@@ -42,34 +44,36 @@ public static partial class Controller
   /// <summary>
   /// Performs a delete operation on the data in the specified <see cref="SfDataGrid"/>.
   /// </summary>
-  /// <param name="grid"></param>
-  public static void DeleteData(SfDataGrid grid)
+  /// <param name="dataGrid"></param>
+  public static void DeleteData(SfDataGrid dataGrid)
   {
     try
     {
-      var noColumnsSelected = false;
-      var selectedCells = grid.GetSelectedCells().ToArray();
+      var allColumnsSelected = false;
+      var selectedCells = dataGrid.GetSelectedCells().ToArray();
       GridColumn[] columnsToDelete;
       if (selectedCells.Length != 0)
         columnsToDelete = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
       else
-        columnsToDelete = grid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
+        columnsToDelete = dataGrid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
       if (!columnsToDelete.Any())
       {
-        noColumnsSelected = true;
-        columnsToDelete = grid.Columns.ToArray();
+        columnsToDelete = dataGrid.Columns.ToArray();
+      }
+      else if (columnsToDelete.Length == dataGrid.Columns.Count())
+      {
+        allColumnsSelected = true;
       }
 
-      var noRowsSelected = false;
+      var allRowsSelected = false;
       object[] rowsSelected;
       if (selectedCells.Length != 0)
         rowsSelected = selectedCells.Select(cell => cell.RowData).Distinct().ToArray();
       else
-        rowsSelected = grid.SelectionController.SelectedRows.Select(row => row.RowData).ToArray();
+        rowsSelected = dataGrid.SelectionController.SelectedRows.Select(row => row.RowData).ToArray();
       if (!rowsSelected.Any())
       {
-        noRowsSelected = true;
-        rowsSelected = grid.View.Records.Select(record => record.Data).ToArray();
+        rowsSelected = dataGrid.View.Records.Select(record => record.Data).ToArray();
       }
 
       if (rowsSelected.Length == 0)
@@ -77,14 +81,51 @@ public static partial class Controller
         Debug.WriteLine("DeleteData: No rows to delete.");
         return;
       }
+      if (rowsSelected.Length == dataGrid.View.Records.Count())
+      {
+        allRowsSelected = true;
+      }
 
-      if (noColumnsSelected && noRowsSelected && rowsSelected.Length > 0)
+      if (allColumnsSelected && allRowsSelected)
       {
         if (MessageBox.Show(DataStrings.DeleteAllDataConfirmation, null, MessageBoxButton.YesNo) == MessageBoxResult.No)
           return;
 
       }
-      var rowDataType = GetRowDataType(grid);
+
+      if (allColumnsSelected)
+      {
+        if (dataGrid.ItemsSource is IList dataSource)
+        {
+          IErrorMessageProvider? errorMessageProvider = null;
+          try
+          {
+            lock (dataGrid.ItemsSource)
+            {
+              UndoMgr.StartGrouping();
+              foreach (var row in rowsSelected)
+              {
+                errorMessageProvider = row as IErrorMessageProvider;
+                var delRecordArgs = new DelRecordArgs(dataSource, dataSource.IndexOf(row), row);
+                UndoMgr.Record(new DelRecordAction(), delRecordArgs);
+                dataSource.Remove(row);
+              }
+              UndoMgr.StopGrouping();
+            }
+          }
+          catch (Exception e)
+          {
+            Debug.WriteLine($"DeleteData: Error removing rows from data source: {e.Message}");
+            if (errorMessageProvider != null)
+            {
+              errorMessageProvider.ErrorMessage = e.Message;
+            }
+          }
+        }
+        return;
+      }
+
+      var rowDataType = GetRowDataType(dataGrid);
       if (rowDataType == null)
       {
         Debug.WriteLine("DeleteData: No row data type found.");

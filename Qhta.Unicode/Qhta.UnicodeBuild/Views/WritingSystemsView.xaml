@@ -102,6 +102,15 @@
     <helpers:EnumValues x:Key="WritingSystemTypeValue"
                      EnumType="{x:Type models:WritingSystemType}" />
   </UserControl.Resources>
+  <UserControl.CommandBindings>
+    <CommandBinding Command="Save" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Copy" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Cut" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Paste" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Delete" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Undo" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Redo" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+  </UserControl.CommandBindings>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -181,6 +190,8 @@
                    FilterItemsPopulating="WritingSystemsGrid_OnFilterItemsPopulating"
                    FilterChanging="WritingSystemsGrid_OnFilterChanging"
                    tools:SfDataGridBehavior.AllowRowResizing="True"
+                   GridCopyContent="WritingSystemsDataGrid_OnGridCopyContent"
+                   KeyDown="WritingSystemsDataGrid_KeyDown"
                    >
       <!--GridValidationMode="InEdit"-->
       <sf:SfDataGrid.Columns>

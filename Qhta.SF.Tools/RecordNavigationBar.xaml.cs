@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -8,6 +9,7 @@ using System.Windows.Data;
 
 using Qhta.MVVM;
 using Qhta.ObservableObjects;
+
 using Syncfusion.Data;
 using Syncfusion.UI.Xaml.Grid;
 
@@ -81,8 +83,16 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
       {
         //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to Records.Count.");
         //SetBinding(RowsCountProperty, new Binding("Records.Count") { Source = dataGrid.View, Mode=BindingMode.OneWay });
-        //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to CollectionChanged event.");
+        Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to CollectionChanged event.");
         dataGrid.View.CollectionChanged += ViewOnCollectionChanged(dataGrid);
+        loadable.Loaded += (object? sender, EventArgs e) =>
+        {
+          //Update the RowsCount when the loadable is loaded, as last RowsCount is trimmed to 1000 records.
+          if (dataGrid.View != null)
+          {
+            RowsCount = dataGrid.View.Records.Count;
+          }
+        };
       }
       else
       {
@@ -107,6 +117,15 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   {
     return (s, e) =>
     {
+      if (dataGrid.ItemsSource is ILoadable loadable)
+      {
+        if (!loadable.IsLoaded)
+        {
+          if (dataGrid.View.Records.Count % 1000 == 0)
+            RowsCount = dataGrid.View.Records.Count;
+          return;
+        }
+      }
       RowsCount = dataGrid.View.Records.Count;
     };
   }
