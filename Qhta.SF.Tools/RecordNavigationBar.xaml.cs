@@ -81,9 +81,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
     {
       if (dataGrid.View != null)
       {
-        //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to Records.Count.");
-        //SetBinding(RowsCountProperty, new Binding("Records.Count") { Source = dataGrid.View, Mode=BindingMode.OneWay });
-        Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to CollectionChanged event.");
+        //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to CollectionChanged event.");
         dataGrid.View.CollectionChanged += ViewOnCollectionChanged(dataGrid);
         loadable.Loaded += (object? sender, EventArgs e) =>
         {

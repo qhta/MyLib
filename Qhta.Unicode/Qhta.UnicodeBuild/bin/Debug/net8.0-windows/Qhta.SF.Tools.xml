@@ -13,42 +13,70 @@
             <summary>
             Determines whether data can be copied from the specified data grid.
             </summary>
-            <param name="grid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance to check for copy capability.</param>
+            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance to check for copy capability.</param>
             <returns><see langword="true"/> if data can be copied from the specified grid; otherwise, <see langword="false"/>.</returns>
         </member>
         <member name="M:Qhta.SF.Tools.Controller.CopyData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
             <summary>
             Performs a copy operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
             </summary>
-            <param name="grid"></param>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.CutCopyData(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean)">
-            <summary>
-            Performs a cut or copy operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            </summary>
-            <param name="grid"></param>
-            <param name="cut"></param>
+            <param name="dataGrid"></param>
         </member>
         <member name="M:Qhta.SF.Tools.Controller.CanCutData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
             <summary>
             Determines whether data can be cut from the specified data grid.
             This method checks if all selected columns are editable and not read-only.
             </summary>
-            <param name="grid"></param>
+            <param name="dataGrid"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.SF.Tools.Controller.CutData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
             <summary>
             Performs a cut operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
             </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="T:Qhta.SF.Tools.Controller.DataOp">
+            <summary>
+            Enumeration representing the type of data operation to perform.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Controller.DataOp.Copy">
+            <summary>
+            Data should be copied to clipboard.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Controller.DataOp.Cut">
+            <summary>
+            Data should be cut from the grid and copied to clipboard.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Controller.DataOp.Delete">
+            <summary>
+            Data should be deleted from the grid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.CanExecuteDataOp(Syncfusion.UI.Xaml.Grid.SfDataGrid,Qhta.SF.Tools.Controller.DataOp)">
+            <summary>
+            Determines whether a data operation can be executed on the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
             <param name="grid"></param>
+            <param name="op"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.ExecuteDataOp(Syncfusion.UI.Xaml.Grid.SfDataGrid,Qhta.SF.Tools.Controller.DataOp)">
+            <summary>
+            Performs a copy, cut or delete operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="op"></param>
         </member>
         <member name="M:Qhta.SF.Tools.Controller.CanDeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
             <summary>
             Determines whether data can be deleted from the specified data grid.
             This method checks if all selected columns are editable and not read-only.
             </summary>
-            <param name="grid"></param>
+            <param name="dataGrid"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.SF.Tools.Controller.DeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
@@ -61,14 +89,14 @@
             <summary>
             Determines whether data can be pasted into the specified data grid.
             </summary>
-            <param name="grid"></param>
+            <param name="dataGrid"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.SF.Tools.Controller.PasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
             <summary>
             Performs a paste operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
             </summary>
-            <param name="grid"></param>
+            <param name="dataGrid"></param>
         </member>
         <member name="M:Qhta.SF.Tools.Controller.GetHeaders(System.String)">
             <summary>

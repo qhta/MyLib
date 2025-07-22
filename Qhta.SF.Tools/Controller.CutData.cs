@@ -1,4 +1,6 @@
-﻿using Syncfusion.UI.Xaml.Grid;
+﻿using System.Windows.Controls;
+
+using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.SF.Tools;
 
@@ -8,35 +10,14 @@ public static partial class Controller
   /// Determines whether data can be cut from the specified data grid.
   /// This method checks if all selected columns are editable and not read-only.
   /// </summary>
-  /// <param name="grid"></param>
+  /// <param name="dataGrid"></param>
   /// <returns></returns>
-  public static bool CanCutData(SfDataGrid grid)
-  {
-    try
-    {
-      var selectedCells = grid.GetSelectedCells().ToArray();
-      GridColumn[] selectedColumns;
-      if (selectedCells.Length != 0)
-        selectedColumns = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
-      else
-        selectedColumns = grid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
-      if (!selectedColumns.Any())
-      {
-        selectedColumns = grid.Columns.ToArray();
-      }
-      return !selectedColumns.Any(column => column.AllowEditing && column.IsReadOnly);
-    }
-    catch (Exception e)
-    {
-      Console.WriteLine(e);
-    }
-    return false;
-  }
+  public static bool CanCutData(SfDataGrid dataGrid) => CanExecuteDataOp(dataGrid, DataOp.Cut);
 
   /// <summary>
   /// Performs a cut operation on the data in the specified <see cref="SfDataGrid"/>.
   /// </summary>
-  /// <param name="grid"></param>
-  public static void CutData(SfDataGrid grid) => CutCopyData(grid, true);
+  /// <param name="dataGrid"></param>
+  public static void CutData(SfDataGrid dataGrid) => ExecuteDataOp(dataGrid, DataOp.Cut);
 
 }

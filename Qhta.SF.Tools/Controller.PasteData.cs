@@ -14,15 +14,15 @@ public static partial class Controller
   /// <summary>
   /// Determines whether data can be pasted into the specified data grid.
   /// </summary>
-  /// <param name="grid"></param>
+  /// <param name="dataGrid"></param>
   /// <returns></returns>
-  public static bool CanPasteData(SfDataGrid grid) => Clipboard.ContainsText();
+  public static bool CanPasteData(SfDataGrid dataGrid) => Clipboard.ContainsText();
 
   /// <summary>
   /// Performs a paste operation on the data in the specified <see cref="SfDataGrid"/>.
   /// </summary>
-  /// <param name="grid"></param>
-  public static void PasteData(SfDataGrid grid)
+  /// <param name="dataGrid"></param>
+  public static void PasteData(SfDataGrid dataGrid)
   {
     var text = Clipboard.GetText();
     string[] lines = text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
@@ -30,32 +30,32 @@ public static partial class Controller
     if (lines.Length == 1 && lines[0].Length == 0) return;
     var pasteHeaders = GetHeaders(lines[0]);
     if (pasteHeaders.Length == 0) return;
-    var allColumns = grid.Columns.ToArray();
-    var allHeaders = GetHeaders(grid, allColumns);
+    var allColumns = dataGrid.Columns.ToArray();
+    var allHeaders = GetHeaders(dataGrid, allColumns);
     var foundHeaders = allHeaders.Intersect(pasteHeaders).ToArray();
 
     var noColumnsSelected = false;
-    var selectedCells = grid.GetSelectedCells().ToArray();
+    var selectedCells = dataGrid.GetSelectedCells().ToArray();
     GridColumn[] columnsToFill;
     if (selectedCells.Length != 0)
       columnsToFill = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
     else
-      columnsToFill = grid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
+      columnsToFill = dataGrid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
     if (!columnsToFill.Any())
     {
-      columnsToFill = grid.Columns.ToArray();
+      columnsToFill = dataGrid.Columns.ToArray();
     }
 
     object[] rowsToCopy;
     if (selectedCells.Length != 0)
       rowsToCopy = selectedCells.Select(cell => cell.RowData).Distinct().ToArray();
     else
-      rowsToCopy = grid.SelectionController.SelectedRows.Select(row => row.RowData).ToArray();
+      rowsToCopy = dataGrid.SelectionController.SelectedRows.Select(row => row.RowData).ToArray();
     if (!rowsToCopy.Any())
     {
-      rowsToCopy = grid.View.Records.Select(record => record.Data).ToArray();
+      rowsToCopy = dataGrid.View.Records.Select(record => record.Data).ToArray();
     }
-    var rowDataType = GetRowDataType(grid);
+    var rowDataType = GetRowDataType(dataGrid);
     if (rowDataType == null)
     {
       Debug.WriteLine("PasteData: No row data type found.");
