@@ -20,6 +20,16 @@ public sealed class WritingSystemsCollection() : EntityCollection<WritingSystemV
   public WritingSystemViewModel? Parent { [DebuggerStepThrough] get; }
 
   /// <summary>
+  /// Initializes a new instance of the <see cref="WritingSystemsCollection"/> class using the specified parent view model.
+  /// </summary>
+  /// <param name="parent"></param>
+  public WritingSystemsCollection(WritingSystemViewModel parent) : this()
+  {
+    Parent = parent;
+    CollectionChanged += WritingSystemsCollection_CollectionChanged;
+  }
+
+  /// <summary>
   /// Initializes a new instance of the <see cref="WritingSystemsCollection"/> class using the specified parent view model and a collection of writing system models.
   /// </summary>
   /// <param name="parent"></param>

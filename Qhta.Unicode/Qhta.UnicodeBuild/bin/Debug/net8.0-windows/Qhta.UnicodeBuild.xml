@@ -2635,6 +2635,12 @@
             Parent writing system view model, if this collection is a child of another writing system.
             </summary>
         </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.#ctor(Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection"/> class using the specified parent view model.
+            </summary>
+            <param name="parent"></param>
+        </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.#ctor(Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel,System.Collections.Generic.IEnumerable{Qhta.Unicode.Models.WritingSystem})">
             <summary>
             Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection"/> class using the specified parent view model and a collection of writing system models.
@@ -2827,6 +2833,12 @@
             <summary>
             Collection of child writing systems associated with this writing system.
             </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.GetOrCreateChildrenList">
+            <summary>
+            Gets a collection of child WritingSystems. If it does not exist, it is created even if Model Children collection is null;
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.IsExpanded">
             <summary>

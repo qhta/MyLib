@@ -38,7 +38,8 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public int? Id
   {
-    [DebuggerStepThrough] get => Model.Id;
+    [DebuggerStepThrough]
+    get => Model.Id;
     set
     {
       if (Model.Id != value)
@@ -56,7 +57,8 @@ public class WritingSystemViewModel(WritingSystem model)
   [Required]
   public string? Name
   {
-    [DebuggerStepThrough] get => Model.Name;
+    [DebuggerStepThrough]
+    get => Model.Name;
     set
     {
       if (Model.Name != value)
@@ -82,7 +84,8 @@ public class WritingSystemViewModel(WritingSystem model)
   [Required]
   public WritingSystemType? Type
   {
-    [DebuggerStepThrough] get => Model.Type;
+    [DebuggerStepThrough]
+    get => Model.Type;
     set
     {
       if (Model.Type != value)
@@ -98,7 +101,8 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public WritingSystemKind? Kind
   {
-    [DebuggerStepThrough] get => Model.Kind;
+    [DebuggerStepThrough]
+    get => Model.Kind;
     set
     {
       if (Model.Kind != value)
@@ -114,7 +118,8 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public int? ParentId
   {
-    [DebuggerStepThrough] get => Model.ParentId;
+    [DebuggerStepThrough]
+    get => Model.ParentId;
     set
     {
       if (Model.ParentId != value)
@@ -130,7 +135,8 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public string? KeyPhrase
   {
-    [DebuggerStepThrough] get => Model.KeyPhrase;
+    [DebuggerStepThrough]
+    get => Model.KeyPhrase;
     set
     {
       if (Model.KeyPhrase != value)
@@ -146,7 +152,8 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public string? Ctg
   {
-    [DebuggerStepThrough] get => Model.Ctg;
+    [DebuggerStepThrough]
+    get => Model.Ctg;
     set
     {
       if (Model.Ctg != value)
@@ -162,7 +169,8 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public string? Iso
   {
-    [DebuggerStepThrough] get => Model.Iso;
+    [DebuggerStepThrough]
+    get => Model.Iso;
     set
     {
       if (Model.Iso != value)
@@ -178,7 +186,8 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public string? Abbr
   {
-    [DebuggerStepThrough] get => Model.Abbr;
+    [DebuggerStepThrough]
+    get => Model.Abbr;
     set
     {
       if (Model.Abbr != value)
@@ -194,7 +203,8 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public string? Ext
   {
-    [DebuggerStepThrough] get => Model.Ext;
+    [DebuggerStepThrough]
+    get => Model.Ext;
     set
     {
       if (Model.Ext != value)
@@ -211,7 +221,8 @@ public class WritingSystemViewModel(WritingSystem model)
   [DataType(DataType.MultilineText)]
   public string? Description
   {
-    [DebuggerStepThrough] get => Model.Description;
+    [DebuggerStepThrough]
+    get => Model.Description;
     set
     {
       if (Model.Description != value)
@@ -227,9 +238,12 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public virtual WritingSystemViewModel? Parent
   {
-    [DebuggerStepThrough] get => _ViewModels.Instance.WritingSystems.FirstOrDefault(vm => vm.Id == Model.ParentId);
+    [DebuggerStepThrough]
+    get => _ViewModels.Instance.WritingSystems.FirstOrDefault(vm => vm.Id == Model.ParentId);
     set
     {
+      if (value == Parent)
+        return; // No change
       var parentId = value?.Id;
       if (parentId == 0)
         parentId = null;
@@ -240,17 +254,18 @@ public class WritingSystemViewModel(WritingSystem model)
       }
       Model.ParentId = parentId;
       NotifyPropertyChanged(nameof(Parent));
-      if (Parent?.Children != null)
+      var parent = Parent;
+      if (parent != null)
       {
-        if (!Parent.Children.Contains(this))
+        if (parent.Children == null)
+          parent.GetOrCreateChildrenList();
+        if (!parent.Children!.Contains(this))
         {
           // Add this writing system to the parent's children collection
 
-          var parent = Parent;
           parent.Children.Add(this);
           parent.NotifyPropertyChanged(nameof(Children));
         }
-
       }
       NotifyPropertyChanged(nameof(ParentId));
     }
@@ -280,11 +295,23 @@ public class WritingSystemViewModel(WritingSystem model)
   private WritingSystemsCollection? _Children;
 
   /// <summary>
+  /// Gets a collection of child WritingSystems. If it does not exist, it is created even if Model Children collection is null;
+  /// </summary>
+  /// <returns></returns>
+  public WritingSystemsCollection? GetOrCreateChildrenList()
+  {
+    if (_Children == null)
+      _Children = new WritingSystemsCollection(this);
+    return _Children;
+  }
+
+  /// <summary>
   /// Indicates whether the current item is expanded.
   /// </summary>
   public bool IsExpanded
   {
-    [DebuggerStepThrough] get => _isExpanded;
+    [DebuggerStepThrough]
+    get => _isExpanded;
     set
     {
       if (_isExpanded != value)
@@ -329,7 +356,8 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public bool IsLongTextExpanded
   {
-    [DebuggerStepThrough] get => _IsLongTextExpanded;
+    [DebuggerStepThrough]
+    get => _IsLongTextExpanded;
     set
     {
       if (_IsLongTextExpanded != value)
@@ -431,13 +459,13 @@ public class WritingSystemViewModel(WritingSystem model)
   public int CompareTo(WritingSystemViewModel? other)
   {
     if (other is null) return 1;
-    if (Id==null && other.Id == null)
+    if (Id == null && other.Id == null)
       return 0;
     if (Id == null)
       return -1;
     if (other.Id == null)
       return 1;
-    return  ((int)Id).CompareTo((int)(other.Id));
+    return ((int)Id).CompareTo((int)(other.Id));
   }
 
   /// <summary>
@@ -459,7 +487,8 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public double RowHeight
   {
-    [DebuggerStepThrough] get => _RowHeight;
+    [DebuggerStepThrough]
+    get => _RowHeight;
     set
     {
       if (_RowHeight != value)
