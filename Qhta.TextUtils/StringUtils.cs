@@ -35,21 +35,35 @@ public static class StringUtils
   /// <param name="str"></param>
   /// <param name="allWords">Determines whether all words should be treated separately.</param>
   /// <returns></returns>
-  public static string TitleCase(this string str, bool allWords=false)
+  public static string TitleCase(this string str, bool allWords = false)
   {
+    var chars = str.ToCharArray();
     if (allWords)
     {
-      var words = str.Split(' ');
-      for (var i = 0; i < words.Length; i++)
-        words[i] = words[i].TitleCase();
-      return string.Join(" ", words);
+      var wasLetter = false;
+      for (var i = 0; i < chars.Length; i++)
+      {
+        var isLetter = char.IsLetter(chars[i]);
+        if (isLetter)
+        {
+          if (!wasLetter)
+            chars[i] = Char.ToUpper(chars[i]);
+          else
+            chars[i] = Char.ToLower(chars[i]);
+          wasLetter = true;
+        }
+        else if (chars[i] != '\'')
+          wasLetter = false;
+      }
     }
-    var chars = str.ToCharArray();
-    for (var i = 0; i < chars.Length; i++)
-      if (i == 0)
-        chars[i] = Char.ToUpper(chars[i]);
-      else
-        chars[i] = Char.ToLower(chars[i]);
+    else
+      for (var i = 0; i < chars.Length; i++)
+      {
+        if (i == 0)
+          chars[i] = Char.ToUpper(chars[i]);
+        else
+          chars[i] = Char.ToLower(chars[i]);
+      }
     return new string(chars);
   }
 
@@ -60,10 +74,27 @@ public static class StringUtils
   /// <returns></returns>
   public static string CamelCase(this string str)
   {
-    var ss = str.Split(' ');
-    for (var i = 0; i < ss.Length; i++)
-      ss[i] = ss[i].TitleCase();
-    return string.Join("", ss);
+    var chars = str.ToList();
+    var wasLetter = false;
+    for (var i = 0; i < chars.Count; i++)
+    {
+      var isLetter = char.IsLetter(chars[i]);
+      if (isLetter)
+      {
+        if (!wasLetter)
+          chars[i] = Char.ToUpper(chars[i]);
+        else
+          chars[i] = Char.ToLower(chars[i]);
+        wasLetter = true;
+      }
+      else
+      {
+        wasLetter = false;
+        chars.RemoveAt(i);
+        i--;
+      }
+    }
+    return new string(chars.ToArray());
   }
 
   /// <summary>
@@ -359,7 +390,7 @@ public static class StringUtils
   /// <param name="pattern"></param>
   /// <param name="stringComparison"></param>
   /// <returns></returns>
-  public static bool IsLike (this string key, string pattern, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
+  public static bool IsLike(this string key, string pattern, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
   {
     var wildcardCount = pattern.Count(c => c == '*');
     if (wildcardCount == 1 && pattern.EndsWith("*"))
@@ -384,7 +415,7 @@ public static class StringUtils
     }
     return key.Equals(pattern, stringComparison);
   }
-  
+
   /// <summary>
   ///   Checks the similarity of key to pattern. Pattern can contain '*' as wildcard replacing any sequence of remaining
   ///   characters.
@@ -453,7 +484,7 @@ public static class StringUtils
   {
     if (patternParts.Count == 0)
       return true;
-    int k=0;
+    int k = 0;
     for (int i = 0; i < patternParts.Count; i++)
     {
       var part = patternParts[i];
@@ -465,7 +496,7 @@ public static class StringUtils
         if (l > 0)
           return false;
       }
-      if (wildKeyParts!=null && l>k)
+      if (wildKeyParts != null && l > k)
         wildKeyParts.Add(key.Substring(k, l - k));
       k = l + part.Length;
       if (i == patternParts.Count - 1)

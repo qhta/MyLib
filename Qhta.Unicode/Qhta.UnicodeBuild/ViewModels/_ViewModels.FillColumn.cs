@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-
+using System.Diagnostics;
 using Qhta.MVVM;
 using Qhta.UnicodeBuild.Views;
 
@@ -12,7 +12,7 @@ public partial class _ViewModels
   /// <summary>
   /// Command to fill the current column in the data grid with a selected value.
   /// </summary>
-  public IRelayCommand FillColumnCommand { get; }
+  public IRelayCommand FillColumnCommand { [DebuggerStepThrough] get; }
 
   private void FillColumnCommandExecute(object? sender)
   {

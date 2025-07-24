@@ -1,4 +1,5 @@
-﻿using Qhta.ObservableObjects;
+﻿using System.Diagnostics;
+using Qhta.ObservableObjects;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 
@@ -10,13 +11,13 @@ namespace Qhta.UnicodeBuild.ViewModels;
 public sealed class WritingSystemsCollection() : EntityCollection<WritingSystemViewModel>((item) => item.Name!)
 {
 
-  private Dictionary<int, WritingSystemViewModel> IntDictionary { get; set; } = new();
-  private Dictionary<string, WritingSystemViewModel> StringDictionary { get; set; } = new();
+  private Dictionary<int, WritingSystemViewModel> IntDictionary { [DebuggerStepThrough] get; } = new();
+  private Dictionary<string, WritingSystemViewModel> StringDictionary { [DebuggerStepThrough] get; } = new();
   
   /// <summary>
   /// Parent writing system view model, if this collection is a child of another writing system.
   /// </summary>
-  public WritingSystemViewModel? Parent { get; }
+  public WritingSystemViewModel? Parent { [DebuggerStepThrough] get; }
 
   /// <summary>
   /// Initializes a new instance of the <see cref="WritingSystemsCollection"/> class using the specified parent view model and a collection of writing system models.
@@ -94,7 +95,8 @@ public sealed class WritingSystemsCollection() : EntityCollection<WritingSystemV
 
       if (oldValue!=null)
         StringDictionary.Remove(oldValue.ToString()!);
-      if (newValue is string newName && !String.IsNullOrEmpty(newName) && !newName.StartsWith('<')) StringDictionary.Add(newName, vm);
+      if (newValue is string newName && !String.IsNullOrEmpty(newName) && !newName.StartsWith('<')) 
+        StringDictionary.Add(newName, vm);
       // Notify that the collection has changed, so that the UI can update
       //OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
     }
@@ -157,10 +159,11 @@ public sealed class WritingSystemsCollection() : EntityCollection<WritingSystemV
     //ObservableCollection<WritingSystemViewModel>
     if (String.IsNullOrEmpty(vm.Name))
       return;
+    if (vm.Id != null) IntDictionary.TryAdd((int)vm.Id, vm);
+    if (!String.IsNullOrEmpty(vm.Name) && !vm.Name.StartsWith("<")) StringDictionary.TryAdd(vm.Name, vm);
     vm.PropertyChanged += WritingSystemViewModel_PropertyChanged;
     base.Add(vm);
-    if (vm.Id != null) IntDictionary.Add((int)vm.Id, vm);
-    if (!String.IsNullOrEmpty(vm.Name) && !vm.Name.StartsWith("<")) StringDictionary.Add(vm.Name, vm);
+
   }
 
   /// <summary>
@@ -173,7 +176,7 @@ public sealed class WritingSystemsCollection() : EntityCollection<WritingSystemV
   /// </summary>
   public double LongTextColumnWidth
   {
-    get => _longTextColumnWidth;
+    [DebuggerStepThrough] get => _longTextColumnWidth;
     set
     {
       if (double.IsNaN(value))

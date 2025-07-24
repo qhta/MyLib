@@ -14,15 +14,15 @@ public record CodeRange() : IComparable<CodeRange>, IComparable
   /// <summary>
   /// Start of the code range, represented as an integer.
   /// </summary>
-  public int Start { get; set; }
+  public int Start { [DebuggerStepThrough] get; set; }
   /// <summary>
   /// End of the code range, represented as an integer. If null, it means the range is a single value.
   /// </summary>
-  public int? End { get; set; }
+  public int? End { [DebuggerStepThrough] get; set; }
   /// <summary>
   /// Separator used when converting the range to a string. If null, the default separator ".." is used.
   /// </summary>
-  public string? Separator { get; set; }
+  public string? Separator { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Compares this code range with another code range based on the start value.

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 
 namespace Qhta.UnicodeBuild.Views;
 
@@ -26,7 +27,7 @@ public partial class SelectValueWindow : Window
   /// </summary>
   public string? Prompt
   {
-     get => (string?)GetValue(PromptProperty);
+     [DebuggerStepThrough] get => (string?)GetValue(PromptProperty);
      set => SetValue(PromptProperty, value);
   }
 
@@ -41,7 +42,7 @@ public partial class SelectValueWindow : Window
   /// </summary>
   public object? ItemsSource
   {
-    get => GetValue(ItemsSourceProperty);
+    [DebuggerStepThrough] get => GetValue(ItemsSourceProperty);
     set => SetValue(ItemsSourceProperty, value);
   }
 
@@ -56,7 +57,7 @@ public partial class SelectValueWindow : Window
   /// </summary>
   public object? SelectedItem
   {
-    get => GetValue(SelectedItemProperty);
+    [DebuggerStepThrough] get => GetValue(SelectedItemProperty);
     set => SetValue(SelectedItemProperty, value);
   }
 
@@ -71,7 +72,7 @@ public partial class SelectValueWindow : Window
   /// </summary>
   public bool EmptyCellsOnly
   {
-    get => (bool)GetValue(EmptyCellsOnlyProperty);
+    [DebuggerStepThrough] get => (bool)GetValue(EmptyCellsOnlyProperty);
     set => SetValue(EmptyCellsOnlyProperty, value);
   }
 

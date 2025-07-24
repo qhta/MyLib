@@ -1,4 +1,6 @@
-﻿namespace Qhta.UnicodeBuild.Helpers;
+﻿using System.Diagnostics;
+
+namespace Qhta.UnicodeBuild.Helpers;
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -65,7 +67,7 @@ public class ValidationResultEx : ValidationResult
   /// <value>
   /// The severity.
   /// </value>
-  public Severity Severity { get; set; } = Severity.Error;
+  public Severity Severity { [DebuggerStepThrough] get; set; } = Severity.Error;
 }
 
 /// <summary>

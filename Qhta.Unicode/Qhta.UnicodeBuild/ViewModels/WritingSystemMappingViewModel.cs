@@ -1,4 +1,5 @@
-﻿using Qhta.MVVM;
+﻿using System.Diagnostics;
+using Qhta.MVVM;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 
@@ -22,7 +23,7 @@ public class WritingSystemMappingViewModel(WritingSystemMapping WritingSystemMap
   /// </summary>
   public CodeRange Range
   {
-    get => Model.Range!;
+    [DebuggerStepThrough] get => Model.Range!;
     set
     {
       if (Model.Range != value)

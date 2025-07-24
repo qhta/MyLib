@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using Qhta.MVVM;
 
 namespace Qhta.UnicodeBuild.ViewModels;
@@ -8,7 +9,7 @@ public partial class _ViewModels
   /// <summary>
   /// Command to edit a writing system.
   /// </summary>
-  public IRelayCommand EditWritingSystemCommand { get; }
+  public IRelayCommand EditWritingSystemCommand { [DebuggerStepThrough] get; }
 
   private void EditWritingSystemCommandExecute(WritingSystemViewModel? item)
   {

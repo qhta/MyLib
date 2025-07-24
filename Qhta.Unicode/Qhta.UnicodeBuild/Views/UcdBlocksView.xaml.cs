@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
+using System.Windows.Controls;
 
 using Qhta.MVVM;
 using Qhta.SF.Tools;
@@ -37,7 +38,7 @@ public partial class UcdBlocksView : UserControl
   /// <summary>
   /// Command to navigate to the next item in the data grid.
   /// </summary>
-  public RelayCommand<SfDataGrid> NextItemCommand { get; set; }
+  public RelayCommand<SfDataGrid> NextItemCommand { [DebuggerStepThrough] get; set; }
 
   private void NextItemExecute(SfDataGrid? dataGrid)
   {
@@ -69,7 +70,7 @@ public partial class UcdBlocksView : UserControl
   /// <summary>
   /// Command to navigate to the last item in the data grid.
   /// </summary>
-  public RelayCommand<SfDataGrid> LastItemCommand { get; set; }
+  public RelayCommand<SfDataGrid> LastItemCommand { [DebuggerStepThrough] get; set; }
 
   private void LastItemExecute(SfDataGrid? dataGrid)
   {
@@ -98,7 +99,7 @@ public partial class UcdBlocksView : UserControl
   /// <summary>
   /// Command to navigate to the previous item in the data grid.
   /// </summary>
-  public RelayCommand<SfDataGrid> PreviousItemCommand { get; set; }
+  public RelayCommand<SfDataGrid> PreviousItemCommand { [DebuggerStepThrough] get; set; }
 
   private void PreviousItemExecute(SfDataGrid? dataGrid)
   {
@@ -130,7 +131,7 @@ public partial class UcdBlocksView : UserControl
   /// <summary>
   /// Command to navigate to the first item in the data grid.
   /// </summary>
-  public RelayCommand<SfDataGrid> FirstItemCommand { get; set; }
+  public RelayCommand<SfDataGrid> FirstItemCommand { [DebuggerStepThrough] get; set; }
 
   private void FirstItemExecute(SfDataGrid? dataGrid)
   {

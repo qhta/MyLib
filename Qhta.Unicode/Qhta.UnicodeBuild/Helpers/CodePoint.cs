@@ -12,7 +12,7 @@ public record CodePoint() : IComparable, IComparable<CodePoint>
   /// <summary>
   /// Internal value
   /// </summary>
-  public int Value { get; set; }
+  public int Value { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Compares this code point with another code point using their internal values.

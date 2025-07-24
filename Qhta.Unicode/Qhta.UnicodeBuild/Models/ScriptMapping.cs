@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace Qhta.Unicode.Models;
 
@@ -12,9 +13,9 @@ public class WritingSystemMapping
   /// Represents a range of Unicode code points, typically formatted as "XXXX..YYYY".
   /// </summary>
   [Key]
-  public string Range { get; set; } = null!;
+  public string Range { [DebuggerStepThrough] get; set; } = null!;
   /// <summary>
   /// Represents the name for the writing system associated with this mapping.
   /// </summary>
-  public string? WritingSystemName { get; set; }
+  public string? WritingSystemName { [DebuggerStepThrough] get; set; }
 }

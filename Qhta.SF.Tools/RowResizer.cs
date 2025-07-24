@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -61,7 +62,7 @@ public class RowResizer : Thumb
   /// </summary>
   public double MinRowHeight
   {
-    get => (double)GetValue(MinRowHeightProperty);
+    [DebuggerStepThrough] get => (double)GetValue(MinRowHeightProperty);
     set => SetValue(MinRowHeightProperty, value);
   }
 
@@ -81,7 +82,7 @@ public class RowResizer : Thumb
   /// </summary>
   public double MaxRowHeight
   {
-    get => (double)GetValue(MaxRowHeightProperty);
+    [DebuggerStepThrough] get => (double)GetValue(MaxRowHeightProperty);
     set => SetValue(MaxRowHeightProperty, value);
   }
 

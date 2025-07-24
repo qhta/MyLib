@@ -11,6 +11,7 @@ using Qhta.UnicodeBuild.Resources;
 using Qhta.UnicodeBuild.ViewModels;
 
 using Syncfusion.Data;
+using Syncfusion.Data.Extensions;
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.UI.Xaml.Grid.Helpers;
 using Syncfusion.UI.Xaml.ScrollAxis;
@@ -19,6 +20,9 @@ using Syncfusion.UI.Xaml.TreeView.Engine;
 
 using DropPosition = Syncfusion.UI.Xaml.TreeView.DropPosition;
 using WritingSystem = Qhta.Unicode.Models.WritingSystem;
+using WritingSystemType = Qhta.Unicode.Models.WritingSystemType;
+using WritingSystemKind = Qhta.Unicode.Models.WritingSystemKind;
+
 
 namespace Qhta.UnicodeBuild.Views;
 
@@ -52,9 +56,15 @@ public partial class WritingSystemsView : UserControl
     isSyncFromTreeView = true;
     //Debug.WriteLine($"TreeViewSelectionChanged {e.NewValue}");
     WritingSystemsDataGrid.SelectedItem = e.AddedItems.FirstOrDefault();
-    var rowIndex = WritingSystemsDataGrid.ResolveToRowIndex(WritingSystemsDataGrid.SelectedItem);
-    var rowColumnIndex = new RowColumnIndex(rowIndex, 0);
-    WritingSystemsDataGrid.ScrollInView(rowColumnIndex);
+    if (WritingSystemsDataGrid.SelectedItem != null)
+    {
+      var rowIndex = WritingSystemsDataGrid.ResolveToRowIndex(WritingSystemsDataGrid.SelectedItem);
+      if (rowIndex > 0)
+      {
+        var rowColumnIndex = new RowColumnIndex(rowIndex, 0);
+        WritingSystemsDataGrid.ScrollInView(rowColumnIndex);
+      }
+    }
     isSyncFromTreeView = false;
   }
 
@@ -121,16 +131,6 @@ public partial class WritingSystemsView : UserControl
     }
   }
 
-  private void WritingSystemsDataGrid_OnAddNewRowInitiating(object? sender, AddNewRowInitiatingEventArgs e)
-  {
-    var data = new WritingSystem();
-    data.Id = _ViewModels.Instance.GetNewWritingSystemId();
-    var viewModel = new WritingSystemViewModel(data);
-    //_ViewModels.Instance.AllWritingSystems.Add(viewModel);
-    //_ViewModels.Instance.TopWritingSystems.Add(viewModel);
-    e.NewObject = viewModel;
-  }
-
   private void NewWritingSystemButton_OnClick(object sender, RoutedEventArgs e)
   {
     var button = sender as Button;
@@ -148,9 +148,11 @@ public partial class WritingSystemsView : UserControl
       foreach (var item in e.ItemsSource)
         if (!item.DisplayText.StartsWith("("))
         {
-          var displayText = item.DisplayText.TitleCase();
+          if (item.ActualValue is WritingSystemType writingSystemType && writingSystemType == WritingSystemType.SymbolSet)
+            Debug.Assert(true);
+          var displayText = item.DisplayText;
           var newText = Qhta.UnicodeBuild.Resources.WritingSystemType.ResourceManager.GetString(displayText);
-          if (newText != null) item.DisplayText = newText.ToLower();
+          if (newText != null) item.DisplayText = newText;
         }
     }
     else if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Kind))
@@ -158,35 +160,23 @@ public partial class WritingSystemsView : UserControl
       foreach (var item in e.ItemsSource)
         if (!item.DisplayText.StartsWith("("))
         {
-          var displayText = item.DisplayText.TitleCase();
+          if (item.ActualValue is WritingSystemKind writingSystemKind && writingSystemKind == WritingSystemKind.SemiSyllabary)
+            Debug.Assert(true);
+          var displayText = item.DisplayText;
           var newText = Qhta.UnicodeBuild.Resources.WritingSystemKind.ResourceManager.GetString(displayText);
-          if (newText != null) item.DisplayText = newText.ToLower();
+          if (newText != null) item.DisplayText = newText;
         }
     }
   }
 
   private void WritingSystemsGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e)
   {
-    //if (e.Column.MappingName == nameof(UcdCodePointViewModel.Category))
-    //  SetCategoryFilter();
-    //else if (e.Column.MappingName == nameof(UcdCodePointViewModel.UcdBlock))
-    //  SetBlockFilter();
-    //else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Area))
-    //  SetWritingSystemFilter(_ViewModels.Instance.SelectableAreas);
-    //else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Script))
-    //  SetWritingSystemFilter(_ViewModels.Instance.SelectableScripts);
-    //else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Language))
-    //  SetWritingSystemFilter(_ViewModels.Instance.SelectableLanguages);
-    //else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Notation))
-    //  SetWritingSystemFilter(_ViewModels.Instance.SelectableNotations);
-    //else if (e.Column.MappingName == nameof(UcdCodePointViewModel.SymbolSet))
-    //  SetWritingSystemFilter(_ViewModels.Instance.SelectableSymbolSets);
-    //else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Subset))
-    //  SetWritingSystemFilter(_ViewModels.Instance.SelectableSubsets);
-    //else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Artefact))
-    //  SetWritingSystemFilter(_ViewModels.Instance.SelectableArtefacts);
-    //else
-    SetAdvancedFilter();
+    if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Type))
+      SetTypeFilter();
+    else if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Kind))
+      SetKindFilter();
+    else
+      SetAdvancedFilter();
 
     void SetAdvancedFilter()
     {
@@ -196,30 +186,52 @@ public partial class WritingSystemsView : UserControl
       filterControl.AllowBlankFilters = true;
     }
 
-    void SetCategoryFilter()
+    void SetTypeFilter()
     {
       var filterControl = e.FilterControl;
       filterControl.SortOptionVisibility = Visibility.Visible;
-      filterControl.FilterMode = FilterMode.Both;
+      filterControl.FilterMode = FilterMode.CheckboxFilter;
       filterControl.AllowBlankFilters = true;
-      var selectableItems = _ViewModels.Instance.SelectableCategories.OrderBy(item => item?.Name ?? "").ToList();
+      var selectableItems = _ViewModels.Instance.SelectableWritingSystemTypes.ToList();
       selectableItems.Insert(0, null); // Add a null item at the top
-      selectableItems.Insert(1,
-        new UnicodeCategoryViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty category
 
-      var UcdCategoryFilters = selectableItems.Select(item => new FilterElement
+      var UcdWritingSystemTypesFilter = selectableItems.Select(item => new FilterElement
       {
         ActualValue = item,
         FormattedString = (object obj) =>
         {
-          if (obj is FilterElement filterElement && filterElement.ActualValue is UnicodeCategoryViewModel val)
-            return !string.IsNullOrEmpty(val.Name) ? val.Name : Strings.NonEmptyItem;
+          if (obj is FilterElement filterElement && filterElement.ActualValue is WritingSystemType val)
+            return val.ToString();
           return Strings.EmptyItem;
         }
       }).ToArray();
-      e.ItemsSource = UcdCategoryFilters;
+      e.ItemsSource = UcdWritingSystemTypesFilter;
       e.Handled = true;
     }
+
+    void SetKindFilter()
+    {
+      var filterControl = e.FilterControl;
+      filterControl.SortOptionVisibility = Visibility.Visible;
+      filterControl.FilterMode = FilterMode.CheckboxFilter;
+      filterControl.AllowBlankFilters = true;
+      var selectableItems = _ViewModels.Instance.SelectableWritingSystemKinds.ToList();
+      selectableItems.Insert(0, null); // Add a null item at the top
+
+      var UcdWritingSystemKindFilter = selectableItems.Select(item => new FilterElement
+      {
+        ActualValue = item,
+        FormattedString = (object obj) =>
+        {
+          if (obj is FilterElement filterElement && filterElement.ActualValue is WritingSystemKind val)
+            return val.ToString();
+          return Strings.EmptyItem;
+        }
+      }).ToArray();
+      e.ItemsSource = UcdWritingSystemKindFilter;
+      e.Handled = true;
+    }
+
   }
 
   private void WritingSystemsGrid_OnFilterChanging(object? sender, GridFilterEventArgs e)

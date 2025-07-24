@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 using System.Reflection;
 
 using Syncfusion.UI.Xaml.Grid;
@@ -18,17 +19,17 @@ public record GridColumnInfo(GridColumn Column, string MappingName, PropertyInfo
   /// <summary>
   /// Identifies the column in the grid.
   /// </summary>
-  public GridColumn Column { get; } = Column;
+  public GridColumn Column { [DebuggerStepThrough] get; } = Column;
 
   /// <summary>
   /// Mapping name of the column, which corresponds to the property name in the data source.
   /// </summary>
-  public string MappingName { get; } = MappingName;
+  public string MappingName { [DebuggerStepThrough] get; } = MappingName;
 
   /// <summary>
   /// Gets the <see cref="PropertyInfo"/> object that represents the metadata of the value property.
   /// </summary>
-  public PropertyInfo ValuePropertyInfo { get; } = ValuePropertyInfo;
+  public PropertyInfo ValuePropertyInfo { [DebuggerStepThrough] get; } = ValuePropertyInfo;
 
   /// <summary>
   /// Gets or sets the <see cref="PropertyInfo"/> object that represents the property to be displayed.
@@ -40,5 +41,5 @@ public record GridColumnInfo(GridColumn Column, string MappingName, PropertyInfo
   /// Gets or sets the collection of items to be displayed.
   /// it is an optional property, used for example in <see cref="GridComboBoxColumn"/> to provide the items source for the combo box.
   /// </summary>
-  public IEnumerable? ItemsSource { get; set; }
+  public IEnumerable? ItemsSource { [DebuggerStepThrough] get; set; }
 }

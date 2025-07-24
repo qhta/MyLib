@@ -1,4 +1,5 @@
-﻿using System.Windows.Markup;
+﻿using System.Diagnostics;
+using System.Windows.Markup;
 
 namespace Qhta.UnicodeBuild.Helpers
 {
@@ -10,7 +11,7 @@ namespace Qhta.UnicodeBuild.Helpers
     /// <summary>
     /// Enumeration type for which the values are provided.
     /// </summary>
-    public Type EnumType { get; set; } = null!;
+    public Type EnumType { [DebuggerStepThrough] get; set; } = null!;
 
     /// <summary>
     /// Method to provide all the values of the specified enumeration type.

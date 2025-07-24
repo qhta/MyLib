@@ -19,7 +19,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <param name="model"></param>
 public class WritingSystemViewModel(WritingSystem model)
   : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, IComparable<WritingSystemViewModel>,// INotifyDataErrorInfo
-  IRowHeightProvider
+  IRowHeightProvider, IErrorMessageProvider
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="WritingSystemViewModel"/> class with the specified model.
@@ -31,14 +31,14 @@ public class WritingSystemViewModel(WritingSystem model)
   /// <summary>
   /// Collection that this writing system belongs to.
   /// </summary>
-  public WritingSystemsCollection? Collection { get; set; }
+  public WritingSystemsCollection? Collection { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Gets or sets the identifier for the model.
   /// </summary>
   public int? Id
   {
-    get => Model.Id;
+    [DebuggerStepThrough] get => Model.Id;
     set
     {
       if (Model.Id != value)
@@ -56,7 +56,7 @@ public class WritingSystemViewModel(WritingSystem model)
   [Required]
   public string? Name
   {
-    get => Model.Name;
+    [DebuggerStepThrough] get => Model.Name;
     set
     {
       if (Model.Name != value)
@@ -82,7 +82,7 @@ public class WritingSystemViewModel(WritingSystem model)
   [Required]
   public WritingSystemType? Type
   {
-    get => Model.Type;
+    [DebuggerStepThrough] get => Model.Type;
     set
     {
       if (Model.Type != value)
@@ -98,7 +98,7 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public WritingSystemKind? Kind
   {
-    get => Model.Kind;
+    [DebuggerStepThrough] get => Model.Kind;
     set
     {
       if (Model.Kind != value)
@@ -114,7 +114,7 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public int? ParentId
   {
-    get => Model.ParentId;
+    [DebuggerStepThrough] get => Model.ParentId;
     set
     {
       if (Model.ParentId != value)
@@ -130,7 +130,7 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public string? KeyPhrase
   {
-    get => Model.KeyPhrase;
+    [DebuggerStepThrough] get => Model.KeyPhrase;
     set
     {
       if (Model.KeyPhrase != value)
@@ -146,7 +146,7 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public string? Ctg
   {
-    get => Model.Ctg;
+    [DebuggerStepThrough] get => Model.Ctg;
     set
     {
       if (Model.Ctg != value)
@@ -162,7 +162,7 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public string? Iso
   {
-    get => Model.Iso;
+    [DebuggerStepThrough] get => Model.Iso;
     set
     {
       if (Model.Iso != value)
@@ -178,7 +178,7 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public string? Abbr
   {
-    get => Model.Abbr;
+    [DebuggerStepThrough] get => Model.Abbr;
     set
     {
       if (Model.Abbr != value)
@@ -194,7 +194,7 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public string? Ext
   {
-    get => Model.Ext;
+    [DebuggerStepThrough] get => Model.Ext;
     set
     {
       if (Model.Ext != value)
@@ -211,7 +211,7 @@ public class WritingSystemViewModel(WritingSystem model)
   [DataType(DataType.MultilineText)]
   public string? Description
   {
-    get => Model.Description;
+    [DebuggerStepThrough] get => Model.Description;
     set
     {
       if (Model.Description != value)
@@ -227,7 +227,7 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public virtual WritingSystemViewModel? Parent
   {
-    get => _ViewModels.Instance.WritingSystems.FirstOrDefault(vm => vm.Id == Model.ParentId);
+    [DebuggerStepThrough] get => _ViewModels.Instance.WritingSystems.FirstOrDefault(vm => vm.Id == Model.ParentId);
     set
     {
       var parentId = value?.Id;
@@ -242,8 +242,15 @@ public class WritingSystemViewModel(WritingSystem model)
       NotifyPropertyChanged(nameof(Parent));
       if (Parent?.Children != null)
       {
-        Parent.Children?.Add(this);
-        Parent.NotifyPropertyChanged(nameof(Children));
+        if (!Parent.Children.Contains(this))
+        {
+          // Add this writing system to the parent's children collection
+
+          var parent = Parent;
+          parent.Children.Add(this);
+          parent.NotifyPropertyChanged(nameof(Children));
+        }
+
       }
       NotifyPropertyChanged(nameof(ParentId));
     }
@@ -277,7 +284,7 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public bool IsExpanded
   {
-    get => _isExpanded;
+    [DebuggerStepThrough] get => _isExpanded;
     set
     {
       if (_isExpanded != value)
@@ -322,7 +329,7 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public bool IsLongTextExpanded
   {
-    get => _IsLongTextExpanded;
+    [DebuggerStepThrough] get => _IsLongTextExpanded;
     set
     {
       if (_IsLongTextExpanded != value)
@@ -446,13 +453,31 @@ public class WritingSystemViewModel(WritingSystem model)
     return Name + " " + Type?.ToString()?.ToLower();
   }
 
+  #region IRowHeightProvider implementation
   /// <summary>
-  /// Stores the height of a row in the UI.
+  /// Simple property to provide the height of the row in a UI.
   /// </summary>
-  public double RowHeight { get; set; } = Double.NaN;
+  public double RowHeight
+  {
+    [DebuggerStepThrough] get => _RowHeight;
+    set
+    {
+      if (_RowHeight != value)
+      {
+        _RowHeight = value;
+        NotifyPropertyChanged(nameof(RowHeight));
+      }
+    }
+  }
+  private double _RowHeight = 24;
+  #endregion
+
+  #region IErrorMessageProvider implementation
 
   /// <summary>
-  /// Stores the height of a row in the UI.
+  /// Gets or sets an error message associated with the view model.
   /// </summary>
-  public double MaxRowHeight { get; set; } = Double.NaN;
+  public string? ErrorMessage { [DebuggerStepThrough] get; set; }
+
+  #endregion
 }

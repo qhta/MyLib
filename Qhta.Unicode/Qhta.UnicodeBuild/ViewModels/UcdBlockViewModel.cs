@@ -1,4 +1,5 @@
-﻿using Qhta.MVVM;
+﻿using System.Diagnostics;
+using Qhta.MVVM;
 using Qhta.SF.Tools;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
@@ -8,7 +9,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <summary>
 /// ViewModel for a Unicode Character Database (UCD) block.
 /// </summary>
-public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel, IRowHeightProvider, IComparable<UcdBlockViewModel>
+public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel, IComparable<UcdBlockViewModel>, IRowHeightProvider, IErrorMessageProvider
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="UcdBlockViewModel"/> class with a new <see cref="UcdBlock"/> model.
@@ -35,7 +36,7 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
   /// </summary>
   public CodeRange? Range
   {
-    get => Model.Range;
+    [DebuggerStepThrough] get => Model.Range;
     set
     {
       if (Model.Range != value)
@@ -51,7 +52,7 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
   /// </summary>
   public string? Name
   {
-    get => Model.BlockName;
+    [DebuggerStepThrough] get => Model.BlockName;
     set
     {
       if (Model.BlockName != null)
@@ -67,7 +68,7 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
   /// </summary>
   public string? Description
   {
-    get => Model.Comment;
+    [DebuggerStepThrough] get => Model.Comment;
     set
     {
       if (Model.Comment != value)
@@ -107,33 +108,13 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
   /// </summary>
   public bool IsLongTextExpanded
   {
-    get => _IsLongTextExpanded;
+    [DebuggerStepThrough] get => _IsLongTextExpanded;
     set
     {
       if (_IsLongTextExpanded != value)
       {
         _IsLongTextExpanded = value;
         NotifyPropertyChanged(nameof(IsLongTextExpanded));
-      }
-    }
-  }
-  #endregion
-
-  #region IRowHeightProvider  implementation
-  private double _RowHeight = 24;
-  /// <summary>
-  /// Gets or sets the height of the row in pixels.
-  /// </summary>
-  public double RowHeight
-  {
-    get => _RowHeight;
-    set
-    {
-      if (_RowHeight != value)
-      {
-        _RowHeight = value;
-        //Debug.WriteLine($"RowHeight changed to {RowHeight}");
-        NotifyPropertyChanged(nameof(RowHeight));
       }
     }
   }
@@ -157,4 +138,31 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
     return ((int)Id).CompareTo((int)(other.Id));
   }
 
+  #region IRowHeightProvider implementation
+  /// <summary>
+  /// Simple property to provide the height of the row in a UI.
+  /// </summary>
+  public double RowHeight
+  {
+    [DebuggerStepThrough] get => _RowHeight;
+    set
+    {
+      if (_RowHeight != value)
+      {
+        _RowHeight = value;
+        NotifyPropertyChanged(nameof(RowHeight));
+      }
+    }
+  }
+  private double _RowHeight = 24;
+  #endregion
+
+  #region IErrorMessageProvider implementation
+
+  /// <summary>
+  /// Gets or sets an error message associated with the view model.
+  /// </summary>
+  public string? ErrorMessage { [DebuggerStepThrough] get; set; }
+
+  #endregion
 }

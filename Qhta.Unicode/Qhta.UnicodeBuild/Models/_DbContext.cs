@@ -30,32 +30,32 @@ public partial class _DbContext : DbContext, IDisposable
   /// <summary>
   /// Gets or sets the collection of Unicode code points.
   /// </summary>
-  public virtual DbSet<UcdCodePoint> CodePoints { get; set; }
+  public virtual DbSet<UcdCodePoint> CodePoints { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Gets or sets the collection of Unicode Character Database (UCD) blocks.
   /// </summary>
-  public virtual DbSet<UcdBlock> UcdBlocks { get; set; }
+  public virtual DbSet<UcdBlock> UcdBlocks { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Gets or sets the collection of writing systems available in the database.
   /// </summary>
-  public virtual DbSet<WritingSystem> WritingSystems { get; set; }
+  public virtual DbSet<WritingSystem> WritingSystems { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Gets or sets the collection of writing system kinds in the database.
   /// </summary>
-  public virtual DbSet<WritingSystemKindEntity> WritingSystemKinds { get; set; }
+  public virtual DbSet<WritingSystemKindEntity> WritingSystemKinds { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Gets or sets the collection of writing system types in the database.
   /// </summary>
-  public virtual DbSet<WritingSystemTypeEntity> WritingSystemTypes { get; set; }
+  public virtual DbSet<WritingSystemTypeEntity> WritingSystemTypes { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Gets or sets the collection of Unicode category entities.
   /// </summary>
-  public virtual DbSet<UnicodeCategoryEntity> UnicodeCategories { get; set; }
+  public virtual DbSet<UnicodeCategoryEntity> UnicodeCategories { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Configures the database context options.
@@ -146,10 +146,10 @@ public partial class _DbContext : DbContext, IDisposable
     modelBuilder.Entity<WritingSystem>(entity =>
     {
       entity.HasKey(e => e.Id).HasName("PrimaryKey");
-      entity.HasIndex(e => new { e.Abbr, e.Ext }, "Abbr").IsUnique();
-      entity.HasIndex(e => e.Ctg, "Ctg").IsUnique();
-      entity.HasIndex(e => new { e.Name, e.Type }, "FullName").IsUnique();
-      entity.HasIndex(e => e.KeyPhrase, "KeyPhrase").IsUnique();
+      //entity.HasIndex(e => new { e.Abbr, e.Ext }, "Abbr").IsUnique();
+     // entity.HasIndex(e => e.Ctg, "Ctg").IsUnique();
+      //entity.HasIndex(e => new { e.Name, e.Type }, "Name").IsUnique();
+      //entity.HasIndex(e => e.KeyPhrase, "KeyPhrase").IsUnique();
       entity.HasIndex(e => e.ParentId, "ParentID");
       entity.HasIndex(e => e.Kind, "Kind");
       entity.HasIndex(e => e.Type, "Type");
@@ -184,6 +184,7 @@ public partial class _DbContext : DbContext, IDisposable
       entity.HasKey(e => e.Id).HasName("PrimaryKey");
       entity.Property(e => e.Name).HasMaxLength(15);
       entity.HasIndex(e => e.Name, "Kind").IsUnique();
+      entity.Property(e => e.Type).HasConversion<byte>();
     });
 
     modelBuilder.Entity<UnicodeCategoryEntity>(entity =>

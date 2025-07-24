@@ -88,7 +88,7 @@
              ToolTip="{x:Static resources:WritingSystem.TypeTooltip}"/>
     <ComboBox Grid.Row="1" Grid.Column="1"
                 Margin="{StaticResource RowMargin}"
-                SelectedItem="{Binding Name}"
+                SelectedItem="{Binding Type}"
                 ItemsSource="{Binding Source={StaticResource ViewModels}, 
                   Path=Instance.WritingSystemTypes}">
       <ComboBox.ItemTemplate>

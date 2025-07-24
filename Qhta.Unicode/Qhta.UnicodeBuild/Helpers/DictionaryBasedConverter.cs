@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 using System.Windows.Data;
 
 namespace Qhta.UnicodeBuild.Helpers
@@ -11,7 +12,7 @@ namespace Qhta.UnicodeBuild.Helpers
     /// <summary>
     /// Dictionary that maps keys to values for conversion.
     /// </summary>
-    public Dictionary<object, object> Dictionary { get; set; } = new Dictionary<object, object>();
+    public Dictionary<object, object> Dictionary { [DebuggerStepThrough] get; set; } = new Dictionary<object, object>();
 
     /// <summary>
     /// Converts a value to its dictionary corresponding object.

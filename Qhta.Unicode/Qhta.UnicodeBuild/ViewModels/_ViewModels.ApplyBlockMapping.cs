@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -16,7 +17,7 @@ public partial class _ViewModels
   /// Command to apply block mappings to Unicode code points.
   /// A list of mappings is read from a file, and each code point in the specified blocks is updated with the corresponding UcdBlock.
   /// </summary>
-  public IRelayCommand ApplyBlockMappingCommand { get; }
+  public IRelayCommand ApplyBlockMappingCommand { [DebuggerStepThrough] get; }
 
   private void ApplyBlockMappingCommandExecute()
   {
@@ -84,7 +85,7 @@ public partial class _ViewModels
   /// <summary>
   /// Command to break the apply block mapping operation.
   /// </summary>
-  public IRelayCommand BreakApplyBlockMappingCommand { get; }
+  public IRelayCommand BreakApplyBlockMappingCommand { [DebuggerStepThrough] get; }
 
   /// <summary>
   /// Executes the command to break the apply block mapping operation.

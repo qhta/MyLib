@@ -1,4 +1,5 @@
-﻿using Qhta.Unicode.Models;
+﻿using System.Diagnostics;
+using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 
 namespace Qhta.UnicodeBuild.ViewModels;
@@ -42,7 +43,7 @@ public class UcdCodePointsCollection() : EntityCollection<UcdCodePointViewModel>
   /// </summary>
   public bool IsBusy
   {
-    get => _isBusy;
+    [DebuggerStepThrough] get => _isBusy;
     set
     {
       if (value != _isBusy)
@@ -59,7 +60,7 @@ public class UcdCodePointsCollection() : EntityCollection<UcdCodePointViewModel>
   /// </summary>
   public int ProgressValue
   {
-    get => _progressValue;
+    [DebuggerStepThrough] get => _progressValue;
     set
     {
       if (value != _progressValue)
@@ -76,7 +77,7 @@ public class UcdCodePointsCollection() : EntityCollection<UcdCodePointViewModel>
   /// </summary>
   public string? StatusMessage
   {
-    get => _statusMessage;
+    [DebuggerStepThrough] get => _statusMessage;
     set
     {
       _statusMessage = value;

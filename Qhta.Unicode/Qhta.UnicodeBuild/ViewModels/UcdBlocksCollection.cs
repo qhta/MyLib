@@ -1,4 +1,5 @@
-﻿using Qhta.ObservableObjects;
+﻿using System.Diagnostics;
+using Qhta.ObservableObjects;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 
@@ -10,8 +11,8 @@ namespace Qhta.UnicodeBuild.ViewModels;
 public sealed class UcdBlocksCollection() : EntityCollection<UcdBlockViewModel>((item) => item.Range!.Start!)
 {
 
-  private Dictionary<int, UcdBlockViewModel> IntDictionary { get; set; } = new();
-  private Dictionary<string, UcdBlockViewModel> StringDictionary { get; set; } = new();
+  private Dictionary<int, UcdBlockViewModel> IntDictionary { [DebuggerStepThrough] get; set; } = new();
+  private Dictionary<string, UcdBlockViewModel> StringDictionary { [DebuggerStepThrough] get; set; } = new();
 
   /// <summary>
   /// Initializes a new instance of the <see cref="UcdBlocksCollection"/> class built from an existing collection of UcdBlock models.

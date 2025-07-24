@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Abjad" xml:space="preserve">
-    <value>Spółgłoskowe</value>
+    <value>Abjad</value>
   </data>
   <data name="Abugida" xml:space="preserve">
-    <value>Alfabet sylabiczny</value>
+    <value>Abugida</value>
   </data>
   <data name="Alphabet" xml:space="preserve">
     <value>Alfabet</value>
@@ -254,5 +254,17 @@
   </data>
   <data name="PictophoneticTooltip" xml:space="preserve">
     <value>System pisma zawierający jednostki składające się z elementów ideograficznych i fonetycznych.</value>
+  </data>
+  <data name="Mathematical" xml:space="preserve">
+    <value>Matematyczna</value>
+  </data>
+  <data name="MathematicalTooltip" xml:space="preserve">
+    <value>Notacja matematyczna polega na użyciu symboli do reprezentowania działań, liczb nieokreślonych, relacji i innych obiektów matematycznych oraz łączeniu ich w wyrażenia i wzory. Notacja matematyczna jest szeroko stosowana w matematyce, naukach ścisłych i inżynierii do zwięzłego, jednoznacznego i dokładnego przedstawiania złożonych pojęć i właściwości.</value>
+  </data>
+  <data name="Metrical" xml:space="preserve">
+    <value>Metryczna</value>
+  </data>
+  <data name="MetricalTooltip" xml:space="preserve">
+    <value>Notacja metryczna w muzyce odnosi się do sposobu zapisu i organizacji rytmu, w tym do metrum, wartości rytmicznych i grupowania uderzeń. W poezji opisuje ona układ sylab akcentowanych i nieakcentowanych, często zorganizowanych w stopy metryczne.</value>
   </data>
 </root>

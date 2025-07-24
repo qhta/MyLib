@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Qhta.UnicodeBuild.Helpers;
@@ -11,15 +12,15 @@ public class MenuItemObject: DependencyObject
   /// <summary>
   /// Header of the menu item, which can be a string or null.
   /// </summary>
-  public string? Header { get; set; }
+  public string? Header { [DebuggerStepThrough] get; set; }
   /// <summary>
   /// An icon for the menu item, which can be an object (e.g., an image or a font icon) or null.
   /// </summary>
-  public object? Icon { get; set; }
+  public object? Icon { [DebuggerStepThrough] get; set; }
   /// <summary>
   /// ToolTip for the menu item, which can be a string or null.
   /// </summary>
-  public string? ToolTip { get; set; }
+  public string? ToolTip { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// DependencyProperty for the Command property.
@@ -38,5 +39,5 @@ public class MenuItemObject: DependencyObject
   /// <summary>
   /// CommandParameter for the Command, which can be any object or null.
   /// </summary>
-  public object? CommandParameter { get; set; }
+  public object? CommandParameter { [DebuggerStepThrough] get; set; }
 }

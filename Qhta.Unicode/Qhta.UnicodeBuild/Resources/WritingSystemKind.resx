@@ -255,4 +255,16 @@
   <data name="PictophoneticTooltip" xml:space="preserve">
     <value>A writing system that combines ideographic and phonetic elements.</value>
   </data>
+  <data name="Mathematical" xml:space="preserve">
+    <value>Mathematical</value>
+  </data>
+  <data name="MathematicalTooltip" xml:space="preserve">
+    <value>Mathematical notation consists of using symbols for representing operations, unspecified numbers, relations, and any other mathematical objects and assembling them into expressions and formulas. Mathematical notation is widely used in mathematics, science, and engineering for representing complex concepts and properties in a concise, unambiguous, and accurate way.</value>
+  </data>
+  <data name="Metrical" xml:space="preserve">
+    <value>Metrical</value>
+  </data>
+  <data name="MetricalTooltip" xml:space="preserve">
+    <value>Metrical notation in music refers to how rhythm is written and organized, including time signatures, rhythmic values, and the grouping of beats. In poetry, it describes the pattern of stressed and unstressed syllables, often organized into metrical feet.</value>
+  </data>
 </root>

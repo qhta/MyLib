@@ -295,6 +295,42 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mathematical.
+        /// </summary>
+        public static string Mathematical {
+            get {
+                return ResourceManager.GetString("Mathematical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mathematical notation consists of using symbols for representing operations, unspecified numbers, relations, and any other mathematical objects and assembling them into expressions and formulas. Mathematical notation is widely used in mathematics, science, and engineering for representing complex concepts and properties in a concise, unambiguous, and accurate way. .
+        /// </summary>
+        public static string MathematicalTooltip {
+            get {
+                return ResourceManager.GetString("MathematicalTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metrical.
+        /// </summary>
+        public static string Metrical {
+            get {
+                return ResourceManager.GetString("Metrical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metrical notation in music refers to how rhythm is written and organized, including time signatures, rhythmic values, and the grouping of beats. In poetry, it describes the pattern of stressed and unstressed syllables, often organized into metrical feet. .
+        /// </summary>
+        public static string MetricalTooltip {
+            get {
+                return ResourceManager.GetString("MetricalTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mixed.
         /// </summary>
         public static string Mixed {

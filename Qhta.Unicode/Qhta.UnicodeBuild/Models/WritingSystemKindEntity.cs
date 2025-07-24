@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 
 namespace Qhta.Unicode.Models;
 
@@ -13,17 +14,23 @@ public partial class WritingSystemKindEntity
   /// Identifier for the writing system kind, represented as a <see cref="WritingSystemKind"/> enum.
   /// </summary>
   [Key]
-  public WritingSystemKind Id { get; set; }
+  public WritingSystemKind Id { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Name of the writing system kind.
   /// </summary>
   [Column("Kind")]
-  public string Name { get; set; } = null!;
+  public string Name { [DebuggerStepThrough] get; set; } = null!;
+
+  /// <summary>
+  /// Type of the writing system to which this kind applies.
+  /// </summary>
+  [Column("Type")]
+  public WritingSystemType? Type { [DebuggerStepThrough] get; set; } = null!;
 
   /// <summary>
   /// Description of the writing system kind.
   /// </summary>
-  public string? Description { get; set; }
+  public string? Description { [DebuggerStepThrough] get; set; }
 
 }

@@ -1,4 +1,6 @@
-﻿namespace Qhta.SF.Tools;
+﻿using System.Diagnostics;
+
+namespace Qhta.SF.Tools;
 
 /// <summary>
 /// Interface for providing error message.
@@ -8,5 +10,5 @@ public interface IErrorMessageProvider
   /// <summary>
   /// Gets or sets an error message.
   /// </summary>
-  public string ErrorMessage { get; set; }
+  public string? ErrorMessage { [DebuggerStepThrough] get; set; }
 }

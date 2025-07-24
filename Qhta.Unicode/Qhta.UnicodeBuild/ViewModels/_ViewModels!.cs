@@ -1,9 +1,11 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Threading;
 
 using Qhta.MVVM;
 using Qhta.UndoManager;
 using Qhta.Unicode.Models;
+using Syncfusion.Data.Extensions;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -18,6 +20,7 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// </summary>
   public static _ViewModels Instance
   {
+    [DebuggerStepThrough]
     get
     {
       if (_Instance == null)
@@ -33,6 +36,7 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// </summary>
   public _DbContext DbContext
   {
+    [DebuggerStepThrough]
     get
     {
       if (_Context == null)
@@ -62,11 +66,6 @@ public partial class _ViewModels : ViewModel, IDisposable
         WritingSystemKindsList.Add(new WritingSystemKindViewModel(wsk));
       }
 
-      foreach (var wsk in _Context.WritingSystemKinds.ToList())
-      {
-        WritingSystemKindsList.Add(new WritingSystemKindViewModel(wsk));
-      }
-
       foreach (var uc in _Context.UnicodeCategories.ToList())
       {
         UnicodeCategoriesList.Add(new UnicodeCategoryViewModel(uc));
@@ -79,7 +78,7 @@ public partial class _ViewModels : ViewModel, IDisposable
         //Debug.WriteLine($"{ub.BlockName}.UcdRanges = {ub.UcdRanges.Count}");
       }
 
-      foreach (var ws in _Context.WritingSystems.ToList().OrderBy(ws => ws.Name).ToList())
+      foreach (var ws in _Context.WritingSystems.ToList()/*.OrderBy(ws => ws.Name).ToList()*/)
       {
         WritingSystems.Add(ws);
       }
@@ -143,39 +142,68 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// <summary>
   /// Code points collection representing Unicode code points.
   /// </summary>
-  public UcdCodePointsCollection UcdCodePoints { get; set; } = new();
+  public UcdCodePointsCollection UcdCodePoints { [DebuggerStepThrough] get; set; } = new();
   /// <summary>
   /// Blocks collection representing Unicode blocks.
   /// </summary>
-  public UcdBlocksCollection UcdBlocks { get; set; } = new();
+  public UcdBlocksCollection UcdBlocks { [DebuggerStepThrough] get; set; } = new();
   /// <summary>
   /// Writing systems collection representing various writing systems.
   /// </summary>
-  public WritingSystemsCollection WritingSystems { get; set; } = new();
+  public WritingSystemsCollection WritingSystems { [DebuggerStepThrough] get; set; } = new();
   /// <summary>
   /// List of all writing system types exposed to the UI.
   /// </summary>
-  public List<WritingSystemTypeViewModel> WritingSystemTypesList { get; } = new();
+  public List<WritingSystemTypeViewModel> WritingSystemTypesList { [DebuggerStepThrough] get; } = new();
   /// <summary>
   /// List of all writing system kinds exposed to the UI.
   /// </summary>
-  public List<WritingSystemKindViewModel> WritingSystemKindsList { get; } = new();
+  public List<WritingSystemKindViewModel> WritingSystemKindsList { [DebuggerStepThrough] get; } = new();
   /// <summary>
   /// List of all Unicode categories exposed to the UI.
   /// </summary>
-  public List<UnicodeCategoryViewModel> UnicodeCategoriesList { get; } = new();
+  public List<UnicodeCategoryViewModel> UnicodeCategoriesList { [DebuggerStepThrough] get; } = new();
   /// <summary>
   /// Collection of writing system types exposed to the UI as an array.
   /// </summary>
-  public Array WritingSystemTypes { get; } = Enum.GetValues(typeof(WritingSystemType));
+  public WritingSystemType[] WritingSystemTypes { [DebuggerStepThrough] get; } = Enum.GetValues<WritingSystemType>();
+
   /// <summary>
   /// Collection of writing system kinds exposed to the UI as an array.
   /// </summary>
-  public Array WritingSystemKinds { get; } = Enum.GetValues(typeof(WritingSystemKind));
+  public WritingSystemKind[] WritingSystemKinds { [DebuggerStepThrough] get; } = Enum.GetValues<WritingSystemKind>();
   /// <summary>
   /// Collection of Unicode categories exposed to the UI as an array.
   /// </summary>
-  public Array Categories { get; } = Enum.GetNames(typeof(UcdCategory));
+  public Array Categories { [DebuggerStepThrough] get; } = Enum.GetNames(typeof(UcdCategory));
+
+  /// <summary>
+  /// Collection of selectable writing types exposed to the UI as an enumerable.
+  /// </summary>
+  public IEnumerable<WritingSystemType?> SelectableWritingSystemTypes
+  {
+    get
+    {
+      List<WritingSystemType?> list = new();
+      foreach (var item in WritingSystemTypes)
+        list.Add(item);
+      return list;
+    }
+  }
+
+  /// <summary>
+  /// Collection of selectable writing kinds exposed to the UI as an enumerable.
+  /// </summary>
+  public IEnumerable<WritingSystemKind?> SelectableWritingSystemKinds
+  {
+    get
+    {
+      List<WritingSystemKind?> list = new();
+      foreach (var item in WritingSystemKinds)
+        list.Add(item);
+      return list;
+    }
+  }
 
   /// <summary>
   /// Collection of selectable Unicode categories exposed to the UI as an enumerable.

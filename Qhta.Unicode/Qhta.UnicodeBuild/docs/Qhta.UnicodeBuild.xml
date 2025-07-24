@@ -1855,6 +1855,26 @@
               Looks up a localized string similar to A set of written characters that represent semantic components of a language, such as words or morphemes..
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Mathematical">
+            <summary>
+              Looks up a localized string similar to Mathematical.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.MathematicalTooltip">
+            <summary>
+              Looks up a localized string similar to Mathematical notation consists of using symbols for representing operations, unspecified numbers, relations, and any other mathematical objects and assembling them into expressions and formulas. Mathematical notation is widely used in mathematics, science, and engineering for representing complex concepts and properties in a concise, unambiguous, and accurate way. .
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Metrical">
+            <summary>
+              Looks up a localized string similar to Metrical.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.MetricalTooltip">
+            <summary>
+              Looks up a localized string similar to Metrical notation in music refers to how rhythm is written and organized, including time signatures, rhythmic values, and the grouping of beats. In poetry, it describes the pattern of stressed and unstressed syllables, often organized into metrical feet. .
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Mixed">
             <summary>
               Looks up a localized string similar to Mixed.
@@ -2177,11 +2197,6 @@
             Gets or sets a value indicating whether the long text is expanded.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.RowHeight">
-            <summary>
-            Gets or sets the height of the row in pixels.
-            </summary>
-        </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.CompareTo(Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel)">
             <summary>
             Compares this instance with another <see cref="T:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel"/> instance.
@@ -2189,6 +2204,16 @@
             </summary>
             <param name="other"></param>
             <returns></returns>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.RowHeight">
+            <summary>
+            Simple property to provide the height of the row in a UI.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.ErrorMessage">
+            <summary>
+            Gets or sets an error message associated with the view model.
+            </summary>
         </member>
         <member name="T:Qhta.UnicodeBuild.ViewModels.UcdCodePointsCollection">
             <summary>
@@ -2845,12 +2870,12 @@
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.RowHeight">
             <summary>
-            Stores the height of a row in the UI.
+            Simple property to provide the height of the row in a UI.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.MaxRowHeight">
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.ErrorMessage">
             <summary>
-            Stores the height of a row in the UI.
+            Gets or sets an error message associated with the view model.
             </summary>
         </member>
         <member name="T:Qhta.UnicodeBuild.ViewModels._ViewModels">
@@ -2912,6 +2937,16 @@
         <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.Categories">
             <summary>
             Collection of Unicode categories exposed to the UI as an array.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.SelectableWritingSystemTypes">
+            <summary>
+            Collection of selectable writing types exposed to the UI as an enumerable.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.SelectableWritingSystemKinds">
+            <summary>
+            Collection of selectable writing kinds exposed to the UI as an enumerable.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.SelectableCategories">
@@ -4188,6 +4223,11 @@
             Name of the writing system kind.
             </summary>
         </member>
+        <member name="P:Qhta.Unicode.Models.WritingSystemKindEntity.Type">
+            <summary>
+            Type of the writing system to which this kind applies.
+            </summary>
+        </member>
         <member name="P:Qhta.Unicode.Models.WritingSystemKindEntity.Description">
             <summary>
             Description of the writing system kind.
@@ -4348,6 +4388,36 @@
         <member name="M:Qhta.Unicode.Models._DbContext.Finalize">
             <summary>
             Destructs the context and releases all resources used by it.
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
             </summary>
         </member>
     </members>

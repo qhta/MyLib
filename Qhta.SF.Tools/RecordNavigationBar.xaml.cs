@@ -133,7 +133,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   /// </summary>
   public SfDataGrid? DataGrid
   {
-    get => (SfDataGrid?)GetValue(DataGridProperty);
+    [DebuggerStepThrough] get => (SfDataGrid?)GetValue(DataGridProperty);
     set => SetValue(DataGridProperty, value);
   }
 
@@ -149,7 +149,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   /// </summary>
   public int RowsCount
   {
-    get => (int)GetValue(RowsCountProperty);
+    [DebuggerStepThrough] get => (int)GetValue(RowsCountProperty);
     set => SetValue(RowsCountProperty, value);
   }
 
@@ -157,7 +157,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   /// <summary>
   /// Command to navigate to the next item in the <see cref="SfDataGrid"/>.
   /// </summary>
-  public RelayCommand NextItemCommand { get; set; }
+  public RelayCommand NextItemCommand { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Selects the next item in the data grid, if available.
@@ -185,7 +185,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   /// <summary>
   /// Command to navigate to the last item in the <see cref="SfDataGrid"/>.
   /// </summary>
-  public RelayCommand LastItemCommand { get; set; }
+  public RelayCommand LastItemCommand { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Selects the last item in the data grid and scrolls it into view.  
@@ -209,7 +209,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   /// <summary>
   /// Command to navigate to the previous item in the <see cref="SfDataGrid"/>.
   /// </summary>
-  public RelayCommand PreviousItemCommand { get; set; }
+  public RelayCommand PreviousItemCommand { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Selects the previous item in the data grid, if possible.
@@ -237,7 +237,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   /// <summary>
   /// Command to navigate to the first item in the <see cref="SfDataGrid"/>.
   /// </summary>
-  public RelayCommand FirstItemCommand { get; set; }
+  public RelayCommand FirstItemCommand { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Selects and executes the first item in the data grid.

@@ -1,4 +1,5 @@
-﻿using Qhta.Collections;
+﻿using System.Diagnostics;
+using Qhta.Collections;
 
 namespace Qhta.UndoManager;
 
@@ -23,27 +24,27 @@ public static class UndoMgr
   /// <summary>
   /// Determines whether the Record/Undo/Redo functionality is enabled.
   /// </summary>
-  public static bool Enabled { get; set; } = true;
+  public static bool Enabled { [DebuggerStepThrough] get; set; } = true;
 
   /// <summary>
   /// Flag to indicate if the application is currently undoing an action.
   /// </summary>
-  public static bool IsUndoing { get; set; } = false;
+  public static bool IsUndoing { [DebuggerStepThrough] get; set; } = false;
 
   /// <summary>
   /// Flag to indicate if the application is currently redoing an action.
   /// </summary>
-  public static bool IsRedoing { get; set; } = false;
+  public static bool IsRedoing { [DebuggerStepThrough] get; set; } = false;
 
   /// <summary>
   /// Flag to indicate if the application is currently recording an action.
   /// </summary>
-  public static bool IsRecording { get; set; } = false;
+  public static bool IsRecording { [DebuggerStepThrough] get; set; } = false;
 
   /// <summary>
   /// Flag to indicate if the application is currently recording a group of actions;
   /// </summary>
-  public static bool IsGrouping { get; set; } = false;
+  public static bool IsGrouping { [DebuggerStepThrough] get; set; } = false;
 
   /// <summary>
   /// Flag to indicate if the Undo functionality is available.

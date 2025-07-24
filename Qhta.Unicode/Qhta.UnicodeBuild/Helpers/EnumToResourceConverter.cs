@@ -13,7 +13,7 @@ public class EnumToResourceConverter : IValueConverter
   /// <summary>
   /// Resource type that contains the localized strings for the enum values.
   /// </summary>
-  public Type ResourceType { get; set; } = null!;
+  public Type ResourceType { [DebuggerStepThrough] get; set; } = null!;
   private ResourceManager? resourceMan = null;
   private ResourceManager _resourceManager
   {

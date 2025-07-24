@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 
 using Qhta.MVVM;
 
@@ -9,7 +10,7 @@ public partial class _ViewModels
   /// <summary>
   /// Command to delete a writing system.
   /// </summary>
-  public RelayCommand<WritingSystemViewModel> DeleteWritingSystemCommand { get; }
+  public RelayCommand<WritingSystemViewModel> DeleteWritingSystemCommand { [DebuggerStepThrough] get; }
 
 
   private void DeleteWritingSystemCommandExecute(WritingSystemViewModel? item)
@@ -34,7 +35,6 @@ public partial class _ViewModels
         prop.SetValue(item.Model, null);
       }
     }
-    _ViewModels.Instance.DbContext.SaveChanges();
   }
 
   private bool CanDeleteWritingSystem(WritingSystemViewModel? item)

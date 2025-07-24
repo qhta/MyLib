@@ -1,4 +1,6 @@
-﻿namespace Qhta.SF.Tools;
+﻿using System.Diagnostics;
+
+namespace Qhta.SF.Tools;
 
 /// <summary>
 /// Interface for providing row height in a data grid.
@@ -8,5 +10,5 @@ public interface IRowHeightProvider
   /// <summary>
   /// Gets or sets the height of a row in the grid.
   /// </summary>
-  public double RowHeight { get; set; }
+  public double RowHeight { [DebuggerStepThrough] get; set; }
 }

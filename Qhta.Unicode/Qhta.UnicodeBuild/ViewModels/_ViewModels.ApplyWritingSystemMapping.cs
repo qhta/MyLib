@@ -16,12 +16,12 @@ public partial class _ViewModels
   /// <summary>
   /// Command to apply writing system mappings from a file.
   /// </summary>
-  public IRelayCommand ApplyWritingSystemMappingCommand { get; }
+  public IRelayCommand ApplyWritingSystemMappingCommand { [DebuggerStepThrough] get; }
 
   /// <summary>
   /// Collection of writing system mappings to be applied to Unicode code points.
   /// </summary>
-  public WritingSystemMappingCollection WritingSystemMappings { get; set; } = new();
+  public WritingSystemMappingCollection WritingSystemMappings { [DebuggerStepThrough] get; set; } = new();
 
   private void ApplyWritingSystemMappingCommandExecute()
   {
@@ -191,7 +191,7 @@ public partial class _ViewModels
   /// <summary>
   /// Command to break the apply writing system mapping operation.
   /// </summary>
-  public IRelayCommand BreakApplyWritingSystemMappingCommand { get; }
+  public IRelayCommand BreakApplyWritingSystemMappingCommand { [DebuggerStepThrough] get; }
 
   /// <summary>
   /// Executes the command to break the apply writing system mapping operation.

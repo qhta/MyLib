@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using Qhta.DeepCopy;
 using Qhta.MVVM;
 using Qhta.Unicode.Models;
@@ -10,7 +11,7 @@ public partial class _ViewModels
   /// <summary>
   /// Command to create a new writing system.
   /// </summary>
-  public IRelayCommand NewWritingSystemCommand { get; }
+  public IRelayCommand NewWritingSystemCommand { [DebuggerStepThrough] get; }
 
   private void NewWritingSystemCommandExecute(WritingSystemType? newType)
   {

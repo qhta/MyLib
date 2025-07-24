@@ -19,11 +19,11 @@ public class LongTextColumn : GridTemplateColumn
   /// <summary>
   /// Gets the default font name used by the application.
   /// </summary>
-  public static string DefaultFont { get; set; } = "Segoe UI";
+  public static string DefaultFont { [DebuggerStepThrough] get; set; } = "Segoe UI";
   /// <summary>
   /// Gets the default font size used by the application.
   /// </summary>
-  public static double DefaultFontSize { get; set; } = 12;
+  public static double DefaultFontSize { [DebuggerStepThrough] get; set; } = 12;
 
   /// <summary>
   /// Adjusts the height of a row in a <see cref="SfDataGrid"/> based on the content of long text columns.

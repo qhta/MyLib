@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Diagnostics;
 using Qhta.MVVM;
 using Qhta.SF.Tools;
 using Qhta.Unicode.Models;
@@ -173,14 +173,14 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   /// <summary>
   /// Alias collection for the Unicode code point, which contains alternative names of the code point.
   /// </summary>
-  public ICollection<Alias> Aliases { get; } = new List<Alias>();
+  public ICollection<Alias> Aliases { [DebuggerStepThrough] get; } = new List<Alias>();
 
   /// <summary>
   /// Identifier of the Unicode code point block, which is used to group code points into blocks.
   /// </summary>
   public int? UcdBlockId
   {
-    get => Model.Block; 
+    [DebuggerStepThrough] get => Model.Block; 
     set 
     {
       if (Model.Block != value)
@@ -474,7 +474,7 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   /// </summary>
   public double RowHeight
   {
-    get => _RowHeight;
+    [DebuggerStepThrough] get => _RowHeight;
     set
     {
       if (_RowHeight != value)
@@ -492,7 +492,7 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   /// <summary>
   /// Gets or sets an error message associated with the view model.
   /// </summary>
-  public string ErrorMessage { get; set; }
+  public string? ErrorMessage { [DebuggerStepThrough] get; set; }
 
   #endregion
 }
