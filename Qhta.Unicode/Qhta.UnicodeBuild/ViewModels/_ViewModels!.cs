@@ -85,7 +85,7 @@ public partial class _ViewModels : ViewModel, IDisposable
       WritingSystems.IsLoaded = true;
 
       var codePointsArray = _Context.CodePoints.ToArray();
-
+      //Debug.WriteLine($"codePointsArray.Length = {codePointsArray.Length}");
       for (int i = 0; i < 1000; i++)
       {
         var cp = codePointsArray[i];
@@ -101,12 +101,13 @@ public partial class _ViewModels : ViewModel, IDisposable
           {
             for (; i < 1000; i++)
             {
-              if (i + g * 1000 >= codePointsArray.Count()) break;
-              var cp = codePointsArray[g];
+              int n = i + g * 1000;
+              if (n >= codePointsArray.Count()) break;
+              var cp = codePointsArray[n];
               UcdCodePoints.Add(cp);
             }
           }
-          Application.Current.Dispatcher.BeginInvoke(() =>
+          Application.Current.Dispatcher.Invoke(() =>
             {
               UcdCodePoints.ProgressValue = (i * 100) / codePointsArray.Count();
             });

@@ -66,6 +66,7 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   /// <param name="dataGrid">The <see cref="SfDataGrid"/> whose item count is used to update the binding. Cannot be <see langword="null"/>.</param>
   private void DataGridChanged(SfDataGrid dataGrid)
   {
+    //Debug.WriteLine($"DataGrid {dataGrid.Name} changed");
     SetBinding(RowsCountProperty, new Binding("ItemsSource.Count") { Source = dataGrid });
     dataGrid.Loaded += (s, e) =>
     {
@@ -81,11 +82,12 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
     {
       if (dataGrid.View != null)
       {
-        //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to CollectionChanged event.");
+        //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to ViewCollectionChanged event.");
         dataGrid.View.CollectionChanged += ViewOnCollectionChanged(dataGrid);
         loadable.Loaded += (object? sender, EventArgs e) =>
         {
           //Update the RowsCount when the loadable is loaded, as last RowsCount is trimmed to 1000 records.
+          //Debug.WriteLine($"DataGrid {dataGrid.Name} Loaded 2");
           if (dataGrid.View != null)
           {
             RowsCount = dataGrid.View.Records.Count;
@@ -106,7 +108,10 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
         };
       }
       if (dataGrid.View?.Records != null)
+      {
         RowsCount = dataGrid.View.Records.Count;
+        //Debug.WriteLine($"RowsCount = {RowsCount}");
+      }
     }
   }
 
@@ -115,16 +120,21 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   {
     return (s, e) =>
     {
+      //Debug.WriteLine($"ViewOnCollectionChanged {dataGrid.Name}");
       if (dataGrid.ItemsSource is ILoadable loadable)
       {
         if (!loadable.IsLoaded)
         {
           if (dataGrid.View.Records.Count % 1000 == 0)
+          {
+            //Debug.WriteLine($"RowsCount1 = {RowsCount}");
             RowsCount = dataGrid.View.Records.Count;
+          }
           return;
         }
       }
       RowsCount = dataGrid.View.Records.Count;
+      //Debug.WriteLine($"RowsCount2 = {RowsCount}");
     };
   }
 
