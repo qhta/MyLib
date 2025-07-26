@@ -25,50 +25,50 @@
     <helpers:MenuItemCollection x:Key="NewWritingSystemMenuItem"
               Header="{x:Static resources:Strings.NewWritingSystem}">
       <helpers:MenuItemObject
-        Header="{x:Static resources:WritingSystemType.Area}" 
-        ToolTip="{x:Static resources:WritingSystemType.AreaTooltip}" 
+        Header="{x:Static resources:WritingSystemTypeStrings.Area}" 
+        ToolTip="{x:Static resources:WritingSystemTypeStrings.AreaTooltip}" 
         Icon="{StaticResource AreaIcon}"
         Command="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.NewWritingSystemCommand}"
         CommandParameter="{x:Static models:WritingSystemType.Area}"/>
       <helpers:MenuItemObject
-                Header="{x:Static resources:WritingSystemType.Family}" 
-                ToolTip="{x:Static resources:WritingSystemType.FamilyTooltip}" 
+                Header="{x:Static resources:WritingSystemTypeStrings.Family}" 
+                ToolTip="{x:Static resources:WritingSystemTypeStrings.FamilyTooltip}" 
                 Icon="{StaticResource FamilyIcon}"
                 Command="{Binding Source={StaticResource ViewModels},
                       Path=Instance.NewWritingSystemCommand}"
                 CommandParameter="{x:Static models:WritingSystemType.Family}"/>
       <helpers:MenuItemObject
-                Header="{x:Static resources:WritingSystemType.Language}" 
-                ToolTip="{x:Static resources:WritingSystemType.LanguageTooltip}" 
+                Header="{x:Static resources:WritingSystemTypeStrings.Language}" 
+                ToolTip="{x:Static resources:WritingSystemTypeStrings.LanguageTooltip}" 
                 Icon="{StaticResource LanguageIcon}"
                 Command="{Binding Source={StaticResource ViewModels}, 
                       Path=Instance.NewWritingSystemCommand}"
                 CommandParameter="{x:Static models:WritingSystemType.Language}"/>
       <helpers:MenuItemObject
-                Header="{x:Static resources:WritingSystemType.Script}" 
-                ToolTip="{x:Static resources:WritingSystemType.ScriptTooltip}" 
+                Header="{x:Static resources:WritingSystemTypeStrings.Script}" 
+                ToolTip="{x:Static resources:WritingSystemTypeStrings.ScriptTooltip}" 
                 Icon="{StaticResource ScriptIcon}"
                 Command="{Binding Source={StaticResource ViewModels}, 
                       Path=Instance.NewWritingSystemCommand}"
                 CommandParameter="{x:Static models:WritingSystemType.Script}"/>
       <helpers:MenuItemObject
-                Header="{x:Static resources:WritingSystemType.Notation}" 
-                ToolTip="{x:Static resources:WritingSystemType.NotationTooltip}" 
+                Header="{x:Static resources:WritingSystemTypeStrings.Notation}" 
+                ToolTip="{x:Static resources:WritingSystemTypeStrings.NotationTooltip}" 
                 Icon="{StaticResource NotationIcon}"
                 Command="{Binding Source={StaticResource ViewModels},
                       Path=Instance.NewWritingSystemCommand}"
                 CommandParameter="{x:Static models:WritingSystemType.Notation}"/>
       <helpers:MenuItemObject
-                Header="{x:Static resources:WritingSystemType.Subset}" 
-                ToolTip="{x:Static resources:WritingSystemType.SubsetTooltip}" 
+                Header="{x:Static resources:WritingSystemTypeStrings.SymbolSet}" 
+                ToolTip="{x:Static resources:WritingSystemTypeStrings.SymbolSetTooltip}" 
                 Icon="{StaticResource SetIcon}"
                 Command="{Binding Source={StaticResource ViewModels}, 
                       Path=Instance.NewWritingSystemCommand}"
                 CommandParameter="{x:Static models:WritingSystemType.SymbolSet}"/>
       <helpers:MenuItemObject 
-                Header="{x:Static resources:WritingSystemType.Subset}" 
-                ToolTip="{x:Static resources:WritingSystemType.SubsetTooltip}" 
+                Header="{x:Static resources:WritingSystemTypeStrings.Subset}" 
+                ToolTip="{x:Static resources:WritingSystemTypeStrings.SubsetTooltip}" 
                 Icon="{StaticResource SubsetIcon}"
                 Command="{Binding Source={StaticResource ViewModels}, 
                       Path=Instance.NewWritingSystemCommand}"
@@ -148,7 +148,7 @@
       </MenuItem>
     </Menu>
 
-    
+
     <sf:SfTreeView  Grid.Column="0" Grid.Row="1"
                     x:Name="WritingSystemsTreeView"
                     DataContext ="{StaticResource ViewModels}"
@@ -177,7 +177,12 @@
     </sf:SfTreeView>
     <GridSplitter Grid.Column="0" Grid.Row="1"
                   Width="5"/>
-    <sf:SfDataGrid Grid.Column="1" Grid.Row="1" 
+    <Grid Grid.Column="1" Grid.Row="1">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <sf:SfDataGrid Grid.Column="0" Grid.Row="0" 
                    x:Name="WritingSystemsDataGrid" 
                    DataContext ="{StaticResource ViewModels}"
                    ItemsSource ="{Binding Instance.WritingSystems}"
@@ -193,38 +198,38 @@
                    GridCopyContent="WritingSystemsDataGrid_OnGridCopyContent"
                    KeyDown="WritingSystemsDataGrid_KeyDown"
                    >
-      <!--GridValidationMode="InEdit"-->
-      <sf:SfDataGrid.Columns>
-        <!--<sf:GridCheckBoxColumn
+        <!--GridValidationMode="InEdit"-->
+        <sf:SfDataGrid.Columns>
+          <!--<sf:GridCheckBoxColumn
           Width="70"
           MappingName="IsUsed">
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystem.IsUsed}" 
-                         ToolTip="{x:Static resources:WritingSystem.IsUsedTooltip}"  />
+              <TextBlock Text="{x:Static resources:WritingSystemStrings.IsUsed}" 
+                         ToolTip="{x:Static resources:WritingSystemStrings.IsUsedTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridCheckBoxColumn>-->
 
-        <sf:GridTextColumn 
+          <sf:GridTextColumn 
           Width="150"
           MappingName="Name">
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystem.Name}" 
-                         ToolTip="{x:Static resources:WritingSystem.NameTooltip}"  />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-          <sf:GridTextColumn.CellTemplate>
-            <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
-              <TextBlock Text="{Binding Name}" 
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:WritingSystemStrings.Name}" 
+                         ToolTip="{x:Static resources:WritingSystemStrings.NameTooltip}"  />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+            <sf:GridTextColumn.CellTemplate>
+              <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
+                <TextBlock Text="{Binding Name}" 
                          ToolTip="{Binding Description}" 
                          Padding="4,2,0,0"/>
-            </DataTemplate>
-          </sf:GridTextColumn.CellTemplate>
-        </sf:GridTextColumn>
+              </DataTemplate>
+            </sf:GridTextColumn.CellTemplate>
+          </sf:GridTextColumn>
 
-        <sf:GridComboBoxColumn
+          <sf:GridComboBoxColumn
           Width="100"
           SortMode="Display"
           MappingName="Type" 
@@ -232,26 +237,26 @@
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemTypes}"
           >
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystem.Type}" 
-                         ToolTip="{x:Static resources:WritingSystem.TypeTooltip}"  />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-          <sf:GridComboBoxColumn.ItemTemplate>
-            <DataTemplate DataType="{x:Type models:WritingSystemType}">
-              <TextBlock Text="{Binding 
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:WritingSystemStrings.Type}" 
+                         ToolTip="{x:Static resources:WritingSystemStrings.TypeTooltip}"  />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+            <sf:GridComboBoxColumn.ItemTemplate>
+              <DataTemplate DataType="{x:Type models:WritingSystemType}">
+                <TextBlock Text="{Binding 
                                   Converter={StaticResource WritingSystemTypeResourceConverter},
                                   ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}"                        
                          ToolTip="{Binding 
                               Converter={StaticResource WritingSystemTypeResourceConverter},
                               ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
                               ConverterParameter=Tooltip}"  />
-            </DataTemplate>
-          </sf:GridComboBoxColumn.ItemTemplate>
-        </sf:GridComboBoxColumn>
+              </DataTemplate>
+            </sf:GridComboBoxColumn.ItemTemplate>
+          </sf:GridComboBoxColumn>
 
-        <sf:GridComboBoxColumn
+          <sf:GridComboBoxColumn
           Width="100"
           SortMode="Display"
           MappingName="Kind"
@@ -259,26 +264,26 @@
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.WritingSystemKinds}"
           >
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystem.Kind}" 
-                         ToolTip="{x:Static resources:WritingSystem.KindTooltip}"  />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-          <sf:GridComboBoxColumn.ItemTemplate>
-            <DataTemplate DataType="{x:Type models:WritingSystemKind}">
-              <TextBlock Text="{Binding 
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:WritingSystemStrings.Kind}" 
+                         ToolTip="{x:Static resources:WritingSystemStrings.KindTooltip}"  />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+            <sf:GridComboBoxColumn.ItemTemplate>
+              <DataTemplate DataType="{x:Type models:WritingSystemKind}">
+                <TextBlock Text="{Binding 
                                   Converter={StaticResource WritingSystemKindResourceConverter},
                                   ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}"                        
                          ToolTip="{Binding 
                               Converter={StaticResource WritingSystemKindResourceConverter},
                               ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
                               ConverterParameter=Tooltip}"  />
-            </DataTemplate>
-          </sf:GridComboBoxColumn.ItemTemplate>
-        </sf:GridComboBoxColumn>
+              </DataTemplate>
+            </sf:GridComboBoxColumn.ItemTemplate>
+          </sf:GridComboBoxColumn>
 
-        <sf:GridComboBoxColumn
+          <sf:GridComboBoxColumn
           DisplayMemberPath="FullName"
           SortMode="Display"
           MappingName="Parent"
@@ -287,75 +292,75 @@
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableScripts}"
         >
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystem.Parent}" 
-                         ToolTip="{x:Static resources:WritingSystem.ParentTooltip}"  />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-        </sf:GridComboBoxColumn>
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:WritingSystemStrings.Parent}" 
+                         ToolTip="{x:Static resources:WritingSystemStrings.ParentTooltip}"  />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+          </sf:GridComboBoxColumn>
 
-        <sf:GridTextColumn 
+          <sf:GridTextColumn 
           HeaderText="Key phrase"
           MappingName="KeyPhrase"
           VerticalAlignment="Top"
           CellTemplate="{StaticResource TextCellTemplate}">
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystem.KeyPhrase}" 
-                         ToolTip="{x:Static resources:WritingSystem.KeyPhraseTooltip}"  />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-        </sf:GridTextColumn>
-        <sf:GridTextColumn 
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:WritingSystemStrings.KeyPhrase}" 
+                         ToolTip="{x:Static resources:WritingSystemStrings.KeyPhraseTooltip}"  />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+          </sf:GridTextColumn>
+          <sf:GridTextColumn 
           HeaderText="Ctg"
           MappingName="Ctg"
           VerticalAlignment="Top"
           Width="60">
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystem.Ctg}" 
-                         ToolTip="{x:Static resources:WritingSystem.CtgTooltip}"  />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-        </sf:GridTextColumn>
-        <sf:GridTextColumn 
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:WritingSystemStrings.Ctg}" 
+                         ToolTip="{x:Static resources:WritingSystemStrings.CtgTooltip}"  />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+          </sf:GridTextColumn>
+          <sf:GridTextColumn 
           HeaderText="ISO"
           MappingName="Iso"
           VerticalAlignment="Top"
           Width="60">
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystem.Iso}" 
-                         ToolTip="{x:Static resources:WritingSystem.IsoTooltip}"  />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-        </sf:GridTextColumn>
-        <sf:GridTextColumn 
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:WritingSystemStrings.Iso}" 
+                         ToolTip="{x:Static resources:WritingSystemStrings.IsoTooltip}"  />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+          </sf:GridTextColumn>
+          <sf:GridTextColumn 
           HeaderText="Abbr"
           MappingName="Abbr"
           VerticalAlignment="Top"
           Width="60">
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystem.Abbr}" 
-                         ToolTip="{x:Static resources:WritingSystem.AbbrTooltip}"  />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-        </sf:GridTextColumn>
-        <sf:GridTextColumn 
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:WritingSystemStrings.Abbr}" 
+                         ToolTip="{x:Static resources:WritingSystemStrings.AbbrTooltip}"  />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+          </sf:GridTextColumn>
+          <sf:GridTextColumn 
           HeaderText="Ext" 
           MappingName="Ext"
           VerticalAlignment="Top"
           Width="60">
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystem.Ext}" 
-                         ToolTip="{x:Static resources:WritingSystem.ExtTooltip}"  />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-        </sf:GridTextColumn>
-        <tools:LongTextColumn 
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:WritingSystemStrings.Ext}" 
+                         ToolTip="{x:Static resources:WritingSystemStrings.ExtTooltip}"  />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+          </sf:GridTextColumn>
+          <tools:LongTextColumn 
           MappingName="Description" 
           HeaderText="Description"
           Width="{Binding Instance.WritingSystems.LongTextColumnWidth, Source={StaticResource ViewModels}, Mode=TwoWay}"
@@ -363,16 +368,16 @@
           VerticalAlignment="Top"
           CellTemplate="{StaticResource LongTextCellTemplate}"
           EditTemplate="{StaticResource LongTextEditTemplate}">
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:Strings.Description}" />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-        </tools:LongTextColumn>
-      </sf:SfDataGrid.Columns>
-    </sf:SfDataGrid>
-    <Button x:Name="NewWritingSystemButton"
-            Grid.Row="1" Grid.Column="1" Width="32" Height="32"
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:Strings.Description}" />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+          </tools:LongTextColumn>
+        </sf:SfDataGrid.Columns>
+      </sf:SfDataGrid>
+      <Button x:Name="NewWritingSystemButton"
+            Grid.Row="0" Grid.Column="0" Width="32" Height="32"
             Background="Transparent"
             BorderThickness="0"
             BorderBrush="Transparent"
@@ -382,9 +387,10 @@
             Click="NewWritingSystemButton_OnClick"
             ContextMenu="{StaticResource WritingSystemsAddContextMenu}"
             >
-      <Image Source="/Assets/Add.png"/>
-
-    </Button>
+        <Image Source="/Assets/Add.png"/>
+      </Button>
+      <tools:RecordNavigationBar Grid.Row="1" DataGrid="{Binding ElementName=WritingSystemsDataGrid}"/>
+    </Grid>
   </Grid>
 </UserControl>
 

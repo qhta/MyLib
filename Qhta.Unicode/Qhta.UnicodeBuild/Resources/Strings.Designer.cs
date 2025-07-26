@@ -70,6 +70,123 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Writing system {0} has not unique category key..
+        /// </summary>
+        public static string AmbiguousWritingSystemCategory {
+            get {
+                return ResourceManager.GetString("AmbiguousWritingSystemCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Writing system {0} has not unique (category, phrase) key..
+        /// </summary>
+        public static string AmbiguousWritingSystemCategoryOrPhrase {
+            get {
+                return ResourceManager.GetString("AmbiguousWritingSystemCategoryOrPhrase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Writing system {0} has not unique phrase key..
+        /// </summary>
+        public static string AmbiguousWritingSystemPhrase {
+            get {
+                return ResourceManager.GetString("AmbiguousWritingSystemPhrase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply block mapping.
+        /// </summary>
+        public static string ApplyBlockMapping {
+            get {
+                return ResourceManager.GetString("ApplyBlockMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to apply block mapping from block ranges? All current &quot;block&quot; fields w be updated..
+        /// </summary>
+        public static string ApplyBlockMappingConfirm {
+            get {
+                return ResourceManager.GetString("ApplyBlockMappingConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply code point mapping to Unicode blocks by checking block ranges..
+        /// </summary>
+        public static string ApplyBlockMappingTooltip {
+            get {
+                return ResourceManager.GetString("ApplyBlockMappingTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply writing systems mapping.
+        /// </summary>
+        public static string ApplyWritingSystemsMappingFromFile {
+            get {
+                return ResourceManager.GetString("ApplyWritingSystemsMappingFromFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply code point mapping to scripts from a text file. The first column in a line should contain the character code or code range, the second column should contain the name of the script. The columns should be separated by tabs. The &apos;#&apos; character is treated as the first character of a comment that extends to the end of the line..
+        /// </summary>
+        public static string ApplyWritingSystemsMappingFromFileTooltip {
+            get {
+                return ResourceManager.GetString("ApplyWritingSystemsMappingFromFileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply writing system recognition.
+        /// </summary>
+        public static string ApplyWritingSystemsRecognition {
+            get {
+                return ResourceManager.GetString("ApplyWritingSystemsRecognition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try selecting specific columns to recognize writing systems of certain types..
+        /// </summary>
+        public static string ApplyWritingSystemsRecognitionAdvice {
+            get {
+                return ResourceManager.GetString("ApplyWritingSystemsRecognitionAdvice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Writing system recognition completed. {0} code points mapped..
+        /// </summary>
+        public static string ApplyWritingSystemsRecognitionCompleted {
+            get {
+                return ResourceManager.GetString("ApplyWritingSystemsRecognitionCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to recognize writing systems for {0} code points? Existing mapping will not be overwritten..
+        /// </summary>
+        public static string ApplyWritingSystemsRecognitionConfirm {
+            get {
+                return ResourceManager.GetString("ApplyWritingSystemsRecognitionConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply code point mapping to writing systems based on category and key phrase..
+        /// </summary>
+        public static string ApplyWritingSystemsRecognitionTooltip {
+            get {
+                return ResourceManager.GetString("ApplyWritingSystemsRecognitionTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -97,6 +214,24 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code point {0} category is empty..
+        /// </summary>
+        public static string CodePointCategoryIsNull {
+            get {
+                return ResourceManager.GetString("CodePointCategoryIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code point {0} description is empty..
+        /// </summary>
+        public static string CodePointDescriptionIsNull {
+            get {
+                return ResourceManager.GetString("CodePointDescriptionIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Code Points.
         /// </summary>
         public static string CodePoints {
@@ -120,6 +255,15 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string Comment {
             get {
                 return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
             }
         }
         
@@ -295,6 +439,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid category &apos;{0}&apos; in writing system {1}..
+        /// </summary>
+        public static string InvalidWritingSystemCategory {
+            get {
+                return ResourceManager.GetString("InvalidWritingSystemCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading {0}.
         /// </summary>
         public static string Loading {
@@ -318,6 +471,15 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string NewWritingSystem {
             get {
                 return ResourceManager.GetString("NewWritingSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No code points selected..
+        /// </summary>
+        public static string NoCodePointsSelected {
+            get {
+                return ResourceManager.GetString("NoCodePointsSelected", resourceCulture);
             }
         }
         

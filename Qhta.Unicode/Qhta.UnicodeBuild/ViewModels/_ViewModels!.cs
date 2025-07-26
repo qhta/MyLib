@@ -125,16 +125,10 @@ public partial class _ViewModels : ViewModel, IDisposable
     NewWritingSystemCommand = new RelayCommand<WritingSystemType?>(NewWritingSystemCommandExecute);
     EditWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(EditWritingSystemCommandExecute);
     DeleteWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(DeleteWritingSystemCommandExecute, CanDeleteWritingSystem);
-    ApplyWritingSystemMappingCommand = new RelayCommand(ApplyWritingSystemMappingCommandExecute);
-    BreakApplyWritingSystemMappingCommand = new RelayCommand(BreakApplyWritingSystemMappingCommandExecute);
-    ApplyWritingSystemMappingBackgroundWorker.DoWork += ApplyWritingSystemMapping_DoWork;
-    ApplyWritingSystemMappingBackgroundWorker.ProgressChanged += ApplyWritingSystemMapping_ProgressChanged;
-    ApplyWritingSystemMappingBackgroundWorker.RunWorkerCompleted += ApplyWritingSystemMapping_RunWorkerCompleted;
-    ApplyBlockMappingCommand = new RelayCommand(ApplyBlockMappingCommandExecute);
-    BreakApplyBlockMappingCommand = new RelayCommand(BreakApplyBlockMappingCommandExecute);
-    ApplyBlockMappingBackgroundWorker.DoWork += ApplyBlockMapping_DoWork;
-    ApplyBlockMappingBackgroundWorker.ProgressChanged += ApplyBlockMapping_ProgressChanged;
-    ApplyBlockMappingBackgroundWorker.RunWorkerCompleted += ApplyBlockMapping_RunWorkerCompleted;
+    InitializeApplyBlockMapping();
+    InitializeApplyWritingSystemMapping();
+    InitializeApplyWritingSystemRecognition();
+
     FillColumnCommand = new RelayCommand<object?>(FillColumnCommandExecute);
     UndoMgr.Enabled = true;
   }
@@ -281,11 +275,6 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// C
   /// </summary>
   public IEnumerable<WritingSystemViewModel?> SelectableSubsets => GetSelectableWritingSystems(WritingSystemType.Subset);
-
-  /// <summary>
-  /// Collection of selectable artefacts, which are a type of writing system.
-  /// </summary>
-  public IEnumerable<WritingSystemViewModel?> SelectableArtefacts => GetSelectableWritingSystems(WritingSystemType.Artefact);
 
   /// <summary>
   /// Gets the next available writing system ID.

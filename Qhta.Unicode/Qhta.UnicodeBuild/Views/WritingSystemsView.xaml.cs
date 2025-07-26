@@ -151,7 +151,7 @@ public partial class WritingSystemsView : UserControl
           if (item.ActualValue is WritingSystemType writingSystemType && writingSystemType == WritingSystemType.SymbolSet)
             Debug.Assert(true);
           var displayText = item.DisplayText;
-          var newText = Qhta.UnicodeBuild.Resources.WritingSystemType.ResourceManager.GetString(displayText);
+          var newText = Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.ResourceManager.GetString(displayText);
           if (newText != null) item.DisplayText = newText;
         }
     }
@@ -163,7 +163,7 @@ public partial class WritingSystemsView : UserControl
           if (item.ActualValue is WritingSystemKind writingSystemKind && writingSystemKind == WritingSystemKind.SemiSyllabary)
             Debug.Assert(true);
           var displayText = item.DisplayText;
-          var newText = Qhta.UnicodeBuild.Resources.WritingSystemKind.ResourceManager.GetString(displayText);
+          var newText = Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.ResourceManager.GetString(displayText);
           if (newText != null) item.DisplayText = newText;
         }
     }

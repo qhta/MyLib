@@ -433,45 +433,96 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   }
 
   /// <summary>
-  /// Identifier of the artefact writing system associated with this Unicode code point, if applicable.
+  /// Exposes the writing system which can be one of all the above writing systems.
+  /// Returned value is taken from the following references: <see cref="Subset"/>, <see cref="SymbolSet"/>, <see cref="Notation"/>, <see cref="Language"/>, <see cref="Script"/>, <see cref="Area"/>.
+  /// First non-null writing system is returned.
+  /// In a set method, the proper reference is set based on <see cref="WritingSystemType"/> of the provided value.
   /// </summary>
-  public int? ArtefactId { get => Model.Artefact; set { if (Model.Artefact != value) { Model.Artefact = value; NotifyPropertyChanged(nameof(ArtefactId)); } } }
-  /// <summary>
-  /// Exposes the artefact writing system as a view model.
-  /// </summary>
-  public WritingSystemViewModel? Artefact
+  public WritingSystemViewModel? WritingSystem
   {
     get
     {
-      var result = Model.Artefact is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.Artefact);
+      var writingSystemId = Model.Subset ?? Model.SymbolSet ?? Model.Notation ?? Model.Language ?? Model.Script ?? Model.Area;
+      WritingSystemViewModel? result = null;
+      if (writingSystemId!=null)
+       result = _ViewModels.Instance.WritingSystems.FindById((int)writingSystemId);
       return result;
     }
     set
     {
       if (value is not null)
       {
-        if (value.Id != ArtefactId)
+        switch (value.Type)
         {
-          ArtefactId = value?.Id;
-          NotifyPropertyChanged(nameof(Artefact));
-        }
-      }
-      else
-      {
-        if (ArtefactId is not null)
-        {
-          ArtefactId = null;
-          NotifyPropertyChanged(nameof(Artefact));
+          case WritingSystemType.Area:
+            Area = value;
+            break;
+          case WritingSystemType.Script:
+            Script = value;
+            break;
+          case WritingSystemType.Language:
+            Language = value;
+            break;
+          case WritingSystemType.Notation:
+            Notation = value;
+            break;
+          case WritingSystemType.SymbolSet:
+            SymbolSet = value;
+            break;
+          case WritingSystemType.Subset:
+            Subset = value;
+            break;
+          default:
+            Debug.WriteLine($"Unsupported WritingSystem type {value.Type} for {value.Name}");
+            break;
         }
       }
     }
   }
 
+  /// <summary>
+  /// Exposes the writing system which can be one of all the above writing systems.
+  /// Returned value is taken from the references which types are specified by <paramref name="allowedTypes"/>
+  /// First non-null writing system is returned.
+  /// In a set method, the proper reference is set based on <see cref="WritingSystemType"/> of the provided value.
+  /// </summary>
+  /// <param name="allowedTypes">Specifies which types of writing system are allowed. Proper references are checked in order of items in this parameter. First not null is returned</param>
+  public WritingSystemViewModel? GetWritingSystemOfType(WritingSystemType[] allowedTypes)
+  {
+    WritingSystemViewModel? result = null;
+    foreach (var type in allowedTypes)
+    {
+      switch (type)
+      {
+        case WritingSystemType.Area:
+          result = Area;
+          break;
+        case WritingSystemType.Script:
+          result = Script;
+          break;
+        case WritingSystemType.Language:
+          result = Language;
+          break;
+        case WritingSystemType.Notation:
+          result = Notation;
+          break;
+        case WritingSystemType.SymbolSet:
+          result = SymbolSet;
+          break;
+        case WritingSystemType.Subset:
+          result = Subset;
+          break;
+      }
+      if (result is not null)
+        return result;
+    }
+    return null;
+  }
 
   #region IRowHeightProvider implementation
-  /// <summary>
-  /// Simple property to provide the height of the row in a UI.
-  /// </summary>
+    /// <summary>
+    /// Simple property to provide the height of the row in a UI.
+    /// </summary>
   public double RowHeight
   {
     [DebuggerStepThrough] get => _RowHeight;

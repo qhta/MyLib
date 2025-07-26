@@ -75,8 +75,8 @@
     </Grid.RowDefinitions>
     <Label Grid.Row="0" Grid.Column="0" 
              Margin="{StaticResource RowMargin}"
-             Content="{x:Static resources:WritingSystem.Name}"
-             ToolTip="{x:Static resources:WritingSystem.NameTooltip}"/>
+             Content="{x:Static resources:WritingSystemStrings.Name}"
+             ToolTip="{x:Static resources:WritingSystemStrings.NameTooltip}"/>
     <TextBox Grid.Row="0" Grid.Column="1"
                Margin="{StaticResource RowMargin}"
                Padding="{StaticResource TextBoxPadding}"
@@ -84,8 +84,8 @@
 
     <Label Grid.Row="1" Grid.Column="0" 
              Margin="{StaticResource RowMargin}"
-             Content="{x:Static resources:WritingSystem.Type}"
-             ToolTip="{x:Static resources:WritingSystem.TypeTooltip}"/>
+             Content="{x:Static resources:WritingSystemStrings.Type}"
+             ToolTip="{x:Static resources:WritingSystemStrings.TypeTooltip}"/>
     <ComboBox Grid.Row="1" Grid.Column="1"
                 Margin="{StaticResource RowMargin}"
                 SelectedItem="{Binding Type}"
@@ -106,8 +106,8 @@
 
     <Label Grid.Row="2" Grid.Column="0" 
            Margin="{StaticResource RowMargin}"
-           Content="{x:Static resources:WritingSystem.Kind}"
-           ToolTip="{x:Static resources:WritingSystem.KindTooltip}"/>    
+           Content="{x:Static resources:WritingSystemStrings.Kind}"
+           ToolTip="{x:Static resources:WritingSystemStrings.KindTooltip}"/>    
     <ComboBox Grid.Row="2" Grid.Column="1"
               Margin="{StaticResource RowMargin}"
               SelectedItem="{Binding Kind}"
@@ -128,8 +128,8 @@
 
     <Label Grid.Row="3" Grid.Column="0" 
            Margin="{StaticResource RowMargin}"
-           Content="{x:Static resources:WritingSystem.Parent}"
-           ToolTip="{x:Static resources:WritingSystem.ParentTooltip}"/>    
+           Content="{x:Static resources:WritingSystemStrings.Parent}"
+           ToolTip="{x:Static resources:WritingSystemStrings.ParentTooltip}"/>    
     <ComboBox Grid.Row="3" Grid.Column="1"
               Margin="{StaticResource RowMargin}"
               SelectedItem="{Binding Parent}"
@@ -139,8 +139,8 @@
 
     <Label Grid.Row="4" Grid.Column="0" 
            Margin="{StaticResource RowMargin}"
-           Content="{x:Static resources:WritingSystem.KeyPhrase}"
-           ToolTip="{x:Static resources:WritingSystem.KeyPhraseTooltip}"/>
+           Content="{x:Static resources:WritingSystemStrings.KeyPhrase}"
+           ToolTip="{x:Static resources:WritingSystemStrings.KeyPhraseTooltip}"/>
     <TextBox Grid.Row="4" Grid.Column="1"
              Margin="{StaticResource RowMargin}"
              Padding="{StaticResource TextBoxPadding}"
@@ -148,8 +148,8 @@
 
     <Label Grid.Row="5" Grid.Column="0" 
            Margin="{StaticResource RowMargin}"
-           Content="{x:Static resources:WritingSystem.Category}"
-           ToolTip="{x:Static resources:WritingSystem.CtgTooltip}"/>
+           Content="{x:Static resources:WritingSystemStrings.Category}"
+           ToolTip="{x:Static resources:WritingSystemStrings.CtgTooltip}"/>
     <ComboBox Grid.Row="5" Grid.Column="1"
               Margin="{StaticResource RowMargin}"
               IsEditable="True"
@@ -168,8 +168,8 @@
 
     <Label Grid.Row="6" Grid.Column="0" 
            Margin="{StaticResource RowMargin}"
-           Content="{x:Static resources:WritingSystem.Iso}"
-           ToolTip="{x:Static resources:WritingSystem.IsoTooltip}"/>
+           Content="{x:Static resources:WritingSystemStrings.Iso}"
+           ToolTip="{x:Static resources:WritingSystemStrings.IsoTooltip}"/>
     <TextBox Grid.Row="6" Grid.Column="1"
              Margin="{StaticResource RowMargin}"
              Padding="{StaticResource TextBoxPadding}"
@@ -177,8 +177,8 @@
 
     <Label Grid.Row="7" Grid.Column="0" 
            Margin="{StaticResource RowMargin}"
-           Content="{x:Static resources:WritingSystem.Abbreviation}"
-           ToolTip="{x:Static resources:WritingSystem.AbbrTooltip}"/>
+           Content="{x:Static resources:WritingSystemStrings.Abbreviation}"
+           ToolTip="{x:Static resources:WritingSystemStrings.AbbrTooltip}"/>
     <TextBox Grid.Row="7" Grid.Column="1"
              Margin="{StaticResource RowMargin}"
              Padding="{StaticResource TextBoxPadding}"
@@ -187,8 +187,8 @@
 
     <Label Grid.Row="8" Grid.Column="0" 
            Margin="{StaticResource RowMargin}"
-           Content="{x:Static resources:WritingSystem.Extension}"
-           ToolTip="{x:Static resources:WritingSystem.ExtTooltip}"/>
+           Content="{x:Static resources:WritingSystemStrings.Extension}"
+           ToolTip="{x:Static resources:WritingSystemStrings.ExtTooltip}"/>
     <TextBox Grid.Row="8" Grid.Column="1"
              Margin="{StaticResource RowMargin}"
              Padding="{StaticResource TextBoxPadding}"
@@ -196,7 +196,7 @@
 
     <Label Grid.Row="9" Grid.Column="0" 
            Margin="{StaticResource RowMargin}"
-           Content="{x:Static resources:WritingSystem.Description}"
+           Content="{x:Static resources:WritingSystemStrings.Description}"
            />
     <TextBox Grid.Row="9" Grid.Column="1"
              Margin="{StaticResource RowMargin}"

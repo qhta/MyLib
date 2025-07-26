@@ -123,8 +123,8 @@
           >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:UcdBlock.Range}" 
-                         ToolTip="{x:Static resources:UcdBlock.RangeTooltip}"  />
+              <TextBlock Text="{x:Static resources:UcdBlockStrings.Range}" 
+                         ToolTip="{x:Static resources:UcdBlockStrings.RangeTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTemplateColumn>
@@ -136,8 +136,8 @@
           >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:UcdBlock.Name}" 
-                         ToolTip="{x:Static resources:UcdBlock.NameTooltip}"  />
+              <TextBlock Text="{x:Static resources:UcdBlockStrings.Name}" 
+                         ToolTip="{x:Static resources:UcdBlockStrings.NameTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridTextColumn>
@@ -153,8 +153,8 @@
           >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:UcdBlock.WritingSystem}" 
-                         ToolTip="{x:Static resources:UcdBlock.WritingSystemTooltip}"  />
+              <TextBlock Text="{x:Static resources:UcdBlockStrings.WritingSystem}" 
+                         ToolTip="{x:Static resources:UcdBlockStrings.WritingSystemTooltip}"  />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
         </sf:GridComboBoxColumn>

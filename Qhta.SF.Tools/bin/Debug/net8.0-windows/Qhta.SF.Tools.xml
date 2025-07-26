@@ -60,7 +60,7 @@
             <summary>
             Determines whether a data operation can be executed on the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
             </summary>
-            <param name="grid"></param>
+            <param name="dataGrid"></param>
             <param name="op"></param>
             <returns></returns>
         </member>
@@ -70,6 +70,18 @@
             </summary>
             <param name="dataGrid"></param>
             <param name="op"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.GetSelectedRowsAndColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,Syncfusion.UI.Xaml.Grid.GridColumn[]@,System.Boolean@,System.Object[]@)">
+            <summary>
+            Gets the selected rows and columns from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Returns the selected cells and outputs whether all columns or rows are selected, along with the selected columns and rows.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="allColumnsSelected"></param>
+            <param name="selectedColumns"></param>
+            <param name="allRowsSelected"></param>
+            <param name="selectedRows"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.SF.Tools.Controller.CanDeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
             <summary>

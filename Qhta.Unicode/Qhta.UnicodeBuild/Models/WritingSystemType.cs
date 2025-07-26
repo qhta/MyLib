@@ -33,8 +33,4 @@ public enum WritingSystemType: byte
   /// A subset is a collection of symbols that belongs to a larger set, often used to represent a specific part of that set.
   /// </summary>
   Subset = 7, // a subset of symbols belonging to a set
-  /// <summary>
-  /// An artefact is an object made or modified by humans, often used in archaeology or anthropology to study past cultures.
-  /// </summary>
-  Artefact = 8, // an artefact of human culture
 }

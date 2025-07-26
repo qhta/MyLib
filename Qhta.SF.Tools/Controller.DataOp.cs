@@ -34,24 +34,24 @@ public static partial class Controller
   /// <summary>
   /// Determines whether a data operation can be executed on the specified <see cref="SfDataGrid"/>.
   /// </summary>
-  /// <param name="grid"></param>
+  /// <param name="dataGrid"></param>
   /// <param name="op"></param>
   /// <returns></returns>
-  public static bool CanExecuteDataOp(SfDataGrid grid, DataOp op)
+  public static bool CanExecuteDataOp(SfDataGrid dataGrid, DataOp op)
   {
     if (op == DataOp.Copy)
       return true;
     try
     {
-      var selectedCells = grid.GetSelectedCells().ToArray();
+      var selectedCells = dataGrid.GetSelectedCells().ToArray();
       GridColumn[] selectedColumns;
       if (selectedCells.Length != 0)
         selectedColumns = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
       else
-        selectedColumns = grid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
+        selectedColumns = dataGrid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
       if (!selectedColumns.Any())
       {
-        selectedColumns = grid.Columns.ToArray();
+        selectedColumns = dataGrid.Columns.ToArray();
       }
       return !selectedColumns.Any(column => column.AllowEditing && column.IsReadOnly);
     }
@@ -71,41 +71,7 @@ public static partial class Controller
   {
     try
     {
-      var allColumnsSelected = false;
-      var selectedCells = dataGrid.GetSelectedCells().ToArray();
-      GridColumn[] selectedColumns;
-      if (selectedCells.Length != 0)
-        selectedColumns = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
-      else
-        selectedColumns = dataGrid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
-      if (!selectedColumns.Any())
-      {
-        selectedColumns = dataGrid.Columns.ToArray();
-      }
-      else if (selectedColumns.Length == dataGrid.Columns.Count())
-      {
-        allColumnsSelected = true;
-      }
-
-      var allRowsSelected = false;
-      object[] selectedRows;
-      if (selectedCells.Length != 0)
-        selectedRows = selectedCells.Select(cell => cell.RowData).Distinct().ToArray();
-      else
-        selectedRows = dataGrid.SelectionController.SelectedRows.Select(row => row.RowData).ToArray();
-      if (!selectedRows.Any())
-      {
-        selectedRows = dataGrid.View.Records.Select(record => record.Data).ToArray();
-      }
-      if (selectedRows.Length == 0)
-      {
-        Debug.WriteLine("DataOp: No rows selected.");
-        return;
-      }
-      if (selectedRows.Length == dataGrid.View.Records.Count())
-      {
-        allRowsSelected = true;
-      }
+      if (!GetSelectedRowsAndColumns(dataGrid, out var allColumnsSelected, out var selectedColumns, out var allRowsSelected, out var selectedRows).Any()) return;
 
       var rowDataType = GetRowDataType(dataGrid);
       if (rowDataType == null)
@@ -199,6 +165,56 @@ public static partial class Controller
     {
       Console.WriteLine(e);
     }
+  }
+
+  /// <summary>
+  /// Gets the selected rows and columns from the specified <see cref="SfDataGrid"/>.
+  /// Returns the selected cells and outputs whether all columns or rows are selected, along with the selected columns and rows.
+  /// </summary>
+  /// <param name="dataGrid"></param>
+  /// <param name="allColumnsSelected"></param>
+  /// <param name="selectedColumns"></param>
+  /// <param name="allRowsSelected"></param>
+  /// <param name="selectedRows"></param>
+  /// <returns></returns>
+  public static GridCellInfo[] GetSelectedRowsAndColumns
+  (this SfDataGrid dataGrid, out bool allColumnsSelected, out GridColumn[] selectedColumns, out bool allRowsSelected,
+    out object[] selectedRows)
+  {
+    allColumnsSelected = false;
+    var selectedCells = dataGrid.GetSelectedCells().ToArray();
+    if (selectedCells.Length != 0)
+      selectedColumns = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
+    else
+      selectedColumns = dataGrid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
+    if (!selectedColumns.Any())
+    {
+      selectedColumns = dataGrid.Columns.ToArray();
+    }
+    else if (selectedColumns.Length == dataGrid.Columns.Count())
+    {
+      allColumnsSelected = true;
+    }
+
+    allRowsSelected = false;
+    if (selectedCells.Length != 0)
+      selectedRows = selectedCells.Select(cell => cell.RowData).Distinct().ToArray();
+    else
+      selectedRows = dataGrid.SelectionController.SelectedRows.Select(row => row.RowData).ToArray();
+    if (!selectedRows.Any())
+    {
+      selectedRows = dataGrid.View.Records.Select(record => record.Data).ToArray();
+    }
+    if (selectedRows.Length == 0)
+    {
+      Debug.WriteLine("DataOp: No rows selected.");
+      return selectedCells;
+    }
+    if (selectedRows.Length == dataGrid.View.Records.Count())
+    {
+      allRowsSelected = true;
+    }
+    return selectedCells;
   }
 
   private static void DeleteRecords(SfDataGrid dataGrid, object[] selectedRows)

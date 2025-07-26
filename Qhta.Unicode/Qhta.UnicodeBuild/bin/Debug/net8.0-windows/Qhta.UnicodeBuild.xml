@@ -820,368 +820,6 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:Qhta.UnicodeBuild.Resources.Category">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Cc">
-            <summary>
-              Looks up a localized string similar to Other, Control.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Cf">
-            <summary>
-              Looks up a localized string similar to Other, Formating.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Cn">
-            <summary>
-              Looks up a localized string similar to Other, Not assigned.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Co">
-            <summary>
-              Looks up a localized string similar to Other, Private Use.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Cs">
-            <summary>
-              Looks up a localized string similar to Other, Surrogate.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Ll">
-            <summary>
-              Looks up a localized string similar to Letter, Lowercase.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Lm">
-            <summary>
-              Looks up a localized string similar to Letter, Modifier.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Lo">
-            <summary>
-              Looks up a localized string similar to Letter, Other.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Lt">
-            <summary>
-              Looks up a localized string similar to Letter, Titlecase.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Lu">
-            <summary>
-              Looks up a localized string similar to Letter, Uppercase.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Mc">
-            <summary>
-              Looks up a localized string similar to Mark, Spacing Combining.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Me">
-            <summary>
-              Looks up a localized string similar to Mark, Enclosing.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Mn">
-            <summary>
-              Looks up a localized string similar to Mark, Non-spacing.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Nd">
-            <summary>
-              Looks up a localized string similar to Number, Decimal digit.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Nl">
-            <summary>
-              Looks up a localized string similar to Number, Letterlike.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.No">
-            <summary>
-              Looks up a localized string similar to Number, Other.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Pc">
-            <summary>
-              Looks up a localized string similar to Punctuation, Connector.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Pd">
-            <summary>
-              Looks up a localized string similar to Punctuation, Dash.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Pe">
-            <summary>
-              Looks up a localized string similar to Punctuation, Close.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Pf">
-            <summary>
-              Looks up a localized string similar to Punctuation, Quote Close.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Pi">
-            <summary>
-              Looks up a localized string similar to Punctuation, Quote Open.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Po">
-            <summary>
-              Looks up a localized string similar to Punctuation, Other.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Ps">
-            <summary>
-              Looks up a localized string similar to Punctuation, Open.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Sc">
-            <summary>
-              Looks up a localized string similar to Symbol, Currency.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Sk">
-            <summary>
-              Looks up a localized string similar to Symbol, Modifier.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Sm">
-            <summary>
-              Looks up a localized string similar to Symbol, Math.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.So">
-            <summary>
-              Looks up a localized string similar to Symbol, Other.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Zl">
-            <summary>
-              Looks up a localized string similar to Separator, Line.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Zp">
-            <summary>
-              Looks up a localized string similar to Separator, Paragraph.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Category.Zs">
-            <summary>
-              Looks up a localized string similar to Separator, Space.
-            </summary>
-        </member>
-        <member name="T:Qhta.UnicodeBuild.Resources.CodePoint">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.ApplyBlockMapping">
-            <summary>
-              Looks up a localized string similar to Apply block mapping.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.ApplyBlockMappingConfirm">
-            <summary>
-              Looks up a localized string similar to Do you really want to apply block mapping from block ranges? All current &quot;block&quot; fields w be updated..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.ApplyBlockMappingTooltip">
-            <summary>
-              Looks up a localized string similar to Apply code point mapping to Unicode blocks by checking block ranges..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.ApplyWritingSystemsMappingFromFile">
-            <summary>
-              Looks up a localized string similar to Apply writing systems mapping.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.ApplyWritingSystemsMappingFromFileTooltip">
-            <summary>
-              Looks up a localized string similar to Apply code point mapping to scripts from a text file. The first column in a line should contain the character code or code range, the second column should contain the name of the script. The columns should be separated by tabs. The &apos;#&apos; character is treated as the first character of a comment that extends to the end of the line..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.Area">
-            <summary>
-              Looks up a localized string similar to Area.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.AreaTooltip">
-            <summary>
-              Looks up a localized string similar to Area is a Unicode block that define only first and last code points..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.Artefact">
-            <summary>
-              Looks up a localized string similar to Artefact.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.ArtefactTooltip">
-            <summary>
-              Looks up a localized string similar to Artefact of human culture, from which this code point originates..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.Category">
-            <summary>
-              Looks up a localized string similar to Category.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.CP">
-            <summary>
-              Looks up a localized string similar to Code.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.CPTooltip">
-            <summary>
-              Looks up a localized string similar to Code point is a hexadecimal integer from 4 to 6 digits..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.Ctg">
-            <summary>
-              Looks up a localized string similar to Ctg.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.CtgTooltip">
-            <summary>
-              Looks up a localized string similar to Unicode category to which this code point is assigned..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.Description">
-            <summary>
-              Looks up a localized string similar to Description.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.DescriptionTooltip">
-            <summary>
-              Looks up a localized string similar to Description as provided by Unicode database..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.Glyph">
-            <summary>
-              Looks up a localized string similar to Glyph.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.GlyphTooltip">
-            <summary>
-              Looks up a localized string similar to Preview of character font face..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.Language">
-            <summary>
-              Looks up a localized string similar to Language.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.LanguageTooltip">
-            <summary>
-              Looks up a localized string similar to Language which uses this code point..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.Name">
-            <summary>
-              Looks up a localized string similar to Name.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.NameTooltip">
-            <summary>
-              Looks up a localized string similar to Char name used in serialization..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.Notation">
-            <summary>
-              Looks up a localized string similar to Notation.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.NotationTooltip">
-            <summary>
-              Looks up a localized string similar to Notation in which this code point is defined..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.Script">
-            <summary>
-              Looks up a localized string similar to Script.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.ScriptTooltip">
-            <summary>
-              Looks up a localized string similar to Script which uses this code point..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.Subset">
-            <summary>
-              Looks up a localized string similar to Subset.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.SubsetTooltip">
-            <summary>
-              Looks up a localized string similar to Subset, to which this code point can be classified..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.SymbolSet">
-            <summary>
-              Looks up a localized string similar to Symbol set.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.SymbolSetTooltip">
-            <summary>
-              Looks up a localized string similar to Symbol set to which this code point belongs..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.UcdBlock">
-            <summary>
-              Looks up a localized string similar to Unicode Block.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.UcdBlockTooltip">
-            <summary>
-              Looks up a localized string similar to Unicode block which contains this code point..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.UcdRange">
-            <summary>
-              Looks up a localized string similar to Unicode Range.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.UcdRangeTooltip">
-            <summary>
-              Looks up a localized string similar to Unicode range which contains this code point..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.WritingSystem">
-            <summary>
-              Looks up a localized string similar to Writing System.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.CodePoint.WritingSystemTooltip">
-            <summary>
-              Looks up a localized string similar to Writing system to which this code point belongs. You can choose script, language or artifact, notation, character set or subset here..
-            </summary>
-        </member>
         <member name="T:Qhta.UnicodeBuild.Resources.Strings">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -1203,6 +841,71 @@
               Looks up a localized string similar to About.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.AmbiguousWritingSystemCategory">
+            <summary>
+              Looks up a localized string similar to Writing system {0} has not unique category key..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.AmbiguousWritingSystemCategoryOrPhrase">
+            <summary>
+              Looks up a localized string similar to Writing system {0} has not unique (category, phrase) key..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.AmbiguousWritingSystemPhrase">
+            <summary>
+              Looks up a localized string similar to Writing system {0} has not unique phrase key..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyBlockMapping">
+            <summary>
+              Looks up a localized string similar to Apply block mapping.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyBlockMappingConfirm">
+            <summary>
+              Looks up a localized string similar to Do you really want to apply block mapping from block ranges? All current &quot;block&quot; fields w be updated..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyBlockMappingTooltip">
+            <summary>
+              Looks up a localized string similar to Apply code point mapping to Unicode blocks by checking block ranges..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyWritingSystemsMappingFromFile">
+            <summary>
+              Looks up a localized string similar to Apply writing systems mapping.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyWritingSystemsMappingFromFileTooltip">
+            <summary>
+              Looks up a localized string similar to Apply code point mapping to scripts from a text file. The first column in a line should contain the character code or code range, the second column should contain the name of the script. The columns should be separated by tabs. The &apos;#&apos; character is treated as the first character of a comment that extends to the end of the line..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyWritingSystemsRecognition">
+            <summary>
+              Looks up a localized string similar to Apply writing system recognition.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyWritingSystemsRecognitionAdvice">
+            <summary>
+              Looks up a localized string similar to Try selecting specific columns to recognize writing systems of certain types..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyWritingSystemsRecognitionCompleted">
+            <summary>
+              Looks up a localized string similar to Writing system recognition completed. {0} code points mapped..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyWritingSystemsRecognitionConfirm">
+            <summary>
+              Looks up a localized string similar to Do you really want to recognize writing systems for {0} code points? Existing mapping will not be overwritten..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyWritingSystemsRecognitionTooltip">
+            <summary>
+              Looks up a localized string similar to Apply code point mapping to writing systems based on category and key phrase..
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Cancel">
             <summary>
               Looks up a localized string similar to Cancel.
@@ -1218,6 +921,16 @@
               Looks up a localized string similar to Cannot delete writing system as it is used in other entities..
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.CodePointCategoryIsNull">
+            <summary>
+              Looks up a localized string similar to Code point {0} category is empty..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.CodePointDescriptionIsNull">
+            <summary>
+              Looks up a localized string similar to Code point {0} description is empty..
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.CodePoints">
             <summary>
               Looks up a localized string similar to Code Points.
@@ -1231,6 +944,11 @@
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Comment">
             <summary>
               Looks up a localized string similar to Comment.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.Confirm">
+            <summary>
+              Looks up a localized string similar to Confirm.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Copy">
@@ -1328,6 +1046,11 @@
               Looks up a localized string similar to Invalid code range format: {0}. Two hexadecimal value expected separated with two dots. A single value is allowed..
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.InvalidWritingSystemCategory">
+            <summary>
+              Looks up a localized string similar to Invalid category &apos;{0}&apos; in writing system {1}..
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Loading">
             <summary>
               Looks up a localized string similar to Loading {0}.
@@ -1341,6 +1064,11 @@
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.NewWritingSystem">
             <summary>
               Looks up a localized string similar to New Writing System.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.NoCodePointsSelected">
+            <summary>
+              Looks up a localized string similar to No code points selected..
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.NonEmptyItem">
@@ -1456,617 +1184,944 @@
               Looks up a localized string similar to A writing system comprises a set of symbols, called a script, as well as the rules by which the script represents a particular language..
             </summary>
         </member>
-        <member name="T:Qhta.UnicodeBuild.Resources.UcdBlock">
+        <member name="T:Qhta.UnicodeBuild.Resources.UcdBlockStrings">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlock.ResourceManager">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlockStrings.ResourceManager">
             <summary>
               Returns the cached ResourceManager instance used by this class.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlock.Culture">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlockStrings.Culture">
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlock.Name">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlockStrings.Name">
             <summary>
               Looks up a localized string similar to Block name.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlock.NameTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlockStrings.NameTooltip">
             <summary>
               Looks up a localized string similar to Name of the Unicode block is defined by Unicode Consortium..
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlock.Range">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlockStrings.Range">
             <summary>
               Looks up a localized string similar to Range.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlock.RangeTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlockStrings.RangeTooltip">
             <summary>
               Looks up a localized string similar to Range of the Unicode block is a string consisting of two codepoints separated by two periods. Each codepoint is a hexadecimal numbers of four or more digits..
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlock.WritingSystem">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlockStrings.WritingSystem">
             <summary>
               Looks up a localized string similar to Writing system.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlock.WritingSystemTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdBlockStrings.WritingSystemTooltip">
             <summary>
               Looks up a localized string similar to Writing system of the Unicode block is a default writing system for all Unicode ranges belonging to this block..
             </summary>
         </member>
-        <member name="T:Qhta.UnicodeBuild.Resources.UcdRange">
+        <member name="T:Qhta.UnicodeBuild.Resources.UcdCategoryStrings">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdRange.ResourceManager">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.ResourceManager">
             <summary>
               Returns the cached ResourceManager instance used by this class.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdRange.Culture">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Culture">
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdRange.Name">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Cc">
             <summary>
-              Looks up a localized string similar to Block zakresu.
+              Looks up a localized string similar to Other, Control.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdRange.NameTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Cf">
             <summary>
-              Looks up a localized string similar to Name of the Unicode range is defined by Unicode Consortium..
+              Looks up a localized string similar to Other, Formating.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdRange.Range">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Cn">
             <summary>
-              Looks up a localized string similar to Range.
+              Looks up a localized string similar to Other, Not assigned.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdRange.RangeTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Co">
             <summary>
-              Looks up a localized string similar to Range of the Unicode range is a string consisting of two codepoints separated by two periods or a single codepoint. Each codepoint is a hexadecimal numbers of four or more digits..
+              Looks up a localized string similar to Other, Private Use.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdRange.UcdBlock">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Cs">
             <summary>
-              Looks up a localized string similar to Unicode Block.
+              Looks up a localized string similar to Other, Surrogate.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdRange.UcdBlockTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Ll">
             <summary>
-              Looks up a localized string similar to Unicode block which contains this range..
+              Looks up a localized string similar to Letter, Lowercase.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdRange.WritingSystem">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Lm">
             <summary>
-              Looks up a localized string similar to Writing system.
+              Looks up a localized string similar to Letter, Modifier.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdRange.WritingSystemTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Lo">
             <summary>
-              Looks up a localized string similar to Writing system of the Unicode range defines rules of use and translation of codepoints belonging to this range..
+              Looks up a localized string similar to Letter, Other.
             </summary>
         </member>
-        <member name="T:Qhta.UnicodeBuild.Resources.WritingSystem">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Lt">
+            <summary>
+              Looks up a localized string similar to Letter, Titlecase.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Lu">
+            <summary>
+              Looks up a localized string similar to Letter, Uppercase.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Mc">
+            <summary>
+              Looks up a localized string similar to Mark, Spacing Combining.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Me">
+            <summary>
+              Looks up a localized string similar to Mark, Enclosing.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Mn">
+            <summary>
+              Looks up a localized string similar to Mark, Non-spacing.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Nd">
+            <summary>
+              Looks up a localized string similar to Number, Decimal digit.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Nl">
+            <summary>
+              Looks up a localized string similar to Number, Letterlike.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.No">
+            <summary>
+              Looks up a localized string similar to Number, Other.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Pc">
+            <summary>
+              Looks up a localized string similar to Punctuation, Connector.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Pd">
+            <summary>
+              Looks up a localized string similar to Punctuation, Dash.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Pe">
+            <summary>
+              Looks up a localized string similar to Punctuation, Close.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Pf">
+            <summary>
+              Looks up a localized string similar to Punctuation, Quote Close.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Pi">
+            <summary>
+              Looks up a localized string similar to Punctuation, Quote Open.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Po">
+            <summary>
+              Looks up a localized string similar to Punctuation, Other.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Ps">
+            <summary>
+              Looks up a localized string similar to Punctuation, Open.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Sc">
+            <summary>
+              Looks up a localized string similar to Symbol, Currency.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Sk">
+            <summary>
+              Looks up a localized string similar to Symbol, Modifier.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Sm">
+            <summary>
+              Looks up a localized string similar to Symbol, Math.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.So">
+            <summary>
+              Looks up a localized string similar to Symbol, Other.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Zl">
+            <summary>
+              Looks up a localized string similar to Separator, Line.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Zp">
+            <summary>
+              Looks up a localized string similar to Separator, Paragraph.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCategoryStrings.Zs">
+            <summary>
+              Looks up a localized string similar to Separator, Space.
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Resources.UcdCodePointStrings">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.ResourceManager">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.ResourceManager">
             <summary>
               Returns the cached ResourceManager instance used by this class.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Culture">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Culture">
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Abbr">
-            <summary>
-              Looks up a localized string similar to Abbr.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Abbreviation">
-            <summary>
-              Looks up a localized string similar to Abbreviation.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.AbbrTooltip">
-            <summary>
-              Looks up a localized string similar to Abbreviation is a string to identify the writing system in the output text..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Category">
-            <summary>
-              Looks up a localized string similar to Category.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Ctg">
-            <summary>
-              Looks up a localized string similar to Ctg.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.CtgTooltip">
-            <summary>
-              Looks up a localized string similar to A category string is a value of &quot;Ctg&quot;  field of a code point which assigns the code point to this writing system. Wildcards &apos;*&apos; and alternative operators &quot;|&quot; can be used to define sophisticated classification rules..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Description">
-            <summary>
-              Looks up a localized string similar to Description.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.EditWritingSystemTitle">
-            <summary>
-              Looks up a localized string similar to Edit Writing System.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Ext">
-            <summary>
-              Looks up a localized string similar to Ext.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Extension">
-            <summary>
-              Looks up a localized string similar to Extension.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.ExtTooltip">
-            <summary>
-              Looks up a localized string similar to Extension is a string which is appended to the abbreviation to create a unique key for each writing system. It does not appear in the output text..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Iso">
-            <summary>
-              Looks up a localized string similar to ISO.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.IsoTooltip">
-            <summary>
-              Looks up a localized string similar to Identifier of the writing system (script or language) in ISO-15924 or ISO-639 standard..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.IsUsed">
-            <summary>
-              Looks up a localized string similar to Is used.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.IsUsedTooltip">
-            <summary>
-              Looks up a localized string similar to Indicates whether the writing system is a parent for some other systems or is referenced in Unicode Blocks or Unicode Ranges..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.KeyPhrase">
-            <summary>
-              Looks up a localized string similar to Key phrase.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.KeyPhraseTooltip">
-            <summary>
-              Looks up a localized string similar to Key phrase should exist in a code point description to classify the code point to this writing system. Wildcards &apos;*&apos; can be used to define more sophisticated classification rules. E.g. a wildcard at the end of the key phrase means that it must occur at the beginning of the description..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Kind">
-            <summary>
-              Looks up a localized string similar to Kind.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.KindTooltip">
-            <summary>
-              Looks up a localized string similar to The type of writing system determines the nature of the characters in that system..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Name">
-            <summary>
-              Looks up a localized string similar to Name.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.NameAlreadyExistsMessage">
-            <summary>
-              Looks up a localized string similar to Writing system {0} already exists..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.NameTooltip">
-            <summary>
-              Looks up a localized string similar to Writing system name is a unique name starting with a letter and optionally containing letters, digits and spaces..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.NewWritingSystemTitle">
-            <summary>
-              Looks up a localized string similar to New Writing System.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Parent">
-            <summary>
-              Looks up a localized string similar to Parent system.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.ParentTooltip">
-            <summary>
-              Looks up a localized string similar to Writing system parent is used to organize systems in a hierarchy..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.Type">
-            <summary>
-              Looks up a localized string similar to Type.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystem.TypeTooltip">
-            <summary>
-              Looks up a localized string similar to The type of writing system determines the primary purpose of the system..
-            </summary>
-        </member>
-        <member name="T:Qhta.UnicodeBuild.Resources.WritingSystemKind">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Abjad">
-            <summary>
-              Looks up a localized string similar to Abjad.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.AbjadTooltip">
-            <summary>
-              Looks up a localized string similar to A writing system in which only consonants are represented, leaving the vowel sounds to be inferred by the reader..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Abugida">
-            <summary>
-              Looks up a localized string similar to Abugida.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.AbugidaTooltip">
-            <summary>
-              Looks up a localized string similar to A segmental writing system in which consonant–vowel sequences are written as units; each unit is based on a consonant letter, and vowel notation is secondary, similar to a diacritical mark..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Alphabet">
-            <summary>
-              Looks up a localized string similar to Alphabet.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.AlphabetTooltip">
-            <summary>
-              Looks up a localized string similar to A standard set of letters written to represent particular sounds in a spoken language..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Constructed">
-            <summary>
-              Looks up a localized string similar to Constructed.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.ConstructedTooltip">
-            <summary>
-              Looks up a localized string similar to A language whose phonology, grammar, orthography, and vocabulary, instead of having developed naturally, are consciously devised for some purpose..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Control">
-            <summary>
-              Looks up a localized string similar to Control.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.ControlTooltip">
-            <summary>
-              Looks up a localized string similar to A set of characters that control the flow of text,.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Cuneiform">
-            <summary>
-              Looks up a localized string similar to Cuneiform.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.CuneiformTooltip">
-            <summary>
-              Looks up a localized string similar to A logo-syllabic writing system that was used to write several languages of the Ancient Near East, named for the characteristic wedge-shaped impressions which form their signs..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Encoding">
-            <summary>
-              Looks up a localized string similar to Encoding.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.EncodingTooltip">
-            <summary>
-              Looks up a localized string similar to A set of characters encoding other characters..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Form">
-            <summary>
-              Looks up a localized string similar to Form.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.FormTooltip">
-            <summary>
-              Looks up a localized string similar to A set of characters with a special presentation form..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Graphical">
-            <summary>
-              Looks up a localized string similar to Graphical.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.GraphicalTooltip">
-            <summary>
-              Looks up a localized string similar to A set of graphical shapes for individual use or used to construct drawings..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Hieroglyphic">
-            <summary>
-              Looks up a localized string similar to Hieroglyphic.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.HieroglyphicTooltip">
-            <summary>
-              Looks up a localized string similar to An ancient writing system that combines ideographic, logographic, syllabic and alphabetic elements..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Ideographic">
-            <summary>
-              Looks up a localized string similar to Ideographic.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.IdeographicTooltip">
-            <summary>
-              Looks up a localized string similar to A writing system consisting of symbols that represents ideas or concepts independent of any particular language..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Invisible">
-            <summary>
-              Looks up a localized string similar to Invisible.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.InvisibleTooltip">
-            <summary>
-              Looks up a localized string similar to A set of code points that have no visible presentations..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Logographic">
-            <summary>
-              Looks up a localized string similar to Logographic.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.LogographicTooltip">
-            <summary>
-              Looks up a localized string similar to A set of written characters that represent semantic components of a language, such as words or morphemes..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Mathematical">
-            <summary>
-              Looks up a localized string similar to Mathematical.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.MathematicalTooltip">
-            <summary>
-              Looks up a localized string similar to Mathematical notation consists of using symbols for representing operations, unspecified numbers, relations, and any other mathematical objects and assembling them into expressions and formulas. Mathematical notation is widely used in mathematics, science, and engineering for representing complex concepts and properties in a concise, unambiguous, and accurate way. .
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Metrical">
-            <summary>
-              Looks up a localized string similar to Metrical.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.MetricalTooltip">
-            <summary>
-              Looks up a localized string similar to Metrical notation in music refers to how rhythm is written and organized, including time signatures, rhythmic values, and the grouping of beats. In poetry, it describes the pattern of stressed and unstressed syllables, often organized into metrical feet. .
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Mixed">
-            <summary>
-              Looks up a localized string similar to Mixed.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.MixedTooltip">
-            <summary>
-              Looks up a localized string similar to Mixed logographic, syllabary and phonetic writing system..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Musical">
-            <summary>
-              Looks up a localized string similar to Musical.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.MusicalTooltip">
-            <summary>
-              Looks up a localized string similar to A writing system used to visually represent music..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Numerical">
-            <summary>
-              Looks up a localized string similar to Numerical.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.NumericalTooltip">
-            <summary>
-              Looks up a localized string similar to A writing system for expressing numbers; that is, a mathematical notation for representing numbers of a given set, using digits or other symbols in a consistent manner..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Phonetic">
-            <summary>
-              Looks up a localized string similar to Phonetic.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.PhoneticTooltip">
-            <summary>
-              Looks up a localized string similar to A set of symbols used in phonetic notation..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Pictographic">
-            <summary>
-              Looks up a localized string similar to Pictographic.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.PictographicTooltip">
-            <summary>
-              Looks up a localized string similar to A writing system based on a set of graphical symbols that convey meaning through its visual resemblance to physical objects..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Pictophonetic">
-            <summary>
-              Looks up a localized string similar to Picto-phonetic.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.PictophoneticTooltip">
-            <summary>
-              Looks up a localized string similar to A writing system that combines ideographic and phonetic elements..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.SemiSyllabary">
-            <summary>
-              Looks up a localized string similar to Semi-syllabary.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.SemiSyllabaryTooltip">
-            <summary>
-              Looks up a localized string similar to A writing system that behaves partly as an alphabet and partly as a syllabary..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Stenography">
-            <summary>
-              Looks up a localized string similar to Stenography.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.StenographyTooltip">
-            <summary>
-              Looks up a localized string similar to An abbreviated symbolic writing method that increases speed and brevity of writing as compared to longhand, a more common method of writing a language..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Syllabary">
-            <summary>
-              Looks up a localized string similar to Syllabary.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.SyllabaryTooltip">
-            <summary>
-              Looks up a localized string similar to A set of written symbols that represent the syllables or (more frequently) morae which make up words..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.Symbolic">
-            <summary>
-              Looks up a localized string similar to Symbolic.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKind.SymbolicTooltip">
-            <summary>
-              Looks up a localized string similar to A set of symbols from a certain domain..
-            </summary>
-        </member>
-        <member name="T:Qhta.UnicodeBuild.Resources.WritingSystemType">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.Area">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Area">
             <summary>
               Looks up a localized string similar to Area.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.AreaTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.AreaTooltip">
             <summary>
-              Looks up a localized string similar to Area is a range of code points that are not defined individually..
+              Looks up a localized string similar to Area is a Unicode block that define only first and last code points..
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.Artefact">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Artefact">
             <summary>
               Looks up a localized string similar to Artefact.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.ArtefactTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.ArtefactTooltip">
             <summary>
-              Looks up a localized string similar to The artifact of the human culture in which the symbol was found..
+              Looks up a localized string similar to Artefact of human culture, from which this code point originates..
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.Family">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Category">
             <summary>
-              Looks up a localized string similar to Family.
+              Looks up a localized string similar to Category.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.FamilyTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.CP">
             <summary>
-              Looks up a localized string similar to Family is a set of scripts or other writing systems..
+              Looks up a localized string similar to Code.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.Language">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.CPTooltip">
+            <summary>
+              Looks up a localized string similar to Code point is a hexadecimal integer from 4 to 6 digits..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Ctg">
+            <summary>
+              Looks up a localized string similar to Ctg.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.CtgTooltip">
+            <summary>
+              Looks up a localized string similar to Unicode category to which this code point is assigned..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Description">
+            <summary>
+              Looks up a localized string similar to Description.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.DescriptionTooltip">
+            <summary>
+              Looks up a localized string similar to Description as provided by Unicode database..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Glyph">
+            <summary>
+              Looks up a localized string similar to Glyph.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.GlyphTooltip">
+            <summary>
+              Looks up a localized string similar to Preview of character font face..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Language">
             <summary>
               Looks up a localized string similar to Language.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.LanguageTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.LanguageTooltip">
             <summary>
-              Looks up a localized string similar to Language is a structured system of communication that consists of grammar and vocabulary..
+              Looks up a localized string similar to Language which uses this code point..
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.Notation">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Name">
+            <summary>
+              Looks up a localized string similar to Name.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.NameTooltip">
+            <summary>
+              Looks up a localized string similar to Char name used in serialization..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Notation">
             <summary>
               Looks up a localized string similar to Notation.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.NotationTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.NotationTooltip">
             <summary>
-              Looks up a localized string similar to Notation is a system of symbols used to represent information in some convention..
+              Looks up a localized string similar to Notation in which this code point is defined..
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.Script">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Script">
             <summary>
               Looks up a localized string similar to Script.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.ScriptTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.ScriptTooltip">
             <summary>
-              Looks up a localized string similar to Script is a set of symbols used to write a language..
+              Looks up a localized string similar to Script which uses this code point..
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.Subset">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Subset">
             <summary>
               Looks up a localized string similar to Subset.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.SubsetTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.SubsetTooltip">
             <summary>
-              Looks up a localized string similar to A subset of symbols belonging to a another set..
+              Looks up a localized string similar to Subset, to which this code point can be classified..
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.SymbolSet">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.SymbolSet">
             <summary>
               Looks up a localized string similar to Symbol set.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemType.SymbolSetTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.SymbolSetTooltip">
+            <summary>
+              Looks up a localized string similar to Symbol set to which this code point belongs..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.UcdBlock">
+            <summary>
+              Looks up a localized string similar to Unicode Block.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.UcdBlockTooltip">
+            <summary>
+              Looks up a localized string similar to Unicode block which contains this code point..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.UcdRange">
+            <summary>
+              Looks up a localized string similar to Unicode Range.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.UcdRangeTooltip">
+            <summary>
+              Looks up a localized string similar to Unicode range which contains this code point..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.WritingSystem">
+            <summary>
+              Looks up a localized string similar to Writing System.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.WritingSystemTooltip">
+            <summary>
+              Looks up a localized string similar to Writing system to which this code point belongs. You can choose script, language or artifact, notation, character set or subset here..
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Resources.UcdRangeStrings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdRangeStrings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdRangeStrings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdRangeStrings.Name">
+            <summary>
+              Looks up a localized string similar to Block zakresu.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdRangeStrings.NameTooltip">
+            <summary>
+              Looks up a localized string similar to Name of the Unicode range is defined by Unicode Consortium..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdRangeStrings.Range">
+            <summary>
+              Looks up a localized string similar to Range.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdRangeStrings.RangeTooltip">
+            <summary>
+              Looks up a localized string similar to Range of the Unicode range is a string consisting of two codepoints separated by two periods or a single codepoint. Each codepoint is a hexadecimal numbers of four or more digits..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdRangeStrings.UcdBlock">
+            <summary>
+              Looks up a localized string similar to Unicode Block.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdRangeStrings.UcdBlockTooltip">
+            <summary>
+              Looks up a localized string similar to Unicode block which contains this range..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdRangeStrings.WritingSystem">
+            <summary>
+              Looks up a localized string similar to Writing system.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdRangeStrings.WritingSystemTooltip">
+            <summary>
+              Looks up a localized string similar to Writing system of the Unicode range defines rules of use and translation of codepoints belonging to this range..
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Abjad">
+            <summary>
+              Looks up a localized string similar to Abjad.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.AbjadTooltip">
+            <summary>
+              Looks up a localized string similar to A writing system in which only consonants are represented, leaving the vowel sounds to be inferred by the reader..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Abugida">
+            <summary>
+              Looks up a localized string similar to Abugida.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.AbugidaTooltip">
+            <summary>
+              Looks up a localized string similar to A segmental writing system in which consonant–vowel sequences are written as units; each unit is based on a consonant letter, and vowel notation is secondary, similar to a diacritical mark..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Alphabet">
+            <summary>
+              Looks up a localized string similar to Alphabet.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.AlphabetTooltip">
+            <summary>
+              Looks up a localized string similar to A standard set of letters written to represent particular sounds in a spoken language..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Constructed">
+            <summary>
+              Looks up a localized string similar to Constructed.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.ConstructedTooltip">
+            <summary>
+              Looks up a localized string similar to A language whose phonology, grammar, orthography, and vocabulary, instead of having developed naturally, are consciously devised for some purpose..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Control">
+            <summary>
+              Looks up a localized string similar to Control.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.ControlTooltip">
+            <summary>
+              Looks up a localized string similar to A set of characters that control the flow of text,.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Cuneiform">
+            <summary>
+              Looks up a localized string similar to Cuneiform.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.CuneiformTooltip">
+            <summary>
+              Looks up a localized string similar to A logo-syllabic writing system that was used to write several languages of the Ancient Near East, named for the characteristic wedge-shaped impressions which form their signs..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Encoding">
+            <summary>
+              Looks up a localized string similar to Encoding.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.EncodingTooltip">
+            <summary>
+              Looks up a localized string similar to A set of characters encoding other characters..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Form">
+            <summary>
+              Looks up a localized string similar to Form.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.FormTooltip">
+            <summary>
+              Looks up a localized string similar to A set of characters with a special presentation form..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Graphical">
+            <summary>
+              Looks up a localized string similar to Graphical.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.GraphicalTooltip">
+            <summary>
+              Looks up a localized string similar to A set of graphical shapes for individual use or used to construct drawings..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Hieroglyphic">
+            <summary>
+              Looks up a localized string similar to Hieroglyphic.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.HieroglyphicTooltip">
+            <summary>
+              Looks up a localized string similar to An ancient writing system that combines ideographic, logographic, syllabic and alphabetic elements..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Ideographic">
+            <summary>
+              Looks up a localized string similar to Ideographic.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.IdeographicTooltip">
+            <summary>
+              Looks up a localized string similar to A writing system consisting of symbols that represents ideas or concepts independent of any particular language..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Invisible">
+            <summary>
+              Looks up a localized string similar to Invisible.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.InvisibleTooltip">
+            <summary>
+              Looks up a localized string similar to A set of code points that have no visible presentations..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Logographic">
+            <summary>
+              Looks up a localized string similar to Logographic.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.LogographicTooltip">
+            <summary>
+              Looks up a localized string similar to A set of written characters that represent semantic components of a language, such as words or morphemes..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Mathematical">
+            <summary>
+              Looks up a localized string similar to Mathematical.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.MathematicalTooltip">
+            <summary>
+              Looks up a localized string similar to Mathematical notation consists of using symbols for representing operations, unspecified numbers, relations, and any other mathematical objects and assembling them into expressions and formulas. Mathematical notation is widely used in mathematics, science, and engineering for representing complex concepts and properties in a concise, unambiguous, and accurate way..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Metrical">
+            <summary>
+              Looks up a localized string similar to Metrical.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.MetricalTooltip">
+            <summary>
+              Looks up a localized string similar to Metrical notation in music refers to how rhythm is written and organized, including time signatures, rhythmic values, and the grouping of beats. In poetry, it describes the pattern of stressed and unstressed syllables, often organized into metrical feet..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Mixed">
+            <summary>
+              Looks up a localized string similar to Mixed.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.MixedTooltip">
+            <summary>
+              Looks up a localized string similar to Mixed logographic, syllabary and phonetic writing system..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Musical">
+            <summary>
+              Looks up a localized string similar to Musical.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.MusicalTooltip">
+            <summary>
+              Looks up a localized string similar to A writing system used to visually represent music..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Numerical">
+            <summary>
+              Looks up a localized string similar to Numerical.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.NumericalTooltip">
+            <summary>
+              Looks up a localized string similar to A writing system for expressing numbers; that is, a mathematical notation for representing numbers of a given set, using digits or other symbols in a consistent manner..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Phonetic">
+            <summary>
+              Looks up a localized string similar to Phonetic.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.PhoneticTooltip">
+            <summary>
+              Looks up a localized string similar to A set of symbols used in phonetic notation..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Pictographic">
+            <summary>
+              Looks up a localized string similar to Pictographic.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.PictographicTooltip">
+            <summary>
+              Looks up a localized string similar to A writing system based on a set of graphical symbols that convey meaning through its visual resemblance to physical objects..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Pictophonetic">
+            <summary>
+              Looks up a localized string similar to Picto-phonetic.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.PictophoneticTooltip">
+            <summary>
+              Looks up a localized string similar to A writing system that combines ideographic and phonetic elements..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.SemiSyllabary">
+            <summary>
+              Looks up a localized string similar to Semi-syllabary.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.SemiSyllabaryTooltip">
+            <summary>
+              Looks up a localized string similar to A writing system that behaves partly as an alphabet and partly as a syllabary..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Stenography">
+            <summary>
+              Looks up a localized string similar to Stenography.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.StenographyTooltip">
+            <summary>
+              Looks up a localized string similar to An abbreviated symbolic writing method that increases speed and brevity of writing as compared to longhand, a more common method of writing a language..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Syllabary">
+            <summary>
+              Looks up a localized string similar to Syllabary.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.SyllabaryTooltip">
+            <summary>
+              Looks up a localized string similar to A set of written symbols that represent the syllables or (more frequently) morae which make up words..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.Symbolic">
+            <summary>
+              Looks up a localized string similar to Symbolic.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.SymbolicTooltip">
+            <summary>
+              Looks up a localized string similar to A set of symbols from a certain domain..
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Resources.WritingSystemStrings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Abbr">
+            <summary>
+              Looks up a localized string similar to Abbr.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Abbreviation">
+            <summary>
+              Looks up a localized string similar to Abbreviation.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.AbbrTooltip">
+            <summary>
+              Looks up a localized string similar to Abbreviation is a string to identify the writing system in the output text..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Category">
+            <summary>
+              Looks up a localized string similar to Category.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Ctg">
+            <summary>
+              Looks up a localized string similar to Ctg.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.CtgTooltip">
+            <summary>
+              Looks up a localized string similar to A category string is a value of &quot;Ctg&quot;  field of a code point which assigns the code point to this writing system. Wildcards &apos;*&apos; and alternative operators &quot;|&quot; can be used to define sophisticated classification rules..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Description">
+            <summary>
+              Looks up a localized string similar to Description.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.EditWritingSystemTitle">
+            <summary>
+              Looks up a localized string similar to Edit Writing System.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Ext">
+            <summary>
+              Looks up a localized string similar to Ext.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Extension">
+            <summary>
+              Looks up a localized string similar to Extension.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.ExtTooltip">
+            <summary>
+              Looks up a localized string similar to Extension is a string which is appended to the abbreviation to create a unique key for each writing system. It does not appear in the output text..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Iso">
+            <summary>
+              Looks up a localized string similar to ISO.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.IsoTooltip">
+            <summary>
+              Looks up a localized string similar to Identifier of the writing system (script or language) in ISO-15924 or ISO-639 standard..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.IsUsed">
+            <summary>
+              Looks up a localized string similar to Is used.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.IsUsedTooltip">
+            <summary>
+              Looks up a localized string similar to Indicates whether the writing system is a parent for some other systems or is referenced in Unicode Blocks or Unicode Ranges..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.KeyPhrase">
+            <summary>
+              Looks up a localized string similar to Key phrase.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.KeyPhraseTooltip">
+            <summary>
+              Looks up a localized string similar to Key phrase should exist in a code point description to classify the code point to this writing system. Wildcards &apos;*&apos; can be used to define more sophisticated classification rules. E.g. a wildcard at the end of the key phrase means that it must occur at the beginning of the description..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Kind">
+            <summary>
+              Looks up a localized string similar to Kind.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.KindTooltip">
+            <summary>
+              Looks up a localized string similar to The type of writing system determines the nature of the characters in that system..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Name">
+            <summary>
+              Looks up a localized string similar to Name.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.NameAlreadyExistsMessage">
+            <summary>
+              Looks up a localized string similar to Writing system {0} already exists..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.NameTooltip">
+            <summary>
+              Looks up a localized string similar to Writing system name is a unique name starting with a letter and optionally containing letters, digits and spaces..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.NewWritingSystemTitle">
+            <summary>
+              Looks up a localized string similar to New Writing System.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Parent">
+            <summary>
+              Looks up a localized string similar to Parent system.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.ParentTooltip">
+            <summary>
+              Looks up a localized string similar to Writing system parent is used to organize systems in a hierarchy..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Type">
+            <summary>
+              Looks up a localized string similar to Type.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.TypeTooltip">
+            <summary>
+              Looks up a localized string similar to The type of writing system determines the primary purpose of the system..
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.Area">
+            <summary>
+              Looks up a localized string similar to Area.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.AreaTooltip">
+            <summary>
+              Looks up a localized string similar to Area is a range of code points that are not defined individually..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.Family">
+            <summary>
+              Looks up a localized string similar to Family.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.FamilyTooltip">
+            <summary>
+              Looks up a localized string similar to Family is a set of scripts or other writing systems..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.Language">
+            <summary>
+              Looks up a localized string similar to Language.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.LanguageTooltip">
+            <summary>
+              Looks up a localized string similar to Language is a structured system of communication that consists of grammar and vocabulary..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.Notation">
+            <summary>
+              Looks up a localized string similar to Notation.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.NotationTooltip">
+            <summary>
+              Looks up a localized string similar to Notation is a system of symbols used to represent information in some convention..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.Script">
+            <summary>
+              Looks up a localized string similar to Script.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.ScriptTooltip">
+            <summary>
+              Looks up a localized string similar to Script is a set of symbols used to write a language..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.Subset">
+            <summary>
+              Looks up a localized string similar to Subset.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.SubsetTooltip">
+            <summary>
+              Looks up a localized string similar to A subset of symbols belonging to a another set..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.SymbolSet">
+            <summary>
+              Looks up a localized string similar to Symbol set.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.SymbolSetTooltip">
             <summary>
               Looks up a localized string similar to A set of symbols that can be scattered across different Unicode ranges..
             </summary>
@@ -2463,15 +2518,22 @@
             Exposes the subset writing system as a view model.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.ArtefactId">
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.WritingSystem">
             <summary>
-            Identifier of the artefact writing system associated with this Unicode code point, if applicable.
+            Exposes the writing system which can be one of all the above writing systems.
+            Returned value is taken from the following references: <see cref="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Subset"/>, <see cref="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.SymbolSet"/>, <see cref="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Notation"/>, <see cref="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Language"/>, <see cref="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Script"/>, <see cref="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Area"/>.
+            First non-null writing system is returned.
+            In a set method, the proper reference is set based on <see cref="T:Qhta.Unicode.Models.WritingSystemType"/> of the provided value.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Artefact">
+        <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.GetWritingSystemOfType(Qhta.Unicode.Models.WritingSystemType[])">
             <summary>
-            Exposes the artefact writing system as a view model.
+            Exposes the writing system which can be one of all the above writing systems.
+            Returned value is taken from the references which types are specified by <paramref name="allowedTypes"/>
+            First non-null writing system is returned.
+            In a set method, the proper reference is set based on <see cref="T:Qhta.Unicode.Models.WritingSystemType"/> of the provided value.
             </summary>
+            <param name="allowedTypes">Specifies which types of writing system are allowed. Proper references are checked in order of items in this parameter. First not null is returned</param>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.RowHeight">
             <summary>
@@ -3013,11 +3075,6 @@
             C
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.SelectableArtefacts">
-            <summary>
-            Collection of selectable artefacts, which are a type of writing system.
-            </summary>
-        </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.GetNewWritingSystemId">
             <summary>
             Gets the next available writing system ID.
@@ -3082,6 +3139,45 @@
             </summary>
         </member>
         <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.ApplyWritingSystemMappingBackgroundWorker">
+            <summary>
+            Background worker for applying writing system mappings to Unicode code points.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.ApplyWritingSystemRecognitionCommand">
+            <summary>
+            Command to apply writing systems recognition on a set of Unicode code points. 
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.RecognizedWritingSystemsCount">
+            <summary>
+            Count of recognized writing systems during the last recognition operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.InitWritingSystemCategoryPhraseMap">
+            <summary>
+            Initializes the writing system category phrase map for efficient recognition of writing systems based on code point categories and phrases.
+            </summary>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.RecognizeWritingSystem(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel)">
+            <summary>
+            Recognizes the writing system for a given Unicode code point based on its category and description.
+            </summary>
+            <param name="codePoint"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.BreakApplyWritingSystemRecognitionCommand">
+            <summary>
+            Command to break the apply writing system mapping operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.BreakApplyWritingSystemRecognitionCommandExecute">
+            <summary>
+            Executes the command to break the apply writing system mapping operation.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.ApplyWritingSystemRecognitionBackgroundWorker">
             <summary>
             Background worker for applying writing system mappings to Unicode code points.
             </summary>
@@ -3840,11 +3936,6 @@
             Identifier for the subset that this code point belongs to, if applicable.
             </summary>
         </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.Artefact">
-            <summary>
-            Identifier for the artefact that this code point is associated with, if applicable.
-            </summary>
-        </member>
         <member name="P:Qhta.Unicode.Models.UcdCodePoint.Aliases">
             <summary>
             Collection of the aliases of this Unicode code point.
@@ -4283,11 +4374,6 @@
         <member name="F:Qhta.Unicode.Models.WritingSystemType.Subset">
             <summary>
             A subset is a collection of symbols that belongs to a larger set, often used to represent a specific part of that set.
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemType.Artefact">
-            <summary>
-            An artefact is an object made or modified by humans, often used in archaeology or anthropology to study past cultures.
             </summary>
         </member>
         <member name="T:Qhta.Unicode.Models.WritingSystemTypeEntity">

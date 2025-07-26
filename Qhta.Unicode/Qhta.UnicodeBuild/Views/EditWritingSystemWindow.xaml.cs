@@ -54,8 +54,8 @@ public partial class EditWritingSystemWindow : Window
     if (newValue is bool addMode)
     {
       Title = addMode
-        ? Qhta.UnicodeBuild.Resources.WritingSystem.NewWritingSystemTitle
-        : Qhta.UnicodeBuild.Resources.WritingSystem.EditWritingSystemTitle;
+        ? Qhta.UnicodeBuild.Resources.WritingSystemStrings.NewWritingSystemTitle
+        : Qhta.UnicodeBuild.Resources.WritingSystemStrings.EditWritingSystemTitle;
       OkCommand.NotifyCanExecuteChanged();
     }
   }

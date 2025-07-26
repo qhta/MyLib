@@ -273,4 +273,58 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="CannotDeleteWritingSystem" xml:space="preserve">
     <value>Cannot delete writing system as it is used in other entities.</value>
   </data>
+  <data name="ApplyWritingSystemsRecognitionConfirm" xml:space="preserve">
+    <value>Do you really want to recognize writing systems for {0} code points? Existing mapping will not be overwritten.</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="NoCodePointsSelected" xml:space="preserve">
+    <value>No code points selected.</value>
+  </data>
+  <data name="AmbiguousWritingSystemCategoryOrPhrase" xml:space="preserve">
+    <value>Writing system {0} has not unique (category, phrase) key.</value>
+  </data>
+  <data name="CodePointCategoryIsNull" xml:space="preserve">
+    <value>Code point {0} category is empty.</value>
+  </data>
+  <data name="CodePointDescriptionIsNull" xml:space="preserve">
+    <value>Code point {0} description is empty.</value>
+  </data>
+  <data name="ApplyBlockMapping" xml:space="preserve">
+    <value>Apply block mapping</value>
+  </data>
+  <data name="ApplyBlockMappingConfirm" xml:space="preserve">
+    <value>Do you really want to apply block mapping from block ranges? All current "block" fields w be updated.</value>
+  </data>
+  <data name="ApplyBlockMappingTooltip" xml:space="preserve">
+    <value>Apply code point mapping to Unicode blocks by checking block ranges.</value>
+  </data>
+  <data name="ApplyWritingSystemsMappingFromFile" xml:space="preserve">
+    <value>Apply writing systems mapping</value>
+  </data>
+  <data name="ApplyWritingSystemsMappingFromFileTooltip" xml:space="preserve">
+    <value>Apply code point mapping to scripts from a text file. The first column in a line should contain the character code or code range, the second column should contain the name of the script. The columns should be separated by tabs. The '#' character is treated as the first character of a comment that extends to the end of the line.</value>
+  </data>
+  <data name="ApplyWritingSystemsRecognition" xml:space="preserve">
+    <value>Apply writing system recognition</value>
+  </data>
+  <data name="ApplyWritingSystemsRecognitionTooltip" xml:space="preserve">
+    <value>Apply code point mapping to writing systems based on category and key phrase.</value>
+  </data>
+  <data name="AmbiguousWritingSystemCategory" xml:space="preserve">
+    <value>Writing system {0} has not unique category key.</value>
+  </data>
+  <data name="AmbiguousWritingSystemPhrase" xml:space="preserve">
+    <value>Writing system {0} has not unique phrase key.</value>
+  </data>
+  <data name="ApplyWritingSystemsRecognitionAdvice" xml:space="preserve">
+    <value>Try selecting specific columns to recognize writing systems of certain types.</value>
+  </data>
+  <data name="ApplyWritingSystemsRecognitionCompleted" xml:space="preserve">
+    <value>Writing system recognition completed. {0} code points mapped.</value>
+  </data>
+  <data name="InvalidWritingSystemCategory" xml:space="preserve">
+    <value>Invalid category '{0}' in writing system {1}.</value>
+  </data>
 </root>

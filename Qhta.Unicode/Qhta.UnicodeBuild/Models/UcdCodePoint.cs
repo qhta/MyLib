@@ -138,11 +138,6 @@ public partial class UcdCodePoint
   /// </summary>
   public int? Subset { [DebuggerStepThrough] get; set; }
 
-  /// <summary>
-  /// Identifier for the artefact that this code point is associated with, if applicable.
-  /// </summary>
-  public int? Artefact { [DebuggerStepThrough] get; set; }
-
   #endregion
 
   /// <summary>

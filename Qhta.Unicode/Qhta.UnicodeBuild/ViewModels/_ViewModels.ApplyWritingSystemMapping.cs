@@ -13,10 +13,18 @@ namespace Qhta.UnicodeBuild.ViewModels;
 
 public partial class _ViewModels
 {
+  private void InitializeApplyWritingSystemMapping()
+  {
+    ApplyWritingSystemMappingCommand = new RelayCommand(ApplyWritingSystemMappingCommandExecute);
+    ApplyWritingSystemMappingBackgroundWorker.DoWork += ApplyWritingSystemMapping_DoWork;
+    ApplyWritingSystemMappingBackgroundWorker.ProgressChanged += ApplyWritingSystemMapping_ProgressChanged;
+    ApplyWritingSystemMappingBackgroundWorker.RunWorkerCompleted += ApplyWritingSystemMapping_RunWorkerCompleted;
+  }
+
   /// <summary>
   /// Command to apply writing system mappings from a file.
   /// </summary>
-  public IRelayCommand ApplyWritingSystemMappingCommand { [DebuggerStepThrough] get; }
+  public IRelayCommand? ApplyWritingSystemMappingCommand { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Collection of writing system mappings to be applied to Unicode code points.
@@ -126,7 +134,7 @@ public partial class _ViewModels
     WritingSystemViewModel? WritingSystem = null;
     var n = WritingSystemMappings.Count;
     var i = 0;
-    UcdCodePoints.StatusMessage = String.Format(Resources.Strings.Updating, Resources.CodePoint.WritingSystem);
+    UcdCodePoints.StatusMessage = String.Format(Resources.Strings.Updating, Resources.UcdCodePointStrings.WritingSystem);
     foreach (var mapping in WritingSystemMappings)
     {
       i++;
@@ -153,35 +161,7 @@ public partial class _ViewModels
           var codePoint = UcdCodePoints.FindById(cp);
           if (codePoint != null)
           {
-            //Debug.WriteLine($"Set WritingSystem {WritingSystem.Name} for cp {cp:X4}");
-            switch (WritingSystem.Type)
-            {
-              case WritingSystemType.Area:
-                codePoint.Area = WritingSystem;
-                break;
-              case WritingSystemType.Family:
-              case WritingSystemType.Script:
-                codePoint.Script = WritingSystem;
-                break;
-              case WritingSystemType.Language:
-                codePoint.Language = WritingSystem;
-                break;
-              case WritingSystemType.Notation:
-                codePoint.Notation = WritingSystem;
-                break;
-              case WritingSystemType.SymbolSet:
-                codePoint.SymbolSet = WritingSystem;
-                break;
-              case WritingSystemType.Subset:
-                codePoint.Subset = WritingSystem;
-                break;
-              case WritingSystemType.Artefact:
-                codePoint.Artefact = WritingSystem;
-                break;
-              default:
-                Debug.WriteLine($"Unknown WritingSystem type {WritingSystem.Type} for {WritingSystem.Name}");
-                break;
-            }
+            codePoint.WritingSystem = WritingSystem;
           }
         }
       }
@@ -191,7 +171,7 @@ public partial class _ViewModels
   /// <summary>
   /// Command to break the apply writing system mapping operation.
   /// </summary>
-  public IRelayCommand BreakApplyWritingSystemMappingCommand { [DebuggerStepThrough] get; }
+  public IRelayCommand? BreakApplyWritingSystemMappingCommand { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Executes the command to break the apply writing system mapping operation.
@@ -210,7 +190,7 @@ public partial class _ViewModels
   public BackgroundWorker ApplyWritingSystemMappingBackgroundWorker = new BackgroundWorker
   {
     WorkerReportsProgress = true,
-    WorkerSupportsCancellation = true
+    WorkerSupportsCancellation = true,
   };
 
 

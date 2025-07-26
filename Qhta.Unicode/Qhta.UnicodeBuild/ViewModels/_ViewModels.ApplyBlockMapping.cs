@@ -12,12 +12,20 @@ namespace Qhta.UnicodeBuild.ViewModels;
 
 public partial class _ViewModels
 {
+  private void InitializeApplyBlockMapping()
+  {
+    ApplyBlockMappingCommand = new RelayCommand(ApplyBlockMappingCommandExecute);
+    ApplyBlockMappingBackgroundWorker.DoWork += ApplyBlockMapping_DoWork;
+    ApplyBlockMappingBackgroundWorker.ProgressChanged += ApplyBlockMapping_ProgressChanged;
+    ApplyBlockMappingBackgroundWorker.RunWorkerCompleted += ApplyBlockMapping_RunWorkerCompleted;
+    BreakApplyBlockMappingCommand = new RelayCommand(BreakApplyBlockMappingCommandExecute);
+  }
 
   /// <summary>
   /// Command to apply block mappings to Unicode code points.
   /// A list of mappings is read from a file, and each code point in the specified blocks is updated with the corresponding UcdBlock.
   /// </summary>
-  public IRelayCommand ApplyBlockMappingCommand { [DebuggerStepThrough] get; }
+  public IRelayCommand? ApplyBlockMappingCommand { [DebuggerStepThrough] get; set; }
 
   private void ApplyBlockMappingCommandExecute()
   {
@@ -30,7 +38,7 @@ public partial class _ViewModels
     dialog.InitialDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "Resources");
 
     // Show open file dialog box
-    var result = MessageBox.Show(Resources.CodePoint.ApplyBlockMappingConfirm, Resources.CodePoint.ApplyBlockMapping, MessageBoxButton.OKCancel);
+    var result = MessageBox.Show(Resources.Strings.ApplyBlockMappingConfirm, Resources.Strings.ApplyBlockMapping, MessageBoxButton.OKCancel);
 
     // Process open file dialog box results
     if (result == MessageBoxResult.OK)
@@ -56,7 +64,7 @@ public partial class _ViewModels
   {
     var n = UcdBlocks.Count;
     var i = 0;
-    UcdCodePoints.StatusMessage = String.Format(Resources.Strings.Updating, Resources.CodePoint.UcdBlock);
+    UcdCodePoints.StatusMessage = String.Format(Resources.Strings.Updating, Resources.UcdCodePointStrings.UcdBlock);
     foreach (var block in UcdBlocks)
     {
       i++;
@@ -85,7 +93,7 @@ public partial class _ViewModels
   /// <summary>
   /// Command to break the apply block mapping operation.
   /// </summary>
-  public IRelayCommand BreakApplyBlockMappingCommand { [DebuggerStepThrough] get; }
+  public IRelayCommand? BreakApplyBlockMappingCommand { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Executes the command to break the apply block mapping operation.

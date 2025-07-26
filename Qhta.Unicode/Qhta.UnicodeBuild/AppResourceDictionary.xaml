@@ -22,9 +22,9 @@
   <converters:NegateValueConverter x:Key="NegateValueConverter"/>
   <helpers:WritingSystemTypeToImageConverter x:Key="TypeToImageConverter" />
   <helpers:EnumToResourceConverter 
-    ResourceType="{x:Type resources:WritingSystemType}" x:Key="WritingSystemTypeResourceConverter"/>
+    ResourceType="{x:Type resources:WritingSystemTypeStrings}" x:Key="WritingSystemTypeResourceConverter"/>
   <helpers:EnumToResourceConverter 
-    ResourceType="{x:Type resources:WritingSystemKind}" x:Key="WritingSystemKindResourceConverter"/>
+    ResourceType="{x:Type resources:WritingSystemKindStrings}" x:Key="WritingSystemKindResourceConverter"/>
   <helpers:CategoryResourceConverter x:Key="CategoryResourceConverter"/>
   <helpers:InsertItemConverter x:Key="InsertItemConverter"/>
   <viewModels:WritingSystemViewModel x:Key="BlankWritingSystem"/>

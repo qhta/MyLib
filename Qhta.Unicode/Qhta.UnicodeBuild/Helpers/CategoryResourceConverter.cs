@@ -21,7 +21,7 @@ public class CategoryResourceConverter: IValueConverter
   {
     if (value is not string categoryName)
       return null;
-    return Resources.Category.ResourceManager.GetObject(categoryName) ?? null;
+    return Resources.UcdCategoryStrings.ResourceManager.GetObject(categoryName) ?? null;
   }
 
   /// <summary>

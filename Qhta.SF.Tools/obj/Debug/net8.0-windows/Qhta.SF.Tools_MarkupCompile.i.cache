@@ -16,5 +16,5 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR
 231-1505063784
 RecordNavigationBar.xaml;SfDataGridRowHeaderCell.xaml;SfDataGridTools.xaml;
 
-False
+True
 

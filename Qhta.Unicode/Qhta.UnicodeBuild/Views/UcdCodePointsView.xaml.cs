@@ -79,8 +79,6 @@ public partial class UcdCodePointsView : UserControl
       SetWritingSystemFilter(_ViewModels.Instance.SelectableSymbolSets);
     else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Subset))
       SetWritingSystemFilter(_ViewModels.Instance.SelectableSubsets);
-    else if (e.Column.MappingName == nameof(UcdCodePointViewModel.Artefact))
-      SetWritingSystemFilter(_ViewModels.Instance.SelectableArtefacts);
     else
       SetAdvancedFilter();
 

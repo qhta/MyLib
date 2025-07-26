@@ -273,4 +273,58 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="CannotDeleteWritingSystem" xml:space="preserve">
     <value>Nie można usunąć systemu pisma, gdyż jest używany w innych encjach.</value>
   </data>
+  <data name="ApplyWritingSystemsRecognitionConfirm" xml:space="preserve">
+    <value>Czy na pewno chcesz rozpoznać systemy pisma dla {0} punktów kodowych? Istniejące odwzorowania nie zostaną nadpisane.</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Potwierdź</value>
+  </data>
+  <data name="NoCodePointsSelected" xml:space="preserve">
+    <value>Nie wybrano punktów kodowych.</value>
+  </data>
+  <data name="AmbiguousWritingSystemCategoryOrPhrase" xml:space="preserve">
+    <value>System pisma {0} ma powtarzalny klucz (kategoria, fraza).</value>
+  </data>
+  <data name="CodePointCategoryIsNull" xml:space="preserve">
+    <value>Kategoria punktu kodowego {0} jest pusta.</value>
+  </data>
+  <data name="CodePointDescriptionIsNull" xml:space="preserve">
+    <value>Nazwa opisowa punktu kodowego {0} jest pusta.</value>
+  </data>
+  <data name="ApplyBlockMapping" xml:space="preserve">
+    <value>Zastosuj mapowanie bloków</value>
+  </data>
+  <data name="ApplyBlockMappingConfirm" xml:space="preserve">
+    <value>Czy na pewno chcesz zastosować mapowanie bloków na podstawie ich reguł? Jeśli tak, to wszystkie pola "blok" zostaną zaktualizowane.</value>
+  </data>
+  <data name="ApplyBlockMappingTooltip" xml:space="preserve">
+    <value>Zastosuj mapowanie punktów kodowych do bloków Unicode przez sprawdzenie zakresów bloków.</value>
+  </data>
+  <data name="ApplyWritingSystemsMappingFromFile" xml:space="preserve">
+    <value>Zastosuj mapowanie z pliku</value>
+  </data>
+  <data name="ApplyWritingSystemsMappingFromFileTooltip" xml:space="preserve">
+    <value>Zastosuj mapowanie punktów kodowych do systemów pisma z pliku tekstowego. W pierwszej kolumnie w linii powinien być zapisany kod znaku lub zakres kodowy, w drugiej - nazwa systemu pisma. Kolumny powinny być oddzielone znakami tabulacji. Znak '#' jest traktowany jako pierwszy znak komentarza, który rozciąga się do końca linii.</value>
+  </data>
+  <data name="ApplyWritingSystemsRecognition" xml:space="preserve">
+    <value>Zastosuj rozpoznawanie systemów pisma</value>
+  </data>
+  <data name="ApplyWritingSystemsRecognitionTooltip" xml:space="preserve">
+    <value>Zastosuj mapowanie punktów kodowych do systemów pisma na podstawie kategorii i fraz kluczowych.</value>
+  </data>
+  <data name="AmbiguousWritingSystemCategory" xml:space="preserve">
+    <value>System pisma {0} ma powtarzalny klucz kategorii.</value>
+  </data>
+  <data name="AmbiguousWritingSystemPhrase" xml:space="preserve">
+    <value>System pisma {0} ma powtarzalny klucz frazy.</value>
+  </data>
+  <data name="ApplyWritingSystemsRecognitionAdvice" xml:space="preserve">
+    <value>Spróbuj wybrać określone kolumny, aby rozpoznać systemy pisma określonych typów.</value>
+  </data>
+  <data name="ApplyWritingSystemsRecognitionCompleted" xml:space="preserve">
+    <value>Zakończono rozpoznawanie systemów pisma. Zmapowano {0} punktów kodowych.</value>
+  </data>
+  <data name="InvalidWritingSystemCategory" xml:space="preserve">
+    <value>Nieprawidłowa kategoria {0} w systemie pisma {1}.</value>
+  </data>
 </root>
