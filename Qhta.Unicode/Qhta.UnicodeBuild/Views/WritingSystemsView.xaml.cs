@@ -312,8 +312,8 @@ public partial class WritingSystemsView : UserControl
     {
       if (command == ApplicationCommands.Save)
       {
-        _ViewModels.Instance.DbContext?.SaveChanges();
-        Debug.WriteLine("Data changes saved");
+        Debug.WriteLine("Data changes save started");
+        _ViewModels.Instance.DbContext?.SaveChangesAsync();
       }
       else if (command == ApplicationCommands.Copy)
       {
@@ -333,12 +333,12 @@ public partial class WritingSystemsView : UserControl
       }
       else if (command == ApplicationCommands.Undo)
       {
-        UndoMgr.Undo();
+        UndoManager.UndoMgr.Undo();
         WritingSystemsDataGrid.UpdateLayout();
       }
       else if (command == ApplicationCommands.Redo)
       {
-        UndoMgr.Redo();
+        UndoManager.UndoMgr.Redo();
         WritingSystemsDataGrid.UpdateLayout();
       }
       else

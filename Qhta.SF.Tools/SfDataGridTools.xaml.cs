@@ -68,7 +68,7 @@ public partial class SfDataGridTools : ResourceDictionary
           // Instead, the user may click on the column separator line to resize the column.
           return;
       }
-
+      dataGrid.SelectionController.ClearSelections(false);
       var isSelected = SfDataGridColumnBehavior.GetIsSelected(column);
       isSelected = !isSelected;
 

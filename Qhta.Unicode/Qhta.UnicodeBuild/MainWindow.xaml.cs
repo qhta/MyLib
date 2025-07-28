@@ -18,7 +18,7 @@ public partial class MainWindow : Window
   public MainWindow()
   {
     InitializeComponent();
-    this.PreviewKeyDown += MainWindow_PreviewKeyDown;
+    this.KeyDown += MainWindow_KeyDown;
     _backgroundTimer = new Timer(TimerProc, null, TimeSpan.FromMilliseconds(200), TimeSpan.FromMilliseconds(200));
 
   }
@@ -47,7 +47,7 @@ public partial class MainWindow : Window
   /// </summary>
   /// <param name="sender"></param>
   /// <param name="e"></param>
-  private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+  private void MainWindow_KeyDown(object sender, KeyEventArgs e)
   {
     //Debug.WriteLine($"MainWindow_PreviewKeyDown: {e.Key} {Keyboard.Modifiers}");
     if (e.Key == Key.Z && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
@@ -83,26 +83,6 @@ public partial class MainWindow : Window
         };
 
         focusedControl.RaiseEvent(keyEventArgs);
-        if (keyEventArgs.Handled)
-        {
-          e.Handled = true;
-        }
-      }
-    }
-    if (MainTabControl.SelectedItem is TabItem selectedTab)
-    {
-      if (selectedTab.Content is FrameworkElement content)
-      {
-        // Forward the key event to the content of the selected tab
-        var keyEventArgs = new KeyEventArgs(
-          Keyboard.PrimaryDevice,
-          PresentationSource.FromVisual(content)!,
-          0,
-          e.Key)
-        {
-          RoutedEvent = Keyboard.KeyDownEvent
-        };
-        content.RaiseEvent(keyEventArgs);
         if (keyEventArgs.Handled)
         {
           e.Handled = true;

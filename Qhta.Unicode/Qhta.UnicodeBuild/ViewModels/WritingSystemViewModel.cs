@@ -1,9 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 
 using Qhta.MVVM;
 using Qhta.SF.Tools;
@@ -18,7 +15,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// </summary>
 /// <param name="model"></param>
 public class WritingSystemViewModel(WritingSystem model)
-  : ViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, IComparable<WritingSystemViewModel>,// INotifyDataErrorInfo
+  : EntityViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, IComparable<WritingSystemViewModel>,// INotifyDataErrorInfo
   IRowHeightProvider, IErrorMessageProvider
 {
   /// <summary>
@@ -40,14 +37,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Id;
-    set
-    {
-      if (Model.Id != value)
-      {
-        Model.Id = value;
-        NotifyPropertyChanged(nameof(Id));
-      }
-    }
+    set => ChangeModelProperty(nameof(Id), value);
   }
 
   /// <summary>
@@ -59,15 +49,8 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Name;
-    set
-    {
-      if (Model.Name != value)
-      {
-        var oldValue = Model.Name;
-        Model.Name = value;
-        NotifyPropertyChanged(nameof(Name), oldValue, value);
-      }
-    }
+    set => ChangeModelProperty(nameof(Name), value);
+
   }
 
   /// <summary>
@@ -86,14 +69,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Type;
-    set
-    {
-      if (Model.Type != value)
-      {
-        Model.Type = value;
-        NotifyPropertyChanged(nameof(Type));
-      }
-    }
+    set => ChangeModelProperty(nameof(Type), value);
   }
 
   /// <summary>
@@ -103,14 +79,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Kind;
-    set
-    {
-      if (Model.Kind != value)
-      {
-        Model.Kind = value;
-        NotifyPropertyChanged(nameof(Kind));
-      }
-    }
+    set => ChangeModelProperty(nameof(Kind), value);
   }
 
   /// <summary>
@@ -120,14 +89,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.ParentId;
-    set
-    {
-      if (Model.ParentId != value)
-      {
-        Model.ParentId = value;
-        NotifyPropertyChanged(nameof(ParentId));
-      }
-    }
+    set => ChangeModelProperty(nameof(ParentId), value);
   }
 
   /// <summary>
@@ -137,14 +99,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.KeyPhrase;
-    set
-    {
-      if (Model.KeyPhrase != value)
-      {
-        Model.KeyPhrase = value;
-        NotifyPropertyChanged(nameof(KeyPhrase));
-      }
-    }
+    set => ChangeModelProperty(nameof(KeyPhrase), value);
   }
 
   /// <summary>
@@ -154,14 +109,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Ctg;
-    set
-    {
-      if (Model.Ctg != value)
-      {
-        Model.Ctg = value;
-        NotifyPropertyChanged(nameof(Ctg));
-      }
-    }
+    set => ChangeModelProperty(nameof(Ctg), value);
   }
 
   /// <summary>
@@ -171,14 +119,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Iso;
-    set
-    {
-      if (Model.Iso != value)
-      {
-        Model.Iso = value;
-        NotifyPropertyChanged(nameof(Iso));
-      }
-    }
+    set => ChangeModelProperty(nameof(Iso), value);
   }
 
   /// <summary>
@@ -188,14 +129,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Abbr;
-    set
-    {
-      if (Model.Abbr != value)
-      {
-        Model.Abbr = value;
-        NotifyPropertyChanged(nameof(Abbr));
-      }
-    }
+    set => ChangeModelProperty(nameof(Abbr), value);
   }
 
   /// <summary>
@@ -205,14 +139,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Ext;
-    set
-    {
-      if (Model.Ext != value)
-      {
-        Model.Ext = value;
-        NotifyPropertyChanged(nameof(Ext));
-      }
-    }
+    set => ChangeModelProperty(nameof(Ext), value);
   }
 
   /// <summary>
@@ -223,14 +150,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Description;
-    set
-    {
-      if (Model.Description != value)
-      {
-        Model.Description = value;
-        NotifyPropertyChanged(nameof(Description));
-      }
-    }
+    set => ChangeModelProperty(nameof(Description), value);
   }
 
   /// <summary>

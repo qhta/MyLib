@@ -106,37 +106,44 @@ public partial class UcdCodePoint
   /// <summary>
   /// Identifier for the Unicode block that this code point belongs to.
   /// </summary>
-  public int? Block { [DebuggerStepThrough] get; set; }
+  [Column("Block")]
+  public int? BlockId { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Identifier for the area writing system that this code point is associated with, if applicable.
   /// </summary>
-  public int? Area { [DebuggerStepThrough] get; set; }
+  [Column("Area")]
+  public int? AreaId { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Identifier for the script that this code point is written in, if applicable.
   /// </summary>
-  public int? Script { [DebuggerStepThrough] get; set; }
+  [Column("Script")]
+  public int? ScriptId { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Identifier for the language that this code point is associated with, if applicable.
   /// </summary>
-  public int? Language { [DebuggerStepThrough] get; set; }
+  [Column("Language")]
+  public int? LanguageId { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Identifier for the notation that this code point is associated with, if applicable.
   /// </summary>
-  public int? Notation { [DebuggerStepThrough] get; set; }
+  [Column("Notation")]
+  public int? NotationId { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Identifier for the symbol set that this code point belongs to, if applicable.
   /// </summary>
-  public int? SymbolSet { [DebuggerStepThrough] get; set; }
+  [Column("SymbolSet")]
+  public int? SymbolSetId { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Identifier for the subset that this code point belongs to, if applicable.
   /// </summary>
-  public int? Subset { [DebuggerStepThrough] get; set; }
+  [Column("Subset")]
+  public int? SubsetId { [DebuggerStepThrough] get; set; }
 
   #endregion
 

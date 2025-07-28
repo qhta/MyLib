@@ -99,7 +99,7 @@ public static partial class Controller
       {
         var cellStr = cellValues[columnNo++];
         if (columnNo >= cellValues.Length) columnNo = 0; // Loop through content line if more columns than line items
-        var cellInfo = new GridCellInfo(column, row, null, -1, false);
+        var cellInfo = new GridCellInfo(column, row, null);
         var columnInfo = columnInfos?.FirstOrDefault(info => info?.MappingName == column.MappingName);
         if (columnInfo != null)
         {

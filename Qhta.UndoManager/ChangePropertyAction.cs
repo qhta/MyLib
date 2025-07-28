@@ -1,6 +1,6 @@
 ﻿using Qhta.UndoManager;
 
-namespace Qhta.UnicodeBuild.Actions;
+namespace Qhta.UndoManager;
 
 /// <summary>
 /// Arguments for changing a property.

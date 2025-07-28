@@ -53,7 +53,7 @@ public partial class _ViewModels : ViewModel, IDisposable
 
   private _ViewModels()
   {
-    UndoMgr.Enabled = false;
+    UndoManager.UndoMgr.Enabled = false;
     _Context = new _DbContext();
     {
       foreach (var wst in _Context.WritingSystemTypes.ToList())
@@ -130,8 +130,8 @@ public partial class _ViewModels : ViewModel, IDisposable
     InitializeApplyWritingSystemMapping();
     InitializeApplyWritingSystemRecognition();
 
-    FillColumnCommand = new RelayCommand<object?>(FillColumnCommandExecute);
-    UndoMgr.Enabled = true;
+    FillColumnCommand = new RelayCommand<object?>(FillColumnCommandExecute, FillColumnCommandCanExecute);
+    UndoManager.UndoMgr.Enabled = true;
   }
 
   /// <summary>

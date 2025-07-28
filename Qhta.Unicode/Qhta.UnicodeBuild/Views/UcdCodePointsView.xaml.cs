@@ -101,7 +101,7 @@ public partial class UcdCodePointsView : UserControl
       selectableItems.Insert(1,
         new UnicodeCategoryViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty category
 
-      var UcdCategoryFilters = selectableItems.Select(item => new FilterElement
+      var ucdCategoryFilters = selectableItems.Select(item => new FilterElement
       {
         ActualValue = item,
         FormattedString = (object obj) =>
@@ -111,7 +111,7 @@ public partial class UcdCodePointsView : UserControl
           return Strings.EmptyItem;
         }
       }).ToArray();
-      e.ItemsSource = UcdCategoryFilters;
+      e.ItemsSource = ucdCategoryFilters;
       e.Handled = true;
     }
 
@@ -125,7 +125,7 @@ public partial class UcdCodePointsView : UserControl
       selectableItems.Insert(0, null); // Add a null item at the top
       selectableItems.Insert(1,
         new UcdBlockViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty block
-      var UcdBlockFilters = selectableItems.Select(item => new FilterElement
+      var ucdBlockFilters = selectableItems.Select(item => new FilterElement
       {
         ActualValue = item,
         FormattedString = (object obj) =>
@@ -135,7 +135,7 @@ public partial class UcdCodePointsView : UserControl
           return Strings.EmptyItem;
         }
       }).ToArray();
-      e.ItemsSource = UcdBlockFilters;
+      e.ItemsSource = ucdBlockFilters;
       e.Handled = true;
     }
 
@@ -151,7 +151,7 @@ public partial class UcdCodePointsView : UserControl
       selectableItems.Insert(1,
         new WritingSystemViewModel()); // Add a blank item at the second position - blank item predicate will be used to filter items with non-empty writing system
 
-      var WritingSystemFilters = selectableItems.Select(item => new FilterElement
+      var writingSystemFilters = selectableItems.Select(item => new FilterElement
       {
         ActualValue = item,
         FormattedString = (object obj) =>
@@ -161,7 +161,7 @@ public partial class UcdCodePointsView : UserControl
           return Strings.EmptyItem;
         }
       }).ToArray();
-      e.ItemsSource = WritingSystemFilters;
+      e.ItemsSource = writingSystemFilters;
       e.Handled = true;
     }
   }
@@ -239,8 +239,8 @@ public partial class UcdCodePointsView : UserControl
     {
       if (command == ApplicationCommands.Save)
       {
-        _ViewModels.Instance.DbContext?.SaveChanges();
-        Debug.WriteLine("Data changes saved");
+        Debug.WriteLine("Data changes save started");
+        _ViewModels.Instance.DbContext?.SaveChangesAsync();
       }
       else if (command == ApplicationCommands.Copy)
       {

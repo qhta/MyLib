@@ -54,7 +54,9 @@
       Margin="10,5"
       >
       <Button x:Name="OkButton" Content="{x:Static resources:Strings.OK}" Width="80" Click="OkButton_OnClick"/>
-      <Button x:Name="CancelButton" Content="{x:Static resources:Strings.Cancel}" Width="80" Click="CancelButton_OnClick" Margin="10,0,0,0"/>
+      <Button x:Name="CancelButton" Content="{x:Static resources:Strings.Cancel}" Width="80" Click="CancelButton_OnClick" 
+              IsCancel="True"
+              Margin="10,0,0,0"/>
     </WrapPanel>
   </Grid>
 </Window>

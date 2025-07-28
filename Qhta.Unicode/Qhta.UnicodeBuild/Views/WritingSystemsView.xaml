@@ -123,17 +123,13 @@
 
     <!-- Menu Bar -->
     <Menu Grid.Row="0" Grid.ColumnSpan="2">
-      <!--<MenuItem Header="File">
-        <MenuItem Header="New" Command="New"/>
-        <MenuItem Header="Open" Command="Open"/>
-        <MenuItem Header="Save" Command="Save"/>
-        <Separator/>
-        <MenuItem Header="Exit" Command="Close"/>
-      </MenuItem>-->
+      <MenuItem Header="{x:Static resources:Strings.Data}">
+        <MenuItem Header="{x:Static resources:Strings.Save}" Command="Save"/>
+      </MenuItem>
       <MenuItem Header="{x:Static resources:Strings.Edit}">
-        <!--<MenuItem Header="Undo" Command="Undo"/>
+        <MenuItem Header="Undo" Command="Undo"/>
         <MenuItem Header="Redo" Command="Redo"/>
-        <Separator/>-->
+        <Separator/>
         <MenuItem Header="{x:Static resources:Strings.Cut}" Command="Cut"/>
         <MenuItem Header="{x:Static resources:Strings.Copy}" Command="Copy"/>
         <MenuItem Header="{x:Static resources:Strings.Paste}" Command="Paste"/>

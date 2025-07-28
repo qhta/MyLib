@@ -4,8 +4,7 @@ using Qhta.MVVM;
 using Qhta.SF.Tools;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
-using Qhta.UndoManager;
-using Qhta.UnicodeBuild.Actions;
+
 
 #pragma warning disable CA1416
 namespace Qhta.UnicodeBuild.ViewModels;
@@ -13,7 +12,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <summary>
 /// ViewModel for a Unicode code point, providing properties and methods to interact with the underlying model.
 /// </summary>
-public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeightProvider, IErrorMessageProvider
+public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRowHeightProvider, IErrorMessageProvider
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="UcdCodePointViewModel"/> class with the specified model.
@@ -72,7 +71,7 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   /// Short name of the Unicode code point, which may be used to identify the character in various contexts.
   /// It is a read/write property.
   /// </summary>
-  public string? CharName { get => Model.CharName; set { if (Model.CharName != value) { Model.CharName = value; NotifyPropertyChanged(nameof(CharName)); } } }
+  public string? CharName { get => Model.CharName; set => ChangeProperty(nameof(CharName), value); }
 
   /// <summary>
   /// Descriptive name of the Unicode code point.
@@ -102,7 +101,7 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   /// Combining class of the Unicode code point, which indicates how the character combines with other characters.
   /// It is a read-only property that returns a nullable enum value.
   /// </summary>
-  public UcdCombination? Comb =>  Model.Comb;
+  public UcdCombination? Comb => Model.Comb;
 
   /// <summary>
   /// Bidirectional category of the Unicode code point, which indicates how the character behaves in bidirectional text.
@@ -180,18 +179,11 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   /// </summary>
   public int? UcdBlockId
   {
-    [DebuggerStepThrough] get => Model.Block; 
-    set 
-    {
-      if (Model.Block != value)
-      {
-        UndoMgr.Record(new ChangePropertyAction(), new ChangePropertyArgs(this, nameof(UcdBlockId), UcdBlockId, value));
-        Model.Block = value; 
-        NotifyPropertyChanged(nameof(UcdBlockId));
-        NotifyPropertyChanged(nameof(UcdBlock));
-      }
-    }
+    [DebuggerStepThrough]
+    get => Model.BlockId;
+    set => ChangeModelProperty(nameof(UcdBlockId), value, nameof(UcdBlock));
   }
+
   /// <summary>
   /// Exposes the Unicode code point block as a view model.
   /// </summary>
@@ -199,34 +191,17 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   {
     get
     {
-      var result = Model.Block is null ? null : _ViewModels.Instance.UcdBlocks.FindById((int)Model.Block);
+      var result = Model.BlockId is null ? null : _ViewModels.Instance.UcdBlocks.FindById((int)Model.BlockId);
       return result;
     }
-    set
-    {
-      if (value is not null)
-      {
-        if (value.Id != UcdBlockId)
-        {
-          UcdBlockId = value?.Id;
-          NotifyPropertyChanged(nameof(UcdBlock));
-        }
-      }
-      else
-      {
-        if (UcdBlockId is not null)
-        {
-          UcdBlockId = null;
-          NotifyPropertyChanged(nameof(UcdBlock));
-        }
-      }
-    }
+    set => ChangeProperty(nameof(UcdBlockId), value?.Id);
   }
 
   /// <summary>
   /// Identifier of the area writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? AreaId { get => Model.Area; set { if (Model.Area != value) { Model.Area = value; NotifyPropertyChanged(nameof(AreaId)); } } }
+  public int? AreaId { get => Model.AreaId; set => ChangeModelProperty(nameof(AreaId), value, nameof(Area)); }
+
   /// <summary>
   /// Exposes the area writing system as a view model.
   /// </summary>
@@ -234,34 +209,16 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   {
     get
     {
-      var result = Model.Area is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.Area);
+      var result = Model.AreaId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.AreaId);
       return result;
     }
-    set
-    {
-      if (value is not null)
-      {
-        if (value.Id != AreaId)
-        {
-          AreaId = value?.Id;
-          NotifyPropertyChanged(nameof(Area));
-        }
-      }
-      else
-      {
-        if (AreaId is not null)
-        {
-          AreaId = null;
-          NotifyPropertyChanged(nameof(Area));
-        }
-      }
-    }
+    set => ChangeProperty(nameof(AreaId), value?.Id);
   }
 
   /// <summary>
   /// Identifier of the script writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? ScriptId { get => Model.Script; set { if (Model.Script != value) { Model.Script = value; NotifyPropertyChanged(nameof(ScriptId)); } } }
+  public int? ScriptId { get => Model.ScriptId; set => ChangeModelProperty(nameof(ScriptId), value, nameof(Script)); }
   /// <summary>
   /// Exposes the script writing system as a view model.
   /// </summary>
@@ -269,33 +226,15 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   {
     get
     {
-      var result = Model.Script is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.Script);
+      var result = Model.ScriptId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.ScriptId);
       return result;
     }
-    set
-    {
-      if (value is not null)
-      {
-        if (value.Id != ScriptId)
-        {
-          ScriptId = value?.Id;
-          NotifyPropertyChanged(nameof(Script));
-        }
-      }
-      else
-      {
-        if (ScriptId is not null)
-        {
-          ScriptId = null;
-          NotifyPropertyChanged(nameof(Script));
-        }
-      }
-    }
+    set => ChangeProperty(nameof(ScriptId), value?.Id); 
   }
   /// <summary>
   /// Identifier of the language writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? LanguageId { get => Model.Language; set { if (Model.Language != value) { Model.Language = value; NotifyPropertyChanged(nameof(LanguageId)); } } }
+  public int? LanguageId { get => Model.LanguageId; set => ChangeModelProperty(nameof(LanguageId), value, nameof(Language)); }
   /// <summary>
   /// Exposes the language writing system as a view model.
   /// </summary>
@@ -303,34 +242,16 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   {
     get
     {
-      var result = Model.Language is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.Language);
+      var result = Model.LanguageId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.LanguageId);
       return result;
     }
-    set
-    {
-      if (value is not null)
-      {
-        if (value.Id != LanguageId)
-        {
-          LanguageId = value?.Id;
-          NotifyPropertyChanged(nameof(Language));
-        }
-      }
-      else
-      {
-        if (LanguageId is not null)
-        {
-          LanguageId = null;
-          NotifyPropertyChanged(nameof(Language));
-        }
-      }
-    }
+    set => ChangeProperty(nameof(LanguageId), value?.Id);
   }
 
   /// <summary>
   /// Identifier of the notation writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? NotationId { get => Model.Notation; set { if (Model.Notation != value) { Model.Notation = value; NotifyPropertyChanged(nameof(NotationId)); } } }
+  public int? NotationId { get => Model.NotationId; set => ChangeModelProperty(nameof(NotationId), value, nameof(Notation)); }
   /// <summary>
   /// Exposes the notation writing system as a view model.
   /// </summary>
@@ -338,34 +259,16 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   {
     get
     {
-      var result = Model.Notation is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.Notation);
+      var result = Model.NotationId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.NotationId);
       return result;
     }
-    set
-    {
-      if (value is not null)
-      {
-        if (value.Id != NotationId)
-        {
-          NotationId = value?.Id;
-          NotifyPropertyChanged(nameof(Notation));
-        }
-      }
-      else
-      {
-        if (NotationId is not null)
-        {
-          NotationId = null;
-          NotifyPropertyChanged(nameof(Notation));
-        }
-      }
-    }
+    set => ChangeProperty(nameof(NotationId), value?.Id);
   }
 
   /// <summary>
   /// Identifier of the symbol set writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? SymbolSetId { get => Model.SymbolSet; set { if (Model.SymbolSet != value) { Model.SymbolSet = value; NotifyPropertyChanged(nameof(SymbolSetId)); } } }
+  public int? SymbolSetId { get => Model.SymbolSetId; set => ChangeModelProperty(nameof(SymbolSetId), value, nameof(SymbolSet)); }
   /// <summary>
   /// Exposes the symbol set writing system as a view model.
   /// </summary>
@@ -373,34 +276,16 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   {
     get
     {
-      var result = Model.SymbolSet is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.SymbolSet);
+      var result = Model.SymbolSetId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.SymbolSetId);
       return result;
     }
-    set
-    {
-      if (value is not null)
-      {
-        if (value.Id != SymbolSetId)
-        {
-          SymbolSetId = value?.Id;
-          NotifyPropertyChanged(nameof(SymbolSet));
-        }
-      }
-      else
-      {
-        if (SymbolSetId is not null)
-        {
-          SymbolSetId = null;
-          NotifyPropertyChanged(nameof(SymbolSet));
-        }
-      }
-    }
+    set => ChangeProperty(nameof(SymbolSetId), value?.Id);
   }
 
   /// <summary>
   /// Identifier of the subset writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? SubsetId { get => Model.Subset; set { if (Model.Subset != value) { Model.Subset = value; NotifyPropertyChanged(nameof(SubsetId)); } } }
+  public int? SubsetId { get => Model.SubsetId; set => ChangeModelProperty(nameof(SubsetId), value, nameof(Subset)); }
   /// <summary>
   /// Exposes the subset writing system as a view model.
   /// </summary>
@@ -408,28 +293,10 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   {
     get
     {
-      var result = Model.Subset is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.Subset);
+      var result = Model.SubsetId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.SubsetId);
       return result;
     }
-    set
-    {
-      if (value is not null)
-      {
-        if (value.Id != SubsetId)
-        {
-          SubsetId = value?.Id;
-          NotifyPropertyChanged(nameof(Subset));
-        }
-      }
-      else
-      {
-        if (SubsetId is not null)
-        {
-          SubsetId = null;
-          NotifyPropertyChanged(nameof(Subset));
-        }
-      }
-    }
+    set => ChangeProperty(nameof(SubsetId), value?.Id);
   }
 
   /// <summary>
@@ -442,10 +309,10 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   {
     get
     {
-      var writingSystemId = Model.Subset ?? Model.SymbolSet ?? Model.Notation ?? Model.Language ?? Model.Script ?? Model.Area;
+      var writingSystemId = Model.SubsetId ?? Model.SymbolSetId ?? Model.NotationId ?? Model.LanguageId ?? Model.ScriptId ?? Model.AreaId;
       WritingSystemViewModel? result = null;
-      if (writingSystemId!=null)
-       result = _ViewModels.Instance.WritingSystems.FindById((int)writingSystemId);
+      if (writingSystemId != null)
+        result = _ViewModels.Instance.WritingSystems.FindById((int)writingSystemId);
       return result;
     }
     set
@@ -481,51 +348,52 @@ public partial class UcdCodePointViewModel : ViewModel<UcdCodePoint>, IRowHeight
   }
 
   /// <summary>
-  /// Exposes the writing system which can be one of all the above writing systems.
-  /// Returned value is taken from the references which types are specified by <paramref name="allowedTypes"/>
-  /// First non-null writing system is returned.
-  /// In a set method, the proper reference is set based on <see cref="WritingSystemType"/> of the provided value.
+  /// Exposes the collection of writing systems which types are specified by <paramref name="allowedTypes"/>
+  /// All non-null writing system is returned in the order of types in <paramref name="allowedTypes"/>.
   /// </summary>
-  /// <param name="allowedTypes">Specifies which types of writing system are allowed. Proper references are checked in order of items in this parameter. First not null is returned</param>
-  public WritingSystemViewModel? GetWritingSystemOfType(WritingSystemType[] allowedTypes)
+  /// <param name="allowedTypes">Specifies which types of writing system are allowed.</param>
+  public IEnumerable<WritingSystemViewModel>? GetWritingSystems(WritingSystemType[] allowedTypes)
   {
-    WritingSystemViewModel? result = null;
+    List<WritingSystemViewModel> result = new List<WritingSystemViewModel>(); ;
+    WritingSystemViewModel? resultItem = null;
     foreach (var type in allowedTypes)
     {
       switch (type)
       {
         case WritingSystemType.Area:
-          result = Area;
+          resultItem = Area;
           break;
         case WritingSystemType.Script:
-          result = Script;
+          resultItem = Script;
           break;
         case WritingSystemType.Language:
-          result = Language;
+          resultItem = Language;
           break;
         case WritingSystemType.Notation:
-          result = Notation;
+          resultItem = Notation;
           break;
         case WritingSystemType.SymbolSet:
-          result = SymbolSet;
+          resultItem = SymbolSet;
           break;
         case WritingSystemType.Subset:
-          result = Subset;
+          resultItem = Subset;
           break;
       }
-      if (result is not null)
-        return result;
+      if (resultItem is not null)
+      {
+        result.Add(resultItem);
+      }
     }
-    return null;
+    return result;
   }
-
   #region IRowHeightProvider implementation
-    /// <summary>
-    /// Simple property to provide the height of the row in a UI.
-    /// </summary>
+  /// <summary>
+  /// Simple property to provide the height of the row in a UI.
+  /// </summary>
   public double RowHeight
   {
-    [DebuggerStepThrough] get => _RowHeight;
+    [DebuggerStepThrough]
+    get => _RowHeight;
     set
     {
       if (_RowHeight != value)

@@ -74,11 +74,10 @@ public sealed class WritingSystemsCollection() : EntityCollection<WritingSystemV
     {
       foreach (WritingSystemViewModel vm in e.NewItems!)
       {
-        IntDictionary.TryAdd((int)vm.Id!, vm);
-        if (!string.IsNullOrEmpty(vm.Name) && !vm.Name.StartsWith("<"))
-        {
+        if (vm.Id!=null)
+          IntDictionary.TryAdd((int)vm.Id, vm);
+        if (!string.IsNullOrEmpty(vm.Name) && !vm.Name.StartsWith("<")) 
           StringDictionary.TryAdd(vm.Name, vm);
-        }
       }
     }
   }
@@ -88,7 +87,7 @@ public sealed class WritingSystemsCollection() : EntityCollection<WritingSystemV
     if (sender is not WritingSystemViewModel vm) return;
     if (e.PropertyName == nameof(WritingSystemViewModel.Id))
     {
-      if (vm.Id != null) IntDictionary.Add((int)vm.Id, vm);
+      if (vm.Id != null) IntDictionary.TryAdd((int)vm.Id, vm);
       //OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
     }
     if (e.PropertyName == nameof(WritingSystemViewModel.Name))

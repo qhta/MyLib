@@ -93,14 +93,17 @@ public partial class _ViewModels
       throw new ArgumentException("Argument must be of type (List<UcdCodePointViewModel>, WritingSystemType[]).", nameof(e.Argument));
     }
     var listOfPoints = argument.ListOfPoints;
-
+    WritingSystemType[] allowedWritingSystems = (argument.SelectedWritingSystems != null)
+      ? argument.SelectedWritingSystems.ToArray()
+      : [WritingSystemType.Subset, WritingSystemType.SymbolSet, WritingSystemType.Notation, WritingSystemType.Language, WritingSystemType.Script];
     try
     {
       InitWritingSystemCategoryPhraseMap();
       var n = listOfPoints.Count;
       RecognizedWritingSystemsCount = 0;
       var i = 0;
-      UcdCodePoints.StatusMessage = String.Format(Resources.Strings.Updating, Resources.UcdCodePointStrings.WritingSystem);
+      UcdCodePoints.StatusMessage =
+        String.Format(Resources.Strings.Updating, Resources.UcdCodePointStrings.WritingSystem);
       UndoMgr.StartGrouping();
       foreach (var codePoint in listOfPoints)
       {
@@ -114,31 +117,30 @@ public partial class _ViewModels
           return;
         }
 
-        WritingSystemViewModel? WritingSystem = (argument.SelectedWritingSystems != null)
-          ? codePoint.GetWritingSystemOfType(argument.SelectedWritingSystems)
-          : codePoint.WritingSystem;
+        WritingSystemViewModel[] oldWritingSystems = codePoint.GetWritingSystems(allowedWritingSystems)!.ToArray();
 
-        if (WritingSystem == null)
+
+        var newWritingSystems = RecognizeWritingSystems(codePoint);
+        foreach (var newWritingSystem in newWritingSystems)
         {
-          WritingSystem = RecognizeWritingSystem(codePoint);
-          if (WritingSystem != null)
-          {
-            if (argument.SelectedWritingSystems != null && WritingSystem.Type != null &&
-                !argument.SelectedWritingSystems.Contains((WritingSystemType)WritingSystem.Type))
-              continue;
-            codePoint.WritingSystem = WritingSystem;
-            RecognizedWritingSystemsCount++;
-          }
+          if (newWritingSystem.Type == null ||
+              oldWritingSystems.Any(item => item.Type == (WritingSystemType)newWritingSystem.Type))
+            continue;
+          codePoint.WritingSystem = newWritingSystem;
+          RecognizedWritingSystemsCount++;
         }
       }
-      UndoMgr.StopGrouping();
+
+    } catch (Exception exception)
+    {
+      Debug.WriteLine(exception);
+      MessageBox.Show(String.Format(Resources.Strings.ErrorOcurred, exception.Message), Resources.Strings.Error,
+        MessageBoxButton.OK, MessageBoxImage.Error);
+      throw;
     }
-    catch (Exception exception)
+    finally
     {
       UndoMgr.StopGrouping();
-      Debug.WriteLine(exception);
-      MessageBox.Show(String.Format(Resources.Strings.ErrorOcurred, exception.Message), Resources.Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-      throw;
     }
   }
 
@@ -237,22 +239,32 @@ public partial class _ViewModels
   /// <returns></returns>
   /// <exception cref="ArgumentNullException"></exception>
 
-  private WritingSystemViewModel? RecognizeWritingSystem(UcdCodePointViewModel codePoint)
+  private IEnumerable<WritingSystemViewModel> RecognizeWritingSystems(UcdCodePointViewModel codePoint)
   {
     if (codePoint.Ctg == null)
       throw new ArgumentNullException(nameof(codePoint.Ctg), String.Format(Resources.Strings.CodePointCategoryIsNull, codePoint.CP.ToString()));
     if (codePoint.Description == null)
       throw new ArgumentNullException(nameof(codePoint.Description), String.Format(Resources.Strings.CodePointCategoryIsNull, codePoint.CP.ToString()));
+    List<WritingSystemViewModel> result = new List<WritingSystemViewModel>(); ;
     if (WritingSystemCategoryPhraseMap.TryGetValue((UcdCategory)codePoint.Ctg, out var categoryMap))
     {
       foreach (var entry in categoryMap)
       {
         var phrase = entry.Key;
         if (codePoint.Description.IsLike(phrase))
-          return entry.Value;
+          result.Add(entry.Value);
       }
     }
-    return null;
+    foreach (var entry in WritingSystemPhraseMap)
+    {
+      var phrase = entry.Key;
+      if (codePoint.Description.IsLike(phrase))
+      {
+        if (!result.Contains(entry.Value))
+          result.Add(entry.Value);
+      }
+    }
+    return result;
   }
 
   /// <summary>

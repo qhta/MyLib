@@ -61,11 +61,29 @@ namespace Qhta.SF.Tools {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you really want to delete all data?.
         /// </summary>
-        public static string DeleteAllDataConfirmation {
+        public static string DeleteAllDataConfirm {
             get {
-                return ResourceManager.GetString("DeleteAllDataConfirmation", resourceCulture);
+                return ResourceManager.GetString("DeleteAllDataConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete {0} records?.
+        /// </summary>
+        public static string DeleteRecordsConfirm {
+            get {
+                return ResourceManager.GetString("DeleteRecordsConfirm", resourceCulture);
             }
         }
     }

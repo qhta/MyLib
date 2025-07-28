@@ -22,6 +22,55 @@
             <param name="args"></param>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="T:Qhta.UndoManager.ChangePropertyArgs">
+            <summary>
+            Arguments for changing a property.
+            </summary>
+            <param name="Target">Target object</param>
+            <param name="PropertyName">Name of the changed property</param>
+            <param name="OldValue">Old value of the property</param>
+            <param name="NewValue">New value of the property</param>
+        </member>
+        <member name="M:Qhta.UndoManager.ChangePropertyArgs.#ctor(System.Object,System.String,System.Object,System.Object)">
+            <summary>
+            Arguments for changing a property.
+            </summary>
+            <param name="Target">Target object</param>
+            <param name="PropertyName">Name of the changed property</param>
+            <param name="OldValue">Old value of the property</param>
+            <param name="NewValue">New value of the property</param>
+        </member>
+        <member name="P:Qhta.UndoManager.ChangePropertyArgs.Target">
+            <summary>Target object</summary>
+        </member>
+        <member name="P:Qhta.UndoManager.ChangePropertyArgs.PropertyName">
+            <summary>Name of the changed property</summary>
+        </member>
+        <member name="P:Qhta.UndoManager.ChangePropertyArgs.OldValue">
+            <summary>Old value of the property</summary>
+        </member>
+        <member name="P:Qhta.UndoManager.ChangePropertyArgs.NewValue">
+            <summary>New value of the property</summary>
+        </member>
+        <member name="T:Qhta.UndoManager.ChangePropertyAction">
+            <summary>
+            Action for changing a property.
+            </summary>
+        </member>
+        <member name="M:Qhta.UndoManager.ChangePropertyAction.Execute(System.Object)">
+            <summary>
+            Executes the action to change a property.
+            </summary>
+            <param name="args"></param>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.UndoManager.ChangePropertyAction.Undo(System.Object)">
+            <summary>
+            Undoes the action to change a property, restoring the old value.
+            </summary>
+            <param name="args"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="T:Qhta.UndoManager.IAction">
             <summary>
             Interface for actions that can be executed with arguments.

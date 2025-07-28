@@ -71,7 +71,14 @@ public static partial class Controller
   {
     try
     {
-      if (!GetSelectedRowsAndColumns(dataGrid, out var allColumnsSelected, out var selectedColumns, out var allRowsSelected, out var selectedRows).Any()) return;
+      GetSelectedRowsAndColumns(dataGrid, out var allColumnsSelected, out var selectedColumns, out var allRowsSelected,
+        out var selectedRows);
+      var firstItem = selectedRows.FirstOrDefault();
+      if (firstItem == null)
+      {
+        Debug.WriteLine("DataOp: No rows selected.");
+        return;
+      }
 
       var rowDataType = GetRowDataType(dataGrid);
       if (rowDataType == null)
@@ -80,33 +87,45 @@ public static partial class Controller
         return;
       }
 
-      bool del = op == DataOp.Cut || op == DataOp.Delete;
-      GridColumnInfo?[]? columnInfos = GetGridColumnInfos(selectedColumns, rowDataType, del);
+      GridColumnInfo?[]? columnInfos = GetGridColumnInfos(selectedColumns, rowDataType, op == DataOp.Copy || op == DataOp.Cut);
+      if (!columnInfos.Any())
+      {
+        Debug.WriteLine("DataOp: No column info available.");
+        return;
+      }
+      ;
 
       var content = new List<string>();
 
-      if (selectedRows.Length != 1 || selectedColumns.Length != 1)
+      if (op == DataOp.Copy || op == DataOp.Cut)
       {
-        var headers = GetHeaders(dataGrid, selectedColumns);
-        var headerLine = string.Join("\t", headers);
-        content.Add(headerLine);
-        //Debug.WriteLine($"{headerLine}'.");
-        Clipboard.SetText(headerLine);
+        if (selectedRows.Length != 1 || selectedColumns.Length != 1)
+        {
+          var headers = GetHeaders(dataGrid, selectedColumns);
+          var headerLine = string.Join("\t", headers);
+          content.Add(headerLine);
+        }
       }
 
-      if (!columnInfos.Any())
-        return;
 
-      if (op == DataOp.Delete && allColumnsSelected && allRowsSelected)
+      if (op == DataOp.Delete)
       {
-        if (MessageBox.Show(DataStrings.DeleteAllDataConfirmation, null, MessageBoxButton.YesNo) == MessageBoxResult.No)
-          return;
-
+        if (allColumnsSelected && allRowsSelected)
+        {
+          if (MessageBox.Show(DataStrings.DeleteAllDataConfirm, DataStrings.Confirm, MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
+            return;
+        }
+        else if (allColumnsSelected)
+        {
+          int rowsCount = selectedRows.Count();
+          if (MessageBox.Show(String.Format(DataStrings.DeleteRecordsConfirm, rowsCount), DataStrings.Confirm, MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
+            return;
+        }
       }
 
       //await Task.Factory.StartNew(() =>
       //{
-      if (del)
+      if (op == DataOp.Cut || op == DataOp.Delete)
         UndoMgr.StartGrouping();
 
       if (op == DataOp.Delete)
@@ -122,13 +141,13 @@ public static partial class Controller
         {
           var cellValues = selectedColumns.Select(column =>
           {
-            var cellInfo = new GridCellInfo(column, row, null, -1, false);
+            var cellInfo = new GridCellInfo(column, row, null);
             var columnInfo = columnInfos?.FirstOrDefault(info => info?.MappingName == column.MappingName);
             object? cellData = null;
             if (columnInfo != null)
             {
               cellData = GetCellData(cellInfo, columnInfo);
-              if (del && !allColumnsSelected)
+              if (op == DataOp.Cut && !allColumnsSelected)
                 SetCellData(cellInfo, columnInfo, null);
             }
             return cellData?.ToString() ?? string.Empty;
@@ -138,31 +157,33 @@ public static partial class Controller
           content.Add(line);
 
         }
-        if (del && allColumnsSelected)
+        if (op == DataOp.Cut && allColumnsSelected)
           DeleteRecords(dataGrid, selectedRows);
-        if (del)
-          UndoMgr.StopGrouping();
         Clipboard.Clear();
         var text = string.Join(Environment.NewLine, content);
         Clipboard.SetText(text, TextDataFormat.Text);
       }
       //});
+      if (op == DataOp.Cut || op == DataOp.Delete)
+        UndoMgr.StopGrouping();
       switch (op)
       {
         case DataOp.Copy:
-          Debug.WriteLine($"Copy data completed");
+          Debug.WriteLine("Copy data completed");
           break;
         case DataOp.Cut:
-          Debug.WriteLine($"Cut data completed");
+          Debug.WriteLine("Cut data completed");
           break;
         case DataOp.Delete:
-          Debug.WriteLine($"Delete data completed");
+          Debug.WriteLine("Delete data completed");
           break;
       }
 
     }
     catch (Exception e)
     {
+      if (op == DataOp.Cut || op == DataOp.Delete)
+        UndoMgr.StopGrouping();
       Console.WriteLine(e);
     }
   }
@@ -226,15 +247,15 @@ public static partial class Controller
       {
         lock (dataGrid.ItemsSource)
         {
-          UndoMgr.StartGrouping();
+          UndoManager.UndoMgr.StartGrouping();
           foreach (var row in selectedRows)
           {
             errorMessageProvider = row as IErrorMessageProvider;
             var delRecordArgs = new DelRecordArgs(dataSource, dataSource.IndexOf(row), row);
-            UndoMgr.Record(new DelRecordAction(), delRecordArgs);
+            UndoManager.UndoMgr.Record(new DelRecordAction(), delRecordArgs);
             dataSource.Remove(row);
           }
-          UndoMgr.StopGrouping();
+          UndoManager.UndoMgr.StopGrouping();
         }
       }
       catch (Exception e)

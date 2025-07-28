@@ -4,55 +4,6 @@
         <name>Qhta.UnicodeBuild</name>
     </assembly>
     <members>
-        <member name="T:Qhta.UnicodeBuild.Actions.ChangePropertyArgs">
-            <summary>
-            Arguments for changing a property.
-            </summary>
-            <param name="Target">Target object</param>
-            <param name="PropertyName">Name of the changed property</param>
-            <param name="OldValue">Old value of the property</param>
-            <param name="NewValue">New value of the property</param>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Actions.ChangePropertyArgs.#ctor(System.Object,System.String,System.Object,System.Object)">
-            <summary>
-            Arguments for changing a property.
-            </summary>
-            <param name="Target">Target object</param>
-            <param name="PropertyName">Name of the changed property</param>
-            <param name="OldValue">Old value of the property</param>
-            <param name="NewValue">New value of the property</param>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Actions.ChangePropertyArgs.Target">
-            <summary>Target object</summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Actions.ChangePropertyArgs.PropertyName">
-            <summary>Name of the changed property</summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Actions.ChangePropertyArgs.OldValue">
-            <summary>Old value of the property</summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Actions.ChangePropertyArgs.NewValue">
-            <summary>New value of the property</summary>
-        </member>
-        <member name="T:Qhta.UnicodeBuild.Actions.ChangePropertyAction">
-            <summary>
-            Action for changing a property.
-            </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Actions.ChangePropertyAction.Execute(System.Object)">
-            <summary>
-            Executes the action to change a property.
-            </summary>
-            <param name="args"></param>
-            <exception cref="T:System.NotImplementedException"></exception>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Actions.ChangePropertyAction.Undo(System.Object)">
-            <summary>
-            Undoes the action to change a property, restoring the old value.
-            </summary>
-            <param name="args"></param>
-            <exception cref="T:System.ArgumentException"></exception>
-        </member>
         <member name="T:Qhta.UnicodeBuild.App">
             <summary>
             Interaction logic for App.xaml
@@ -458,6 +409,40 @@
             <param name="index"></param>
             <param name="item"></param>
         </member>
+        <member name="T:Qhta.UnicodeBuild.Helpers.EntityViewModel`1">
+            <summary>
+            Represents a view model for an entity of type <typeparamref name="T"/>.
+            </summary>
+            <remarks>This class provides a default constructor that initializes the view model with a new instance of the
+            entity type if no entity is provided. It inherits from <see cref="T:Qhta.MVVM.ViewModel`1"/>.</remarks>
+            <typeparam name="T">The type of the entity, which must be a class with a parameterless constructor.</typeparam>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.EntityViewModel`1.#ctor(`0)">
+            <summary>
+            Default constructor that initializes the ViewModel with a new instance of the entity type.
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.EntityViewModel`1.ChangeProperty(System.String,System.Object)">
+            <summary>
+            Changes the value of a specified property on the current instance.
+            </summary>
+            <remarks>If the new value is equal to the current value, no change is made. The change is recorded for
+            undo functionality, and property change notifications are triggered.</remarks>
+            <param name="propertyName">The name of the property to change. Must be a valid property name of the current instance's type.</param>
+            <param name="newValue">The new value to assign to the property. Can be null if the property type allows it.</param>
+            <returns>True if change was done, false if no change was needed</returns>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="propertyName"/> does not correspond to a valid property on the current instance's type.</exception>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.EntityViewModel`1.ChangeModelProperty(System.String,System.Object,System.String)">
+            <summary>
+            Changes the value of a specified model property and notifies a paired property was changed.
+            </summary>
+            <param name="propertyName">The name of the property of the underlying model to change. Must be a valid property name of the model instance's type.</param>
+            <param name="newValue">The new value to assign to the property. Can be null if the property type allows it.</param>
+            <param name="pairedPropertyName">The name of the paired property to notify that was changed too.</param>
+            <returns>True if change was done, false if no change was needed</returns>
+        </member>
         <member name="T:Qhta.UnicodeBuild.Helpers.EnumItem`1">
             <summary>
             EnumItem is a record type that represents an item in an enumeration and its associated name.
@@ -790,7 +775,7 @@
             Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.MainWindow"/> class.
             </summary>
         </member>
-        <member name="M:Qhta.UnicodeBuild.MainWindow.MainWindow_PreviewKeyDown(System.Object,System.Windows.Input.KeyEventArgs)">
+        <member name="M:Qhta.UnicodeBuild.MainWindow.MainWindow_KeyDown(System.Object,System.Windows.Input.KeyEventArgs)">
             <summary>
             This method is needed to override the default behavior of the Enter key in SfDataGrid.
             </summary>
@@ -2526,14 +2511,12 @@
             In a set method, the proper reference is set based on <see cref="T:Qhta.Unicode.Models.WritingSystemType"/> of the provided value.
             </summary>
         </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.GetWritingSystemOfType(Qhta.Unicode.Models.WritingSystemType[])">
+        <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.GetWritingSystems(Qhta.Unicode.Models.WritingSystemType[])">
             <summary>
-            Exposes the writing system which can be one of all the above writing systems.
-            Returned value is taken from the references which types are specified by <paramref name="allowedTypes"/>
-            First non-null writing system is returned.
-            In a set method, the proper reference is set based on <see cref="T:Qhta.Unicode.Models.WritingSystemType"/> of the provided value.
+            Exposes the collection of writing systems which types are specified by <paramref name="allowedTypes"/>
+            All non-null writing system is returned in the order of types in <paramref name="allowedTypes"/>.
             </summary>
-            <param name="allowedTypes">Specifies which types of writing system are allowed. Proper references are checked in order of items in this parameter. First not null is returned</param>
+            <param name="allowedTypes">Specifies which types of writing system are allowed.</param>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.RowHeight">
             <summary>
@@ -3159,7 +3142,7 @@
             </summary>
             <exception cref="T:System.InvalidOperationException"></exception>
         </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.RecognizeWritingSystem(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel)">
+        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.RecognizeWritingSystems(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel)">
             <summary>
             Recognizes the writing system for a given Unicode code point based on its category and description.
             </summary>
@@ -3901,37 +3884,37 @@
             Code point for the title case version of the character, if applicable.
             </summary>
         </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.Block">
+        <member name="P:Qhta.Unicode.Models.UcdCodePoint.BlockId">
             <summary>
             Identifier for the Unicode block that this code point belongs to.
             </summary>
         </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.Area">
+        <member name="P:Qhta.Unicode.Models.UcdCodePoint.AreaId">
             <summary>
             Identifier for the area writing system that this code point is associated with, if applicable.
             </summary>
         </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.Script">
+        <member name="P:Qhta.Unicode.Models.UcdCodePoint.ScriptId">
             <summary>
             Identifier for the script that this code point is written in, if applicable.
             </summary>
         </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.Language">
+        <member name="P:Qhta.Unicode.Models.UcdCodePoint.LanguageId">
             <summary>
             Identifier for the language that this code point is associated with, if applicable.
             </summary>
         </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.Notation">
+        <member name="P:Qhta.Unicode.Models.UcdCodePoint.NotationId">
             <summary>
             Identifier for the notation that this code point is associated with, if applicable.
             </summary>
         </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.SymbolSet">
+        <member name="P:Qhta.Unicode.Models.UcdCodePoint.SymbolSetId">
             <summary>
             Identifier for the symbol set that this code point belongs to, if applicable.
             </summary>
         </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.Subset">
+        <member name="P:Qhta.Unicode.Models.UcdCodePoint.SubsetId">
             <summary>
             Identifier for the subset that this code point belongs to, if applicable.
             </summary>

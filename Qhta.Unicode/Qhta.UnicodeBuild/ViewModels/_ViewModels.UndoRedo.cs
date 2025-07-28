@@ -8,7 +8,7 @@ public partial class _ViewModels
   /// <summary>
   /// Command to undo the last action.
   /// </summary>
-  public IRelayCommand UndoCommand = new RelayCommand (UndoMgr.Undo, () => UndoMgr.IsUndoAvailable);
+  public IRelayCommand UndoCommand = new RelayCommand(UndoMgr.Undo, () => UndoMgr.IsUndoAvailable);
 
   /// <summary>
   /// Command to redo the last action.
