@@ -792,6 +792,28 @@
             This class is responsible for generating CodePoint short names based on a set of rules and patterns.
             </summary>
         </member>
+        <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.GenerateShortName(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel)">
+            <summary>
+            Generates a short name for a given Unicode code point.
+            </summary>
+            <param name="codePoint"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.NameGen.NameGenerator.OrdinalRegions">
+            <summary>
+            The dictionary containing first codes for each ordinal generated writing system.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.GenerateShortName(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel,Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel[])">
+            <summary>
+            Generates a short name for a given Unicode code point based on the provided writing systems.
+            </summary>
+            <param name="codePoint"></param>
+            <param name="writingSystems"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
         <member name="T:Qhta.UnicodeBuild.NewWindow">
             <summary>
             New window for displaying and managing TabItems.
@@ -2661,6 +2683,12 @@
             In a set method, the proper reference is set based on <see cref="T:Qhta.Unicode.Models.WritingSystemType"/> of the provided value.
             </summary>
         </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.GetWritingSystem(Qhta.Unicode.Models.WritingSystemType)">
+            <summary>
+            Exposes the writing system which type is specified by <paramref name="allowedType"/>
+            </summary>
+            <param name="allowedType">Specifies which type of writing system is allowed.</param>
+        </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.GetWritingSystems(Qhta.Unicode.Models.WritingSystemType[])">
             <summary>
             Exposes the collection of writing systems which types are specified by <paramref name="allowedTypes"/>
@@ -3280,14 +3308,6 @@
             <summary>
             Count of recognized writing systems during the last recognition operation.
             </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.GenerateShortName(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel)">
-            <summary>
-            Recognizes the writing system for a given Unicode code point based on its category and description.
-            </summary>
-            <param name="codePoint"></param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.BreakApplyCharNamesGenerationCommand">
             <summary>

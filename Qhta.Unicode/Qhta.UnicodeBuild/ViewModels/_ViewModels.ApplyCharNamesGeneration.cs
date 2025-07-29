@@ -7,7 +7,7 @@ using Qhta.SF.Tools;
 using Qhta.TextUtils;
 using Qhta.UndoManager;
 using Qhta.Unicode.Models;
-
+using Qhta.UnicodeBuild.NameGen;
 using Syncfusion.Data.Extensions;
 using Syncfusion.UI.Xaml.Grid;
 
@@ -67,7 +67,7 @@ public partial class _ViewModels
       UcdCodePoints.IsBusy = true;
       return; // Check if the operation was canceled
     }
-    ApplyCharNamesGenerations(worker, e);
+    ApplyCharNamesGeneration(worker, e);
   }
 
   private void ApplyCharNamesGeneration_ProgressChanged(object? sender, ProgressChangedEventArgs e)
@@ -76,7 +76,7 @@ public partial class _ViewModels
   }
 
 
-  private void ApplyCharNamesGenerations(BackgroundWorker worker, DoWorkEventArgs e)
+  private void ApplyCharNamesGeneration(BackgroundWorker worker, DoWorkEventArgs e)
   {
     if (!(e.Argument is ApplyCharNamesGenerationArgs argument))
     {
@@ -85,12 +85,12 @@ public partial class _ViewModels
     var listOfPoints = argument.ListOfPoints;
     try
     {
-      InitWritingSystemCategoryPhraseMap();
       var n = listOfPoints.Count;
       GeneratedNamesCount = 0;
       var i = 0;
       UcdCodePoints.StatusMessage =
         String.Format(Resources.Strings.Updating, Resources.UcdCodePointStrings.WritingSystem);
+      var nameGen = new NameGenerator();
       UndoMgr.StartGrouping();
       foreach (var codePoint in listOfPoints)
       {
@@ -107,7 +107,7 @@ public partial class _ViewModels
         string? oldName = codePoint.CharName;
         if (String.IsNullOrEmpty(oldName))
         {
-          var newName = GenerateShortName(codePoint);
+          var newName = nameGen.GenerateShortName(codePoint);
           if (newName == null ||
             oldName==newName)
             continue;
@@ -134,69 +134,6 @@ public partial class _ViewModels
   /// Count of recognized writing systems during the last recognition operation.
   /// </summary>
   private int GeneratedNamesCount;
-
-
-
-  /// <summary>
-  /// Recognizes the writing system for a given Unicode code point based on its category and description.
-  /// </summary>
-  /// <param name="codePoint"></param>
-  /// <returns></returns>
-  /// <exception cref="ArgumentNullException"></exception>
-
-  private string? GenerateShortName(UcdCodePointViewModel codePoint)
-  {
-    var area = codePoint.Area;
-    if (area != null)
-      return GenerateShortNameUsingArea(codePoint, area);
-    var script = codePoint.Script;
-    if (script != null && script.Name!= "Common" && script.Name != "Inherited")
-      return GenerateShortNameUsingScript(codePoint, script);
-    var language = codePoint.Language;
-    if (language != null)
-      return GenerateShortNameUsingLanguage(codePoint, language);
-    var notation = codePoint.Notation;
-    if (notation != null)
-      return GenerateShortNameUsingNotation(codePoint, notation);
-    var symbolSet = codePoint.SymbolSet;
-    if (symbolSet != null)
-      return GenerateShortNameUsingSymbolSet(codePoint, symbolSet);
-    var subset = codePoint.Subset;
-    if (subset != null)
-      return GenerateShortNameUsingSubset(codePoint, subset);
-    Debug.WriteLine($"GenerateShortName: No writing system declared for code point {codePoint.CP}");
-    return null;
-  }
-
-  private string? GenerateShortNameUsingArea(UcdCodePointViewModel codePoint, WritingSystemViewModel writingSystem)
-  {
-    return null;
-  }
-
-  private string? GenerateShortNameUsingScript(UcdCodePointViewModel codePoint, WritingSystemViewModel writingSystem)
-  {
-    return null;
-  }
-
-  private string? GenerateShortNameUsingLanguage(UcdCodePointViewModel codePoint, WritingSystemViewModel writingSystem)
-  {
-    return null;
-  }
-
-  private string? GenerateShortNameUsingNotation(UcdCodePointViewModel codePoint, WritingSystemViewModel writingSystem)
-  {
-    return null;
-  }
-
-  private string? GenerateShortNameUsingSymbolSet(UcdCodePointViewModel codePoint, WritingSystemViewModel writingSystem)
-  {
-    return null;
-  }
-
-  private string? GenerateShortNameUsingSubset(UcdCodePointViewModel codePoint, WritingSystemViewModel writingSystem)
-  {
-    return null;
-  }
 
   /// <summary>
   /// Command to break the apply writing system mapping operation.

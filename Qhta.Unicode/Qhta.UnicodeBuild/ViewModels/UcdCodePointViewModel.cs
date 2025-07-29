@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+
 using Qhta.MVVM;
 using Qhta.SF.Tools;
 using Qhta.Unicode.Models;
@@ -71,7 +72,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   /// Short name of the Unicode code point, which may be used to identify the character in various contexts.
   /// It is a read/write property.
   /// </summary>
-  public string? CharName { get => Model.CharName; set => ChangeProperty(nameof(CharName), value); }
+  public string? CharName { get => Model.CharName; set => ChangeModelProperty(nameof(CharName), value); }
 
   /// <summary>
   /// Descriptive name of the Unicode code point.
@@ -229,7 +230,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
       var result = Model.ScriptId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.ScriptId);
       return result;
     }
-    set => ChangeProperty(nameof(ScriptId), value?.Id); 
+    set => ChangeProperty(nameof(ScriptId), value?.Id);
   }
   /// <summary>
   /// Identifier of the language writing system associated with this Unicode code point, if applicable.
@@ -348,6 +349,30 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   }
 
   /// <summary>
+  /// Exposes the writing system which type is specified by <paramref name="allowedType"/>
+  /// </summary>
+  /// <param name="allowedType">Specifies which type of writing system is allowed.</param>
+  public WritingSystemViewModel? GetWritingSystem(WritingSystemType allowedType)
+  {
+    switch (allowedType)
+    {
+      case WritingSystemType.Area:
+        return Area;
+      case WritingSystemType.Script:
+        return Script;
+      case WritingSystemType.Language:
+        return Language;
+      case WritingSystemType.Notation:
+        return Notation;
+      case WritingSystemType.SymbolSet:
+        return SymbolSet;
+      case WritingSystemType.Subset:
+        return Subset;
+    }
+    return null;
+  }
+
+  /// <summary>
   /// Exposes the collection of writing systems which types are specified by <paramref name="allowedTypes"/>
   /// All non-null writing system is returned in the order of types in <paramref name="allowedTypes"/>.
   /// </summary>
@@ -355,30 +380,9 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   public IEnumerable<WritingSystemViewModel>? GetWritingSystems(WritingSystemType[] allowedTypes)
   {
     List<WritingSystemViewModel> result = new List<WritingSystemViewModel>(); ;
-    WritingSystemViewModel? resultItem = null;
     foreach (var type in allowedTypes)
     {
-      switch (type)
-      {
-        case WritingSystemType.Area:
-          resultItem = Area;
-          break;
-        case WritingSystemType.Script:
-          resultItem = Script;
-          break;
-        case WritingSystemType.Language:
-          resultItem = Language;
-          break;
-        case WritingSystemType.Notation:
-          resultItem = Notation;
-          break;
-        case WritingSystemType.SymbolSet:
-          resultItem = SymbolSet;
-          break;
-        case WritingSystemType.Subset:
-          resultItem = Subset;
-          break;
-      }
+      var resultItem = GetWritingSystem(type);
       if (resultItem is not null)
       {
         result.Add(resultItem);
@@ -386,6 +390,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
     }
     return result;
   }
+
   #region IRowHeightProvider implementation
   /// <summary>
   /// Simple property to provide the height of the row in a UI.
