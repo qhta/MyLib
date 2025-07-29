@@ -200,4 +200,16 @@
   <data name="EditWritingSystemTitle" xml:space="preserve">
     <value>Edit Writing System</value>
   </data>
+  <data name="NameGenMethod" xml:space="preserve">
+    <value>Name generation</value>
+  </data>
+  <data name="NameGenMethodTooltip" xml:space="preserve">
+    <value>One of name generation methods selected for this writing system.</value>
+  </data>
+  <data name="NameGenFile" xml:space="preserve">
+    <value>File for name generation</value>
+  </data>
+  <data name="NameGenFileTooltip" xml:space="preserve">
+    <value>The full name of a file that can be used to generate names with certain methods. The file structure is described for each method.</value>
+  </data>
 </root>

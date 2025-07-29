@@ -70,6 +70,10 @@ public partial class _ViewModels : ViewModel, IDisposable
       {
         UnicodeCategoriesList.Add(new UnicodeCategoryViewModel(uc));
       }
+      foreach (var ngm in _Context.NameGenMethods.ToList())
+      {
+        NameGenMethodsList.Add(new NameGenMethodViewModel(ngm));
+      }
 
       foreach (var ub in _Context.UcdBlocks
                  .ToList())
@@ -129,6 +133,8 @@ public partial class _ViewModels : ViewModel, IDisposable
     InitializeApplyBlockMapping();
     InitializeApplyWritingSystemMapping();
     InitializeApplyWritingSystemRecognition();
+    BrowseNameGenFileCommand = new RelayCommand<WritingSystemViewModel>(BrowseNameGenFileCommandExecute);
+    InitializeApplyCharNamesGeneration();
 
     FillColumnCommand = new RelayCommand<object?>(FillColumnCommandExecute, FillColumnCommandCanExecute);
     UndoManager.UndoMgr.Enabled = true;
@@ -155,6 +161,10 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// </summary>
   public List<WritingSystemKindViewModel> WritingSystemKindsList { [DebuggerStepThrough] get; } = new();
   /// <summary>
+  /// List of all name generation methods exposed to the UI.
+  /// </summary>
+  public List<NameGenMethodViewModel> NameGenMethodsList { [DebuggerStepThrough] get; } = new();
+  /// <summary>
   /// List of all Unicode categories exposed to the UI.
   /// </summary>
   public List<UnicodeCategoryViewModel> UnicodeCategoriesList { [DebuggerStepThrough] get; } = new();
@@ -162,16 +172,18 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// Collection of writing system types exposed to the UI as an array.
   /// </summary>
   public WritingSystemType[] WritingSystemTypes { [DebuggerStepThrough] get; } = Enum.GetValues<WritingSystemType>();
-
   /// <summary>
   /// Collection of writing system kinds exposed to the UI as an array.
   /// </summary>
   public WritingSystemKind[] WritingSystemKinds { [DebuggerStepThrough] get; } = Enum.GetValues<WritingSystemKind>();
   /// <summary>
+  /// Collection of name generation methods exposed to the UI as an array.
+  /// </summary>
+  public NameGenMethod[] NameGenMethods { [DebuggerStepThrough] get; } = Enum.GetValues<NameGenMethod>();
+  /// <summary>
   /// Collection of Unicode categories exposed to the UI as an array.
   /// </summary>
   public Array Categories { [DebuggerStepThrough] get; } = Enum.GetNames(typeof(UcdCategory));
-
   /// <summary>
   /// Collection of selectable writing types exposed to the UI as an enumerable.
   /// </summary>

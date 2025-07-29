@@ -259,6 +259,7 @@
     <Setter Property="SelectionUnit" Value="Any" />
     <Setter Property="SelectionMode" Value="Extended" />
     <Setter Property="ShowRowHeader" Value="True" />
+    <EventSetter Event="Loaded" Handler="DataGrid_Loaded"/>
   </Style>
 
   <DataTemplate x:Key="TextCellTemplate" DataType="{x:Type mvvm:IViewModel}">

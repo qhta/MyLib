@@ -192,7 +192,7 @@
                    FilterChanging="WritingSystemsGrid_OnFilterChanging"
                    tools:SfDataGridBehavior.AllowRowResizing="True"
                    GridCopyContent="WritingSystemsDataGrid_OnGridCopyContent"
-                   KeyDown="WritingSystemsDataGrid_KeyDown"
+                   KeyDown="WritingSystemsDataGrid_KeyDown" 
                    >
         <!--GridValidationMode="InEdit"-->
         <sf:SfDataGrid.Columns>
@@ -332,6 +332,7 @@
               </DataTemplate>
             </sf:GridColumn.HeaderTemplate>
           </sf:GridTextColumn>
+
           <sf:GridTextColumn 
           HeaderText="Abbr"
           MappingName="Abbr"
@@ -356,6 +357,7 @@
               </DataTemplate>
             </sf:GridColumn.HeaderTemplate>
           </sf:GridTextColumn>
+
           <tools:LongTextColumn 
           MappingName="Description" 
           HeaderText="Description"
@@ -370,6 +372,64 @@
               </DataTemplate>
             </sf:GridColumn.HeaderTemplate>
           </tools:LongTextColumn>
+
+          <sf:GridComboBoxColumn
+            Width="100"
+            SortMode="Display"
+            MappingName="NameGenMethod"
+            VerticalAlignment="Top"
+            ItemsSource="{Binding Source={StaticResource ViewModels}, 
+            Path=Instance.NameGenMethods}"
+          >
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:WritingSystemStrings.NameGenMethod}" 
+                           ToolTip="{x:Static resources:WritingSystemStrings.NameGenMethodTooltip}"  />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+            <sf:GridComboBoxColumn.ItemTemplate>
+              <DataTemplate DataType="{x:Type models:NameGenMethod}">
+                <TextBlock Text="{Binding 
+                                  Converter={StaticResource NameGenMethodResourceConverter},
+                                  ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}"                        
+                           ToolTip="{Binding 
+                              Converter={StaticResource NameGenMethodResourceConverter},
+                              ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
+                              ConverterParameter=Tooltip}"  />
+              </DataTemplate>
+            </sf:GridComboBoxColumn.ItemTemplate>
+          </sf:GridComboBoxColumn>
+
+          <sf:GridTemplateColumn
+            HeaderText="NameGenFile"
+            MappingName="NameGenFile"
+            VerticalAlignment="Top"
+            Width="200">
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:WritingSystemStrings.NameGenFile}" 
+                           ToolTip="{x:Static resources:WritingSystemStrings.NameGenFileTooltip}"  />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+            <sf:GridTemplateColumn.CellTemplate>
+              <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Text="{Binding NameGenFile}" 
+                             ToolTip="{Binding NameGenFile}" 
+                             Padding="4,2,0,0"/>
+                  <Button Grid.Column="1" Content="..."
+                          Command="{Binding Source={StaticResource ViewModels}, 
+                          Path=Instance.BrowseNameGenFileCommand}"
+                          CommandParameter="{Binding}"/>
+                </Grid>
+              </DataTemplate>
+            </sf:GridTemplateColumn.CellTemplate>
+          </sf:GridTemplateColumn>
+
         </sf:SfDataGrid.Columns>
       </sf:SfDataGrid>
       <Button x:Name="NewWritingSystemButton"

@@ -57,6 +57,12 @@
         <MenuItem Header="{x:Static resources:Strings.Paste}" Command="Paste"/>
       </MenuItem>
       <MenuItem Header="{x:Static resources:Strings.Tools}">
+        <MenuItem Header="{x:Static resources:Strings.FillColumn}"
+                  ToolTip ="{x:Static resources:Strings.FillColumnTooltip}"
+                  Command="{Binding Source={StaticResource ViewModels}, 
+                  Path=Instance.FillColumnCommand}"
+                  CommandParameter="{Binding ElementName=CodePointDataGrid}" />
+        <Separator/>
         <MenuItem Header="{x:Static resources:Strings.ApplyBlockMapping}"
                   ToolTip="{x:Static resources:Strings.ApplyBlockMappingTooltip}"
                   Command="{Binding Source={StaticResource ViewModels}, 
@@ -70,13 +76,12 @@
                   Command="{Binding Source={StaticResource ViewModels}, 
                     Path=Instance.ApplyWritingSystemRecognitionCommand}"
                    CommandParameter="{Binding ElementName=CodePointDataGrid}"/>
-        <Separator/>
-        <MenuItem Header="{x:Static resources:Strings.FillColumn}"
-                  ToolTip ="{x:Static resources:Strings.FillColumnTooltip}"
+        <MenuItem Header="{x:Static resources:Strings.ApplyCharNamesGeneration}"
+                  ToolTip="{x:Static resources:Strings.ApplyCharNamesGenerationTooltip}"
                   Command="{Binding Source={StaticResource ViewModels}, 
-                  Path=Instance.FillColumnCommand}"
-                  CommandParameter="{Binding ElementName=CodePointDataGrid}"
-        />
+                    Path=Instance.ApplyCharNamesGenerationCommand}"
+                  CommandParameter="{Binding ElementName=CodePointDataGrid}"/>
+
 
       </MenuItem>
       <MenuItem Header="{x:Static resources:Strings.Help}">
@@ -95,7 +100,6 @@
                      FilterItemsPopulating="CodePointDataGrid_OnFilterItemsPopulating"
                      FilterChanging="CodePointDataGrid_OnFilterChanging"
                      tools:SfDataGridBehavior.AllowRowResizing="True"
-
     >
       <!--
                      RowHeaderWidth="{Binding Instance.UcdCodePoints.RowHeaderColumnWidth}"

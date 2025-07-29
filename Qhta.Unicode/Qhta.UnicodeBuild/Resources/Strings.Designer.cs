@@ -124,6 +124,42 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply char names generation.
+        /// </summary>
+        public static string ApplyCharNamesGeneration {
+            get {
+                return ResourceManager.GetString("ApplyCharNamesGeneration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Char names generation completed. {0} code points named..
+        /// </summary>
+        public static string ApplyCharNamesGenerationCompleted {
+            get {
+                return ResourceManager.GetString("ApplyCharNamesGenerationCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to generate char names for {0} code points? Existing names will not be overwritten..
+        /// </summary>
+        public static string ApplyCharNamesGenerationConfirm {
+            get {
+                return ResourceManager.GetString("ApplyCharNamesGenerationConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply code point char names generation based on writing systems mapping..
+        /// </summary>
+        public static string ApplyCharNamesGenerationTooltip {
+            get {
+                return ResourceManager.GetString("ApplyCharNamesGenerationTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply writing systems mapping.
         /// </summary>
         public static string ApplyWritingSystemsMappingFromFile {

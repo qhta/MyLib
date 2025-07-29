@@ -57,6 +57,12 @@ public partial class _DbContext : DbContext, IDisposable
   /// </summary>
   public virtual DbSet<UnicodeCategoryEntity> UnicodeCategories { [DebuggerStepThrough] get; set; }
 
+
+  /// <summary>
+  /// Gets or sets the collection of name generation methods in the database.
+  /// </summary>
+  public virtual DbSet<NameGenMethodEntity> NameGenMethods { [DebuggerStepThrough] get; set; }
+
   /// <summary>
   /// Configures the database context options.
   /// </summary>
@@ -163,8 +169,11 @@ public partial class _DbContext : DbContext, IDisposable
       entity.Property(e => e.Ext).HasMaxLength(10);
       entity.Property(e => e.Iso).HasMaxLength(255).HasColumnName("ISO");
       entity.Property(e => e.Kind).HasMaxLength(15);
+      entity.Property(e => e.Type).HasMaxLength(15);
       entity.Property(e => e.ParentId).HasColumnName("ParentID");
-      entity.Property(e => e.Type).HasMaxLength(10);
+      entity.Property(e => e.NameGenMethod).HasConversion<byte>();
+      entity.Property(e => e.NameGenMethod).HasMaxLength(15);
+      entity.Property(e => e.NameGenFile).HasMaxLength(255);
       entity.HasOne(d => d.ParentSystem).WithMany(p => p.Children)
               .HasForeignKey(d => d.ParentId)
               .HasConstraintName("WritingSystemsWritingSystems");
@@ -174,8 +183,9 @@ public partial class _DbContext : DbContext, IDisposable
     {
       entity.Property(e => e.Id).HasConversion<byte>();
       entity.HasKey(e => e.Id).HasName("PrimaryKey");
-      entity.Property(e => e.Name).HasMaxLength(10);
-      entity.HasIndex(e => e.Name, "Type").IsUnique();
+      entity.Property(e => e.Name).HasMaxLength(15);
+      entity.HasIndex(e => e.Name, "Name").IsUnique();
+      entity.Property(e => e.Description).HasMaxLength(255);
     });
 
     modelBuilder.Entity<WritingSystemKindEntity>(entity =>
@@ -183,8 +193,9 @@ public partial class _DbContext : DbContext, IDisposable
       entity.Property(e => e.Id).HasConversion<byte>();
       entity.HasKey(e => e.Id).HasName("PrimaryKey");
       entity.Property(e => e.Name).HasMaxLength(15);
-      entity.HasIndex(e => e.Name, "Kind").IsUnique();
+      entity.HasIndex(e => e.Name, "Name").IsUnique();
       entity.Property(e => e.Type).HasConversion<byte>();
+      entity.Property(e => e.Description).HasMaxLength(255);
     });
 
     modelBuilder.Entity<UnicodeCategoryEntity>(entity =>
@@ -194,6 +205,16 @@ public partial class _DbContext : DbContext, IDisposable
       entity.Property(e => e.Ctg).HasMaxLength(2);
       entity.HasIndex(e => e.Ctg, "Ctg").IsUnique();
       entity.Property(e => e.Name).HasMaxLength(255);
+      entity.Property(e => e.Comment).HasMaxLength(255);
+    });
+
+    modelBuilder.Entity<NameGenMethodEntity>(entity =>
+    {
+      entity.Property(e => e.Id).HasConversion<byte>();
+      entity.HasKey(e => e.Id).HasName("PrimaryKey");
+      entity.Property(e => e.Name).HasMaxLength(15);
+      entity.HasIndex(e => e.Name, "Name").IsUnique();
+      entity.Property(e => e.Description).HasMaxLength(255);
     });
 
     OnModelCreatingPartial(modelBuilder);

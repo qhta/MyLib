@@ -18,7 +18,7 @@ public partial class WritingSystemTypeEntity
   /// <summary>
   /// Name of the writing system type.
   /// </summary>
-  [Column("Type")]
+  [Column("Name")]
   public string Name { [DebuggerStepThrough] get; set; } = null!;
 
   /// <summary>

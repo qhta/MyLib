@@ -197,6 +197,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\NameGenMethodStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NameGenMethodStrings.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\UcdCategoryStrings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -240,6 +245,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\NameGenMethodStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NameGenMethodStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\UcdCategoryStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>UcdCategoryStrings.Designer.cs</LastGenOutput>

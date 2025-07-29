@@ -108,7 +108,7 @@ public static partial class Controller
       }
     }
     UndoMgr.StopGrouping();
-
+    Debug.WriteLine("Paste data completed");
   }
 
   /// <summary>

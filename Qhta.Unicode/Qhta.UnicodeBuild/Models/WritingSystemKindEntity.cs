@@ -19,7 +19,7 @@ public partial class WritingSystemKindEntity
   /// <summary>
   /// Name of the writing system kind.
   /// </summary>
-  [Column("Kind")]
+  [Column("Name")]
   public string Name { [DebuggerStepThrough] get; set; } = null!;
 
   /// <summary>

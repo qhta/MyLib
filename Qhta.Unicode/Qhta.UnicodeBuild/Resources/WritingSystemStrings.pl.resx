@@ -198,4 +198,16 @@
   <data name="EditWritingSystemTitle" xml:space="preserve">
     <value>Edycja systemu pisma</value>
   </data>
+  <data name="NameGenMethod" xml:space="preserve">
+    <value>Generowanie nazw</value>
+  </data>
+  <data name="NameGenMethodTooltip" xml:space="preserve">
+    <value>Jedna z metod generowania nazw wybrana dla tego systemu pisma.</value>
+  </data>
+  <data name="NameGenFile" xml:space="preserve">
+    <value>Plik do generowania nazw</value>
+  </data>
+  <data name="NameGenFileTooltip" xml:space="preserve">
+    <value>Pełna nazwa pliku, który może być wykorzystany przy generowaniu nazw niektórymi metodami. Struktura pliku jest opisana przy danej metodzie.</value>
+  </data>
 </root>

@@ -69,6 +69,16 @@ public partial class WritingSystem
   public string? Description { [DebuggerStepThrough] get; set; }
 
   /// <summary>
+  /// Chosen method of name generation.
+  /// </summary>
+  public NameGenMethod? NameGenMethod { [DebuggerStepThrough] get; set; }
+
+  /// <summary>
+  /// A path to a file that contains the name generation table used for this chosen method of name generation.
+  /// </summary>
+  public string? NameGenFile { [DebuggerStepThrough] get; set; }
+
+  /// <summary>
   /// An optional parent writing system that this writing system is derived from or associated with.
   /// Associated with the ParentId field.
   /// </summary>

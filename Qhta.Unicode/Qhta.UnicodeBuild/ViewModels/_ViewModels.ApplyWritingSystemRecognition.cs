@@ -24,7 +24,7 @@ public partial class _ViewModels
     BreakApplyWritingSystemRecognitionCommand = new RelayCommand(BreakApplyWritingSystemRecognitionCommandExecute);
   }
 
-  private record ApplyWritingSystemRecognitionArs(List<UcdCodePointViewModel> ListOfPoints, WritingSystemType[]? SelectedWritingSystems);
+  private record ApplyWritingSystemRecognitionArgs(List<UcdCodePointViewModel> ListOfPoints, WritingSystemType[]? SelectedWritingSystems);
 
   /// <summary>
   /// Command to apply writing systems recognition on a set of Unicode code points. 
@@ -64,7 +64,7 @@ public partial class _ViewModels
     int n = listOfPoints.Count();
 
     if (MessageBox.Show(String.Format(Resources.Strings.ApplyWritingSystemsRecognitionConfirm, n), Resources.Strings.Confirm, MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
-      ApplyWritingSystemRecognitionBackgroundWorker.RunWorkerAsync(new ApplyWritingSystemRecognitionArs(listOfPoints, selectedWritingSystems));
+      ApplyWritingSystemRecognitionBackgroundWorker.RunWorkerAsync(new ApplyWritingSystemRecognitionArgs(listOfPoints, selectedWritingSystems));
   }
 
   private void ApplyWritingSystemRecognition_DoWork(object? sender, DoWorkEventArgs e)
@@ -88,7 +88,7 @@ public partial class _ViewModels
 
   private void ApplyWritingSystemRecognitions(BackgroundWorker worker, DoWorkEventArgs e)
   {
-    if (!(e.Argument is ApplyWritingSystemRecognitionArs argument))
+    if (!(e.Argument is ApplyWritingSystemRecognitionArgs argument))
     {
       throw new ArgumentException("Argument must be of type (List<UcdCodePointViewModel>, WritingSystemType[]).", nameof(e.Argument));
     }

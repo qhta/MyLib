@@ -250,6 +250,42 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File for name generation.
+        /// </summary>
+        public static string NameGenFile {
+            get {
+                return ResourceManager.GetString("NameGenFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The full name of a file that can be used to generate names with certain methods. The file structure is described for each method..
+        /// </summary>
+        public static string NameGenFileTooltip {
+            get {
+                return ResourceManager.GetString("NameGenFileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name generation.
+        /// </summary>
+        public static string NameGenMethod {
+            get {
+                return ResourceManager.GetString("NameGenMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One of name generation methods selected for this writing system..
+        /// </summary>
+        public static string NameGenMethodTooltip {
+            get {
+                return ResourceManager.GetString("NameGenMethodTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Writing system name is a unique name starting with a letter and optionally containing letters, digits and spaces..
         /// </summary>
         public static string NameTooltip {

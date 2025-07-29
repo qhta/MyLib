@@ -83,6 +83,26 @@ public class WritingSystemViewModel(WritingSystem model)
   }
 
   /// <summary>
+  /// Gets or sets the method of name generation represented by this instance.
+  /// </summary>
+  public NameGenMethod? NameGenMethod
+  {
+    [DebuggerStepThrough]
+    get => Model.NameGenMethod;
+    set => ChangeModelProperty(nameof(NameGenMethod), value);
+  }
+
+  /// <summary>
+  /// Gets or sets the name of the file used in the method of name generation represented by this instance.
+  /// </summary>
+  public string? NameGenFile
+  {
+    [DebuggerStepThrough]
+    get => Model.NameGenFile;
+    set => ChangeModelProperty(nameof(NameGenFile), value);
+  }
+
+  /// <summary>
   /// Identifier of the parent writing system, if this writing system is a child of another.
   /// </summary>
   public int? ParentId

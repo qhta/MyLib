@@ -25,6 +25,8 @@
     ResourceType="{x:Type resources:WritingSystemTypeStrings}" x:Key="WritingSystemTypeResourceConverter"/>
   <helpers:EnumToResourceConverter 
     ResourceType="{x:Type resources:WritingSystemKindStrings}" x:Key="WritingSystemKindResourceConverter"/>
+  <helpers:EnumToResourceConverter 
+    ResourceType="{x:Type resources:NameGenMethodStrings}" x:Key="NameGenMethodResourceConverter"/>
   <helpers:CategoryResourceConverter x:Key="CategoryResourceConverter"/>
   <helpers:InsertItemConverter x:Key="InsertItemConverter"/>
   <viewModels:WritingSystemViewModel x:Key="BlankWritingSystem"/>

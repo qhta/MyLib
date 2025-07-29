@@ -273,8 +273,8 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="CannotDeleteWritingSystem" xml:space="preserve">
     <value>Cannot delete writing system as it is used in other entities.</value>
   </data>
-  <data name="ApplyWritingSystemsRecognitionConfirm" xml:space="preserve">
-    <value>Do you really want to recognize writing systems for {0} code points? Existing mapping will not be overwritten.</value>
+  <data name="ApplyCharNamesGenerationConfirm" xml:space="preserve">
+    <value>Do you really want to generate char names for {0} code points? Existing names will not be overwritten.</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
@@ -326,5 +326,17 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   </data>
   <data name="InvalidWritingSystemCategory" xml:space="preserve">
     <value>Invalid category '{0}' in writing system {1}.</value>
+  </data>
+  <data name="ApplyCharNamesGeneration" xml:space="preserve">
+    <value>Apply char names generation</value>
+  </data>
+  <data name="ApplyWritingSystemsRecognitionConfirm" xml:space="preserve">
+    <value>Do you really want to recognize writing systems for {0} code points? Existing mapping will not be overwritten.</value>
+  </data>
+  <data name="ApplyCharNamesGenerationTooltip" xml:space="preserve">
+    <value>Apply code point char names generation based on writing systems mapping.</value>
+  </data>
+  <data name="ApplyCharNamesGenerationCompleted" xml:space="preserve">
+    <value>Char names generation completed. {0} code points named.</value>
   </data>
 </root>

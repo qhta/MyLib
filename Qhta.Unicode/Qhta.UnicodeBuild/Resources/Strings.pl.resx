@@ -273,8 +273,8 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="CannotDeleteWritingSystem" xml:space="preserve">
     <value>Nie można usunąć systemu pisma, gdyż jest używany w innych encjach.</value>
   </data>
-  <data name="ApplyWritingSystemsRecognitionConfirm" xml:space="preserve">
-    <value>Czy na pewno chcesz rozpoznać systemy pisma dla {0} punktów kodowych? Istniejące odwzorowania nie zostaną nadpisane.</value>
+  <data name="ApplyCharNamesGenerationConfirm" xml:space="preserve">
+    <value>Czy na pewno chcesz generować nazwy znaków dla {0} punktów kodowych? Istniejące nazwy nie zostaną nadpisane.</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Potwierdź</value>
@@ -326,5 +326,17 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   </data>
   <data name="InvalidWritingSystemCategory" xml:space="preserve">
     <value>Nieprawidłowa kategoria {0} w systemie pisma {1}.</value>
+  </data>
+  <data name="ApplyCharNamesGeneration" xml:space="preserve">
+    <value>Zastosuj generowanie nazw znaków</value>
+  </data>
+  <data name="ApplyWritingSystemsRecognitionConfirm" xml:space="preserve">
+    <value>Czy na pewno chcesz rozpoznać systemy pisma dla {0} punktów kodowych? Istniejące odwzorowania nie zostaną nadpisane.</value>
+  </data>
+  <data name="ApplyCharNamesGenerationTooltip" xml:space="preserve">
+    <value>Zastosuj generowanie nazw znaków dla punktów kodowych na podstawie mapowania do systemów pisma.</value>
+  </data>
+  <data name="ApplyCharNamesGenerationCompleted" xml:space="preserve">
+    <value>Zakończono generowanie nazw znaków dla punktów kodowych. Nazwano {0} punktów kodowych.</value>
   </data>
 </root>

@@ -23,9 +23,6 @@ public partial class UcdCodePointsView : UserControl
   public UcdCodePointsView()
   {
     InitializeComponent();
-    CodePointDataGrid.GridCopyContent += CodePointDataGrid_OnGridCopyContent;
-    CodePointDataGrid.PreviewKeyDown += CodePointDataGrid_KeyDown;
-    CodePointDataGrid.KeyDown += CodePointDataGrid_KeyDown;
   }
 
   private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
@@ -275,49 +272,5 @@ public partial class UcdCodePointsView : UserControl
     }
   }
 
-  private void CodePointDataGrid_OnGridCopyContent(object? sender, GridCopyPasteEventArgs e)
-  {
-    if (sender is not SfDataGrid grid)
-      return;
-    Controller.CopyData(grid);
-    e.Handled = true;
-  }
 
-  private void CodePointDataGrid_KeyDown(object sender, KeyEventArgs e)
-  {
-    //Debug.WriteLine($"CodePointDataGrid_KeyDown: {e.Key} {Keyboard.Modifiers}");
-    if (sender is not SfDataGrid grid)
-      return;
-    switch (e.Key)
-    {
-      case Key.C when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
-      {
-        if (Controller.CanCopyData(grid))
-          Controller.CopyData(grid);
-        e.Handled = true;
-        return;
-      }
-      case Key.X when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
-      {
-        if (Controller.CanCutData(grid))
-          Controller.CutData(grid);
-        e.Handled = true;
-        return;
-      }
-      case Key.V when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
-      {
-        if (Controller.CanPasteData(grid))
-          Controller.PasteData(grid);
-        e.Handled = true;
-        return;
-      }
-      case Key.Delete:
-      {
-        if (Controller.CanDeleteData(grid))
-          Controller.DeleteData(grid);
-        e.Handled = true;
-        return;
-      }
-    }
-  }
 }
