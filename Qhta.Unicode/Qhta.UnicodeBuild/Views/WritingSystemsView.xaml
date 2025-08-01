@@ -136,7 +136,7 @@
       </MenuItem>
       <!--<MenuItem Header="Tools">
         <MenuItem Header="Evaluate IsUsed" 
-          Command="{Binding Source={StaticResource ViewModels}, 
+                  ToolTip="{x:Static resources:Strings.MarkUnusedWritingSystemsTooltip}" 
           Path=Instance.AllWritingSystems.EvaluateIsUsedCommand}"/>
       </MenuItem>-->
       <MenuItem Header="{x:Static resources:Strings.Help}">

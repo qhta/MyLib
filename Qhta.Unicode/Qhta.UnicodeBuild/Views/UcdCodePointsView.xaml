@@ -59,7 +59,7 @@
       <MenuItem Header="{x:Static resources:Strings.Tools}">
         <MenuItem Header="{x:Static resources:Strings.FillColumn}"
                   ToolTip ="{x:Static resources:Strings.FillColumnTooltip}"
-                  Command="{Binding Source={StaticResource ViewModels}, 
+                  Command="{Binding Source={StaticResource FillColumnCommand}}"
                   Path=Instance.FillColumnCommand}"
                   CommandParameter="{Binding ElementName=CodePointDataGrid}" />
         <Separator/>
