@@ -2,8 +2,12 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
 using Qhta.MVVM;
 using Qhta.UndoManager;
+using Qhta.UnicodeBuild.Commands;
+using Qhta.UnicodeBuild.Helpers;
+using SelectionChangedEventArgs = System.Windows.Controls.SelectionChangedEventArgs;
 
 namespace Qhta.UnicodeBuild;
 
@@ -12,19 +16,6 @@ namespace Qhta.UnicodeBuild;
 /// </summary>
 public partial class MainWindow : Window
 {
-  //internal class MyCommandManager : ICanExecuteChangedListener
-  //{
-  //  public void InvalidateRequerySuggested()
-  //  {
-  //    if (CanExecuteChanged!=null)
-  //      CanExecuteChanged(this, EventArgs.Empty);
-  //    CommandManager.InvalidateRequerySuggested();
-    
-  //  }
-  //  public event EventHandler? CanExecuteChanged;
-  //}
-
-  //internal MyCommandManager CommandMgr { get; } = new MyCommandManager();
 
   /// <summary>
   /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -33,34 +24,36 @@ public partial class MainWindow : Window
   {
     InitializeComponent();
     this.KeyDown += MainWindow_KeyDown;
-    //Command.CommandManager = CommandMgr;
-    //_backgroundTimer = new Timer(TimerProc, null, TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(500));
-    //Closing += MainWindow_Closing;
+    _backgroundTimer = new Timer(TimerProc, null, TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(500));
+    Closing += MainWindow_Closing;
 
   }
 
-  //private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
-  //{
-  //  _backgroundTimer.Dispose();
-  //}
+  private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+  {
+    _backgroundTimer.Dispose();
+  }
 
-  //private readonly Timer _backgroundTimer;
+  private readonly Timer _backgroundTimer;
 
-  //private void TimerProc(object? state)
-  //{
-  //  try
-  //  {
-  //    Dispatcher.Invoke(() => OnBackgroundTimerTick(this, EventArgs.Empty));
-  //  } catch (System.Threading.Tasks.TaskCanceledException)
-  //  {
-  //    _backgroundTimer.Dispose();
-  //  }
-  //  catch (Exception e)
-  //  {
-  //    Console.WriteLine(e);
-  //    throw;
-  //  }
-  //}
+  private void TimerProc(object? state)
+  {
+    try
+    {
+      Dispatcher.Invoke(_Commander.NotifyCanExecuteChanged);
+      Dispatcher.Invoke(CommandManager.InvalidateRequerySuggested);
+    }
+    catch (System.Threading.Tasks.TaskCanceledException)
+    {
+      _backgroundTimer.Dispose();
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine(e);
+      throw;
+    }
+  }
+
 
 
   /// <summary>
@@ -216,9 +209,29 @@ public partial class MainWindow : Window
     }
   }
 
-  private void OnBackgroundTimerTick(object sender, EventArgs e)
+  private void OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
   {
-    CommandManager.InvalidateRequerySuggested();
+    Debug.WriteLine($"MainWindow_OnCanExecute({(e.Command as RoutedUICommand)?.Text ?? e.Command.ToString()})");
+    _Commander.OnCanExecute(sender, e);
+    Debug.WriteLine($"MainWindow_OnCanExecute({(e.Command as RoutedUICommand)?.Text ?? e.Command.ToString()})={e.CanExecute}");
   }
 
+  private void OnExecuted(object sender, ExecutedRoutedEventArgs e)
+  {
+    // Delegate to the active UserControl
+    if (TabControl.SelectedContent is IRoutedCommandHandler handler)
+    {
+      handler.OnExecuted(sender, e);
+    }
+  }
+
+  private void MainTabControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+  {
+    Debug.WriteLine($"MainTabControl_OnSelectionChanged");
+    if (e.Source is TabControl tabControl && tabControl.SelectedContent is UIElement selectedElement)
+    {
+      Debug.WriteLine($"{selectedElement}.SetFocus()");
+      selectedElement.Focus(); // Set focus to the active UserControl
+    }
+  }
 }

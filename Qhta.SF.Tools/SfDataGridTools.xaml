@@ -260,6 +260,7 @@
     <Setter Property="SelectionMode" Value="Extended" />
     <Setter Property="ShowRowHeader" Value="True" />
     <EventSetter Event="Loaded" Handler="DataGrid_Loaded"/>
+    <EventSetter Event="KeyDown" Handler="DataGrid_KeyDown"/>
   </Style>
 
   <DataTemplate x:Key="TextCellTemplate" DataType="{x:Type mvvm:IViewModel}">

@@ -23,21 +23,21 @@
 
   </UserControl.Resources>
   <UserControl.CommandBindings>
-    <CommandBinding Command="Save" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="Copy" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="Cut" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="Paste" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="Delete" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="Undo" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="Redo" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="Save" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Copy" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Cut" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Paste" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Delete" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Undo" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Redo" CanExecute="OnCanExecute" Executed="OnExecuted"/>
     <CommandBinding Command="{x:Static commands:_Commander.FillColumnCommand}"
-                      CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+                      CanExecute="OnCanExecute" Executed="OnExecuted"/>
     <CommandBinding Command="{x:Static commands:_Commander.ApplyBlockMappingCommand}"
-                    CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+                    CanExecute="OnCanExecute" Executed="OnExecuted"/>
     <CommandBinding Command="{x:Static commands:_Commander.ApplyWritingSystemRecognitionCommand}"
-                    CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+                    CanExecute="OnCanExecute" Executed="OnExecuted"/>
     <CommandBinding Command="{x:Static commands:_Commander.ApplyCharNamesGenerationCommand}"
-                    CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+                    CanExecute="OnCanExecute" Executed="OnExecuted"/>
   </UserControl.CommandBindings>
 
   <Grid>
@@ -62,20 +62,25 @@
       <MenuItem Header="{x:Static resources:Strings.Tools}">
         <MenuItem Header="{x:Static resources:Strings.FillColumn}"
                   ToolTip ="{x:Static resources:Strings.FillColumnTooltip}"
-                  Command="{x:Static commands:_Commander.FillColumnCommand}"/>
+                  Command="{x:Static commands:_Commander.FillColumnCommand}"
+                  CommandParameter="{Binding ElementName=CodePointDataGrid}"/>
         <Separator/>
         <MenuItem Header="{x:Static resources:Strings.ApplyBlockMapping}"
                   ToolTip="{x:Static resources:Strings.ApplyBlockMappingTooltip}"
-                  Command="{x:Static commands:_Commander.ApplyBlockMappingCommand}"/>
+                  Command="{x:Static commands:_Commander.ApplyBlockMappingCommand}"
+                  CommandParameter="{Binding ElementName=CodePointDataGrid}"/>
         <MenuItem Header="{x:Static resources:Strings.ApplyWritingSystemsMappingFromFile}"
                   ToolTip="{x:Static resources:Strings.ApplyWritingSystemsMappingFromFileTooltip}"
-                  Command="{x:Static commands:_Commander.ApplyWritingSystemMappingCommand}"/>
+                  Command="{x:Static commands:_Commander.ApplyWritingSystemMappingCommand}"
+                  CommandParameter="{Binding ElementName=CodePointDataGrid}"/>
         <MenuItem Header="{x:Static resources:Strings.ApplyWritingSystemsRecognition}"
                   ToolTip="{x:Static resources:Strings.ApplyWritingSystemsRecognitionTooltip}"
-                  Command="{x:Static commands:_Commander.ApplyWritingSystemRecognitionCommand}"/>
+                  Command="{x:Static commands:_Commander.ApplyWritingSystemRecognitionCommand}"
+                  CommandParameter="{Binding ElementName=CodePointDataGrid}"/>
         <MenuItem Header="{x:Static resources:Strings.ApplyCharNamesGeneration}"
                   ToolTip="{x:Static resources:Strings.ApplyCharNamesGenerationTooltip}"
-                  Command="{x:Static commands:_Commander.ApplyCharNamesGenerationCommand}"/>
+                  Command="{x:Static commands:_Commander.ApplyCharNamesGenerationCommand}"
+                  CommandParameter="{Binding ElementName=CodePointDataGrid}"/>
 
 
       </MenuItem>

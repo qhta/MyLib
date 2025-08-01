@@ -7,21 +7,26 @@
         xmlns:views="clr-namespace:Qhta.UnicodeBuild.Views"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
+        xmlns:commands="clr-namespace:Qhta.UnicodeBuild.Commands"
+
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="850"
         DragEnter="Window_DragEnter"
         DragOver="Window_DragOver"
         Drop="Window_Drop">
-  <!--<Window.InputBindings>
-    <KeyBinding Modifiers="Ctrl" Key="S" Command="Save" />
-    <KeyBinding Modifiers="Ctrl" Key="C" Command="Copy" />
-    <KeyBinding Modifiers="Ctrl" Key="X" Command="Cut" />
-    <KeyBinding Modifiers="Ctrl" Key="V" Command="Paste" />
-    <KeyBinding Key="Delete" Command="Delete" />
-  </Window.InputBindings>-->
+  <Window.CommandBindings>
+    <CommandBinding Command="Save" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Copy" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Cut" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Paste" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Delete" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Undo" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Redo" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+  </Window.CommandBindings>
   <Grid>
 
-    <TabControl Name="MainTabControl">
+    <TabControl Name="TabControl"
+                SelectionChanged="MainTabControl_OnSelectionChanged">
       <TabItem MouseMove="TabItem_MouseMove">
         <TabItem.Header>
           <TextBlock Text="{x:Static resources:Strings.CodePoints}" 

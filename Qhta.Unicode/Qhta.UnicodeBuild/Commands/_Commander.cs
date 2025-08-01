@@ -23,6 +23,8 @@ public static partial class _Commander
   {
     if (sender is SfDataGrid dataGrid)
       return dataGrid;
+    if (sender is MainWindow mainWindow)
+      sender = mainWindow.TabControl.SelectedContent;
     SfDataGrid? dataGrid1 = null;
     if (sender is UserControl userControl)
       dataGrid1 = VisualTreeHelperExt.FindDescendant<SfDataGrid>(userControl);
@@ -54,22 +56,17 @@ public static partial class _Commander
       e.CanExecute = UndoMgr.IsUndoAvailable;
     else if (command == ApplicationCommands.Redo)
       e.CanExecute = UndoMgr.IsRedoAvailable;
-    else if (command == _Commander.FillColumnCommand)
-      e.CanExecute = _Commander.FillColumnCommand.CanExecute(GetDataGrid(sender, command));
-    else if (command == _Commander.ApplyBlockMappingCommand)
-      e.CanExecute = _Commander.ApplyBlockMappingCommand.CanExecute(GetDataGrid(sender, command));
-    else if (command == _Commander.ApplyBlockMappingCommand)
-      e.CanExecute = _Commander.ApplyWritingSystemMappingCommand.CanExecute(GetDataGrid(sender, command));
-    else if (command == _Commander.ApplyWritingSystemRecognitionCommand)
-      e.CanExecute = _Commander.ApplyWritingSystemRecognitionCommand.CanExecute(GetDataGrid(sender, command));
-    else if (command == _Commander.ApplyCharNamesGenerationCommand)
-      e.CanExecute = _Commander.ApplyCharNamesGenerationCommand.CanExecute(GetDataGrid(sender, command));
     else
       e.CanExecute = true; // Default to true for other commands
     //Debug.WriteLine($"CommandBinding_OnCanExecute({sender}, {(e.Command as RoutedUICommand)?.Text})={e.CanExecute}");
   }
 
-  private static void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+  /// <summary>
+  /// Handles the Executed event for routed commands, executing the command based on the current state of the application and user interactions.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  public static void OnExecute(object sender, ExecutedRoutedEventArgs e)
   {
     Debug.WriteLine($"CommandBinding_OnExecuted({sender}, {e.Command})");
     var command = e.Command;
@@ -104,15 +101,29 @@ public static partial class _Commander
       UndoMgr.Redo();
       GetDataGrid(sender, command).UpdateLayout();
     }
-    else if (command == _Commander.FillColumnCommand)
-      _Commander.FillColumnCommand.Execute(GetDataGrid(sender, command));
-    else if (command == _Commander.ApplyBlockMappingCommand)
-      _Commander.ApplyBlockMappingCommand.Execute(GetDataGrid(sender, command));
-    else if (command == _Commander.ApplyBlockMappingCommand)
-      _Commander.ApplyWritingSystemMappingCommand.Execute(GetDataGrid(sender, command));
     else
     {
       Debug.WriteLine($"Command {command} not executed");
+    }
+  }
+
+  /// <summary>
+  /// Updates the execution state of all commands defined as properties in the <see cref="_Commander"/> class.
+  /// </summary>
+  /// <remarks>This method iterates through all properties of the <see cref="_Commander"/> class that are
+  /// derived from  <see cref="Qhta.MVVM.Command"/> and invokes their <see
+  /// cref="Qhta.MVVM.Command.NotifyCanExecuteChanged"/>  method to refresh their execution state. This is typically
+  /// used to ensure that the commands'  <see cref="Qhta.MVVM.Command.CanExecute"/> logic is re-evaluated.</remarks>
+  public static void NotifyCanExecuteChanged()
+  {
+    foreach (var property in typeof(_Commander).GetProperties())
+    {
+      if (property.PropertyType.IsSubclassOf(typeof(Qhta.MVVM.Command)))
+      {
+        //Debug.WriteLine($"Updating CanExecute for command: {property.Name}");
+        var command = (Qhta.MVVM.Command)property.GetValue(null)!;
+        command.NotifyCanExecuteChanged();
+      }
     }
   }
 
@@ -140,4 +151,9 @@ public static partial class _Commander
   /// Command to apply character names generation to selected Unicode code points.
   /// </summary>
   public static ApplyCharNamesGenerationCommand ApplyCharNamesGenerationCommand { get; } = new();
+
+  /// <summary>
+  /// Command to mark unused writing systems.
+  /// </summary>
+  public static MarkUnusedWritingSystemsCommand MarkUnusedWritingSystemsCommand { get; } = new();
 }

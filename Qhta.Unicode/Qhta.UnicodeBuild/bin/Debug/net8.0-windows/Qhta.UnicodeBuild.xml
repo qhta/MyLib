@@ -210,62 +210,27 @@
             Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.EditWritingSystemCommand"/> class.
             </summary>
         </member>
-        <member name="T:Qhta.UnicodeBuild.Commands._Commander">
-            <summary>
-            Provides a set of routed commands for managing user interactions in a data grid.
-            </summary>
-            <remarks>This class contains static members that define routed commands, which can be used to handle specific
-            actions in a data grid, such as filling a column with a selected value. Routed commands are designed to integrate
-            with WPF's command system, enabling separation of UI and logic.</remarks>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Commands._Commander.FillColumnCommand">
+        <member name="T:Qhta.UnicodeBuild.Commands.FillColumnCommand">
             <summary>
             Command to fill the current column in the data grid with a selected value.
             </summary>
         </member>
-        <member name="M:Qhta.UnicodeBuild.Commands._Commander.FillColumnCommandCanExecute(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+        <member name="M:Qhta.UnicodeBuild.Commands.FillColumnCommand.CanExecute(System.Object)">
             <summary>
-            Checks whether the FillColumn command can be executed based on the current selection in the data grid.
+            Checks whether the command can be executed based on the current selection in the data grid.
             </summary>
-            <param name="dataGrid"></param>
+            <param name="parameter"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.UnicodeBuild.Commands._Commander.FillColumnCommandExecute(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+        <member name="M:Qhta.UnicodeBuild.Commands.FillColumnCommand.Execute(System.Object)">
             <summary>
-            Executes the FillColumn command to fill the selected column with a value chosen by the user.
+            Executes the command to fill the selected column with a value chosen by the user.
             </summary>
-            <param name="dataGrid"></param>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Commands._Commander.OnCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
-            <summary>
-            Handles the CanExecute event for routed commands, determining whether the command can be executed based on the current state of the application.
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyBlockMappingCommand">
-            <summary>
-            Command to apply writing system mappings from a file.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyWritingSystemMappingCommand">
-            <summary>
-            Command to apply writing system mappings from a file.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyWritingSystemRecognitionCommand">
-            <summary>
-            Command to apply writing systems recognition in a set of Unicode code points. 
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyCharNamesGenerationCommand">
-            <summary>
-            Command to apply character names generation to selected Unicode code points.
-            </summary>
+            <param name="parameter"></param>
         </member>
         <member name="T:Qhta.UnicodeBuild.Commands.MarkUnusedWritingSystemsCommand">
             <summary>
-            Command to mark unused writing system.
+            Command to mark unused writing systems.
             All writing systems that:
             <list type="bullet">
             <item>are not used in any code point</item>
@@ -358,6 +323,67 @@
         <member name="M:Qhta.UnicodeBuild.Commands.RedoCommand.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.RedoCommand"/> class.
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands._Commander">
+            <summary>
+            Provides a set of routed commands for managing user interactions in a data grid.
+            </summary>
+            <remarks>This class contains static members that define routed commands, which can be used to handle specific
+            actions in a data grid, such as filling a column with a selected value. Routed commands are designed to integrate
+            with WPF's command system, enabling separation of UI and logic.</remarks>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands._Commander.OnCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
+            <summary>
+            Handles the CanExecute event for routed commands, determining whether the command can be executed based on the current state of the application.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands._Commander.OnExecute(System.Object,System.Windows.Input.ExecutedRoutedEventArgs)">
+            <summary>
+            Handles the Executed event for routed commands, executing the command based on the current state of the application and user interactions.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands._Commander.NotifyCanExecuteChanged">
+            <summary>
+            Updates the execution state of all commands defined as properties in the <see cref="T:Qhta.UnicodeBuild.Commands._Commander"/> class.
+            </summary>
+            <remarks>This method iterates through all properties of the <see cref="T:Qhta.UnicodeBuild.Commands._Commander"/> class that are
+            derived from  <see cref="T:Qhta.MVVM.Command"/> and invokes their <see
+            cref="M:Qhta.MVVM.Command.NotifyCanExecuteChanged"/>  method to refresh their execution state. This is typically
+            used to ensure that the commands'  <see cref="M:Qhta.MVVM.Command.CanExecute(System.Object)"/> logic is re-evaluated.</remarks>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.FillColumnCommand">
+            <summary>
+            Command to fill the current column in the data grid with a selected value.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyBlockMappingCommand">
+            <summary>
+            Command to apply writing system mappings from a file.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyWritingSystemMappingCommand">
+            <summary>
+            Command to apply writing system mappings from a file.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyWritingSystemRecognitionCommand">
+            <summary>
+            Command to apply writing systems recognition in a set of Unicode code points. 
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyCharNamesGenerationCommand">
+            <summary>
+            Command to apply character names generation to selected Unicode code points.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.MarkUnusedWritingSystemsCommand">
+            <summary>
+            Command to mark unused writing systems.
             </summary>
         </member>
         <member name="T:Qhta.UnicodeBuild.Helpers.CategoryResourceConverter">
@@ -859,6 +885,27 @@
             <param name="culture"></param>
             <returns></returns>
             <exception cref="T:System.NotSupportedException"></exception>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Helpers.IRoutedCommandHandler">
+            <summary>
+            Interface for handling routed commands in a WPF application.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.IRoutedCommandHandler.OnCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
+            <summary>
+            Handles the CanExecute event for a routed command.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.IRoutedCommandHandler.OnExecuted(System.Object,System.Windows.Input.ExecutedRoutedEventArgs)">
+            <summary>
+            Handles the event that occurs after a routed command has been executed.
+            </summary>
+            <remarks>This method is invoked when a routed command completes execution. Use the event data in 
+            <paramref name="e"/> to determine the command that was executed and any associated parameters.</remarks>
+            <param name="sender">The source of the event, typically the control that raised the command.</param>
+            <param name="e">The event data associated with the executed routed command.</param>
         </member>
         <member name="T:Qhta.UnicodeBuild.Helpers.MenuItemCollection">
             <summary>
@@ -3763,6 +3810,20 @@
             Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Views.UcdCodePointsView"/> class.
             </summary>
         </member>
+        <member name="M:Qhta.UnicodeBuild.Views.UcdCodePointsView.OnCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
+            <summary>
+            Implements the <see cref="T:Qhta.UnicodeBuild.Helpers.IRoutedCommandHandler"/> interface to handle command execution and can-execute checks for routed commands.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Views.UcdCodePointsView.OnExecuted(System.Object,System.Windows.Input.ExecutedRoutedEventArgs)">
+            <summary>
+            Implements the <see cref="T:Qhta.UnicodeBuild.Helpers.IRoutedCommandHandler"/> interface to handle command execution for routed commands.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
         <member name="M:Qhta.UnicodeBuild.Views.UcdCodePointsView.InitializeComponent">
             <summary>
             InitializeComponent
@@ -3780,6 +3841,20 @@
             <summary>
             Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Views.WritingSystemsView"/> class.
             </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Views.WritingSystemsView.OnCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
+            <summary>
+            Implements the <see cref="T:Qhta.UnicodeBuild.Helpers.IRoutedCommandHandler"/> interface to handle command execution and can execute checks.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Views.WritingSystemsView.OnExecuted(System.Object,System.Windows.Input.ExecutedRoutedEventArgs)">
+            <summary>
+            Implements the <see cref="T:Qhta.UnicodeBuild.Helpers.IRoutedCommandHandler"/> interface to handle command execution.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
         </member>
         <member name="M:Qhta.UnicodeBuild.Views.WritingSystemsView.InitializeComponent">
             <summary>

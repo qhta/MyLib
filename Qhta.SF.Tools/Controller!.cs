@@ -142,6 +142,31 @@ public static partial class Controller
         return;
       }
     }
+    if (value==null && propertyInfo.PropertyType.IsValueType)
+    {
+      // If the property is a value type, we cannot set it to null
+      // Set it to the default value of the type
+      value = Activator.CreateInstance(propertyInfo.PropertyType);
+    }
+    else if (value == null && propertyInfo.PropertyType != typeof(string))
+    {
+      // If the property is not a string, and we have a null value, we cannot set it
+      Debug.WriteLine($"Cannot set null value for non-string property '{columnInfo.MappingName}'.");
+      return;
+    }
+    if (value != null && !propertyInfo.PropertyType.IsInstanceOfType(value))
+    {
+      // If the value is not of the correct type, we need to convert it
+      try
+      {
+        value = Convert.ChangeType(value, propertyInfo.PropertyType);
+      }
+      catch (InvalidCastException ex)
+      {
+        Debug.WriteLine($"Cannot convert value '{value}' to type '{propertyInfo.PropertyType.Name}': {ex.Message}");
+        return;
+      }
+    }
     propertyInfo.SetValue(rowData, value);
   }
 }

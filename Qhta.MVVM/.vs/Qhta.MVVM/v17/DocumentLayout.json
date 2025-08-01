@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\command.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:command.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\qhta.mvvm.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:qhta.mvvm.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
@@ -47,7 +51,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 290,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -83,7 +87,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "Command.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Command.cs",
+              "RelativeDocumentMoniker": "Command.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Command.cs",
+              "RelativeToolTip": "Command.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAC8AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-01T12:24:18.755Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "RelayCommand.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\RelayCommand.cs",
               "RelativeDocumentMoniker": "RelayCommand.cs",
@@ -91,12 +108,11 @@
               "RelativeToolTip": "RelayCommand.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T10:04:47.314Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-30T10:04:47.314Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "RelayCommand\u00601.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\RelayCommand\u00601.cs",
               "RelativeDocumentMoniker": "RelayCommand\u00601.cs",
@@ -104,12 +120,11 @@
               "RelativeToolTip": "RelayCommand\u00601.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAAUAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T10:04:34.378Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-30T10:04:34.378Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ILazyLoad.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ILazyLoad.cs",
               "RelativeDocumentMoniker": "ILazyLoad.cs",
@@ -121,7 +136,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Qhta.MVVM.csproj",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
               "RelativeDocumentMoniker": "Qhta.MVVM.csproj",
@@ -134,7 +149,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "ILongTextViewModel.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ILongTextViewModel.cs",
               "RelativeDocumentMoniker": "ILongTextViewModel.cs",
@@ -146,7 +161,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "ListViewModel\u00601.IListViewModel.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ListViewModel\u00601.IListViewModel.cs",
               "RelativeDocumentMoniker": "ListViewModel\u00601.IListViewModel.cs",
@@ -158,7 +173,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "LazyLoadViewModel\u00601.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\LazyLoadViewModel\u00601.cs",
               "RelativeDocumentMoniker": "LazyLoadViewModel\u00601.cs",
@@ -170,7 +185,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "PropertyChanged2EventArgs.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\PropertyChanged2EventArgs.cs",
               "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects\\PropertyChanged2EventArgs.cs",
@@ -182,7 +197,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "ObservableObject.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableObject.cs",
               "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects\\ObservableObject.cs",
@@ -194,7 +209,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Qhta.ObservableObjects.csproj",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
               "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
@@ -202,8 +217,7 @@
               "RelativeToolTip": "..\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-01T10:49:54.595Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-01T10:49:54.595Z"
             }
           ]
         }

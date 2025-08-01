@@ -1,11 +1,12 @@
-﻿using Qhta.MVVM;
+﻿using System.Diagnostics;
+using Qhta.MVVM;
 using Qhta.UnicodeBuild.ViewModels;
 
 namespace Qhta.UnicodeBuild.Commands;
 
 
 /// <summary>
-/// Command to mark unused writing system.
+/// Command to mark unused writing systems.
 /// All writing systems that:
 /// <list type="bullet">
 /// <item>are not used in any code point</item>
@@ -19,7 +20,9 @@ public class MarkUnusedWritingSystemsCommand : Command
   /// <inheritdoc/>
   public override bool CanExecute(object? parameter)
   {
-    return _ViewModels.Instance.UcdCodePoints.IsLoaded;
+    var result = _ViewModels.Instance.UcdCodePoints.IsLoaded;
+    //Debug.WriteLine($"MarkUnusedWritingSystemsCommand.CanExecute({parameter})={result}");
+    return result;
   }
 
   /// <inheritdoc/>

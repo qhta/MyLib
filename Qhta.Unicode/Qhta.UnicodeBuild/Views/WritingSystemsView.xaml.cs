@@ -7,6 +7,8 @@ using Qhta.SF.Tools;
 using Qhta.TextUtils;
 using Qhta.UndoManager;
 using Qhta.Unicode.Models;
+using Qhta.UnicodeBuild.Commands;
+using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.Resources;
 using Qhta.UnicodeBuild.ViewModels;
 
@@ -20,8 +22,8 @@ using Syncfusion.UI.Xaml.TreeView.Engine;
 
 using DropPosition = Syncfusion.UI.Xaml.TreeView.DropPosition;
 using WritingSystem = Qhta.Unicode.Models.WritingSystem;
-using WritingSystemType = Qhta.Unicode.Models.WritingSystemType;
 using WritingSystemKind = Qhta.Unicode.Models.WritingSystemKind;
+using WritingSystemType = Qhta.Unicode.Models.WritingSystemType;
 
 
 namespace Qhta.UnicodeBuild.Views;
@@ -29,7 +31,7 @@ namespace Qhta.UnicodeBuild.Views;
 /// <summary>
 /// View for displaying and managing writing systems.
 /// </summary>
-public partial class WritingSystemsView : UserControl
+public partial class WritingSystemsView : UserControl, IRoutedCommandHandler
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="WritingSystemsView"/> class.
@@ -276,76 +278,26 @@ public partial class WritingSystemsView : UserControl
       }
   }
 
-
-  private void CommandBinding_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+  /// <summary>
+  /// Implements the <see cref="IRoutedCommandHandler"/> interface to handle command execution and can execute checks.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  public void OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
   {
-    if (e.Command is RoutedCommand command)
-    {
-      if (command == ApplicationCommands.Save)
-        e.CanExecute = _ViewModels.Instance.DbContext?.ThereAreUnsavedChanges ?? false;
-      else if (command == ApplicationCommands.Copy)
-        e.CanExecute = (_ViewModels.Instance.WritingSystems?.IsLoaded ?? false) &&
-                       Controller.CanCopyData(WritingSystemsDataGrid);
-      else if (command == ApplicationCommands.Cut)
-        e.CanExecute = (_ViewModels.Instance.WritingSystems?.IsLoaded ?? false) &&
-                       Controller.CanCutData(WritingSystemsDataGrid);
-      else if (command == ApplicationCommands.Paste)
-        e.CanExecute = (_ViewModels.Instance.WritingSystems?.IsLoaded ?? false) &&
-                       Controller.CanPasteData(WritingSystemsDataGrid);
-      else if (command == ApplicationCommands.Delete)
-        e.CanExecute = (_ViewModels.Instance.WritingSystems?.IsLoaded ?? false) &&
-                       Controller.CanDeleteData(WritingSystemsDataGrid);
-      else if (command == ApplicationCommands.Undo)
-        e.CanExecute = UndoMgr.IsUndoAvailable;
-      else if (command == ApplicationCommands.Redo)
-        e.CanExecute = UndoMgr.IsRedoAvailable;
-      else
-        e.CanExecute = true; // Default to true for other commands
-    }
-    //Debug.WriteLine($"CommandBinding_OnCanExecute({sender}, {(e.Command as RoutedUICommand)?.Text})={e.CanExecute}");
+    Debug.WriteLine($"WritingsSystemsView.CommandBinding_OnCanExecute({(e.Command as RoutedUICommand)?.Text ?? e.Command.ToString()})");
+    _Commander.OnCanExecute(sender, e);
+    Debug.WriteLine($"WritingsSystemsView.CommandBinding_OnCanExecute({(e.Command as RoutedUICommand)?.Text ?? e.Command.ToString()})={e.CanExecute}");
   }
 
-  private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+  /// <summary>
+  /// Implements the <see cref="IRoutedCommandHandler"/> interface to handle command execution.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  public void OnExecuted(object sender, ExecutedRoutedEventArgs e)
   {
-    //Debug.WriteLine($"CommandBinding_OnExecuted({sender}, {(e.Command as RoutedUICommand)?.Text})");
-    if (e.Command is RoutedUICommand command)
-    {
-      if (command == ApplicationCommands.Save)
-      {
-        Debug.WriteLine("Data changes save started");
-        _ViewModels.Instance.DbContext?.SaveChangesAsync();
-      }
-      else if (command == ApplicationCommands.Copy)
-      {
-        Controller.CopyData(WritingSystemsDataGrid);
-      }
-      else if (command == ApplicationCommands.Cut)
-      {
-        Controller.CutData(WritingSystemsDataGrid);
-      }
-      else if (command == ApplicationCommands.Paste)
-      {
-        Controller.PasteData(WritingSystemsDataGrid);
-      }
-      else if (command == ApplicationCommands.Delete)
-      {
-        Controller.DeleteData(WritingSystemsDataGrid);
-      }
-      else if (command == ApplicationCommands.Undo)
-      {
-        UndoManager.UndoMgr.Undo();
-        WritingSystemsDataGrid.UpdateLayout();
-      }
-      else if (command == ApplicationCommands.Redo)
-      {
-        UndoManager.UndoMgr.Redo();
-        WritingSystemsDataGrid.UpdateLayout();
-      }
-      else
-      {
-        Debug.WriteLine($"Command {command.Text} not executed");
-      }
-    }
+    _Commander.OnExecute(sender, e);
   }
 
   private void WritingSystemsDataGrid_OnGridCopyContent(object? sender, GridCopyPasteEventArgs e)
@@ -356,41 +308,4 @@ public partial class WritingSystemsView : UserControl
     e.Handled = true;
   }
 
-  private void WritingSystemsDataGrid_KeyDown(object sender, KeyEventArgs e)
-  {
-    //Debug.WriteLine($"WritingSystemsDataGrid_KeyDown: {e.Key} {Keyboard.Modifiers}");
-    if (sender is not SfDataGrid grid)
-      return;
-    switch (e.Key)
-    {
-      case Key.C when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
-        {
-          if (Controller.CanCopyData(grid))
-            Controller.CopyData(grid);
-          e.Handled = true;
-          return;
-        }
-      case Key.X when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
-        {
-          if (Controller.CanCutData(grid))
-            Controller.CutData(grid);
-          e.Handled = true;
-          return;
-        }
-      case Key.V when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
-        {
-          if (Controller.CanPasteData(grid))
-            Controller.PasteData(grid);
-          e.Handled = true;
-          return;
-        }
-      case Key.Delete:
-        {
-          if (Controller.CanDeleteData(grid))
-            Controller.DeleteData(grid);
-          e.Handled = true;
-          return;
-        }
-    }
-  }
 }

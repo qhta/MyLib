@@ -10,6 +10,7 @@
              xmlns:models="clr-namespace:Qhta.Unicode.Models"
              xmlns:sys="clr-namespace:System.Globalization;assembly=System.Runtime"
              xmlns:tools="clr-namespace:Qhta.SF.Tools;assembly=Qhta.SF.Tools"
+             xmlns:commands="clr-namespace:Qhta.UnicodeBuild.Commands"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <UserControl.Resources>
@@ -82,7 +83,6 @@
       </MenuItem>
       <MenuItem Header="{x:Static resources:Strings.Edit}"
                 Icon="{StaticResource EditIcon}"
-                
                 Command="{Binding Source={StaticResource EditWritingSystemCommand}}"
                 CommandParameter="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
     </ContextMenu>
@@ -95,14 +95,15 @@
                      EnumType="{x:Type models:WritingSystemType}" />
   </UserControl.Resources>
   <UserControl.CommandBindings>
-    <CommandBinding Command="Save" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="Copy" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="Cut" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="Paste" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="Delete" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="Undo" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="Redo" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
-    <CommandBinding Command="{StaticResource MarkUnusedWritingSystemsCommand}"/>
+    <CommandBinding Command="Save" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Copy" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Cut" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Paste" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Delete" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Undo" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Redo" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="{x:Static commands:_Commander.MarkUnusedWritingSystemsCommand}"
+                    CanExecute="OnCanExecute" Executed="OnExecuted"/>
   </UserControl.CommandBindings>
   <Grid>
     <Grid.RowDefinitions>
@@ -128,19 +129,20 @@
         <MenuItem Header="{x:Static resources:Strings.Paste}" Command="Paste"/>
       </MenuItem>
       <MenuItem Header="{x:Static resources:Strings.Tools}">
+        <MenuItem Header="{x:Static resources:Strings.FillColumn}"
+                  ToolTip ="{x:Static resources:Strings.FillColumnTooltip}"
+                  Command="{x:Static commands:_Commander.FillColumnCommand}"
+                  CommandParameter="{Binding ElementName=WritingSystemsDataGrid}"/>
+        <Separator/>
         <MenuItem Header="{x:Static resources:Strings.MarkUnusedWritingSystems}" 
                   ToolTip="{x:Static resources:Strings.MarkUnusedWritingSystemsTooltip}" 
-                  Command="{Binding Source={StaticResource MarkUnusedWritingSystemsCommand}}"/>
-        <MenuItem Header="{x:Static resources:Strings.MarkUnusedWritingSystems}" 
-                  ToolTip="{x:Static resources:Strings.MarkUnusedWritingSystemsTooltip}" 
-                  Command="{Binding Source={StaticResource ViewModels},
-                           Path=Instance.WritingSystems.MarkUnusedWritingSystemsCommand}"/>
+                  Command="{x:Static commands:_Commander.MarkUnusedWritingSystemsCommand}"
+                  CommandParameter="{Binding ElementName=WritingSystemsDataGrid}"/>
       </MenuItem>
       <MenuItem Header="{x:Static resources:Strings.Help}">
         <MenuItem Header="{x:Static resources:Strings.About}" Command="Help"/>
       </MenuItem>
     </Menu>
-
 
     <sf:SfTreeView  Grid.Column="0" Grid.Row="1"
                     x:Name="WritingSystemsTreeView"
@@ -189,7 +191,6 @@
                    FilterChanging="WritingSystemsGrid_OnFilterChanging"
                    tools:SfDataGridBehavior.AllowRowResizing="True"
                    GridCopyContent="WritingSystemsDataGrid_OnGridCopyContent"
-                   KeyDown="WritingSystemsDataGrid_KeyDown" 
                    >
         <!--GridValidationMode="InEdit"-->
         <sf:SfDataGrid.Columns>

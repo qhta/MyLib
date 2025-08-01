@@ -42,11 +42,7 @@
   <commands:EditWritingSystemCommand x:Key="EditWritingSystemCommand"/>
   <commands:DeleteWritingSystemCommand x:Key="DeleteWritingSystemCommand"/>
   <commands:BrowseNameGenFileCommand x:Key="BrowseNameGenFileCommand"/>
-  <!--<commands:ApplyBlockMappingCommand x:Key="ApplyBlockMappingCommand"/>-->
-  <!--<commands:ApplyWritingSystemMappingCommand x:Key="ApplyWritingSystemMappingCommand"/>-->
-  <!--<commands:ApplyWritingSystemRecognitionCommand x:Key="ApplyWritingSystemRecognitionCommand"/>-->
-  <!--<commands:ApplyCharNamesGenerationCommand x:Key="ApplyCharNamesGenerationCommand"/>-->
-  <commands:MarkUnusedWritingSystemsCommand x:Key="MarkUnusedWritingSystemsCommand"/>
+
 
   <Style x:Key="MenuItemObjectStyle" TargetType="MenuItem">
     <Setter Property="Header" Value="{Binding Header}" />

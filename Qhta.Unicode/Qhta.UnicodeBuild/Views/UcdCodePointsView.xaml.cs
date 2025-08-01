@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Qhta.SF.Tools;
 using Qhta.UndoManager;
 using Qhta.UnicodeBuild.Commands;
+using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.Resources;
 using Qhta.UnicodeBuild.ViewModels;
 
@@ -18,7 +19,7 @@ namespace Qhta.UnicodeBuild.Views;
 /// <summary>
 /// View for displaying Unicode code points collection.
 /// </summary>
-public partial class UcdCodePointsView : UserControl
+public partial class UcdCodePointsView : UserControl, IRoutedCommandHandler
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="UcdCodePointsView"/> class.
@@ -208,66 +209,27 @@ public partial class UcdCodePointsView : UserControl
       }
   }
 
-  private void CommandBinding_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+  /// <summary>
+  /// Implements the <see cref="IRoutedCommandHandler"/> interface to handle command execution and can-execute checks for routed commands.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  public void OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
   {
+    Debug.WriteLine($"UcdCodePointsView.CommandBinding_OnCanExecute({(e.Command as RoutedUICommand)?.Text ?? e.Command.ToString()})");
     _Commander.OnCanExecute(sender, e);
+    Debug.WriteLine($"UcdCodePointsView.CommandBinding_OnCanExecute({(e.Command as RoutedUICommand)?.Text ?? e.Command.ToString()})={e.CanExecute}");
   }
 
-  private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+  /// <summary>
+  /// Implements the <see cref="IRoutedCommandHandler"/> interface to handle command execution for routed commands.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  public void OnExecuted(object sender, ExecutedRoutedEventArgs e)
   {
-    Debug.WriteLine($"CommandBinding_OnExecuted({sender}, {e.Command})");
-    var command = e.Command;
-    if (command == ApplicationCommands.Save)
-    {
-      Debug.WriteLine("Data changes save started");
-      _ViewModels.Instance.DbContext?.SaveChangesAsync();
-    }
-    else if (command == ApplicationCommands.Copy)
-    {
-      Controller.CopyData(CodePointDataGrid);
-    }
-    else if (command == ApplicationCommands.Cut)
-    {
-      Controller.CutData(CodePointDataGrid);
-    }
-    else if (command == ApplicationCommands.Paste)
-    {
-      Controller.PasteData(CodePointDataGrid);
-    }
-    else if (command == ApplicationCommands.Delete)
-    {
-      Controller.DeleteData(CodePointDataGrid);
-    }
-    else if (command == ApplicationCommands.Undo)
-    {
-      UndoMgr.Undo();
-      CodePointDataGrid.UpdateLayout();
-    }
-    else if (command == ApplicationCommands.Redo)
-    {
-      UndoMgr.Redo();
-      CodePointDataGrid.UpdateLayout();
-    }
-    else if (command == _Commander.FillColumnCommand)
-      _Commander.FillColumnCommandExecute(CodePointDataGrid);
-    else
-    {
-      Debug.WriteLine($"Command {command} not executed");
-    }
+    _Commander.OnExecute(sender, e);
   }
 
-  /////// <summary>
-  /////// Command to fill the current column in the data grid with a selected value.
-  /////// </summary>
-  ////public static RoutedCommand FillColumnCommand { [DebuggerStepThrough] get; } = new RoutedCommand();
 
-  //private void FillColumnCommand_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
-  //{
-  //  e.CanExecute = Commands.FillColumnCommand.FillColumnCommandCanExecute(sender);
-  //}
-
-  //private void FillColumnCommand_OnExecuted(object sender, ExecutedRoutedEventArgs e)
-  //{
-  //  Commands.FillColumnCommand.FillColumnCommandExecute(e.Parameter);
-  //}
 }
