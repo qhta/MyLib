@@ -178,24 +178,6 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is used.
-        /// </summary>
-        public static string IsUsed {
-            get {
-                return ResourceManager.GetString("IsUsed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Indicates whether the writing system is a parent for some other systems or is referenced in Unicode Blocks or Unicode Ranges..
-        /// </summary>
-        public static string IsUsedTooltip {
-            get {
-                return ResourceManager.GetString("IsUsedTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Key phrase.
         /// </summary>
         public static string KeyPhrase {
@@ -228,6 +210,15 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string KindTooltip {
             get {
                 return ResourceManager.GetString("KindTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark.
+        /// </summary>
+        public static string Mark {
+            get {
+                return ResourceManager.GetString("Mark", resourceCulture);
             }
         }
         

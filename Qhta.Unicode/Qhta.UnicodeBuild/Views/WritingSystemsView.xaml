@@ -28,50 +28,43 @@
         Header="{x:Static resources:WritingSystemTypeStrings.Area}" 
         ToolTip="{x:Static resources:WritingSystemTypeStrings.AreaTooltip}" 
         Icon="{StaticResource AreaIcon}"
-        Command="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.NewWritingSystemCommand}"
+        Command="{Binding Source={StaticResource NewWritingSystemCommand}}"
         CommandParameter="{x:Static models:WritingSystemType.Area}"/>
       <helpers:MenuItemObject
                 Header="{x:Static resources:WritingSystemTypeStrings.Family}" 
                 ToolTip="{x:Static resources:WritingSystemTypeStrings.FamilyTooltip}" 
                 Icon="{StaticResource FamilyIcon}"
-                Command="{Binding Source={StaticResource ViewModels},
-                      Path=Instance.NewWritingSystemCommand}"
+                Command="{Binding Source={StaticResource NewWritingSystemCommand}}"
                 CommandParameter="{x:Static models:WritingSystemType.Family}"/>
       <helpers:MenuItemObject
                 Header="{x:Static resources:WritingSystemTypeStrings.Language}" 
                 ToolTip="{x:Static resources:WritingSystemTypeStrings.LanguageTooltip}" 
                 Icon="{StaticResource LanguageIcon}"
-                Command="{Binding Source={StaticResource ViewModels}, 
-                      Path=Instance.NewWritingSystemCommand}"
+                Command="{Binding Source={StaticResource NewWritingSystemCommand}}"
                 CommandParameter="{x:Static models:WritingSystemType.Language}"/>
       <helpers:MenuItemObject
                 Header="{x:Static resources:WritingSystemTypeStrings.Script}" 
                 ToolTip="{x:Static resources:WritingSystemTypeStrings.ScriptTooltip}" 
                 Icon="{StaticResource ScriptIcon}"
-                Command="{Binding Source={StaticResource ViewModels}, 
-                      Path=Instance.NewWritingSystemCommand}"
+                Command="{Binding Source={StaticResource NewWritingSystemCommand}}"
                 CommandParameter="{x:Static models:WritingSystemType.Script}"/>
       <helpers:MenuItemObject
                 Header="{x:Static resources:WritingSystemTypeStrings.Notation}" 
                 ToolTip="{x:Static resources:WritingSystemTypeStrings.NotationTooltip}" 
                 Icon="{StaticResource NotationIcon}"
-                Command="{Binding Source={StaticResource ViewModels},
-                      Path=Instance.NewWritingSystemCommand}"
+                Command="{Binding Source={StaticResource NewWritingSystemCommand}}"
                 CommandParameter="{x:Static models:WritingSystemType.Notation}"/>
       <helpers:MenuItemObject
                 Header="{x:Static resources:WritingSystemTypeStrings.SymbolSet}" 
                 ToolTip="{x:Static resources:WritingSystemTypeStrings.SymbolSetTooltip}" 
                 Icon="{StaticResource SetIcon}"
-                Command="{Binding Source={StaticResource ViewModels}, 
-                      Path=Instance.NewWritingSystemCommand}"
+                Command="{Binding Source={StaticResource NewWritingSystemCommand}}"
                 CommandParameter="{x:Static models:WritingSystemType.SymbolSet}"/>
       <helpers:MenuItemObject 
                 Header="{x:Static resources:WritingSystemTypeStrings.Subset}" 
                 ToolTip="{x:Static resources:WritingSystemTypeStrings.SubsetTooltip}" 
                 Icon="{StaticResource SubsetIcon}"
-                Command="{Binding Source={StaticResource ViewModels}, 
-                      Path=Instance.NewWritingSystemCommand}"
+                Command="{Binding Source={StaticResource NewWritingSystemCommand}}"
                 CommandParameter="{x:Static models:WritingSystemType.Subset}"/>
     </helpers:MenuItemCollection>
 
@@ -90,8 +83,7 @@
       <MenuItem Header="{x:Static resources:Strings.Edit}"
                 Icon="{StaticResource EditIcon}"
                 
-                Command="{Binding Source={StaticResource ViewModels}, 
-                Path=Instance.EditWritingSystemCommand}"
+                Command="{Binding Source={StaticResource EditWritingSystemCommand}}"
                 CommandParameter="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
     </ContextMenu>
     <ContextMenu x:Key="WritingSystemsAddContextMenu" 
@@ -110,6 +102,7 @@
     <CommandBinding Command="Delete" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
     <CommandBinding Command="Undo" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
     <CommandBinding Command="Redo" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="{StaticResource MarkUnusedWritingSystemsCommand}"/>
   </UserControl.CommandBindings>
   <Grid>
     <Grid.RowDefinitions>
@@ -134,11 +127,15 @@
         <MenuItem Header="{x:Static resources:Strings.Copy}" Command="Copy"/>
         <MenuItem Header="{x:Static resources:Strings.Paste}" Command="Paste"/>
       </MenuItem>
-      <!--<MenuItem Header="Tools">
-        <MenuItem Header="Evaluate IsUsed" 
+      <MenuItem Header="{x:Static resources:Strings.Tools}">
+        <MenuItem Header="{x:Static resources:Strings.MarkUnusedWritingSystems}" 
                   ToolTip="{x:Static resources:Strings.MarkUnusedWritingSystemsTooltip}" 
-          Path=Instance.AllWritingSystems.EvaluateIsUsedCommand}"/>
-      </MenuItem>-->
+                  Command="{Binding Source={StaticResource MarkUnusedWritingSystemsCommand}}"/>
+        <MenuItem Header="{x:Static resources:Strings.MarkUnusedWritingSystems}" 
+                  ToolTip="{x:Static resources:Strings.MarkUnusedWritingSystemsTooltip}" 
+                  Command="{Binding Source={StaticResource ViewModels},
+                           Path=Instance.WritingSystems.MarkUnusedWritingSystemsCommand}"/>
+      </MenuItem>
       <MenuItem Header="{x:Static resources:Strings.Help}">
         <MenuItem Header="{x:Static resources:Strings.About}" Command="Help"/>
       </MenuItem>
@@ -196,16 +193,15 @@
                    >
         <!--GridValidationMode="InEdit"-->
         <sf:SfDataGrid.Columns>
-          <!--<sf:GridCheckBoxColumn
+          <sf:GridCheckBoxColumn
           Width="70"
-          MappingName="IsUsed">
+          MappingName="IsMarked">
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystemStrings.IsUsed}" 
-                         ToolTip="{x:Static resources:WritingSystemStrings.IsUsedTooltip}"  />
+              <TextBlock Text="{x:Static resources:WritingSystemStrings.Mark}" />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
-        </sf:GridCheckBoxColumn>-->
+        </sf:GridCheckBoxColumn>
 
           <sf:GridTextColumn 
           Width="150"
@@ -421,9 +417,8 @@
                   <TextBlock Text="{Binding NameGenFile}" 
                              ToolTip="{Binding NameGenFile}" 
                              Padding="4,2,0,0"/>
-                  <Button Grid.Column="1" Content="..."
-                          Command="{Binding Source={StaticResource ViewModels}, 
-                          Path=Instance.BrowseNameGenFileCommand}"
+                  <Button Grid.Column="1" Content="..." Width="24"
+                          Command="{Binding Source={StaticResource BrowseNameGenFileCommand}}"
                           CommandParameter="{Binding}"/>
                 </Grid>
               </DataTemplate>

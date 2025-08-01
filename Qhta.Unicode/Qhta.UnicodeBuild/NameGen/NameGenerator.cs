@@ -31,6 +31,8 @@ public class NameGenerator
       var ws = writingSystems[i];
       switch (ws.NameGenMethod)
       {
+        case NameGenMethod.NoGeneration:
+          return null;
         case NameGenMethod.Ordinal:
           return GetNameForOrdinalWritingSystem(codePoint, ws);
       }

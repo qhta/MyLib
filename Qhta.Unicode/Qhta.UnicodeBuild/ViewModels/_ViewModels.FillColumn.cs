@@ -14,33 +14,40 @@ public partial class _ViewModels
   /// <summary>
   /// Command to fill the current column in the data grid with a selected value.
   /// </summary>
-  public IRelayCommand FillColumnCommand { [DebuggerStepThrough] get; }
+  public static IRelayCommand FillColumnCommand { [DebuggerStepThrough] get; } = new RelayCommand<object>(FillColumnCommandExecute, FillColumnCommandCanExecute);
 
-  private bool FillColumnCommandCanExecute(object? sender)
+  public static bool FillColumnCommandCanExecute(object? sender)
   {
-    if (sender is SfDataGrid dataGrid)
+    Debug.WriteLine($"FillColumnCommandCanExecute({sender})");
+    if (sender is not SfDataGrid dataGrid)
     {
-      var cells = dataGrid.GetSelectedRowsAndColumns(out var allColumnsSelected, out var selectedColumns,
-        out var allRowsSelected, out var selectedRows);
-      if (allColumnsSelected || selectedColumns.Length != 1)
+      Debug.WriteLine("FillColumnCommandCanExecute: Sender is not a SfDataGrid.");
+      return false;
+    }
+    var cells = dataGrid.GetSelectedRowsAndColumns(out var allColumnsSelected, out var selectedColumns,
+      out var allRowsSelected, out var selectedRows);
+    if (allColumnsSelected || selectedColumns.Length != 1)
+    {
+      Debug.WriteLine("FillColumnCommand: No column selected or multiple columns selected.");
+      return false;
+    }
+    var column = selectedColumns.FirstOrDefault();
+    if (column != null)
+    {
+      var firstItem = selectedRows.FirstOrDefault();
+      if (firstItem == null)
       {
+        Debug.WriteLine("FillColumnCommand: No rows selected.");
         return false;
       }
-      var column = selectedColumns.FirstOrDefault();
-      if (column != null)
-      {
-        var firstItem = selectedRows.FirstOrDefault();
-        if (firstItem == null)
-        {
-          return false;
-        }
-        return true;
-      }
+      Debug.WriteLine($"FillColumnCommandCanExecute: Column {column.MappingName} is selected.");
+      return true;
     }
+    Debug.WriteLine("FillColumnCommandCanExecute: No column selected.");
     return false;
   }
 
-  private void FillColumnCommandExecute(object? sender)
+  public static void FillColumnCommandExecute(object? sender)
   {
     if (sender is SfDataGrid dataGrid)
     {

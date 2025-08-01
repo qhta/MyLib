@@ -52,6 +52,314 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.ApplyBlockMappingCommand">
+            <summary>
+            Command to apply writing system mappings from a file.
+            A list of mappings is read from a file, and each code point in the specified blocks is updated with the corresponding UcdBlock.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyBlockMappingCommand.Execute(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyBlockMappingCommand.BackgroundWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyBlockMappingCommand.BackgroundWorker_ProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyBlockMappingCommand.BackgroundWorker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand">
+            <summary>
+            Command to apply character names generation to selected Unicode code points.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.Execute(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.BackgroundWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.GeneratedNamesCount">
+            <summary>
+            Count of recognized writing systems during the last recognition operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.BackgroundWorker_ProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.BackgroundWorker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.ApplyWritingSystemMappingCommand">
+            <summary>
+            Command to apply writing system mappings from a file.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyWritingSystemMappingCommand.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.ApplyWritingSystemMappingCommand"/> class.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands.ApplyWritingSystemMappingCommand.WritingSystemMappings">
+            <summary>
+            Collection of writing system mappings to be applied to Unicode code points.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyWritingSystemMappingCommand.Execute(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyWritingSystemMappingCommand.BackgroundWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyWritingSystemMappingCommand.BackgroundWorker_ProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyWritingSystemMappingCommand.BackgroundWorker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.ApplyWritingSystemRecognitionCommand">
+            <summary>
+            Command to apply writing systems recognition in a set of Unicode code points. 
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyWritingSystemRecognitionCommand.Execute(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyWritingSystemRecognitionCommand.BackgroundWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyWritingSystemRecognitionCommand.BackgroundWorker_ProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.Commands.ApplyWritingSystemRecognitionCommand.RecognizedWritingSystemsCount">
+            <summary>
+            Count of recognized writing systems during the last recognition operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyWritingSystemRecognitionCommand.InitWritingSystemCategoryPhraseMap">
+            <summary>
+            Initializes the writing system category phrase map for efficient recognition of writing systems based on code point categories and phrases.
+            </summary>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyWritingSystemRecognitionCommand.RecognizeWritingSystems(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel)">
+            <summary>
+            Recognizes the writing system for a given Unicode code point based on its category and description.
+            </summary>
+            <param name="codePoint"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyWritingSystemRecognitionCommand.BackgroundWorker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.BreakTimeConsumingCommand">
+            <summary>
+            Command to break a time-consuming operation. Starting a time-consuming operation requires a <see cref="P:Qhta.UnicodeBuild.Commands.BreakTimeConsumingCommand.BackgroundWorker"/> to be set.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands.BreakTimeConsumingCommand.BackgroundWorker">
+            <summary>
+            Reference to the <see cref="P:Qhta.UnicodeBuild.Commands.BreakTimeConsumingCommand.BackgroundWorker"/> that is used for time-consuming operations.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.BreakTimeConsumingCommand.CanExecute(System.Object)">
+            <summary>
+            The command to break the time-consuming operation can be executed only if the <see cref="P:Qhta.UnicodeBuild.Commands.BreakTimeConsumingCommand.BackgroundWorker"/> is set and currently busy.
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.BreakTimeConsumingCommand.Execute(System.Object)">
+            <summary>
+            Executes the cancellation of the background operation if it is currently running.
+            </summary>
+            <remarks>This method checks if the <see cref="P:Qhta.UnicodeBuild.Commands.BreakTimeConsumingCommand.BackgroundWorker"/> is busy and, if so, initiates an
+            asynchronous cancellation request.</remarks>
+            <param name="parameter">An optional parameter that is not used in this method.</param>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.BrowseNameGenFileCommand">
+            <summary>
+            Command to browse a name gen file.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.BrowseNameGenFileCommand.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.BrowseNameGenFileCommand"/> class.
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.DeleteWritingSystemCommand">
+            <summary>
+            Command to delete a writing system.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.DeleteWritingSystemCommand.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.DeleteWritingSystemCommand"/> class.
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.EditWritingSystemCommand">
+            <summary>
+            Command to edit a writing system.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.EditWritingSystemCommand.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.EditWritingSystemCommand"/> class.
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands._Commander">
+            <summary>
+            Provides a set of routed commands for managing user interactions in a data grid.
+            </summary>
+            <remarks>This class contains static members that define routed commands, which can be used to handle specific
+            actions in a data grid, such as filling a column with a selected value. Routed commands are designed to integrate
+            with WPF's command system, enabling separation of UI and logic.</remarks>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.FillColumnCommand">
+            <summary>
+            Command to fill the current column in the data grid with a selected value.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands._Commander.FillColumnCommandCanExecute(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Checks whether the FillColumn command can be executed based on the current selection in the data grid.
+            </summary>
+            <param name="dataGrid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands._Commander.FillColumnCommandExecute(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Executes the FillColumn command to fill the selected column with a value chosen by the user.
+            </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands._Commander.OnCanExecute(System.Object,System.Windows.Input.CanExecuteRoutedEventArgs)">
+            <summary>
+            Handles the CanExecute event for routed commands, determining whether the command can be executed based on the current state of the application.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyBlockMappingCommand">
+            <summary>
+            Command to apply writing system mappings from a file.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyWritingSystemMappingCommand">
+            <summary>
+            Command to apply writing system mappings from a file.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyWritingSystemRecognitionCommand">
+            <summary>
+            Command to apply writing systems recognition in a set of Unicode code points. 
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyCharNamesGenerationCommand">
+            <summary>
+            Command to apply character names generation to selected Unicode code points.
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.MarkUnusedWritingSystemsCommand">
+            <summary>
+            Command to mark unused writing system.
+            All writing systems that:
+            <list type="bullet">
+            <item>are not used in any code point</item>
+            <item>are not used in any Unicode block</item>
+            <item>have no children</item>
+            </list>
+             will be marked as unused.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.MarkUnusedWritingSystemsCommand.CanExecute(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.MarkUnusedWritingSystemsCommand.Execute(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.NewWritingSystemCommand">
+            <summary>
+            Command to create a new writing system.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.NewWritingSystemCommand.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.NewWritingSystemCommand"/> class.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands.NewWritingSystemCommand.NewWritingSystem">
+            <summary>
+            Gets a new instance of <see cref="T:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel"/> initialized with a new <see cref="T:Qhta.Unicode.Models.WritingSystem"/> entity.
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.TimeConsumingCommand">
+            <summary>
+            Abstract command for time-consuming operations.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.TimeConsumingCommand.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.TimeConsumingCommand"/> class.
+            </summary>
+            <remarks>This constructor sets up event handlers for the <see cref="P:Qhta.UnicodeBuild.Commands.TimeConsumingCommand.BackgroundWorker"/> to manage the
+            execution of a time-consuming operation. The event handlers are responsible for handling the work process,
+            reporting progress, and completing the operation.</remarks>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands.TimeConsumingCommand.BackgroundWorker">
+            <summary>
+            Background worker for time-consuming operations.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands.TimeConsumingCommand.BreakCommand">
+            <summary>
+            Command to break the time-consuming operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.TimeConsumingCommand.BackgroundWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>
+            Method to start of the background worker operation.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.TimeConsumingCommand.BackgroundWorker_ProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)">
+            <summary>
+            Method to report progress during the background worker operation.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.TimeConsumingCommand.BackgroundWorker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+            <summary>
+            Method to handle the completion of the background worker operation.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.UndoCommand">
+            <summary>
+            Command to undo the last action.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.UndoCommand.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.UndoCommand"/> class.
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.RedoCommand">
+            <summary>
+            Command to redo the last action.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.RedoCommand.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.RedoCommand"/> class.
+            </summary>
+        </member>
         <member name="T:Qhta.UnicodeBuild.Helpers.CategoryResourceConverter">
             <summary>
             Value converter that retrieves a localized resource of category name.
@@ -1154,6 +1462,16 @@
               Looks up a localized string similar to Loading {0}.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.MarkUnusedWritingSystems">
+            <summary>
+              Looks up a localized string similar to Mark unused writing system.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.MarkUnusedWritingSystemsTooltip">
+            <summary>
+              Looks up a localized string similar to Select a writing system that is not used by any Unicode block or code point and has no children..
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.New">
             <summary>
               Looks up a localized string similar to New.
@@ -2068,16 +2386,6 @@
               Looks up a localized string similar to Identifier of the writing system (script or language) in ISO-15924 or ISO-639 standard..
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.IsUsed">
-            <summary>
-              Looks up a localized string similar to Is used.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.IsUsedTooltip">
-            <summary>
-              Looks up a localized string similar to Indicates whether the writing system is a parent for some other systems or is referenced in Unicode Blocks or Unicode Ranges..
-            </summary>
-        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.KeyPhrase">
             <summary>
               Looks up a localized string similar to Key phrase.
@@ -2096,6 +2404,11 @@
         <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.KindTooltip">
             <summary>
               Looks up a localized string similar to The type of writing system determines the nature of the characters in that system..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Mark">
+            <summary>
+              Looks up a localized string similar to Mark.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemStrings.Name">
@@ -2470,6 +2783,11 @@
             Status message providing additional information about the current operation or state of the collection.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointsCollection.BreakCommand">
+            <summary>
+            Command to break time-consuming operation.
+            </summary>
+        </member>
         <member name="T:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel">
             <summary>
             ViewModel for a Unicode code point, providing properties and methods to interact with the underlying model.
@@ -2685,16 +3003,21 @@
         </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.GetWritingSystem(Qhta.Unicode.Models.WritingSystemType)">
             <summary>
-            Exposes the writing system which type is specified by <paramref name="allowedType"/>
+            Exposes the writing system which type is specified by <paramref name="allowedType"/>.
             </summary>
             <param name="allowedType">Specifies which type of writing system is allowed.</param>
         </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.GetWritingSystems(Qhta.Unicode.Models.WritingSystemType[])">
             <summary>
-            Exposes the collection of writing systems which types are specified by <paramref name="allowedTypes"/>
-            All non-null writing system is returned in the order of types in <paramref name="allowedTypes"/>.
+            Exposes the collection of writing systems which types are specified by <paramref name="allowedTypes"/>.
+            All non-null writing system properties are returned in the order of types in <paramref name="allowedTypes"/>.
             </summary>
             <param name="allowedTypes">Specifies which types of writing system are allowed.</param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.GetWritingSystems">
+            <summary>
+            Exposes the collection of all writing systems that are used by this code point.
+            </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.RowHeight">
             <summary>
@@ -2856,6 +3179,11 @@
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.Parent">
             <summary>
             Parent writing system view model, if this collection is a child of another writing system.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.MarkUnusedWritingSystemsCommand">
+            <summary>
+            Command to apply writing system mappings to Unicode code points.
             </summary>
         </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.#ctor(Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel)">
@@ -3078,6 +3406,11 @@
             Indicates whether the current item is expanded.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.IsMarked">
+            <summary>
+            Indicates whether the current item is marked.
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.LongText">
             <summary>
             Long text property is the Description property of the writing system.
@@ -3278,156 +3611,6 @@
             Destructs the _ViewModels instance and releases resources.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.ApplyBlockMappingCommand">
-            <summary>
-            Command to apply block mappings to Unicode code points.
-            A list of mappings is read from a file, and each code point in the specified blocks is updated with the corresponding UcdBlock.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.BreakApplyBlockMappingCommand">
-            <summary>
-            Command to break the apply block mapping operation.
-            </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.BreakApplyBlockMappingCommandExecute">
-            <summary>
-            Executes the command to break the apply block mapping operation.
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.ApplyBlockMappingBackgroundWorker">
-            <summary>
-            Background worker for applying block mappings to Unicode code points.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.ApplyCharNamesGenerationCommand">
-            <summary>
-            Command to apply short name generation on a set of Unicode code points. 
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.GeneratedNamesCount">
-            <summary>
-            Count of recognized writing systems during the last recognition operation.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.BreakApplyCharNamesGenerationCommand">
-            <summary>
-            Command to break the apply writing system mapping operation.
-            </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.BreakApplyCharNamesGenerationCommandExecute">
-            <summary>
-            Executes the command to break the apply writing system mapping operation.
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.ApplyCharNamesGenerationBackgroundWorker">
-            <summary>
-            Background worker for applying writing system mappings to Unicode code points.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.ApplyWritingSystemMappingCommand">
-            <summary>
-            Command to apply writing system mappings from a file.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.WritingSystemMappings">
-            <summary>
-            Collection of writing system mappings to be applied to Unicode code points.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.BreakApplyWritingSystemMappingCommand">
-            <summary>
-            Command to break the apply writing system mapping operation.
-            </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.BreakApplyWritingSystemMappingCommandExecute">
-            <summary>
-            Executes the command to break the apply writing system mapping operation.
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.ApplyWritingSystemMappingBackgroundWorker">
-            <summary>
-            Background worker for applying writing system mappings to Unicode code points.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.ApplyWritingSystemRecognitionCommand">
-            <summary>
-            Command to apply writing systems recognition on a set of Unicode code points. 
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.RecognizedWritingSystemsCount">
-            <summary>
-            Count of recognized writing systems during the last recognition operation.
-            </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.InitWritingSystemCategoryPhraseMap">
-            <summary>
-            Initializes the writing system category phrase map for efficient recognition of writing systems based on code point categories and phrases.
-            </summary>
-            <exception cref="T:System.InvalidOperationException"></exception>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.RecognizeWritingSystems(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel)">
-            <summary>
-            Recognizes the writing system for a given Unicode code point based on its category and description.
-            </summary>
-            <param name="codePoint"></param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentNullException"></exception>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.BreakApplyWritingSystemRecognitionCommand">
-            <summary>
-            Command to break the apply writing system mapping operation.
-            </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.BreakApplyWritingSystemRecognitionCommandExecute">
-            <summary>
-            Executes the command to break the apply writing system mapping operation.
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.ApplyWritingSystemRecognitionBackgroundWorker">
-            <summary>
-            Background worker for applying writing system mappings to Unicode code points.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.BrowseNameGenFileCommand">
-            <summary>
-            Command to browse a name gen file.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.DeleteWritingSystemCommand">
-            <summary>
-            Command to delete a writing system.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.EditWritingSystemCommand">
-            <summary>
-            Command to edit a writing system.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.FillColumnCommand">
-            <summary>
-            Command to fill the current column in the data grid with a selected value.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.NewWritingSystemCommand">
-            <summary>
-            Command to create a new writing system.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.NewWritingSystem">
-            <summary>
-            Gets a new instance of <see cref="T:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel"/> initialized with a new <see cref="T:Qhta.Unicode.Models.WritingSystem"/> entity.
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.UndoCommand">
-            <summary>
-            Command to undo the last action.
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.RedoCommand">
-            <summary>
-            Command to redo the last action.
-            </summary>
-        </member>
         <member name="T:Qhta.UnicodeBuild.Views.EditWritingSystemWindow">
             <summary>
             Window for editing a writing system.
@@ -3555,6 +3738,11 @@
         <member name="P:Qhta.UnicodeBuild.Views.UcdBlocksView.FirstItemCommand">
             <summary>
             Command to navigate to the first item in the data grid.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Views.UcdBlocksView.FillColumnCommand">
+            <summary>
+            Command to fill the current column in the data grid with a selected value.
             </summary>
         </member>
         <member name="M:Qhta.UnicodeBuild.Views.UcdBlocksView.InitializeComponent">

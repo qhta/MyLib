@@ -2,10 +2,13 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
 using Qhta.SF.Tools;
 using Qhta.UndoManager;
+using Qhta.UnicodeBuild.Commands;
 using Qhta.UnicodeBuild.Resources;
 using Qhta.UnicodeBuild.ViewModels;
+
 using Syncfusion.Data;
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.Windows.Shared;
@@ -207,70 +210,64 @@ public partial class UcdCodePointsView : UserControl
 
   private void CommandBinding_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
   {
-    if (e.Command is RoutedCommand command)
-    {
-      if (command == ApplicationCommands.Save)
-        e.CanExecute = _ViewModels.Instance.DbContext?.ThereAreUnsavedChanges ?? false;
-      else if (command == ApplicationCommands.Copy)
-        e.CanExecute = Controller.CanCopyData(CodePointDataGrid);
-      else if (command == ApplicationCommands.Cut)
-        e.CanExecute = Controller.CanCutData(CodePointDataGrid);
-      else if (command == ApplicationCommands.Paste)
-        e.CanExecute = Controller.CanPasteData(CodePointDataGrid);
-      else if (command == ApplicationCommands.Delete)
-        e.CanExecute = Controller.CanDeleteData(CodePointDataGrid);
-      else if (command == ApplicationCommands.Undo)
-        e.CanExecute = UndoMgr.IsUndoAvailable;
-      else if (command == ApplicationCommands.Redo)
-        e.CanExecute = UndoMgr.IsRedoAvailable;
-      else
-        e.CanExecute = true; // Default to true for other commands
-    }
-    //Debug.WriteLine($"CommandBinding_OnCanExecute({sender}, {(e.Command as RoutedUICommand)?.Text})={e.CanExecute}");
+    _Commander.OnCanExecute(sender, e);
   }
 
   private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
   {
-    //Debug.WriteLine($"CommandBinding_OnExecuted({sender}, {(e.Command as RoutedUICommand)?.Text})");
-    if (e.Command is RoutedUICommand command)
+    Debug.WriteLine($"CommandBinding_OnExecuted({sender}, {e.Command})");
+    var command = e.Command;
+    if (command == ApplicationCommands.Save)
     {
-      if (command == ApplicationCommands.Save)
-      {
-        Debug.WriteLine("Data changes save started");
-        _ViewModels.Instance.DbContext?.SaveChangesAsync();
-      }
-      else if (command == ApplicationCommands.Copy)
-      {
-        Controller.CopyData(CodePointDataGrid);
-      }
-      else if (command == ApplicationCommands.Cut)
-      {
-        Controller.CutData(CodePointDataGrid);
-      }
-      else if (command == ApplicationCommands.Paste)
-      {
-        Controller.PasteData(CodePointDataGrid);
-      }
-      else if (command == ApplicationCommands.Delete)
-      {
-        Controller.DeleteData(CodePointDataGrid);
-      }
-      else if (command == ApplicationCommands.Undo)
-      {
-        UndoMgr.Undo();
-        CodePointDataGrid.UpdateLayout();
-      }
-      else if (command == ApplicationCommands.Redo)
-      {
-        UndoMgr.Redo();
-        CodePointDataGrid.UpdateLayout();
-      }
-      else
-      {
-        Debug.WriteLine($"Command {command.Text} not executed");
-      }
+      Debug.WriteLine("Data changes save started");
+      _ViewModels.Instance.DbContext?.SaveChangesAsync();
+    }
+    else if (command == ApplicationCommands.Copy)
+    {
+      Controller.CopyData(CodePointDataGrid);
+    }
+    else if (command == ApplicationCommands.Cut)
+    {
+      Controller.CutData(CodePointDataGrid);
+    }
+    else if (command == ApplicationCommands.Paste)
+    {
+      Controller.PasteData(CodePointDataGrid);
+    }
+    else if (command == ApplicationCommands.Delete)
+    {
+      Controller.DeleteData(CodePointDataGrid);
+    }
+    else if (command == ApplicationCommands.Undo)
+    {
+      UndoMgr.Undo();
+      CodePointDataGrid.UpdateLayout();
+    }
+    else if (command == ApplicationCommands.Redo)
+    {
+      UndoMgr.Redo();
+      CodePointDataGrid.UpdateLayout();
+    }
+    else if (command == _Commander.FillColumnCommand)
+      _Commander.FillColumnCommandExecute(CodePointDataGrid);
+    else
+    {
+      Debug.WriteLine($"Command {command} not executed");
     }
   }
 
+  /////// <summary>
+  /////// Command to fill the current column in the data grid with a selected value.
+  /////// </summary>
+  ////public static RoutedCommand FillColumnCommand { [DebuggerStepThrough] get; } = new RoutedCommand();
 
+  //private void FillColumnCommand_OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+  //{
+  //  e.CanExecute = Commands.FillColumnCommand.FillColumnCommandCanExecute(sender);
+  //}
+
+  //private void FillColumnCommand_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+  //{
+  //  Commands.FillColumnCommand.FillColumnCommandExecute(e.Parameter);
+  //}
 }

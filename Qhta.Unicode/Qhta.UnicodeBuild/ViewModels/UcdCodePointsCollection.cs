@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Windows.Input;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 
@@ -86,4 +87,18 @@ public class UcdCodePointsCollection() : EntityCollection<UcdCodePointViewModel>
   }
   private string? _statusMessage;
 
+  /// <summary>
+  /// Command to break time-consuming operation.
+  /// </summary>
+  public ICommand? BreakCommand
+  {
+    [DebuggerStepThrough]
+    get => _BreakCommand;
+    set
+    {
+      _BreakCommand = value;
+      base.NotifyPropertyChanged(nameof(BreakCommand));
+    }
+  }
+  private ICommand? _BreakCommand;
 }

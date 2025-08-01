@@ -76,7 +76,7 @@ namespace Qhta.SF.Tools {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Qhta.SF.Tools;V1.0.0.0;component/sfdatagridtools.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Qhta.SF.Tools;component/sfdatagridtools.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\SfDataGridTools.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

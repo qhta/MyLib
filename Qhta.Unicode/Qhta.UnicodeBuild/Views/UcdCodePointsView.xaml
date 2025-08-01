@@ -6,7 +6,9 @@
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
              xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
+             xmlns:views="clr-namespace:Qhta.UnicodeBuild.Views"
              xmlns:tools="clr-namespace:Qhta.SF.Tools;assembly=Qhta.SF.Tools"
+             xmlns:commands="clr-namespace:Qhta.UnicodeBuild.Commands"
              mc:Ignorable="d" 
              d:DesignHeight="850" d:DesignWidth="1600">
   <UserControl.Resources>
@@ -28,15 +30,16 @@
     <CommandBinding Command="Delete" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
     <CommandBinding Command="Undo" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
     <CommandBinding Command="Redo" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="{x:Static commands:_Commander.FillColumnCommand}"
+                      CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="{x:Static commands:_Commander.ApplyBlockMappingCommand}"
+                    CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="{x:Static commands:_Commander.ApplyWritingSystemRecognitionCommand}"
+                    CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
+    <CommandBinding Command="{x:Static commands:_Commander.ApplyCharNamesGenerationCommand}"
+                    CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted"/>
   </UserControl.CommandBindings>
 
-  <!--<UserControl.InputBindings>
-    <KeyBinding Modifiers="Ctrl" Key="S" Command="Save" />
-    <KeyBinding Modifiers="Ctrl" Key="C" Command="Copy" />
-    <KeyBinding Modifiers="Ctrl" Key="X" Command="Cut" />
-    <KeyBinding Modifiers="Ctrl" Key="V" Command="Paste" />
-    <KeyBinding Key="Delete" Command="Delete" />
-  </UserControl.InputBindings>-->
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -59,28 +62,20 @@
       <MenuItem Header="{x:Static resources:Strings.Tools}">
         <MenuItem Header="{x:Static resources:Strings.FillColumn}"
                   ToolTip ="{x:Static resources:Strings.FillColumnTooltip}"
-                  Command="{Binding Source={StaticResource FillColumnCommand}}"
-                  Path=Instance.FillColumnCommand}"
-                  CommandParameter="{Binding ElementName=CodePointDataGrid}" />
+                  Command="{x:Static commands:_Commander.FillColumnCommand}"/>
         <Separator/>
         <MenuItem Header="{x:Static resources:Strings.ApplyBlockMapping}"
                   ToolTip="{x:Static resources:Strings.ApplyBlockMappingTooltip}"
-                  Command="{Binding Source={StaticResource ViewModels}, 
-                    Path=Instance.ApplyBlockMappingCommand}"/>
+                  Command="{x:Static commands:_Commander.ApplyBlockMappingCommand}"/>
         <MenuItem Header="{x:Static resources:Strings.ApplyWritingSystemsMappingFromFile}"
                   ToolTip="{x:Static resources:Strings.ApplyWritingSystemsMappingFromFileTooltip}"
-                  Command="{Binding Source={StaticResource ViewModels}, 
-                    Path=Instance.ApplyWritingSystemMappingCommand}"/>
+                  Command="{x:Static commands:_Commander.ApplyWritingSystemMappingCommand}"/>
         <MenuItem Header="{x:Static resources:Strings.ApplyWritingSystemsRecognition}"
                   ToolTip="{x:Static resources:Strings.ApplyWritingSystemsRecognitionTooltip}"
-                  Command="{Binding Source={StaticResource ViewModels}, 
-                    Path=Instance.ApplyWritingSystemRecognitionCommand}"
-                   CommandParameter="{Binding ElementName=CodePointDataGrid}"/>
+                  Command="{x:Static commands:_Commander.ApplyWritingSystemRecognitionCommand}"/>
         <MenuItem Header="{x:Static resources:Strings.ApplyCharNamesGeneration}"
                   ToolTip="{x:Static resources:Strings.ApplyCharNamesGenerationTooltip}"
-                  Command="{Binding Source={StaticResource ViewModels}, 
-                    Path=Instance.ApplyCharNamesGenerationCommand}"
-                  CommandParameter="{Binding ElementName=CodePointDataGrid}"/>
+                  Command="{x:Static commands:_Commander.ApplyCharNamesGenerationCommand}"/>
 
 
       </MenuItem>
@@ -100,19 +95,7 @@
                      FilterItemsPopulating="CodePointDataGrid_OnFilterItemsPopulating"
                      FilterChanging="CodePointDataGrid_OnFilterChanging"
                      tools:SfDataGridBehavior.AllowRowResizing="True"
-    >
-      <!--
-                     RowHeaderWidth="{Binding Instance.UcdCodePoints.RowHeaderColumnWidth}"
-      
-                         GridCopyContent="CodePointDataGrid_OnGridCopyContent"
-
-      FilterPopupStyle="{StaticResource filterControlStyle}"
-                        CopyGridCellContent="CodePointDataGrid_OnCopyGridCellContent"
-
-      -->
-      <!--<sf:SfDataGrid.GroupColumnDescriptions>
-        <sf:GroupColumnDescription ColumnName="UcdRangeName" />
-      </sf:SfDataGrid.GroupColumnDescriptions>-->
+                   >
       <sf:SfDataGrid.Columns>
         <sf:GridTemplateColumn 
           MappingName="CP"
@@ -445,7 +428,7 @@
       <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Source={StaticResource ViewModels}, Path=Instance.UcdCodePoints.ProgressValue}" Height="20" />
       <Button Grid.Column="2" 
               Content="{x:Static resources:Strings.Cancel}" Height="26" Margin="5,0" 
-              Command="{Binding Source={StaticResource ViewModels}, Path=Instance.BreakApplyWritingSystemMappingCommand}" />
+              Command="{Binding Source={StaticResource ViewModels}, Path=Instance.UcdCodePoints.BreakCommand}" />
     </Grid>
   </Grid>
 </UserControl>

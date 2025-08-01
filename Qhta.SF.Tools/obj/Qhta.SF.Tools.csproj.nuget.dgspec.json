@@ -64,7 +64,7 @@
             },
             "Qhta.MVVM": {
               "target": "Package",
-              "version": "[4.12.0, )"
+              "version": "[4.14.0, )"
             },
             "Qhta.TextUtils": {
               "target": "Package",
@@ -80,23 +80,23 @@
             },
             "Syncfusion.Grid.WPF": {
               "target": "Package",
-              "version": "[30.1.41, )"
+              "version": "[30.1.42, )"
             },
             "Syncfusion.Grid.Windows": {
               "target": "Package",
-              "version": "[30.1.41, )"
+              "version": "[30.1.42, )"
             },
             "Syncfusion.SfGrid.WPF": {
               "target": "Package",
-              "version": "[30.1.41, )"
+              "version": "[30.1.42, )"
             },
             "Syncfusion.Shared.Base": {
               "target": "Package",
-              "version": "[30.1.41, )"
+              "version": "[30.1.42, )"
             },
             "Syncfusion.Tools.WPF": {
               "target": "Package",
-              "version": "[30.1.41, )"
+              "version": "[30.1.42, )"
             }
           },
           "imports": [

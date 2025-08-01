@@ -339,4 +339,10 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="ApplyCharNamesGenerationCompleted" xml:space="preserve">
     <value>Zakończono generowanie nazw znaków dla punktów kodowych. Nazwano {0} punktów kodowych.</value>
   </data>
+  <data name="MarkUnusedWritingSystems" xml:space="preserve">
+    <value>Zaznacz nieużywane systemy pisma</value>
+  </data>
+  <data name="MarkUnusedWritingSystemsTooltip" xml:space="preserve">
+    <value>Zaznacz system pisma, który nie jest używany przez żaden blok Unicode ani żaden punkt kodowy i nie ma żadnych dzieci.</value>
+  </data>
 </root>

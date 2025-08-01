@@ -86,6 +86,7 @@
     <Compile Remove="ViewModels\ExtendedViewModel`1.cs" />
     <Compile Remove="ViewModels\UcdRangeCollection.cs" />
     <Compile Remove="ViewModels\UcdRangeViewModel.cs" />
+    <Compile Remove="ViewModels\_ViewModels.FillColumn.cs" />
     <Compile Remove="ViewModels\_ViewModels.LoadData.cs" />
     <Compile Remove="ViewModels\_ViewModels.SaveData.cs" />
     <Compile Remove="ViewModels\_ViewModels.SelectColumn.cs" />
@@ -129,20 +130,20 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.7" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="Qhta.DeepCopy" Version="1.5.0" />
-    <PackageReference Include="Qhta.MVVM" Version="4.12.0" />
+    <PackageReference Include="Qhta.MVVM" Version="4.14.0" />
     <PackageReference Include="Qhta.ObservableObjects" Version="4.2.0" />
     <PackageReference Include="Qhta.WPF.Converters" Version="1.5.0" />
     <PackageReference Include="Qhta.WPF.Utils" Version="3.5.0" />
-    <PackageReference Include="Syncfusion.Grid.Windows" Version="30.1.41" />
-    <PackageReference Include="Syncfusion.Grid.WPF" Version="30.1.41" />
-    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="30.1.41" />
-    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="30.1.41" />
-    <PackageReference Include="Syncfusion.SfInput.WPF" Version="30.1.41" />
-    <PackageReference Include="Syncfusion.SfTextInputLayout.WPF" Version="30.1.41" />
-    <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="30.1.41" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="30.1.41" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="30.1.41" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="30.1.41" />
+    <PackageReference Include="Syncfusion.Grid.Windows" Version="30.1.42" />
+    <PackageReference Include="Syncfusion.Grid.WPF" Version="30.1.42" />
+    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="30.1.42" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="30.1.42" />
+    <PackageReference Include="Syncfusion.SfInput.WPF" Version="30.1.42" />
+    <PackageReference Include="Syncfusion.SfTextInputLayout.WPF" Version="30.1.42" />
+    <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="30.1.42" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="30.1.42" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="30.1.42" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="30.1.42" />
     <PackageReference Include="System.Data.OleDb" Version="9.0.7" />
   </ItemGroup>
 

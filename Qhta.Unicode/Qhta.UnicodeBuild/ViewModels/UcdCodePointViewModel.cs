@@ -349,7 +349,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   }
 
   /// <summary>
-  /// Exposes the writing system which type is specified by <paramref name="allowedType"/>
+  /// Exposes the writing system which type is specified by <paramref name="allowedType"/>.
   /// </summary>
   /// <param name="allowedType">Specifies which type of writing system is allowed.</param>
   public WritingSystemViewModel? GetWritingSystem(WritingSystemType allowedType)
@@ -373,11 +373,11 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   }
 
   /// <summary>
-  /// Exposes the collection of writing systems which types are specified by <paramref name="allowedTypes"/>
-  /// All non-null writing system is returned in the order of types in <paramref name="allowedTypes"/>.
+  /// Exposes the collection of writing systems which types are specified by <paramref name="allowedTypes"/>.
+  /// All non-null writing system properties are returned in the order of types in <paramref name="allowedTypes"/>.
   /// </summary>
   /// <param name="allowedTypes">Specifies which types of writing system are allowed.</param>
-  public IEnumerable<WritingSystemViewModel>? GetWritingSystems(WritingSystemType[] allowedTypes)
+  public IEnumerable<WritingSystemViewModel> GetWritingSystems(WritingSystemType[] allowedTypes)
   {
     List<WritingSystemViewModel> result = new List<WritingSystemViewModel>(); ;
     foreach (var type in allowedTypes)
@@ -390,6 +390,11 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
     }
     return result;
   }
+
+  /// <summary>
+  /// Exposes the collection of all writing systems that are used by this code point.
+  /// </summary>
+  public IEnumerable<WritingSystemViewModel> GetWritingSystems() => GetWritingSystems(Enum.GetValues<WritingSystemType>());
 
   #region IRowHeightProvider implementation
   /// <summary>

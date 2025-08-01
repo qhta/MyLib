@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Qhta.ObservableObjects;
 using Qhta.Unicode.Models;
+using Qhta.UnicodeBuild.Commands;
 using Qhta.UnicodeBuild.Helpers;
 
 namespace Qhta.UnicodeBuild.ViewModels;
@@ -18,6 +19,11 @@ public sealed class WritingSystemsCollection() : EntityCollection<WritingSystemV
   /// Parent writing system view model, if this collection is a child of another writing system.
   /// </summary>
   public WritingSystemViewModel? Parent { [DebuggerStepThrough] get; }
+
+  /// <summary>
+  /// Command to apply writing system mappings to Unicode code points.
+  /// </summary>
+  public MarkUnusedWritingSystemsCommand MarkUnusedWritingSystemsCommand => new();
 
   /// <summary>
   /// Initializes a new instance of the <see cref="WritingSystemsCollection"/> class using the specified parent view model.

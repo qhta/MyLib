@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="IsUsed" xml:space="preserve">
-    <value>W użyciu</value>
+  <data name="Mark" xml:space="preserve">
+    <value>Mark</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nazwa</value>
@@ -149,9 +149,6 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Opis</value>
-  </data>
-  <data name="IsUsedTooltip" xml:space="preserve">
-    <value>Określa czy system pisma jest nadrzędny wobec innych systemów pisma lub ma referencje w blokach lub zakresach Unicode.</value>
   </data>
   <data name="NameTooltip" xml:space="preserve">
     <value>Nazwa systemu pisma to unikatowa nazwa rozpoczynająca się od litery i opcjonalnie zawierająca litery, cyfry i spacje.</value>

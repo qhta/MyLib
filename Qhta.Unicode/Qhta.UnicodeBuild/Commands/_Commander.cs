@@ -1,0 +1,143 @@
+﻿using System.Diagnostics;
+using System.Windows.Controls;
+using System.Windows.Input;
+
+using Qhta.SF.Tools;
+using Qhta.UndoManager;
+using Qhta.UnicodeBuild.ViewModels;
+using Qhta.WPF.Utils;
+
+using Syncfusion.UI.Xaml.Grid;
+
+namespace Qhta.UnicodeBuild.Commands;
+
+/// <summary>
+/// Provides a set of routed commands for managing user interactions in a data grid.
+/// </summary>
+/// <remarks>This class contains static members that define routed commands, which can be used to handle specific
+/// actions in a data grid, such as filling a column with a selected value. Routed commands are designed to integrate
+/// with WPF's command system, enabling separation of UI and logic.</remarks>
+public static partial class _Commander
+{
+  private static SfDataGrid GetDataGrid(object? sender, ICommand command)
+  {
+    if (sender is SfDataGrid dataGrid)
+      return dataGrid;
+    SfDataGrid? dataGrid1 = null;
+    if (sender is UserControl userControl)
+      dataGrid1 = VisualTreeHelperExt.FindDescendant<SfDataGrid>(userControl);
+    if (dataGrid1 == null)
+      throw new ArgumentException($"{command}({sender}): Sender is not a SfDataGrid.", nameof(sender));
+    return dataGrid1;
+  }
+
+  /// <summary>
+  /// Handles the CanExecute event for routed commands, determining whether the command can be executed based on the current state of the application.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  public static void OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+  {
+    //Debug.WriteLine($"CommandBinding_OnCanExecute({e.Command})");
+    var command = e.Command;
+    if (command == ApplicationCommands.Save)
+      e.CanExecute = _ViewModels.Instance.DbContext?.ThereAreUnsavedChanges ?? false;
+    else if (command == ApplicationCommands.Copy)
+      e.CanExecute = Controller.CanCopyData(GetDataGrid(sender, command));
+    else if (command == ApplicationCommands.Cut)
+      e.CanExecute = Controller.CanCutData(GetDataGrid(sender, command));
+    else if (command == ApplicationCommands.Paste)
+      e.CanExecute = Controller.CanPasteData(GetDataGrid(sender, command));
+    else if (command == ApplicationCommands.Delete)
+      e.CanExecute = Controller.CanDeleteData(GetDataGrid(sender, command));
+    else if (command == ApplicationCommands.Undo)
+      e.CanExecute = UndoMgr.IsUndoAvailable;
+    else if (command == ApplicationCommands.Redo)
+      e.CanExecute = UndoMgr.IsRedoAvailable;
+    else if (command == _Commander.FillColumnCommand)
+      e.CanExecute = _Commander.FillColumnCommand.CanExecute(GetDataGrid(sender, command));
+    else if (command == _Commander.ApplyBlockMappingCommand)
+      e.CanExecute = _Commander.ApplyBlockMappingCommand.CanExecute(GetDataGrid(sender, command));
+    else if (command == _Commander.ApplyBlockMappingCommand)
+      e.CanExecute = _Commander.ApplyWritingSystemMappingCommand.CanExecute(GetDataGrid(sender, command));
+    else if (command == _Commander.ApplyWritingSystemRecognitionCommand)
+      e.CanExecute = _Commander.ApplyWritingSystemRecognitionCommand.CanExecute(GetDataGrid(sender, command));
+    else if (command == _Commander.ApplyCharNamesGenerationCommand)
+      e.CanExecute = _Commander.ApplyCharNamesGenerationCommand.CanExecute(GetDataGrid(sender, command));
+    else
+      e.CanExecute = true; // Default to true for other commands
+    //Debug.WriteLine($"CommandBinding_OnCanExecute({sender}, {(e.Command as RoutedUICommand)?.Text})={e.CanExecute}");
+  }
+
+  private static void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+  {
+    Debug.WriteLine($"CommandBinding_OnExecuted({sender}, {e.Command})");
+    var command = e.Command;
+    if (command == ApplicationCommands.Save)
+    {
+      Debug.WriteLine("Data changes save started");
+      _ViewModels.Instance.DbContext?.SaveChangesAsync();
+    }
+    else if (command == ApplicationCommands.Copy)
+    {
+      Controller.CopyData(GetDataGrid(sender, command));
+    }
+    else if (command == ApplicationCommands.Cut)
+    {
+      Controller.CutData(GetDataGrid(sender, command));
+    }
+    else if (command == ApplicationCommands.Paste)
+    {
+      Controller.PasteData(GetDataGrid(sender, command));
+    }
+    else if (command == ApplicationCommands.Delete)
+    {
+      Controller.DeleteData(GetDataGrid(sender, command));
+    }
+    else if (command == ApplicationCommands.Undo)
+    {
+      UndoMgr.Undo();
+      GetDataGrid(sender, command).UpdateLayout();
+    }
+    else if (command == ApplicationCommands.Redo)
+    {
+      UndoMgr.Redo();
+      GetDataGrid(sender, command).UpdateLayout();
+    }
+    else if (command == _Commander.FillColumnCommand)
+      _Commander.FillColumnCommand.Execute(GetDataGrid(sender, command));
+    else if (command == _Commander.ApplyBlockMappingCommand)
+      _Commander.ApplyBlockMappingCommand.Execute(GetDataGrid(sender, command));
+    else if (command == _Commander.ApplyBlockMappingCommand)
+      _Commander.ApplyWritingSystemMappingCommand.Execute(GetDataGrid(sender, command));
+    else
+    {
+      Debug.WriteLine($"Command {command} not executed");
+    }
+  }
+
+  /// <summary>
+  /// Command to fill the current column in the data grid with a selected value.
+  /// </summary>
+  public static FillColumnCommand FillColumnCommand { get; } = new();
+
+  /// <summary>
+  /// Command to apply writing system mappings from a file.
+  /// </summary>
+  public static ApplyBlockMappingCommand ApplyBlockMappingCommand { get; } = new();
+
+  /// <summary>
+  /// Command to apply writing system mappings from a file.
+  /// </summary>
+  public static ApplyWritingSystemMappingCommand ApplyWritingSystemMappingCommand { get; } = new();
+
+  /// <summary>
+  /// Command to apply writing systems recognition in a set of Unicode code points. 
+  /// </summary>
+  public static ApplyWritingSystemRecognitionCommand ApplyWritingSystemRecognitionCommand { get; } = new();
+
+  /// <summary>
+  /// Command to apply character names generation to selected Unicode code points.
+  /// </summary>
+  public static ApplyCharNamesGenerationCommand ApplyCharNamesGenerationCommand { get; } = new();
+}

@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="IsUsed" xml:space="preserve">
-    <value>Is used</value>
+  <data name="Mark" xml:space="preserve">
+    <value>Mark</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -151,9 +151,6 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
-  </data>
-  <data name="IsUsedTooltip" xml:space="preserve">
-    <value>Indicates whether the writing system is a parent for some other systems or is referenced in Unicode Blocks or Unicode Ranges.</value>
   </data>
   <data name="NameTooltip" xml:space="preserve">
     <value>Writing system name is a unique name starting with a letter and optionally containing letters, digits and spaces.</value>

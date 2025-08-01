@@ -9,16 +9,16 @@
       "Qhta.SF.Tools/1.0.0": {
         "dependencies": {
           "Microsoft.Xaml.Behaviors.Wpf": "1.1.135",
-          "Qhta.MVVM": "4.12.0",
+          "Qhta.MVVM": "4.14.0",
           "Qhta.TextUtils": "3.7.0",
           "Qhta.TypeUtils": "1.4.0",
           "Qhta.UndoManager": "1.0.0",
           "Qhta.WPF.Utils": "3.5.0",
-          "Syncfusion.Grid.WPF": "30.1.41",
-          "Syncfusion.Grid.Windows": "30.1.41",
-          "Syncfusion.SfGrid.WPF": "30.1.41",
-          "Syncfusion.Shared.Base": "30.1.41",
-          "Syncfusion.Tools.WPF": "30.1.41"
+          "Syncfusion.Grid.WPF": "30.1.42",
+          "Syncfusion.Grid.Windows": "30.1.42",
+          "Syncfusion.SfGrid.WPF": "30.1.42",
+          "Syncfusion.Shared.Base": "30.1.42",
+          "Syncfusion.Tools.WPF": "30.1.42"
         },
         "runtime": {
           "Qhta.SF.Tools.dll": {}
@@ -82,14 +82,14 @@
           }
         }
       },
-      "Qhta.MVVM/4.12.0": {
+      "Qhta.MVVM/4.14.0": {
         "dependencies": {
           "Qhta.ObservableObjects": "4.2.0"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Qhta.MVVM.dll": {
-            "assemblyVersion": "4.12.0.0",
-            "fileVersion": "4.12.0.0"
+            "assemblyVersion": "4.14.0.0",
+            "fileVersion": "4.14.0.0"
           }
         }
       },
@@ -146,7 +146,7 @@
       "Qhta.WPF.Utils/3.5.0": {
         "dependencies": {
           "Qhta.HtmlUtils": "2.1.0",
-          "Qhta.MVVM": "4.12.0",
+          "Qhta.MVVM": "4.14.0",
           "Qhta.OrdNumbers": "2.3.0",
           "Qhta.TypeUtils": "1.4.0",
           "Qhta.WPF.Converters": "1.3.2",
@@ -206,123 +206,123 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
-      "Syncfusion.Data.WPF/30.1.41": {
+      "Syncfusion.Data.WPF/30.1.42": {
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.Data.WPF.dll": {
-            "assemblyVersion": "30.1.41.0",
-            "fileVersion": "30.1.41.0"
+            "assemblyVersion": "30.1.42.0",
+            "fileVersion": "30.1.42.0"
           }
         }
       },
-      "Syncfusion.Grid.Windows/30.1.41": {
+      "Syncfusion.Grid.Windows/30.1.42": {
         "dependencies": {
           "Microsoft.WinForms.Designer.SDK": "1.6.0",
-          "Syncfusion.Licensing": "30.1.41",
-          "Syncfusion.Shared.Base": "30.1.41",
-          "Syncfusion.Shared.Windows": "30.1.41"
+          "Syncfusion.Licensing": "30.1.42",
+          "Syncfusion.Shared.Base": "30.1.42",
+          "Syncfusion.Shared.Windows": "30.1.42"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.Grid.Windows.dll": {
-            "assemblyVersion": "30.1.41.0",
-            "fileVersion": "30.1.41.0"
+            "assemblyVersion": "30.1.42.0",
+            "fileVersion": "30.1.42.0"
           }
         }
       },
-      "Syncfusion.Grid.WPF/30.1.41": {
+      "Syncfusion.Grid.WPF/30.1.42": {
         "dependencies": {
-          "Syncfusion.GridCommon.Wpf": "30.1.41",
-          "Syncfusion.Licensing": "30.1.41",
-          "Syncfusion.Linq.Base": "30.1.41",
-          "Syncfusion.Shared.WPF": "30.1.41"
+          "Syncfusion.GridCommon.Wpf": "30.1.42",
+          "Syncfusion.Licensing": "30.1.42",
+          "Syncfusion.Linq.Base": "30.1.42",
+          "Syncfusion.Shared.WPF": "30.1.42"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.Grid.WPF.dll": {
-            "assemblyVersion": "30.1.41.0",
-            "fileVersion": "30.1.41.0"
+            "assemblyVersion": "30.1.42.0",
+            "fileVersion": "30.1.42.0"
           }
         }
       },
-      "Syncfusion.GridCommon.Wpf/30.1.41": {
+      "Syncfusion.GridCommon.Wpf/30.1.42": {
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.GridCommon.WPF.dll": {
-            "assemblyVersion": "30.1.41.0",
-            "fileVersion": "30.1.41.0"
+            "assemblyVersion": "30.1.42.0",
+            "fileVersion": "30.1.42.0"
           }
         }
       },
-      "Syncfusion.Licensing/30.1.41": {
+      "Syncfusion.Licensing/30.1.42": {
         "runtime": {
           "lib/net8.0/Syncfusion.Licensing.dll": {
-            "assemblyVersion": "30.1.41.0",
-            "fileVersion": "30.1.41.0"
+            "assemblyVersion": "30.1.42.0",
+            "fileVersion": "30.1.42.0"
           }
         }
       },
-      "Syncfusion.Linq.Base/30.1.41": {
+      "Syncfusion.Linq.Base/30.1.42": {
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.Linq.Base.dll": {
-            "assemblyVersion": "30.1.41.0",
-            "fileVersion": "30.1.41.0"
+            "assemblyVersion": "30.1.42.0",
+            "fileVersion": "30.1.42.0"
           }
         }
       },
-      "Syncfusion.SfGrid.WPF/30.1.41": {
+      "Syncfusion.SfGrid.WPF/30.1.42": {
         "dependencies": {
-          "Syncfusion.Data.WPF": "30.1.41",
-          "Syncfusion.Licensing": "30.1.41",
-          "Syncfusion.Shared.WPF": "30.1.41"
+          "Syncfusion.Data.WPF": "30.1.42",
+          "Syncfusion.Licensing": "30.1.42",
+          "Syncfusion.Shared.WPF": "30.1.42"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.SfGrid.WPF.dll": {
-            "assemblyVersion": "30.1.41.0",
-            "fileVersion": "30.1.41.0"
+            "assemblyVersion": "30.1.42.0",
+            "fileVersion": "30.1.42.0"
           }
         }
       },
-      "Syncfusion.Shared.Base/30.1.41": {
+      "Syncfusion.Shared.Base/30.1.42": {
         "dependencies": {
           "Microsoft.WinForms.Designer.SDK": "1.6.0",
-          "Syncfusion.Licensing": "30.1.41"
+          "Syncfusion.Licensing": "30.1.42"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.Shared.Base.dll": {
-            "assemblyVersion": "30.1.41.0",
-            "fileVersion": "30.1.41.0"
+            "assemblyVersion": "30.1.42.0",
+            "fileVersion": "30.1.42.0"
           }
         }
       },
-      "Syncfusion.Shared.Windows/30.1.41": {
+      "Syncfusion.Shared.Windows/30.1.42": {
         "dependencies": {
-          "Syncfusion.Licensing": "30.1.41",
-          "Syncfusion.Shared.Base": "30.1.41"
+          "Syncfusion.Licensing": "30.1.42",
+          "Syncfusion.Shared.Base": "30.1.42"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.Shared.Windows.dll": {
-            "assemblyVersion": "30.1.41.0",
-            "fileVersion": "30.1.41.0"
+            "assemblyVersion": "30.1.42.0",
+            "fileVersion": "30.1.42.0"
           }
         }
       },
-      "Syncfusion.Shared.WPF/30.1.41": {
+      "Syncfusion.Shared.WPF/30.1.42": {
         "dependencies": {
-          "Syncfusion.Licensing": "30.1.41"
+          "Syncfusion.Licensing": "30.1.42"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.Shared.WPF.dll": {
-            "assemblyVersion": "30.1.41.0",
-            "fileVersion": "30.1.41.0"
+            "assemblyVersion": "30.1.42.0",
+            "fileVersion": "30.1.42.0"
           }
         }
       },
-      "Syncfusion.Tools.WPF/30.1.41": {
+      "Syncfusion.Tools.WPF/30.1.42": {
         "dependencies": {
-          "Syncfusion.Licensing": "30.1.41",
-          "Syncfusion.Shared.WPF": "30.1.41"
+          "Syncfusion.Licensing": "30.1.42",
+          "Syncfusion.Shared.WPF": "30.1.42"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Syncfusion.Tools.WPF.dll": {
-            "assemblyVersion": "30.1.41.0",
-            "fileVersion": "30.1.41.0"
+            "assemblyVersion": "30.1.42.0",
+            "fileVersion": "30.1.42.0"
           }
         }
       },
@@ -915,12 +915,12 @@
       "path": "qhta.htmlutils/2.1.0",
       "hashPath": "qhta.htmlutils.2.1.0.nupkg.sha512"
     },
-    "Qhta.MVVM/4.12.0": {
+    "Qhta.MVVM/4.14.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-SL78i4SgTo/6X1yRZL0uSnj4dL389KOa7YQy3cw7Ui9haa0LyzldP209d1VzxBXbinKwCrpUkym4Q4VMN2HdAQ==",
-      "path": "qhta.mvvm/4.12.0",
-      "hashPath": "qhta.mvvm.4.12.0.nupkg.sha512"
+      "sha512": "sha512-+Lptm22v020vFUkCtqx1+cwMJ0u7ykHf23tL0nFNYG/KOggmVKcBYT5s7R7/3B9wS0GMVTqC4EhE/s9IS/+CrA==",
+      "path": "qhta.mvvm/4.14.0",
+      "hashPath": "qhta.mvvm.4.14.0.nupkg.sha512"
     },
     "Qhta.ObservableObjects/4.2.0": {
       "type": "package",
@@ -1069,82 +1069,82 @@
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512"
     },
-    "Syncfusion.Data.WPF/30.1.41": {
+    "Syncfusion.Data.WPF/30.1.42": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-8MoQY7N9bT2ZD7Lk6aDwtEY9cFvsUynVLDevJPkX39pfSKoNQ5ndqMGK9TvJ9pm51jlVdzhobDne4A3db//snA==",
-      "path": "syncfusion.data.wpf/30.1.41",
-      "hashPath": "syncfusion.data.wpf.30.1.41.nupkg.sha512"
+      "sha512": "sha512-4M0cNjGBDmG/xTMzGru5gE2aEZeVNvMFHd3IBu+411d6i+vkSql0idMlYya1H4iVakoJmNcBIC/APDDH2pF1pA==",
+      "path": "syncfusion.data.wpf/30.1.42",
+      "hashPath": "syncfusion.data.wpf.30.1.42.nupkg.sha512"
     },
-    "Syncfusion.Grid.Windows/30.1.41": {
+    "Syncfusion.Grid.Windows/30.1.42": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-VveuJ+QsQqovfXWC7eZrXzzFTz/RzGbpNxIfKW0FRyP/8NU+4mIGTNbpl4k7dlCYkGhaNRTW+zKwylhrWB5vfQ==",
-      "path": "syncfusion.grid.windows/30.1.41",
-      "hashPath": "syncfusion.grid.windows.30.1.41.nupkg.sha512"
+      "sha512": "sha512-R15ECDGPGaD++j6vND/EWT0YyNvXDBUFegw4gXgA979i/2wZOVkw30aEox7ztm/tWPj571Vvm7zLYnm0TKgE7g==",
+      "path": "syncfusion.grid.windows/30.1.42",
+      "hashPath": "syncfusion.grid.windows.30.1.42.nupkg.sha512"
     },
-    "Syncfusion.Grid.WPF/30.1.41": {
+    "Syncfusion.Grid.WPF/30.1.42": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wmwu+/uIEpvKy/2491Zy01uuyuCQn0fkS9xihof2KnGRTrMBgMKSxV6G3uUCBr4NyBCj4H3Ifu5IhUVjWskdXQ==",
-      "path": "syncfusion.grid.wpf/30.1.41",
-      "hashPath": "syncfusion.grid.wpf.30.1.41.nupkg.sha512"
+      "sha512": "sha512-7QE9Q3B1ZTPZte1xCBbN0sUFZVyrU8TdUlf8F1ow1ar6U6kA60PuPdSJiS+/HoY7L3jR6NpRu8I0c5UUlkeHxQ==",
+      "path": "syncfusion.grid.wpf/30.1.42",
+      "hashPath": "syncfusion.grid.wpf.30.1.42.nupkg.sha512"
     },
-    "Syncfusion.GridCommon.Wpf/30.1.41": {
+    "Syncfusion.GridCommon.Wpf/30.1.42": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-mjXWpN2ovgU4xSNW7cG8I3ox1OwWjqf4BwC+qFiOSdXIEUwPTFN6oPUWhmifRpx159u1LP5FJdRCLdaNTuIu+A==",
-      "path": "syncfusion.gridcommon.wpf/30.1.41",
-      "hashPath": "syncfusion.gridcommon.wpf.30.1.41.nupkg.sha512"
+      "sha512": "sha512-/tuMhp3xhgLXQf7ajz7ojgznlyyIZ4apdIDDHivVVFkqheYRff2taL3sY2ANGezs+pD1bg/ddZAQo9roGiK1Eg==",
+      "path": "syncfusion.gridcommon.wpf/30.1.42",
+      "hashPath": "syncfusion.gridcommon.wpf.30.1.42.nupkg.sha512"
     },
-    "Syncfusion.Licensing/30.1.41": {
+    "Syncfusion.Licensing/30.1.42": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BJQQBEXtO+mYDdzWIVt0dfooV9KOWtCCYl3SV0sR/QPZSRRITGztKbyaXBzCvLumi21kVznvVJp2ql2cjDCFYw==",
-      "path": "syncfusion.licensing/30.1.41",
-      "hashPath": "syncfusion.licensing.30.1.41.nupkg.sha512"
+      "sha512": "sha512-ykLfYHAplHfljY5Iq1P5hzeF+dgGnfU/BfmU/z7rvk6SszSTM/Lkub1PO1eqpZdXhx+symcxbHHe5j7P7HyfBA==",
+      "path": "syncfusion.licensing/30.1.42",
+      "hashPath": "syncfusion.licensing.30.1.42.nupkg.sha512"
     },
-    "Syncfusion.Linq.Base/30.1.41": {
+    "Syncfusion.Linq.Base/30.1.42": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-pEY3YAOmdFzP3Tv4y/3oqAPcRP644u1u4QmkNrZjXtLgp9HxvjK4V528c4N5tRa61X10yN74QepVK+YcfJCm5Q==",
-      "path": "syncfusion.linq.base/30.1.41",
-      "hashPath": "syncfusion.linq.base.30.1.41.nupkg.sha512"
+      "sha512": "sha512-XLf9FpCTVQvHK4SzB+L+x8JWQ0mjf8+fBTPhJngCKjsx096vT6Bky8QGjVZ5jU530zfWZ6HSKH5BK9QAmp5EYw==",
+      "path": "syncfusion.linq.base/30.1.42",
+      "hashPath": "syncfusion.linq.base.30.1.42.nupkg.sha512"
     },
-    "Syncfusion.SfGrid.WPF/30.1.41": {
+    "Syncfusion.SfGrid.WPF/30.1.42": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-bQn4Tt9smNA+sI+WUTKdwuvXSqRfDfiTZ550To8WS6wTkm1HJNAnT6HLugdTd0fPhDTIvwFQDvZmkqPmaaGmeg==",
-      "path": "syncfusion.sfgrid.wpf/30.1.41",
-      "hashPath": "syncfusion.sfgrid.wpf.30.1.41.nupkg.sha512"
+      "sha512": "sha512-xbmmusqkMArhM/IQBEf+cYR7FPJt0xwk/9G0c+oDRev5MKrcQGa4M6gm2hE4sJwVec7Qf//k83AiBEQ32qQooQ==",
+      "path": "syncfusion.sfgrid.wpf/30.1.42",
+      "hashPath": "syncfusion.sfgrid.wpf.30.1.42.nupkg.sha512"
     },
-    "Syncfusion.Shared.Base/30.1.41": {
+    "Syncfusion.Shared.Base/30.1.42": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/7GhP0/MfvlPXTeVLPgWFdPd41bppkGzraRQTt1/ORP3AHLE7+u6/LuYvyQX2j1+QRyNXIr33ajGR9WWHTJ2/w==",
-      "path": "syncfusion.shared.base/30.1.41",
-      "hashPath": "syncfusion.shared.base.30.1.41.nupkg.sha512"
+      "sha512": "sha512-tWTjI0jqPJDJ/VnskUxPDjZxauU13Uk5HwTu88b60KEQiDeb1WuBG2lAGJk+yaOwc9pzC42V8AjH7vGr9WBcNA==",
+      "path": "syncfusion.shared.base/30.1.42",
+      "hashPath": "syncfusion.shared.base.30.1.42.nupkg.sha512"
     },
-    "Syncfusion.Shared.Windows/30.1.41": {
+    "Syncfusion.Shared.Windows/30.1.42": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-C05lBZuSm2AhEE/LUI4dzbQyw8eD1HtMs/EB9PhSndg2PPHK+9bfV6pMzBCOBf8pEt2U8qhtT987SoEbkVRbVQ==",
-      "path": "syncfusion.shared.windows/30.1.41",
-      "hashPath": "syncfusion.shared.windows.30.1.41.nupkg.sha512"
+      "sha512": "sha512-xQfszlaWYZjZJE4UjSul3mkkL+72fzBjnoNUQc2vo8oBnb+y7hb8VxoPkwF9En0ocjbJE5p4eyrKk+0aIB9Ahg==",
+      "path": "syncfusion.shared.windows/30.1.42",
+      "hashPath": "syncfusion.shared.windows.30.1.42.nupkg.sha512"
     },
-    "Syncfusion.Shared.WPF/30.1.41": {
+    "Syncfusion.Shared.WPF/30.1.42": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-yxUJumz51dxeiGiorqb9udDJPRKzpkSUWBQ6+egrADguzO2GoiBwhdksmktVwtpng5++6CJ79kbA0ARR8FZz2Q==",
-      "path": "syncfusion.shared.wpf/30.1.41",
-      "hashPath": "syncfusion.shared.wpf.30.1.41.nupkg.sha512"
+      "sha512": "sha512-bMCagHYBjgnwTjyuwiVArWUDgJU0bFj+TaFpn/hOYXCT8vBVRfmSRPPdC8qawxP/Hmv9inpLxErhEUm9N/zxZA==",
+      "path": "syncfusion.shared.wpf/30.1.42",
+      "hashPath": "syncfusion.shared.wpf.30.1.42.nupkg.sha512"
     },
-    "Syncfusion.Tools.WPF/30.1.41": {
+    "Syncfusion.Tools.WPF/30.1.42": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-nlWaSoyMYI3EE131Vz1jDaDllgTvXtQbrYeCTIyIBcbyNIOIdHd2sztYbaiEDVmhjS/AfUVVZYGXBWtUUYLcUw==",
-      "path": "syncfusion.tools.wpf/30.1.41",
-      "hashPath": "syncfusion.tools.wpf.30.1.41.nupkg.sha512"
+      "sha512": "sha512-lPQNCOTZVGbjDyfe2DZk1Gq+MhPNqk0hoHAIaGYHviEDxieZuckipUjB3wIHIGCJlDo5fKFZ5Hp7ZOXHgtNseQ==",
+      "path": "syncfusion.tools.wpf/30.1.42",
+      "hashPath": "syncfusion.tools.wpf.30.1.42.nupkg.sha512"
     },
     "System.CodeDom/4.6.0": {
       "type": "package",

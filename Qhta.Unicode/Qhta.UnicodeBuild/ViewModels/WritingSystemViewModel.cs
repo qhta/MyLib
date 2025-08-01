@@ -263,6 +263,24 @@ public class WritingSystemViewModel(WritingSystem model)
   }
   private bool _isExpanded;
 
+  /// <summary>
+  /// Indicates whether the current item is marked.
+  /// </summary>
+  public bool IsMarked
+  {
+    [DebuggerStepThrough]
+    get => _IsMarked;
+    set
+    {
+      if (_IsMarked != value)
+      {
+        _IsMarked = value;
+        NotifyPropertyChanged(nameof(IsMarked));
+      }
+    }
+  }
+  private bool _IsMarked;
+
   #region ILongTextViewModel implementation
 
   /// <summary>

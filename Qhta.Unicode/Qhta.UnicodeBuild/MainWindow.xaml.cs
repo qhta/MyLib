@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
+using Qhta.MVVM;
 using Qhta.UndoManager;
 
 namespace Qhta.UnicodeBuild;
@@ -12,6 +12,20 @@ namespace Qhta.UnicodeBuild;
 /// </summary>
 public partial class MainWindow : Window
 {
+  //internal class MyCommandManager : ICanExecuteChangedListener
+  //{
+  //  public void InvalidateRequerySuggested()
+  //  {
+  //    if (CanExecuteChanged!=null)
+  //      CanExecuteChanged(this, EventArgs.Empty);
+  //    CommandManager.InvalidateRequerySuggested();
+    
+  //  }
+  //  public event EventHandler? CanExecuteChanged;
+  //}
+
+  //internal MyCommandManager CommandMgr { get; } = new MyCommandManager();
+
   /// <summary>
   /// Initializes a new instance of the <see cref="MainWindow"/> class.
   /// </summary>
@@ -19,27 +33,34 @@ public partial class MainWindow : Window
   {
     InitializeComponent();
     this.KeyDown += MainWindow_KeyDown;
-    _backgroundTimer = new Timer(TimerProc, null, TimeSpan.FromMilliseconds(200), TimeSpan.FromMilliseconds(200));
+    //Command.CommandManager = CommandMgr;
+    //_backgroundTimer = new Timer(TimerProc, null, TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(500));
+    //Closing += MainWindow_Closing;
 
   }
 
-  private readonly Timer _backgroundTimer;
+  //private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+  //{
+  //  _backgroundTimer.Dispose();
+  //}
 
-  private void TimerProc(object? state)
-  {
-    try
-    {
-      Dispatcher.Invoke(() => OnBackgroundTimerTick(this, EventArgs.Empty));
-    } catch (System.Threading.Tasks.TaskCanceledException)
-    {
-      _backgroundTimer.Dispose();
-    }
-    catch (Exception e)
-    {
-      Console.WriteLine(e);
-      throw;
-    }
-  }
+  //private readonly Timer _backgroundTimer;
+
+  //private void TimerProc(object? state)
+  //{
+  //  try
+  //  {
+  //    Dispatcher.Invoke(() => OnBackgroundTimerTick(this, EventArgs.Empty));
+  //  } catch (System.Threading.Tasks.TaskCanceledException)
+  //  {
+  //    _backgroundTimer.Dispose();
+  //  }
+  //  catch (Exception e)
+  //  {
+  //    Console.WriteLine(e);
+  //    throw;
+  //  }
+  //}
 
 
   /// <summary>

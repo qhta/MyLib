@@ -11,6 +11,7 @@ using Qhta.WPF.Utils;
 using Syncfusion.Linq;
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.UI.Xaml.Grid.Helpers;
+using Syncfusion.UI.Xaml.ScrollAxis;
 
 namespace Qhta.SF.Tools;
 
@@ -117,6 +118,10 @@ public partial class SfDataGridTools : ResourceDictionary
 
       //Debug.WriteLine($"GridColumnBehavior.IsSelected: {isSelected} for column: {column.MappingName}");
       SfDataGridColumnBehavior.SetIsSelected(column, isSelected);
+      //// Clear the current selection
+      //dataGrid.SelectionController.ClearSelections(false);
+      //dataGrid.SelectionController.SelectRows(0,0);
+      //dataGrid.SelectionController.ClearSelections(false);
       e.Handled = true;
     }
   }

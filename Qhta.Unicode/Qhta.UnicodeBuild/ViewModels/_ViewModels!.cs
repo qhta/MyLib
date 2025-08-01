@@ -127,16 +127,6 @@ public partial class _ViewModels : ViewModel, IDisposable
       }, TaskScheduler.FromCurrentSynchronizationContext());
     }
 
-    NewWritingSystemCommand = new RelayCommand<WritingSystemType?>(NewWritingSystemCommandExecute);
-    EditWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(EditWritingSystemCommandExecute);
-    DeleteWritingSystemCommand = new RelayCommand<WritingSystemViewModel>(DeleteWritingSystemCommandExecute, CanDeleteWritingSystem);
-    InitializeApplyBlockMapping();
-    InitializeApplyWritingSystemMapping();
-    InitializeApplyWritingSystemRecognition();
-    BrowseNameGenFileCommand = new RelayCommand<WritingSystemViewModel>(BrowseNameGenFileCommandExecute);
-    InitializeApplyCharNamesGeneration();
-
-    FillColumnCommand = new RelayCommand<object?>(FillColumnCommandExecute, FillColumnCommandCanExecute);
     UndoManager.UndoMgr.Enabled = true;
   }
 
@@ -315,8 +305,6 @@ public partial class _ViewModels : ViewModel, IDisposable
   {
     if (disposing)
     {
-      ApplyBlockMappingBackgroundWorker.Dispose();
-      ApplyWritingSystemMappingBackgroundWorker.Dispose();
       if (_Context != null)
       {
         _Context.Dispose();

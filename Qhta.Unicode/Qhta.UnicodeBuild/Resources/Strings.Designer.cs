@@ -493,6 +493,24 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mark unused writing system.
+        /// </summary>
+        public static string MarkUnusedWritingSystems {
+            get {
+                return ResourceManager.GetString("MarkUnusedWritingSystems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a writing system that is not used by any Unicode block or code point and has no children..
+        /// </summary>
+        public static string MarkUnusedWritingSystemsTooltip {
+            get {
+                return ResourceManager.GetString("MarkUnusedWritingSystemsTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New.
         /// </summary>
         public static string New {

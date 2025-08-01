@@ -18,12 +18,12 @@
     <Import Project="$(NuGetPackageRoot)microsoft.winforms.designer.sdk\1.6.0\build\netcoreapp3.1\Microsoft.WinForms.Designer.SDK.props" Condition="Exists('$(NuGetPackageRoot)microsoft.winforms.designer.sdk\1.6.0\build\netcoreapp3.1\Microsoft.WinForms.Designer.SDK.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgSyncfusion_Shared_WPF Condition=" '$(PkgSyncfusion_Shared_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.shared.wpf\30.1.41</PkgSyncfusion_Shared_WPF>
-    <PkgSyncfusion_Tools_WPF Condition=" '$(PkgSyncfusion_Tools_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.tools.wpf\30.1.41</PkgSyncfusion_Tools_WPF>
-    <PkgSyncfusion_Shared_Base Condition=" '$(PkgSyncfusion_Shared_Base)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.shared.base\30.1.41</PkgSyncfusion_Shared_Base>
-    <PkgSyncfusion_SfGrid_WPF Condition=" '$(PkgSyncfusion_SfGrid_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.sfgrid.wpf\30.1.41</PkgSyncfusion_SfGrid_WPF>
-    <PkgSyncfusion_Grid_WPF Condition=" '$(PkgSyncfusion_Grid_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.grid.wpf\30.1.41</PkgSyncfusion_Grid_WPF>
-    <PkgSyncfusion_Grid_Windows Condition=" '$(PkgSyncfusion_Grid_Windows)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.grid.windows\30.1.41</PkgSyncfusion_Grid_Windows>
+    <PkgSyncfusion_Shared_WPF Condition=" '$(PkgSyncfusion_Shared_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.shared.wpf\30.1.42</PkgSyncfusion_Shared_WPF>
+    <PkgSyncfusion_Tools_WPF Condition=" '$(PkgSyncfusion_Tools_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.tools.wpf\30.1.42</PkgSyncfusion_Tools_WPF>
+    <PkgSyncfusion_Shared_Base Condition=" '$(PkgSyncfusion_Shared_Base)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.shared.base\30.1.42</PkgSyncfusion_Shared_Base>
+    <PkgSyncfusion_SfGrid_WPF Condition=" '$(PkgSyncfusion_SfGrid_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.sfgrid.wpf\30.1.42</PkgSyncfusion_SfGrid_WPF>
+    <PkgSyncfusion_Grid_WPF Condition=" '$(PkgSyncfusion_Grid_WPF)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.grid.wpf\30.1.42</PkgSyncfusion_Grid_WPF>
+    <PkgSyncfusion_Grid_Windows Condition=" '$(PkgSyncfusion_Grid_Windows)' == '' ">C:\Users\qhta1\.nuget\packages\syncfusion.grid.windows\30.1.42</PkgSyncfusion_Grid_Windows>
     <PkgMicrosoft_Xaml_Behaviors_Wpf Condition=" '$(PkgMicrosoft_Xaml_Behaviors_Wpf)' == '' ">C:\Users\qhta1\.nuget\packages\microsoft.xaml.behaviors.wpf\1.1.135</PkgMicrosoft_Xaml_Behaviors_Wpf>
   </PropertyGroup>
 </Project>
