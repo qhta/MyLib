@@ -86,5 +86,14 @@ namespace Qhta.SF.Tools {
                 return ResourceManager.GetString("DeleteRecordsConfirm", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation {0} is not allowed in this context..
+        /// </summary>
+        public static string OperationNotAllowedInThisContext {
+            get {
+                return ResourceManager.GetString("OperationNotAllowedInThisContext", resourceCulture);
+            }
+        }
     }
 }

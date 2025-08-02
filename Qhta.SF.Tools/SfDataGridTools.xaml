@@ -249,6 +249,7 @@
     <Setter Property="AllowResizingColumns" Value="True" />
     <Setter Property="AllowSorting" Value="True" />
     <Setter Property="AllowTriStateSorting" Value="True" />
+    <Setter Property="AllowDeleting" Value="True" />
     <Setter Property="ColumnSizer" Value="Auto" />
     <Setter Property="HeaderRowHeight" Value="26" />
     <Setter Property="AutoGenerateColumns" Value="False" />

@@ -8,8 +8,34 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <summary>
 /// Specialized collection for managing Unicode code points.
 /// </summary>
-public class UcdCodePointsCollection() : EntityCollection<UcdCodePointViewModel>((item) => item.Id)
+public class UcdCodePointsCollection : EntityCollection<UcdCodePointViewModel>
 {
+
+  /// <summary>
+  /// Default constructor for <see cref="UcdCodePointsCollection"/>. Initializes the collection with a key selector function
+  /// </summary>
+  public UcdCodePointsCollection() : base((item) => item.Id)
+  {
+    _IsReadOnly = true; // Make the collection read-only
+  }
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="UcdCodePointsCollection"/> class  and populates it with the specified
+  /// collection of Unicode code points.
+  /// </summary>
+  /// <remarks>This constructor allows you to create a <see cref="UcdCodePointsCollection"/>  pre-populated with
+  /// a set of Unicode code points. The provided collection  must not be null, and all items will be added to the
+  /// collection in the order they appear.</remarks>
+  /// <param name="items">A collection of <see cref="UcdCodePoint"/> objects to initialize the collection with.  Each item in the collection
+  /// is added to the new instance.</param>
+  public UcdCodePointsCollection(IEnumerable<UcdCodePoint> items) : this()
+  {
+    foreach (var item in items)
+    {
+      Add(item);
+    }
+  }
+
   /// <summary>
   /// Adds a new <see cref="UcdCodePointViewModel"/> to the collection based on the specified <see
   /// cref="UcdCodePoint"/>.

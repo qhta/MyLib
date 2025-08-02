@@ -126,4 +126,7 @@
   <data name="DeleteRecordsConfirm" xml:space="preserve">
     <value>Are you sure you want to delete {0} records?</value>
   </data>
+  <data name="OperationNotAllowedInThisContext" xml:space="preserve">
+    <value>Operation {0} is not allowed in this context.</value>
+  </data>
 </root>

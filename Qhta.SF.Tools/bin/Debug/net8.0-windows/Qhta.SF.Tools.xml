@@ -148,6 +148,11 @@
               Looks up a localized string similar to Are you sure you want to delete {0} records?.
             </summary>
         </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.OperationNotAllowedInThisContext">
+            <summary>
+              Looks up a localized string similar to Operation {0} is not allowed in this context..
+            </summary>
+        </member>
         <member name="T:Qhta.SF.Tools.DelRecordArgs">
             <summary>
             Arguments for changing a property.
@@ -268,6 +273,29 @@
         <member name="P:Qhta.SF.Tools.IErrorMessageProvider.ErrorMessage">
             <summary>
             Gets or sets an error message.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.IRemovableCollection">
+            <summary>
+            A collection interface that supports removing items.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.IRemovableCollection.CanRemove(System.Object)">
+            <summary>
+            Returns a value indicating whether the specified item can be removed from the collection.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.IRemovableCollection.Remove(System.Object)">
+            <summary>
+            Removes the specified item from the collection.
+            </summary>
+            <param name="item">The item to remove.</param>
+        </member>
+        <member name="P:Qhta.SF.Tools.IRemovableCollection.IsReadOnly">
+            <summary>
+            Indicates whether the collection is read-only.
             </summary>
         </member>
         <member name="T:Qhta.SF.Tools.IRowHeightProvider">

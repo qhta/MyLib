@@ -30,18 +30,7 @@ public class MarkUnusedWritingSystemsCommand : Command
   {
     foreach (var writingSystem in _ViewModels.Instance.WritingSystems)
     {
-      var isUnused = true;
-      // Check if the writing system has children
-      if (writingSystem.Children?.Any() == true)
-        isUnused = false;
-      else
-        // Check if the writing system is not used in any Unicode block
-      if (_ViewModels.Instance.UcdBlocks.Any(block => block.WritingSystem == writingSystem)) isUnused = false;
-      else
-      // Check if the writing system is not used in any code point
-      if (_ViewModels.Instance.UcdCodePoints.Any(cp => cp.GetWritingSystems().Contains(writingSystem)))
-        isUnused = false;
-      writingSystem.IsMarked = isUnused;
+      writingSystem.IsMarked = !writingSystem.IsUsed;
     }
   }
 }

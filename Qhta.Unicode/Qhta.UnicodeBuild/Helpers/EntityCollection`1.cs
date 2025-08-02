@@ -1,4 +1,5 @@
-﻿using Qhta.ObservableObjects;
+﻿using System.Collections;
+using Qhta.ObservableObjects;
 using Qhta.SF.Tools;
 
 namespace Qhta.UnicodeBuild.Helpers;
@@ -15,7 +16,7 @@ using System.Collections.Generic;
 /// <param name="keySelector"></param>
 /// <param name="comparer"></param>
 public class EntityCollection<T>(Func<T, object> keySelector, IComparer<object>? comparer = null)
-  : Qhta.ObservableObjects.ObservableList<T>
+  : Qhta.ObservableObjects.ObservableList<T>, IList
 {
 
   private readonly Func<T, object> _keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
@@ -69,4 +70,9 @@ public class EntityCollection<T>(Func<T, object> keySelector, IComparer<object>?
     return Count;
   }
 
+  bool IList.IsReadOnly => _IsReadOnly;
+  /// <summary>
+  /// Holds a value indicating whether the collection is read-only.
+  /// </summary>
+  protected bool _IsReadOnly { get; set; } = false;
 }                         

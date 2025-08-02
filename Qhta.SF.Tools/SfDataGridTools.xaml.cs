@@ -285,29 +285,25 @@ public partial class SfDataGridTools : ResourceDictionary
     {
       case Key.C when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
       {
-        if (Controller.CanCopyData(grid))
-          Controller.CopyData(grid);
+        Controller.CopyData(grid);
         e.Handled = true;
         return;
       }
       case Key.X when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
       {
-        if (Controller.CanCutData(grid))
-          Controller.CutData(grid);
+        Controller.CutData(grid);
         e.Handled = true;
         return;
       }
       case Key.V when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
       {
-        if (Controller.CanPasteData(grid))
-          Controller.PasteData(grid);
+        Controller.PasteData(grid);
         e.Handled = true;
         return;
       }
       case Key.Delete:
       {
-        if (Controller.CanDeleteData(grid))
-          Controller.DeleteData(grid);
+        Controller.DeleteData(grid);
         e.Handled = true;
         return;
       }

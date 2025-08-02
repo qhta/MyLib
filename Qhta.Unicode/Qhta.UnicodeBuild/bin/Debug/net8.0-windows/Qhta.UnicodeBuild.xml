@@ -801,6 +801,11 @@
             <param name="index"></param>
             <param name="item"></param>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Helpers.EntityCollection`1._IsReadOnly">
+            <summary>
+            Holds a value indicating whether the collection is read-only.
+            </summary>
+        </member>
         <member name="T:Qhta.UnicodeBuild.Helpers.EntityViewModel`1">
             <summary>
             Represents a view model for an entity of type <typeparamref name="T"/>.
@@ -2735,7 +2740,7 @@
         </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.UcdBlocksCollection.#ctor">
             <summary>
-            Specialized collection for UCD blocks, providing methods to find blocks by ID or name.
+            Default constructor for the <see cref="T:Qhta.UnicodeBuild.ViewModels.UcdBlocksCollection"/> class, initializing an empty collection.
             </summary>
         </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.UcdBlocksCollection.#ctor(System.Collections.Generic.IEnumerable{Qhta.Unicode.Models.UcdBlock})">
@@ -2852,8 +2857,19 @@
         </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointsCollection.#ctor">
             <summary>
-            Specialized collection for managing Unicode code points.
+            Default constructor for <see cref="T:Qhta.UnicodeBuild.ViewModels.UcdCodePointsCollection"/>. Initializes the collection with a key selector function
             </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointsCollection.#ctor(System.Collections.Generic.IEnumerable{Qhta.Unicode.Models.UcdCodePoint})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.ViewModels.UcdCodePointsCollection"/> class  and populates it with the specified
+            collection of Unicode code points.
+            </summary>
+            <remarks>This constructor allows you to create a <see cref="T:Qhta.UnicodeBuild.ViewModels.UcdCodePointsCollection"/>  pre-populated with
+            a set of Unicode code points. The provided collection  must not be null, and all items will be added to the
+            collection in the order they appear.</remarks>
+            <param name="items">A collection of <see cref="T:Qhta.Unicode.Models.UcdCodePoint"/> objects to initialize the collection with.  Each item in the collection
+            is added to the new instance.</param>
         </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointsCollection.Add(Qhta.Unicode.Models.UcdCodePoint)">
             <summary>
@@ -3336,13 +3352,20 @@
             </summary>
             <param name="vm"></param>
         </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.CanRemove(Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel)">
+            <summary>
+            Checks if the specified writing system can be removed from the collection.
+            </summary>
+            <param name="item">The object to remove from the collection. The value can be <see langword="null"/> for reference types.</param>
+            <returns><see langword="true"/> if the item can be removed from the collection;  otherwise, <see langword="false"/>.</returns>
+        </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.Remove(Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel)">
             <summary>
             Removes the first occurrence of a specific object from the collection.
             </summary>
             <param name="item">The object to remove from the collection. The value can be <see langword="null"/> for reference types.</param>
-            <returns><see langword="true"/> if the item was successfully removed from the collection;  otherwise, <see
-            langword="false"/>. This method also returns <see langword="false"/> if the item is not found in the collection.</returns>
+            <returns><see langword="true"/> if the item was successfully removed from the collection;  otherwise, <see langword="false"/>.
+            This method also returns <see langword="false"/> if the item is not found in the collection.</returns>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.TopWritingSystems">
             <summary>
@@ -3353,6 +3376,21 @@
             <summary>
             Column width for the long text in the UI.
             </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.CanRemove(System.Object)">
+            <summary>
+            Checks if the specified item can be removed from the collection.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.Remove(System.Object)">
+            <summary>
+            Removes the specified item from the collection.
+            </summary>
+            <param name="item"></param>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="T:Qhta.UnicodeBuild.ViewModels.WritingSystemTypeViewModel">
             <summary>
@@ -5091,36 +5129,6 @@
         <member name="M:Qhta.Unicode.Models._DbContext.Finalize">
             <summary>
             Destructs the context and releases all resources used by it.
-            </summary>
-        </member>
-        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
-            <summary>
-            GeneratedInternalTypeHelper
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
-            <summary>
-            CreateInstance
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            GetPropertyValue
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            SetPropertyValue
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
-            <summary>
-            CreateDelegate
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
-            <summary>
-            AddEventHandler
             </summary>
         </member>
     </members>

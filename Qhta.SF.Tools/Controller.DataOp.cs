@@ -39,21 +39,77 @@ public static partial class Controller
   /// <returns></returns>
   public static bool CanExecuteDataOp(SfDataGrid dataGrid, DataOp op)
   {
-    if (op == DataOp.Copy)
-      return true;
     try
     {
-      var selectedCells = dataGrid.GetSelectedCells().ToArray();
-      GridColumn[] selectedColumns;
-      if (selectedCells.Length != 0)
-        selectedColumns = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
-      else
-        selectedColumns = dataGrid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
-      if (!selectedColumns.Any())
+      GetSelectedRowsAndColumns(dataGrid, out var allColumnsSelected, out var selectedColumns, out var allRowsSelected,
+        out var selectedRows);
+
+      var rowDataType = GetRowDataType(dataGrid);
+      if (rowDataType == null)
       {
-        selectedColumns = dataGrid.Columns.ToArray();
+        Debug.WriteLine($"{op}: No row data type found.");
+        return false;
       }
-      return !selectedColumns.Any(column => column.AllowEditing && column.IsReadOnly);
+
+      GridColumnInfo?[]? columnInfos = GetGridColumnInfos(selectedColumns, rowDataType, op == DataOp.Copy || op == DataOp.Cut);
+      if (!columnInfos.Any())
+      {
+        Debug.WriteLine($"{op}: No column info available.");
+        return false;
+      }
+      if (op == DataOp.Delete || op == DataOp.Cut)
+      {
+        if (!dataGrid.AllowDeleting)
+        {
+          Debug.WriteLine($"{op}: DataGrid does not allow data deleting.");
+          return false;
+        }
+        if (allColumnsSelected)
+        {
+          var itemsSource = dataGrid.View?.SourceCollection;
+          if (itemsSource == null)
+          {
+            Debug.WriteLine($"{op}: ItemsSource is null.");
+            return false;
+          }
+          if (itemsSource is IList list && list.IsReadOnly)
+          {
+            Debug.WriteLine($"{op}: Data list is read-only");
+            return false;
+          }
+          // Get the type of the ItemsSource
+          var itemsSourceType = itemsSource.GetType();
+
+          // Check if it implements ICollection<T>
+          var iCollectionInterface = itemsSourceType.GetInterfaces()
+            .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ICollection<>));
+          if (iCollectionInterface != null)
+          {
+            // Get the IsReadOnly property from ICollection<T>
+            var isReadOnlyProperty = iCollectionInterface.GetProperty("IsReadOnly");
+            if (isReadOnlyProperty != null)
+            {
+              // Get the value of IsReadOnly
+              var isReadOnly = (bool)isReadOnlyProperty.GetValue(itemsSource)!;
+              if (isReadOnly)
+              {
+                Debug.WriteLine($"{op}: Data collection is read-only");
+                return false;
+              }
+            }
+          }
+          if (itemsSource is IRemovableCollection removableCollection)
+            foreach (var item in selectedRows)
+            {
+              if (!removableCollection.CanRemove(item))
+              {
+                Debug.WriteLine($"{op}: Item cannot be removed");
+                return false;
+              }
+            }
+        }
+      }
+      return true;
     }
     catch (Exception e)
     {
@@ -69,16 +125,15 @@ public static partial class Controller
   /// <param name="op"></param>
   public static void ExecuteDataOp(SfDataGrid dataGrid, DataOp op)
   {
+    if (!CanExecuteDataOp(dataGrid, op))
+    {
+      MessageBox.Show(String.Format(DataStrings.OperationNotAllowedInThisContext, op));
+      return;
+    }
     try
     {
       GetSelectedRowsAndColumns(dataGrid, out var allColumnsSelected, out var selectedColumns, out var allRowsSelected,
         out var selectedRows);
-      var firstItem = selectedRows.FirstOrDefault();
-      if (firstItem == null)
-      {
-        Debug.WriteLine("DataOp: No rows selected.");
-        return;
-      }
 
       var rowDataType = GetRowDataType(dataGrid);
       if (rowDataType == null)
@@ -93,7 +148,7 @@ public static partial class Controller
         Debug.WriteLine("DataOp: No column info available.");
         return;
       }
-      ;
+
 
       var content = new List<string>();
 

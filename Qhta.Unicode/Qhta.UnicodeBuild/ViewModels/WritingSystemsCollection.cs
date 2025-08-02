@@ -2,6 +2,7 @@
 
 using Qhta.Collections;
 using Qhta.ObservableObjects;
+using Qhta.SF.Tools;
 using Qhta.UndoManager;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Actions;
@@ -14,7 +15,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <summary>
 /// Specialized collection for managing writing systems.
 /// </summary>
-public sealed class WritingSystemsCollection : EntityCollection<WritingSystemViewModel>
+public sealed class WritingSystemsCollection : EntityCollection<WritingSystemViewModel>, IRemovableCollection
 {
 
   private BiDiDictionary<int, WritingSystemViewModel> IntDictionary { [DebuggerStepThrough] get; } = new();
@@ -30,7 +31,7 @@ public sealed class WritingSystemsCollection : EntityCollection<WritingSystemVie
   /// </summary>
   public WritingSystemsCollection() : base((item) => item.Name!)
   {
-    CollectionChanged += WritingSystemsCollection_CollectionChanged;
+
   }
 
   /// <summary>
@@ -215,11 +216,21 @@ public sealed class WritingSystemsCollection : EntityCollection<WritingSystemVie
   }
 
   /// <summary>
+  /// Checks if the specified writing system can be removed from the collection.
+  /// </summary>
+  /// <param name="item">The object to remove from the collection. The value can be <see langword="null"/> for reference types.</param>
+  /// <returns><see langword="true"/> if the item can be removed from the collection;  otherwise, <see langword="false"/>.</returns>
+  public bool CanRemove(WritingSystemViewModel item)
+  {
+    return !item.IsUsed;
+  }
+
+  /// <summary>
   /// Removes the first occurrence of a specific object from the collection.
   /// </summary>
   /// <param name="item">The object to remove from the collection. The value can be <see langword="null"/> for reference types.</param>
-  /// <returns><see langword="true"/> if the item was successfully removed from the collection;  otherwise, <see
-  /// langword="false"/>. This method also returns <see langword="false"/> if the item is not found in the collection.</returns>
+  /// <returns><see langword="true"/> if the item was successfully removed from the collection;  otherwise, <see langword="false"/>.
+  /// This method also returns <see langword="false"/> if the item is not found in the collection.</returns>
   public override bool Remove(WritingSystemViewModel item)
   {
     var count0 = Count;
@@ -274,4 +285,28 @@ public sealed class WritingSystemsCollection : EntityCollection<WritingSystemVie
     }
   }
   private double _longTextColumnWidth = 420; // Default width
+
+  /// <summary>
+  /// Checks if the specified item can be removed from the collection.
+  /// </summary>
+  /// <param name="item"></param>
+  /// <returns></returns>
+  /// <exception cref="NotImplementedException"></exception>
+  public bool CanRemove(object item)
+  {
+    if (item is WritingSystemViewModel vm)
+      return this.CanRemove(vm);
+    return false;
+  }
+
+  /// <summary>
+  /// Removes the specified item from the collection.
+  /// </summary>
+  /// <param name="item"></param>
+  /// <exception cref="NotImplementedException"></exception>
+  public void Remove(object item)
+  {
+    if (item is WritingSystemViewModel vm)
+      this.Remove(vm);
+  }
 }

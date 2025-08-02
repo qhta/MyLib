@@ -8,11 +8,19 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <summary>
 /// Specialized collection for UCD blocks, providing methods to find blocks by ID or name.
 /// </summary>
-public sealed class UcdBlocksCollection() : EntityCollection<UcdBlockViewModel>((item) => item.Range!.Start!)
+public sealed class UcdBlocksCollection : EntityCollection<UcdBlockViewModel>
 {
 
   private Dictionary<int, UcdBlockViewModel> IntDictionary { [DebuggerStepThrough] get; set; } = new();
   private Dictionary<string, UcdBlockViewModel> StringDictionary { [DebuggerStepThrough] get; set; } = new();
+
+  /// <summary>
+  /// Default constructor for the <see cref="UcdBlocksCollection"/> class, initializing an empty collection.
+  /// </summary>
+  public UcdBlocksCollection() : base(((item) => item.Range!.Start!))
+  {
+    _IsReadOnly = true; // Make the collection read-only
+  }
 
   /// <summary>
   /// Initializes a new instance of the <see cref="UcdBlocksCollection"/> class built from an existing collection of UcdBlock models.
