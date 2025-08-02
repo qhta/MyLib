@@ -188,5 +188,21 @@ public class BiDiDictionary<Type1, Type2> : ICollection<KeyValuePair<Type1, Type
   {
     return ((IEnumerable)Index1).GetEnumerator();
   }
+
+  public Type2? GetValueOrDefault(Type1 key) =>
+    GetValueOrDefault(key, default!);
+
+  public Type2 GetValueOrDefault(Type1 key, Type2 defaultValue)
+  {
+    return TryGetValue(key, out Type2? value) ? value : defaultValue;
+  }
+
+  public Type1? GetIndexOrDefault(Type2 key) =>
+    GetIndexOrDefault(key, default!);
+
+  public Type1 GetIndexOrDefault(Type2 key, Type1 defaultValue)
+  {
+    return TryGetValue1(key, out Type1? value) ? value : defaultValue;
+  }
 }
 

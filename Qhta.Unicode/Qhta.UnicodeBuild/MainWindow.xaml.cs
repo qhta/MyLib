@@ -227,10 +227,10 @@ public partial class MainWindow : Window
 
   private void MainTabControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
   {
-    Debug.WriteLine($"MainTabControl_OnSelectionChanged");
+    //Debug.WriteLine($"MainTabControl_OnSelectionChanged");
     if (e.Source is TabControl tabControl && tabControl.SelectedContent is UIElement selectedElement)
     {
-      Debug.WriteLine($"{selectedElement}.SetFocus()");
+      //Debug.WriteLine($"{selectedElement}.SetFocus()");
       selectedElement.Focus(); // Set focus to the active UserControl
     }
   }

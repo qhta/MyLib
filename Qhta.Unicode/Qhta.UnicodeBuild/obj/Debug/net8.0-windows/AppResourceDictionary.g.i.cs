@@ -85,7 +85,7 @@ namespace Qhta.UnicodeBuild {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Qhta.UnicodeBuild;V1.0.0.0;component/appresourcedictionary.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Qhta.UnicodeBuild;component/appresourcedictionary.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\AppResourceDictionary.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

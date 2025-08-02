@@ -87,7 +87,7 @@ namespace Qhta.UnicodeBuild {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Qhta.UnicodeBuild;V1.0.0.0;component/newwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Qhta.UnicodeBuild;component/newwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\NewWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.collections\\bididictionary\u00602.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|solutionrelative:bididictionary\u00602.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.collections\\qhta.collections.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|solutionrelative:qhta.collections.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.collections\\bididictionary\u00602.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|solutionrelative:bididictionary\u00602.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B5EABFAA-D181-4711-B466-27823021D8E8}|Qhta.Collections.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.collections\\wildcardstringcomparer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,11 +46,39 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{be4d7042-ba3f-11d2-840e-00c04f9902c1}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{605322a2-17ae-43f4-b60f-766556e46c87}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
@@ -102,13 +130,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Qhta.Collections.csproj",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
               "RelativeDocumentMoniker": "Qhta.Collections.csproj",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj",
               "RelativeToolTip": "Qhta.Collections.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2025-01-18T17:36:26.985Z",
               "EditorCaption": ""
@@ -151,13 +179,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "BiDiDictionary\u00602.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\BiDiDictionary\u00602.cs",
               "RelativeDocumentMoniker": "BiDiDictionary\u00602.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\BiDiDictionary\u00602.cs",
               "RelativeToolTip": "BiDiDictionary\u00602.cs",
-              "ViewState": "AgIAAGMAAAAAAAAAAAAAAHsAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAKYAAAAAAAAAAAAUwMYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-18T17:36:27.024Z",
               "EditorCaption": ""

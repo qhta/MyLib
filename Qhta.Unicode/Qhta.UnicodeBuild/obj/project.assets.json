@@ -933,7 +933,7 @@
           "buildTransitive/Mono.TextTemplating.targets": {}
         }
       },
-      "Qhta.Collections/5.1.0": {
+      "Qhta.Collections/5.2.0": {
         "type": "package",
         "dependencies": {
           "Qhta.TextUtils": "3.6.0"
@@ -990,7 +990,7 @@
           }
         }
       },
-      "Qhta.ObservableObjects/4.2.0": {
+      "Qhta.ObservableObjects/4.3.0": {
         "type": "package",
         "dependencies": {
           "System.Collections.Immutable": "9.0.7"
@@ -2711,7 +2711,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "Qhta.Collections": "5.1.0"
+          "Qhta.Collections": "5.2.0"
         },
         "compile": {
           "bin/placeholder/Qhta.UndoManager.dll": {}
@@ -4585,10 +4585,10 @@
         "readme.md"
       ]
     },
-    "Qhta.Collections/5.1.0": {
-      "sha512": "FiyRn/Ord8QULsENwf0WdPRnikoaXvnVdQll+f2dv/pQxLCEwxlC4eqL4iKIYxNsneWrJwlB52ZGaGXiixJ/IQ==",
+    "Qhta.Collections/5.2.0": {
+      "sha512": "UYqc2SH4wbEtdbORbQ/TZ1hnVqIzF2Qej8tb/elgG8XeEPR8++polX/o0LLeBrVU75znLfNQoM1rYthvMt9sJQ==",
       "type": "package",
-      "path": "qhta.collections/5.1.0",
+      "path": "qhta.collections/5.2.0",
       "files": [
         ".nupkg.metadata",
         "lib/net6.0-windows7.0/Qhta.Collections.dll",
@@ -4603,7 +4603,7 @@
         "lib/netcoreapp3.0/Qhta.Collections.xml",
         "lib/netstandard2.0/Qhta.Collections.dll",
         "lib/netstandard2.0/Qhta.Collections.xml",
-        "qhta.collections.5.1.0.nupkg.sha512",
+        "qhta.collections.5.2.0.nupkg.sha512",
         "qhta.collections.nuspec",
         "readme.md"
       ]
@@ -4652,10 +4652,10 @@
         "readme.md"
       ]
     },
-    "Qhta.ObservableObjects/4.2.0": {
-      "sha512": "R2uzvg/wkVItslo1ORF1tn0xBMX2DrocFWAXkYZMpzTVbrxJheoGF6m6GXQ6IHbxvT3o4nv007I7v2x1xh5M5g==",
+    "Qhta.ObservableObjects/4.3.0": {
+      "sha512": "WrzRYZyAZHz5Q38XKsLBaLnxcak7pYLrU5JqevsHjbX8HK/pVj4eYJVzXoHIanvmyixq9Pe6Jov6e4NKv+x0dA==",
       "type": "package",
-      "path": "qhta.observableobjects/4.2.0",
+      "path": "qhta.observableobjects/4.3.0",
       "files": [
         ".nupkg.metadata",
         "lib/net8.0-windows7.0/Qhta.ObservableObjects.dll",
@@ -4666,7 +4666,7 @@
         "lib/net9.0-windows7.0/Qhta.ObservableObjects.xml",
         "lib/net9.0/Qhta.ObservableObjects.dll",
         "lib/net9.0/Qhta.ObservableObjects.xml",
-        "qhta.observableobjects.4.2.0.nupkg.sha512",
+        "qhta.observableobjects.4.3.0.nupkg.sha512",
         "qhta.observableobjects.nuspec",
         "readme.md"
       ]
@@ -8190,7 +8190,7 @@
       "Microsoft.Xaml.Behaviors.Wpf >= 1.1.135",
       "Qhta.DeepCopy >= 1.5.0",
       "Qhta.MVVM >= 4.14.0",
-      "Qhta.ObservableObjects >= 4.2.0",
+      "Qhta.ObservableObjects >= 4.3.0",
       "Qhta.SF.Tools >= 1.0.0",
       "Qhta.UndoManager >= 1.0.0",
       "Qhta.WPF.Converters >= 1.5.0",
@@ -8316,7 +8316,7 @@
           },
           "Qhta.ObservableObjects": {
             "target": "Package",
-            "version": "[4.2.0, )"
+            "version": "[4.3.0, )"
           },
           "Qhta.WPF.Converters": {
             "target": "Package",

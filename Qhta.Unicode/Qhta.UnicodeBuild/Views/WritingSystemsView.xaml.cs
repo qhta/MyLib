@@ -39,6 +39,18 @@ public partial class WritingSystemsView : UserControl, IRoutedCommandHandler
   public WritingSystemsView()
   {
     InitializeComponent();
+    DataContextChanged += WritingSystemsView_DataContextChanged;
+  }
+
+  private void WritingSystemsView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+  {
+    if (DataContext is WritingSystemsCollection writingSystemsCollection)
+      writingSystemsCollection.CollectionChanged += WritingSystemsView_CollectionChanged;
+  }
+
+  private void WritingSystemsView_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+  {
+    throw new NotImplementedException();
   }
 
   private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
@@ -308,4 +320,15 @@ public partial class WritingSystemsView : UserControl, IRoutedCommandHandler
     e.Handled = true;
   }
 
+  private void WritingSystemsDataGrid_OnRecordDeleted(object? sender, RecordDeletedEventArgs e)
+  {
+    foreach (var item in e.Items)
+    {
+      if (item is WritingSystemViewModel writingSystem)
+      {
+        Debug.WriteLine($"WritingSystemsDataGrid_OnRecordDeleted {writingSystem.Name}");
+        _ViewModels.Instance.WritingSystems.Remove(writingSystem);
+      }
+    }
+  }
 }

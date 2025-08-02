@@ -49,8 +49,14 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Name;
-    set => ChangeModelProperty(nameof(Name), value);
-
+    set
+    {
+      if (ChangeModelProperty(nameof(Name), value))
+      {
+        NotifyPropertyChanged(nameof(FullName));
+        NotifyPropertyChanged(nameof(Tooltip));
+      }
+    }
   }
 
   /// <summary>
@@ -170,8 +176,16 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Description;
-    set => ChangeModelProperty(nameof(Description), value);
+    set {  
+      if (ChangeModelProperty(nameof(Description), value)) NotifyPropertyChanged(nameof(Tooltip)); 
+    }
   }
+
+  /// <summary>
+  /// Description of the writing system or its full name if description is null.
+  /// </summary>
+  [DataType(DataType.MultilineText)]
+  public string? Tooltip => Description ?? FullName;
 
   /// <summary>
   /// Exposed property for the parent writing system as a ViewModel.

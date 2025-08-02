@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <Authors>Yarreck Qhta</Authors>
     <Description>Classes to use replace ObservableCollection when used in background task.</Description>
-    <Version>4.2</Version>
+    <Version>4.3</Version>
     <AutoRedirectBindings>true</AutoRedirectBindings>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>

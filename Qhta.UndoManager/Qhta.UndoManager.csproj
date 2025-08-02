@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Qhta.Collections" Version="5.1.0" />
+    <PackageReference Include="Qhta.Collections" Version="5.2.0" />
   </ItemGroup>
 
 </Project>

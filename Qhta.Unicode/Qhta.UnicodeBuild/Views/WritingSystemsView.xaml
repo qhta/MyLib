@@ -161,7 +161,7 @@
         <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
           <StackPanel Orientation="Horizontal">
             <StackPanel.ToolTip>
-              <ToolTip Content="{Binding Description}"/>
+              <ToolTip Content="{Binding Tooltip}"/>
             </StackPanel.ToolTip>
             <Image Source="{Binding Type, Converter={StaticResource TypeToImageConverter}}"
                    Width="16" Height="16" Stretch="Uniform" Margin="0,0,4,0"/>
@@ -191,6 +191,7 @@
                    FilterChanging="WritingSystemsGrid_OnFilterChanging"
                    tools:SfDataGridBehavior.AllowRowResizing="True"
                    GridCopyContent="WritingSystemsDataGrid_OnGridCopyContent"
+                   RecordDeleted="WritingSystemsDataGrid_OnRecordDeleted"
                    >
         <!--GridValidationMode="InEdit"-->
         <sf:SfDataGrid.Columns>

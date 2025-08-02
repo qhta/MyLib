@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|solutionrelative:qhta.observableobjects.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\observablecollectionobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|solutionrelative:observablecollectionobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\observablelist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|solutionrelative:observablelist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\observablecollectionobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|solutionrelative:observablecollectionobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{52C40355-AE46-44D2-ABAC-32CC0C2A520F}|Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\observableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -124,13 +124,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ObservableCollectionObject.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableCollectionObject.cs",
               "RelativeDocumentMoniker": "ObservableCollectionObject.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableCollectionObject.cs",
               "RelativeToolTip": "ObservableCollectionObject.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAADQAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-08T13:39:07.644Z",
               "EditorCaption": ""
@@ -151,8 +151,8 @@
               "Title": "Qhta.ObservableObjects.csproj",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
               "RelativeDocumentMoniker": "Qhta.ObservableObjects.csproj",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
-              "RelativeToolTip": "Qhta.ObservableObjects.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj*",
+              "RelativeToolTip": "Qhta.ObservableObjects.csproj*",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2025-05-17T08:41:08.604Z",
@@ -231,13 +231,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "ObservableList.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableList.cs",
               "RelativeDocumentMoniker": "ObservableList.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableList.cs",
               "RelativeToolTip": "ObservableList.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAACEAAAA9AAAAAAAAAA==",
+              "ViewState": "AgIAABYEAAAAAAAAAAAIwCQEAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-17T08:41:08.793Z",
               "EditorCaption": ""
@@ -262,10 +262,9 @@
               "RelativeDocumentMoniker": "ObservableObject.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableObject.cs",
               "RelativeToolTip": "ObservableObject.cs",
-              "ViewState": "AgIAAJYAAAAAAAAAAAAAAKwAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T08:41:08.798Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-17T08:41:08.798Z"
             },
             {
               "$type": "Document",

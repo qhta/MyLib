@@ -21,7 +21,7 @@ public class ChangePropertyAction: IAction
   /// </summary>
   /// <param name="args"></param>
   /// <exception cref="NotImplementedException"></exception>
-  public void Execute(object? args)
+  public virtual void Execute(object? args)
   {
     if (args is not ChangePropertyArgs changePropertyArgs)
       throw new ArgumentException("Invalid arguments for ChangeProperty action", nameof(args));
@@ -36,7 +36,7 @@ public class ChangePropertyAction: IAction
   /// </summary>
   /// <param name="args"></param>
   /// <exception cref="ArgumentException"></exception>
-  public void Undo(object? args)
+  public virtual void Undo(object? args)
   {
     if (args is not ChangePropertyArgs changePropertyArgs)
       throw new ArgumentException("Invalid arguments for ChangeProperty action", nameof(args));

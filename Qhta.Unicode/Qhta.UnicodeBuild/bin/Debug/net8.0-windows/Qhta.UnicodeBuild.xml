@@ -4,6 +4,64 @@
         <name>Qhta.UnicodeBuild</name>
     </assembly>
     <members>
+        <member name="T:Qhta.UnicodeBuild.Actions.DeleteDataEntityArgs">
+            <summary>
+            Arguments for <see cref="T:Qhta.UnicodeBuild.Actions.DeleteDataEntityAction"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Actions.DeleteDataEntityArgs.#ctor(System.Object,Microsoft.EntityFrameworkCore.EntityState,Microsoft.EntityFrameworkCore.EntityState)">
+            <summary>
+            Arguments for <see cref="T:Qhta.UnicodeBuild.Actions.DeleteDataEntityAction"/>.
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Actions.DeleteDataEntityAction">
+            <summary>
+            Specialized action for changing state of the entry to the new state.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Actions.DeleteDataEntityAction.Execute(System.Object)">
+            <summary>
+            Executes the action to change a property.
+            </summary>
+            <param name="args"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Actions.DeleteDataEntityAction.Undo(System.Object)">
+            <summary>
+            Specialized action for changing state of the entry to the old state.
+            </summary>
+            <param name="args"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Actions.RemoveEntityArgs">
+            <summary>
+            Arguments for <see cref="T:Qhta.UnicodeBuild.Actions.RemoveEntityAction"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Actions.RemoveEntityArgs.#ctor(System.Collections.IList,System.Object,System.Int32)">
+            <summary>
+            Arguments for <see cref="T:Qhta.UnicodeBuild.Actions.RemoveEntityAction"/>.
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Actions.RemoveEntityAction">
+            <summary>
+            Specialized action for changing state of the entry to the new state.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Actions.RemoveEntityAction.Execute(System.Object)">
+            <summary>
+            Executes the action to change a property.
+            </summary>
+            <param name="args"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Actions.RemoveEntityAction.Undo(System.Object)">
+            <summary>
+            Specialized action for changing state of the entry to the old state.
+            </summary>
+            <param name="args"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="T:Qhta.UnicodeBuild.App">
             <summary>
             Interaction logic for App.xaml
@@ -3218,19 +3276,14 @@
             Specialized collection for managing writing systems.
             </summary>
         </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.#ctor">
-            <summary>
-            Specialized collection for managing writing systems.
-            </summary>
-        </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.Parent">
             <summary>
             Parent writing system view model, if this collection is a child of another writing system.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.MarkUnusedWritingSystemsCommand">
+        <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.#ctor">
             <summary>
-            Command to apply writing system mappings to Unicode code points.
+            Default constructor for the <see cref="T:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection"/> class.
             </summary>
         </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.#ctor(Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel)">
@@ -3243,8 +3296,8 @@
             <summary>
             Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection"/> class using the specified parent view model and a collection of writing system models.
             </summary>
-            <param name="parent"></param>
-            <param name="models"></param>
+            <param name="parent">Parent view model which contains this collection of children</param>
+            <param name="models">Children items enumeration</param>
         </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.WritingSystemsCollection_CollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
             <summary>
@@ -3282,6 +3335,14 @@
             Adds a writing system view model to the collection, ensuring it has a valid name and is not already present.
             </summary>
             <param name="vm"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.Remove(Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel)">
+            <summary>
+            Removes the first occurrence of a specific object from the collection.
+            </summary>
+            <param name="item">The object to remove from the collection. The value can be <see langword="null"/> for reference types.</param>
+            <returns><see langword="true"/> if the item was successfully removed from the collection;  otherwise, <see
+            langword="false"/>. This method also returns <see langword="false"/> if the item is not found in the collection.</returns>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection.TopWritingSystems">
             <summary>
@@ -3425,6 +3486,11 @@
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.Description">
             <summary>
             Description of the writing system, providing additional context or information.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.Tooltip">
+            <summary>
+            Description of the writing system or its full name if description is null.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.Parent">

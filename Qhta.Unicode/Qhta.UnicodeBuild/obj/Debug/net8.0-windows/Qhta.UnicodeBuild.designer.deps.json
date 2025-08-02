@@ -651,14 +651,14 @@
           }
         }
       },
-      "Qhta.Collections/5.1.0": {
+      "Qhta.Collections/5.2.0": {
         "dependencies": {
           "Qhta.TextUtils": "3.7.0"
         },
         "runtime": {
           "lib/net8.0/Qhta.Collections.dll": {
-            "assemblyVersion": "5.1.0.0",
-            "fileVersion": "5.1.0.0"
+            "assemblyVersion": "5.2.0.0",
+            "fileVersion": "5.2.0.0"
           }
         }
       },
@@ -683,7 +683,7 @@
       },
       "Qhta.MVVM/4.14.0": {
         "dependencies": {
-          "Qhta.ObservableObjects": "4.2.0"
+          "Qhta.ObservableObjects": "4.3.0"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Qhta.MVVM.dll": {
@@ -692,14 +692,14 @@
           }
         }
       },
-      "Qhta.ObservableObjects/4.2.0": {
+      "Qhta.ObservableObjects/4.3.0": {
         "dependencies": {
           "System.Collections.Immutable": "9.0.7"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Qhta.ObservableObjects.dll": {
-            "assemblyVersion": "4.2.0.0",
-            "fileVersion": "4.2.0.0"
+            "assemblyVersion": "4.3.0.0",
+            "fileVersion": "4.3.0.0"
           }
         }
       },
@@ -721,7 +721,7 @@
       },
       "Qhta.TypeUtils/1.4.0": {
         "dependencies": {
-          "Qhta.Collections": "5.1.0"
+          "Qhta.Collections": "5.2.0"
         },
         "runtime": {
           "lib/net8.0/Qhta.TypeUtils.dll": {
@@ -2232,12 +2232,12 @@
       "path": "mono.texttemplating/3.0.0",
       "hashPath": "mono.texttemplating.3.0.0.nupkg.sha512"
     },
-    "Qhta.Collections/5.1.0": {
+    "Qhta.Collections/5.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-FiyRn/Ord8QULsENwf0WdPRnikoaXvnVdQll+f2dv/pQxLCEwxlC4eqL4iKIYxNsneWrJwlB52ZGaGXiixJ/IQ==",
-      "path": "qhta.collections/5.1.0",
-      "hashPath": "qhta.collections.5.1.0.nupkg.sha512"
+      "sha512": "sha512-UYqc2SH4wbEtdbORbQ/TZ1hnVqIzF2Qej8tb/elgG8XeEPR8++polX/o0LLeBrVU75znLfNQoM1rYthvMt9sJQ==",
+      "path": "qhta.collections/5.2.0",
+      "hashPath": "qhta.collections.5.2.0.nupkg.sha512"
     },
     "Qhta.DeepCopy/1.5.0": {
       "type": "package",
@@ -2260,12 +2260,12 @@
       "path": "qhta.mvvm/4.14.0",
       "hashPath": "qhta.mvvm.4.14.0.nupkg.sha512"
     },
-    "Qhta.ObservableObjects/4.2.0": {
+    "Qhta.ObservableObjects/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-R2uzvg/wkVItslo1ORF1tn0xBMX2DrocFWAXkYZMpzTVbrxJheoGF6m6GXQ6IHbxvT3o4nv007I7v2x1xh5M5g==",
-      "path": "qhta.observableobjects/4.2.0",
-      "hashPath": "qhta.observableobjects.4.2.0.nupkg.sha512"
+      "sha512": "sha512-WrzRYZyAZHz5Q38XKsLBaLnxcak7pYLrU5JqevsHjbX8HK/pVj4eYJVzXoHIanvmyixq9Pe6Jov6e4NKv+x0dA==",
+      "path": "qhta.observableobjects/4.3.0",
+      "hashPath": "qhta.observableobjects.4.3.0.nupkg.sha512"
     },
     "Qhta.OrdNumbers/2.3.0": {
       "type": "package",

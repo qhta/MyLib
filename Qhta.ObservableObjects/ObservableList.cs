@@ -996,7 +996,7 @@ namespace Qhta.ObservableObjects
     ///    true if item is successfully removed; otherwise, false. This method also returns
     ///    false if item was not found in the list.
     ///</returns>
-    public bool Remove(T item)
+    public virtual bool Remove(T item)
     {
       //Debug.WriteLine($"Remove({item})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)
@@ -1058,7 +1058,7 @@ namespace Qhta.ObservableObjects
     ///<exception cref="ArgumentOutOfRangeException">
     ///    index is less than 0. -or- index is equal to or greater than Count.
     ///</exception>
-    public void RemoveAt(int index)
+    public virtual void RemoveAt(int index)
     {
       //Debug.WriteLine($"RemoveAt({index})" + $" {DateTime.Now.TimeOfDay}");
       lock (LockObject)

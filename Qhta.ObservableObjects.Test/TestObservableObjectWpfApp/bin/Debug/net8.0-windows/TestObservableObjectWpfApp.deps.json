@@ -52,8 +52,8 @@
         },
         "runtime": {
           "Qhta.ObservableObjects.dll": {
-            "assemblyVersion": "4.2.0.0",
-            "fileVersion": "4.2.0.0"
+            "assemblyVersion": "4.3.0.0",
+            "fileVersion": "4.3.0.0"
           }
         }
       }

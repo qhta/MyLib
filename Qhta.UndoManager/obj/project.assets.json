@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net8.0": {
-      "Qhta.Collections/5.1.0": {
+      "Qhta.Collections/5.2.0": {
         "type": "package",
         "dependencies": {
           "Qhta.TextUtils": "3.6.0"
@@ -34,10 +34,10 @@
     }
   },
   "libraries": {
-    "Qhta.Collections/5.1.0": {
-      "sha512": "FiyRn/Ord8QULsENwf0WdPRnikoaXvnVdQll+f2dv/pQxLCEwxlC4eqL4iKIYxNsneWrJwlB52ZGaGXiixJ/IQ==",
+    "Qhta.Collections/5.2.0": {
+      "sha512": "UYqc2SH4wbEtdbORbQ/TZ1hnVqIzF2Qej8tb/elgG8XeEPR8++polX/o0LLeBrVU75znLfNQoM1rYthvMt9sJQ==",
       "type": "package",
-      "path": "qhta.collections/5.1.0",
+      "path": "qhta.collections/5.2.0",
       "files": [
         ".nupkg.metadata",
         "lib/net6.0-windows7.0/Qhta.Collections.dll",
@@ -52,7 +52,7 @@
         "lib/netcoreapp3.0/Qhta.Collections.xml",
         "lib/netstandard2.0/Qhta.Collections.dll",
         "lib/netstandard2.0/Qhta.Collections.xml",
-        "qhta.collections.5.1.0.nupkg.sha512",
+        "qhta.collections.5.2.0.nupkg.sha512",
         "qhta.collections.nuspec",
         "readme.md"
       ]
@@ -79,7 +79,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Qhta.Collections >= 5.1.0"
+      "Qhta.Collections >= 5.2.0"
     ]
   },
   "packageFolders": {
@@ -139,7 +139,7 @@
         "dependencies": {
           "Qhta.Collections": {
             "target": "Package",
-            "version": "[5.1.0, )"
+            "version": "[5.2.0, )"
           }
         },
         "imports": [

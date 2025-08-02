@@ -13,7 +13,7 @@ public class ActionGroup: IAction
   /// Executes all actions in the group with the provided arguments.
   /// </summary>
   /// <param name="args"></param>
-  public void Execute(object? args)
+  public virtual void Execute(object? args)
   {
     for (int i=0; i<Group.Count; i++)
     {
@@ -35,7 +35,7 @@ public class ActionGroup: IAction
   /// </summary>
   /// <param name="args"></param>
   /// <exception cref="NotImplementedException"></exception>
-  public void Undo(object? args)
+  public virtual void Undo(object? args)
   {
     for (int i = Group.Count-1; i>=0; i--)
     {

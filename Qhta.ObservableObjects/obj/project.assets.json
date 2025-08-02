@@ -124,7 +124,7 @@
     "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.2.4\\ToolboxNuGetPackages": {}
   },
   "project": {
-    "version": "4.2.0",
+    "version": "4.3.0",
     "restore": {
       "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
       "projectName": "Qhta.ObservableObjects",

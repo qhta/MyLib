@@ -16,7 +16,6 @@ using System.Collections.Generic;
 /// <param name="comparer"></param>
 public class EntityCollection<T>(Func<T, object> keySelector, IComparer<object>? comparer = null)
   : Qhta.ObservableObjects.ObservableList<T>
-//    : ObservableCollection<T>, IList<T>
 {
 
   private readonly Func<T, object> _keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
@@ -43,7 +42,6 @@ public class EntityCollection<T>(Func<T, object> keySelector, IComparer<object>?
         //Debug.WriteLine($"{item} removed from position {oldIndex}");
       }
     }
-    index = GetInsertIndex(item);
     base.InsertItem(index, item);
     //Debug.WriteLine($"{item} added at {index}");
   }
