@@ -511,6 +511,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name generator options.
+        /// </summary>
+        public static string NameGenOptions {
+            get {
+                return ResourceManager.GetString("NameGenOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New.
         /// </summary>
         public static string New {
@@ -583,6 +592,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Predefined names file.
+        /// </summary>
+        public static string PredefinedNamesFile {
+            get {
+                return ResourceManager.GetString("PredefinedNamesFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Properties.
         /// </summary>
         public static string Properties {
@@ -610,6 +628,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select predefined names file.
+        /// </summary>
+        public static string SelectPrefefinedNamesFile {
+            get {
+                return ResourceManager.GetString("SelectPrefefinedNamesFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select value.
         /// </summary>
         public static string SelectValue {
@@ -624,6 +651,15 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string SelectValueTitle {
             get {
                 return ResourceManager.GetString("SelectValueTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text Files (*.txt)|*.txt|All Files (*.*)|*.*.
+        /// </summary>
+        public static string TextFilesFilter {
+            get {
+                return ResourceManager.GetString("TextFilesFilter", resourceCulture);
             }
         }
         

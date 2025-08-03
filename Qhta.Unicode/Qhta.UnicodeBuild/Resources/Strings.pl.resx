@@ -345,4 +345,16 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="MarkUnusedWritingSystemsTooltip" xml:space="preserve">
     <value>Zaznacz system pisma, który nie jest używany przez żaden blok Unicode ani żaden punkt kodowy i nie ma żadnych dzieci.</value>
   </data>
+  <data name="NameGenOptions" xml:space="preserve">
+    <value>Opcje generowania nazw</value>
+  </data>
+  <data name="PredefinedNamesFile" xml:space="preserve">
+    <value>Plik z predefiniowanymi nazwami</value>
+  </data>
+  <data name="SelectPrefefinedNamesFile" xml:space="preserve">
+    <value>Wybierz plik z predefiniowanymi nazwami</value>
+  </data>
+  <data name="TextFilesFilter" xml:space="preserve">
+    <value>Pliki tekstowe (*.txt)|*.txt|Wszystkie pliki (*.*)|*.*</value>
+  </data>
 </root>

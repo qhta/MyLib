@@ -8,6 +8,9 @@
     <Compile Update="NewWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\NameGenOptionsDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\SelectValueWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -20,12 +20,13 @@ public abstract class TimeConsumingCommand: Command
     BackgroundWorker.DoWork += BackgroundWorker_DoWork;
     BackgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
     BackgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+    BreakCommand = new(BreakCommandExecute, BreakCommandCanExecute);
   }
 
   /// <summary>
   /// Background worker for time-consuming operations.
   /// </summary>
-  public static BackgroundWorker BackgroundWorker { get; } = new()
+  public BackgroundWorker BackgroundWorker { get; } = new()
   {
     WorkerReportsProgress = true,
     WorkerSupportsCancellation = true
@@ -34,9 +35,14 @@ public abstract class TimeConsumingCommand: Command
   /// <summary>
   /// Command to break the time-consuming operation.
   /// </summary>
-  public static RelayCommand BreakCommand { get; } = new(BreakCommandExecute);
+  public RelayCommand BreakCommand { get; set; }
 
-  private static void BreakCommandExecute()
+  private bool BreakCommandCanExecute()
+  {
+    return BackgroundWorker.IsBusy;
+  }
+
+  private void BreakCommandExecute()
   {
     if (BackgroundWorker.IsBusy)
     {

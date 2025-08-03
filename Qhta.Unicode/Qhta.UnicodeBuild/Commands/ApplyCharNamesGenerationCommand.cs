@@ -6,7 +6,7 @@ using Qhta.SF.Tools;
 using Qhta.UndoManager;
 using Qhta.UnicodeBuild.NameGen;
 using Qhta.UnicodeBuild.ViewModels;
-
+using Qhta.UnicodeBuild.Views;
 using Syncfusion.Data.Extensions;
 using Syncfusion.UI.Xaml.Grid;
 
@@ -20,12 +20,31 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
   private record ApplyCharNamesGenerationArgs(List<UcdCodePointViewModel> ListOfPoints);
 
   /// <inheritdoc/>
-  public override void Execute(object? argument)
+  public override bool CanExecute(object? parameter)
+  {
+    if (BackgroundWorker.IsBusy) return false;
+    if (parameter is not SfDataGrid dataGrid)
+    {
+      throw new ArgumentException("Argument must be of type SfDataGrid.", nameof(parameter));
+      return false;
+    }
+    if (!dataGrid.GetSelectedRowsAndColumns(out bool allColumnsSelected, out var selectedColumns, out bool allRowsSelected, out var selectedRows).Any()
+        && !allRowsSelected && !selectedRows.Any())
+      return false;
+    var listOfPoints = selectedRows.OfType<UcdCodePointViewModel>().ToList();
+    if (!listOfPoints.Any())
+      return false;
+
+    return true;
+  }
+
+  /// <inheritdoc/>
+  public override void Execute(object? parameter)
   {
     if (BackgroundWorker.IsBusy) return;
-    if (argument is not SfDataGrid dataGrid)
+    if (parameter is not SfDataGrid dataGrid)
     {
-      throw new ArgumentException("Argument must be of type SfDataGrid.", nameof(argument));
+      throw new ArgumentException("Argument must be of type SfDataGrid.", nameof(parameter));
     }
     if (!dataGrid.GetSelectedRowsAndColumns(out bool allColumnsSelected, out var selectedColumns, out bool allRowsSelected, out var selectedRows).Any()
         && !allRowsSelected && !selectedRows.Any())
@@ -42,9 +61,16 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
 
     int n = listOfPoints.Count();
 
-    if (MessageBox.Show(String.Format(Resources.Strings.ApplyCharNamesGenerationConfirm, n), Resources.Strings.Confirm, MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
+    var dialog = new NameGenOptionsDialog { CodePointsCount = n };
+    if (dialog.ShowDialog() != true)
+      //MessageBox.Show(String.Format(Resources.Strings.ApplyCharNamesGenerationConfirm, n), Resources.Strings.Confirm, MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
+    {
+      //NameGenerator = new NameGenerator { PredefinedNameList = PredefinedNames };
       BackgroundWorker.RunWorkerAsync(new ApplyCharNamesGenerationArgs(listOfPoints));
+    }
   }
+
+  private NameGenerator NameGenerator;
 
   /// <inheritdoc/>
   protected override void BackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
@@ -66,7 +92,6 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
       var i = 0;
       _ViewModels.Instance.UcdCodePoints.StatusMessage =
         String.Format(Resources.Strings.Updating, Resources.UcdCodePointStrings.WritingSystem);
-      var nameGen = new NameGenerator();
       UndoMgr.StartGrouping();
       foreach (var codePoint in listOfPoints)
       {
@@ -83,7 +108,7 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
         string? oldName = codePoint.CharName;
         if (String.IsNullOrEmpty(oldName))
         {
-          var newName = nameGen.GenerateShortName(codePoint);
+          var newName = NameGenerator.GenerateShortName(codePoint);
           if (newName == null ||
             oldName==newName)
             continue;

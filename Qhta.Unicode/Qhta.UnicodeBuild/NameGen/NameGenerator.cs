@@ -1,4 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Windows;
+
+using Microsoft.Win32;
+
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.ViewModels;
@@ -10,6 +17,17 @@ namespace Qhta.UnicodeBuild.NameGen;
 /// </summary>
 public class NameGenerator
 {
+
+
+  /// <summary>
+  /// PredefinedNameList is a dictionary that maps Unicode code points to their predefined names.
+  /// </summary>
+  public required Dictionary<CodePoint, string> PredefinedNameList { get; set; }
+
+  /// <summary>
+  /// The dictionary containing first codes for each ordinal generated writing system.
+  /// </summary>
+  private readonly Dictionary<String, CodePoint> OrdinalRegions = new();
 
   /// <summary>
   /// Generates a short name for a given Unicode code point.
@@ -26,25 +44,9 @@ public class NameGenerator
       Debug.WriteLine($"GenerateShortName: No writing system declared for code point {codePoint.CP}");
       return null;
     }
-    for (int i = 0; i < writingSystems.Count(); i++)
-    {
-      var ws = writingSystems[i];
-      switch (ws.NameGenMethod)
-      {
-        case NameGenMethod.NoGeneration:
-          return null;
-        case NameGenMethod.Ordinal:
-          return GetNameForOrdinalWritingSystem(codePoint, ws);
-      }
-    }
-    return null;
+    return GenerateShortName(codePoint, writingSystems);
   }
-
-  /// <summary>
-  /// The dictionary containing first codes for each ordinal generated writing system.
-  /// </summary>
-  private readonly Dictionary<String, CodePoint> OrdinalRegions = new();
-
+ 
   /// <summary>
   /// Generates a short name for a given Unicode code point based on the provided writing systems.
   /// </summary>
@@ -59,14 +61,26 @@ public class NameGenerator
       var ws = writingSystems[i];
       switch (ws.NameGenMethod)
       {
+        case NameGenMethod.NoGeneration:
+          return null;
         case NameGenMethod.Ordinal:
-          return GetNameForOrdinalWritingSystem(codePoint, ws);
+          return GetNameUsingOrdinalMethod(codePoint, ws);
+        case NameGenMethod.Predefined:
+          if (PredefinedNameList.TryGetValue(codePoint.CP, out var predefinedName))
+          {
+            return predefinedName;
+          }
+          else
+          {
+            Debug.WriteLine($"GenerateShortName: No predefined name found for code point {codePoint.CP} in writing system {ws.Name}");
+            return null;
+          }
       }
     }
     return null;
   }
 
-  private string? GetNameForOrdinalWritingSystem(UcdCodePointViewModel codePoint, WritingSystemViewModel ws)
+  private string? GetNameUsingOrdinalMethod(UcdCodePointViewModel codePoint, WritingSystemViewModel ws)
   {
     if (ws.Abbr == null)
       throw new ArgumentNullException(nameof(ws.Abbr), "Writing system abbreviation cannot be null.");
@@ -83,4 +97,5 @@ public class NameGenerator
     var thisCode = codePoint.CP;
     return $"{ws.Abbr}_{thisCode-firstCode+1}";
   }
+
 }

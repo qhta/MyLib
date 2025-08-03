@@ -345,4 +345,16 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="MarkUnusedWritingSystemsTooltip" xml:space="preserve">
     <value>Select a writing system that is not used by any Unicode block or code point and has no children.</value>
   </data>
+  <data name="NameGenOptions" xml:space="preserve">
+    <value>Name generator options</value>
+  </data>
+  <data name="PredefinedNamesFile" xml:space="preserve">
+    <value>Predefined names file</value>
+  </data>
+  <data name="SelectPrefefinedNamesFile" xml:space="preserve">
+    <value>Select predefined names file</value>
+  </data>
+  <data name="TextFilesFilter" xml:space="preserve">
+    <value>Text Files (*.txt)|*.txt|All Files (*.*)|*.*</value>
+  </data>
 </root>

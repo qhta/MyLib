@@ -21,12 +21,6 @@ public class ApplyBlockMappingCommand : TimeConsumingCommand
   {
     if (BackgroundWorker.IsBusy) return;
 
-    var dialog = new OpenFileDialog();
-    dialog.FileName = "Blocks.txt"; // Default file name
-    dialog.DefaultExt = ".txt"; // Default file extension
-    dialog.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
-    dialog.InitialDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "Resources");
-
     // Show open file dialog box
     var result = MessageBox.Show(Resources.Strings.ApplyBlockMappingConfirm, Resources.Strings.ApplyBlockMapping, MessageBoxButton.OKCancel);
 

@@ -1,0 +1,50 @@
+﻿<Window x:Class="Qhta.UnicodeBuild.Views.NameGenOptionsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
+        mc:Ignorable="d"
+        Title="{x:Static resources:Strings.NameGenOptions}" Height="450" Width="500"
+        DataContext="{Binding RelativeSource= {RelativeSource Self}}">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <TextBlock Grid.Row="0"  
+             Margin="10"
+             TextWrapping="Wrap"
+             >
+      <TextBlock.Text>
+        <MultiBinding Converter="{StaticResource StringFormattingValueConverter}" 
+                      ConverterParameter="{x:Static resources:Strings.ApplyCharNamesGenerationConfirm}">
+          <Binding Path="CodePointsCount" />
+        </MultiBinding>
+      </TextBlock.Text>
+    </TextBlock>
+    <Grid Grid.Row="1">
+       <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <Label Grid.Row="0" Grid.Column="0" Content="{x:Static resources:Strings.PredefinedNamesFile}"/>
+      <TextBox Grid.Row="0" Grid.Column="1" 
+               Text="{Binding PredefinedNamesFile, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+               Margin="5,0,0,0"
+               VerticalAlignment="Center"/>
+      <Button Grid.Row="0" Grid.Column="2"
+              x:Name="BrowsePredefinedNameFile"
+              Width="24"
+              Content="..."
+              Click="BrowsePredefinedNameFile_OnClick"
+              />
+    </Grid>
+  </Grid>
+</Window>

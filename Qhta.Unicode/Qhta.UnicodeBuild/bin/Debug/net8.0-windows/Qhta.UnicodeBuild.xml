@@ -133,6 +133,9 @@
             Command to apply character names generation to selected Unicode code points.
             </summary>
         </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.CanExecute(System.Object)">
+            <inheritdoc/>
+        </member>
         <member name="M:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.Execute(System.Object)">
             <inheritdoc/>
         </member>
@@ -237,16 +240,6 @@
             <remarks>This method checks if the <see cref="P:Qhta.UnicodeBuild.Commands.BreakTimeConsumingCommand.BackgroundWorker"/> is busy and, if so, initiates an
             asynchronous cancellation request.</remarks>
             <param name="parameter">An optional parameter that is not used in this method.</param>
-        </member>
-        <member name="T:Qhta.UnicodeBuild.Commands.BrowseNameGenFileCommand">
-            <summary>
-            Command to browse a name gen file.
-            </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Commands.BrowseNameGenFileCommand.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.BrowseNameGenFileCommand"/> class.
-            </summary>
         </member>
         <member name="T:Qhta.UnicodeBuild.Commands.DeleteWritingSystemCommand">
             <summary>
@@ -1044,6 +1037,27 @@
             A converted value. If the method returns <c>null</c>, the valid <c>null</c> value is used.
             </returns>
         </member>
+        <member name="T:Qhta.UnicodeBuild.Helpers.StringFormattingValueConverter">
+            <summary>
+            Value converter for formatting string and arguments.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.StringFormattingValueConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Value is a formatting string, parameter is the value to format.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.StringFormattingValueConverter.ConvertBack(System.Object,System.Type[],System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Not implemented for multi-value conversion.
+            </summary>
+            <param name="value"></param>
+            <param name="targetTypes"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Qhta.UnicodeBuild.Helpers.ValidationResultEx">
             <summary>
             Adds severity in ValidationResult
@@ -1210,6 +1224,16 @@
             This class is responsible for generating CodePoint short names based on a set of rules and patterns.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.NameGen.NameGenerator.PredefinedNameList">
+            <summary>
+            PredefinedNameList is a dictionary that maps Unicode code points to their predefined names.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.NameGen.NameGenerator.OrdinalRegions">
+            <summary>
+            The dictionary containing first codes for each ordinal generated writing system.
+            </summary>
+        </member>
         <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.GenerateShortName(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel)">
             <summary>
             Generates a short name for a given Unicode code point.
@@ -1217,11 +1241,6 @@
             <param name="codePoint"></param>
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.NameGen.NameGenerator.OrdinalRegions">
-            <summary>
-            The dictionary containing first codes for each ordinal generated writing system.
-            </summary>
         </member>
         <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.GenerateShortName(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel,Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel[])">
             <summary>
@@ -1582,6 +1601,11 @@
               Looks up a localized string similar to Select a writing system that is not used by any Unicode block or code point and has no children..
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.NameGenOptions">
+            <summary>
+              Looks up a localized string similar to Name generator options.
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.New">
             <summary>
               Looks up a localized string similar to New.
@@ -1622,6 +1646,11 @@
               Looks up a localized string similar to Paste.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.PredefinedNamesFile">
+            <summary>
+              Looks up a localized string similar to Predefined names file.
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Properties">
             <summary>
               Looks up a localized string similar to Properties.
@@ -1637,6 +1666,11 @@
               Looks up a localized string similar to Save data (Ctrl-S).
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.SelectPrefefinedNamesFile">
+            <summary>
+              Looks up a localized string similar to Select predefined names file.
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.SelectValue">
             <summary>
               Looks up a localized string similar to Select value.
@@ -1645,6 +1679,11 @@
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.SelectValueTitle">
             <summary>
               Looks up a localized string similar to Select &quot;{0}&quot;.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.TextFilesFilter">
+            <summary>
+              Looks up a localized string similar to Text Files (*.txt)|*.txt|All Files (*.*)|*.*.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.TooLongValue">
@@ -3800,6 +3839,44 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:Qhta.UnicodeBuild.Views.NameGenOptionsDialog">
+            <summary>
+            Interaction logic for NameGenOptionsDialog.xaml
+            </summary>
+            <summary>
+            NameGenOptionsDialog
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Views.NameGenOptionsDialog.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Views.NameGenOptionsDialog"/> class.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.Views.NameGenOptionsDialog.CodePointsCountProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.UnicodeBuild.Views.NameGenOptionsDialog.CodePointsCount"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Views.NameGenOptionsDialog.CodePointsCount">
+            <summary>
+            Code points count property to display in the dialog.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.Views.NameGenOptionsDialog.PredefinedNamesFileProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.UnicodeBuild.Views.NameGenOptionsDialog.PredefinedNamesFile"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Views.NameGenOptionsDialog.PredefinedNamesFile">
+            <summary>
+            Code points count property to display in the dialog.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Views.NameGenOptionsDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:Qhta.UnicodeBuild.Views.SelectValueWindow">
             <summary>
             Window for selecting a value from a list.
@@ -5129,6 +5206,36 @@
         <member name="M:Qhta.Unicode.Models._DbContext.Finalize">
             <summary>
             Destructs the context and releases all resources used by it.
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
             </summary>
         </member>
     </members>
