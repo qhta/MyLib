@@ -241,6 +241,16 @@
             asynchronous cancellation request.</remarks>
             <param name="parameter">An optional parameter that is not used in this method.</param>
         </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.BrowseNameGenFileCommand">
+            <summary>
+            Command to browse a name gen file.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.BrowseNameGenFileCommand.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.BrowseNameGenFileCommand"/> class.
+            </summary>
+        </member>
         <member name="T:Qhta.UnicodeBuild.Commands.DeleteWritingSystemCommand">
             <summary>
             Command to delete a writing system.
@@ -1378,7 +1388,7 @@
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyBlockMappingConfirm">
             <summary>
-              Looks up a localized string similar to Do you really want to apply block mapping from block ranges? All current &quot;block&quot; fields w be updated..
+              Looks up a localized string similar to Do you really want to apply block mapping from block ranges? (All current &quot;block&quot; fields w be updated.).
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyBlockMappingTooltip">
@@ -1398,7 +1408,7 @@
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyCharNamesGenerationConfirm">
             <summary>
-              Looks up a localized string similar to Do you really want to generate char names for {0} code points? Existing names will not be overwritten..
+              Looks up a localized string similar to Do you really want to generate char names for {0} code points? (Existing names will not be overwritten.).
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyCharNamesGenerationTooltip">
@@ -1433,7 +1443,7 @@
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyWritingSystemsRecognitionConfirm">
             <summary>
-              Looks up a localized string similar to Do you really want to recognize writing systems for {0} code points? Existing mapping will not be overwritten..
+              Looks up a localized string similar to Do you really want to recognize writing systems for {0} code points? (Existing mapping will not be overwritten.).
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyWritingSystemsRecognitionTooltip">
@@ -1598,7 +1608,7 @@
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.MarkUnusedWritingSystemsTooltip">
             <summary>
-              Looks up a localized string similar to Select a writing system that is not used by any Unicode block or code point and has no children..
+              Looks up a localized string similar to Select writing systems that are not used by any Unicode block or code point and has no children..
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.NameGenOptions">
@@ -1709,7 +1719,7 @@
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.UcdRanges">
             <summary>
-              Looks up a localized string similar to s.
+              Looks up a localized string similar to Unicode ranges.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.UcdRangesTooltip">
@@ -5187,6 +5197,21 @@
         <member name="F:Qhta.Unicode.Models._DbContext.AutoSaveChanges">
             <summary>
             Allows automatic saving of changes to the database when the context is disposed.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.Models._DbContext.GetModifiedEntitiesCount">
+            <summary>
+            Gets the count of entities that have been modified in the current change tracker.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.Models._DbContext.GetAddedEntitiesCount">
+            <summary>
+            Gets the count of entities that have been added in the current change tracker.
+            </summary>
+        </member>
+        <member name="M:Qhta.Unicode.Models._DbContext.GetDeletedEntitiesCount">
+            <summary>
+            Gets the count of entities that have been deleted in the current change tracker.
             </summary>
         </member>
         <member name="M:Qhta.Unicode.Models._DbContext.Dispose(System.Boolean)">

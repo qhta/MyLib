@@ -1,12 +1,16 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 
 using Qhta.SF.Tools;
 using Qhta.UndoManager;
+using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.NameGen;
+using Qhta.UnicodeBuild.Resources;
 using Qhta.UnicodeBuild.ViewModels;
 using Qhta.UnicodeBuild.Views;
+
 using Syncfusion.Data.Extensions;
 using Syncfusion.UI.Xaml.Grid;
 
@@ -61,16 +65,42 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
 
     int n = listOfPoints.Count();
 
-    var dialog = new NameGenOptionsDialog { CodePointsCount = n };
-    if (dialog.ShowDialog() != true)
-      //MessageBox.Show(String.Format(Resources.Strings.ApplyCharNamesGenerationConfirm, n), Resources.Strings.Confirm, MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
+    var dialog = new NameGenOptionsDialog { CodePointsCount = n, PredefinedNamesFile = PredefinedNamesFile ?? "" };
+    if (dialog.ShowDialog() == true)
+    //MessageBox.Show(String.Format(Resources.Strings.ApplyCharNamesGenerationConfirm, n), Resources.Strings.Confirm, MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
     {
-      //NameGenerator = new NameGenerator { PredefinedNameList = PredefinedNames };
-      BackgroundWorker.RunWorkerAsync(new ApplyCharNamesGenerationArgs(listOfPoints));
+      try
+      {
+        PredefinedNamesFile = dialog.PredefinedNamesFile;
+        LoadPredefinedNamesList(dialog.PredefinedNamesFile);
+        NameGenerator = new NameGenerator { PredefinedNameList = PredefinedNames };
+        BackgroundWorker.RunWorkerAsync(new ApplyCharNamesGenerationArgs(listOfPoints));
+      }
+      catch (Exception e)
+      {
+        MessageBox.Show(e.Message, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+      }
     }
   }
 
-  private NameGenerator NameGenerator;
+  private string? PredefinedNamesFile = "Resources/PredefinedNames.csv";
+  private Dictionary<CodePoint, string> PredefinedNames = new();
+  private NameGenerator NameGenerator = null!;
+
+  private void LoadPredefinedNamesList(string filename)
+  {
+    PredefinedNames = new();
+    var lines = File.ReadAllText(filename).Split(['\n']);
+    foreach (string line in lines)
+    {
+      string str = line.Trim();
+      if (string.IsNullOrEmpty(line)) continue;
+      var parts = line.Split(['\t', ';', ','], 2);
+      if (parts.Length < 2) continue;
+      if (!CodePoint.TryParse(parts[0], out var codePoint) || codePoint == null) continue;
+      PredefinedNames[codePoint] = parts[1].Trim();
+    }
+  }
 
   /// <inheritdoc/>
   protected override void BackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
@@ -110,7 +140,7 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
         {
           var newName = NameGenerator.GenerateShortName(codePoint);
           if (newName == null ||
-            oldName==newName)
+            oldName == newName)
             continue;
           codePoint.CharName = newName;
           GeneratedNamesCount++;

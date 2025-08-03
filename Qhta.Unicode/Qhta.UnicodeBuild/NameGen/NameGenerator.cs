@@ -65,16 +65,10 @@ public class NameGenerator
           return null;
         case NameGenMethod.Ordinal:
           return GetNameUsingOrdinalMethod(codePoint, ws);
-        case NameGenMethod.Predefined:
+        default:
           if (PredefinedNameList.TryGetValue(codePoint.CP, out var predefinedName))
-          {
             return predefinedName;
-          }
-          else
-          {
-            Debug.WriteLine($"GenerateShortName: No predefined name found for code point {codePoint.CP} in writing system {ws.Name}");
-            return null;
-          }
+          break;
       }
     }
     return null;

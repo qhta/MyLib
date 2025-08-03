@@ -234,6 +234,33 @@ public partial class _DbContext : DbContext, IDisposable
   public bool AutoSaveChanges = true;
 
   /// <summary>
+  /// Gets the count of entities that have been modified in the current change tracker.
+  /// </summary>
+  public int GetModifiedEntitiesCount()
+  {
+    return ChangeTracker.Entries()
+      .Count(entry => entry.State == EntityState.Modified);
+  }
+
+  /// <summary>
+  /// Gets the count of entities that have been added in the current change tracker.
+  /// </summary>
+  public int GetAddedEntitiesCount()
+  {
+    return ChangeTracker.Entries()
+      .Count(entry => entry.State == EntityState.Added);
+  }
+
+  /// <summary>
+  /// Gets the count of entities that have been deleted in the current change tracker.
+  /// </summary>
+  public int GetDeletedEntitiesCount()
+  {
+    return ChangeTracker.Entries()
+      .Count(entry => entry.State == EntityState.Deleted);
+  }
+
+  /// <summary>
   /// Disposes the context and saves changes if there are any unsaved changes.
   /// </summary>
   /// <param name="disposing"></param>

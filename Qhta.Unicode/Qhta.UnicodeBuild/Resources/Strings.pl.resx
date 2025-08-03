@@ -274,7 +274,7 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
     <value>Nie można usunąć systemu pisma, gdyż jest używany w innych encjach.</value>
   </data>
   <data name="ApplyCharNamesGenerationConfirm" xml:space="preserve">
-    <value>Czy na pewno chcesz generować nazwy znaków dla {0} punktów kodowych? Istniejące nazwy nie zostaną nadpisane.</value>
+    <value>Czy na pewno chcesz generować nazwy znaków dla {0} punktów kodowych? (Istniejące nazwy nie zostaną nadpisane.)</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Potwierdź</value>
@@ -295,7 +295,7 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
     <value>Zastosuj mapowanie bloków</value>
   </data>
   <data name="ApplyBlockMappingConfirm" xml:space="preserve">
-    <value>Czy na pewno chcesz zastosować mapowanie bloków na podstawie ich reguł? Jeśli tak, to wszystkie pola "blok" zostaną zaktualizowane.</value>
+    <value>Czy na pewno chcesz zastosować mapowanie bloków na podstawie ich reguł? (Jeśli tak, to wszystkie pola "blok" zostaną zaktualizowane.)</value>
   </data>
   <data name="ApplyBlockMappingTooltip" xml:space="preserve">
     <value>Zastosuj mapowanie punktów kodowych do bloków Unicode przez sprawdzenie zakresów bloków.</value>
@@ -331,7 +331,7 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
     <value>Zastosuj generowanie nazw znaków</value>
   </data>
   <data name="ApplyWritingSystemsRecognitionConfirm" xml:space="preserve">
-    <value>Czy na pewno chcesz rozpoznać systemy pisma dla {0} punktów kodowych? Istniejące odwzorowania nie zostaną nadpisane.</value>
+    <value>Czy na pewno chcesz rozpoznać systemy pisma dla {0} punktów kodowych? (Istniejące odwzorowania nie zostaną nadpisane.)</value>
   </data>
   <data name="ApplyCharNamesGenerationTooltip" xml:space="preserve">
     <value>Zastosuj generowanie nazw znaków dla punktów kodowych na podstawie mapowania do systemów pisma.</value>
@@ -343,7 +343,7 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
     <value>Zaznacz nieużywane systemy pisma</value>
   </data>
   <data name="MarkUnusedWritingSystemsTooltip" xml:space="preserve">
-    <value>Zaznacz system pisma, który nie jest używany przez żaden blok Unicode ani żaden punkt kodowy i nie ma żadnych dzieci.</value>
+    <value>Zaznacz systemy pisma, który nie są używane przez żaden blok Unicode ani żaden punkt kodowy i nie mają żadnych dzieci.</value>
   </data>
   <data name="NameGenOptions" xml:space="preserve">
     <value>Opcje generowania nazw</value>

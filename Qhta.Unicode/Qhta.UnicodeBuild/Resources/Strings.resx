@@ -124,7 +124,7 @@
     <value>Unicode Blocks</value>
   </data>
   <data name="UcdRanges" xml:space="preserve">
-    <value>s</value>
+    <value>Unicode ranges</value>
   </data>
   <data name="WritingSystems" xml:space="preserve">
     <value>Writing Systems</value>
@@ -274,7 +274,7 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
     <value>Cannot delete writing system as it is used in other entities.</value>
   </data>
   <data name="ApplyCharNamesGenerationConfirm" xml:space="preserve">
-    <value>Do you really want to generate char names for {0} code points? Existing names will not be overwritten.</value>
+    <value>Do you really want to generate char names for {0} code points? (Existing names will not be overwritten.)</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
@@ -295,7 +295,7 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
     <value>Apply block mapping</value>
   </data>
   <data name="ApplyBlockMappingConfirm" xml:space="preserve">
-    <value>Do you really want to apply block mapping from block ranges? All current "block" fields w be updated.</value>
+    <value>Do you really want to apply block mapping from block ranges? (All current "block" fields w be updated.)</value>
   </data>
   <data name="ApplyBlockMappingTooltip" xml:space="preserve">
     <value>Apply code point mapping to Unicode blocks by checking block ranges.</value>
@@ -331,7 +331,7 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
     <value>Apply char names generation</value>
   </data>
   <data name="ApplyWritingSystemsRecognitionConfirm" xml:space="preserve">
-    <value>Do you really want to recognize writing systems for {0} code points? Existing mapping will not be overwritten.</value>
+    <value>Do you really want to recognize writing systems for {0} code points? (Existing mapping will not be overwritten.)</value>
   </data>
   <data name="ApplyCharNamesGenerationTooltip" xml:space="preserve">
     <value>Apply code point char names generation based on writing systems mapping.</value>
@@ -343,7 +343,7 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
     <value>Mark unused writing system</value>
   </data>
   <data name="MarkUnusedWritingSystemsTooltip" xml:space="preserve">
-    <value>Select a writing system that is not used by any Unicode block or code point and has no children.</value>
+    <value>Select writing systems that are not used by any Unicode block or code point and has no children.</value>
   </data>
   <data name="NameGenOptions" xml:space="preserve">
     <value>Name generator options</value>

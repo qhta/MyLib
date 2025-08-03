@@ -106,7 +106,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you really want to apply block mapping from block ranges? All current &quot;block&quot; fields w be updated..
+        ///   Looks up a localized string similar to Do you really want to apply block mapping from block ranges? (All current &quot;block&quot; fields w be updated.).
         /// </summary>
         public static string ApplyBlockMappingConfirm {
             get {
@@ -142,7 +142,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you really want to generate char names for {0} code points? Existing names will not be overwritten..
+        ///   Looks up a localized string similar to Do you really want to generate char names for {0} code points? (Existing names will not be overwritten.).
         /// </summary>
         public static string ApplyCharNamesGenerationConfirm {
             get {
@@ -205,7 +205,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you really want to recognize writing systems for {0} code points? Existing mapping will not be overwritten..
+        ///   Looks up a localized string similar to Do you really want to recognize writing systems for {0} code points? (Existing mapping will not be overwritten.).
         /// </summary>
         public static string ApplyWritingSystemsRecognitionConfirm {
             get {
@@ -502,7 +502,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select a writing system that is not used by any Unicode block or code point and has no children..
+        ///   Looks up a localized string similar to Select writing systems that are not used by any Unicode block or code point and has no children..
         /// </summary>
         public static string MarkUnusedWritingSystemsTooltip {
             get {
@@ -701,7 +701,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to s.
+        ///   Looks up a localized string similar to Unicode ranges.
         /// </summary>
         public static string UcdRanges {
             get {

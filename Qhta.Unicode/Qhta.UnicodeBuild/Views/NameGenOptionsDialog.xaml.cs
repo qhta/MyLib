@@ -36,8 +36,8 @@ public partial class NameGenOptionsDialog : Window
   /// Dependency property for the <see cref="PredefinedNamesFile"/> property.
   /// </summary>
   public static DependencyProperty PredefinedNamesFileProperty =
-    DependencyProperty.Register(nameof(PredefinedNamesFile), typeof(int), typeof(NameGenOptionsDialog),
-      new FrameworkPropertyMetadata(0));
+    DependencyProperty.Register(nameof(PredefinedNamesFile), typeof(string), typeof(NameGenOptionsDialog),
+      new FrameworkPropertyMetadata(null));
 
   /// <summary>
   /// Code points count property to display in the dialog.
@@ -59,5 +59,22 @@ public partial class NameGenOptionsDialog : Window
       FileName = PredefinedNamesFile,
       Multiselect = false
     };
+
+    if (openFileDialog.ShowDialog() == true)
+    {
+      PredefinedNamesFile = openFileDialog.FileName;
+    }
+  }
+
+  private void OkButton_OnClick(object sender, RoutedEventArgs e)
+  {
+    DialogResult = true;
+    Close();
+  }
+
+  private void CancelButton_OnClick(object sender, RoutedEventArgs e)
+  {
+    DialogResult = false;
+    Close();
   }
 }
