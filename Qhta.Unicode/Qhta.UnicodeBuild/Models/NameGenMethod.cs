@@ -6,7 +6,8 @@
 public enum NameGenMethod: byte
 {
   /// <summary>
-  /// Name are not generated.
+  /// Name is not generated for this writing system.
+  /// However, if the code point has other writing systems assigned, they are used to generate names.
   /// </summary>
   NoGeneration = 0,
   /// <summary>
@@ -18,11 +19,15 @@ public enum NameGenMethod: byte
   /// </summary>
   Ordinal = 2,
   /// <summary>
-  /// Names are generated using an abbreviation method, where names are shortened or abbreviated forms of longer names.
+  /// Names are generated using an abbreviating method, where names are shortened or abbreviated forms of longer names.
   /// </summary>
-  Abbreviation = 3,
+  Abbreviating = 3,
   /// <summary>
   /// Names are generated using a method, which produces macros to process content.
   /// </summary>
   Procedural = 4,
+  ///// <summary>
+  ///// Numeric words are converted to numbers.
+  ///// </summary>
+  //Numeric = 5,
 }

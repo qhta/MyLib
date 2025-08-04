@@ -191,7 +191,7 @@
     "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.2.4\\ToolboxNuGetPackages": {}
   },
   "project": {
-    "version": "3.7.0",
+    "version": "3.8.0",
     "restore": {
       "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TextUtils\\Qhta.TextUtils.csproj",
       "projectName": "Qhta.TextUtils",

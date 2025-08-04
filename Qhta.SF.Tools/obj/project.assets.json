@@ -172,7 +172,7 @@
           }
         }
       },
-      "Qhta.TextUtils/3.7.0": {
+      "Qhta.TextUtils/3.8.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/Qhta.TextUtils.dll": {
@@ -1767,10 +1767,10 @@
         "readme.md"
       ]
     },
-    "Qhta.TextUtils/3.7.0": {
-      "sha512": "LMHa5qXhtItne3IPyALKVo9ny22Rax4G+qW7wnztdn4whQmZN8bYcaH1u6JbJm1xeRmy8cqaHJ9+z4/BaMh6Xg==",
+    "Qhta.TextUtils/3.8.0": {
+      "sha512": "BW8TkXbdrXOV5XtkFmMs3pzpEhzRHrEIsKGNWXUFqD/vY4yjxjsthUIK2Ls4GW66bjUwl0PbdxIO9v4l90Lrrw==",
       "type": "package",
-      "path": "qhta.textutils/3.7.0",
+      "path": "qhta.textutils/3.8.0",
       "files": [
         ".nupkg.metadata",
         "lib/net6.0/Qhta.TextUtils.dll",
@@ -1781,7 +1781,7 @@
         "lib/net8.0/Qhta.TextUtils.xml",
         "lib/netstandard2.0/Qhta.TextUtils.dll",
         "lib/netstandard2.0/Qhta.TextUtils.xml",
-        "qhta.textutils.3.7.0.nupkg.sha512",
+        "qhta.textutils.3.8.0.nupkg.sha512",
         "qhta.textutils.nuspec",
         "readme.md"
       ]
@@ -4695,7 +4695,7 @@
     "net8.0-windows7.0": [
       "Microsoft.Xaml.Behaviors.Wpf >= 1.1.135",
       "Qhta.MVVM >= 4.14.0",
-      "Qhta.TextUtils >= 3.7.0",
+      "Qhta.TextUtils >= 3.8.0",
       "Qhta.TypeUtils >= 1.4.0",
       "Qhta.UndoManager >= 1.0.0",
       "Qhta.WPF.Utils >= 3.5.0",
@@ -4775,7 +4775,7 @@
           },
           "Qhta.TextUtils": {
             "target": "Package",
-            "version": "[3.7.0, )"
+            "version": "[3.8.0, )"
           },
           "Qhta.TypeUtils": {
             "target": "Package",

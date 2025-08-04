@@ -1,12 +1,13 @@
-﻿<Window x:Class="Qhta.UnicodeBuild.Views.NameGenOptionsDialog"
+﻿<Window x:Class="Qhta.UnicodeBuild.NameGen.NameGenOptionsDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
+        xmlns:local="clr-namespace:Qhta.UnicodeBuild.NameGen"
         mc:Ignorable="d"
         Title="{x:Static resources:Strings.NameGenOptions}" Height="200" Width="500"
-        DataContext="{Binding RelativeSource= {RelativeSource Self}}">
+        d:DataContext="{d:DesignInstance Type=local:NameGenOptions, IsDesignTimeCreatable=True}">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -25,26 +26,58 @@
       </TextBlock.Text>
     </TextBlock>
     <Grid Grid.Row="1">
-       <Grid.ColumnDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="Auto"/>
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
-      <Label Grid.Row="0" Grid.Column="0" Content="{x:Static resources:Strings.PredefinedNamesFile}"/>
-      <TextBox Grid.Row="0" Grid.Column="1" 
+      <Label Grid.Row="0" Grid.Column="1" Content="{x:Static resources:Strings.PredefinedNamesFile}"/>
+      <TextBox Grid.Row="0" Grid.Column="2" 
                Text="{Binding PredefinedNamesFile, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                Margin="5,0,0,0"
                VerticalAlignment="Center"/>
-      <Button Grid.Row="0" Grid.Column="2"
-              x:Name="BrowsePredefinedNameFile"
+      <Button Grid.Row="0" Grid.Column="3"
+              x:Name="BrowsePredefinedNamesFile"
               Width="18"
               Height="18"
               Content="..."
-              Click="BrowsePredefinedNameFile_OnClick"
+              Click="BrowsePredefinedNamesFile_OnClick"
+              />
+      <Label Grid.Row="1" Grid.Column="1" Content="{x:Static resources:Strings.AbbreviatedWordsFile}"/>
+      <TextBox Grid.Row="1" Grid.Column="2" 
+               Text="{Binding AbbreviatedWordsFile, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+               Margin="5,0,0,0"
+               VerticalAlignment="Center"/>
+      <Button Grid.Row="1" Grid.Column="3"
+              x:Name="BrowseAbbreviatedWordsFile"
+              Width="18"
+              Height="18"
+              Content="..."
+              Click="BrowseAbbreviatedWordsFile_OnClick"
+              />
+      <CheckBox Grid.Row="2" Grid.Column="0" 
+                Margin="3"
+                VerticalAlignment="Center"
+                IsChecked="{Binding UseKnownNumerals}"/>
+      <Label Grid.Row="2" Grid.Column="1" Content="{x:Static resources:Strings.KnownNumeralsFile}"
+             ToolTip="{x:Static resources:Strings.KnownNumeralsFileTooltip}"/>
+      <TextBox Grid.Row="2" Grid.Column="2" 
+               Text="{Binding KnownNumeralsFile, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+               Margin="5,0,0,0"
+               VerticalAlignment="Center"/>
+      <Button Grid.Row="2" Grid.Column="3"
+              x:Name="BrowseKnownNumeralsFile"
+              Width="18"
+              Height="18"
+              Content="..."
+              Click="BrowseAbbreviatedWordsFile_OnClick"
               />
     </Grid>
     <StackPanel Grid.Row="2" 

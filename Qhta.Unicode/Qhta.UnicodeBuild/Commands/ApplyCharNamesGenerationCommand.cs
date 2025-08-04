@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 
 using Qhta.SF.Tools;
+using Qhta.TypeUtils;
 using Qhta.UndoManager;
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.NameGen;
@@ -30,7 +31,6 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
     if (parameter is not SfDataGrid dataGrid)
     {
       throw new ArgumentException("Argument must be of type SfDataGrid.", nameof(parameter));
-      return false;
     }
     if (!dataGrid.GetSelectedRowsAndColumns(out bool allColumnsSelected, out var selectedColumns, out bool allRowsSelected, out var selectedRows).Any()
         && !allRowsSelected && !selectedRows.Any())
@@ -65,15 +65,23 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
 
     int n = listOfPoints.Count();
 
-    var dialog = new NameGenOptionsDialog { CodePointsCount = n, PredefinedNamesFile = PredefinedNamesFile ?? "" };
+    var dialog = new NameGenOptionsDialog { NameGenOptions = NameGenOptions };
     if (dialog.ShowDialog() == true)
     //MessageBox.Show(String.Format(Resources.Strings.ApplyCharNamesGenerationConfirm, n), Resources.Strings.Confirm, MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
     {
       try
       {
-        PredefinedNamesFile = dialog.PredefinedNamesFile;
-        LoadPredefinedNamesList(dialog.PredefinedNamesFile);
-        NameGenerator = new NameGenerator { PredefinedNameList = PredefinedNames };
+        NameGenOptions = dialog.NameGenOptions;
+        LoadPredefinedNames(NameGenOptions.PredefinedNamesFile);
+        LoadAbbreviatedWords(NameGenOptions.AbbreviatedWordsFile);
+        HashSet<string> allNames = new(_ViewModels.Instance.UcdCodePoints.Where(item => String.IsNullOrEmpty(item.CharName)).Select(item => item.CharName!));
+        NameGenerator = new NameGenerator { PredefinedNames = PredefinedNames, AbbreviatedWords = AbbreviatedWords, AllNames = allNames};
+        if (NameGenOptions.UseKnownNumerals)
+        {
+          LoadKnownNumerals(NameGenOptions.KnownNumeralsFile);
+          NameGenerator.KnownNumerals = KnownNumerals;
+        }
+
         BackgroundWorker.RunWorkerAsync(new ApplyCharNamesGenerationArgs(listOfPoints));
       }
       catch (Exception e)
@@ -83,11 +91,20 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
     }
   }
 
-  private string? PredefinedNamesFile = "Resources/PredefinedNames.csv";
+  private NameGenOptions NameGenOptions = new NameGenOptions
+  {
+    PredefinedNamesFile = "Resources/PredefinedNames.csv",
+    AbbreviatedWordsFile = "Resources/AbbreviatedWords.csv",
+    KnownNumeralsFile = "Resources/KnownNumerals.csv",
+  };
+
   private Dictionary<CodePoint, string> PredefinedNames = new();
+  private Dictionary<string, string> AbbreviatedWords = new();
+  private Dictionary<string, string> KnownNumerals = new();
+
   private NameGenerator NameGenerator = null!;
 
-  private void LoadPredefinedNamesList(string filename)
+  private void LoadPredefinedNames(string filename)
   {
     PredefinedNames = new();
     var lines = File.ReadAllText(filename).Split(['\n']);
@@ -99,6 +116,34 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
       if (parts.Length < 2) continue;
       if (!CodePoint.TryParse(parts[0], out var codePoint) || codePoint == null) continue;
       PredefinedNames[codePoint] = parts[1].Trim();
+    }
+  }
+
+  private void LoadAbbreviatedWords(string filename)
+  {
+    AbbreviatedWords = new();
+    var lines = File.ReadAllText(filename).Split(['\n']);
+    foreach (string line in lines)
+    {
+      string str = line.Trim();
+      if (string.IsNullOrEmpty(line)) continue;
+      var parts = line.Split(['\t', ';', ','], 2);
+      if (parts.Length < 2) continue;
+      AbbreviatedWords[parts[0].Trim()] = parts[1].Trim();
+    }
+  }
+
+  private void LoadKnownNumerals(string filename)
+  {
+    KnownNumerals = new();
+    var lines = File.ReadAllText(filename).Split(['\n']);
+    foreach (string line in lines)
+    {
+      string str = line.Trim();
+      if (string.IsNullOrEmpty(line)) continue;
+      var parts = line.Split(['\t', ';', ','], 2);
+      if (parts.Length < 2) continue;
+      KnownNumerals[parts[0].Trim()] = parts[1].Trim();
     }
   }
 

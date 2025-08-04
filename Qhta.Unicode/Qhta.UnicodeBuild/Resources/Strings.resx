@@ -351,10 +351,31 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="PredefinedNamesFile" xml:space="preserve">
     <value>Predefined names file</value>
   </data>
-  <data name="SelectPrefefinedNamesFile" xml:space="preserve">
-    <value>Select predefined names file</value>
+  <data name="PredefinedNamesFileSelection" xml:space="preserve">
+    <value>Select file with predefined names</value>
+  </data>
+  <data name="CsvFilesFilter" xml:space="preserve">
+    <value>CSV Files (*.csv)|*.csv|Text Files (*.txt)|*.txt|All Files (*.*)|*.*</value>
+  </data>
+  <data name="AbbreviatedWordsFile" xml:space="preserve">
+    <value>Abbreviated words file</value>
+  </data>
+  <data name="AbbreviatedWordsFileSelection" xml:space="preserve">
+    <value>Select file with abbreviated words</value>
   </data>
   <data name="TextFilesFilter" xml:space="preserve">
     <value>Text Files (*.txt)|*.txt|All Files (*.*)|*.*</value>
+  </data>
+  <data name="Numeric" xml:space="preserve">
+    <value>Numeric words are converted to numbers</value>
+  </data>
+  <data name="KnownNumeralsFile" xml:space="preserve">
+    <value>Known numerals file</value>
+  </data>
+  <data name="KnownNumeralsFileTooltip" xml:space="preserve">
+    <value>File with known numerals contains two-column mapping. First column contains words or multiword phrases. Second column contains their values.</value>
+  </data>
+  <data name="KnownNumeralsFileSelection" xml:space="preserve">
+    <value>Select file with known numerals</value>
   </data>
 </root>

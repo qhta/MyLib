@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Abbreviation" xml:space="preserve">
+  <data name="Abbreviating" xml:space="preserve">
     <value>Skracanie</value>
   </data>
-  <data name="AbbreviationTooltip" xml:space="preserve">
+  <data name="AbbreviatingTooltip" xml:space="preserve">
     <value>Nazwy są generowane przez skrócenie opisu znaku. Możesz podać ścieżkę do pliku, w którym określisz skróty dla poszczególnych wyrazów. Pierwsza kolumna pliku powinna zawierać pełne formy wyrazów, druga skrócone formy. Jeśli wyraz nie ma skróconej formy, to zostanie z niego tylko pierwsza litera. Jeśli w wyniku zostanie wygenerowana nazwa już istniejąca w danym systemie, to do niej zostanie dodana niepowtarzalna liczba całkowita.</value>
   </data>
   <data name="NoGeneration" xml:space="preserve">

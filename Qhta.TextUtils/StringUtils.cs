@@ -458,10 +458,24 @@ public static class StringUtils
       var patternPos = key.IndexOf(pattern, stringComparison);
       if (patternPos >= 0)
       {
+        if (patternPos==0 && key.Length == pattern.Length)
+        {
+          wildKey = null;
+          return true;
+        }
+        if (patternPos == 0 && key.Length > pattern.Length)
+        {
+          wildKey = key.Substring(pattern.Length); 
+          return true;
+        }
+        if (patternPos + pattern.Length == key.Length)
+        {
+          wildKey = key.Substring(0, patternPos);
+          return true;
+        }
         var wKeys = new string[2];
         wKeys[0] = key.Substring(0, patternPos);
-        wKeys[1] = key.Substring(patternPos);
-        wKeys[1] = wKeys[1].Substring(0, wKeys[1].Length - pattern.Length);
+        wKeys[1] = key.Substring(patternPos+ pattern.Length);
         wildKey = String.Join("*", wKeys);
         return true;
       }

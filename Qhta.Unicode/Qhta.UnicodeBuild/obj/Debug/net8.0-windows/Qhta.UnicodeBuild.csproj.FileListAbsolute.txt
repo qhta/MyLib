@@ -229,6 +229,8 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-wi
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.pl.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.NameGenMethodStrings.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Qhta.UnicodeBuild.Resources.NameGenMethodStrings.pl.resources
-D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Views\NameGenOptionsDialog.g.cs
-D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\Views\NameGenOptionsDialog.baml
 D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\Resources\PredefinedNames.csv
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\Resources\AbbreviatedWords.csv
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\NameGen\NameGenOptionsDialog.g.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\obj\Debug\net8.0-windows\NameGen\NameGenOptionsDialog.baml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\bin\Debug\net8.0-windows\Resources\KnownNumerals.csv

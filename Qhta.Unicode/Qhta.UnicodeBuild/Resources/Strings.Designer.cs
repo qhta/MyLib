@@ -61,6 +61,24 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Abbreviated words file.
+        /// </summary>
+        public static string AbbreviatedWordsFile {
+            get {
+                return ResourceManager.GetString("AbbreviatedWordsFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select file with abbreviated words.
+        /// </summary>
+        public static string AbbreviatedWordsFileSelection {
+            get {
+                return ResourceManager.GetString("AbbreviatedWordsFileSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string About {
@@ -313,6 +331,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CSV Files (*.csv)|*.csv|Text Files (*.txt)|*.txt|All Files (*.*)|*.*.
+        /// </summary>
+        public static string CsvFilesFilter {
+            get {
+                return ResourceManager.GetString("CsvFilesFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cut.
         /// </summary>
         public static string Cut {
@@ -484,6 +511,33 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Known numerals file.
+        /// </summary>
+        public static string KnownNumeralsFile {
+            get {
+                return ResourceManager.GetString("KnownNumeralsFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select file with known numerals.
+        /// </summary>
+        public static string KnownNumeralsFileSelection {
+            get {
+                return ResourceManager.GetString("KnownNumeralsFileSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File with known numerals contains two-column mapping. First column contains words or multiword phrases. Second column contains their values..
+        /// </summary>
+        public static string KnownNumeralsFileTooltip {
+            get {
+                return ResourceManager.GetString("KnownNumeralsFileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading {0}.
         /// </summary>
         public static string Loading {
@@ -556,6 +610,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Numeric words are converted to numbers.
+        /// </summary>
+        public static string Numeric {
+            get {
+                return ResourceManager.GetString("Numeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string OK {
@@ -601,6 +664,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select file with predefined names.
+        /// </summary>
+        public static string PredefinedNamesFileSelection {
+            get {
+                return ResourceManager.GetString("PredefinedNamesFileSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Properties.
         /// </summary>
         public static string Properties {
@@ -624,15 +696,6 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string SaveData {
             get {
                 return ResourceManager.GetString("SaveData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select predefined names file.
-        /// </summary>
-        public static string SelectPrefefinedNamesFile {
-            get {
-                return ResourceManager.GetString("SelectPrefefinedNamesFile", resourceCulture);
             }
         }
         
