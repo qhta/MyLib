@@ -37,7 +37,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Id;
-    set => ChangeModelProperty(nameof(Id), value);
+    set => ChangeThisProperty(nameof(Id), value);
   }
 
   /// <summary>
@@ -51,7 +51,7 @@ public class WritingSystemViewModel(WritingSystem model)
     get => Model.Name;
     set
     {
-      if (ChangeModelProperty(nameof(Name), value))
+      if (ChangeThisProperty(nameof(Name), value))
       {
         NotifyPropertyChanged(nameof(FullName));
         NotifyPropertyChanged(nameof(Tooltip));
@@ -75,7 +75,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Type;
-    set => ChangeModelProperty(nameof(Type), value);
+    set => ChangeThisProperty(nameof(Type), value);
   }
 
   /// <summary>
@@ -85,7 +85,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Kind;
-    set => ChangeModelProperty(nameof(Kind), value);
+    set => ChangeThisProperty(nameof(Kind), value);
   }
 
   /// <summary>
@@ -95,7 +95,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.NameGenMethod;
-    set => ChangeModelProperty(nameof(NameGenMethod), value);
+    set => ChangeThisProperty(nameof(NameGenMethod), value);
   }
 
   /// <summary>
@@ -105,7 +105,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.NameGenFile;
-    set => ChangeModelProperty(nameof(NameGenFile), value);
+    set => ChangeThisProperty(nameof(NameGenFile), value);
   }
 
   /// <summary>
@@ -115,7 +115,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.ParentId;
-    set => ChangeModelProperty(nameof(ParentId), value);
+    set => ChangeThisProperty(nameof(ParentId), value);
   }
 
   /// <summary>
@@ -125,7 +125,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.KeyPhrase;
-    set => ChangeModelProperty(nameof(KeyPhrase), value);
+    set => ChangeThisProperty(nameof(KeyPhrase), value);
   }
 
   /// <summary>
@@ -135,7 +135,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Ctg;
-    set => ChangeModelProperty(nameof(Ctg), value);
+    set => ChangeThisProperty(nameof(Ctg), value);
   }
 
   /// <summary>
@@ -145,7 +145,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Iso;
-    set => ChangeModelProperty(nameof(Iso), value);
+    set => ChangeThisProperty(nameof(Iso), value);
   }
 
   /// <summary>
@@ -155,7 +155,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Abbr;
-    set => ChangeModelProperty(nameof(Abbr), value);
+    set => ChangeThisProperty(nameof(Abbr), value);
   }
 
   /// <summary>
@@ -165,7 +165,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Ext;
-    set => ChangeModelProperty(nameof(Ext), value);
+    set => ChangeThisProperty(nameof(Ext), value);
   }
 
   /// <summary>
@@ -177,7 +177,7 @@ public class WritingSystemViewModel(WritingSystem model)
     [DebuggerStepThrough]
     get => Model.Description;
     set {  
-      if (ChangeModelProperty(nameof(Description), value)) NotifyPropertyChanged(nameof(Tooltip)); 
+      if (ChangeThisProperty(nameof(Description), value)) NotifyPropertyChanged(nameof(Tooltip)); 
     }
   }
 

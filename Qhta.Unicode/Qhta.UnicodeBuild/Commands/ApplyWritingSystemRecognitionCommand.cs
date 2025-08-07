@@ -97,7 +97,7 @@ public class ApplyWritingSystemRecognitionCommand : TimeConsumingCommand
       RecognizedWritingSystemsCount = 0;
       var i = 0;
       _ViewModels.Instance.UcdCodePoints.StatusMessage =
-        String.Format(Resources.Strings.Updating, Resources.UcdCodePointStrings.WritingSystem);
+        String.Format(Resources.Strings.UpdatingField, Resources.UcdCodePointStrings.WritingSystem);
       UndoMgr.StartGrouping();
       foreach (var codePoint in listOfPoints)
       {

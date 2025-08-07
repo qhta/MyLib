@@ -216,9 +216,7 @@ public partial class UcdCodePointsView : UserControl, IRoutedCommandHandler
   /// <param name="e"></param>
   public void OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
   {
-    Debug.WriteLine($"UcdCodePointsView.CommandBinding_OnCanExecute({(e.Command as RoutedUICommand)?.Text ?? e.Command.ToString()})");
     _Commander.OnCanExecute(sender, e);
-    Debug.WriteLine($"UcdCodePointsView.CommandBinding_OnCanExecute({(e.Command as RoutedUICommand)?.Text ?? e.Command.ToString()})={e.CanExecute}");
   }
 
   /// <summary>

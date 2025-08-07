@@ -40,7 +40,7 @@ public class ApplyBlockMappingCommand : TimeConsumingCommand
     _ViewModels.Instance.UcdCodePoints.BreakCommand = BreakCommand;
     var n = _ViewModels.Instance.UcdBlocks.Count;
     var i = 0;
-    _ViewModels.Instance.UcdCodePoints.StatusMessage = String.Format(Resources.Strings.Updating, Resources.UcdCodePointStrings.UcdBlock);
+    _ViewModels.Instance.UcdCodePoints.StatusMessage = String.Format(Resources.Strings.UpdatingField, Resources.UcdCodePointStrings.UcdBlock);
     foreach (var block in _ViewModels.Instance.UcdBlocks)
     {
       i++;

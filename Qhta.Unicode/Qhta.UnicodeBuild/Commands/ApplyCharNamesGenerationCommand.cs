@@ -8,7 +8,7 @@ using Qhta.TypeUtils;
 using Qhta.UndoManager;
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.NameGen;
-using Qhta.UnicodeBuild.Resources;
+using Strings = Qhta.UnicodeBuild.Resources.Strings;
 using Qhta.UnicodeBuild.ViewModels;
 using Qhta.UnicodeBuild.Views;
 
@@ -74,13 +74,12 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
         NameGenOptions = dialog.NameGenOptions;
         LoadPredefinedNames(NameGenOptions.PredefinedNamesFile);
         LoadAbbreviatedWords(NameGenOptions.AbbreviatedWordsFile);
-        HashSet<string> allNames = new(_ViewModels.Instance.UcdCodePoints.Where(item => String.IsNullOrEmpty(item.CharName)).Select(item => item.CharName!));
-        NameGenerator = new NameGenerator { PredefinedNames = PredefinedNames, AbbreviatedWords = AbbreviatedWords, AllNames = allNames};
-        if (NameGenOptions.UseKnownNumerals)
+        HashSet<string> allNames = new(_ViewModels.Instance.UcdCodePoints.Where(item => !String.IsNullOrEmpty(item.CharName)).Select(item => item.CharName!));
+        NameGenerator = new NameGenerator
         {
-          LoadKnownNumerals(NameGenOptions.KnownNumeralsFile);
-          NameGenerator.KnownNumerals = KnownNumerals;
-        }
+          PredefinedNames = PredefinedNames,
+          AbbreviatedWords = AbbreviatedWords,
+        };
 
         BackgroundWorker.RunWorkerAsync(new ApplyCharNamesGenerationArgs(listOfPoints));
       }
@@ -95,12 +94,10 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
   {
     PredefinedNamesFile = "Resources/PredefinedNames.csv",
     AbbreviatedWordsFile = "Resources/AbbreviatedWords.csv",
-    KnownNumeralsFile = "Resources/KnownNumerals.csv",
   };
 
   private Dictionary<CodePoint, string> PredefinedNames = new();
   private Dictionary<string, string> AbbreviatedWords = new();
-  private Dictionary<string, string> KnownNumerals = new();
 
   private NameGenerator NameGenerator = null!;
 
@@ -128,22 +125,19 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
       string str = line.Trim();
       if (string.IsNullOrEmpty(line)) continue;
       var parts = line.Split(['\t', ';', ','], 2);
-      if (parts.Length < 2) continue;
-      AbbreviatedWords[parts[0].Trim()] = parts[1].Trim();
-    }
-  }
-
-  private void LoadKnownNumerals(string filename)
-  {
-    KnownNumerals = new();
-    var lines = File.ReadAllText(filename).Split(['\n']);
-    foreach (string line in lines)
-    {
-      string str = line.Trim();
-      if (string.IsNullOrEmpty(line)) continue;
-      var parts = line.Split(['\t', ';', ','], 2);
-      if (parts.Length < 2) continue;
-      KnownNumerals[parts[0].Trim()] = parts[1].Trim();
+      if (parts.Length < 2)
+      {
+        Debug.WriteLine($"Invalid line in abbreviated words file: {line}");
+        continue;
+      }
+      var key = parts[0].Trim();
+      var value = parts[1].Trim();
+      if (value == "<null>")
+        value = string.Empty;
+      if (!AbbreviatedWords.TryAdd(key, value))
+      {
+        Debug.WriteLine($"Duplicate key in abbreviated words file: {key}");
+      }
     }
   }
 
@@ -166,7 +160,7 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
       GeneratedNamesCount = 0;
       var i = 0;
       _ViewModels.Instance.UcdCodePoints.StatusMessage =
-        String.Format(Resources.Strings.Updating, Resources.UcdCodePointStrings.WritingSystem);
+        String.Format(Resources.Strings.UpdatingField, Resources.UcdCodePointStrings.Name);
       UndoMgr.StartGrouping();
       foreach (var codePoint in listOfPoints)
       {

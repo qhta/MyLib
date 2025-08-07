@@ -9,7 +9,7 @@ using Qhta.UndoManager;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Commands;
 using Qhta.UnicodeBuild.Helpers;
-using Qhta.UnicodeBuild.Resources;
+using Strings = Qhta.UnicodeBuild.Resources.Strings;
 using Qhta.UnicodeBuild.ViewModels;
 
 using Syncfusion.Data;

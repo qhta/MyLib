@@ -207,8 +207,8 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="Loading" xml:space="preserve">
     <value>Loading {0}</value>
   </data>
-  <data name="Updating" xml:space="preserve">
-    <value>Updating {0}</value>
+  <data name="UpdatingField" xml:space="preserve">
+    <value>Updating field {0}</value>
   </data>
   <data name="WritingSystemNotFound" xml:space="preserve">
     <value>Writing System {0} not found</value>
@@ -367,7 +367,7 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
     <value>Text Files (*.txt)|*.txt|All Files (*.*)|*.*</value>
   </data>
   <data name="Numeric" xml:space="preserve">
-    <value>Numeric words are converted to numbers</value>
+    <value>Numeric words are converted to numbers.</value>
   </data>
   <data name="KnownNumeralsFile" xml:space="preserve">
     <value>Known numerals file</value>
@@ -377,5 +377,20 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   </data>
   <data name="KnownNumeralsFileSelection" xml:space="preserve">
     <value>Select file with known numerals</value>
+  </data>
+  <data name="AbbreviatedWordsFileTooltip" xml:space="preserve">
+    <value>File with abbreviated words contains two-column mapping. First column contains words or multiword phrases. Second column contains their abbreviations.</value>
+  </data>
+  <data name="PredefinedNamesFileTooltip" xml:space="preserve">
+    <value>File with predefined names contains two-column mapping. First column contains code points in hexadecimal form. Second column contains their predefined names (without '\').</value>
+  </data>
+  <data name="RemovableWordsFile" xml:space="preserve">
+    <value>Removable words file</value>
+  </data>
+  <data name="RemovableWordsFileSelection" xml:space="preserve">
+    <value>Select file with removable words</value>
+  </data>
+  <data name="RemovableWordsFileTooltip" xml:space="preserve">
+    <value>File with removable words contains two-column mapping. First column contains words or multiword phrases. Second column contains their numeric weights. Weight 0 means that a word is always removed. 1 that word is removed if it does is not a part of other known phrase.</value>
   </data>
 </root>

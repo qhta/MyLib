@@ -79,6 +79,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File with abbreviated words contains two-column mapping. First column contains words or multiword phrases. Second column contains their abbreviations..
+        /// </summary>
+        public static string AbbreviatedWordsFileTooltip {
+            get {
+                return ResourceManager.GetString("AbbreviatedWordsFileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string About {
@@ -610,7 +619,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Numeric words are converted to numbers.
+        ///   Looks up a localized string similar to Numeric words are converted to numbers..
         /// </summary>
         public static string Numeric {
             get {
@@ -673,11 +682,47 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File with predefined names contains two-column mapping. First column contains code points in hexadecimal form. Second column contains their predefined names (without &apos;\&apos;)..
+        /// </summary>
+        public static string PredefinedNamesFileTooltip {
+            get {
+                return ResourceManager.GetString("PredefinedNamesFileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Properties.
         /// </summary>
         public static string Properties {
             get {
                 return ResourceManager.GetString("Properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removable words file.
+        /// </summary>
+        public static string RemovableWordsFile {
+            get {
+                return ResourceManager.GetString("RemovableWordsFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select file with removable words.
+        /// </summary>
+        public static string RemovableWordsFileSelection {
+            get {
+                return ResourceManager.GetString("RemovableWordsFileSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File with removable words contains two-column mapping. First column contains words or multiword phrases. Second column contains their numeric weights. Weight 0 means that a word is always removed. 1 that word is removed if it does is not a part of other known phrase..
+        /// </summary>
+        public static string RemovableWordsFileTooltip {
+            get {
+                return ResourceManager.GetString("RemovableWordsFileTooltip", resourceCulture);
             }
         }
         
@@ -793,11 +838,11 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating {0}.
+        ///   Looks up a localized string similar to Updating field {0}.
         /// </summary>
-        public static string Updating {
+        public static string UpdatingField {
             get {
-                return ResourceManager.GetString("Updating", resourceCulture);
+                return ResourceManager.GetString("UpdatingField", resourceCulture);
             }
         }
         

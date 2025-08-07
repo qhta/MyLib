@@ -398,7 +398,7 @@
             </sf:GridComboBoxColumn.ItemTemplate>
           </sf:GridComboBoxColumn>
 
-          <sf:GridTemplateColumn
+          <!--<sf:GridTemplateColumn
             HeaderText="NameGenFile"
             MappingName="NameGenFile"
             VerticalAlignment="Top"
@@ -425,7 +425,7 @@
                 </Grid>
               </DataTemplate>
             </sf:GridTemplateColumn.CellTemplate>
-          </sf:GridTemplateColumn>
+          </sf:GridTemplateColumn>-->
 
         </sf:SfDataGrid.Columns>
       </sf:SfDataGrid>

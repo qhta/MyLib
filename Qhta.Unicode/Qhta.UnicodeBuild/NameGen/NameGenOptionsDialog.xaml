@@ -6,7 +6,7 @@
         xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
         xmlns:local="clr-namespace:Qhta.UnicodeBuild.NameGen"
         mc:Ignorable="d"
-        Title="{x:Static resources:Strings.NameGenOptions}" Height="200" Width="500"
+        Title="{x:Static resources:Strings.NameGenOptions}" Height="162" Width="500"
         d:DataContext="{d:DesignInstance Type=local:NameGenOptions, IsDesignTimeCreatable=True}">
   <Grid>
     <Grid.RowDefinitions>
@@ -25,7 +25,7 @@
         </MultiBinding>
       </TextBlock.Text>
     </TextBlock>
-    <Grid Grid.Row="1">
+    <Grid Grid.Row="1" Margin="10,0">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="Auto"/>
@@ -38,7 +38,9 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
-      <Label Grid.Row="0" Grid.Column="1" Content="{x:Static resources:Strings.PredefinedNamesFile}"/>
+      <Label Grid.Row="0" Grid.Column="1" 
+             Content="{x:Static resources:Strings.PredefinedNamesFile}"
+             ToolTip="{x:Static resources:Strings.PredefinedNamesFileTooltip}"/>
       <TextBox Grid.Row="0" Grid.Column="2" 
                Text="{Binding PredefinedNamesFile, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                Margin="5,0,0,0"
@@ -50,30 +52,15 @@
               Content="..."
               Click="BrowsePredefinedNamesFile_OnClick"
               />
-      <Label Grid.Row="1" Grid.Column="1" Content="{x:Static resources:Strings.AbbreviatedWordsFile}"/>
+      <Label Grid.Row="1" Grid.Column="1" 
+             Content="{x:Static resources:Strings.AbbreviatedWordsFile}"
+             ToolTip="{x:Static resources:Strings.AbbreviatedWordsFileTooltip}"/>
       <TextBox Grid.Row="1" Grid.Column="2" 
                Text="{Binding AbbreviatedWordsFile, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                Margin="5,0,0,0"
                VerticalAlignment="Center"/>
       <Button Grid.Row="1" Grid.Column="3"
               x:Name="BrowseAbbreviatedWordsFile"
-              Width="18"
-              Height="18"
-              Content="..."
-              Click="BrowseAbbreviatedWordsFile_OnClick"
-              />
-      <CheckBox Grid.Row="2" Grid.Column="0" 
-                Margin="3"
-                VerticalAlignment="Center"
-                IsChecked="{Binding UseKnownNumerals}"/>
-      <Label Grid.Row="2" Grid.Column="1" Content="{x:Static resources:Strings.KnownNumeralsFile}"
-             ToolTip="{x:Static resources:Strings.KnownNumeralsFileTooltip}"/>
-      <TextBox Grid.Row="2" Grid.Column="2" 
-               Text="{Binding KnownNumeralsFile, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-               Margin="5,0,0,0"
-               VerticalAlignment="Center"/>
-      <Button Grid.Row="2" Grid.Column="3"
-              x:Name="BrowseKnownNumeralsFile"
               Width="18"
               Height="18"
               Content="..."

@@ -124,7 +124,7 @@ public class ApplyWritingSystemMappingCommand : TimeConsumingCommand
     WritingSystemViewModel? WritingSystem = null;
     var n = WritingSystemMappings.Count;
     var i = 0;
-    _ViewModels.Instance.UcdCodePoints.StatusMessage = String.Format(Resources.Strings.Updating, Resources.UcdCodePointStrings.WritingSystem);
+    _ViewModels.Instance.UcdCodePoints.StatusMessage = String.Format(Resources.Strings.UpdatingField, Resources.UcdCodePointStrings.WritingSystem);
     foreach (var mapping in WritingSystemMappings)
     {
       i++;

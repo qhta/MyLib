@@ -15,6 +15,12 @@ public partial class NameGenOptionsDialog : Window
   public NameGenOptionsDialog()
   {
     InitializeComponent();
+    Loaded += Window_Loaded;
+  }
+
+  private void Window_Loaded(object sender, RoutedEventArgs e)
+  {
+    MinHeight = Height + 30; // Prevents the window from being too small to display all controls
   }
 
   /// <summary>
@@ -59,40 +65,6 @@ public partial class NameGenOptionsDialog : Window
     if (openFileDialog.ShowDialog() == true)
     {
       NameGenOptions.AbbreviatedWordsFile = openFileDialog.FileName;
-    }
-  }
-
-  /// <summary>
-  /// Dependency property for the <see cref="KnownNumeralsFile"/> property.
-  /// </summary>
-  public static DependencyProperty KnownNumeralsFileProperty =
-    DependencyProperty.Register(nameof(KnownNumeralsFile), typeof(string), typeof(NameGenOptionsDialog),
-      new FrameworkPropertyMetadata(null));
-
-  /// <summary>
-  /// Code points count property to display in the dialog.
-  /// </summary>
-  public string KnownNumeralsFile
-  {
-    get => (string)GetValue(KnownNumeralsFileProperty);
-    set => SetValue(KnownNumeralsFileProperty, value);
-  }
-
-  private void BrowseKnownNumeralsFile_OnClick(object sender, RoutedEventArgs e)
-  {
-    var openFileDialog = new Microsoft.Win32.OpenFileDialog
-    {
-      Title = Strings.KnownNumeralsFileSelection,
-      Filter = Strings.CsvFilesFilter,
-      InitialDirectory = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!, "Resources"),
-      DefaultExt = ".csv",
-      FileName = KnownNumeralsFile,
-      Multiselect = false
-    };
-
-    if (openFileDialog.ShowDialog() == true)
-    {
-      KnownNumeralsFile = openFileDialog.FileName;
     }
   }
 

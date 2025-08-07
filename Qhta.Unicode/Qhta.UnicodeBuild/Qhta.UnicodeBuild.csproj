@@ -203,16 +203,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>NameGenMethodStrings.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\UcdCategoryStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UcdCategoryStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\UcdCodePointStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UcdCodePointStrings.resx</DependentUpon>
-    </Compile>
     <Compile Update="Resources\Strings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -223,20 +213,30 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>UcdBlockStrings.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\UcdCategoryStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UcdCategoryStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\UcdCodePointStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UcdCodePointStrings.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\UcdRangeStrings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>UcdRangeStrings.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\WritingSystemStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>WritingSystemStrings.resx</DependentUpon>
-    </Compile>
     <Compile Update="Resources\WritingSystemKindStrings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>WritingSystemKindStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\WritingSystemStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WritingSystemStrings.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\WritingSystemTypeStrings.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -250,14 +250,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>NameGenMethodStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\UcdCategoryStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>UcdCategoryStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\UcdCodePointStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>UcdCodePointStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
@@ -266,17 +258,25 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UcdBlockStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\UcdCategoryStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UcdCategoryStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\UcdCodePointStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UcdCodePointStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\UcdRangeStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UcdRangeStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\WritingSystemStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>WritingSystemStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\WritingSystemKindStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WritingSystemKindStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\WritingSystemStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WritingSystemStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WritingSystemTypeStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -294,18 +294,25 @@
     <None Update="Resources\Block-WritingSystem.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\KnownNumerals.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\PredefinedNames.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Range-WritingSystem.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\RemovableWords.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Scripts.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\SpecialPhrases.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="obj\" />
   </ItemGroup>
 
 </Project>

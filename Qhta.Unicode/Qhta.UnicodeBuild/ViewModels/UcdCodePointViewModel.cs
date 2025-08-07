@@ -72,7 +72,15 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   /// Short name of the Unicode code point, which may be used to identify the character in various contexts.
   /// It is a read/write property.
   /// </summary>
-  public string? CharName { get => Model.CharName; set => ChangeModelProperty(nameof(CharName), value); }
+  public string? CharName
+  {
+    get => Model.CharName;
+    set
+    {
+      if (ChangeThisProperty(nameof(CharName), value))
+        Model.CharName = value;
+    }
+  }
 
   /// <summary>
   /// Descriptive name of the Unicode code point.
@@ -182,7 +190,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   {
     [DebuggerStepThrough]
     get => Model.BlockId;
-    set => ChangeModelProperty(nameof(UcdBlockId), value, nameof(UcdBlock));
+    set => ChangeThisProperty(nameof(UcdBlockId), value, nameof(UcdBlock));
   }
 
   /// <summary>
@@ -195,13 +203,13 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
       var result = Model.BlockId is null ? null : _ViewModels.Instance.UcdBlocks.FindById((int)Model.BlockId);
       return result;
     }
-    set => ChangeProperty(nameof(UcdBlockId), value?.Id);
+    set => ChangeThisProperty(nameof(UcdBlockId), value?.Id);
   }
 
   /// <summary>
   /// Identifier of the area writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? AreaId { get => Model.AreaId; set => ChangeModelProperty(nameof(AreaId), value, nameof(Area)); }
+  public int? AreaId { get => Model.AreaId; set => ChangeThisProperty(nameof(AreaId), value, nameof(Area)); }
 
   /// <summary>
   /// Exposes the area writing system as a view model.
@@ -213,13 +221,13 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
       var result = Model.AreaId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.AreaId);
       return result;
     }
-    set => ChangeProperty(nameof(AreaId), value?.Id);
+    set => ChangeThisProperty(nameof(AreaId), value?.Id, nameof(Area));
   }
 
   /// <summary>
   /// Identifier of the script writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? ScriptId { get => Model.ScriptId; set => ChangeModelProperty(nameof(ScriptId), value, nameof(Script)); }
+  public int? ScriptId { get => Model.ScriptId; set => ChangeThisProperty(nameof(ScriptId), value, nameof(Script)); }
   /// <summary>
   /// Exposes the script writing system as a view model.
   /// </summary>
@@ -230,12 +238,12 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
       var result = Model.ScriptId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.ScriptId);
       return result;
     }
-    set => ChangeProperty(nameof(ScriptId), value?.Id);
+    set => ChangeThisProperty(nameof(ScriptId), value?.Id, nameof(Script));
   }
   /// <summary>
   /// Identifier of the language writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? LanguageId { get => Model.LanguageId; set => ChangeModelProperty(nameof(LanguageId), value, nameof(Language)); }
+  public int? LanguageId { get => Model.LanguageId; set => ChangeThisProperty(nameof(LanguageId), value, nameof(Language)); }
   /// <summary>
   /// Exposes the language writing system as a view model.
   /// </summary>
@@ -246,13 +254,13 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
       var result = Model.LanguageId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.LanguageId);
       return result;
     }
-    set => ChangeProperty(nameof(LanguageId), value?.Id);
+    set => ChangeThisProperty(nameof(LanguageId), value?.Id, nameof(Language));
   }
 
   /// <summary>
   /// Identifier of the notation writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? NotationId { get => Model.NotationId; set => ChangeModelProperty(nameof(NotationId), value, nameof(Notation)); }
+  public int? NotationId { get => Model.NotationId; set => ChangeThisProperty(nameof(NotationId), value, nameof(Notation)); }
   /// <summary>
   /// Exposes the notation writing system as a view model.
   /// </summary>
@@ -263,13 +271,13 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
       var result = Model.NotationId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.NotationId);
       return result;
     }
-    set => ChangeProperty(nameof(NotationId), value?.Id);
+    set => ChangeThisProperty(nameof(NotationId), value?.Id, nameof(Notation));
   }
 
   /// <summary>
   /// Identifier of the symbol set writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? SymbolSetId { get => Model.SymbolSetId; set => ChangeModelProperty(nameof(SymbolSetId), value, nameof(SymbolSet)); }
+  public int? SymbolSetId { get => Model.SymbolSetId; set => ChangeThisProperty(nameof(SymbolSetId), value, nameof(SymbolSet)); }
   /// <summary>
   /// Exposes the symbol set writing system as a view model.
   /// </summary>
@@ -280,13 +288,13 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
       var result = Model.SymbolSetId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.SymbolSetId);
       return result;
     }
-    set => ChangeProperty(nameof(SymbolSetId), value?.Id);
+    set => ChangeThisProperty(nameof(SymbolSetId), value?.Id, nameof(SymbolSet));
   }
 
   /// <summary>
   /// Identifier of the subset writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? SubsetId { get => Model.SubsetId; set => ChangeModelProperty(nameof(SubsetId), value, nameof(Subset)); }
+  public int? SubsetId { get => Model.SubsetId; set => ChangeThisProperty(nameof(SubsetId), value, nameof(Subset)); }
   /// <summary>
   /// Exposes the subset writing system as a view model.
   /// </summary>
@@ -297,7 +305,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
       var result = Model.SubsetId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.SubsetId);
       return result;
     }
-    set => ChangeProperty(nameof(SubsetId), value?.Id);
+    set => ChangeThisProperty(nameof(SubsetId), value?.Id, nameof(Subset));
   }
 
   /// <summary>

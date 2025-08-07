@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Diagnostics;
-
+using Qhta.TypeUtils;
 using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.SF.Tools;
@@ -148,7 +148,7 @@ public static partial class Controller
       // Set it to the default value of the type
       value = Activator.CreateInstance(propertyInfo.PropertyType);
     }
-    else if (value == null && propertyInfo.PropertyType != typeof(string))
+    else if (value == null && propertyInfo.PropertyType != typeof(string) && !propertyInfo.PropertyType.IsNullable() && !propertyInfo.PropertyType.IsClass)
     {
       // If the property is not a string, and we have a null value, we cannot set it
       Debug.WriteLine($"Cannot set null value for non-string property '{columnInfo.MappingName}'.");

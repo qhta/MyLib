@@ -2,6 +2,7 @@
 
 FD:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\AppResourceDictionary.xaml;;
 FD:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\MainWindow.xaml;;
+FD:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\NameGen\NameGenOptionsDialog.xaml;;
 FD:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\NewWindow.xaml;;
 FD:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\Views\EditWritingSystemWindow.xaml;;
 FD:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\Views\SelectValueWindow.xaml;;
@@ -9,5 +10,4 @@ FD:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\Views\UcdBlocksVie
 FD:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\Views\UcdCodePointsView.xaml;;
 FD:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\Views\WritingSystemsView.xaml;;
 FD:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\Views\WritingSystemView.xaml;;
-FD:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\Qhta.UnicodeBuild\NameGen\NameGenOptionsDialog.xaml;;
 

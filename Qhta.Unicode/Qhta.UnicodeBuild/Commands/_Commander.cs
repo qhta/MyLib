@@ -58,7 +58,19 @@ public static partial class _Commander
       e.CanExecute = UndoMgr.IsRedoAvailable;
     else
       e.CanExecute = true; // Default to true for other commands
-    //Debug.WriteLine($"CommandBinding_OnCanExecute({sender}, {(e.Command as RoutedUICommand)?.Text})={e.CanExecute}");
+    Debug.WriteLine($"_Commander.CommandBinding_OnCanExecute({sender}, {GetName(e.Command)}({e.Parameter}))={e.CanExecute}");
+  }
+
+  /// <summary>
+  /// Debug helper method to get the name of the command for logging purposes.
+  /// </summary>
+  /// <param name="command"></param>
+  /// <returns></returns>
+  private static string? GetName(ICommand command)
+  {
+    if (command is RoutedCommand routedCommand)
+      return routedCommand.Name;
+    return command.ToString();
   }
 
   /// <summary>
@@ -68,7 +80,7 @@ public static partial class _Commander
   /// <param name="e"></param>
   public static void OnExecute(object sender, ExecutedRoutedEventArgs e)
   {
-    Debug.WriteLine($"CommandBinding_OnExecuted({sender}, {e.Command})");
+    Debug.WriteLine($"_Commander.CommandBinding_OnExecute({sender}, {GetName(e.Command)}({e.Parameter}))");
     var command = e.Command;
     if (command == ApplicationCommands.Save)
     {
