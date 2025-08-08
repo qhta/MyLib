@@ -46,25 +46,25 @@ public partial class NameGenOptionsDialog : Window
 
     if (openFileDialog.ShowDialog() == true)
     {
-      NameGenOptions.AbbreviatedWordsFile = openFileDialog.FileName;
+      NameGenOptions.KnownPhrasesFile = openFileDialog.FileName;
     }
   }
 
-  private void BrowseAbbreviatedWordsFile_OnClick(object sender, RoutedEventArgs e)
+  private void BrowseKnownPhrasesFile_OnClick(object sender, RoutedEventArgs e)
   {
     var openFileDialog = new Microsoft.Win32.OpenFileDialog
     {
-      Title = Strings.AbbreviatedWordsFileSelection,
+      Title = Strings.KnownPhrasesFileSelection,
       Filter = Strings.CsvFilesFilter,
       InitialDirectory = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!, "Resources"),
       DefaultExt = ".csv",
-      FileName = NameGenOptions.AbbreviatedWordsFile,
+      FileName = NameGenOptions.KnownPhrasesFile,
       Multiselect = false
     };
 
     if (openFileDialog.ShowDialog() == true)
     {
-      NameGenOptions.AbbreviatedWordsFile = openFileDialog.FileName;
+      NameGenOptions.KnownPhrasesFile = openFileDialog.FileName;
     }
   }
 

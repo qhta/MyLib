@@ -53,18 +53,18 @@
               Click="BrowsePredefinedNamesFile_OnClick"
               />
       <Label Grid.Row="1" Grid.Column="1" 
-             Content="{x:Static resources:Strings.AbbreviatedWordsFile}"
-             ToolTip="{x:Static resources:Strings.AbbreviatedWordsFileTooltip}"/>
+             Content="{x:Static resources:Strings.KnownPhrasesFile}"
+             ToolTip="{x:Static resources:Strings.KnownPhrasesFileTooltip}"/>
       <TextBox Grid.Row="1" Grid.Column="2" 
-               Text="{Binding AbbreviatedWordsFile, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+               Text="{Binding KnownPhrasesFile, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                Margin="5,0,0,0"
                VerticalAlignment="Center"/>
       <Button Grid.Row="1" Grid.Column="3"
-              x:Name="BrowseAbbreviatedWordsFile"
+              x:Name="BrowseKnownPhrasesFile"
               Width="18"
               Height="18"
               Content="..."
-              Click="BrowseAbbreviatedWordsFile_OnClick"
+              Click="BrowseKnownPhrasesFile_OnClick"
               />
     </Grid>
     <StackPanel Grid.Row="2" 

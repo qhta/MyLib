@@ -65,7 +65,7 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
 
     int n = listOfPoints.Count();
 
-    var dialog = new NameGenOptionsDialog { NameGenOptions = NameGenOptions };
+    var dialog = new NameGenOptionsDialog { NameGenOptions = NameGenOptions with { CodePointsCount = n } };
     if (dialog.ShowDialog() == true)
     //MessageBox.Show(String.Format(Resources.Strings.ApplyCharNamesGenerationConfirm, n), Resources.Strings.Confirm, MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
     {
@@ -73,12 +73,16 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
       {
         NameGenOptions = dialog.NameGenOptions;
         LoadPredefinedNames(NameGenOptions.PredefinedNamesFile);
-        LoadAbbreviatedWords(NameGenOptions.AbbreviatedWordsFile);
+        LoadAndParseKnownPhrasesFile(NameGenOptions.KnownPhrasesFile);
         HashSet<string> allNames = new(_ViewModels.Instance.UcdCodePoints.Where(item => !String.IsNullOrEmpty(item.CharName)).Select(item => item.CharName!));
         NameGenerator = new NameGenerator
         {
           PredefinedNames = PredefinedNames,
-          AbbreviatedWords = AbbreviatedWords,
+          AbbreviatedPhrases = AbbreviatedPhrases,
+          Adjectives = Adjectives,
+          Removables = Removables,
+          SpecialPhrases = SpecialPhrases,
+          SpecialFunctions = SpecialFunctions
         };
 
         BackgroundWorker.RunWorkerAsync(new ApplyCharNamesGenerationArgs(listOfPoints));
@@ -93,11 +97,15 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
   private NameGenOptions NameGenOptions = new NameGenOptions
   {
     PredefinedNamesFile = "Resources/PredefinedNames.csv",
-    AbbreviatedWordsFile = "Resources/AbbreviatedWords.csv",
+    KnownPhrasesFile = "Resources/KnownPhrases.csv",
   };
 
   private Dictionary<CodePoint, string> PredefinedNames = new();
-  private Dictionary<string, string> AbbreviatedWords = new();
+  private Dictionary<string, string> AbbreviatedPhrases = new();
+  private HashSet<string> Adjectives = new();
+  private HashSet<string> Removables = new();
+  private Dictionary<string, SpecialFunction> SpecialPhrases = new();
+  private Dictionary<SpecialFunction, string> SpecialFunctions = new();
 
   private NameGenerator NameGenerator = null!;
 
@@ -116,27 +124,91 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
     }
   }
 
-  private void LoadAbbreviatedWords(string filename)
+  /// <summary>
+  /// Loads and parses the abbreviated words file.
+  /// Parses each line, expecting the format:
+  /// phrase; abbreviation; [adj]
+  /// </summary>
+  /// <param name="filename"></param>
+  private void LoadAndParseKnownPhrasesFile(string filename)
   {
-    AbbreviatedWords = new();
+    AbbreviatedPhrases = new();
+    Adjectives = new();
+    Removables = new();
+    SpecialPhrases = new();
+    SpecialFunctions = new();
+
     var lines = File.ReadAllText(filename).Split(['\n']);
     foreach (string line in lines)
     {
       string str = line.Trim();
       if (string.IsNullOrEmpty(line)) continue;
-      var parts = line.Split(['\t', ';', ','], 2);
+      if (line.StartsWith("#")) continue; // Skip comments
+      var parts = line.Split(['\t', ';', ','], StringSplitOptions.TrimEntries);
       if (parts.Length < 2)
       {
         Debug.WriteLine($"Invalid line in abbreviated words file: {line}");
         continue;
       }
-      var key = parts[0].Trim();
-      var value = parts[1].Trim();
+      var key = parts[0];
+      var value = parts[1];
       if (value == "<null>")
         value = string.Empty;
-      if (!AbbreviatedWords.TryAdd(key, value))
+      if (!AbbreviatedPhrases.TryAdd(key, value))
       {
         Debug.WriteLine($"Duplicate key in abbreviated words file: {key}");
+      }
+      if (parts.Length > 2)
+      {
+        if (parts[2].StartsWith("adj", StringComparison.OrdinalIgnoreCase))
+          Adjectives.Add(key);
+        else if (parts[2].StartsWith("del", StringComparison.OrdinalIgnoreCase))
+          Removables.Add(key);
+        else if (parts[2].StartsWith("num", StringComparison.OrdinalIgnoreCase))
+          ;// ignore numbers
+        else
+        {
+          switch (parts[2])
+          {
+            case "<NC>":
+              SpecialPhrases[parts[0]] = SpecialFunction.NoChange;
+              break;
+            case "<UC>":
+              SpecialPhrases[parts[0]] = SpecialFunction.UpperCase;
+              if (SpecialFunctions.TryGetValue(SpecialFunction.UpperCase, out var upperCaseFunction) && upperCaseFunction != parts[1])
+                Debug.WriteLine($"Warning: Different upper case functions defined: '{upperCaseFunction}' and '{parts[1]}'");
+              SpecialFunctions[SpecialFunction.UpperCase] = parts[1];
+              break;
+            case "<LC>":
+              SpecialPhrases[parts[0]] = SpecialFunction.LowerCase;
+              if (SpecialFunctions.TryGetValue(SpecialFunction.LowerCase, out var lowerCaseFunction) && lowerCaseFunction != parts[1])
+                Debug.WriteLine($"Warning: Different lower case functions defined: '{lowerCaseFunction}' and '{parts[1]}'");
+              SpecialFunctions[SpecialFunction.LowerCase] = parts[1];
+              break;
+            case "<TC>":
+              SpecialPhrases[parts[0]] = SpecialFunction.TitleCase;
+              if (SpecialFunctions.TryGetValue(SpecialFunction.TitleCase, out var titleCaseFunction) && titleCaseFunction != parts[1])
+                Debug.WriteLine($"Warning: Different title case functions defined: '{titleCaseFunction}' and '{parts[1]}'");
+              SpecialFunctions[SpecialFunction.TitleCase] = parts[1];
+              break;
+            case "<TN>":
+              SpecialPhrases[parts[0]] = SpecialFunction.Tone;
+              if (SpecialFunctions.TryGetValue(SpecialFunction.Tone, out var toneFunction) && toneFunction != parts[1])
+                Debug.WriteLine($"Warning: Different tone functions defined: '{toneFunction}' and '{parts[1]}'");
+              SpecialFunctions[SpecialFunction.Tone] = parts[1];
+              break;
+            case "<LG>":
+              SpecialPhrases[parts[0]] = SpecialFunction.Ligature;
+              if (SpecialFunctions.TryGetValue(SpecialFunction.Ligature, out var ligatureFunction) && ligatureFunction != parts[1])
+                Debug.WriteLine($"Warning: Different ligature functions defined: '{ligatureFunction}' and '{parts[1]}'");
+              SpecialFunctions[SpecialFunction.Ligature] = parts[1];
+              break;
+            default:
+              if (!String.IsNullOrEmpty(parts[2]))
+                Debug.WriteLine($"Unknown special function: {parts[2]}");
+              break;
+          }
+        }
       }
     }
   }

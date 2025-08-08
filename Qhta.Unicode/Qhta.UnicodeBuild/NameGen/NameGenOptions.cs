@@ -10,9 +10,9 @@ public record NameGenOptions
   /// </summary>
   public string PredefinedNamesFile { get; set; } = string.Empty;
   /// <summary>
-  /// Name of the file containing word abbreviations.
+  /// Name of the file containing phrases abbreviations.
   /// </summary>
-  public string AbbreviatedWordsFile { get; set; } = string.Empty;
+  public string KnownPhrasesFile { get; set; } = string.Empty;
   /// <summary>
   /// Count of code points to generate names. Displayed in the dialog.
   /// </summary>

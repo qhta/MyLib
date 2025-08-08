@@ -25,7 +25,6 @@ public class NameGenerator
       AllNames.Add(item.CharName!);
     }
     WritingSystems = _ViewModels.Instance.WritingSystems;
-
   }
 
   /// <summary>
@@ -38,39 +37,105 @@ public class NameGenerator
   /// By "words" we mean single words or composite words (joined with '-'), and by "phrases" we mean multi-word phrases (joined with spaces).
   /// If the key in the input dictionary contains a space, it is considered a phrase.
   /// All spaces in the key are replaced with an underscore ('_') and it is stored in the _KnownPhrases dictionary.
-  /// The new key replaces the multi-word phrase as a key in the _AbbreviatedWords dictionary.
+  /// The new key replaces the multi-word phrase as a key in the _AbbreviatedPhrases dictionary.
   /// </summary>
-  public required Dictionary<string, string> AbbreviatedWords
+  public required Dictionary<string, string> AbbreviatedPhrases
   {
-    get
-    {
-      var result = new Dictionary<string, string>();
-      foreach (var item in _AbbreviatedWords)
-      {
-        if (item.Key.Contains('_'))
-          result[item.Key.Replace('_', ' ')] = item.Value;
-        else
-          result[item.Key] = item.Value;
-      }
-      return result;
-    }
+    get => _AbbreviatedPhrases;
     set
     {
-      _AbbreviatedWords = new();
+      _AbbreviatedPhrases = new();
       foreach (var item in value)
       {
+        _AbbreviatedPhrases[item.Key] = item.Value;
         if (item.Key.Contains(' '))
-          _KnownPhrases.Add(item.Key);
-        _AbbreviatedWords[item.Key] = item.Value;
+          _UnbrokenPhrases.Add(item.Key);
       }
     }
   }
+  private Dictionary<string, string> _AbbreviatedPhrases = null!;
 
-  /// A dictionary that maps words single words or composite words (joined with '-') to their abbreviations.
-  private Dictionary<string, string> _AbbreviatedWords = null!;
+  /// <summary>
+  /// A list of adjectives that can occur in the Unicode code point description.
+  /// Their abbreviations are used as function names in the generated short names.
+  /// </summary>
+  public required HashSet<string> Adjectives
+  {
+    get => _Adjectives;
+    set
+    {
+      _Adjectives = new();
+      foreach (var item in value)
+      {
+        _Adjectives.Add(item);
+        if (item.Contains(' '))
+          _UnbrokenPhrases.Add(item);
+      }
+    }
+  }
+  private HashSet<string> _Adjectives = null!;
 
-  /// A List with known multi-word phrases.
-  private readonly HashSet<string> _KnownPhrases = new();
+  /// <summary>
+  /// A list of removable phrases that can occur in the Unicode code point description.
+  /// Occurrences of these phrases may be omitted with some exceptions.
+  /// </summary>
+  public required HashSet<string> Removables
+  {
+    get => _Removables;
+    set
+    {
+      _Removables = new();
+      foreach (var item in value)
+      {
+        _Removables.Add(item);
+        if (item.Contains(' '))
+          _UnbrokenPhrases.Add(item);
+      }
+    }
+  }
+  private HashSet<string> _Removables = null!;
+
+  /// <summary>
+  /// Dictionary of phrases that are specially treated.
+  /// </summary>
+  public required Dictionary<string, SpecialFunction> SpecialPhrases
+  {
+    get => _SpecialPhrases;
+    set
+    {
+      _SpecialPhrases = new();
+      foreach (var item in value)
+      {
+        _SpecialPhrases[item.Key] = item.Value;
+        if (item.Key.Contains(' '))
+          _UnbrokenPhrases.Add(item.Key);
+      }
+    }
+  }
+  private Dictionary<string, SpecialFunction> _SpecialPhrases = null!;
+
+  /// <summary>
+  /// Dictionary of special function names.
+  /// </summary>
+  public required Dictionary<SpecialFunction, string> SpecialFunctions
+  {
+    get => _SpecialFunctions;
+    set
+    {
+      _SpecialFunctions = new();
+      foreach (var item in value)
+      {
+        if (!String.IsNullOrEmpty(item.Value))
+          _SpecialFunctions[item.Key] = "\\" + item.Value;
+        else
+          _SpecialFunctions[item.Key] = string.Empty;
+      }
+    }
+  }
+  private Dictionary<SpecialFunction, string> _SpecialFunctions = null!;
+
+  /// A list with known multi-word phrases that should not be split.
+  private readonly HashSet<string> _UnbrokenPhrases = new();
 
   /// <summary>
   /// A HashSet containing all unique names. It must be initiated to all previously generated Unicode point names.
@@ -82,7 +147,7 @@ public class NameGenerator
   /// By "words" we mean single words or composite words (joined with '-'), and by "phrases" we mean multi-word phrases (joined with spaces).
   /// If the key in the input dictionary contains a space, it is considered a phrase.
   /// All spaces in the key are replaced with an underscore ('_') and it is stored in the _KnownPhrases dictionary.
-  /// The new key replaces the multi-word phrase as a key in the _AbbreviatedWords dictionary.
+  /// The new key replaces the multi-word phrase as a key in the _AbbreviatedPhrases dictionary.
   /// </summary>
   public WritingSystemsCollection WritingSystems
   {
@@ -99,7 +164,7 @@ public class NameGenerator
           {
             keyPrase = keyPrase.Replace(' ', '_');
             keyPrase = keyPrase.Replace("*", "");
-            _KnownPhrases.Add(keyPrase);
+            _UnbrokenPhrases.Add(keyPrase);
           }
         }
       }
@@ -250,7 +315,7 @@ public class NameGenerator
       OrdinalRegions[abbr] = firstCode;
     }
     var thisCode = codePoint.CP;
-    var name = $"{ws.Abbr}{thisCode - firstCode + 1}";
+    var name = $"\\{ws.Abbr}{thisCode - firstCode + 1}";
     name = EnsureUniqueName(name);
     return name;
   }
@@ -263,8 +328,10 @@ public class NameGenerator
   /// <returns></returns>
   private string? CreatePredefinedName(UcdCodePointViewModel codePoint, WritingSystemViewModel ws)
   {
-    if (!PredefinedNames.TryGetValue(codePoint.CP, out var name))
+    if (!PredefinedNames.TryGetValue(codePoint.CP, out var name) || String.IsNullOrEmpty((name)))
       return null;
+    if (!name.StartsWith("\\"))
+      name = "\\" + name;
     return EnsureUniqueName(name);
   }
 
@@ -272,9 +339,9 @@ public class NameGenerator
   /// Creates an abbreviated name for the code point based on its description.
   /// First, it replaces any phrases defined in the _KnownPhrases dictionary with their corresponding values (where each space is replaced with '_').
   /// It prohibits splitting known phrases in the description.
-  /// Next, the method splits the description into words (using spaces as separators) and checks each single or composite word against the AbbreviatedWords dictionary.
-  /// If a word is found in the AbbreviatedWords dictionary, it is replaced with its abbreviation.
-  /// If a word is not found, and it is a composite word (joined with '-'), it is split into single words and each single word is checked against the AbbreviatedWords dictionary.
+  /// Next, the method splits the description into words (using spaces as separators) and checks each single or composite word against the AbbreviatedPhrases dictionary.
+  /// If a word is found in the AbbreviatedPhrases dictionary, it is replaced with its abbreviation.
+  /// If a word is not found, and it is a composite word (joined with '-'), it is split into single words and each single word is checked against the AbbreviatedPhrases dictionary.
   /// If a word (neither single nor composite) is not found, it is replaced with its first letter in uppercase.
   /// </summary>
   /// <param name="codePoint"></param>
@@ -282,9 +349,11 @@ public class NameGenerator
   private string? CreateAbbreviatedName(UcdCodePointViewModel codePoint)
   {
     var name = CreateAbbreviatedName(SplitDescription(codePoint.Description!));
-    if (name != null)
-      name = EnsureUniqueName(name);
-    return name;
+    if (String.IsNullOrEmpty(name))
+      return null;
+    if (name.Length > 1 && name[0] != '\\' && !char.IsAsciiDigit(name[0]))
+      name = "\\" + name;
+    return EnsureUniqueName(name);
   }
 
   private string? CreateAbbreviatedName(List<string> words)
@@ -293,55 +362,48 @@ public class NameGenerator
     for (int i = 0; i < words.Count(); i++)
     {
       var word = words[i];
-      //if (word == "SQUARE BRACKET")
-      //{
-      //  Debug.Assert(true);
-      //}
-      if (AbbreviatedWords.TryGetValue(word, out var abbrPhrase))
+      if (Removables.Contains(word))
+      {
+        // If the word is in the list of removable phrases, we skip it
+        continue;
+      }
+      if (SpecialPhrases.TryGetValue(word, out var function))
+      {
+        words = words.Skip(i + 1).ToList();
+        return UseSpecialFunction(words, function);
+      }
+      if (AbbreviatedPhrases.TryGetValue(word, out var abbrPhrase))
       {
         if (abbrPhrase == String.Empty)
         {
           // If the abbreviation is empty, we skip this word
           continue;
         }
-        if (abbrPhrase == "<UC>")
-        {
-          words = words.Skip(i + 1).ToList();
-          return GetLetter(words, LetterCase.UpperCase);
-        }
-        else
-        if (abbrPhrase == "<LC>")
-        {
-          words = words.Skip(i + 1).ToList();
-          return GetLetter(words, LetterCase.LowerCase);
-        }
-        else
-          abbrevs.Add(abbrPhrase);
+        abbrevs.Add(abbrPhrase);
       }
       else
       {
         var singleWords = word.Split(['-'], StringSplitOptions.RemoveEmptyEntries);
         if (singleWords.Length > 1)
         {
+          var abbrevs2 = new List<string>();
           foreach (var singleWord in singleWords)
           {
-            if (AbbreviatedWords.TryGetValue(singleWord, out var abbrWord) && !String.IsNullOrEmpty(abbrWord))
+            if ((AbbreviatedPhrases.TryGetValue(singleWord, out var abbrWord) && !String.IsNullOrEmpty(abbrWord)))
               abbrevs.Add(abbrWord);
             else
-              abbrevs.Add(singleWord);
+              abbrevs2.Add(singleWord.TitleCase());
           }
+          abbrevs.Add(String.Join(" ", abbrevs2));
         }
         else
           abbrevs.Add(new string(Char.ToUpper(word.First()), 1));
       }
     }
-    if (abbrevs.Count > 1)
-      for (int i = 0; i < abbrevs.Count; i++)
-      {
-        var abbr = abbrevs[i];
-        abbr = abbr.TitleCase();
-        abbrevs[i] = abbr;
-      }
+    //if (abbrevs.Count==1 && !abbrevs[0].StartsWith("\\"))
+    //{
+    //  abbrevs[0] = abbrevs[0].ToLower();
+    //}
     var name = String.Join("", abbrevs);
     return name;
   }
@@ -349,9 +411,11 @@ public class NameGenerator
   private string? CreateProceduralName(UcdCodePointViewModel codePoint, LinkedListNode<WritingSystemViewModel> wsNode)
   {
     var name = CreateProceduralName(SplitDescription(codePoint.Description!), wsNode);
-    if (name != null)
-      name = EnsureUniqueName(name);
-    return name;
+    if (String.IsNullOrEmpty(name))
+      return null;
+    if (name.Length > 1 && name[0] != '\\' && !char.IsAsciiDigit(name[0]))
+      name = "\\" + name;
+    return EnsureUniqueName(name);
   }
 
   private string? CreateProceduralName(List<string> words, LinkedListNode<WritingSystemViewModel> wsNode)
@@ -389,13 +453,18 @@ public class NameGenerator
         }
       }
 
-      var intern = (wsNode.Next != null) ? GenerateShortName(words, wsNode.Next) :
+      var name = (wsNode.Next != null) ? GenerateShortName(words, wsNode.Next) :
         CreateAbbreviatedName(words);
+      if (!String.IsNullOrEmpty(name))
+      {
+        if (name.Length > 1 && name[0] != '\\' && !char.IsAsciiDigit(name[0]))
+          name = "\\" + name;
+      }
       if (!String.IsNullOrEmpty(ws.Abbr))
-        return $"\\{ws.Abbr}{{{intern}}}";
-      if (intern == null)
+        return $"\\{ws.Abbr}{{{name}}}";
+      if (name == null)
         return null;
-      return intern;
+      return name;
 
     }
     if (wsNode.Next != null)
@@ -417,7 +486,7 @@ public class NameGenerator
 
     string PrepareDescription()
     {
-      foreach (var phrase in _KnownPhrases)
+      foreach (var phrase in _UnbrokenPhrases)
       {
         var itemPos = description.IndexOf(phrase);
         if (itemPos < 0)
@@ -432,11 +501,21 @@ public class NameGenerator
     }
   }
 
-  private string GetLetter(List<string> words, LetterCase letterCase)
+  private string UseSpecialFunction(List<string> words, SpecialFunction letterCase)
   {
     var withPos = words.IndexOf("WITH");
     if (withPos < 0)
-      return ParseLeftPart(words, letterCase);
+    {
+      var name = ParseLeftPart(words, letterCase);
+      if (String.IsNullOrEmpty(name))
+      {
+        Debug.WriteLine($"Left phrase cannot be parsed: {String.Join(" ", words)}");
+        return string.Empty;
+      }
+      if (name.Length > 1 && name[0] != '\\' && !char.IsAsciiDigit(name[0]))
+        name = "\\" + name;
+      return name;
+    }
     if (withPos == 0)
     {
       Debug.WriteLine($"WITH can't appear at the beginning of the phrase {String.Join(" ", words)}");
@@ -450,49 +529,77 @@ public class NameGenerator
     return $"\\{diacriticalFunction}{{{charName}}}";
   }
 
-  private string ParseLeftPart(List<string> words, LetterCase letterCase)
+  private string ParseLeftPart(List<string> words, SpecialFunction specialFunction)
   {
     if (words.Count == 0)
       return String.Empty;
     string name;
     if (words.Count == 1)
     {
-      name = words[0];
-      if (letterCase == LetterCase.UpperCase)
-        name = name.ToUpper();
-      else if (letterCase == LetterCase.LowerCase)
-        name = name.ToLower();
+      var word = words[0];
+      if (AbbreviatedPhrases.TryGetValue(word, out var abbrName))
+        word = abbrName;
+      if (word.Length > 1 && word[0] != '\\' && !char.IsAsciiDigit(word[0]))
+      {
+        if (specialFunction == NameGen.SpecialFunction.UpperCase)
+          name = $"\\^{word.ToUpper()}";
+        else if (specialFunction == NameGen.SpecialFunction.LowerCase)
+          name = $"\\{word.ToLower()}";
+        else if (specialFunction == NameGen.SpecialFunction.TitleCase)
+          name = $"\\^{word.TitleCase()}}}";
+        else
+          name = $"{{\\{word.ToLower()}}}";
+      }
       else
-        name = name.TitleCase();
-      if (name.Length > 1)
-        name = "\\" + name;
+      {
+        if (specialFunction == NameGen.SpecialFunction.UpperCase)
+          name = word.ToUpper();
+        else if (specialFunction == NameGen.SpecialFunction.LowerCase)
+          name = word.ToLower();
+        else if (specialFunction == NameGen.SpecialFunction.TitleCase)
+          name = word.TitleCase();
+        else
+          name = word.ToLower();
+      }
     }
     else
     {
       var result = new List<string>();
-      for (int i=0; i< words.Count; i++)
+      for (int i = 0; i < words.Count; i++)
       {
         var word = words[i];
-        if (AbbreviatedWords.TryGetValue(word, out var abbrName))
+        if (Adjectives.Contains(word))
+        {
+          if (!AbbreviatedPhrases.TryGetValue(word, out var abbrName))
+            abbrName = word.TitleCase();
+          return CreateInlineFunction(words.Skip(i + 1).ToList(), abbrName, specialFunction);
+        }
+        else if (SpecialPhrases.TryGetValue(word, out var function))
+        {
+          if (function == SpecialFunction.Tone)
+            return CreateToneFunction(words.Skip(i + 1).ToList(), specialFunction);
+          Debug.WriteLine($"Unexpected special function {function} in this context");
+        }
+        else
+        if (AbbreviatedPhrases.TryGetValue(word, out var abbrName))
         {
           if (abbrName == String.Empty)
           {
             // If the abbreviation is empty, we skip this word
             continue;
           }
-          else if (abbrName=="<ND>")
-          {
-            return CreateDotlessFunction(words.Skip(i + 1).ToList(), letterCase);
-          }
-          else if (abbrName == "<TN>")
-          {
-            return CreateToneFunction(words.Skip(i + 1).ToList(), letterCase);
-          }
+          //else if (abbrName.EndsWith("{"))
+          //{
+          //  return CreateInlineFunction(words.Skip(i + 1).ToList(), abbrName, letterCase);
+          //}
           else
             result.Add(abbrName);
         }
         else
+        if (words.Count > 0)
           result.Add(word.TitleCase());
+        else
+          result.Add(word.ToLower());
       }
       name = "\\" + String.Join(" ", result);
     }
@@ -506,46 +613,43 @@ public class NameGenerator
     string name;
     if (words.Count > 1)
     {
-       name = String.Join(" ", words);
+      name = String.Join(" ", words);
     }
     else
     {
       name = words[0];
-      if (AbbreviatedWords.TryGetValue(name, out var abbrName))
+      if (AbbreviatedPhrases.TryGetValue(name, out var abbrName))
         name = abbrName;
-      if (Char.IsLower(name.First()))
-        name = name.TitleCase();
+      //if (Char.IsLower(name.First()))
+      //  name = name.TitleCase();
     }
     return name;
   }
 
-  private string CreateDotlessFunction(List<string> words, LetterCase letterCase)
+  private string CreateToneFunction(List<string> words, SpecialFunction letterCase)
   {
     if (words.Count == 0)
       return String.Empty;
     var name = ParseLeftPart(words, letterCase);
     if (name.Length > 1 && name[0] == '\\')
       name = name.Substring(1);
-    return $"\\Dotless{{{name}}}";
+    if (letterCase == NameGen.SpecialFunction.UpperCase)
+      name = $"\\^Tone{name.TitleCase()}";
+    else if (letterCase == NameGen.SpecialFunction.LowerCase)
+      name = $"Tone{name.TitleCase()}";
+    return name;
   }
 
-  private string CreateToneFunction(List<string> words, LetterCase letterCase)
+  private string CreateInlineFunction(List<string> words, string function, SpecialFunction letterCase)
   {
     if (words.Count == 0)
       return String.Empty;
+    if (function.EndsWith("{"))
+      function = function.Substring(0, function.Length - 1);
+    if (function.StartsWith("\\"))
+      function = function.Substring(1);
     var name = ParseLeftPart(words, letterCase);
-    if (name.Length > 1 && name[0] == '\\')
-      name = name.Substring(1);
-    if (name.Length == 0 || Char.IsDigit(name.First()))
-    {
-      name = $"\\Tone{name}";
-      if (letterCase == LetterCase.UpperCase)
-        name = name.ToUpperInvariant();
-      else if (letterCase == LetterCase.LowerCase)
-        name = name.ToLowerInvariant();
-      return name;
-    }
-    return $"\\Tone{{{name}}}";
-
+    name = $"\\{function}{{{name}}}";
+    return name;
   }
 }

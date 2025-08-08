@@ -288,7 +288,7 @@
     <None Update="appSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\AbbreviatedWords.csv">
+    <None Update="Resources\KnownPhrases.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Block-WritingSystem.txt">
@@ -306,7 +306,7 @@
     <None Update="Resources\Scripts.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\SpecialPhrases.csv">
+    <None Update="Resources\SpecialFunctions.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

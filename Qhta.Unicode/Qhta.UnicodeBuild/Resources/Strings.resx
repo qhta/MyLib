@@ -357,11 +357,11 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="CsvFilesFilter" xml:space="preserve">
     <value>CSV Files (*.csv)|*.csv|Text Files (*.txt)|*.txt|All Files (*.*)|*.*</value>
   </data>
-  <data name="AbbreviatedWordsFile" xml:space="preserve">
-    <value>Abbreviated words file</value>
+  <data name="KnownPhrasesFile" xml:space="preserve">
+    <value>Known phrases file</value>
   </data>
-  <data name="AbbreviatedWordsFileSelection" xml:space="preserve">
-    <value>Select file with abbreviated words</value>
+  <data name="KnownPhrasesFileSelection" xml:space="preserve">
+    <value>Select file with known phrases</value>
   </data>
   <data name="TextFilesFilter" xml:space="preserve">
     <value>Text Files (*.txt)|*.txt|All Files (*.*)|*.*</value>
@@ -378,8 +378,8 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="KnownNumeralsFileSelection" xml:space="preserve">
     <value>Select file with known numerals</value>
   </data>
-  <data name="AbbreviatedWordsFileTooltip" xml:space="preserve">
-    <value>File with abbreviated words contains two-column mapping. First column contains words or multiword phrases. Second column contains their abbreviations.</value>
+  <data name="KnownPhrasesFileTooltip" xml:space="preserve">
+    <value>File with abbreviated words contains two-column mapping. First column contains words or multiword phrases. Second column contains their abbreviations. Third column contains tags for special phrases treatment.</value>
   </data>
   <data name="PredefinedNamesFileTooltip" xml:space="preserve">
     <value>File with predefined names contains two-column mapping. First column contains code points in hexadecimal form. Second column contains their predefined names (without '\').</value>

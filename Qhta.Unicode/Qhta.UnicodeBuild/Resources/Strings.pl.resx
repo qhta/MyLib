@@ -357,11 +357,11 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="CsvFilesFilter" xml:space="preserve">
     <value>Pliki CSV(*.csv)|*.csv|Pliki tekstowe (*.txt)|*.txt|Wszystkie pliki (*.*)|*.*</value>
   </data>
-  <data name="AbbreviatedWordsFile" xml:space="preserve">
-    <value>Plik ze skrótami wyrazów</value>
+  <data name="KnownPhrasesFile" xml:space="preserve">
+    <value>Plik ze znanymi frazami</value>
   </data>
-  <data name="AbbreviatedWordsFileSelection" xml:space="preserve">
-    <value>Wybierz plik ze skrótami wyrazów</value>
+  <data name="KnownPhrasesFileSelection" xml:space="preserve">
+    <value>Wybierz plik z znanymi frazami</value>
   </data>
   <data name="TextFilesFilter" xml:space="preserve">
     <value>Pliki tekstowe (*.txt)|*.txt|Wszystkie pliki (*.*)|*.*</value>
@@ -378,8 +378,8 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="KnownNumeralsFileSelection" xml:space="preserve">
     <value>Wybierz plik ze znanymi liczebnikami</value>
   </data>
-  <data name="AbbreviatedWordsFileTooltip" xml:space="preserve">
-    <value>Plik ze skrótami wyrazów zawiera dwukolumnowe mapowanie. Pierwsza kolumna zawiera słowa lub frazy wielowyrazowe. Druga kolumna zawiera ich skróty.</value>
+  <data name="KnownPhrasesFileTooltip" xml:space="preserve">
+    <value>Plik ze znanymi frazami zawiera trójkolumnowe mapowanie. Pierwsza kolumna zawiera słowa lub frazy wielowyrazowe. Druga kolumna zawiera ich skróty. Trzecia - znaczniki co do ich specjalnego traktowania.</value>
   </data>
   <data name="PredefinedNamesFileTooltip" xml:space="preserve">
     <value>Plik z predefiniowanymi nazwami zawiera dwukolumnowe mapowanie. Pierwsza kolumna zawiera punkty kodowe w formie heksadecymalnej. Druga kolumna zawiera ich predefiniowane nazwy (bez '\').</value>

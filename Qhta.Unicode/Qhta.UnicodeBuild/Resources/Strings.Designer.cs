@@ -61,33 +61,6 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Abbreviated words file.
-        /// </summary>
-        public static string AbbreviatedWordsFile {
-            get {
-                return ResourceManager.GetString("AbbreviatedWordsFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select file with abbreviated words.
-        /// </summary>
-        public static string AbbreviatedWordsFileSelection {
-            get {
-                return ResourceManager.GetString("AbbreviatedWordsFileSelection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File with abbreviated words contains two-column mapping. First column contains words or multiword phrases. Second column contains their abbreviations..
-        /// </summary>
-        public static string AbbreviatedWordsFileTooltip {
-            get {
-                return ResourceManager.GetString("AbbreviatedWordsFileTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string About {
@@ -543,6 +516,33 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string KnownNumeralsFileTooltip {
             get {
                 return ResourceManager.GetString("KnownNumeralsFileTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Known phrases file.
+        /// </summary>
+        public static string KnownPhrasesFile {
+            get {
+                return ResourceManager.GetString("KnownPhrasesFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select file with known phrases.
+        /// </summary>
+        public static string KnownPhrasesFileSelection {
+            get {
+                return ResourceManager.GetString("KnownPhrasesFileSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File with abbreviated words contains two-column mapping. First column contains words or multiword phrases. Second column contains their abbreviations. Third column contains tags for special phrases treatment..
+        /// </summary>
+        public static string KnownPhrasesFileTooltip {
+            get {
+                return ResourceManager.GetString("KnownPhrasesFileTooltip", resourceCulture);
             }
         }
         
