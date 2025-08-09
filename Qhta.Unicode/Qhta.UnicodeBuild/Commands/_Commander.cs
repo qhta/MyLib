@@ -56,9 +56,13 @@ public static partial class _Commander
       e.CanExecute = UndoMgr.IsUndoAvailable;
     else if (command == ApplicationCommands.Redo)
       e.CanExecute = UndoMgr.IsRedoAvailable;
+    else if (command == ApplicationCommands.Find)
+      e.CanExecute = FindCommand.CanExecute(e.Parameter ?? GetDataGrid(sender, command));
+    else if (command == FindNextCommand)
+      e.CanExecute = FindCommand.CanExecuteFindNext(e.Parameter ?? GetDataGrid(sender, command));
     else
       e.CanExecute = true; // Default to true for other commands
-    Debug.WriteLine($"_Commander.CommandBinding_OnCanExecute({sender}, {GetName(e.Command)}({e.Parameter}))={e.CanExecute}");
+    //Debug.WriteLine($"_Commander.CommandBinding_OnCanExecute({sender}, {GetName(e.Command)}({e.Parameter}))={e.CanExecute}");
   }
 
   /// <summary>
@@ -80,7 +84,7 @@ public static partial class _Commander
   /// <param name="e"></param>
   public static void OnExecute(object sender, ExecutedRoutedEventArgs e)
   {
-    Debug.WriteLine($"_Commander.CommandBinding_OnExecute({sender}, {GetName(e.Command)}({e.Parameter}))");
+    //Debug.WriteLine($"_Commander.CommandBinding_OnExecute({sender}, {GetName(e.Command)}({e.Parameter}))");
     var command = e.Command;
     if (command == ApplicationCommands.Save)
     {
@@ -113,6 +117,14 @@ public static partial class _Commander
       UndoMgr.Redo();
       GetDataGrid(sender, command).UpdateLayout();
     }
+    else if (command == ApplicationCommands.Find)
+    {
+      FindCommand.Execute(e.Parameter ?? GetDataGrid(sender, command));
+    }
+    else if (command == FindNextCommand)
+    {
+      FindCommand.ExecuteFindNext(e.Parameter ?? GetDataGrid(sender, command));
+    }
     else
     {
       Debug.WriteLine($"Command {command} not executed");
@@ -143,6 +155,16 @@ public static partial class _Commander
   /// Command to fill the current column in the data grid with a selected value.
   /// </summary>
   public static FillColumnCommand FillColumnCommand { get; } = new();
+
+  /// <summary>
+  /// Command to find a value selected by the user in the current column in the data grid.
+  /// </summary>
+  public static FindCommand FindCommand { get; } = new();
+
+  /// <summary>
+  /// Command to find a value selected by the user in the current column in the data grid.
+  /// </summary>
+  public static RoutedCommand FindNextCommand { get; } = new RoutedCommand("FindNext", typeof(_Commander), [new KeyGesture(Key.F3)]);
 
   /// <summary>
   /// Command to apply writing system mappings from a file.

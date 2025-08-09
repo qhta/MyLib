@@ -9,6 +9,52 @@
             Controller class for managing SfDataGrid operations.
             </summary>
         </member>
+        <member name="M:Qhta.SF.Tools.Controller.GetDataGrid(Syncfusion.UI.Xaml.Grid.GridColumn)">
+            <summary>
+            Gets the owner DataGrid of the specified column.
+            </summary>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.GetRowDataType(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Gets a type of the row data in the SfDataGrid.
+            </summary>
+            <param name="grid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.GetSelectedRows(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,System.Object[]@)">
+            <summary>
+            Gets the selected rows from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Returns the selected cells and outputs whether all rows are selected, along with the selected rows.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="allRowsSelected"></param>
+            <param name="selectedRows"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.GetSelectedColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,Syncfusion.UI.Xaml.Grid.GridColumn[]@)">
+            <summary>
+            Gets the selected columns from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Returns the selected cells and outputs whether all columns are selected, along with the selected columns.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="allColumnsSelected"></param>
+            <param name="selectedColumns"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.GetSelectedRowsAndColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,Syncfusion.UI.Xaml.Grid.GridColumn[]@,System.Boolean@,System.Object[]@)">
+            <summary>
+            Gets the selected rows and columns from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Returns the selected cells and outputs whether all columns or rows are selected, along with the selected columns and rows.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="allColumnsSelected"></param>
+            <param name="selectedColumns"></param>
+            <param name="allRowsSelected"></param>
+            <param name="selectedRows"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.SF.Tools.Controller.CanCopyData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
             <summary>
             Determines whether data can be copied from the specified data grid.
@@ -71,18 +117,6 @@
             <param name="dataGrid"></param>
             <param name="op"></param>
         </member>
-        <member name="M:Qhta.SF.Tools.Controller.GetSelectedRowsAndColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,Syncfusion.UI.Xaml.Grid.GridColumn[]@,System.Boolean@,System.Object[]@)">
-            <summary>
-            Gets the selected rows and columns from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            Returns the selected cells and outputs whether all columns or rows are selected, along with the selected columns and rows.
-            </summary>
-            <param name="dataGrid"></param>
-            <param name="allColumnsSelected"></param>
-            <param name="selectedColumns"></param>
-            <param name="allRowsSelected"></param>
-            <param name="selectedRows"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.SF.Tools.Controller.CanDeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
             <summary>
             Determines whether data can be deleted from the specified data grid.
@@ -96,6 +130,31 @@
             Performs a delete operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
             </summary>
             <param name="dataGrid"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.FindFirstValue(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object)">
+            <summary>
+            Finds the first occurrence of a specified value in the column and selects the corresponding cell.
+            </summary>
+            <param name="column"></param>
+            <param name="specifiedValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.FindNextValue(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object,System.Object)">
+            <summary>
+            Finds the next occurrence of a specified value in the column and selects the corresponding cell.
+            </summary>
+            <param name="column"></param>
+            <param name="specifiedValue"></param>
+            <param name="currentRow">If null then top of selected rows is assumed as current</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.FindAllValues(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object)">
+            <summary>
+            Finds all occurrences of a specified value in the column and selects the corresponding cells.
+            </summary>
+            <param name="column"></param>
+            <param name="specifiedValue"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.SF.Tools.Controller.CanPasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
             <summary>
@@ -116,6 +175,35 @@
             </summary>
             <param name="headerLine">A string containing tab-separated header values. Cannot be null.</param>
             <returns>An array of strings, each representing a header value extracted from the input string.</returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.IsSelected(Syncfusion.UI.Xaml.Grid.GridColumn)">
+            <summary>
+            Checks if the specific <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> column is selected or not.
+            </summary>
+            <param name="column">Column to check</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.SetIsSelected(Syncfusion.UI.Xaml.Grid.GridColumn,System.Boolean,System.Boolean)">
+            <summary>
+            Selects or unselects the specific <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> column.
+            Any cell selection is cleared before selecting or unselecting the column.
+            </summary>
+            <param name="column">Column to select/unselect</param>
+            <param name="select">True for select, false for unselect.</param>
+            <param name="unselectOther">True to unselect other columns</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.AreAllColumnsSelected(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Checks if all columns in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> are selected or not.
+            </summary>
+            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance.</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.Controller.SelectAllColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean)">
+            <summary>
+            Selects or unselects all columns in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Any cell selection is cleared before selecting or unselecting columns.
+            </summary>
+            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance.</param>
+            <param name="select">True for select all, false for unselect all.</param>
         </member>
         <member name="T:Qhta.SF.Tools.DataStrings">
             <summary>
@@ -790,6 +878,36 @@
         <member name="M:Qhta.SF.Tools.SfDataGridTools.InitializeComponent">
             <summary>
             InitializeComponent
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
             </summary>
         </member>
     </members>

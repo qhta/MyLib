@@ -424,34 +424,7 @@ public class NameGenerator
     var keyPhrase = ws.KeyPhrase;
     if (!String.IsNullOrEmpty(keyPhrase))
     {
-      var matchStart = keyPhrase.EndsWith('*');
-      var matchEnd = keyPhrase.StartsWith('*');
-      if (matchStart)
-        keyPhrase = keyPhrase.Substring(0, keyPhrase.Length - 1);
-      if (matchEnd)
-        keyPhrase = keyPhrase.Substring(1, keyPhrase.Length - 1);
-      keyPhrase = keyPhrase.Trim();
-      if (matchStart && matchEnd)
-        matchStart = matchEnd = false;
-      if (matchStart)
-      {
-        if (words.First() == keyPhrase)
-          words.RemoveAt(0);
-      }
-      else
-      if (matchEnd)
-      {
-        if (words.Last() == keyPhrase)
-          words.RemoveAt(words.Count - 1);
-      }
-      else
-      {
-        var wordPos = words.IndexOf(keyPhrase);
-        if (wordPos >= 0)
-        {
-          words.RemoveAt(wordPos);
-        }
-      }
+      words = RemoveKeyPhrase(words, keyPhrase);
 
       var name = (wsNode.Next != null) ? GenerateShortName(words, wsNode.Next) :
         CreateAbbreviatedName(words);
@@ -470,6 +443,38 @@ public class NameGenerator
     if (wsNode.Next != null)
       return CreateProceduralName(words, wsNode.Next);
     return CreateAbbreviatedName(words);
+  }
+
+  private List<string> RemoveKeyPhrase(List<string> words, string keyPhrase)
+  {
+    var matchStart = keyPhrase.EndsWith('*');
+    var matchEnd = keyPhrase.StartsWith('*');
+    if (matchStart)
+      keyPhrase = keyPhrase.Substring(0, keyPhrase.Length - 1);
+    if (matchEnd)
+      keyPhrase = keyPhrase.Substring(1, keyPhrase.Length - 1);
+    keyPhrase = keyPhrase.Trim();
+    if (matchStart && matchEnd)
+      matchStart = matchEnd = false;
+    if (matchStart)
+    {
+      if (words.First() == keyPhrase)
+        words.RemoveAt(0);
+    }
+    else if (matchEnd)
+    {
+      if (words.Last() == keyPhrase)
+        words.RemoveAt(words.Count - 1);
+    }
+    else
+    {
+      var wordPos = words.IndexOf(keyPhrase);
+      if (wordPos >= 0)
+      {
+        words.RemoveAt(wordPos);
+      }
+    }
+    return words;
   }
 
   private List<string> SplitDescription(string description)

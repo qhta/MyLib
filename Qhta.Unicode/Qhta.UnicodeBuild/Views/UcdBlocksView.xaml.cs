@@ -216,27 +216,28 @@ public partial class UcdBlocksView : UserControl
           var itemsSource = comboBoxColumn.ItemsSource;
           var selectValueWindow = new SelectValueWindow
           {
-            Prompt = String.Format(UnicodeBuild.Resources.Strings.SelectValueTitle, column.HeaderText),
-            ItemsSource = itemsSource
+            Prompt = String.Format(UnicodeBuild.Resources.Strings.SelectValueForField, column.HeaderText),
+            ItemsSource = itemsSource,
+            ShowOverwriteNonEmptyCells = true,
           };
           if (selectValueWindow.ShowDialog() == true)
           {
             var selectedValue = selectValueWindow.SelectedItem;
-            var emptyCellsOnly = selectValueWindow.EmptyCellsOnly;
+            var overwriteNonEmptyCells = selectValueWindow.OverwriteNonEmptyCells;
             if (selectedValue != null)
             {
               //Debug.WriteLine($"Setting column: {mappingName}, Selected Value: {selectedValue}");
               foreach (var record in selectedRows)
               {
-                if (emptyCellsOnly)
+                if (overwriteNonEmptyCells)
+                {
+                  property.SetValue(record, selectedValue);
+                }
+                else
                 {
                   var currentValue = property.GetValue(record);
                   if (currentValue == null)
                     property.SetValue(record, selectedValue);
-                }
-                else
-                {
-                  property.SetValue(record, selectedValue);
                 }
               }
             }

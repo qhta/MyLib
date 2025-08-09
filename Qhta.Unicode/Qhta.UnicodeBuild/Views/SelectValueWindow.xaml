@@ -5,12 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Qhta.UnicodeBuild.Views"
              xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
+             xmlns:commands="clr-namespace:Qhta.UnicodeBuild.Commands"
+             xmlns:sys="clr-namespace:System.Globalization;assembly=System.Runtime"
              mc:Ignorable="d" 
              Height="500" Width="300">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
@@ -35,20 +38,34 @@
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>
-    <WrapPanel 
+
+    <CheckBox 
       Grid.Row="2"
-      Orientation="Horizontal"
-      HorizontalAlignment="Left"
       Margin="10,5"
-    >
-      <CheckBox 
-        IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SelectValueWindow}},
-          Path= EmptyCellsOnly}"
-        Content="{x:Static resources:Strings.EmptyCellsOnly}"
-                />
-    </WrapPanel>    
-    <WrapPanel 
+      Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SelectValueWindow}},
+      Path= ShowOverwriteNonEmptyCells, Converter={StaticResource BoolToVisibilityConverter}}"     
+      IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SelectValueWindow}},
+        Path= OverwriteNonEmptyCells}"
+      Content="{x:Static resources:Strings.OverwriteNonEmptyCells}"/>
+    <ComboBox 
       Grid.Row="3"
+      Margin="10,5"
+      Width="200"
+      HorizontalAlignment="Left"
+      Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SelectValueWindow}},
+      Path= ShowFindInSequence, Converter={StaticResource BoolToVisibilityConverter}}" 
+      ItemsSource="{Binding Source={StaticResource FindInSequenceProvider}}"
+      SelectedItem="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SelectValueWindow}},
+        Path= FindInSequence}">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Converter={StaticResource FindInSequenceConverter},
+            ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}" />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+    <WrapPanel 
+      Grid.Row="4"
       Orientation="Horizontal"
       HorizontalAlignment="Center"
       Margin="10,5"

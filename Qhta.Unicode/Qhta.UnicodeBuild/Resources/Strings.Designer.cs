@@ -358,7 +358,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fill empty cells only.
+        ///   Looks up a localized string similar to Empty cells only.
         /// </summary>
         public static string EmptyCellsOnly {
             get {
@@ -444,6 +444,60 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string FillColumnTooltip {
             get {
                 return ResourceManager.GetString("FillColumnTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find.
+        /// </summary>
+        public static string Find {
+            get {
+                return ResourceManager.GetString("Find", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find all occurrences.
+        /// </summary>
+        public static string FindAll {
+            get {
+                return ResourceManager.GetString("FindAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find first occurrence.
+        /// </summary>
+        public static string FindFirst {
+            get {
+                return ResourceManager.GetString("FindFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find next occurrence.
+        /// </summary>
+        public static string FindNext {
+            get {
+                return ResourceManager.GetString("FindNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find value.
+        /// </summary>
+        public static string FindValue {
+            get {
+                return ResourceManager.GetString("FindValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find &quot;{0}&quot;.
+        /// </summary>
+        public static string FindValueTitle {
+            get {
+                return ResourceManager.GetString("FindValueTitle", resourceCulture);
             }
         }
         
@@ -619,6 +673,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No more value found..
+        /// </summary>
+        public static string NotMoreValueFound {
+            get {
+                return ResourceManager.GetString("NotMoreValueFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Numeric words are converted to numbers..
         /// </summary>
         public static string Numeric {
@@ -651,6 +714,15 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string OperationCompleted {
             get {
                 return ResourceManager.GetString("OperationCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwrite non-empty cells.
+        /// </summary>
+        public static string OverwriteNonEmptyCells {
+            get {
+                return ResourceManager.GetString("OverwriteNonEmptyCells", resourceCulture);
             }
         }
         
@@ -754,11 +826,11 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select &quot;{0}&quot;.
+        ///   Looks up a localized string similar to Select value for field &quot;{0}&quot;.
         /// </summary>
-        public static string SelectValueTitle {
+        public static string SelectValueForField {
             get {
-                return ResourceManager.GetString("SelectValueTitle", resourceCulture);
+                return ResourceManager.GetString("SelectValueForField", resourceCulture);
             }
         }
         
@@ -843,6 +915,15 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string UpdatingField {
             get {
                 return ResourceManager.GetString("UpdatingField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value not found..
+        /// </summary>
+        public static string ValueNotFound {
+            get {
+                return ResourceManager.GetString("ValueNotFound", resourceCulture);
             }
         }
         

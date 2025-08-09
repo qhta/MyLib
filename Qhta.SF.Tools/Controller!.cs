@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Diagnostics;
+using System.Reflection;
 using Qhta.TypeUtils;
 using Syncfusion.UI.Xaml.Grid;
 
@@ -10,8 +11,21 @@ namespace Qhta.SF.Tools;
 /// </summary>
 public static partial class Controller
 {
+  /// <summary>
+  /// Gets the owner DataGrid of the specified column.
+  /// </summary>
+  /// <param name="column"></param>
+  /// <returns></returns>
+  public static SfDataGrid? GetDataGrid(this GridColumn column) =>
+    // In the current implementation, we know that the column DataGrid property is not public.
+    typeof(GridColumn).GetProperty("DataGrid", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(column) as SfDataGrid;
 
-  private static Type? GetRowDataType(SfDataGrid grid)
+  /// <summary>
+  /// Gets a type of the row data in the SfDataGrid.
+  /// </summary>
+  /// <param name="grid"></param>
+  /// <returns></returns>
+  public static Type? GetRowDataType(SfDataGrid grid)
   {
     var itemsSource = grid.View?.SourceCollection;
     if (itemsSource == null)
@@ -169,4 +183,79 @@ public static partial class Controller
     }
     propertyInfo.SetValue(rowData, value);
   }
+
+  /// <summary>
+  /// Gets the selected rows from the specified <see cref="SfDataGrid"/>.
+  /// Returns the selected cells and outputs whether all rows are selected, along with the selected rows.
+  /// </summary>
+  /// <param name="dataGrid"></param>
+  /// <param name="allRowsSelected"></param>
+  /// <param name="selectedRows"></param>
+  /// <returns></returns>
+  public static GridCellInfo[] GetSelectedRows
+  (this SfDataGrid dataGrid, out bool allRowsSelected, out object[] selectedRows)
+    => GetSelectedRowsAndColumns(dataGrid, out _, out _, out allRowsSelected, out selectedRows);
+
+  /// <summary>
+  /// Gets the selected columns from the specified <see cref="SfDataGrid"/>.
+  /// Returns the selected cells and outputs whether all columns are selected, along with the selected columns.
+  /// </summary>
+  /// <param name="dataGrid"></param>
+  /// <param name="allColumnsSelected"></param>
+  /// <param name="selectedColumns"></param>
+  /// <returns></returns>
+  public static GridCellInfo[] GetSelectedColumns
+  (this SfDataGrid dataGrid, out bool allColumnsSelected, out GridColumn[] selectedColumns)
+    => GetSelectedRowsAndColumns(dataGrid, out allColumnsSelected, out selectedColumns, out _, out _);
+
+  /// <summary>
+  /// Gets the selected rows and columns from the specified <see cref="SfDataGrid"/>.
+  /// Returns the selected cells and outputs whether all columns or rows are selected, along with the selected columns and rows.
+  /// </summary>
+  /// <param name="dataGrid"></param>
+  /// <param name="allColumnsSelected"></param>
+  /// <param name="selectedColumns"></param>
+  /// <param name="allRowsSelected"></param>
+  /// <param name="selectedRows"></param>
+  /// <returns></returns>
+  public static GridCellInfo[] GetSelectedRowsAndColumns
+  (this SfDataGrid dataGrid, out bool allColumnsSelected, out GridColumn[] selectedColumns, out bool allRowsSelected,
+    out object[] selectedRows)
+  {
+    allColumnsSelected = false;
+    var selectedCells = dataGrid.GetSelectedCells().ToArray();
+    if (selectedCells.Length != 0)
+      selectedColumns = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
+    else
+      selectedColumns = dataGrid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
+    if (!selectedColumns.Any())
+    {
+      selectedColumns = dataGrid.Columns.ToArray();
+    }
+    else if (selectedColumns.Length == dataGrid.Columns.Count())
+    {
+      allColumnsSelected = true;
+    }
+
+    allRowsSelected = false;
+    if (selectedCells.Length != 0)
+      selectedRows = selectedCells.Select(cell => cell.RowData).Distinct().ToArray();
+    else
+      selectedRows = dataGrid.SelectionController.SelectedRows.Select(row => row.RowData).ToArray();
+    if (!selectedRows.Any())
+    {
+      selectedRows = dataGrid.View.Records.Select(record => record.Data).ToArray();
+    }
+    if (selectedRows.Length == 0)
+    {
+      Debug.WriteLine("DataOp: No rows selected.");
+      return selectedCells;
+    }
+    if (selectedRows.Length == dataGrid.View.Records.Count())
+    {
+      allRowsSelected = true;
+    }
+    return selectedCells;
+  }
+
 }

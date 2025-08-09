@@ -144,17 +144,7 @@ public partial class SfDataGridTools : ResourceDictionary
       var dataGrid = indentCell.FindParent<SfDataGrid>();
       if (dataGrid == null) return;
 
-      var isSelected = dataGrid.GetSelectedCells().Any();
-      if (isSelected)
-      {
-        dataGrid.SelectionController.ClearSelections(false);
-      }
-      else
-      {
-        isSelected = dataGrid.Columns.FirstOrDefault(SfDataGridColumnBehavior.GetIsSelected) is not null;
-        isSelected = !isSelected;
-        foreach (var column in dataGrid.Columns) SfDataGridColumnBehavior.SetIsSelected(column, isSelected);
-      }
+      dataGrid.SelectAllColumns(!dataGrid.AreAllColumnsSelected());
     }
   }
 

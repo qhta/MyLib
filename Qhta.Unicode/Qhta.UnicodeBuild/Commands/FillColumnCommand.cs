@@ -12,12 +12,12 @@ namespace Qhta.UnicodeBuild.Commands;
 
 
 /// <summary>
-/// Command to fill the current column in the data grid with a selected value.
+/// Command to fill the current column in the data grid with a value selected by user.
 /// </summary>
 public class FillColumnCommand : Command
 {
   /// <summary>
-  /// Checks whether the command can be executed based on the current selection in the data grid.
+  /// Checks whether the command can be executed basing on the current selection in the data grid.
   /// </summary>
   /// <param name="parameter"></param>
   /// <returns></returns>
@@ -51,7 +51,7 @@ public class FillColumnCommand : Command
   }
 
   /// <summary>
-  /// Executes the command to fill the selected column with a value chosen by the user.
+  /// Executes the command basing on the current selection in the data grid.
   /// </summary>
   /// <param name="parameter"></param>
   public override void Execute(object? parameter)
@@ -89,27 +89,28 @@ public class FillColumnCommand : Command
         var itemsSource = comboBoxColumn.ItemsSource;
         var selectValueWindow = new SelectValueWindow
         {
-          Prompt = String.Format(Resources.Strings.SelectValueTitle, column.HeaderText),
-          ItemsSource = itemsSource
+          Prompt = String.Format(Resources.Strings.SelectValueForField, column.HeaderText),
+          ItemsSource = itemsSource,
+          ShowOverwriteNonEmptyCells = true,
+          ShowFindInSequence = false,
         };
         if (selectValueWindow.ShowDialog() == true)
         {
           var selectedValue = selectValueWindow.SelectedItem;
-          var emptyCellsOnly = selectValueWindow.EmptyCellsOnly;
+          var OverwriteNonEmptyCells = selectValueWindow.OverwriteNonEmptyCells;
           if (selectedValue != null)
           {
             //Debug.WriteLine($"Setting column: {mappingName}, Selected Value: {selectedValue}");
             foreach (var record in selectedRows)
             {
-              if (emptyCellsOnly)
-              {
-                var currentValue = property.GetValue(record);
-                if (currentValue == null)
-                  property.SetValue(record, selectedValue);
-              }
-              else
+              if (OverwriteNonEmptyCells)
               {
                 property.SetValue(record, selectedValue);
+              }
+              {
+                var currentValue = property.GetValue(record);
+                if (currentValue == null || currentValue is string str && String.IsNullOrEmpty(str))
+                  property.SetValue(record, selectedValue);
               }
             }
           }

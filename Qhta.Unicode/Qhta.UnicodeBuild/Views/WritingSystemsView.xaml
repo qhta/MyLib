@@ -102,6 +102,9 @@
     <CommandBinding Command="Delete" CanExecute="OnCanExecute" Executed="OnExecuted"/>
     <CommandBinding Command="Undo" CanExecute="OnCanExecute" Executed="OnExecuted"/>
     <CommandBinding Command="Redo" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="Find" CanExecute="OnCanExecute" Executed="OnExecuted"/>
+    <CommandBinding Command="{x:Static commands:_Commander.FindNextCommand}" 
+                    CanExecute="OnCanExecute" Executed="OnExecuted"/>
     <CommandBinding Command="{x:Static commands:_Commander.MarkUnusedWritingSystemsCommand}"
                     CanExecute="OnCanExecute" Executed="OnExecuted"/>
   </UserControl.CommandBindings>
@@ -127,6 +130,10 @@
         <MenuItem Header="{x:Static resources:Strings.Cut}" Command="Cut"/>
         <MenuItem Header="{x:Static resources:Strings.Copy}" Command="Copy"/>
         <MenuItem Header="{x:Static resources:Strings.Paste}" Command="Paste"/>
+        <Separator/>
+        <MenuItem Header="{x:Static resources:Strings.Find}" 
+                  Command="Find"
+                  CommandParameter="{Binding ElementName=WritingSystemsDataGrid}"/>
       </MenuItem>
       <MenuItem Header="{x:Static resources:Strings.Tools}">
         <MenuItem Header="{x:Static resources:Strings.FillColumn}"

@@ -26,7 +26,6 @@ public partial class MainWindow : Window
     this.KeyDown += MainWindow_KeyDown;
     _backgroundTimer = new Timer(TimerProc, null, TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(500));
     Closing += MainWindow_Closing;
-
   }
 
   private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)

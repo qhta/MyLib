@@ -5,6 +5,7 @@
                     xmlns:viewModels="clr-namespace:Qhta.UnicodeBuild.ViewModels"
                     xmlns:resources="clr-namespace:Qhta.UnicodeBuild.Resources"
                     xmlns:sf="http://schemas.syncfusion.com/wpf"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     xmlns:mvvm="clr-namespace:Qhta.MVVM;assembly=Qhta.MVVM"
                     xmlns:sfTools="clr-namespace:Qhta.SF.Tools;assembly=Qhta.SF.Tools"
                     xmlns:commands="clr-namespace:Qhta.UnicodeBuild.Commands"
@@ -29,6 +30,13 @@
     ResourceType="{x:Type resources:WritingSystemKindStrings}" x:Key="WritingSystemKindResourceConverter"/>
   <helpers:EnumToResourceConverter 
     ResourceType="{x:Type resources:NameGenMethodStrings}" x:Key="NameGenMethodResourceConverter"/>
+  <helpers:EnumToResourceConverter 
+    ResourceType="{x:Type resources:Strings}" x:Key="FindInSequenceConverter"/>
+  <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="FindInSequenceProvider">
+    <ObjectDataProvider.MethodParameters>
+      <x:Type TypeName="commands:FindInSequence" />
+    </ObjectDataProvider.MethodParameters>
+  </ObjectDataProvider>
   <helpers:CategoryResourceConverter x:Key="CategoryResourceConverter"/>
   <helpers:InsertItemConverter x:Key="InsertItemConverter"/>
   <viewModels:WritingSystemViewModel x:Key="BlankWritingSystem"/>

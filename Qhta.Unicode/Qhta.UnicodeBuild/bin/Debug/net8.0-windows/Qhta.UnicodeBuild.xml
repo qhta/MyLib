@@ -281,21 +281,87 @@
         </member>
         <member name="T:Qhta.UnicodeBuild.Commands.FillColumnCommand">
             <summary>
-            Command to fill the current column in the data grid with a selected value.
+            Command to fill the current column in the data grid with a value selected by user.
             </summary>
         </member>
         <member name="M:Qhta.UnicodeBuild.Commands.FillColumnCommand.CanExecute(System.Object)">
             <summary>
-            Checks whether the command can be executed based on the current selection in the data grid.
+            Checks whether the command can be executed basing on the current selection in the data grid.
             </summary>
             <param name="parameter"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.UnicodeBuild.Commands.FillColumnCommand.Execute(System.Object)">
             <summary>
-            Executes the command to fill the selected column with a value chosen by the user.
+            Executes the command basing on the current selection in the data grid.
             </summary>
             <param name="parameter"></param>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.FindCommand">
+            <summary>
+            Command to find a value selected by the user int the current column in the data grid.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands.FindCommand.LastDataGrid">
+            <summary>
+            Specifies the last data grid where the find operation was performed.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands.FindCommand.LastColumn">
+            <summary>
+            Specifies the last column where the find operation was performed.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands.FindCommand.LastValue">
+            <summary>
+            Value of the last search value in the column.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.FindCommand.CanExecute(System.Object)">
+            <summary>
+            Checks whether the command can be executed basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.FindCommand.CanExecuteFindNext(System.Object)">
+            <summary>
+            Checks whether the FindNext command can be executed basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.FindCommand.Execute(System.Object)">
+            <summary>
+            Executes the command basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.FindCommand.ExecuteFindNext(System.Object)">
+            <summary>
+            Executes the FindNext command basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.FindInSequence">
+            <summary>
+            Specifies how to find a value in the context of the current selection.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.Commands.FindInSequence.FindNext">
+            <summary>
+            Find the next occurrence of the value.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.Commands.FindInSequence.FindFirst">
+            <summary>
+            Find the first occurrence of the value.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.Commands.FindInSequence.FindAll">
+            <summary>
+            Find all occurrences of the value.
+            </summary>
         </member>
         <member name="T:Qhta.UnicodeBuild.Commands.MarkUnusedWritingSystemsCommand">
             <summary>
@@ -435,6 +501,16 @@
         <member name="P:Qhta.UnicodeBuild.Commands._Commander.FillColumnCommand">
             <summary>
             Command to fill the current column in the data grid with a selected value.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.FindCommand">
+            <summary>
+            Command to find a value selected by the user in the current column in the data grid.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.FindNextCommand">
+            <summary>
+            Command to find a value selected by the user in the current column in the data grid.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyBlockMappingCommand">
@@ -1746,7 +1822,7 @@
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.EmptyCellsOnly">
             <summary>
-              Looks up a localized string similar to Fill empty cells only.
+              Looks up a localized string similar to Empty cells only.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.EmptyItem">
@@ -1792,6 +1868,36 @@
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.FillColumnTooltip">
             <summary>
               Looks up a localized string similar to Fill column with selected value.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.Find">
+            <summary>
+              Looks up a localized string similar to Find.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.FindAll">
+            <summary>
+              Looks up a localized string similar to Find all occurrences.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.FindFirst">
+            <summary>
+              Looks up a localized string similar to Find first occurrence.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.FindNext">
+            <summary>
+              Looks up a localized string similar to Find next occurrence.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.FindValue">
+            <summary>
+              Looks up a localized string similar to Find value.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.FindValueTitle">
+            <summary>
+              Looks up a localized string similar to Find &quot;{0}&quot;.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Help">
@@ -1889,6 +1995,11 @@
               Looks up a localized string similar to (Not empty).
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.NotMoreValueFound">
+            <summary>
+              Looks up a localized string similar to No more value found..
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Numeric">
             <summary>
               Looks up a localized string similar to Numeric words are converted to numbers..
@@ -1907,6 +2018,11 @@
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.OperationCompleted">
             <summary>
               Looks up a localized string similar to Operation completed successfully..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.OverwriteNonEmptyCells">
+            <summary>
+              Looks up a localized string similar to Overwrite non-empty cells.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Paste">
@@ -1964,9 +2080,9 @@
               Looks up a localized string similar to Select value.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Strings.SelectValueTitle">
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.SelectValueForField">
             <summary>
-              Looks up a localized string similar to Select &quot;{0}&quot;.
+              Looks up a localized string similar to Select value for field &quot;{0}&quot;.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.TextFilesFilter">
@@ -2015,6 +2131,11 @@
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.UpdatingField">
             <summary>
               Looks up a localized string similar to Updating field {0}.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ValueNotFound">
+            <summary>
+              Looks up a localized string similar to Value not found..
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Warning">
@@ -4170,12 +4291,42 @@
             Selected item in the selection window. This property is bound to the selected item in the ItemsSource.
             </summary>
         </member>
-        <member name="F:Qhta.UnicodeBuild.Views.SelectValueWindow.EmptyCellsOnlyProperty">
+        <member name="F:Qhta.UnicodeBuild.Views.SelectValueWindow.ShowOverwriteNonEmptyCellsProperty">
             <summary>
-            Dependency property for the EmptyCellsOnly flag, which indicates whether to show only empty cells in the selection.
+            Dependency property for the <see cref="P:Qhta.UnicodeBuild.Views.SelectValueWindow.ShowOverwriteNonEmptyCells"/> flag, which indicates whether to show <see cref="P:Qhta.UnicodeBuild.Views.SelectValueWindow.OverwriteNonEmptyCells"/> checkbox.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Views.SelectValueWindow.EmptyCellsOnly">
+        <member name="P:Qhta.UnicodeBuild.Views.SelectValueWindow.ShowOverwriteNonEmptyCells">
+            <summary>
+            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.Views.SelectValueWindow.OverwriteNonEmptyCellsProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.UnicodeBuild.Views.SelectValueWindow.OverwriteNonEmptyCells"/> flag, which indicates whether to fill only empty cells in the selection.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Views.SelectValueWindow.OverwriteNonEmptyCells">
+            <summary>
+            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.Views.SelectValueWindow.ShowFindInSequenceProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.UnicodeBuild.Views.SelectValueWindow.ShowFindInSequence"/> flag, which indicates whether to show <see cref="P:Qhta.UnicodeBuild.Views.SelectValueWindow.FindInSequence"/> combobox.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Views.SelectValueWindow.ShowFindInSequence">
+            <summary>
+            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.Views.SelectValueWindow.FindInSequenceProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.UnicodeBuild.Views.SelectValueWindow.FindInSequence"/> flag, which indicates how to find value in the context of the current selection.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Views.SelectValueWindow.FindInSequence">
             <summary>
             Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
             </summary>
