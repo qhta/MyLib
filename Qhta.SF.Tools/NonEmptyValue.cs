@@ -1,4 +1,6 @@
-﻿namespace Qhta.SF.Tools;
+﻿using Qhta.SF.Tools.Resources;
+
+namespace Qhta.SF.Tools;
 
 /// <summary>
 /// Object representing non-empty value.
@@ -6,7 +8,7 @@
 public class NonEmptyValue
 {
   /// <summary>
-  /// Returns a <see cref="DataStrings.NonEmptyValue"/>.
+  /// Returns a <see cref="NonEmptyValue"/>.
   /// </summary>
   /// <returns></returns>
   public override string ToString()

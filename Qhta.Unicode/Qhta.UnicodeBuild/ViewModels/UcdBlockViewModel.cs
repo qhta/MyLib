@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Qhta.MVVM;
 using Qhta.SF.Tools;
+using Qhta.SF.Tools.Resources;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.Resources;

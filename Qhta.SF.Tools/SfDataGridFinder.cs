@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-
+using Qhta.SF.Tools.Resources;
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.UI.Xaml.ScrollAxis;
 

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Microsoft.VisualBasic;
+using Qhta.SF.Tools.Resources;
 using Syncfusion.Data;
 using Syncfusion.UI.Xaml.Grid;
 

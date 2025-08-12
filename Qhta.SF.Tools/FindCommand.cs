@@ -4,8 +4,8 @@ using System.Windows;
 using System.Windows.Input;
 
 using Qhta.MVVM;
-
-
+using Qhta.SF.Tools.Resources;
+using Qhta.SF.Tools.Views;
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.UI.Xaml.ScrollAxis;
 

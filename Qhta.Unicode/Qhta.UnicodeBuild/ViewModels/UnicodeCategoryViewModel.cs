@@ -1,5 +1,6 @@
 ﻿using Qhta.MVVM;
 using Qhta.SF.Tools;
+using Qhta.SF.Tools.Resources;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Resources;
 

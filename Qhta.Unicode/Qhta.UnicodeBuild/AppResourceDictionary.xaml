@@ -11,7 +11,7 @@
                     xmlns:commands="clr-namespace:Qhta.UnicodeBuild.Commands"
                     x:Class="Qhta.UnicodeBuild.AppResourceDictionary">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="pack://application:,,,/Qhta.SF.Tools;component/SfDataGridTools.xaml" />
+    <ResourceDictionary Source="pack://application:,,,/Qhta.SF.Tools;component/Resources/SfDataGridTools.xaml" />
   </ResourceDictionary.MergedDictionaries>
   <helpers:ViewModelsBindingProxy x:Key="ViewModels"/>
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>

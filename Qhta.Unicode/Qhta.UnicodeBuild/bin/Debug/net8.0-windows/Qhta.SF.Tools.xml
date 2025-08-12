@@ -4,97 +4,6 @@
         <name>Qhta.SF.Tools</name>
     </assembly>
     <members>
-        <member name="T:Qhta.SF.Tools.DataStrings">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.Cancel">
-            <summary>
-              Looks up a localized string similar to Cancel.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.Confirm">
-            <summary>
-              Looks up a localized string similar to Confirm.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.DeleteAllDataConfirm">
-            <summary>
-              Looks up a localized string similar to Do you really want to delete all data?.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.DeleteRecordsConfirm">
-            <summary>
-              Looks up a localized string similar to Are you sure you want to delete {0} records?.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.EmptyValue">
-            <summary>
-              Looks up a localized string similar to (Empty value).
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.EnterValueForField">
-            <summary>
-              Looks up a localized string similar to Enter value for field &quot;{0}&quot;.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.NonEmptyValue">
-            <summary>
-              Looks up a localized string similar to (Non-empty value).
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.NotMoreValueFound">
-            <summary>
-              Looks up a localized string similar to No more value found..
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.OK">
-            <summary>
-              Looks up a localized string similar to OK.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.OperationNotAllowedInThisContext">
-            <summary>
-              Looks up a localized string similar to Operation {0} is not allowed in this context..
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.OverwriteNonEmptyCells">
-            <summary>
-              Looks up a localized string similar to Overwrite non-empty cells.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.ReplacementText">
-            <summary>
-              Looks up a localized string similar to Replacement.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.SearchedText">
-            <summary>
-              Looks up a localized string similar to Searched text.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.SelectValueForField">
-            <summary>
-              Looks up a localized string similar to Select value for field &quot;{0}&quot;.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.DataStrings.ValueNotFound">
-            <summary>
-              Looks up a localized string similar to Value not found..
-            </summary>
-        </member>
         <member name="T:Qhta.SF.Tools.DelRecordArgs">
             <summary>
             Arguments for changing a property.
@@ -167,7 +76,7 @@
         </member>
         <member name="M:Qhta.SF.Tools.EmptyValue.ToString">
             <summary>
-            Returns a <see cref="P:Qhta.SF.Tools.DataStrings.EmptyValue"/>.
+            Returns a <see cref="T:Qhta.SF.Tools.EmptyValue"/>.
             </summary>
             <returns></returns>
         </member>
@@ -460,7 +369,7 @@
         </member>
         <member name="M:Qhta.SF.Tools.NonEmptyValue.ToString">
             <summary>
-            Returns a <see cref="P:Qhta.SF.Tools.DataStrings.NonEmptyValue"/>.
+            Returns a <see cref="T:Qhta.SF.Tools.NonEmptyValue"/>.
             </summary>
             <returns></returns>
         </member>
@@ -583,6 +492,138 @@
             <param name="propertyName">The name of the property that changed. This value is optional and can be automatically supplied by the compiler.</param>
         </member>
         <member name="M:Qhta.SF.Tools.RecordNavigationBar.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.Resources.DataStrings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.Cancel">
+            <summary>
+              Looks up a localized string similar to Cancel.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.Confirm">
+            <summary>
+              Looks up a localized string similar to Confirm.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.DeleteAllDataConfirm">
+            <summary>
+              Looks up a localized string similar to Do you really want to delete all data?.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.DeleteRecordsConfirm">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to delete {0} records?.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.EmptyValue">
+            <summary>
+              Looks up a localized string similar to (Empty value).
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.EnterValueForField">
+            <summary>
+              Looks up a localized string similar to Enter value for field &quot;{0}&quot;.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.NonEmptyValue">
+            <summary>
+              Looks up a localized string similar to (Non-empty value).
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.NotMoreValueFound">
+            <summary>
+              Looks up a localized string similar to No more value found..
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.OK">
+            <summary>
+              Looks up a localized string similar to OK.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.OperationNotAllowedInThisContext">
+            <summary>
+              Looks up a localized string similar to Operation {0} is not allowed in this context..
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.OverwriteNonEmptyCells">
+            <summary>
+              Looks up a localized string similar to Overwrite non-empty cells.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.ReplacementText">
+            <summary>
+              Looks up a localized string similar to Replacement.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.SearchedText">
+            <summary>
+              Looks up a localized string similar to Searched text.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.SelectValueForField">
+            <summary>
+              Looks up a localized string similar to Select value for field &quot;{0}&quot;.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.DataStrings.ValueNotFound">
+            <summary>
+              Looks up a localized string similar to Value not found..
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.SfDataGridTools">
+            <summary>
+            Provides utility methods for handling mouse interactions with the header and row header cells in a <see
+            cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <remarks>This class contains methods that manage the selection behavior of columns and rows when interacting
+            with the grid's header cells. It supports features such as toggling column selection and clearing or setting
+            selections based on user input.</remarks>
+            <summary>
+            SfDataGridTools
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridTools.GridHeaderCellControl_MouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the mouse left button down event on a <see cref="T:Syncfusion.UI.Xaml.Grid.GridHeaderCellControl"/>. This method toggles the
+            IsSelected state of the column when the header cell is clicked. It also manages the selection of multiple
+            columns based on the Shift and Control keys pressed during the click event.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+            <remarks>If the column enables filtering or sorting, then selection is possible only if the mouse click
+            position omits filter icon or sorting icon on the right of the header control. This condition allows the method
+            to be handled on th PreviewMouseLeftButtonDown event of the header cell control, ensuring that the sorting
+            functionality is not triggered when the user intends to select the column instead.
+            </remarks>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridTools.GridRowHeaderIndentCell_MouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the left mouse button down event on a grid row header indent cell to toggle the selection of the whole grid.
+            </summary>
+            <remarks>This method toggles the selection state of the grid's columns. If any cells are currently
+            selected, it clears the selection. Otherwise, it selects or deselects all columns based on their current
+            state.</remarks>
+            <param name="sender">The source of the event, expected to be a <see cref="T:Syncfusion.UI.Xaml.Grid.GridRowHeaderIndentCell"/>.</param>
+            <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridTools.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -1083,104 +1124,63 @@
             <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance.</param>
             <param name="select">True for select all, false for unselect all.</param>
         </member>
-        <member name="T:Qhta.SF.Tools.SfDataGridTools">
+        <member name="T:Qhta.SF.Tools.Views.SpecificValueEdit">
             <summary>
-            Provides utility methods for handling mouse interactions with the header and row header cells in a <see
-            cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            </summary>
-            <remarks>This class contains methods that manage the selection behavior of columns and rows when interacting
-            with the grid's header cells. It supports features such as toggling column selection and clearing or setting
-            selections based on user input.</remarks>
-            <summary>
-            SfDataGridTools
-            </summary>
-        </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridTools.GridHeaderCellControl_MouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
-            <summary>
-            Handles the mouse left button down event on a <see cref="T:Syncfusion.UI.Xaml.Grid.GridHeaderCellControl"/>. This method toggles the
-            IsSelected state of the column when the header cell is clicked. It also manages the selection of multiple
-            columns based on the Shift and Control keys pressed during the click event.
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-            <remarks>If the column enables filtering or sorting, then selection is possible only if the mouse click
-            position omits filter icon or sorting icon on the right of the header control. This condition allows the method
-            to be handled on th PreviewMouseLeftButtonDown event of the header cell control, ensuring that the sorting
-            functionality is not triggered when the user intends to select the column instead.
-            </remarks>
-        </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridTools.GridRowHeaderIndentCell_MouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
-            <summary>
-            Handles the left mouse button down event on a grid row header indent cell to toggle the selection of the whole grid.
-            </summary>
-            <remarks>This method toggles the selection state of the grid's columns. If any cells are currently
-            selected, it clears the selection. Otherwise, it selects or deselects all columns based on their current
-            state.</remarks>
-            <param name="sender">The source of the event, expected to be a <see cref="T:Syncfusion.UI.Xaml.Grid.GridRowHeaderIndentCell"/>.</param>
-            <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridTools.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:Qhta.SF.Tools.SpecificValueEdit">
-            <summary>
-            Part of the <see cref="T:Qhta.SF.Tools.SpecificValueWindow"/> for edit a specific value in a text box.
+            Part of the <see cref="T:Qhta.SF.Tools.Views.SpecificValueWindow"/> for edit a specific value in a text box.
             </summary>
             <summary>
             SpecificValueEdit
             </summary>
         </member>
-        <member name="M:Qhta.SF.Tools.SpecificValueEdit.#ctor">
+        <member name="M:Qhta.SF.Tools.Views.SpecificValueEdit.#ctor">
             <summary>
             Initializing constructor.
             </summary>
         </member>
-        <member name="M:Qhta.SF.Tools.SpecificValueEdit.InitializeComponent">
+        <member name="M:Qhta.SF.Tools.Views.SpecificValueEdit.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
         </member>
-        <member name="T:Qhta.SF.Tools.SpecificValueSelector">
+        <member name="T:Qhta.SF.Tools.Views.SpecificValueSelector">
             <summary>
-            Part of the <see cref="T:Qhta.SF.Tools.SpecificValueWindow"/> for selecting a specific value.
+            Part of the <see cref="T:Qhta.SF.Tools.Views.SpecificValueWindow"/> for selecting a specific value.
             </summary>
             <summary>
             SpecificValueSelector
             </summary>
         </member>
-        <member name="M:Qhta.SF.Tools.SpecificValueSelector.#ctor">
+        <member name="M:Qhta.SF.Tools.Views.SpecificValueSelector.#ctor">
             <summary>
             Initializing constructor.
             </summary>
         </member>
-        <member name="M:Qhta.SF.Tools.SpecificValueSelector.InitializeComponent">
+        <member name="M:Qhta.SF.Tools.Views.SpecificValueSelector.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
         </member>
-        <member name="T:Qhta.SF.Tools.SpecificValueWindowMode">
+        <member name="T:Qhta.SF.Tools.Views.SpecificValueWindowMode">
             <summary>
             Modes for the specific value window.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.SpecificValueWindowMode.EditViewOnly">
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindowMode.EditViewOnly">
             <summary>
             The window is used to edit the value in a text box.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.SpecificValueWindowMode.SelectorOnly">
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindowMode.SelectorOnly">
             <summary>
             The window is used to select a value from a list.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.SpecificValueWindowMode.Both">
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindowMode.Both">
             <summary>
             The window is used to select or edit a value in a text box or select from a list.
             </summary>
         </member>
-        <member name="T:Qhta.SF.Tools.SpecificValueWindow">
+        <member name="T:Qhta.SF.Tools.Views.SpecificValueWindow">
             <summary>
             Window for selecting or editing a specific value.
             </summary>
@@ -1188,102 +1188,102 @@
             SpecificValueWindow
             </summary>
         </member>
-        <member name="M:Qhta.SF.Tools.SpecificValueWindow.#ctor">
+        <member name="M:Qhta.SF.Tools.Views.SpecificValueWindow.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:Qhta.SF.Tools.SpecificValueWindow"/> class.
+            Initializes a new instance of the <see cref="T:Qhta.SF.Tools.Views.SpecificValueWindow"/> class.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.SpecificValueWindow.PromptProperty">
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.PromptProperty">
             <summary>
             Dependency property for the prompt text displayed in the window.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.SpecificValueWindow.Prompt">
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.Prompt">
             <summary>
             Prompt text displayed in the window, guiding the user on what to select.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.SpecificValueWindow.ModeProperty">
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ModeProperty">
             <summary>
-            Dependency property for <see cref="P:Qhta.SF.Tools.SpecificValueWindow.Mode"/> property, which specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
+            Dependency property for <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.Mode"/> property, which specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.SpecificValueWindow.Mode">
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.Mode">
             <summary>
             Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.SpecificValueWindow.TextValueProperty">
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.TextValueProperty">
             <summary>
-            Dependency property for the <see cref="P:Qhta.SF.Tools.SpecificValueWindow.TextValue"/> property, which is the value entered by the user in the text box.
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.TextValue"/> property, which is the value entered by the user in the text box.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.SpecificValueWindow.TextValue">
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.TextValue">
             <summary>
             Text value entered by the user in the text box.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.SpecificValueWindow.ItemsSourceProperty">
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ItemsSourceProperty">
             <summary>
             Dependency property for the items source, which is the collection of items to select from.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.SpecificValueWindow.ItemsSource">
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.ItemsSource">
             <summary>
             Items source for the selection, typically a collection of items that can be selected.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.SpecificValueWindow.SelectedItemProperty">
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.SelectedItemProperty">
             <summary>
             Dependency property for the selected item, which is the item currently selected by the user.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.SpecificValueWindow.SelectedItem">
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.SelectedItem">
             <summary>
             Selected item in the selection window. This property is bound to the selected item in the ItemsSource.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.SpecificValueWindow.ShowOverwriteNonEmptyCellsProperty">
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ShowOverwriteNonEmptyCellsProperty">
             <summary>
-            Dependency property for the <see cref="P:Qhta.SF.Tools.SpecificValueWindow.ShowOverwriteNonEmptyCells"/> flag, which indicates whether to show <see cref="P:Qhta.SF.Tools.SpecificValueWindow.OverwriteNonEmptyCells"/> checkbox.
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.ShowOverwriteNonEmptyCells"/> flag, which indicates whether to show <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.OverwriteNonEmptyCells"/> checkbox.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.SpecificValueWindow.ShowOverwriteNonEmptyCells">
-            <summary>
-            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
-            </summary>
-        </member>
-        <member name="F:Qhta.SF.Tools.SpecificValueWindow.OverwriteNonEmptyCellsProperty">
-            <summary>
-            Dependency property for the <see cref="P:Qhta.SF.Tools.SpecificValueWindow.OverwriteNonEmptyCells"/> flag, which indicates whether to fill only empty cells in the selection.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.SpecificValueWindow.OverwriteNonEmptyCells">
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.ShowOverwriteNonEmptyCells">
             <summary>
             Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.SpecificValueWindow.ShowFindInSequenceProperty">
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.OverwriteNonEmptyCellsProperty">
             <summary>
-            Dependency property for the <see cref="P:Qhta.SF.Tools.SpecificValueWindow.ShowFindInSequence"/> flag, which indicates whether to show <see cref="P:Qhta.SF.Tools.SpecificValueWindow.FindInSequence"/> combobox.
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.OverwriteNonEmptyCells"/> flag, which indicates whether to fill only empty cells in the selection.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.SpecificValueWindow.ShowFindInSequence">
-            <summary>
-            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
-            </summary>
-        </member>
-        <member name="F:Qhta.SF.Tools.SpecificValueWindow.FindInSequenceProperty">
-            <summary>
-            Dependency property for the <see cref="P:Qhta.SF.Tools.SpecificValueWindow.FindInSequence"/> flag, which indicates how to find value in the context of the current selection.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.SpecificValueWindow.FindInSequence">
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.OverwriteNonEmptyCells">
             <summary>
             Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
             </summary>
         </member>
-        <member name="M:Qhta.SF.Tools.SpecificValueWindow.InitializeComponent">
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ShowFindInSequenceProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.ShowFindInSequence"/> flag, which indicates whether to show <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.FindInSequence"/> combobox.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.ShowFindInSequence">
+            <summary>
+            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.FindInSequenceProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.FindInSequence"/> flag, which indicates how to find value in the context of the current selection.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.FindInSequence">
+            <summary>
+            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.Views.SpecificValueWindow.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

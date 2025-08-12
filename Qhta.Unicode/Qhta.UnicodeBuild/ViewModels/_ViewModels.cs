@@ -4,6 +4,7 @@ using System.Windows.Threading;
 
 using Qhta.MVVM;
 using Qhta.SF.Tools;
+using Qhta.SF.Tools.Resources;
 using Qhta.UndoManager;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Resources;

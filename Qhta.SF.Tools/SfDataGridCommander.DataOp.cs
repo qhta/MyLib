@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-
+using Qhta.SF.Tools.Resources;
 using Qhta.UndoManager;
 
 using Syncfusion.UI.Xaml.Grid;

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 using Qhta.SF.Tools;
+using Qhta.SF.Tools.Resources;
 using Qhta.TextUtils;
 using Qhta.UndoManager;
 using Qhta.Unicode.Models;

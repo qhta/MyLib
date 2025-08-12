@@ -27,7 +27,7 @@
     <Compile Update="RecordNavigationBar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="DataStrings.Designer.cs">
+    <Compile Update="Resources\DataStrings.Designer.cs">
       <DependentUpon>DataStrings.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -35,17 +35,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="DataStrings.resx">
+    <EmbeddedResource Update="Resources\DataStrings.resx">
       <SubType>Designer</SubType>
       <LastGenOutput>DataStrings.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="SfDataGridTools.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>

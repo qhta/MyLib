@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Resources;
 using System.Windows.Data;
 using Qhta.SF.Tools;
+using Qhta.SF.Tools.Resources;
 using Qhta.UnicodeBuild.Resources;
 
 namespace Qhta.UnicodeBuild.Helpers;
