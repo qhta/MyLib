@@ -96,40 +96,6 @@ public partial class SelectValueWindow : Window
   }
   #endregion
 
-  #region FindInSequence
-  /// <summary>
-  /// Dependency property for the <see cref="ShowFindInSequence"/> flag, which indicates whether to show <see cref="FindInSequence"/> combobox.
-  /// </summary>
-  public static DependencyProperty ShowFindInSequenceProperty =
-    DependencyProperty.Register(nameof(ShowFindInSequence), typeof(bool), typeof(SelectValueWindow), new PropertyMetadata(true));
-
-  /// <summary>
-  /// Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
-  /// </summary>
-  public bool ShowFindInSequence
-  {
-    [DebuggerStepThrough]
-    get => (bool)GetValue(ShowFindInSequenceProperty);
-    set => SetValue(ShowFindInSequenceProperty, value);
-  }
-
-  /// <summary>
-  /// Dependency property for the <see cref="FindInSequence"/> flag, which indicates how to find value in the context of the current selection.
-  /// </summary>
-  public static DependencyProperty FindInSequenceProperty =
-    DependencyProperty.Register(nameof(FindInSequence), typeof(FindInSequence), typeof(SelectValueWindow), new PropertyMetadata(Commands.FindInSequence.FindNext));
-
-
-  /// <summary>
-  /// Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
-  /// </summary>
-  public FindInSequence FindInSequence
-  {
-    [DebuggerStepThrough]
-    get => (FindInSequence)GetValue(FindInSequenceProperty);
-    set => SetValue(FindInSequenceProperty, value);
-  }
-  #endregion
 
   #region Ok/Cancel Buttons
   private void OkButton_OnClick(object sender, RoutedEventArgs e)

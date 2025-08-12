@@ -216,7 +216,7 @@ public partial class WritingSystemsView : UserControl, IRoutedCommandHandler
         {
           if (obj is FilterElement filterElement && filterElement.ActualValue is WritingSystemType val)
             return val.ToString();
-          return Strings.EmptyItem;
+          return DataStrings.EmptyValue;
         }
       }).ToArray();
       e.ItemsSource = UcdWritingSystemTypesFilter;
@@ -239,7 +239,7 @@ public partial class WritingSystemsView : UserControl, IRoutedCommandHandler
         {
           if (obj is FilterElement filterElement && filterElement.ActualValue is WritingSystemKind val)
             return val.ToString();
-          return Strings.EmptyItem;
+          return DataStrings.EmptyValue;
         }
       }).ToArray();
       e.ItemsSource = UcdWritingSystemKindFilter;
@@ -316,7 +316,7 @@ public partial class WritingSystemsView : UserControl, IRoutedCommandHandler
   {
     if (sender is not SfDataGrid grid)
       return;
-    Controller.CopyData(grid);
+    SfDataGridCommander.CopyData(grid);
     e.Handled = true;
   }
 

@@ -213,9 +213,6 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="WritingSystemNotFound" xml:space="preserve">
     <value>Nie znaleziono systemu pisma {0}</value>
   </data>
-  <data name="EmptyItem" xml:space="preserve">
-    <value>(Puste)</value>
-  </data>
   <data name="UnsavedDataChanges" xml:space="preserve">
     <value>Pewne zmiany danych nie zostały zapamiętane. Czy chcesz je zachować w bazie danych?</value>
   </data>
@@ -234,17 +231,11 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="FillColumnTitle" xml:space="preserve">
     <value>Wypełnij kolumnę {0}</value>
   </data>
-  <data name="SelectValueForField" xml:space="preserve">
-    <value>Wybierz wartość dla pola "{0}"</value>
-  </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="OverwriteNonEmptyCells" xml:space="preserve">
     <value>Nadpisuj niepuste komórki</value>
-  </data>
-  <data name="NonEmptyItem" xml:space="preserve">
-    <value>(Nie puste)</value>
   </data>
   <data name="Data" xml:space="preserve">
     <value>Dane</value>
@@ -414,10 +405,7 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="Find" xml:space="preserve">
     <value>Znajdź</value>
   </data>
-  <data name="ValueNotFound" xml:space="preserve">
-    <value>Nie znaleziono wartości.</value>
-  </data>
-  <data name="NotMoreValueFound" xml:space="preserve">
-    <value>Nie znaleziono więcej wartości.</value>
+  <data name="SearchedText" xml:space="preserve">
+    <value>Tekst szukany</value>
   </data>
 </root>

@@ -11,16 +11,10 @@
     <Compile Update="NameGen\NameGenOptionsDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\SelectValueWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Views\UcdCodePointsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\WritingSystemView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\EditWritingSystemWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\UcdBlocksView.xaml.cs">

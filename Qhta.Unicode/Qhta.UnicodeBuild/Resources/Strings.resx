@@ -213,9 +213,6 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="WritingSystemNotFound" xml:space="preserve">
     <value>Writing System {0} not found</value>
   </data>
-  <data name="EmptyItem" xml:space="preserve">
-    <value>(Empty)</value>
-  </data>
   <data name="UnsavedDataChanges" xml:space="preserve">
     <value>There are unsaved data changes. Do you want to save them in the data base?</value>
   </data>
@@ -234,17 +231,11 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="FillColumnTitle" xml:space="preserve">
     <value>Fill column {0}</value>
   </data>
-  <data name="SelectValueForField" xml:space="preserve">
-    <value>Select value for field "{0}"</value>
-  </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="OverwriteNonEmptyCells" xml:space="preserve">
     <value>Overwrite non-empty cells</value>
-  </data>
-  <data name="NonEmptyItem" xml:space="preserve">
-    <value>(Not empty)</value>
   </data>
   <data name="Data" xml:space="preserve">
     <value>Data</value>
@@ -414,10 +405,7 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="Find" xml:space="preserve">
     <value>Find</value>
   </data>
-  <data name="ValueNotFound" xml:space="preserve">
-    <value>Value not found.</value>
-  </data>
-  <data name="NotMoreValueFound" xml:space="preserve">
-    <value>No more value found.</value>
+  <data name="SearchedText" xml:space="preserve">
+    <value>Search text</value>
   </data>
 </root>

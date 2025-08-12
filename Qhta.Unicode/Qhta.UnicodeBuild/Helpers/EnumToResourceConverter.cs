@@ -2,6 +2,8 @@
 using System.Globalization;
 using System.Resources;
 using System.Windows.Data;
+using Qhta.SF.Tools;
+using Qhta.UnicodeBuild.Resources;
 
 namespace Qhta.UnicodeBuild.Helpers;
 
@@ -22,8 +24,7 @@ public class EnumToResourceConverter : IValueConverter
       if (object.ReferenceEquals(resourceMan, null))
       {
         var baseName = ResourceType.FullName!;
-        ResourceManager temp = new ResourceManager(baseName, ResourceType.Assembly);
-        resourceMan = temp;
+        resourceMan = new ResourceManager(baseName, ResourceType.Assembly);
       }
       return resourceMan;
     }
@@ -39,7 +40,7 @@ public class EnumToResourceConverter : IValueConverter
   /// <returns></returns>
   public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
   {
-    if (value == null) return null;
+    if (value == null) return DataStrings.EmptyValue;
 
     // Get the resource key based on the enum value
     string? resourceKey = value.ToString();

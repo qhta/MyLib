@@ -1,5 +1,7 @@
 ﻿using Qhta.MVVM;
+using Qhta.SF.Tools;
 using Qhta.Unicode.Models;
+using Qhta.UnicodeBuild.Resources;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -9,7 +11,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <param name="model"></param>
 public class UnicodeCategoryViewModel(UnicodeCategoryEntity model)
 #pragma warning disable CS9107 // Parameter is captured into the state of the enclosing type and its value is also passed to the base constructor. The value might be captured by the base class as well.
-  : ViewModel<UnicodeCategoryEntity>(model), IEquatable<UnicodeCategoryViewModel>, IComparable<UnicodeCategoryViewModel>
+  : ViewModel<UnicodeCategoryEntity>(model), IEquatable<UnicodeCategoryViewModel>, IComparable<UnicodeCategoryViewModel>, ISelectableItem
 #pragma warning restore CS9107 // Parameter is captured into the state of the enclosing type and its value is also passed to the base constructor. The value might be captured by the base class as well.
 {
   /// <summary>
@@ -54,4 +56,34 @@ public class UnicodeCategoryViewModel(UnicodeCategoryEntity model)
     if (other is null) return 1;
      return Id.CompareTo(other.Id);
   }
+
+  #region ISelectableItem implementation
+  /// <summary>
+  /// Name of the item, used for display purposes.
+  /// </summary>
+  public string DisplayName
+  {
+    get => Name ?? _DisplayName;
+    set => _DisplayName = value;
+  }
+
+  private string _DisplayName = DataStrings.EmptyValue;
+
+  /// <summary>
+  /// Determines whether the item is selected in the UI.
+  /// </summary>
+  public bool IsSelected
+  {
+    get => _IsSelected;
+    set
+    {
+      if (_IsSelected != value)
+      {
+        _IsSelected = value;
+        NotifyPropertyChanged(nameof(IsSelected));
+      }
+    }
+  }
+  private bool _IsSelected = false;
+  #endregion
 }

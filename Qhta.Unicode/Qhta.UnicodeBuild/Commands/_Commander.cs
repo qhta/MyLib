@@ -45,13 +45,13 @@ public static partial class _Commander
     if (command == ApplicationCommands.Save)
       e.CanExecute = _ViewModels.Instance.DbContext?.ThereAreUnsavedChanges ?? false;
     else if (command == ApplicationCommands.Copy)
-      e.CanExecute = Controller.CanCopyData(GetDataGrid(sender, command));
+      e.CanExecute = SfDataGridCommander.CanCopyData(GetDataGrid(sender, command));
     else if (command == ApplicationCommands.Cut)
-      e.CanExecute = Controller.CanCutData(GetDataGrid(sender, command));
+      e.CanExecute = SfDataGridCommander.CanCutData(GetDataGrid(sender, command));
     else if (command == ApplicationCommands.Paste)
-      e.CanExecute = Controller.CanPasteData(GetDataGrid(sender, command));
+      e.CanExecute = SfDataGridCommander.CanPasteData(GetDataGrid(sender, command));
     else if (command == ApplicationCommands.Delete)
-      e.CanExecute = Controller.CanDeleteData(GetDataGrid(sender, command));
+      e.CanExecute = SfDataGridCommander.CanDeleteData(GetDataGrid(sender, command));
     else if (command == ApplicationCommands.Undo)
       e.CanExecute = UndoMgr.IsUndoAvailable;
     else if (command == ApplicationCommands.Redo)
@@ -93,19 +93,19 @@ public static partial class _Commander
     }
     else if (command == ApplicationCommands.Copy)
     {
-      Controller.CopyData(GetDataGrid(sender, command));
+      SfDataGridCommander.CopyData(GetDataGrid(sender, command));
     }
     else if (command == ApplicationCommands.Cut)
     {
-      Controller.CutData(GetDataGrid(sender, command));
+      SfDataGridCommander.CutData(GetDataGrid(sender, command));
     }
     else if (command == ApplicationCommands.Paste)
     {
-      Controller.PasteData(GetDataGrid(sender, command));
+      SfDataGridCommander.PasteData(GetDataGrid(sender, command));
     }
     else if (command == ApplicationCommands.Delete)
     {
-      Controller.DeleteData(GetDataGrid(sender, command));
+      SfDataGridCommander.DeleteData(GetDataGrid(sender, command));
     }
     else if (command == ApplicationCommands.Undo)
     {

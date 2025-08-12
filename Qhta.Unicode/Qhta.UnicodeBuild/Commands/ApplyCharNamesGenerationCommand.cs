@@ -165,7 +165,9 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
         else if (parts[2].StartsWith("del", StringComparison.OrdinalIgnoreCase))
           Removables.Add(key);
         else if (parts[2].StartsWith("num", StringComparison.OrdinalIgnoreCase))
+#pragma warning disable CS0642 // Possible mistaken empty statement
           ;// ignore numbers
+#pragma warning restore CS0642 // Possible mistaken empty statement
         else
         {
           switch (parts[2])

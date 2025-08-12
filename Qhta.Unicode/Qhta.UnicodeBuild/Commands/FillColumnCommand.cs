@@ -87,34 +87,34 @@ public class FillColumnCommand : Command
         if (property == null) return;
         var propertyType = property.PropertyType;
         var itemsSource = comboBoxColumn.ItemsSource;
-        var selectValueWindow = new SelectValueWindow
-        {
-          Prompt = String.Format(Resources.Strings.SelectValueForField, column.HeaderText),
-          ItemsSource = itemsSource,
-          ShowOverwriteNonEmptyCells = true,
-          ShowFindInSequence = false,
-        };
-        if (selectValueWindow.ShowDialog() == true)
-        {
-          var selectedValue = selectValueWindow.SelectedItem;
-          var OverwriteNonEmptyCells = selectValueWindow.OverwriteNonEmptyCells;
-          if (selectedValue != null)
-          {
-            //Debug.WriteLine($"Setting column: {mappingName}, Selected Value: {selectedValue}");
-            foreach (var record in selectedRows)
-            {
-              if (OverwriteNonEmptyCells)
-              {
-                property.SetValue(record, selectedValue);
-              }
-              {
-                var currentValue = property.GetValue(record);
-                if (currentValue == null || currentValue is string str && String.IsNullOrEmpty(str))
-                  property.SetValue(record, selectedValue);
-              }
-            }
-          }
-        }
+        //var selectValueWindow = new SpecificValueWindow
+        //{
+        //  Prompt = String.Format(DataStrings.SelectValueForField, column.HeaderText),
+        //  ItemsSource = itemsSource,
+        //  ShowOverwriteNonEmptyCells = true,
+        //  ShowFindInSequence = false,
+        //};
+        //if (selectValueWindow.ShowDialog() == true)
+        //{
+        //  var selectedValue = selectValueWindow.SelectedItem;
+        //  var OverwriteNonEmptyCells = selectValueWindow.OverwriteNonEmptyCells;
+        //  if (selectedValue != null)
+        //  {
+        //    //Debug.WriteLine($"Setting column: {mappingName}, Selected Value: {selectedValue}");
+        //    foreach (var record in selectedRows)
+        //    {
+        //      if (OverwriteNonEmptyCells)
+        //      {
+        //        property.SetValue(record, selectedValue);
+        //      }
+        //      {
+        //        var currentValue = property.GetValue(record);
+        //        if (currentValue == null || currentValue is string str && String.IsNullOrEmpty(str))
+        //          property.SetValue(record, selectedValue);
+        //      }
+        //    }
+        //  }
+        //}
       }
     }
   }

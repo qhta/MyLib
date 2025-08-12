@@ -297,72 +297,6 @@
             </summary>
             <param name="parameter"></param>
         </member>
-        <member name="T:Qhta.UnicodeBuild.Commands.FindCommand">
-            <summary>
-            Command to find a value selected by the user int the current column in the data grid.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Commands.FindCommand.LastDataGrid">
-            <summary>
-            Specifies the last data grid where the find operation was performed.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Commands.FindCommand.LastColumn">
-            <summary>
-            Specifies the last column where the find operation was performed.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Commands.FindCommand.LastValue">
-            <summary>
-            Value of the last search value in the column.
-            </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Commands.FindCommand.CanExecute(System.Object)">
-            <summary>
-            Checks whether the command can be executed basing on the current selection in the data grid.
-            </summary>
-            <param name="parameter"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Commands.FindCommand.CanExecuteFindNext(System.Object)">
-            <summary>
-            Checks whether the FindNext command can be executed basing on the current selection in the data grid.
-            </summary>
-            <param name="parameter"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Commands.FindCommand.Execute(System.Object)">
-            <summary>
-            Executes the command basing on the current selection in the data grid.
-            </summary>
-            <param name="parameter"></param>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Commands.FindCommand.ExecuteFindNext(System.Object)">
-            <summary>
-            Executes the FindNext command basing on the current selection in the data grid.
-            </summary>
-            <param name="parameter"></param>
-        </member>
-        <member name="T:Qhta.UnicodeBuild.Commands.FindInSequence">
-            <summary>
-            Specifies how to find a value in the context of the current selection.
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.Commands.FindInSequence.FindNext">
-            <summary>
-            Find the next occurrence of the value.
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.Commands.FindInSequence.FindFirst">
-            <summary>
-            Find the first occurrence of the value.
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.Commands.FindInSequence.FindAll">
-            <summary>
-            Find all occurrences of the value.
-            </summary>
-        </member>
         <member name="T:Qhta.UnicodeBuild.Commands.MarkUnusedWritingSystemsCommand">
             <summary>
             Command to mark unused writing systems.
@@ -861,6 +795,32 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="T:Qhta.UnicodeBuild.Helpers.EmptyValueConverter">
+            <summary>
+            Value converter that returns a string value or "empty" tag.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.EmptyValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value to a string representation.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.EmptyValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented method for converting back from the target type to the source type.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Qhta.UnicodeBuild.Helpers.EntityCollection`1">
             <summary>
             OrderedObservableCollection is a collection that maintains its items in a sorted order based on a key selector function.
@@ -914,17 +874,18 @@
             </summary>
             <param name="entity"></param>
         </member>
-        <member name="M:Qhta.UnicodeBuild.Helpers.EntityViewModel`1.ChangeThisProperty(System.String,System.Object,System.String)">
+        <member name="M:Qhta.UnicodeBuild.Helpers.EntityViewModel`1.ChangeEntityProperty(System.String,System.String,System.Object,System.String)">
             <summary>
             Changes the value of a specified property on the current instance.
             </summary>
             <remarks>If the new value is equal to the current value, no change is made. The change is recorded for
             undo functionality, and property change notifications are triggered.</remarks>
-            <param name="propertyName">The name of the property to change. Must be a valid property name of the current instance's type.</param>
+            <param name="thisPropertyName">The name of the property to change. Must be a valid property name of the current instance's type.</param>
+            <param name="modelPropertyName">The name of the model property to change. Must be a valid property name of the model instance's type.</param>
             <param name="newValue">The new value to assign to the property. Can be null if the property type allows it.</param>
             <param name="pairedPropertyName">The name of the paired property to notify that was changed too.</param>
             <returns>True if change was done, false if no change was needed</returns>
-            <exception cref="T:System.ArgumentException">Thrown if <paramref name="propertyName"/> does not correspond to a valid property on the current instance's type.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="thisPropertyName"/> does not correspond to a valid property on the current instance's type.</exception>
         </member>
         <member name="M:Qhta.UnicodeBuild.Helpers.EntityViewModel`1.ChangeModelProperty(System.String,System.Object)">
             <summary>
@@ -1825,11 +1786,6 @@
               Looks up a localized string similar to Empty cells only.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Strings.EmptyItem">
-            <summary>
-              Looks up a localized string similar to (Empty).
-            </summary>
-        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.EndValueMustBeGreater">
             <summary>
               Looks up a localized string similar to End value must be greater than or equal to start value..
@@ -1990,16 +1946,6 @@
               Looks up a localized string similar to No code points selected..
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Strings.NonEmptyItem">
-            <summary>
-              Looks up a localized string similar to (Not empty).
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Strings.NotMoreValueFound">
-            <summary>
-              Looks up a localized string similar to No more value found..
-            </summary>
-        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Numeric">
             <summary>
               Looks up a localized string similar to Numeric words are converted to numbers..
@@ -2075,14 +2021,14 @@
               Looks up a localized string similar to Save data (Ctrl-S).
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.SearchedText">
+            <summary>
+              Looks up a localized string similar to Search text.
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.SelectValue">
             <summary>
               Looks up a localized string similar to Select value.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Strings.SelectValueForField">
-            <summary>
-              Looks up a localized string similar to Select value for field &quot;{0}&quot;.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.TextFilesFilter">
@@ -2131,11 +2077,6 @@
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.UpdatingField">
             <summary>
               Looks up a localized string similar to Updating field {0}.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ValueNotFound">
-            <summary>
-              Looks up a localized string similar to Value not found..
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Warning">
@@ -3298,6 +3239,16 @@
             Gets or sets an error message associated with the view model.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.DisplayName">
+            <summary>
+            Name of the item, used for display purposes.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.IsSelected">
+            <summary>
+            Determines whether the item is selected in the UI.
+            </summary>
+        </member>
         <member name="T:Qhta.UnicodeBuild.ViewModels.UcdCodePointsCollection">
             <summary>
             Specialized collection for managing Unicode code points.
@@ -3492,12 +3443,12 @@
             Alias collection for the Unicode code point, which contains alternative names of the code point.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.UcdBlockId">
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.BlockId">
             <summary>
             Identifier of the Unicode code point block, which is used to group code points into blocks.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.UcdBlock">
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Block">
             <summary>
             Exposes the Unicode code point block as a view model.
             </summary>
@@ -3643,6 +3594,16 @@
             </summary>
             <param name="other"></param>
             <returns></returns>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UnicodeCategoryViewModel.DisplayName">
+            <summary>
+            Name of the item, used for display purposes.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UnicodeCategoryViewModel.IsSelected">
+            <summary>
+            Determines whether the item is selected in the UI.
+            </summary>
         </member>
         <member name="T:Qhta.UnicodeBuild.ViewModels.WritingSystemKindViewModel">
             <summary>
@@ -4055,6 +4016,16 @@
             Gets or sets an error message associated with the view model.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.DisplayName">
+            <summary>
+            Name of the item, used for display purposes.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.IsSelected">
+            <summary>
+            Determines whether the item is selected in the UI.
+            </summary>
+        </member>
         <member name="T:Qhta.UnicodeBuild.ViewModels._ViewModels">
             <summary>
             Manages the view models for the application.
@@ -4307,26 +4278,6 @@
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Views.SelectValueWindow.OverwriteNonEmptyCells">
-            <summary>
-            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.Views.SelectValueWindow.ShowFindInSequenceProperty">
-            <summary>
-            Dependency property for the <see cref="P:Qhta.UnicodeBuild.Views.SelectValueWindow.ShowFindInSequence"/> flag, which indicates whether to show <see cref="P:Qhta.UnicodeBuild.Views.SelectValueWindow.FindInSequence"/> combobox.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Views.SelectValueWindow.ShowFindInSequence">
-            <summary>
-            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
-            </summary>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.Views.SelectValueWindow.FindInSequenceProperty">
-            <summary>
-            Dependency property for the <see cref="P:Qhta.UnicodeBuild.Views.SelectValueWindow.FindInSequence"/> flag, which indicates how to find value in the context of the current selection.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Views.SelectValueWindow.FindInSequence">
             <summary>
             Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
             </summary>
@@ -5623,36 +5574,6 @@
         <member name="M:Qhta.Unicode.Models._DbContext.Finalize">
             <summary>
             Destructs the context and releases all resources used by it.
-            </summary>
-        </member>
-        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
-            <summary>
-            GeneratedInternalTypeHelper
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
-            <summary>
-            CreateInstance
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            GetPropertyValue
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            SetPropertyValue
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
-            <summary>
-            CreateDelegate
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
-            <summary>
-            AddEventHandler
             </summary>
         </member>
     </members>

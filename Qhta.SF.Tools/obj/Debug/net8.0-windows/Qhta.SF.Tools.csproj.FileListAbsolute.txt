@@ -29,3 +29,11 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF..B2
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SfDataGridRowHeaderCell.baml
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SfDataGridTools.g.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SfDataGridTools.baml
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SpecificValueEdit.g.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SpecificValueEdit.baml
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SpecificValueWindow.g.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\bin\Debug\net8.0-windows\Syncfusion.SfInput.WPF.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\bin\Debug\net8.0-windows\Syncfusion.SfInput.WPF.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SpecificValueWindow.baml
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SpecificValueSelector.g.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\SpecificValueSelector.baml

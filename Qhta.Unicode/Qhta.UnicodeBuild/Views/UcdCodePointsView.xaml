@@ -219,13 +219,11 @@
         </sf:GridComboBoxColumn>
 
         <sf:GridComboBoxColumn x:Name="UcdBlockColumn"
-          MappingName="UcdBlock" 
+          MappingName="Block" 
           HeaderText="{x:Static resources:UcdCodePointStrings.UcdBlock}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableBlocks,
-            Converter={StaticResource InsertItemConverter},
-            ConverterParameter={StaticResource BlankUcdBlock}}"
-          DisplayMemberPath="Name" 
+            Path=Instance.SelectableBlocks}"
+          DisplayMemberPath="DisplayName" 
           VerticalAlignment="Top"
           AllowEditing="True"
           Width="150"
@@ -239,8 +237,8 @@
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{Binding UcdBlock.Name}" 
-                         ToolTip="{Binding UcdBlock.Description}" 
+              <TextBlock Text="{Binding Block.Name}" 
+                         ToolTip="{Binding Block.Description}" 
                          Padding="3"
                          />
             </DataTemplate>
@@ -251,10 +249,8 @@
           MappingName="Area" 
           HeaderText="{x:Static resources:UcdCodePointStrings.Area}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableAreas,
-            Converter={StaticResource InsertItemConverter},
-            ConverterParameter={StaticResource BlankWritingSystem}}"
-          DisplayMemberPath="Name" 
+            Path=Instance.SelectableAreas}"
+          DisplayMemberPath="DisplayName" 
           VerticalAlignment="Top"
           AllowEditing="True"
           Width="100"
@@ -280,10 +276,8 @@
           MappingName="Script" 
           HeaderText="{x:Static resources:UcdCodePointStrings.Script}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableScripts,
-            Converter={StaticResource InsertItemConverter},
-            ConverterParameter={StaticResource BlankWritingSystem}}"
-          DisplayMemberPath="Name"
+            Path=Instance.SelectableScripts}"
+          DisplayMemberPath="DisplayName"
           SortMode="Display"
           VerticalAlignment="Top"
           AllowEditing="True"
@@ -310,10 +304,8 @@
           MappingName="Language" 
           HeaderText="{x:Static resources:UcdCodePointStrings.Language}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableLanguages, 
-            Converter={StaticResource InsertItemConverter},
-            ConverterParameter={StaticResource BlankWritingSystem}}"
-          DisplayMemberPath="Name" 
+            Path=Instance.SelectableLanguages}"
+          DisplayMemberPath="DisplayName" 
           VerticalAlignment="Top"
           AllowEditing="True"
           Width="100"
@@ -339,10 +331,8 @@
           MappingName="Notation" 
           HeaderText="{x:Static resources:UcdCodePointStrings.Notation}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableNotations,
-            Converter={StaticResource InsertItemConverter},
-            ConverterParameter={StaticResource BlankWritingSystem}}"
-          DisplayMemberPath="Name" 
+            Path=Instance.SelectableNotations}"
+          DisplayMemberPath="DisplayName" 
           VerticalAlignment="Top"
           AllowEditing="True"
           Width="100"
@@ -368,10 +358,8 @@
           MappingName="SymbolSet" 
           HeaderText="{x:Static resources:UcdCodePointStrings.SymbolSet}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableSymbolSets,
-            Converter={StaticResource InsertItemConverter},
-            ConverterParameter={StaticResource BlankWritingSystem}}"
-          DisplayMemberPath="Name" 
+            Path=Instance.SelectableSymbolSets}"
+          DisplayMemberPath="DisplayName" 
           VerticalAlignment="Top"
           AllowEditing="True"
           Width="100"
@@ -397,10 +385,8 @@
           MappingName="Subset" 
           HeaderText="{x:Static resources:UcdCodePointStrings.Subset}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableSubsets,
-            Converter={StaticResource InsertItemConverter},
-            ConverterParameter={StaticResource BlankWritingSystem}}"
-          DisplayMemberPath="Name" 
+            Path=Instance.SelectableSubsets}"
+          DisplayMemberPath="DisplayName" 
           VerticalAlignment="Top"
           AllowEditing="True"
           Width="100"
@@ -417,7 +403,7 @@
               <TextBlock Text="{Binding Subset.Name}" 
                          ToolTip="{Binding Subset.Description}" 
                          Padding="3"
-                         />
+              />
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
         </sf:GridComboBoxColumn>

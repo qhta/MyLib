@@ -3,13 +3,16 @@ using Qhta.MVVM;
 using Qhta.SF.Tools;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
+using Qhta.UnicodeBuild.Resources;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
 /// <summary>
 /// ViewModel for a Unicode Character Database (UCD) block.
 /// </summary>
-public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel, IComparable<UcdBlockViewModel>, IRowHeightProvider, IErrorMessageProvider
+public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel, IComparable<UcdBlockViewModel>, 
+  ISelectableItem,
+  IRowHeightProvider, IErrorMessageProvider
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="UcdBlockViewModel"/> class with a new <see cref="UcdBlock"/> model.
@@ -52,10 +55,11 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
   /// </summary>
   public string? Name
   {
-    [DebuggerStepThrough] get => Model.BlockName;
+    [DebuggerStepThrough]
+    get => Model.BlockName;
     set
     {
-      if (Model.BlockName != null)
+      if (Model.BlockName != value)
       {
         Model.BlockName = value;
         NotifyPropertyChanged(nameof(Name));
@@ -164,5 +168,35 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel
   /// </summary>
   public string? ErrorMessage { [DebuggerStepThrough] get; set; }
 
+  #endregion
+
+  #region ISelectableItem implementation
+  /// <summary>
+  /// Name of the item, used for display purposes.
+  /// </summary>
+  public string DisplayName
+  {
+    get => Name ?? _DisplayName;
+    set => _DisplayName = value;
+  }
+
+  private string _DisplayName = DataStrings.EmptyValue;
+
+  /// <summary>
+  /// Determines whether the item is selected in the UI.
+  /// </summary>
+  public bool IsSelected
+  {
+    get => _IsSelected;
+    set
+    {
+      if (_IsSelected != value)
+      {
+        _IsSelected = value;
+        NotifyPropertyChanged(nameof(IsSelected));
+      }
+    }
+  }
+  private bool _IsSelected = false;
   #endregion
 }

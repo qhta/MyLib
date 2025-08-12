@@ -248,9 +248,9 @@ public partial class SfDataGridTools : ResourceDictionary
   {
     if (sender is not SfDataGrid dataGrid)
       return;
-    if (Controller.CanCopyData(dataGrid))
+    if (SfDataGridCommander.CanCopyData(dataGrid))
     {
-      Controller.CopyData(dataGrid);
+      SfDataGridCommander.CopyData(dataGrid);
       e.Handled = true;
     }
   }
@@ -259,9 +259,9 @@ public partial class SfDataGridTools : ResourceDictionary
   {
     if (sender is not SfDataGrid dataGrid)
       return;
-    if (Controller.CanPasteData(dataGrid))
+    if (SfDataGridCommander.CanPasteData(dataGrid))
     {
-      Controller.PasteData(dataGrid);
+      SfDataGridCommander.PasteData(dataGrid);
       e.Handled = true;
     }
   }
@@ -275,25 +275,25 @@ public partial class SfDataGridTools : ResourceDictionary
     {
       case Key.C when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
       {
-        Controller.CopyData(grid);
+        SfDataGridCommander.CopyData(grid);
         e.Handled = true;
         return;
       }
       case Key.X when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
       {
-        Controller.CutData(grid);
+        SfDataGridCommander.CutData(grid);
         e.Handled = true;
         return;
       }
       case Key.V when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
       {
-        Controller.PasteData(grid);
+        SfDataGridCommander.PasteData(grid);
         e.Handled = true;
         return;
       }
       case Key.Delete:
       {
-        Controller.DeleteData(grid);
+        SfDataGridCommander.DeleteData(grid);
         e.Handled = true;
         return;
       }

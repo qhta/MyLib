@@ -34,13 +34,25 @@
     ResourceType="{x:Type resources:Strings}" x:Key="FindInSequenceConverter"/>
   <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="FindInSequenceProvider">
     <ObjectDataProvider.MethodParameters>
-      <x:Type TypeName="commands:FindInSequence" />
+      <x:Type TypeName="sfTools:FindInSequence" />
     </ObjectDataProvider.MethodParameters>
   </ObjectDataProvider>
   <helpers:CategoryResourceConverter x:Key="CategoryResourceConverter"/>
-  <helpers:InsertItemConverter x:Key="InsertItemConverter"/>
+  <!--<helpers:InsertItemConverter x:Key="InsertItemConverter"/>-->
   <viewModels:WritingSystemViewModel x:Key="BlankWritingSystem"/>
   <viewModels:UcdBlockViewModel x:Key="BlankUcdBlock"/>
+
+  <Style x:Key="HiddenTabControlStyle" TargetType="TabControl">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="TabControl">
+          <Grid>
+            <ContentPresenter ContentSource="SelectedContent" />
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 
   <Image x:Key="EditIcon" Source="/Assets/Edit.png" Width="16" Height="16"/>
 

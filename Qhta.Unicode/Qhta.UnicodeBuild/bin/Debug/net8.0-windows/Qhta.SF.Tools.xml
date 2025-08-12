@@ -4,207 +4,6 @@
         <name>Qhta.SF.Tools</name>
     </assembly>
     <members>
-        <member name="T:Qhta.SF.Tools.Controller">
-            <summary>
-            Controller class for managing SfDataGrid operations.
-            </summary>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.GetDataGrid(Syncfusion.UI.Xaml.Grid.GridColumn)">
-            <summary>
-            Gets the owner DataGrid of the specified column.
-            </summary>
-            <param name="column"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.GetRowDataType(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Gets a type of the row data in the SfDataGrid.
-            </summary>
-            <param name="grid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.GetSelectedRows(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,System.Object[]@)">
-            <summary>
-            Gets the selected rows from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            Returns the selected cells and outputs whether all rows are selected, along with the selected rows.
-            </summary>
-            <param name="dataGrid"></param>
-            <param name="allRowsSelected"></param>
-            <param name="selectedRows"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.GetSelectedColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,Syncfusion.UI.Xaml.Grid.GridColumn[]@)">
-            <summary>
-            Gets the selected columns from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            Returns the selected cells and outputs whether all columns are selected, along with the selected columns.
-            </summary>
-            <param name="dataGrid"></param>
-            <param name="allColumnsSelected"></param>
-            <param name="selectedColumns"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.GetSelectedRowsAndColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,Syncfusion.UI.Xaml.Grid.GridColumn[]@,System.Boolean@,System.Object[]@)">
-            <summary>
-            Gets the selected rows and columns from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            Returns the selected cells and outputs whether all columns or rows are selected, along with the selected columns and rows.
-            </summary>
-            <param name="dataGrid"></param>
-            <param name="allColumnsSelected"></param>
-            <param name="selectedColumns"></param>
-            <param name="allRowsSelected"></param>
-            <param name="selectedRows"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.CanCopyData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Determines whether data can be copied from the specified data grid.
-            </summary>
-            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance to check for copy capability.</param>
-            <returns><see langword="true"/> if data can be copied from the specified grid; otherwise, <see langword="false"/>.</returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.CopyData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Performs a copy operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            </summary>
-            <param name="dataGrid"></param>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.CanCutData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Determines whether data can be cut from the specified data grid.
-            This method checks if all selected columns are editable and not read-only.
-            </summary>
-            <param name="dataGrid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.CutData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Performs a cut operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            </summary>
-            <param name="dataGrid"></param>
-        </member>
-        <member name="T:Qhta.SF.Tools.Controller.DataOp">
-            <summary>
-            Enumeration representing the type of data operation to perform.
-            </summary>
-        </member>
-        <member name="F:Qhta.SF.Tools.Controller.DataOp.Copy">
-            <summary>
-            Data should be copied to clipboard.
-            </summary>
-        </member>
-        <member name="F:Qhta.SF.Tools.Controller.DataOp.Cut">
-            <summary>
-            Data should be cut from the grid and copied to clipboard.
-            </summary>
-        </member>
-        <member name="F:Qhta.SF.Tools.Controller.DataOp.Delete">
-            <summary>
-            Data should be deleted from the grid.
-            </summary>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.CanExecuteDataOp(Syncfusion.UI.Xaml.Grid.SfDataGrid,Qhta.SF.Tools.Controller.DataOp)">
-            <summary>
-            Determines whether a data operation can be executed on the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            </summary>
-            <param name="dataGrid"></param>
-            <param name="op"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.ExecuteDataOp(Syncfusion.UI.Xaml.Grid.SfDataGrid,Qhta.SF.Tools.Controller.DataOp)">
-            <summary>
-            Performs a copy, cut or delete operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            </summary>
-            <param name="dataGrid"></param>
-            <param name="op"></param>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.CanDeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Determines whether data can be deleted from the specified data grid.
-            This method checks if all selected columns are editable and not read-only.
-            </summary>
-            <param name="dataGrid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.DeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Performs a delete operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            </summary>
-            <param name="dataGrid"></param>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.FindFirstValue(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object)">
-            <summary>
-            Finds the first occurrence of a specified value in the column and selects the corresponding cell.
-            </summary>
-            <param name="column"></param>
-            <param name="specifiedValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.FindNextValue(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object,System.Object)">
-            <summary>
-            Finds the next occurrence of a specified value in the column and selects the corresponding cell.
-            </summary>
-            <param name="column"></param>
-            <param name="specifiedValue"></param>
-            <param name="currentRow">If null then top of selected rows is assumed as current</param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.FindAllValues(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object)">
-            <summary>
-            Finds all occurrences of a specified value in the column and selects the corresponding cells.
-            </summary>
-            <param name="column"></param>
-            <param name="specifiedValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.CanPasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Determines whether data can be pasted into the specified data grid.
-            </summary>
-            <param name="dataGrid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.PasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Performs a paste operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            </summary>
-            <param name="dataGrid"></param>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.GetHeaders(System.String)">
-            <summary>
-            Splits a tab-delimited string into an array of header values.
-            </summary>
-            <param name="headerLine">A string containing tab-separated header values. Cannot be null.</param>
-            <returns>An array of strings, each representing a header value extracted from the input string.</returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.IsSelected(Syncfusion.UI.Xaml.Grid.GridColumn)">
-            <summary>
-            Checks if the specific <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> column is selected or not.
-            </summary>
-            <param name="column">Column to check</param>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.SetIsSelected(Syncfusion.UI.Xaml.Grid.GridColumn,System.Boolean,System.Boolean)">
-            <summary>
-            Selects or unselects the specific <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> column.
-            Any cell selection is cleared before selecting or unselecting the column.
-            </summary>
-            <param name="column">Column to select/unselect</param>
-            <param name="select">True for select, false for unselect.</param>
-            <param name="unselectOther">True to unselect other columns</param>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.AreAllColumnsSelected(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Checks if all columns in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> are selected or not.
-            </summary>
-            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance.</param>
-        </member>
-        <member name="M:Qhta.SF.Tools.Controller.SelectAllColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean)">
-            <summary>
-            Selects or unselects all columns in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            Any cell selection is cleared before selecting or unselecting columns.
-            </summary>
-            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance.</param>
-            <param name="select">True for select all, false for unselect all.</param>
-        </member>
         <member name="T:Qhta.SF.Tools.DataStrings">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -219,6 +18,11 @@
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.Cancel">
+            <summary>
+              Looks up a localized string similar to Cancel.
             </summary>
         </member>
         <member name="P:Qhta.SF.Tools.DataStrings.Confirm">
@@ -236,9 +40,59 @@
               Looks up a localized string similar to Are you sure you want to delete {0} records?.
             </summary>
         </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.EmptyValue">
+            <summary>
+              Looks up a localized string similar to (Empty value).
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.EnterValueForField">
+            <summary>
+              Looks up a localized string similar to Enter value for field &quot;{0}&quot;.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.NonEmptyValue">
+            <summary>
+              Looks up a localized string similar to (Non-empty value).
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.NotMoreValueFound">
+            <summary>
+              Looks up a localized string similar to No more value found..
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.OK">
+            <summary>
+              Looks up a localized string similar to OK.
+            </summary>
+        </member>
         <member name="P:Qhta.SF.Tools.DataStrings.OperationNotAllowedInThisContext">
             <summary>
               Looks up a localized string similar to Operation {0} is not allowed in this context..
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.OverwriteNonEmptyCells">
+            <summary>
+              Looks up a localized string similar to Overwrite non-empty cells.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.ReplacementText">
+            <summary>
+              Looks up a localized string similar to Replacement.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.SearchedText">
+            <summary>
+              Looks up a localized string similar to Searched text.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.SelectValueForField">
+            <summary>
+              Looks up a localized string similar to Select value for field &quot;{0}&quot;.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.DataStrings.ValueNotFound">
+            <summary>
+              Looks up a localized string similar to Value not found..
             </summary>
         </member>
         <member name="T:Qhta.SF.Tools.DelRecordArgs">
@@ -305,6 +159,83 @@
             <param name="b"></param>
             <param name="tolerance"></param>
             <returns></returns>
+        </member>
+        <member name="T:Qhta.SF.Tools.EmptyValue">
+            <summary>
+            Object representing an empty value.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.EmptyValue.ToString">
+            <summary>
+            Returns a <see cref="P:Qhta.SF.Tools.DataStrings.EmptyValue"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.SF.Tools.FindInSequence">
+            <summary>
+            Specifies how to find a value in the context of the current selection.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.FindInSequence.FindNext">
+            <summary>
+            Find the next occurrence of the value.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.FindInSequence.FindFirst">
+            <summary>
+            Find the first occurrence of the value.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.FindInSequence.FindAll">
+            <summary>
+            Find all occurrences of the value.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.FindCommand">
+            <summary>
+            Command to find a value selected by the user int the current column in the data grid.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.FindCommand.LastDataGrid">
+            <summary>
+            Specifies the last data grid where the find operation was performed.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.FindCommand.LastColumn">
+            <summary>
+            Specifies the last column where the find operation was performed.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.FindCommand.LastValue">
+            <summary>
+            Value of the last search value in the column.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.FindCommand.CanExecute(System.Object)">
+            <summary>
+            Checks whether the command can be executed basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.FindCommand.CanExecuteFindNext(System.Object)">
+            <summary>
+            Checks whether the FindNext command can be executed basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.FindCommand.Execute(System.Object)">
+            <summary>
+            Executes the command basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.FindCommand.ExecuteFindNext(System.Object)">
+            <summary>
+            Executes the FindNext command basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
         </member>
         <member name="T:Qhta.SF.Tools.GridColumnInfo">
             <summary>
@@ -394,6 +325,21 @@
         <member name="P:Qhta.SF.Tools.IRowHeightProvider.RowHeight">
             <summary>
             Gets or sets the height of a row in the grid.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.ISelectableItem">
+            <summary>
+            An interface representing an item that can be selected in a user interface.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.ISelectableItem.DisplayName">
+            <summary>
+            Displayed name of the item, typically used in user interfaces to represent the item.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.ISelectableItem.IsSelected">
+            <summary>
+            Determines whether the item is currently selected in the user interface.
             </summary>
         </member>
         <member name="T:Qhta.SF.Tools.LongTextColumn">
@@ -506,6 +452,17 @@
             <param name="culture"></param>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.SF.Tools.NonEmptyValue">
+            <summary>
+            Object representing non-empty value.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.NonEmptyValue.ToString">
+            <summary>
+            Returns a <see cref="P:Qhta.SF.Tools.DataStrings.NonEmptyValue"/>.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Qhta.SF.Tools.RecordNavigationBar">
             <summary>
@@ -706,6 +663,43 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="T:Qhta.SF.Tools.SelectableItemStub">
+            <summary>
+            Class representing a selectable item with a display name and selection state - for UI purposes.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SelectableItemStub.DisplayName">
+            <inheritdoc />
+        </member>
+        <member name="P:Qhta.SF.Tools.SelectableItemStub.IsSelected">
+            <inheritdoc />
+        </member>
+        <member name="T:Qhta.SF.Tools.SelectableItemValueConverter">
+            <summary>
+            Value converter class for selectable item.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SelectableItemValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a selectable item to its display name.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SelectableItemValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Not implemented method for converting back from the target type to the source type.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Qhta.SF.Tools.SfDataGridBehavior">
             <summary>
             A behavior class for managing the state of a Syncfusion DataGrid.
@@ -839,6 +833,256 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="T:Qhta.SF.Tools.SfDataGridCommander">
+            <summary>
+            Controller class for managing SfDataGrid operations.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.GetDataGrid(Syncfusion.UI.Xaml.Grid.GridColumn)">
+            <summary>
+            Gets the owner DataGrid of the specified column.
+            </summary>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.GetRowDataType(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Gets a type of the row data in the SfDataGrid.
+            </summary>
+            <param name="grid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.GetSelectedRows(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,System.Object[]@)">
+            <summary>
+            Gets the selected rows from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Returns the selected cells and outputs whether all rows are selected, along with the selected rows.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="allRowsSelected"></param>
+            <param name="selectedRows"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.GetSelectedColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,Syncfusion.UI.Xaml.Grid.GridColumn[]@)">
+            <summary>
+            Gets the selected columns from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Returns the selected cells and outputs whether all columns are selected, along with the selected columns.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="allColumnsSelected"></param>
+            <param name="selectedColumns"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.GetSelectedRowsAndColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,Syncfusion.UI.Xaml.Grid.GridColumn[]@,System.Boolean@,System.Object[]@)">
+            <summary>
+            Gets the selected rows and columns from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Returns the selected cells and outputs whether all columns or rows are selected, along with the selected columns and rows.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="allColumnsSelected"></param>
+            <param name="selectedColumns"></param>
+            <param name="allRowsSelected"></param>
+            <param name="selectedRows"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.CanCopyData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be copied from the specified data grid.
+            </summary>
+            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance to check for copy capability.</param>
+            <returns><see langword="true"/> if data can be copied from the specified grid; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.CopyData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a copy operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.CanCutData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be cut from the specified data grid.
+            This method checks if all selected columns are editable and not read-only.
+            </summary>
+            <param name="dataGrid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.CutData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a cut operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="T:Qhta.SF.Tools.SfDataGridCommander.DataOp">
+            <summary>
+            Enumeration representing the type of data operation to perform.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SfDataGridCommander.DataOp.Copy">
+            <summary>
+            Data should be copied to clipboard.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SfDataGridCommander.DataOp.Cut">
+            <summary>
+            Data should be cut from the grid and copied to clipboard.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SfDataGridCommander.DataOp.Delete">
+            <summary>
+            Data should be deleted from the grid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.CanExecuteDataOp(Syncfusion.UI.Xaml.Grid.SfDataGrid,Qhta.SF.Tools.SfDataGridCommander.DataOp)">
+            <summary>
+            Determines whether a data operation can be executed on the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="op"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.ExecuteDataOp(Syncfusion.UI.Xaml.Grid.SfDataGrid,Qhta.SF.Tools.SfDataGridCommander.DataOp)">
+            <summary>
+            Performs a copy, cut or delete operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="op"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.CanDeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be deleted from the specified data grid.
+            This method checks if all selected columns are editable and not read-only.
+            </summary>
+            <param name="dataGrid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.DeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a delete operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.CanPasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be pasted into the specified data grid.
+            </summary>
+            <param name="dataGrid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.PasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a paste operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridCommander.GetHeaders(System.String)">
+            <summary>
+            Splits a tab-delimited string into an array of header values.
+            </summary>
+            <param name="headerLine">A string containing tab-separated header values. Cannot be null.</param>
+            <returns>An array of strings, each representing a header value extracted from the input string.</returns>
+        </member>
+        <member name="T:Qhta.SF.Tools.SfDataGridFilterTools">
+            <summary>
+            Class containing tools for filtering data in Syncfusion DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridFilterTools.FilterItemsPopulating(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterItemsPopulatingEventArgs)">
+            <summary>
+            Handles the populating of filter items in a Syncfusion DataGrid. Sender must be a GridColumn or its descender.
+            If the column is a GridComboBoxColumn, it sets up the filter items based on the provided ItemsSource
+            adding "Empty" and "NonEmpty" options if applicable.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridFilterTools.FilterChanging(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterEventArgs)">
+            <summary>
+            Handles the changing of filters in a Syncfusion DataGrid for proper ISelectableItem handling.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Qhta.SF.Tools.SfDataGridFinder">
+            <summary>
+            Class containing tools for finding values and text in Syncfusion DataGrid columns.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SfDataGridFinder.EmptyValue">
+            <summary>
+            Static object representing an empty value.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SfDataGridFinder.NonEmptyValue">
+            <summary>
+            Static object representing a non-empty value.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindFirstValue(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object)">
+            <summary>
+            Finds the first occurrence of a specified value in the column and selects the corresponding cell.
+            </summary>
+            <param name="column"></param>
+            <param name="specifiedValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridFinder.PrepareSpecifiedValue(System.Object)">
+            <summary>
+            Checks if the specified value is a selectable item or a special marker and prepares it for comparison.
+            if the value is an empty string, or it is an EmptyValue, it is treated as null.
+            </summary>
+            <param name="specifiedValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindNextValue(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object,System.Object)">
+            <summary>
+            Finds the next occurrence of a specified value in the column and selects the corresponding cell.
+            </summary>
+            <param name="column"></param>
+            <param name="specifiedValue"></param>
+            <param name="currentRow">If null then top of selected rows is assumed as current</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindAllValues(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object)">
+            <summary>
+            Finds all occurrences of a specified value in the column and selects the corresponding cells.
+            </summary>
+            <param name="column"></param>
+            <param name="specifiedValue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.SF.Tools.SfDataGridSelector">
+            <summary>
+            Class containing tools for selecting columns in Syncfusion DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridSelector.IsSelected(Syncfusion.UI.Xaml.Grid.GridColumn)">
+            <summary>
+            Checks if the specific <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> column is selected or not.
+            </summary>
+            <param name="column">Column to check</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridSelector.SetIsSelected(Syncfusion.UI.Xaml.Grid.GridColumn,System.Boolean,System.Boolean)">
+            <summary>
+            Selects or unselects the specific <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> column.
+            Any cell selection is cleared before selecting or unselecting the column.
+            </summary>
+            <param name="column">Column to select/unselect</param>
+            <param name="select">True for select, false for unselect.</param>
+            <param name="unselectOther">True to unselect other columns</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridSelector.AreAllColumnsSelected(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Checks if all columns in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> are selected or not.
+            </summary>
+            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance.</param>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridSelector.SelectAllColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean)">
+            <summary>
+            Selects or unselects all columns in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Any cell selection is cleared before selecting or unselecting columns.
+            </summary>
+            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance.</param>
+            <param name="select">True for select all, false for unselect all.</param>
+        </member>
         <member name="T:Qhta.SF.Tools.SfDataGridTools">
             <summary>
             Provides utility methods for handling mouse interactions with the header and row header cells in a <see
@@ -876,6 +1120,170 @@
             <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
         </member>
         <member name="M:Qhta.SF.Tools.SfDataGridTools.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.SpecificValueEdit">
+            <summary>
+            Part of the <see cref="T:Qhta.SF.Tools.SpecificValueWindow"/> for edit a specific value in a text box.
+            </summary>
+            <summary>
+            SpecificValueEdit
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SpecificValueEdit.#ctor">
+            <summary>
+            Initializing constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SpecificValueEdit.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.SpecificValueSelector">
+            <summary>
+            Part of the <see cref="T:Qhta.SF.Tools.SpecificValueWindow"/> for selecting a specific value.
+            </summary>
+            <summary>
+            SpecificValueSelector
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SpecificValueSelector.#ctor">
+            <summary>
+            Initializing constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SpecificValueSelector.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.SpecificValueWindowMode">
+            <summary>
+            Modes for the specific value window.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SpecificValueWindowMode.EditViewOnly">
+            <summary>
+            The window is used to edit the value in a text box.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SpecificValueWindowMode.SelectorOnly">
+            <summary>
+            The window is used to select a value from a list.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SpecificValueWindowMode.Both">
+            <summary>
+            The window is used to select or edit a value in a text box or select from a list.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.SpecificValueWindow">
+            <summary>
+            Window for selecting or editing a specific value.
+            </summary>
+            <summary>
+            SpecificValueWindow
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SpecificValueWindow.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.SF.Tools.SpecificValueWindow"/> class.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SpecificValueWindow.PromptProperty">
+            <summary>
+            Dependency property for the prompt text displayed in the window.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SpecificValueWindow.Prompt">
+            <summary>
+            Prompt text displayed in the window, guiding the user on what to select.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SpecificValueWindow.ModeProperty">
+            <summary>
+            Dependency property for <see cref="P:Qhta.SF.Tools.SpecificValueWindow.Mode"/> property, which specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SpecificValueWindow.Mode">
+            <summary>
+            Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SpecificValueWindow.TextValueProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.SpecificValueWindow.TextValue"/> property, which is the value entered by the user in the text box.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SpecificValueWindow.TextValue">
+            <summary>
+            Text value entered by the user in the text box.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SpecificValueWindow.ItemsSourceProperty">
+            <summary>
+            Dependency property for the items source, which is the collection of items to select from.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SpecificValueWindow.ItemsSource">
+            <summary>
+            Items source for the selection, typically a collection of items that can be selected.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SpecificValueWindow.SelectedItemProperty">
+            <summary>
+            Dependency property for the selected item, which is the item currently selected by the user.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SpecificValueWindow.SelectedItem">
+            <summary>
+            Selected item in the selection window. This property is bound to the selected item in the ItemsSource.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SpecificValueWindow.ShowOverwriteNonEmptyCellsProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.SpecificValueWindow.ShowOverwriteNonEmptyCells"/> flag, which indicates whether to show <see cref="P:Qhta.SF.Tools.SpecificValueWindow.OverwriteNonEmptyCells"/> checkbox.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SpecificValueWindow.ShowOverwriteNonEmptyCells">
+            <summary>
+            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SpecificValueWindow.OverwriteNonEmptyCellsProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.SpecificValueWindow.OverwriteNonEmptyCells"/> flag, which indicates whether to fill only empty cells in the selection.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SpecificValueWindow.OverwriteNonEmptyCells">
+            <summary>
+            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SpecificValueWindow.ShowFindInSequenceProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.SpecificValueWindow.ShowFindInSequence"/> flag, which indicates whether to show <see cref="P:Qhta.SF.Tools.SpecificValueWindow.FindInSequence"/> combobox.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SpecificValueWindow.ShowFindInSequence">
+            <summary>
+            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.SpecificValueWindow.FindInSequenceProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.SpecificValueWindow.FindInSequence"/> flag, which indicates how to find value in the context of the current selection.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SpecificValueWindow.FindInSequence">
+            <summary>
+            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SpecificValueWindow.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>

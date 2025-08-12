@@ -3,8 +3,10 @@ using System.Windows;
 using System.Windows.Threading;
 
 using Qhta.MVVM;
+using Qhta.SF.Tools;
 using Qhta.UndoManager;
 using Qhta.Unicode.Models;
+using Qhta.UnicodeBuild.Resources;
 using Syncfusion.Data.Extensions;
 
 namespace Qhta.UnicodeBuild.ViewModels;
@@ -210,6 +212,7 @@ public partial class _ViewModels : ViewModel, IDisposable
     get
     {
       List<UnicodeCategoryViewModel?> list = new();
+      list.Add(new UnicodeCategoryViewModel { DisplayName = DataStrings.EmptyValue });
       list.AddRange(_ViewModels.Instance.UnicodeCategoriesList.Where(item => !String.IsNullOrEmpty(item.Name))
         .OrderBy(vm => vm.Name));
       return list;
@@ -224,6 +227,7 @@ public partial class _ViewModels : ViewModel, IDisposable
     get
     {
       List<UcdBlockViewModel?> list = new();
+      list.Add(new UcdBlockViewModel { DisplayName = DataStrings.EmptyValue });
       list.AddRange(_ViewModels.Instance.UcdBlocks.Where(item => !String.IsNullOrEmpty(item.Name))
         .OrderBy(vm => vm.Name));
       return list;
@@ -238,6 +242,7 @@ public partial class _ViewModels : ViewModel, IDisposable
   public IEnumerable<WritingSystemViewModel?> GetSelectableWritingSystems(params WritingSystemType[] types)
   {
     List<WritingSystemViewModel?> list = new();
+    list.Add(new WritingSystemViewModel{ DisplayName = DataStrings.EmptyValue });
     list.AddRange(_ViewModels.Instance.WritingSystems.Where(item => item.Type != null && types.Contains((WritingSystemType)item.Type))
       .OrderBy(vm => vm.FullName));
     return list;

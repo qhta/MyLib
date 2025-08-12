@@ -214,34 +214,34 @@ public partial class UcdBlocksView : UserControl
           if (property == null) return;
           var propertyType = property.PropertyType;
           var itemsSource = comboBoxColumn.ItemsSource;
-          var selectValueWindow = new SelectValueWindow
-          {
-            Prompt = String.Format(UnicodeBuild.Resources.Strings.SelectValueForField, column.HeaderText),
-            ItemsSource = itemsSource,
-            ShowOverwriteNonEmptyCells = true,
-          };
-          if (selectValueWindow.ShowDialog() == true)
-          {
-            var selectedValue = selectValueWindow.SelectedItem;
-            var overwriteNonEmptyCells = selectValueWindow.OverwriteNonEmptyCells;
-            if (selectedValue != null)
-            {
-              //Debug.WriteLine($"Setting column: {mappingName}, Selected Value: {selectedValue}");
-              foreach (var record in selectedRows)
-              {
-                if (overwriteNonEmptyCells)
-                {
-                  property.SetValue(record, selectedValue);
-                }
-                else
-                {
-                  var currentValue = property.GetValue(record);
-                  if (currentValue == null)
-                    property.SetValue(record, selectedValue);
-                }
-              }
-            }
-          }
+        //  var selectValueWindow = new SpecificValueWindow
+        //  {
+        //    Prompt = String.Format(UnicodeBuild.Resources.Strings.SelectValueForField, column.HeaderText),
+        //    ItemsSource = itemsSource,
+        //    ShowOverwriteNonEmptyCells = true,
+        //  };
+        //  if (selectValueWindow.ShowDialog() == true)
+        //  {
+        //    var selectedValue = selectValueWindow.SelectedItem;
+        //    var overwriteNonEmptyCells = selectValueWindow.OverwriteNonEmptyCells;
+        //    if (selectedValue != null)
+        //    {
+        //      //Debug.WriteLine($"Setting column: {mappingName}, Selected Value: {selectedValue}");
+        //      foreach (var record in selectedRows)
+        //      {
+        //        if (overwriteNonEmptyCells)
+        //        {
+        //          property.SetValue(record, selectedValue);
+        //        }
+        //        else
+        //        {
+        //          var currentValue = property.GetValue(record);
+        //          if (currentValue == null)
+        //            property.SetValue(record, selectedValue);
+        //        }
+        //      }
+        //    }
+        //  }
         }
       }
     }

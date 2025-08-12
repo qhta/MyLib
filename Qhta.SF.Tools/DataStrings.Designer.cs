@@ -61,6 +61,15 @@ namespace Qhta.SF.Tools {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         public static string Confirm {
@@ -88,11 +97,101 @@ namespace Qhta.SF.Tools {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Empty value).
+        /// </summary>
+        public static string EmptyValue {
+            get {
+                return ResourceManager.GetString("EmptyValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter value for field &quot;{0}&quot;.
+        /// </summary>
+        public static string EnterValueForField {
+            get {
+                return ResourceManager.GetString("EnterValueForField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Non-empty value).
+        /// </summary>
+        public static string NonEmptyValue {
+            get {
+                return ResourceManager.GetString("NonEmptyValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No more value found..
+        /// </summary>
+        public static string NotMoreValueFound {
+            get {
+                return ResourceManager.GetString("NotMoreValueFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Operation {0} is not allowed in this context..
         /// </summary>
         public static string OperationNotAllowedInThisContext {
             get {
                 return ResourceManager.GetString("OperationNotAllowedInThisContext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwrite non-empty cells.
+        /// </summary>
+        public static string OverwriteNonEmptyCells {
+            get {
+                return ResourceManager.GetString("OverwriteNonEmptyCells", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replacement.
+        /// </summary>
+        public static string ReplacementText {
+            get {
+                return ResourceManager.GetString("ReplacementText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Searched text.
+        /// </summary>
+        public static string SearchedText {
+            get {
+                return ResourceManager.GetString("SearchedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select value for field &quot;{0}&quot;.
+        /// </summary>
+        public static string SelectValueForField {
+            get {
+                return ResourceManager.GetString("SelectValueForField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value not found..
+        /// </summary>
+        public static string ValueNotFound {
+            get {
+                return ResourceManager.GetString("ValueNotFound", resourceCulture);
             }
         }
     }

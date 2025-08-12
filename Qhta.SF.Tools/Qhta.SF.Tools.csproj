@@ -15,11 +15,12 @@
     <PackageReference Include="Qhta.TextUtils" Version="3.8.0" />
     <PackageReference Include="Qhta.TypeUtils" Version="1.4.0" />
     <PackageReference Include="Qhta.WPF.Utils" Version="3.5.0" />
-    <PackageReference Include="Syncfusion.Grid.Windows" Version="30.1.42" />
-    <PackageReference Include="Syncfusion.Grid.WPF" Version="30.1.42" />
-    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="30.1.42" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="30.1.42" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="30.1.42" />
+    <PackageReference Include="Syncfusion.Grid.Windows" Version="30.2.4" />
+    <PackageReference Include="Syncfusion.Grid.WPF" Version="30.2.4" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="30.2.4" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="30.2.4" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="30.2.4" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="30.2.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +54,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Qhta.UndoManager\Qhta.UndoManager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Syncfusion.SfInput.Wpf">
+      <HintPath>C:\Users\qhta1\.nuget\packages\syncfusion.sfinput.wpf\30.2.4\lib\net8.0-windows7.0\Syncfusion.SfInput.WPF.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\A.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\List.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 

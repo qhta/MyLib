@@ -60,7 +60,7 @@ public class ApplyBlockMappingCommand : TimeConsumingCommand
         if (codePoint != null)
         {
           //Debug.WriteLine($"Set Block {Block.Name} for cp {cp:X4}");
-          codePoint.UcdBlock = block;
+          codePoint.Block = block;
         }
       }
     }

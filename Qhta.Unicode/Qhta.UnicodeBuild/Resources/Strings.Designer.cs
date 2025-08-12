@@ -367,15 +367,6 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (Empty).
-        /// </summary>
-        public static string EmptyItem {
-            get {
-                return ResourceManager.GetString("EmptyItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to End value must be greater than or equal to start value..
         /// </summary>
         public static string EndValueMustBeGreater {
@@ -664,24 +655,6 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (Not empty).
-        /// </summary>
-        public static string NonEmptyItem {
-            get {
-                return ResourceManager.GetString("NonEmptyItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No more value found..
-        /// </summary>
-        public static string NotMoreValueFound {
-            get {
-                return ResourceManager.GetString("NotMoreValueFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Numeric words are converted to numbers..
         /// </summary>
         public static string Numeric {
@@ -817,20 +790,20 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search text.
+        /// </summary>
+        public static string SearchedText {
+            get {
+                return ResourceManager.GetString("SearchedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select value.
         /// </summary>
         public static string SelectValue {
             get {
                 return ResourceManager.GetString("SelectValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select value for field &quot;{0}&quot;.
-        /// </summary>
-        public static string SelectValueForField {
-            get {
-                return ResourceManager.GetString("SelectValueForField", resourceCulture);
             }
         }
         
@@ -915,15 +888,6 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string UpdatingField {
             get {
                 return ResourceManager.GetString("UpdatingField", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value not found..
-        /// </summary>
-        public static string ValueNotFound {
-            get {
-                return ResourceManager.GetString("ValueNotFound", resourceCulture);
             }
         }
         

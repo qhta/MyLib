@@ -5,7 +5,7 @@ using Qhta.MVVM;
 using Qhta.SF.Tools;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
-
+using Qhta.UnicodeBuild.Resources;
 
 #pragma warning disable CA1416
 namespace Qhta.UnicodeBuild.ViewModels;
@@ -75,11 +75,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   public string? CharName
   {
     get => Model.CharName;
-    set
-    {
-      if (ChangeThisProperty(nameof(CharName), value))
-        Model.CharName = value;
-    }
+    set => ChangeEntityProperty(nameof(CharName), nameof(Model.CharName), value);
   }
 
   /// <summary>
@@ -186,126 +182,127 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   /// <summary>
   /// Identifier of the Unicode code point block, which is used to group code points into blocks.
   /// </summary>
-  public int? UcdBlockId
+  public int? BlockId
   {
     [DebuggerStepThrough]
     get => Model.BlockId;
-    set => ChangeThisProperty(nameof(UcdBlockId), value, nameof(UcdBlock));
+    set => ChangeEntityProperty(nameof(BlockId), nameof(Model.BlockId), value, nameof(Block));
   }
 
   /// <summary>
   /// Exposes the Unicode code point block as a view model.
   /// </summary>
-  public UcdBlockViewModel? UcdBlock
+  public UcdBlockViewModel? Block
   {
     get
     {
       var result = Model.BlockId is null ? null : _ViewModels.Instance.UcdBlocks.FindById((int)Model.BlockId);
       return result;
     }
-    set => ChangeThisProperty(nameof(UcdBlockId), value?.Id);
+    set => ChangeEntityProperty(nameof(BlockId), nameof(Model.BlockId), value?.Id, nameof(Block));
   }
 
   /// <summary>
   /// Identifier of the area writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? AreaId { get => Model.AreaId; set => ChangeThisProperty(nameof(AreaId), value, nameof(Area)); }
+  public int? AreaId
+  {
+    get => Model.AreaId; 
+    set => ChangeEntityProperty(nameof(AreaId), nameof(Model.AreaId), value, nameof(Area));
+  }
 
   /// <summary>
   /// Exposes the area writing system as a view model.
   /// </summary>
   public WritingSystemViewModel? Area
   {
-    get
-    {
-      var result = Model.AreaId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.AreaId);
-      return result;
-    }
-    set => ChangeThisProperty(nameof(AreaId), value?.Id, nameof(Area));
+    get => Model.AreaId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.AreaId);
+    set => ChangeEntityProperty(nameof(AreaId), nameof(Model.AreaId), value?.Id, nameof(Area));
   }
 
   /// <summary>
   /// Identifier of the script writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? ScriptId { get => Model.ScriptId; set => ChangeThisProperty(nameof(ScriptId), value, nameof(Script)); }
+  public int? ScriptId
+  {
+    get => Model.ScriptId; 
+    set => ChangeEntityProperty(nameof(ScriptId), nameof(Model.ScriptId), value, nameof(Script));
+  }
   /// <summary>
   /// Exposes the script writing system as a view model.
   /// </summary>
   public WritingSystemViewModel? Script
   {
-    get
-    {
-      var result = Model.ScriptId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.ScriptId);
-      return result;
-    }
-    set => ChangeThisProperty(nameof(ScriptId), value?.Id, nameof(Script));
+    get => Model.ScriptId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.ScriptId);
+    set => ChangeEntityProperty(nameof(ScriptId), nameof(Model.ScriptId), value?.Id, nameof(Script));
   }
+
   /// <summary>
   /// Identifier of the language writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? LanguageId { get => Model.LanguageId; set => ChangeThisProperty(nameof(LanguageId), value, nameof(Language)); }
+  public int? LanguageId
+  {
+    get => Model.LanguageId; 
+    set => ChangeEntityProperty(nameof(LanguageId), nameof(Model.LanguageId), value, nameof(Language));
+  }
   /// <summary>
   /// Exposes the language writing system as a view model.
   /// </summary>
   public WritingSystemViewModel? Language
   {
-    get
-    {
-      var result = Model.LanguageId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.LanguageId);
-      return result;
-    }
-    set => ChangeThisProperty(nameof(LanguageId), value?.Id, nameof(Language));
+    get => Model.LanguageId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.LanguageId);
+    set => ChangeEntityProperty(nameof(LanguageId), nameof(Model.BlockId), value?.Id, nameof(Language));
   }
 
   /// <summary>
   /// Identifier of the notation writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? NotationId { get => Model.NotationId; set => ChangeThisProperty(nameof(NotationId), value, nameof(Notation)); }
+  public int? NotationId
+  {
+    get => Model.NotationId; 
+    set => ChangeEntityProperty(nameof(NotationId), nameof(Model.NotationId), value, nameof(Notation));
+  }
   /// <summary>
   /// Exposes the notation writing system as a view model.
   /// </summary>
   public WritingSystemViewModel? Notation
   {
-    get
-    {
-      var result = Model.NotationId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.NotationId);
-      return result;
-    }
-    set => ChangeThisProperty(nameof(NotationId), value?.Id, nameof(Notation));
+    get => Model.NotationId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.NotationId);
+    set => ChangeEntityProperty(nameof(NotationId), nameof(Model.NotationId), value?.Id, nameof(Notation));
   }
 
   /// <summary>
   /// Identifier of the symbol set writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? SymbolSetId { get => Model.SymbolSetId; set => ChangeThisProperty(nameof(SymbolSetId), value, nameof(SymbolSet)); }
+  public int? SymbolSetId
+  {
+    get => Model.SymbolSetId; 
+    set => ChangeEntityProperty(nameof(SymbolSetId), nameof(Model.SymbolSetId), value, nameof(SymbolSet));
+  }
   /// <summary>
   /// Exposes the symbol set writing system as a view model.
   /// </summary>
   public WritingSystemViewModel? SymbolSet
   {
-    get
-    {
-      var result = Model.SymbolSetId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.SymbolSetId);
-      return result;
-    }
-    set => ChangeThisProperty(nameof(SymbolSetId), value?.Id, nameof(SymbolSet));
+    get => Model.SymbolSetId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.SymbolSetId);
+    set => ChangeEntityProperty(nameof(SymbolSetId), nameof(Model.SymbolSetId), value?.Id, nameof(SymbolSet));
   }
 
   /// <summary>
   /// Identifier of the subset writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? SubsetId { get => Model.SubsetId; set => ChangeThisProperty(nameof(SubsetId), value, nameof(Subset)); }
+  public int? SubsetId
+  {
+    get => Model.SubsetId; 
+    set => ChangeEntityProperty(nameof(SubsetId), nameof(Model.SubsetId), value, nameof(Subset));
+  }
   /// <summary>
   /// Exposes the subset writing system as a view model.
   /// </summary>
   public WritingSystemViewModel? Subset
   {
-    get
-    {
-      var result = Model.SubsetId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.SubsetId);
-      return result;
-    }
-    set => ChangeThisProperty(nameof(SubsetId), value?.Id, nameof(Subset));
+    get => Model.SubsetId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.SubsetId);
+    set => ChangeEntityProperty(nameof(SubsetId), nameof(Model.SubsetId), value?.Id, nameof(Subset));
   }
 
   /// <summary>

@@ -6,7 +6,7 @@ using Qhta.MVVM;
 using Qhta.SF.Tools;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
-
+using Qhta.UnicodeBuild.Resources;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -16,7 +16,8 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <param name="model"></param>
 public class WritingSystemViewModel(WritingSystem model)
   : EntityViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, IComparable<WritingSystemViewModel>,// INotifyDataErrorInfo
-  IRowHeightProvider, IErrorMessageProvider
+    ISelectableItem,
+    IRowHeightProvider, IErrorMessageProvider
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="WritingSystemViewModel"/> class with the specified model.
@@ -37,7 +38,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Id;
-    set => ChangeThisProperty(nameof(Id), value);
+    set => ChangeEntityProperty(nameof(Id), nameof(Model.Id), value);
   }
 
   /// <summary>
@@ -51,7 +52,7 @@ public class WritingSystemViewModel(WritingSystem model)
     get => Model.Name;
     set
     {
-      if (ChangeThisProperty(nameof(Name), value))
+      if (ChangeEntityProperty(nameof(Name), nameof(Model.Name), value))
       {
         NotifyPropertyChanged(nameof(FullName));
         NotifyPropertyChanged(nameof(Tooltip));
@@ -75,7 +76,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Type;
-    set => ChangeThisProperty(nameof(Type), value);
+    set => ChangeEntityProperty(nameof(Type), nameof(Model.Type), value);
   }
 
   /// <summary>
@@ -85,7 +86,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Kind;
-    set => ChangeThisProperty(nameof(Kind), value);
+    set => ChangeEntityProperty(nameof(Kind), nameof(Model.Kind), value);
   }
 
   /// <summary>
@@ -95,7 +96,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.NameGenMethod;
-    set => ChangeThisProperty(nameof(NameGenMethod), value);
+    set => ChangeEntityProperty(nameof(NameGenMethod), nameof(Model.NameGenMethod), value);
   }
 
   /// <summary>
@@ -105,7 +106,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.NameGenFile;
-    set => ChangeThisProperty(nameof(NameGenFile), value);
+    set => ChangeEntityProperty(nameof(NameGenFile), nameof(Model.NameGenFile), value);
   }
 
   /// <summary>
@@ -115,7 +116,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.ParentId;
-    set => ChangeThisProperty(nameof(ParentId), value);
+    set => ChangeEntityProperty(nameof(ParentId), nameof(Model.ParentId), value);
   }
 
   /// <summary>
@@ -125,7 +126,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.KeyPhrase;
-    set => ChangeThisProperty(nameof(KeyPhrase), value);
+    set => ChangeEntityProperty(nameof(KeyPhrase), nameof(Model.KeyPhrase), value);
   }
 
   /// <summary>
@@ -135,7 +136,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Ctg;
-    set => ChangeThisProperty(nameof(Ctg), value);
+    set => ChangeEntityProperty(nameof(Ctg), nameof(Model.Ctg), value);
   }
 
   /// <summary>
@@ -145,7 +146,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Iso;
-    set => ChangeThisProperty(nameof(Iso), value);
+    set => ChangeEntityProperty(nameof(Iso), nameof(Model.Iso), value);
   }
 
   /// <summary>
@@ -155,7 +156,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Abbr;
-    set => ChangeThisProperty(nameof(Abbr), value);
+    set => ChangeEntityProperty(nameof(Abbr), nameof(Model.Abbr), value);
   }
 
   /// <summary>
@@ -165,7 +166,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Ext;
-    set => ChangeThisProperty(nameof(Ext), value);
+    set => ChangeEntityProperty(nameof(Ext), nameof(Model.Ext), value);
   }
 
   /// <summary>
@@ -177,7 +178,8 @@ public class WritingSystemViewModel(WritingSystem model)
     [DebuggerStepThrough]
     get => Model.Description;
     set {  
-      if (ChangeThisProperty(nameof(Description), value)) NotifyPropertyChanged(nameof(Tooltip)); 
+      if (ChangeEntityProperty(nameof(Description), nameof(Model.Description), value)) 
+        NotifyPropertyChanged(nameof(Tooltip)); 
     }
   }
 
@@ -480,5 +482,35 @@ public class WritingSystemViewModel(WritingSystem model)
   /// </summary>
   public string? ErrorMessage { [DebuggerStepThrough] get; set; }
 
+  #endregion
+
+  #region ISelectableItem implementation
+  /// <summary>
+  /// Name of the item, used for display purposes.
+  /// </summary>
+  public string DisplayName
+  {
+    get => Name ?? _DisplayName; 
+    set => _DisplayName=value;
+  }
+
+  private string _DisplayName = DataStrings.EmptyValue;
+
+  /// <summary>
+  /// Determines whether the item is selected in the UI.
+  /// </summary>
+  public bool IsSelected
+  {
+    get => _IsSelected;
+    set
+    {
+      if (_IsSelected != value)
+      {
+        _IsSelected = value;
+        NotifyPropertyChanged(nameof(IsSelected));
+      }
+    }
+  }
+  private bool _IsSelected = false;
   #endregion
 }

@@ -1,0 +1,386 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Qhta.UnicodeBuild.csproj": {}
+  },
+  "projects": {
+    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj",
+        "projectName": "Qhta.SF.Tools",
+        "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj",
+        "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
+        "outputPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.2.4\\ToolboxNuGetPackages"
+        ],
+        "configFilePaths": [
+          "D:\\OneDrive\\VS\\Projects\\NuGet.Config",
+          "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Syncfusion Toolbox for WPF.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
+          "d:\\VS\\Projects\\mylib\\bin": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {
+              "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.UndoManager\\Qhta.UndoManager.csproj": {
+                "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.UndoManager\\Qhta.UndoManager.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "Microsoft.Xaml.Behaviors.Wpf": {
+              "target": "Package",
+              "version": "[1.1.135, )"
+            },
+            "Qhta.MVVM": {
+              "target": "Package",
+              "version": "[4.14.0, )"
+            },
+            "Qhta.TextUtils": {
+              "target": "Package",
+              "version": "[3.8.0, )"
+            },
+            "Qhta.TypeUtils": {
+              "target": "Package",
+              "version": "[1.4.0, )"
+            },
+            "Qhta.WPF.Utils": {
+              "target": "Package",
+              "version": "[3.5.0, )"
+            },
+            "Syncfusion.Grid.WPF": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.Grid.Windows": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.SfGrid.WPF": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.Shared.Base": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.Shared.WPF": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.Tools.WPF": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.UndoManager\\Qhta.UndoManager.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.UndoManager\\Qhta.UndoManager.csproj",
+        "projectName": "Qhta.UndoManager",
+        "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.UndoManager\\Qhta.UndoManager.csproj",
+        "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
+        "outputPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.UndoManager\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.2.4\\ToolboxNuGetPackages"
+        ],
+        "configFilePaths": [
+          "D:\\OneDrive\\VS\\Projects\\NuGet.Config",
+          "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Syncfusion Toolbox for WPF.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
+          "d:\\VS\\Projects\\mylib\\bin": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Qhta.Collections": {
+              "target": "Package",
+              "version": "[5.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Qhta.UnicodeBuild.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Qhta.UnicodeBuild.csproj",
+        "projectName": "Qhta.UnicodeBuild",
+        "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Qhta.UnicodeBuild.csproj",
+        "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
+        "outputPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.2.4\\ToolboxNuGetPackages"
+        ],
+        "configFilePaths": [
+          "D:\\OneDrive\\VS\\Projects\\NuGet.Config",
+          "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Syncfusion Toolbox for WPF.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
+          "d:\\VS\\Projects\\mylib\\bin": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {
+              "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj": {
+                "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj"
+              },
+              "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.UndoManager\\Qhta.UndoManager.csproj": {
+                "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.UndoManager\\Qhta.UndoManager.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "EntityFrameworkCore.Jet": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.Xaml.Behaviors.Wpf": {
+              "target": "Package",
+              "version": "[1.1.135, )"
+            },
+            "Qhta.DeepCopy": {
+              "target": "Package",
+              "version": "[1.5.0, )"
+            },
+            "Qhta.MVVM": {
+              "target": "Package",
+              "version": "[4.14.0, )"
+            },
+            "Qhta.ObservableObjects": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "Qhta.WPF.Converters": {
+              "target": "Package",
+              "version": "[1.5.0, )"
+            },
+            "Qhta.WPF.Utils": {
+              "target": "Package",
+              "version": "[3.5.0, )"
+            },
+            "Syncfusion.Grid.WPF": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.Grid.Windows": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.PropertyGrid.WPF": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.SfGrid.WPF": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.SfInput.WPF": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.SfTextInputLayout.WPF": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.SfTreeView.WPF": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.Shared.Base": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.Shared.WPF": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "Syncfusion.Tools.WPF": {
+              "target": "Package",
+              "version": "[30.2.4, )"
+            },
+            "System.Data.OleDb": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
