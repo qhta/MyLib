@@ -10,7 +10,7 @@ namespace Qhta.SF.Tools;
 /// <summary>
 /// Class containing tools for filtering data in Syncfusion DataGrid.
 /// </summary>
-public static class SfDataGridFilter
+public static class SfDataGridFiltering
 {
 
   /// <summary>

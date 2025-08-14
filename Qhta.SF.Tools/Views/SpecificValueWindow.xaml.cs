@@ -175,7 +175,7 @@ public partial class SpecificValueWindow : Window
   }
 
   /// <summary>
-  /// Returns the current view mode of the window.
+  /// Gets or sets the current view mode of the window.
   /// </summary>
   /// <returns></returns>
   public SpecificViewMode CurrentViewMode
@@ -185,6 +185,17 @@ public partial class SpecificValueWindow : Window
       if (ViewMode == SpecificViewMode.Both)
         return (TabControl.SelectedIndex == 0) ? SpecificViewMode.Selector : SpecificViewMode.Edit;
       return ViewMode;
+    }
+    set
+    {
+      if (ViewMode == SpecificViewMode.Both)
+      {
+        TabControl.SelectedIndex = (value == SpecificViewMode.Edit) ? 0 : 1;
+      }
+      else
+      {
+        TabControl.SelectedIndex = 0; // Only one view is visible, so always select the first tab.
+      }
     }
   }
   #endregion

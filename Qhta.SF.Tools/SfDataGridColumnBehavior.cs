@@ -12,6 +12,7 @@ namespace Qhta.SF.Tools;
 /// </summary>
 public class SfDataGridColumnBehavior : Behavior<GridColumn>
 {
+  #region IsSelected Attached Property
   /// <summary>
   /// Gets whether the column is selected.
   /// </summary>
@@ -77,5 +78,45 @@ public class SfDataGridColumnBehavior : Behavior<GridColumn>
       column.CellStyle = Application.Current.FindResource("UnselectedGridStyle") as Style;
     }
   }
+  #endregion
 
+}
+
+/// <summary>
+/// Class containing extension methods for the <see cref="SfDataGridColumnBehavior"/>.
+/// </summary>
+public static class SfDataGridColumnBehaviorExtensions
+{
+  #region Finder Attached Property
+  /// <summary>
+  /// Gets the finder associated with the column.
+  /// </summary>
+  /// <param name="column"></param>
+  /// <returns></returns>
+  public static SfDataGridFinder? GetFinder(this GridColumn column)
+  {
+    var result = (SfDataGridFinder?)column.GetValue(FinderProperty);
+    return result;
+  }
+
+  /// <summary>
+  /// Sets the finder associated with the column.
+  /// </summary>
+  /// <param name="column"></param>
+  /// <param name="value"></param>
+  public static void SetFinder(this GridColumn column, SfDataGridFinder? value)
+  {
+    column.SetValue(FinderProperty, value);
+  }
+
+  /// <summary>
+  /// Attached dependency property that holds the finder associated with the column.
+  /// </summary>
+  public static readonly DependencyProperty FinderProperty =
+    DependencyProperty.RegisterAttached
+    (
+      "Finder", typeof(SfDataGridFinder), typeof(SfDataGridColumnBehavior),
+      new PropertyMetadata(null));
+
+  #endregion
 }

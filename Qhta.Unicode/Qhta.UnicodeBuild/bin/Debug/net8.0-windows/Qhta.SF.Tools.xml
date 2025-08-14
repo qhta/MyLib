@@ -112,46 +112,6 @@
             Command to find a value selected by the user int the current column in the data grid.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.FindCommand.LastDataGrid">
-            <summary>
-            Specifies the last data grid where the find operation was performed.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.FindCommand.LastColumn">
-            <summary>
-            Specifies the last column where the find operation was performed.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.FindCommand.LastViewMode">
-            <summary>
-            Specifies the last dialog view mode.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.FindCommand.LastValue">
-            <summary>
-            Value of the last search value in the column. It can be a selectable item or a text value.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.FindCommand.LastPredicate">
-            <summary>
-            Search predicate used in the last find operation. It is used to filter the values in the column.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.FindCommand.LastFindInSequence">
-            <summary>
-            Specifies the last find operation, which can be FindNext, FindFirst, or FindAll.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.FindCommand.LastFilterType">
-            <summary>
-            Specifies the last filter type, which can be Equals, NotEquals, and so on.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.FindCommand.LastCaseSensitive">
-            <summary>
-            Specifies whether the last find operation was case-sensitive or not.
-            </summary>
-        </member>
         <member name="M:Qhta.SF.Tools.FindCommand.CanExecute(System.Object)">
             <summary>
             Checks whether the command can be executed basing on the current selection in the data grid.
@@ -950,6 +910,30 @@
             <param name="d">The dependency object that represents the GridColumn whose IsSelected property has changed.</param>
             <param name="e">The event data that contains information about the property change, including the new value.</param>
         </member>
+        <member name="T:Qhta.SF.Tools.SfDataGridColumnBehaviorExtensions">
+            <summary>
+            Class containing extension methods for the <see cref="T:Qhta.SF.Tools.SfDataGridColumnBehavior"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridColumnBehaviorExtensions.GetFinder(Syncfusion.UI.Xaml.Grid.GridColumn)">
+            <summary>
+            Gets the finder associated with the column.
+            </summary>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridColumnBehaviorExtensions.SetFinder(Syncfusion.UI.Xaml.Grid.GridColumn,Qhta.SF.Tools.SfDataGridFinder)">
+            <summary>
+            Sets the finder associated with the column.
+            </summary>
+            <param name="column"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.SF.Tools.SfDataGridColumnBehaviorExtensions.FinderProperty">
+            <summary>
+            Attached dependency property that holds the finder associated with the column.
+            </summary>
+        </member>
         <member name="T:Qhta.SF.Tools.SfDataGridColumnConverter">
             <summary>
             Provides a mechanism to convert <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> objects to specific property values for data binding in a
@@ -1134,12 +1118,12 @@
             <param name="headerLine">A string containing tab-separated header values. Cannot be null.</param>
             <returns>An array of strings, each representing a header value extracted from the input string.</returns>
         </member>
-        <member name="T:Qhta.SF.Tools.SfDataGridFilter">
+        <member name="T:Qhta.SF.Tools.SfDataGridFiltering">
             <summary>
             Class containing tools for filtering data in Syncfusion DataGrid.
             </summary>
         </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridFilter.FilterItemsPopulating(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterItemsPopulatingEventArgs)">
+        <member name="M:Qhta.SF.Tools.SfDataGridFiltering.FilterItemsPopulating(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterItemsPopulatingEventArgs)">
             <summary>
             Handles the populating of filter items in a Syncfusion DataGrid. Sender must be a GridColumn or its descender.
             If the column is a GridComboBoxColumn, it sets up the filter items based on the provided ItemsSource
@@ -1148,7 +1132,7 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridFilter.FilterChanging(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterEventArgs)">
+        <member name="M:Qhta.SF.Tools.SfDataGridFiltering.FilterChanging(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterEventArgs)">
             <summary>
             Handles the changing of filters in a Syncfusion DataGrid for proper ISelectableItem handling.
             </summary>
@@ -1160,32 +1144,59 @@
             Class containing tools for finding values and text in Syncfusion DataGrid columns.
             </summary>
         </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindFirst(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object,Syncfusion.Data.FilterPredicate)">
+        <member name="P:Qhta.SF.Tools.SfDataGridFinder.DataGrid">
             <summary>
-            Finds the first occurrence of a specified value in the column and selects the corresponding cell.
+            DataGrid instance to operate on.
             </summary>
-            <param name="column">Grid column to search</param>
-            <param name="specifiedValue">Searched value. It can be an object or text.</param>
-            <param name="predicate">Filter predicate. It contains conditions to evaluate the current value against the specific value.</param>
+        </member>
+        <member name="P:Qhta.SF.Tools.SfDataGridFinder.Column">
+            <summary>
+            Gets or sets the column to search.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SfDataGridFinder.StrongTyped">
+            <summary>
+            Specifies whether the specified value is strongly typed or string typed.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SfDataGridFinder.SpecifiedValue">
+            <summary>
+            Specified value to search for.
+            It can be a string or any other type, depending on the FilterBehavior of the predicate.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SfDataGridFinder.Replace">
+            <summary>
+            Determines whether to replace the found value with the specified value.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SfDataGridFinder.Replacement">
+            <summary>
+            Specified value to search for.
+            It can be a string or any other type, depending on the FilterBehavior of the predicate.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SfDataGridFinder.Predicate">
+            <summary>
+            Predicate defining the conditions of comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindFirst">
+            <summary>
+            Finds the first occurrence of a specified text in the column and selects the corresponding cell.
+            </summary>
             <returns>True if first cells is found.</returns>
         </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindNext(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object,Syncfusion.Data.FilterPredicate,System.Object)">
+        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindNext">
             <summary>
             Finds the next occurrence of a specified value in the column and selects the corresponding cell.
             </summary>
-            <param name="column">Grid column to search</param>
-            <param name="specifiedValue">Searched value. It can be an object or text.</param>
-            <param name="predicate">Filter predicate. It contains conditions to evaluate the current value against the specific value.</param>
-            <param name="currentRow">If null then top of selected rows is assumed as current</param>
             <returns>True if next cells is found.</returns>
         </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindAll(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object,Syncfusion.Data.FilterPredicate)">
+        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindAll">
             <summary>
             Finds all occurrences of a specified value in the column and selects the corresponding cells.
             </summary>
-            <param name="column">Grid column to search</param>
-            <param name="specifiedValue">Searched value. It can be an object or text.</param>
-            <param name="predicate">Filter predicate. It contains conditions to evaluate the current value against the specific value.</param>
             <returns>Number of selected cells</returns>
         </member>
         <member name="M:Qhta.SF.Tools.SfDataGridFinder.EvaluatePredicate(System.Object,System.Object,Syncfusion.Data.FilterPredicate)">
@@ -1354,7 +1365,7 @@
         </member>
         <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.CurrentViewMode">
             <summary>
-            Returns the current view mode of the window.
+            Gets or sets the current view mode of the window.
             </summary>
             <returns></returns>
         </member>

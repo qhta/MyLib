@@ -15,42 +15,123 @@ namespace Qhta.SF.Tools;
 /// <summary>
 /// Class containing tools for finding values and text in Syncfusion DataGrid columns.
 /// </summary>
-public static partial class SfDataGridFinder
+public class SfDataGridFinder
 {
 
   /// <summary>
-  /// Finds the first occurrence of a specified value in the column and selects the corresponding cell.
+  /// DataGrid instance to operate on.
   /// </summary>
-  /// <param name="column">Grid column to search</param>
-  /// <param name="specifiedValue">Searched value. It can be an object or text.</param>
-  /// <param name="predicate">Filter predicate. It contains conditions to evaluate the current value against the specific value.</param>
-  /// <returns>True if first cells is found.</returns>
-  public static bool FindFirst(this GridColumn column, object? specifiedValue, FilterPredicate predicate)
-  {
-    if (column.GetDataGrid() is not { } dataGrid)
-    {
-      //Debug.WriteLine($"Column DataGrid not found.");
-      return false;
-    }
-    var mappingName = column.MappingName;
-    var property = SfDataGridCommander.GetRowDataType(dataGrid)?.GetProperty(mappingName);
-    if (property == null)
-    {
-      Debug.WriteLine($"Property '{mappingName}' not found in row data type.");
-      return false;
-    }
+  public required SfDataGrid DataGrid { get; set; }
 
-    var columnIndex = dataGrid.Columns.IndexOf(column);
-    foreach (var row in dataGrid.View.Records.Select(record => record.Data))
+  /// <summary>
+  /// Gets or sets the column to search.
+  /// </summary>
+  public required GridColumn Column
+  {
+    get => _Column;
+    set
     {
-      var currentValue = property.GetValue(row);
+      var mappingName = value.MappingName;
+      Property = SfDataGridCommander.GetRowDataType(DataGrid)?.GetProperty(mappingName)!;
+      if (Property == null)
+        throw new InvalidOperationException($"Property '{mappingName}' not found in grid source data type.");
+      if (!Property.CanRead)
+        throw new InvalidOperationException($"Property '{mappingName}' can't be read.");
+      _Column = value;
+    }
+  }
+  private GridColumn _Column = null!;
+
+  internal PropertyInfo Property { get; private set; } = null!;
+
+  /// <summary>
+  /// Specifies whether the specified value is strongly typed or string typed.
+  /// </summary>
+  public bool StrongTyped { get; set; }
+
+  /// <summary>
+  /// Specified value to search for.
+  /// It can be a string or any other type, depending on the FilterBehavior of the predicate.
+  /// </summary>
+  public object? SpecifiedValue
+  {
+    get => specifiedValue;
+    set
+    {
+      if (!Property.CanRead)
+        throw new InvalidOperationException($"Property '{Property.Name}' can't be read.");
+      specifiedValue = value;
+    }
+  }
+  internal object? specifiedValue { get; set; }
+
+  //public object? SelectedItem
+  //{
+  //  get => selectedItem;
+  //  set
+  //  {
+  //    if (!Property.CanRead)
+  //      throw new InvalidOperationException($"Property '{Property.Name}' can't be read.");
+  //    selectedItem = value;
+  //  }
+  //}
+  //internal object? selectedItem { get; set; }
+
+  /// <summary>
+  /// Determines whether to replace the found value with the specified value.
+  /// </summary>
+  public bool Replace { get; set; }
+
+  /// <summary>
+  /// Specified value to search for.
+  /// It can be a string or any other type, depending on the FilterBehavior of the predicate.
+  /// </summary>
+  public object? Replacement
+  {
+    get => _Replacement;
+    set
+    {
+      if (DataGrid.IsReadOnly)
+        throw new InvalidOperationException($"DataGrid is read-only.");
+      if (!Property.CanWrite)
+        throw new InvalidOperationException($"Property '{Property.Name}' is read-only.");
+      _Replacement = value;
+    }
+  }
+  internal object? _Replacement { get; set; }
+
+  /// <summary>
+  /// Predicate defining the conditions of comparison.
+  /// </summary>
+  public FilterPredicate Predicate
+  {
+    get => predicate;
+    set => predicate = value;
+  }
+  internal FilterPredicate predicate { get; set; } = new()
+  {
+    FilterBehavior = FilterBehavior.StringTyped,
+    FilterType = FilterType.Contains,
+    IsCaseSensitive = false
+  };
+
+  /// <summary>
+  /// Finds the first occurrence of a specified text in the column and selects the corresponding cell.
+  /// </summary>
+  /// <returns>True if first cells is found.</returns>
+  public bool FindFirst()
+  {
+    var columnIndex = DataGrid.Columns.IndexOf(Column);
+    foreach (var row in DataGrid.View.Records.Select(record => record.Data))
+    {
+      var currentValue = Property.GetValue(row);
       if (EvaluatePredicate(currentValue, specifiedValue, predicate))
       {
         //Debug.WriteLine($"Found value: {value} in row: {row}");
-        var rowIndex = dataGrid.ResolveToRowIndex(row);
-        dataGrid.SelectAllColumns(false);
-        dataGrid.SelectCells(row, column, row, column);
-        dataGrid.ScrollInView(new RowColumnIndex(rowIndex, columnIndex));
+        var rowIndex = DataGrid.ResolveToRowIndex(row);
+        DataGrid.SelectAllColumns(false);
+        DataGrid.SelectCells(row, Column, row, Column);
+        DataGrid.ScrollInView(new RowColumnIndex(rowIndex, columnIndex));
         return true;
       }
     }
@@ -60,30 +141,13 @@ public static partial class SfDataGridFinder
   /// <summary>
   /// Finds the next occurrence of a specified value in the column and selects the corresponding cell.
   /// </summary>
-  /// <param name="column">Grid column to search</param>
-  /// <param name="specifiedValue">Searched value. It can be an object or text.</param>
-  /// <param name="predicate">Filter predicate. It contains conditions to evaluate the current value against the specific value.</param>
-  /// <param name="currentRow">If null then top of selected rows is assumed as current</param>
   /// <returns>True if next cells is found.</returns>
-  public static bool FindNext(this GridColumn column, object? specifiedValue, FilterPredicate predicate, object? currentRow = null)
+  public bool FindNext()
   {
-    if (column.GetDataGrid() is not { } dataGrid)
-    {
-      //Debug.WriteLine($"Column DataGrid not found.");
-      return false;
-    }
-    var mappingName = column.MappingName;
-    var property = SfDataGridCommander.GetRowDataType(dataGrid)?.GetProperty(mappingName);
-    if (property == null)
-    {
-      Debug.WriteLine($"Property '{mappingName}' not found in row data type.");
-      return false;
-    }
-
-    var columnIndex = dataGrid.Columns.IndexOf(column);
-    var selectedRow = dataGrid.CurrentItem;
+    var columnIndex = DataGrid.Columns.IndexOf(Column);
+    var selectedRow = DataGrid.CurrentItem;
     var startSearching = selectedRow == null;
-    foreach (var row in dataGrid.View.Records.Select(record => record.Data))
+    foreach (var row in DataGrid.View.Records.Select(record => record.Data))
     {
       // Skip rows until we reach the row after the currently selected one
       if (!startSearching)
@@ -91,14 +155,14 @@ public static partial class SfDataGridFinder
         if (row == selectedRow) startSearching = true;
         continue;
       }
-      var currentValue = property.GetValue(row);
+      var currentValue = Property.GetValue(row);
       if (EvaluatePredicate(currentValue, specifiedValue, predicate))
       {
         //Debug.WriteLine($"Found value: {value} in row: {row}");
-        var rowIndex = dataGrid.ResolveToRowIndex(row);
-        dataGrid.SelectAllColumns(false);
-        dataGrid.SelectCells(row, column, row, column);
-        dataGrid.ScrollInView(new RowColumnIndex(rowIndex, columnIndex));
+        var rowIndex = DataGrid.ResolveToRowIndex(row);
+        DataGrid.SelectAllColumns(false);
+        DataGrid.SelectCells(row, Column, row, Column);
+        DataGrid.ScrollInView(new RowColumnIndex(rowIndex, columnIndex));
         return true;
       }
     }
@@ -108,52 +172,34 @@ public static partial class SfDataGridFinder
   /// <summary>
   /// Finds all occurrences of a specified value in the column and selects the corresponding cells.
   /// </summary>
-  /// <param name="column">Grid column to search</param>
-  /// <param name="specifiedValue">Searched value. It can be an object or text.</param>
-  /// <param name="predicate">Filter predicate. It contains conditions to evaluate the current value against the specific value.</param>
   /// <returns>Number of selected cells</returns>
-  public static int FindAll(this GridColumn column, object? specifiedValue, FilterPredicate predicate)
+  public int FindAll()
   {
     int found = 0;
-    // In the current implementation, we know that the column DataGrid property is not public.
-    if (column.GetDataGrid() is not { } dataGrid)
-    {
-      //Debug.WriteLine($"Column DataGrid not found.");
-      return 0;
-    }
-    var mappingName = column.MappingName;
-    var property = SfDataGridCommander.GetRowDataType(dataGrid)?.GetProperty(mappingName);
-    if (property == null)
-    {
-      Debug.WriteLine($"Property '{mappingName}' not found in row data type.");
-      return 0;
-    }
-
-    var columnIndex = dataGrid.Columns.IndexOf(column);
-    var selectedRow = dataGrid.GetSelectedCells().FirstOrDefault()?.RowData;
+    var columnIndex = DataGrid.Columns.IndexOf(Column);
+    var selectedRow = DataGrid.GetSelectedCells().FirstOrDefault()?.RowData;
     var startSearching = selectedRow == null;
     var firstRowIndex = -1;
 
-    foreach (var row in dataGrid.View.Records.Select(record => record.Data))
+    foreach (var row in DataGrid.View.Records.Select(record => record.Data))
     {
-      var currentValue = property.GetValue(row);
+      var currentValue = Property.GetValue(row);
       if (EvaluatePredicate(currentValue, specifiedValue, predicate))
       {
         //Debug.WriteLine($"Found value: {value} in row: {row}");
-        var rowIndex = dataGrid.ResolveToRowIndex(row);
+        var rowIndex = DataGrid.ResolveToRowIndex(row);
         if (found == 0)
         {
           firstRowIndex = rowIndex;
-          dataGrid.SelectAllColumns(false);
+          DataGrid.SelectAllColumns(false);
         }
         found++;
-        dataGrid.SelectCells(row, column, row, column);
+        DataGrid.SelectCells(row, Column, row, Column);
       }
     }
     if (firstRowIndex >= 0)
-      dataGrid.ScrollInView(new RowColumnIndex(firstRowIndex, columnIndex));
+      DataGrid.ScrollInView(new RowColumnIndex(firstRowIndex, columnIndex));
     return found;
-
   }
 
 
@@ -185,8 +231,8 @@ public static partial class SfDataGridFinder
       switch (predicate.FilterType)
       {
         case FilterType.Equals:
-         if (currentText.Equals(specifiedText)) return true;
-         break;
+          if (currentText.Equals(specifiedText)) return true;
+          break;
         case FilterType.NotEquals:
           if (!currentText.Equals(specifiedText)) return true;
           break;

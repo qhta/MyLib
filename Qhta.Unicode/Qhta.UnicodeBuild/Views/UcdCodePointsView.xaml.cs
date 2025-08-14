@@ -62,9 +62,9 @@ public partial class UcdCodePointsView : UserControl, IRoutedCommandHandler
     }
   }
 
-  private void CodePointDataGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e) => SfDataGridFilter.FilterItemsPopulating(sender, e);
+  private void CodePointDataGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e) => SfDataGridFiltering.FilterItemsPopulating(sender, e);
 
-  private void CodePointDataGrid_OnFilterChanging(object? sender, GridFilterEventArgs e) => SfDataGridFilter.FilterChanging(sender, e);
+  private void CodePointDataGrid_OnFilterChanging(object? sender, GridFilterEventArgs e) => SfDataGridFiltering.FilterChanging(sender, e);
 
   /// <summary>
   /// Implements the <see cref="IRoutedCommandHandler"/> interface to handle command execution and can-execute checks for routed commands.

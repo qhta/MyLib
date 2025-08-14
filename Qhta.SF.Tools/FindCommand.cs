@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 
@@ -8,6 +9,7 @@ using Qhta.SF.Tools.Views;
 
 using Syncfusion.Data;
 using Syncfusion.UI.Xaml.Grid;
+using Syncfusion.Windows.Controls.Input;
 
 namespace Qhta.SF.Tools;
 
@@ -35,40 +37,6 @@ public enum FindInSequence
 /// </summary>
 public class FindCommand : Command
 {
-  /// <summary>
-  /// Specifies the last data grid where the find operation was performed.
-  /// </summary>
-  public SfDataGrid? LastDataGrid { get; private set; }
-  /// <summary>
-  /// Specifies the last column where the find operation was performed.
-  /// </summary>
-  public GridColumn? LastColumn { get; private set; }
-  /// <summary>
-  /// Specifies the last dialog view mode.
-  /// </summary>
-  public SpecificViewMode? LastViewMode { get; private set; }
-  /// <summary>
-  /// Value of the last search value in the column. It can be a selectable item or a text value.
-  /// </summary>
-  public object? LastValue { get; private set; }
-  /// <summary>
-  /// Search predicate used in the last find operation. It is used to filter the values in the column.
-  /// </summary>
-  public FilterPredicate? LastPredicate { get; private set; } = null!;
-  /// <summary>
-  /// Specifies the last find operation, which can be FindNext, FindFirst, or FindAll.
-  /// </summary>
-  public FindInSequence? LastFindInSequence { get; private set; }
-  /// <summary>
-  /// Specifies the last filter type, which can be Equals, NotEquals, and so on.
-  /// </summary>
-  public FilterType? LastFilterType { get; private set; }
-  /// <summary>
-  /// Specifies whether the last find operation was case-sensitive or not.
-  /// </summary>
-  public bool? LastCaseSensitive { get; private set; }
-
-
   /// <summary>
   /// Checks whether the command can be executed basing on the current selection in the data grid.
   /// </summary>
@@ -113,11 +81,7 @@ public class FindCommand : Command
     {
       throw new ArgumentException("Parameter must be of type SfDataGrid.", nameof(parameter));
     }
-    if (LastDataGrid != dataGrid)
-    {
-      //Debug.WriteLine("FindInColumnCommand: LastDataGrid does not match the current data grid.");
-      return false;
-    }
+
     var cells = dataGrid.GetSelectedRowsAndColumns(out var allColumnsSelected, out var selectedColumns, out var allRowsSelected, out var selectedRows);
     if (allColumnsSelected || selectedColumns.Length != 1)
     {
@@ -127,7 +91,7 @@ public class FindCommand : Command
     var column = selectedColumns.FirstOrDefault();
     if (column != null)
     {
-      if (LastColumn != column)
+      if (column.GetFinder()==null)
       {
         //Debug.WriteLine("FindInColumnCommand: LastColumn does not match the current column.");
         return false;
@@ -178,9 +142,10 @@ public class FindCommand : Command
         ViewMode = mode,
       };
 
+      List<ISelectableItem>? items = null;
       if (column is GridComboBoxColumn comboBoxColumn && comboBoxColumn.ItemsSource is IEnumerable<ISelectableItem> selectableItems)
       {
-        var items = selectableItems.ToList();
+        items = selectableItems.ToList();
         if (items.First() is { } firstItem && firstItem.DisplayName != Strings.EmptyValue)
         {
           // Add "Empty" item if not present.                        
@@ -188,27 +153,36 @@ public class FindCommand : Command
         }
         items.Insert(1, new SelectableItemStub { DisplayName = Strings.NonEmptyValue });
         selectValueWindow.ItemsSource = items;
-        if (LastDataGrid == dataGrid && LastColumn == column && LastValue is ISelectableItem lastSelectableItem)
+
+      }
+      SfDataGridFinder? finder = column.GetFinder();
+      if (finder == null)
+      {
+        finder = new SfDataGridFinder { DataGrid = dataGrid, Column = column };
+        column.SetFinder(finder);
+      }
+      else
+      {
+        selectValueWindow.CurrentViewMode = finder.StrongTyped ? SpecificViewMode.Selector : SpecificViewMode.Edit;
+        selectValueWindow.FilterType = finder.Predicate.FilterType;
+        selectValueWindow.CaseSensitive = finder.Predicate.IsCaseSensitive;
+        if (finder.SpecifiedValue is string str)
+          selectValueWindow.TextValue = str;
+        else if (items!=null)
         {
-          var foundItem = items.FirstOrDefault(item => item.DisplayName == lastSelectableItem.DisplayName);
-          if (foundItem != null)
+          if (finder.SpecifiedValue is ISelectableItem selectableItem)
           {
-            selectValueWindow.SelectedItem = foundItem;
+            var foundItem = items.FirstOrDefault(item => item.DisplayName == selectableItem.DisplayName);
+            if (foundItem != null) selectValueWindow.SelectedItem = foundItem;
+          }
+          else
+          {
+            var foundItem = items.FirstOrDefault(item => item.Equals(finder.SpecifiedValue));
+            if (foundItem != null) selectValueWindow.SelectedItem = foundItem;
           }
         }
-      }
 
-      if (LastDataGrid == dataGrid && LastColumn == column)
-      {
-        selectValueWindow.TextValue = LastValue as string;
-        if (LastFindInSequence != null)
-          selectValueWindow.FindInSequence = (FindInSequence)LastFindInSequence;
-        if (LastFilterType != null)
-          selectValueWindow.FilterType = (FilterType)LastFilterType;
-        if (LastCaseSensitive != null)
-          selectValueWindow.CaseSensitive = (bool)LastCaseSensitive;
       }
-
       var dialogResult = selectValueWindow.ShowDialog();
 
       if (dialogResult == true)
@@ -219,16 +193,9 @@ public class FindCommand : Command
         var findInSequence = selectValueWindow.FindInSequence;
         var filterType = selectValueWindow.FilterType;
         var caseSensitive = selectValueWindow.CaseSensitive;
-
-        LastDataGrid = dataGrid;
-        LastColumn = column;
-        LastValue = specifiedValue;
-        LastFindInSequence = findInSequence;
-        LastViewMode = viewMode;
-        LastFilterType = filterType;
-        LastCaseSensitive = caseSensitive;
         var predicate = CreatePredicate(ref specifiedValue, viewMode, filterType, caseSensitive);
-        LastPredicate = predicate;
+        finder.Predicate = predicate;
+        finder.SpecifiedValue = specifiedValue;
 
         switch (findInSequence)
         {
@@ -236,16 +203,16 @@ public class FindCommand : Command
             var selectedRow = dataGrid.CurrentItem;
             if (selectedRow == null)
               goto FindFirst;
-            if (!column.FindNext(specifiedValue, predicate, selectedRow))
+            if (!finder.FindNext())
               MessageBox.Show(Strings.NotMoreValueFound);
             break;
           case FindInSequence.FindFirst:
           FindFirst:
-            if (!column.FindFirst(specifiedValue, predicate))
+            if (!finder.FindFirst())
               MessageBox.Show(Strings.ValueNotFound);
             break;
           case FindInSequence.FindAll:
-            var n = column.FindAll(specifiedValue, predicate);
+            var n = finder.FindAll();
             if (n == 0)
               MessageBox.Show(Strings.ValueNotFound);
             else
@@ -280,12 +247,13 @@ public class FindCommand : Command
     var column = selectedColumns.FirstOrDefault();
     if (column != null)
     {
-      var specifiedValue = LastValue;
-      if (LastPredicate == null)
-        throw new InvalidOperationException("LastPredicate cannot be null when executing FindNext.");
-      var predicate = LastPredicate;
-      var selectedRow = selectedRows.FirstOrDefault();
-      if (!column.FindNext(specifiedValue, predicate, selectedRow))
+      var finder = column.GetFinder();
+      if (finder == null)
+      {
+        Debug.WriteLine("Finder not defined for FindNext column");
+        return;
+      }
+      if (!finder.FindNext())
         MessageBox.Show(Strings.NotMoreValueFound);
     }
   }
