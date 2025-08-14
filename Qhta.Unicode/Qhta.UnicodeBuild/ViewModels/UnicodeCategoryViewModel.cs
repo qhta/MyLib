@@ -3,6 +3,7 @@ using Qhta.SF.Tools;
 using Qhta.SF.Tools.Resources;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Resources;
+using Strings = Qhta.SF.Tools.Resources.Strings;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -68,7 +69,7 @@ public class UnicodeCategoryViewModel(UnicodeCategoryEntity model)
     set => _DisplayName = value;
   }
 
-  private string _DisplayName = DataStrings.EmptyValue;
+  private string _DisplayName = Strings.EmptyValue;
 
   /// <summary>
   /// Determines whether the item is selected in the UI.

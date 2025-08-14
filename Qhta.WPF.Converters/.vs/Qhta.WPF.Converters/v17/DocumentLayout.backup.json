@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\enumtoresourceconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\enumtoresourceconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\qhta.wpf.converters.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\qhta.wpf.converters.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\enumvalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\enumvalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\negatevalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -53,10 +61,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\enumvalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\enumvalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\enumvalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\enumvalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\colortosolidbrushconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -146,7 +150,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 33,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -182,7 +186,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "EnumToResourceConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\EnumToResourceConverter.cs",
+              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\EnumToResourceConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\EnumToResourceConverter.cs*",
+              "RelativeToolTip": "Qhta.WPF.Converters\\EnumToResourceConverter.cs*",
+              "ViewState": "AgIAACoAAAAAAAAAAAAYwDcAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T19:38:54.143Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "NegateValueConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\NegateValueConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\NegateValueConverter.cs",
@@ -190,12 +207,11 @@
               "RelativeToolTip": "Qhta.WPF.Converters\\NegateValueConverter.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABwAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-18T18:53:13.692Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-18T18:53:13.692Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "BoolToTextWrappingConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\BoolToTextWrappingConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\BoolToTextWrappingConverter.cs",
@@ -203,12 +219,11 @@
               "RelativeToolTip": "Qhta.WPF.Converters\\BoolToTextWrappingConverter.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAA8AAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:56:25.352Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-02T18:56:25.352Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "EnumValue.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\EnumValue.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\EnumValue.cs",
@@ -220,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 2,
               "Title": "EnumValueConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\EnumValueConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\EnumValueConverter.cs",
@@ -228,11 +243,12 @@
               "RelativeToolTip": "Qhta.WPF.Converters\\EnumValueConverter.cs",
               "ViewState": "AgIAAD0AAAAAAAAAAAAAAFcAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:12:14.367Z"
+              "WhenOpened": "2025-04-02T18:12:14.367Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "ColorToSolidBrushConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ColorToSolidBrushConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\ColorToSolidBrushConverter.cs",
@@ -244,7 +260,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "RowToIndexConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\RowToIndexConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\RowToIndexConverter.cs",
@@ -256,7 +272,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "ColorConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ColorConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\ColorConverter.cs",
@@ -268,7 +284,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "NumericValueConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\NumericValueConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\NumericValueConverter.cs",
@@ -280,7 +296,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "DecimalValueConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DecimalValueConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\DecimalValueConverter.cs",
@@ -292,7 +308,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "DoubleValueConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DoubleValueConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\DoubleValueConverter.cs",
@@ -304,7 +320,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "MultiplyingConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\MultiplyingConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\MultiplyingConverter.cs",
@@ -316,7 +332,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "DividingConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DividingConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\DividingConverter.cs",
@@ -328,7 +344,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "CamelStringConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\CamelStringConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\CamelStringConverter.cs",
@@ -340,7 +356,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "BitTestConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\BitTestConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\BitTestConverter.cs",
@@ -352,7 +368,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "StringsWidthConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\StringsWidthConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\StringsWidthConverter.cs",
@@ -364,7 +380,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "SubtractingConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\SubtractingConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\SubtractingConverter.cs",
@@ -376,7 +392,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "TypeNameConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\TypeNameConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\TypeNameConverter.cs",
@@ -388,7 +404,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "ValidityBrushConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ValidityBrushConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\ValidityBrushConverter.cs",
@@ -400,7 +416,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "String2ObjectConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\String2ObjectConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\String2ObjectConverter.cs",
@@ -412,7 +428,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "IndexingConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\IndexingConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\IndexingConverter.cs",
@@ -424,7 +440,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "ColorDictionary.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ColorDictionary.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\ColorDictionary.cs",
@@ -436,7 +452,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "Qhta.WPF.Converters",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
@@ -448,7 +464,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "BoolToVisibilityConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\BoolToVisibilityConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\BoolToVisibilityConverter.cs",
@@ -460,7 +476,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "NotNullToVisibilityConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\NotNullToVisibilityConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\NotNullToVisibilityConverter.cs",
@@ -472,7 +488,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "IndirectPropertyConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\IndirectPropertyConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\IndirectPropertyConverter.cs",
@@ -484,20 +500,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Qhta.WPF.Converters.csproj",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
               "RelativeToolTip": "Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2023-07-31T08:35:03.552Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "AddingConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\AddingConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\AddingConverter.cs",
@@ -509,7 +525,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "StringConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\StringConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\StringConverter.cs",
@@ -521,7 +537,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "ArithmeticConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ArithmeticConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\ArithmeticConverter.cs",
@@ -533,7 +549,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "AppendingConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\AppendingConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\AppendingConverter.cs",
@@ -545,7 +561,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "readme.md",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\docs\\readme.md",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\docs\\readme.md",
@@ -557,7 +573,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "IconEnabledConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\IconEnabledConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\IconEnabledConverter.cs",
@@ -569,7 +585,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "DashStyleUtils.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DashStyleUtils.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\DashStyleUtils.cs",
@@ -581,7 +597,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "DashStyleConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DashStyleConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\DashStyleConverter.cs",

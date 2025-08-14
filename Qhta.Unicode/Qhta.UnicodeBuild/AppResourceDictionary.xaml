@@ -24,19 +24,14 @@
   <helpers:StringFormattingValueConverter x:Key="StringFormattingValueConverter"/>
   <converters:NegateValueConverter x:Key="NegateValueConverter"/>
   <helpers:WritingSystemTypeToImageConverter x:Key="TypeToImageConverter" />
-  <helpers:EnumToResourceConverter 
+  <converters:EnumToResourceConverter 
     ResourceType="{x:Type resources:WritingSystemTypeStrings}" x:Key="WritingSystemTypeResourceConverter"/>
-  <helpers:EnumToResourceConverter 
+  <converters:EnumToResourceConverter 
     ResourceType="{x:Type resources:WritingSystemKindStrings}" x:Key="WritingSystemKindResourceConverter"/>
-  <helpers:EnumToResourceConverter 
+  <converters:EnumToResourceConverter 
     ResourceType="{x:Type resources:NameGenMethodStrings}" x:Key="NameGenMethodResourceConverter"/>
-  <helpers:EnumToResourceConverter 
+  <converters:EnumToResourceConverter 
     ResourceType="{x:Type resources:Strings}" x:Key="FindInSequenceConverter"/>
-  <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="FindInSequenceProvider">
-    <ObjectDataProvider.MethodParameters>
-      <x:Type TypeName="sfTools:FindInSequence" />
-    </ObjectDataProvider.MethodParameters>
-  </ObjectDataProvider>
   <helpers:CategoryResourceConverter x:Key="CategoryResourceConverter"/>
   <!--<helpers:InsertItemConverter x:Key="InsertItemConverter"/>-->
   <viewModels:WritingSystemViewModel x:Key="BlankWritingSystem"/>

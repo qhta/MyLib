@@ -9,6 +9,7 @@ using Qhta.UndoManager;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Resources;
 using Syncfusion.Data.Extensions;
+using DataStrings = Qhta.SF.Tools.Resources.Strings;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 

@@ -1,13 +1,13 @@
 ﻿using System.Collections;
-using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
-using System.Windows.Input;
 
 using Qhta.MVVM;
 using Qhta.SF.Tools.Resources;
 using Qhta.SF.Tools.Views;
+
+using Syncfusion.Data;
 using Syncfusion.UI.Xaml.Grid;
-using Syncfusion.UI.Xaml.ScrollAxis;
 
 namespace Qhta.SF.Tools;
 
@@ -44,9 +44,30 @@ public class FindCommand : Command
   /// </summary>
   public GridColumn? LastColumn { get; private set; }
   /// <summary>
-  /// Value of the last search value in the column.
+  /// Specifies the last dialog view mode.
+  /// </summary>
+  public SpecificViewMode? LastViewMode { get; private set; }
+  /// <summary>
+  /// Value of the last search value in the column. It can be a selectable item or a text value.
   /// </summary>
   public object? LastValue { get; private set; }
+  /// <summary>
+  /// Search predicate used in the last find operation. It is used to filter the values in the column.
+  /// </summary>
+  public FilterPredicate? LastPredicate { get; private set; } = null!;
+  /// <summary>
+  /// Specifies the last find operation, which can be FindNext, FindFirst, or FindAll.
+  /// </summary>
+  public FindInSequence? LastFindInSequence { get; private set; }
+  /// <summary>
+  /// Specifies the last filter type, which can be Equals, NotEquals, and so on.
+  /// </summary>
+  public FilterType? LastFilterType { get; private set; }
+  /// <summary>
+  /// Specifies whether the last find operation was case-sensitive or not.
+  /// </summary>
+  public bool? LastCaseSensitive { get; private set; }
+
 
   /// <summary>
   /// Checks whether the command can be executed basing on the current selection in the data grid.
@@ -148,40 +169,66 @@ public class FindCommand : Command
     var column = selectedColumns.FirstOrDefault();
     if (column != null)
     {
-      var columnIndex = dataGrid.Columns.IndexOf(column);
-      var mappingName = column.MappingName;
-      var property = SfDataGridCommander.GetRowDataType(dataGrid)?.GetProperty(mappingName);
-      if (property == null) return;
-      var propertyType = property.PropertyType;
-      SpecificValueWindowMode mode = (column is GridComboBoxColumn) ? SpecificValueWindowMode.Both : SpecificValueWindowMode.EditViewOnly;
+      SpecificViewMode mode = (column is GridComboBoxColumn) ? SpecificViewMode.Both : SpecificViewMode.Edit;
+
       var selectValueWindow = new SpecificValueWindow
       {
-        Prompt = String.Format(DataStrings.EnterValueForField, column.HeaderText),
-        ShowOverwriteNonEmptyCells = false,
-        ShowFindInSequence = true,
-        Mode = mode,
+        Prompt = String.Format(Strings.EnterValueForField, column.HeaderText),
+        WindowMode = SpecificWindowMode.Find,
+        ViewMode = mode,
       };
+
       if (column is GridComboBoxColumn comboBoxColumn && comboBoxColumn.ItemsSource is IEnumerable<ISelectableItem> selectableItems)
       {
         var items = selectableItems.ToList();
-        if (items.First() is { } firstItem && firstItem.DisplayName != DataStrings.EmptyValue)
+        if (items.First() is { } firstItem && firstItem.DisplayName != Strings.EmptyValue)
         {
           // Add "Empty" item if not present.                        
-          items.Insert(0, new SelectableItemStub { DisplayName = DataStrings.EmptyValue });
+          items.Insert(0, new SelectableItemStub { DisplayName = Strings.EmptyValue });
         }
-        items.Insert(1, new SelectableItemStub { DisplayName = DataStrings.NonEmptyValue });
+        items.Insert(1, new SelectableItemStub { DisplayName = Strings.NonEmptyValue });
         selectValueWindow.ItemsSource = items;
+        if (LastDataGrid == dataGrid && LastColumn == column && LastValue is ISelectableItem lastSelectableItem)
+        {
+          var foundItem = items.FirstOrDefault(item => item.DisplayName == lastSelectableItem.DisplayName);
+          if (foundItem != null)
+          {
+            selectValueWindow.SelectedItem = foundItem;
+          }
+        }
       }
+
+      if (LastDataGrid == dataGrid && LastColumn == column)
+      {
+        selectValueWindow.TextValue = LastValue as string;
+        if (LastFindInSequence != null)
+          selectValueWindow.FindInSequence = (FindInSequence)LastFindInSequence;
+        if (LastFilterType != null)
+          selectValueWindow.FilterType = (FilterType)LastFilterType;
+        if (LastCaseSensitive != null)
+          selectValueWindow.CaseSensitive = (bool)LastCaseSensitive;
+      }
+
       var dialogResult = selectValueWindow.ShowDialog();
-      var findInSequence = selectValueWindow.FindInSequence;
-      var specifiedValue = selectValueWindow.SelectedItem;
 
       if (dialogResult == true)
       {
+        var viewMode = selectValueWindow.CurrentViewMode;
+        var specifiedValue = (viewMode == SpecificViewMode.Selector)
+          ? selectValueWindow.SelectedItem : selectValueWindow.TextValue;
+        var findInSequence = selectValueWindow.FindInSequence;
+        var filterType = selectValueWindow.FilterType;
+        var caseSensitive = selectValueWindow.CaseSensitive;
+
         LastDataGrid = dataGrid;
         LastColumn = column;
         LastValue = specifiedValue;
-
+        LastFindInSequence = findInSequence;
+        LastViewMode = viewMode;
+        LastFilterType = filterType;
+        LastCaseSensitive = caseSensitive;
+        var predicate = CreatePredicate(ref specifiedValue, viewMode, filterType, caseSensitive);
+        LastPredicate = predicate;
 
         switch (findInSequence)
         {
@@ -189,17 +236,20 @@ public class FindCommand : Command
             var selectedRow = dataGrid.CurrentItem;
             if (selectedRow == null)
               goto FindFirst;
-            if (!column.FindNextValue(specifiedValue, selectedRow))
-              MessageBox.Show(DataStrings.NotMoreValueFound);
+            if (!column.FindNext(specifiedValue, predicate, selectedRow))
+              MessageBox.Show(Strings.NotMoreValueFound);
             break;
           case FindInSequence.FindFirst:
           FindFirst:
-            if (!column.FindFirstValue(specifiedValue))
-              MessageBox.Show(DataStrings.ValueNotFound);
+            if (!column.FindFirst(specifiedValue, predicate))
+              MessageBox.Show(Strings.ValueNotFound);
             break;
           case FindInSequence.FindAll:
-            if (!column.FindFirstValue(specifiedValue))
-              MessageBox.Show(DataStrings.ValueNotFound);
+            var n = column.FindAll(specifiedValue, predicate);
+            if (n == 0)
+              MessageBox.Show(Strings.ValueNotFound);
+            else
+              MessageBox.Show(String.Format(Strings.FoundNValues, n));
             break;
         }
       }
@@ -230,19 +280,45 @@ public class FindCommand : Command
     var column = selectedColumns.FirstOrDefault();
     if (column != null)
     {
-      var columnIndex = dataGrid.Columns.IndexOf(column);
-      if (column is GridComboBoxColumn comboBoxColumn)
+      var specifiedValue = LastValue;
+      if (LastPredicate == null)
+        throw new InvalidOperationException("LastPredicate cannot be null when executing FindNext.");
+      var predicate = LastPredicate;
+      var selectedRow = selectedRows.FirstOrDefault();
+      if (!column.FindNext(specifiedValue, predicate, selectedRow))
+        MessageBox.Show(Strings.NotMoreValueFound);
+    }
+  }
+
+  /// <summary>
+  /// Checks if the specified value is a selectable item or a special marker and prepares it for comparison.
+  /// if the value is an empty string, or it is an EmptyValue, it is treated as null.
+  /// </summary>
+  /// <param name="specifiedValue">Searched value. It can be an ISelectableItem or a text value</param>
+  /// <param name="viewMode">Window view mode. Determines whether filter behavior is StronglyTyped or sStringTyped</param>
+  /// <param name="filterType">Determines comparison functions</param>
+  /// <param name="caseSensitive">Determines whether the text comparison in case-sensitive</param>
+  /// <returns></returns>
+  private static FilterPredicate CreatePredicate(ref object? specifiedValue, SpecificViewMode viewMode, FilterType filterType, bool caseSensitive)
+  {
+    if (viewMode == SpecificViewMode.Selector && specifiedValue is ISelectableItem selectableItem)
+    {
+      if (selectableItem.DisplayName == Strings.EmptyValue || selectableItem.DisplayName == string.Empty)
       {
-        var mappingName = comboBoxColumn.MappingName;
-        var property = SfDataGridCommander.GetRowDataType(dataGrid)?.GetProperty(mappingName);
-        if (property == null) return;
-        var propertyType = property.PropertyType;
-        var itemsSource = comboBoxColumn.ItemsSource;
-        var specifiedValue = LastValue;
-        var selectedRow = selectedRows.FirstOrDefault();
-        if (!column.FindNextValue(specifiedValue, selectedRow))
-          MessageBox.Show(DataStrings.NotMoreValueFound);
+        specifiedValue = null; // Treat empty value as null for filtering
+        return new FilterPredicate { FilterBehavior = FilterBehavior.StronglyTyped, FilterType = FilterType.Equals };
       }
+      if (selectableItem.DisplayName == Strings.NonEmptyValue)
+      {
+        specifiedValue = null; // Treat empty value as null for filtering
+        return new FilterPredicate { FilterBehavior = FilterBehavior.StronglyTyped, FilterType = FilterType.NotEquals };
+      }
+      return new FilterPredicate { FilterBehavior = FilterBehavior.StronglyTyped, FilterType = FilterType.Equals };
+    }
+    else
+    {
+      specifiedValue = specifiedValue?.ToString();
+      return new FilterPredicate { FilterBehavior = FilterBehavior.StringTyped, FilterType = filterType, IsCaseSensitive = caseSensitive, };
     }
   }
 }

@@ -25,7 +25,7 @@ using DropPosition = Syncfusion.UI.Xaml.TreeView.DropPosition;
 using WritingSystem = Qhta.Unicode.Models.WritingSystem;
 using WritingSystemKind = Qhta.Unicode.Models.WritingSystemKind;
 using WritingSystemType = Qhta.Unicode.Models.WritingSystemType;
-
+using DataStrings = Qhta.SF.Tools.Resources.Strings;
 
 namespace Qhta.UnicodeBuild.Views;
 

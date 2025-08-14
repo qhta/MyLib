@@ -69,16 +69,23 @@
             <param name="tolerance"></param>
             <returns></returns>
         </member>
-        <member name="T:Qhta.SF.Tools.EmptyValue">
+        <member name="T:Qhta.SF.Tools.FillColumnCommand">
             <summary>
-            Object representing an empty value.
+            Command to fill the current column in the data grid with a value selected by user.
             </summary>
         </member>
-        <member name="M:Qhta.SF.Tools.EmptyValue.ToString">
+        <member name="M:Qhta.SF.Tools.FillColumnCommand.CanExecute(System.Object)">
             <summary>
-            Returns a <see cref="T:Qhta.SF.Tools.EmptyValue"/>.
+            Checks whether the command can be executed basing on the current selection in the data grid.
             </summary>
+            <param name="parameter"></param>
             <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.FillColumnCommand.Execute(System.Object)">
+            <summary>
+            Executes the command basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
         </member>
         <member name="T:Qhta.SF.Tools.FindInSequence">
             <summary>
@@ -115,9 +122,34 @@
             Specifies the last column where the find operation was performed.
             </summary>
         </member>
+        <member name="P:Qhta.SF.Tools.FindCommand.LastViewMode">
+            <summary>
+            Specifies the last dialog view mode.
+            </summary>
+        </member>
         <member name="P:Qhta.SF.Tools.FindCommand.LastValue">
             <summary>
-            Value of the last search value in the column.
+            Value of the last search value in the column. It can be a selectable item or a text value.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.FindCommand.LastPredicate">
+            <summary>
+            Search predicate used in the last find operation. It is used to filter the values in the column.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.FindCommand.LastFindInSequence">
+            <summary>
+            Specifies the last find operation, which can be FindNext, FindFirst, or FindAll.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.FindCommand.LastFilterType">
+            <summary>
+            Specifies the last filter type, which can be Equals, NotEquals, and so on.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.FindCommand.LastCaseSensitive">
+            <summary>
+            Specifies whether the last find operation was case-sensitive or not.
             </summary>
         </member>
         <member name="M:Qhta.SF.Tools.FindCommand.CanExecute(System.Object)">
@@ -145,6 +177,17 @@
             Executes the FindNext command basing on the current selection in the data grid.
             </summary>
             <param name="parameter"></param>
+        </member>
+        <member name="M:Qhta.SF.Tools.FindCommand.CreatePredicate(System.Object@,Qhta.SF.Tools.Views.SpecificViewMode,Syncfusion.Data.FilterType,System.Boolean)">
+            <summary>
+            Checks if the specified value is a selectable item or a special marker and prepares it for comparison.
+            if the value is an empty string, or it is an EmptyValue, it is treated as null.
+            </summary>
+            <param name="specifiedValue">Searched value. It can be an ISelectableItem or a text value</param>
+            <param name="viewMode">Window view mode. Determines whether filter behavior is StronglyTyped or sStringTyped</param>
+            <param name="filterType">Determines comparison functions</param>
+            <param name="caseSensitive">Determines whether the text comparison in case-sensitive</param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.SF.Tools.GridColumnInfo">
             <summary>
@@ -362,17 +405,6 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="T:Qhta.SF.Tools.NonEmptyValue">
-            <summary>
-            Object representing non-empty value.
-            </summary>
-        </member>
-        <member name="M:Qhta.SF.Tools.NonEmptyValue.ToString">
-            <summary>
-            Returns a <see cref="T:Qhta.SF.Tools.NonEmptyValue"/>.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:Qhta.SF.Tools.RecordNavigationBar">
             <summary>
             Navigation bar for navigating through records in a <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
@@ -496,93 +528,174 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:Qhta.SF.Tools.Resources.DataStrings">
+        <member name="T:Qhta.SF.Tools.Resources.FilterTypeStrings">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.ResourceManager">
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.ResourceManager">
             <summary>
               Returns the cached ResourceManager instance used by this class.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.Culture">
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.Culture">
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.Cancel">
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.Contains">
+            <summary>
+              Looks up a localized string similar to Contains.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.EndsWith">
+            <summary>
+              Looks up a localized string similar to Ends with.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.Equals">
+            <summary>
+              Looks up a localized string similar to Equals.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.GreaterThan">
+            <summary>
+              Looks up a localized string similar to Greater than.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.GreaterThanOrEqual">
+            <summary>
+              Looks up a localized string similar to Greater than or equal.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.LessThan">
+            <summary>
+              Looks up a localized string similar to Less then.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.LessThanOrEqual">
+            <summary>
+              Looks up a localized string similar to Less then or equal.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.NotContains">
+            <summary>
+              Looks up a localized string similar to Not contains.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.NotEndsWith">
+            <summary>
+              Looks up a localized string similar to Not ends with.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.NotEquals">
+            <summary>
+              Looks up a localized string similar to Not equals.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.NotStartsWith">
+            <summary>
+              Looks up a localized string similar to Not starts with.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.FilterTypeStrings.StartsWith">
+            <summary>
+              Looks up a localized string similar to Starts with.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.Resources.Strings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.Strings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.Strings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.Strings.Cancel">
             <summary>
               Looks up a localized string similar to Cancel.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.Confirm">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.Confirm">
             <summary>
               Looks up a localized string similar to Confirm.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.DeleteAllDataConfirm">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.DeleteAllDataConfirm">
             <summary>
               Looks up a localized string similar to Do you really want to delete all data?.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.DeleteRecordsConfirm">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.DeleteRecordsConfirm">
             <summary>
               Looks up a localized string similar to Are you sure you want to delete {0} records?.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.EmptyValue">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.EmptyValue">
             <summary>
               Looks up a localized string similar to (Empty value).
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.EnterValueForField">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.EnterValueForField">
             <summary>
               Looks up a localized string similar to Enter value for field &quot;{0}&quot;.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.NonEmptyValue">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.FoundNValues">
+            <summary>
+              Looks up a localized string similar to Found {0} values.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.Strings.NonEmptyValue">
             <summary>
               Looks up a localized string similar to (Non-empty value).
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.NotMoreValueFound">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.NotMoreValueFound">
             <summary>
               Looks up a localized string similar to No more value found..
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.OK">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.OK">
             <summary>
               Looks up a localized string similar to OK.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.OperationNotAllowedInThisContext">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.OperationNotAllowedInThisContext">
             <summary>
               Looks up a localized string similar to Operation {0} is not allowed in this context..
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.OverwriteNonEmptyCells">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.OverwriteNonEmptyCells">
             <summary>
               Looks up a localized string similar to Overwrite non-empty cells.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.ReplacementText">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.ReplacementText">
             <summary>
               Looks up a localized string similar to Replacement.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.SearchedText">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.SearchedText">
             <summary>
               Looks up a localized string similar to Searched text.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.SelectValueForField">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.SelectValueForField">
             <summary>
               Looks up a localized string similar to Select value for field &quot;{0}&quot;.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Resources.DataStrings.ValueNotFound">
+        <member name="P:Qhta.SF.Tools.Resources.Strings.ValueNotFound">
             <summary>
               Looks up a localized string similar to Value not found..
             </summary>
@@ -1021,12 +1134,12 @@
             <param name="headerLine">A string containing tab-separated header values. Cannot be null.</param>
             <returns>An array of strings, each representing a header value extracted from the input string.</returns>
         </member>
-        <member name="T:Qhta.SF.Tools.SfDataGridFilterTools">
+        <member name="T:Qhta.SF.Tools.SfDataGridFilter">
             <summary>
             Class containing tools for filtering data in Syncfusion DataGrid.
             </summary>
         </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridFilterTools.FilterItemsPopulating(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterItemsPopulatingEventArgs)">
+        <member name="M:Qhta.SF.Tools.SfDataGridFilter.FilterItemsPopulating(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterItemsPopulatingEventArgs)">
             <summary>
             Handles the populating of filter items in a Syncfusion DataGrid. Sender must be a GridColumn or its descender.
             If the column is a GridComboBoxColumn, it sets up the filter items based on the provided ItemsSource
@@ -1035,7 +1148,7 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridFilterTools.FilterChanging(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterEventArgs)">
+        <member name="M:Qhta.SF.Tools.SfDataGridFilter.FilterChanging(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterEventArgs)">
             <summary>
             Handles the changing of filters in a Syncfusion DataGrid for proper ISelectableItem handling.
             </summary>
@@ -1047,48 +1160,44 @@
             Class containing tools for finding values and text in Syncfusion DataGrid columns.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.SfDataGridFinder.EmptyValue">
-            <summary>
-            Static object representing an empty value.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.SfDataGridFinder.NonEmptyValue">
-            <summary>
-            Static object representing a non-empty value.
-            </summary>
-        </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindFirstValue(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object)">
+        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindFirst(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object,Syncfusion.Data.FilterPredicate)">
             <summary>
             Finds the first occurrence of a specified value in the column and selects the corresponding cell.
             </summary>
-            <param name="column"></param>
-            <param name="specifiedValue"></param>
-            <returns></returns>
+            <param name="column">Grid column to search</param>
+            <param name="specifiedValue">Searched value. It can be an object or text.</param>
+            <param name="predicate">Filter predicate. It contains conditions to evaluate the current value against the specific value.</param>
+            <returns>True if first cells is found.</returns>
         </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridFinder.PrepareSpecifiedValue(System.Object)">
-            <summary>
-            Checks if the specified value is a selectable item or a special marker and prepares it for comparison.
-            if the value is an empty string, or it is an EmptyValue, it is treated as null.
-            </summary>
-            <param name="specifiedValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindNextValue(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object,System.Object)">
+        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindNext(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object,Syncfusion.Data.FilterPredicate,System.Object)">
             <summary>
             Finds the next occurrence of a specified value in the column and selects the corresponding cell.
             </summary>
-            <param name="column"></param>
-            <param name="specifiedValue"></param>
+            <param name="column">Grid column to search</param>
+            <param name="specifiedValue">Searched value. It can be an object or text.</param>
+            <param name="predicate">Filter predicate. It contains conditions to evaluate the current value against the specific value.</param>
             <param name="currentRow">If null then top of selected rows is assumed as current</param>
-            <returns></returns>
+            <returns>True if next cells is found.</returns>
         </member>
-        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindAllValues(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object)">
+        <member name="M:Qhta.SF.Tools.SfDataGridFinder.FindAll(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object,Syncfusion.Data.FilterPredicate)">
             <summary>
             Finds all occurrences of a specified value in the column and selects the corresponding cells.
             </summary>
-            <param name="column"></param>
-            <param name="specifiedValue"></param>
-            <returns></returns>
+            <param name="column">Grid column to search</param>
+            <param name="specifiedValue">Searched value. It can be an object or text.</param>
+            <param name="predicate">Filter predicate. It contains conditions to evaluate the current value against the specific value.</param>
+            <returns>Number of selected cells</returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridFinder.EvaluatePredicate(System.Object,System.Object,Syncfusion.Data.FilterPredicate)">
+            <summary>
+            Evaluates the specified predicate against the current value and specified value.
+            </summary>
+            <param name="currentValue">Value found in the cell</param>
+            <param name="specifiedValue">Specified value to compare to</param>
+            <param name="predicate">Conditions of comparison.
+            If predicate FilterBehavior is StringTyped, then all values of FilterType are evaluated.
+            For StronglyTyped behavior only Equals and NotEquals functions are evaluated.</param>
+            <returns>True if the current value compared against specified value satisfies the conditions of the predicate.</returns>
         </member>
         <member name="T:Qhta.SF.Tools.SfDataGridSelector">
             <summary>
@@ -1160,24 +1269,44 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:Qhta.SF.Tools.Views.SpecificValueWindowMode">
+        <member name="T:Qhta.SF.Tools.Views.SpecificWindowMode">
             <summary>
-            Modes for the specific value window.
+            Modes for the specific window.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindowMode.EditViewOnly">
+        <member name="F:Qhta.SF.Tools.Views.SpecificWindowMode.Fill">
             <summary>
-            The window is used to edit the value in a text box.
+            The window is used to edit the value for FillCommand.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindowMode.SelectorOnly">
+        <member name="F:Qhta.SF.Tools.Views.SpecificWindowMode.Find">
             <summary>
-            The window is used to select a value from a list.
+            The window is used to edit the value for FindCommand.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindowMode.Both">
+        <member name="F:Qhta.SF.Tools.Views.SpecificWindowMode.FindAndReplace">
             <summary>
-            The window is used to select or edit a value in a text box or select from a list.
+            The window is used to edit the value for FindAndReplaceCommand.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.Tools.Views.SpecificViewMode">
+            <summary>
+            Modes for the specific edit view.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Views.SpecificViewMode.Edit">
+            <summary>
+            <see cref="T:Qhta.SF.Tools.Views.SpecificValueEdit"/> is visible.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Views.SpecificViewMode.Selector">
+            <summary>
+            <see cref="T:Qhta.SF.Tools.Views.SpecificValueSelector"/> is visible.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Views.SpecificViewMode.Both">
+            <summary>
+            Both views are visible.
             </summary>
         </member>
         <member name="T:Qhta.SF.Tools.Views.SpecificValueWindow">
@@ -1203,15 +1332,31 @@
             Prompt text displayed in the window, guiding the user on what to select.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ModeProperty">
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.WindowModeProperty">
             <summary>
-            Dependency property for <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.Mode"/> property, which specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
+            Dependency property for <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.WindowMode"/> property, which specifies the which specific view is visible, which can be either EditViewOnly, SelectorOnly, or Both.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.Mode">
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.WindowMode">
             <summary>
             Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
             </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ViewModeProperty">
+            <summary>
+            Dependency property for <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.ViewMode"/> property, which specifies the which specific view is visible, which can be either EditViewOnly, SelectorOnly, or Both.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.ViewMode">
+            <summary>
+            Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.CurrentViewMode">
+            <summary>
+            Returns the current view mode of the window.
+            </summary>
+            <returns></returns>
         </member>
         <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.TextValueProperty">
             <summary>
@@ -1243,32 +1388,12 @@
             Selected item in the selection window. This property is bound to the selected item in the ItemsSource.
             </summary>
         </member>
-        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ShowOverwriteNonEmptyCellsProperty">
-            <summary>
-            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.ShowOverwriteNonEmptyCells"/> flag, which indicates whether to show <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.OverwriteNonEmptyCells"/> checkbox.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.ShowOverwriteNonEmptyCells">
-            <summary>
-            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
-            </summary>
-        </member>
         <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.OverwriteNonEmptyCellsProperty">
             <summary>
             Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.OverwriteNonEmptyCells"/> flag, which indicates whether to fill only empty cells in the selection.
             </summary>
         </member>
         <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.OverwriteNonEmptyCells">
-            <summary>
-            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
-            </summary>
-        </member>
-        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ShowFindInSequenceProperty">
-            <summary>
-            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.ShowFindInSequence"/> flag, which indicates whether to show <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.FindInSequence"/> combobox.
-            </summary>
-        </member>
-        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.ShowFindInSequence">
             <summary>
             Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
             </summary>
@@ -1281,6 +1406,26 @@
         <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.FindInSequence">
             <summary>
             Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.FilterTypeProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.FilterType"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.FilterType">
+            <summary>
+            Determines the type of filter to apply when searching for values in the data grid.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.CaseSensitiveProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.CaseSensitive"/> flag, which indicates whether to search text with case-sensitivity.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.CaseSensitive">
+            <summary>
+            Indicates whether to search text with case-sensitivity.
             </summary>
         </member>
         <member name="M:Qhta.SF.Tools.Views.SpecificValueWindow.InitializeComponent">

@@ -33,7 +33,9 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Views\Speci
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Views\SpecificValueEdit.baml
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Views\SpecificValueWindow.baml
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Views\SpecificValueSelector.baml
-D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools.Resources.DataStrings.resources
-D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools.Resources.DataStrings.pl.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Resources\SfDataGridTools.g.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Resources\SfDataGridTools.baml
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools.Resources.FilterTypeStrings.resources
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools.Resources.FilterTypeStrings.pl.resources
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools.Resources.Strings.resources
+D:\OneDrive\VS\Projects\MyLib\Qhta.SF.Tools\obj\Debug\net8.0-windows\Qhta.SF.Tools.Resources.Strings.pl.resources

@@ -5,6 +5,7 @@ using System.Windows.Data;
 using Qhta.SF.Tools;
 using Qhta.SF.Tools.Resources;
 using Qhta.UnicodeBuild.Resources;
+using Strings = Qhta.SF.Tools.Resources.Strings;
 
 namespace Qhta.UnicodeBuild.Helpers;
 
@@ -24,7 +25,7 @@ public class EmptyValueConverter : IValueConverter
   /// <returns></returns>
   public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
   {
-    if (value == null) return DataStrings.EmptyValue;
+    if (value == null) return Strings.EmptyValue;
     return value.ToString();
   }
 

@@ -1,8 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+
 using Qhta.SF.Tools.Resources;
+
+using Syncfusion.Data;
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.UI.Xaml.ScrollAxis;
 
@@ -13,26 +17,19 @@ namespace Qhta.SF.Tools;
 /// </summary>
 public static partial class SfDataGridFinder
 {
-  /// <summary>
-  /// Static object representing an empty value.
-  /// </summary>
-  public static EmptyValue EmptyValue { get; } = new EmptyValue();
-  /// <summary>
-  /// Static object representing a non-empty value.
-  /// </summary>
-  public static NonEmptyValue NonEmptyValue { get; } = new NonEmptyValue();
 
   /// <summary>
   /// Finds the first occurrence of a specified value in the column and selects the corresponding cell.
   /// </summary>
-  /// <param name="column"></param>
-  /// <param name="specifiedValue"></param>
-  /// <returns></returns>
-  public static bool FindFirstValue(this GridColumn column, object? specifiedValue)
+  /// <param name="column">Grid column to search</param>
+  /// <param name="specifiedValue">Searched value. It can be an object or text.</param>
+  /// <param name="predicate">Filter predicate. It contains conditions to evaluate the current value against the specific value.</param>
+  /// <returns>True if first cells is found.</returns>
+  public static bool FindFirst(this GridColumn column, object? specifiedValue, FilterPredicate predicate)
   {
     if (column.GetDataGrid() is not { } dataGrid)
     {
-      Debug.WriteLine($"Column DataGrid not found.");
+      //Debug.WriteLine($"Column DataGrid not found.");
       return false;
     }
     var mappingName = column.MappingName;
@@ -42,13 +39,12 @@ public static partial class SfDataGridFinder
       Debug.WriteLine($"Property '{mappingName}' not found in row data type.");
       return false;
     }
-    specifiedValue = PrepareSpecifiedValue(specifiedValue);
 
     var columnIndex = dataGrid.Columns.IndexOf(column);
     foreach (var row in dataGrid.View.Records.Select(record => record.Data))
     {
-      var value = property.GetValue(row);
-      if (specifiedValue == null && value == null || specifiedValue == NonEmptyValue && value != null || value != null && value.Equals(specifiedValue))
+      var currentValue = property.GetValue(row);
+      if (EvaluatePredicate(currentValue, specifiedValue, predicate))
       {
         //Debug.WriteLine($"Found value: {value} in row: {row}");
         var rowIndex = dataGrid.ResolveToRowIndex(row);
@@ -62,43 +58,18 @@ public static partial class SfDataGridFinder
   }
 
   /// <summary>
-  /// Checks if the specified value is a selectable item or a special marker and prepares it for comparison.
-  /// if the value is an empty string, or it is an EmptyValue, it is treated as null.
-  /// </summary>
-  /// <param name="specifiedValue"></param>
-  /// <returns></returns>
-  private static object? PrepareSpecifiedValue(object? specifiedValue)
-  {
-    if (specifiedValue is ISelectableItem selectableItem)
-    {
-      if (selectableItem.DisplayName == DataStrings.EmptyValue)
-        specifiedValue = null; // Treat "EmptyValue" as null for comparison
-      else if (selectableItem.DisplayName == DataStrings.NonEmptyValue)
-        specifiedValue = NonEmptyValue; // Treat "NonEmptyValue" as a special marker for non-empty values
-    }
-    else
-    if (specifiedValue is EmptyValue)
-      specifiedValue = null; // Treat EmptyValue as null for comparison
-    else
-    if (specifiedValue is NonEmptyValue)
-      specifiedValue = NonEmptyValue; // Treat NonEmptyValue as a special marker for non-empty values
-    else if (specifiedValue is string str && string.IsNullOrWhiteSpace(str))
-      specifiedValue = null; // Treat empty strings as null
-    return specifiedValue;
-  }
-
-  /// <summary>
   /// Finds the next occurrence of a specified value in the column and selects the corresponding cell.
   /// </summary>
-  /// <param name="column"></param>
-  /// <param name="specifiedValue"></param>
+  /// <param name="column">Grid column to search</param>
+  /// <param name="specifiedValue">Searched value. It can be an object or text.</param>
+  /// <param name="predicate">Filter predicate. It contains conditions to evaluate the current value against the specific value.</param>
   /// <param name="currentRow">If null then top of selected rows is assumed as current</param>
-  /// <returns></returns>
-  public static bool FindNextValue(this GridColumn column, object? specifiedValue, object? currentRow = null)
+  /// <returns>True if next cells is found.</returns>
+  public static bool FindNext(this GridColumn column, object? specifiedValue, FilterPredicate predicate, object? currentRow = null)
   {
     if (column.GetDataGrid() is not { } dataGrid)
     {
-      Debug.WriteLine($"Column DataGrid not found.");
+      //Debug.WriteLine($"Column DataGrid not found.");
       return false;
     }
     var mappingName = column.MappingName;
@@ -108,7 +79,6 @@ public static partial class SfDataGridFinder
       Debug.WriteLine($"Property '{mappingName}' not found in row data type.");
       return false;
     }
-    specifiedValue = PrepareSpecifiedValue(specifiedValue);
 
     var columnIndex = dataGrid.Columns.IndexOf(column);
     var selectedRow = dataGrid.CurrentItem;
@@ -121,8 +91,8 @@ public static partial class SfDataGridFinder
         if (row == selectedRow) startSearching = true;
         continue;
       }
-      var value = property.GetValue(row);
-      if (specifiedValue == null && value == null || specifiedValue == NonEmptyValue && value != null || value != null && value.Equals(specifiedValue))
+      var currentValue = property.GetValue(row);
+      if (EvaluatePredicate(currentValue, specifiedValue, predicate))
       {
         //Debug.WriteLine($"Found value: {value} in row: {row}");
         var rowIndex = dataGrid.ResolveToRowIndex(row);
@@ -138,32 +108,27 @@ public static partial class SfDataGridFinder
   /// <summary>
   /// Finds all occurrences of a specified value in the column and selects the corresponding cells.
   /// </summary>
-  /// <param name="column"></param>
-  /// <param name="specifiedValue"></param>
-  /// <returns></returns>
-  public static bool FindAllValues(this GridColumn column, object? specifiedValue)
+  /// <param name="column">Grid column to search</param>
+  /// <param name="specifiedValue">Searched value. It can be an object or text.</param>
+  /// <param name="predicate">Filter predicate. It contains conditions to evaluate the current value against the specific value.</param>
+  /// <returns>Number of selected cells</returns>
+  public static int FindAll(this GridColumn column, object? specifiedValue, FilterPredicate predicate)
   {
-    bool found = false;
+    int found = 0;
     // In the current implementation, we know that the column DataGrid property is not public.
     if (column.GetDataGrid() is not { } dataGrid)
     {
-      Debug.WriteLine($"Column DataGrid not found.");
-      return false;
+      //Debug.WriteLine($"Column DataGrid not found.");
+      return 0;
     }
     var mappingName = column.MappingName;
     var property = SfDataGridCommander.GetRowDataType(dataGrid)?.GetProperty(mappingName);
     if (property == null)
     {
       Debug.WriteLine($"Property '{mappingName}' not found in row data type.");
-      return false;
+      return 0;
     }
-    if (specifiedValue is EmptyValue)
-      specifiedValue = null; // Treat EmptyValue as null for comparison
-    else
-    if (specifiedValue is NonEmptyValue)
-      specifiedValue = NonEmptyValue; // Treat NonEmptyValue as a special marker for non-empty values
-    else if (specifiedValue is string str && string.IsNullOrWhiteSpace(str))
-      specifiedValue = null; // Treat empty strings as null
+
     var columnIndex = dataGrid.Columns.IndexOf(column);
     var selectedRow = dataGrid.GetSelectedCells().FirstOrDefault()?.RowData;
     var startSearching = selectedRow == null;
@@ -171,17 +136,17 @@ public static partial class SfDataGridFinder
 
     foreach (var row in dataGrid.View.Records.Select(record => record.Data))
     {
-      var value = property.GetValue(row);
-      if (specifiedValue == null && value == null || specifiedValue == NonEmptyValue && value != null || value != null && value.Equals(specifiedValue))
+      var currentValue = property.GetValue(row);
+      if (EvaluatePredicate(currentValue, specifiedValue, predicate))
       {
         //Debug.WriteLine($"Found value: {value} in row: {row}");
         var rowIndex = dataGrid.ResolveToRowIndex(row);
-        if (!found)
+        if (found == 0)
         {
           firstRowIndex = rowIndex;
           dataGrid.SelectAllColumns(false);
-          found = true;
         }
+        found++;
         dataGrid.SelectCells(row, column, row, column);
       }
     }
@@ -189,5 +154,91 @@ public static partial class SfDataGridFinder
       dataGrid.ScrollInView(new RowColumnIndex(firstRowIndex, columnIndex));
     return found;
 
+  }
+
+
+  /// <summary>
+  /// Evaluates the specified predicate against the current value and specified value.
+  /// </summary>
+  /// <param name="currentValue">Value found in the cell</param>
+  /// <param name="specifiedValue">Specified value to compare to</param>
+  /// <param name="predicate">Conditions of comparison.
+  /// If predicate FilterBehavior is StringTyped, then all values of FilterType are evaluated.
+  /// For StronglyTyped behavior only Equals and NotEquals functions are evaluated.</param>
+  /// <returns>True if the current value compared against specified value satisfies the conditions of the predicate.</returns>
+  private static bool EvaluatePredicate(object? currentValue, object? specifiedValue, FilterPredicate predicate)
+  {
+    if (predicate.FilterBehavior == FilterBehavior.StringTyped)
+    {
+      // If the filter behavior is StringTyped, we treat both values as strings for comparison
+      var currentText = (currentValue is ISelectableItem selectableItem) ? selectableItem.DisplayName : currentValue?.ToString() ?? "";
+      var specifiedText = (specifiedValue is ISelectableItem selectableItem2) ? selectableItem2.DisplayName : specifiedValue?.ToString() ?? "";
+      if (!predicate.IsCaseSensitive)
+      {
+        // Case-insensitive comparison
+        specifiedText = specifiedText.ToLower();
+        currentText = currentText.ToLower();
+      }
+      double currentNumber;
+      double specifiedNumber;
+      //Debug.WriteLine($"Current text = {currentText}");
+      switch (predicate.FilterType)
+      {
+        case FilterType.Equals:
+         if (currentText.Equals(specifiedText)) return true;
+         break;
+        case FilterType.NotEquals:
+          if (!currentText.Equals(specifiedText)) return true;
+          break;
+        case FilterType.StartsWith:
+          if (currentText.StartsWith(specifiedText)) return true;
+          break;
+        case FilterType.NotStartsWith:
+          if (!currentText.StartsWith(specifiedText)) return true;
+          break;
+        case FilterType.EndsWith:
+          if (currentText.EndsWith(specifiedText)) return true;
+          break;
+        case FilterType.NotEndsWith:
+          if (!currentText.EndsWith(specifiedText)) return true;
+          break;
+        case FilterType.Contains:
+          if (currentText.Contains(specifiedText)) return true;
+          break;
+        case FilterType.NotContains:
+          if (!currentText.Contains(specifiedText)) return true;
+          break;
+        case FilterType.GreaterThan:
+          if (double.TryParse(currentText, out currentNumber) && double.TryParse(specifiedText, out specifiedNumber))
+            if (currentNumber > specifiedNumber) return true;
+          break;
+        case FilterType.GreaterThanOrEqual:
+          if (double.TryParse(currentText, out currentNumber) && double.TryParse(specifiedText, out specifiedNumber))
+            if (currentNumber >= specifiedNumber) return true;
+          break;
+        case FilterType.LessThan:
+          if (double.TryParse(currentText, out currentNumber) && double.TryParse(specifiedText, out specifiedNumber))
+            if (currentNumber < specifiedNumber) return true;
+          break;
+        case FilterType.LessThanOrEqual:
+          if (double.TryParse(currentText, out currentNumber) && double.TryParse(specifiedText, out specifiedNumber))
+            if (currentNumber <= specifiedNumber) return true;
+          break;
+      }
+    }
+    else if (predicate.FilterBehavior == FilterBehavior.StronglyTyped)
+    {
+      if (predicate.FilterType == FilterType.Equals)
+      {
+        if (specifiedValue == null && currentValue == null) return true;
+        if (currentValue != null && currentValue.Equals(specifiedValue)) return true;
+      }
+      else if (predicate.FilterType == FilterType.NotEquals)
+      {
+        if (specifiedValue == null && currentValue != null) return true;
+        if (currentValue != null && !currentValue.Equals(specifiedValue)) return true;
+      }
+    }
+    return false;
   }
 }

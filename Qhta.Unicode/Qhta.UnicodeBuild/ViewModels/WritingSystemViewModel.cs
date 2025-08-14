@@ -8,6 +8,7 @@ using Qhta.SF.Tools.Resources;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.Resources;
+using Strings = Qhta.SF.Tools.Resources.Strings;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -495,7 +496,7 @@ public class WritingSystemViewModel(WritingSystem model)
     set => _DisplayName=value;
   }
 
-  private string _DisplayName = DataStrings.EmptyValue;
+  private string _DisplayName = Strings.EmptyValue;
 
   /// <summary>
   /// Determines whether the item is selected in the UI.

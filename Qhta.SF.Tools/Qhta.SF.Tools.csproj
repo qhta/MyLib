@@ -14,31 +14,41 @@
     <PackageReference Include="Qhta.MVVM" Version="4.14.0" />
     <PackageReference Include="Qhta.TextUtils" Version="3.8.0" />
     <PackageReference Include="Qhta.TypeUtils" Version="1.4.0" />
+    <PackageReference Include="Qhta.WPF.Converters" Version="1.6.0" />
     <PackageReference Include="Qhta.WPF.Utils" Version="3.5.0" />
-    <PackageReference Include="Syncfusion.Grid.Windows" Version="30.2.4" />
-    <PackageReference Include="Syncfusion.Grid.WPF" Version="30.2.4" />
-    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="30.2.4" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="30.2.4" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="30.2.4" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="30.2.4" />
+    <PackageReference Include="Syncfusion.Grid.Windows" Version="30.2.5" />
+    <PackageReference Include="Syncfusion.Grid.WPF" Version="30.2.5" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="30.2.5" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="30.2.5" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="30.2.5" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="30.2.5" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Update="RecordNavigationBar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Resources\DataStrings.Designer.cs">
-      <DependentUpon>DataStrings.resx</DependentUpon>
+    <Compile Update="Resources\Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\FilterTypeStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FilterTypeStrings.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\DataStrings.resx">
+    <EmbeddedResource Update="Resources\Strings.resx">
       <SubType>Designer</SubType>
-      <LastGenOutput>DataStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\FilterTypeStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>FilterTypeStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
@@ -57,6 +67,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\aA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\A.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

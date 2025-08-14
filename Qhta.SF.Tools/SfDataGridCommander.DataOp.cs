@@ -127,7 +127,7 @@ public static partial class SfDataGridCommander
   {
     if (!CanExecuteDataOp(dataGrid, op))
     {
-      MessageBox.Show(String.Format(DataStrings.OperationNotAllowedInThisContext, op));
+      MessageBox.Show(String.Format(Strings.OperationNotAllowedInThisContext, op));
       return;
     }
     try
@@ -167,13 +167,13 @@ public static partial class SfDataGridCommander
       {
         if (allColumnsSelected && allRowsSelected)
         {
-          if (MessageBox.Show(DataStrings.DeleteAllDataConfirm, DataStrings.Confirm, MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
+          if (MessageBox.Show(Strings.DeleteAllDataConfirm, Strings.Confirm, MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
             return;
         }
         else if (allColumnsSelected)
         {
           int rowsCount = selectedRows.Count();
-          if (MessageBox.Show(String.Format(DataStrings.DeleteRecordsConfirm, rowsCount), DataStrings.Confirm, MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
+          if (MessageBox.Show(String.Format(Strings.DeleteRecordsConfirm, rowsCount), Strings.Confirm, MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
             return;
         }
       }

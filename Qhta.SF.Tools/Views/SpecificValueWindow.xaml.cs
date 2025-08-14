@@ -1,24 +1,44 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using Syncfusion.Data;
 
 namespace Qhta.SF.Tools.Views;
 
 /// <summary>
-/// Modes for the specific value window.
+/// Modes for the specific window.
 /// </summary>
-public enum SpecificValueWindowMode
+public enum SpecificWindowMode
 {
   /// <summary>
-  /// The window is used to edit the value in a text box.
+  /// The window is used to edit the value for FillCommand.
   /// </summary>
-  EditViewOnly = 1,
+  Fill = 1,
   /// <summary>
-  /// The window is used to select a value from a list.
+  /// The window is used to edit the value for FindCommand.
   /// </summary>
-  SelectorOnly,
+  Find,
   /// <summary>
-  /// The window is used to select or edit a value in a text box or select from a list.
+  /// The window is used to edit the value for FindAndReplaceCommand.
+  /// </summary>
+  FindAndReplace
+}
+
+/// <summary>
+/// Modes for the specific edit view.
+/// </summary>
+public enum SpecificViewMode
+{
+  /// <summary>
+  /// <see cref="SpecificValueEdit"/> is visible.
+  /// </summary>
+  Edit = 1,
+  /// <summary>
+  /// <see cref="SpecificValueSelector"/> is visible.
+  /// </summary>
+  Selector,
+  /// <summary>
+  /// Both views are visible.
   /// </summary>
   Both
 }
@@ -42,6 +62,7 @@ public partial class SpecificValueWindow : Window
     UpdateTabControlVisibility();
   }
 
+  #region Prompt
   /// <summary>
   /// Dependency property for the prompt text displayed in the window.
   /// </summary>
@@ -53,26 +74,79 @@ public partial class SpecificValueWindow : Window
   /// </summary>
   public string? Prompt
   {
-     [DebuggerStepThrough] get => (string?)GetValue(PromptProperty);
-     set => SetValue(PromptProperty, value);
+    [DebuggerStepThrough]
+    get => (string?)GetValue(PromptProperty);
+    set => SetValue(PromptProperty, value);
   }
+  #endregion
 
+  #region WindowMode
   /// <summary>
-  /// Dependency property for <see cref="Mode"/> property, which specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
+  /// Dependency property for <see cref="WindowMode"/> property, which specifies the which specific view is visible, which can be either EditViewOnly, SelectorOnly, or Both.
   /// </summary>
-  public static readonly DependencyProperty ModeProperty =
-    DependencyProperty.Register(nameof(Mode), typeof(SpecificValueWindowMode), typeof(SpecificValueWindow), new PropertyMetadata(SpecificValueWindowMode.Both, OnModeChanged));
+  public static readonly DependencyProperty WindowModeProperty =
+    DependencyProperty.Register(nameof(WindowMode), typeof(SpecificWindowMode), typeof(SpecificValueWindow), new PropertyMetadata(SpecificWindowMode.Fill, OnWindowModeChanged));
 
   /// <summary>
   /// Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
   /// </summary>
-  public SpecificValueWindowMode Mode
+  public SpecificWindowMode WindowMode
   {
-    get => (SpecificValueWindowMode)GetValue(ModeProperty);
-    set => SetValue(ModeProperty, value);
+    get => (SpecificWindowMode)GetValue(WindowModeProperty);
+    set => SetValue(WindowModeProperty, value);
   }
 
-  private static void OnModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+  private static void OnWindowModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+  {
+    if (d is SpecificValueWindow window)
+    {
+      window.UpdateCheckBoxesVisibility();
+      window.UpdateTabControlVisibility();
+    }
+  }
+
+  private void UpdateCheckBoxesVisibility()
+  {
+    switch (WindowMode)
+    {
+      case SpecificWindowMode.Fill:
+        OverWriteNonEmptyCellsButton.Visibility = Visibility.Visible;
+        FindInSequenceComboBox.Visibility = Visibility.Collapsed;
+        break;
+
+      case SpecificWindowMode.Find:
+        OverWriteNonEmptyCellsButton.Visibility = Visibility.Collapsed;
+        FindInSequenceComboBox.Visibility = Visibility.Visible;
+        ValueEdit.ReplacementTextBox.Visibility = Visibility.Collapsed;
+        break;
+
+      case SpecificWindowMode.FindAndReplace:
+        OverWriteNonEmptyCellsButton.Visibility = Visibility.Collapsed;
+        FindInSequenceComboBox.Visibility = Visibility.Visible;
+        ValueEdit.ReplacementTextBox.Visibility = Visibility.Visible;
+
+        break;
+    }
+  }
+  #endregion
+
+  #region ViewMode
+  /// <summary>
+  /// Dependency property for <see cref="ViewMode"/> property, which specifies the which specific view is visible, which can be either EditViewOnly, SelectorOnly, or Both.
+  /// </summary>
+  public static readonly DependencyProperty ViewModeProperty =
+    DependencyProperty.Register(nameof(ViewMode), typeof(SpecificViewMode), typeof(SpecificValueWindow), new PropertyMetadata(SpecificViewMode.Both, OnViewModeChanged));
+
+  /// <summary>
+  /// Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
+  /// </summary>
+  public SpecificViewMode ViewMode
+  {
+    get => (SpecificViewMode)GetValue(ViewModeProperty);
+    set => SetValue(ViewModeProperty, value);
+  }
+
+  private static void OnViewModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
   {
     if (d is SpecificValueWindow window)
     {
@@ -82,23 +156,38 @@ public partial class SpecificValueWindow : Window
 
   private void UpdateTabControlVisibility()
   {
-    switch (Mode)
+    switch (ViewMode)
     {
-      case SpecificValueWindowMode.EditViewOnly:
+      case SpecificViewMode.Edit:
         TabControl.Style = (Style)FindResource("HiddenTabControlStyle");
         TabControl.SelectedIndex = 0;
         break;
 
-      case SpecificValueWindowMode.SelectorOnly:
+      case SpecificViewMode.Selector:
         TabControl.Style = (Style)FindResource("HiddenTabControlStyle");
         TabControl.SelectedIndex = 1;
         break;
 
-      case SpecificValueWindowMode.Both:
+      case SpecificViewMode.Both:
         TabControl.Style = (Style)FindResource(typeof(TabControl)); // Default style
         break;
     }
   }
+
+  /// <summary>
+  /// Returns the current view mode of the window.
+  /// </summary>
+  /// <returns></returns>
+  public SpecificViewMode CurrentViewMode
+  {
+    get
+    {
+      if (ViewMode == SpecificViewMode.Both)
+        return (TabControl.SelectedIndex == 0) ? SpecificViewMode.Selector : SpecificViewMode.Edit;
+      return ViewMode;
+    }
+  }
+  #endregion
 
   #region TextValueEdit
 
@@ -131,7 +220,8 @@ public partial class SpecificValueWindow : Window
   /// </summary>
   public object? ItemsSource
   {
-    [DebuggerStepThrough] get => GetValue(ItemsSourceProperty);
+    [DebuggerStepThrough]
+    get => GetValue(ItemsSourceProperty);
     set => SetValue(ItemsSourceProperty, value);
   }
 
@@ -146,28 +236,13 @@ public partial class SpecificValueWindow : Window
   /// </summary>
   public object? SelectedItem
   {
-    [DebuggerStepThrough] get => GetValue(SelectedItemProperty);
+    [DebuggerStepThrough]
+    get => GetValue(SelectedItemProperty);
     set => SetValue(SelectedItemProperty, value);
   }
   #endregion
-
+ 
   #region OverwriteNonEmptyCells
-  /// <summary>
-  /// Dependency property for the <see cref="ShowOverwriteNonEmptyCells"/> flag, which indicates whether to show <see cref="OverwriteNonEmptyCells"/> checkbox.
-  /// </summary>
-  public static DependencyProperty ShowOverwriteNonEmptyCellsProperty =
-    DependencyProperty.Register(nameof(ShowOverwriteNonEmptyCells), typeof(bool), typeof(SpecificValueWindow), new PropertyMetadata(true));
-
-  /// <summary>
-  /// Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
-  /// </summary>
-  public bool ShowOverwriteNonEmptyCells
-  {
-    [DebuggerStepThrough]
-    get => (bool)GetValue(ShowOverwriteNonEmptyCellsProperty);
-    set => SetValue(ShowOverwriteNonEmptyCellsProperty, value);
-  }
-
   /// <summary>
   /// Dependency property for the <see cref="OverwriteNonEmptyCells"/> flag, which indicates whether to fill only empty cells in the selection.
   /// </summary>
@@ -180,27 +255,13 @@ public partial class SpecificValueWindow : Window
   /// </summary>
   public bool OverwriteNonEmptyCells
   {
-    [DebuggerStepThrough] get => (bool)GetValue(OverwriteNonEmptyCellsProperty);
+    [DebuggerStepThrough]
+    get => (bool)GetValue(OverwriteNonEmptyCellsProperty);
     set => SetValue(OverwriteNonEmptyCellsProperty, value);
   }
   #endregion
 
   #region FindInSequence
-  /// <summary>
-  /// Dependency property for the <see cref="ShowFindInSequence"/> flag, which indicates whether to show <see cref="FindInSequence"/> combobox.
-  /// </summary>
-  public static DependencyProperty ShowFindInSequenceProperty =
-    DependencyProperty.Register(nameof(ShowFindInSequence), typeof(bool), typeof(SpecificValueWindow), new PropertyMetadata(true));
-
-  /// <summary>
-  /// Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
-  /// </summary>
-  public bool ShowFindInSequence
-  {
-    [DebuggerStepThrough]
-    get => (bool)GetValue(ShowFindInSequenceProperty);
-    set => SetValue(ShowFindInSequenceProperty, value);
-  }
 
   /// <summary>
   /// Dependency property for the <see cref="FindInSequence"/> flag, which indicates how to find value in the context of the current selection.
@@ -220,11 +281,50 @@ public partial class SpecificValueWindow : Window
   }
   #endregion
 
+  #region FilterType
+  /// <summary>
+  /// Dependency property for the <see cref="FilterType"/> property.
+  /// </summary>
+  public static DependencyProperty FilterTypeProperty =
+    DependencyProperty.Register(nameof(FilterType), typeof(FilterType), typeof(SpecificValueWindow), new PropertyMetadata(FilterType.Contains));
+
+
+  /// <summary>
+  /// Determines the type of filter to apply when searching for values in the data grid.
+  /// </summary>
+  public FilterType FilterType
+  {
+    [DebuggerStepThrough]
+    get => (FilterType)GetValue(FilterTypeProperty);
+    set => SetValue(FilterTypeProperty, value);
+  }
+  #endregion
+
+
+  #region CaseSensitive
+  /// <summary>
+  /// Dependency property for the <see cref="CaseSensitive"/> flag, which indicates whether to search text with case-sensitivity.
+  /// </summary>
+  public static DependencyProperty CaseSensitiveProperty =
+    DependencyProperty.Register(nameof(CaseSensitive), typeof(bool), typeof(SpecificValueWindow), new PropertyMetadata(false));
+
+
+  /// <summary>
+  /// Indicates whether to search text with case-sensitivity.
+  /// </summary>
+  public bool CaseSensitive
+  {
+    [DebuggerStepThrough]
+    get => (bool)GetValue(CaseSensitiveProperty);
+    set => SetValue(CaseSensitiveProperty, value);
+  }
+  #endregion
+
   #region Ok/Cancel Buttons
   private void OkButton_OnClick(object sender, RoutedEventArgs e)
   {
-     var window = Window.GetWindow(this);
-     if (window == null) return;
+    var window = Window.GetWindow(this);
+    if (window == null) return;
     window.DialogResult = true;
     window.Close();
   }
