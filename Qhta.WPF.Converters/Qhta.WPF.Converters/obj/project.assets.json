@@ -252,7 +252,7 @@
     "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\30.2.4\\ToolboxNuGetPackages": {}
   },
   "project": {
-    "version": "1.6.0",
+    "version": "1.7.0",
     "restore": {
       "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
       "projectName": "Qhta.WPF.Converters",

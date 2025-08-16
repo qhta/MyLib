@@ -28,6 +28,9 @@
     <EmbeddedResource Update="Resources\Strings.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\WritingSystemStrings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\WritingSystemTypeStrings.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

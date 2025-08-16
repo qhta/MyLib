@@ -57,7 +57,7 @@ public class WritingSystemViewModel(WritingSystem model)
       if (ChangeEntityProperty(nameof(Name), nameof(Model.Name), value))
       {
         NotifyPropertyChanged(nameof(FullName));
-        NotifyPropertyChanged(nameof(Tooltip));
+        NotifyPropertyChanged(nameof(ToolTip));
       }
     }
   }
@@ -181,7 +181,7 @@ public class WritingSystemViewModel(WritingSystem model)
     get => Model.Description;
     set {  
       if (ChangeEntityProperty(nameof(Description), nameof(Model.Description), value)) 
-        NotifyPropertyChanged(nameof(Tooltip)); 
+        NotifyPropertyChanged(nameof(ToolTip)); 
     }
   }
 
@@ -189,7 +189,7 @@ public class WritingSystemViewModel(WritingSystem model)
   /// Description of the writing system or its full name if description is null.
   /// </summary>
   [DataType(DataType.MultilineText)]
-  public string? Tooltip => Description ?? FullName;
+  public string? ToolTip => Description ?? FullName;
 
   /// <summary>
   /// Exposed property for the parent writing system as a ViewModel.
@@ -495,8 +495,12 @@ public class WritingSystemViewModel(WritingSystem model)
     get => Name ?? _DisplayName; 
     set => _DisplayName=value;
   }
-
   private string _DisplayName = Strings.EmptyValue;
+
+  /// <summary>
+  /// Implementation of the <see cref="ISelectableItem.ActualValue"/> property.
+  /// </summary>
+  public object? ActualValue => this;
 
   /// <summary>
   /// Determines whether the item is selected in the UI.

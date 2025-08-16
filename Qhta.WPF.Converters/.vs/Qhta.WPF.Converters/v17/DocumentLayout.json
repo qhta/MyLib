@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\enumtoresourceconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\enumtoresourceconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\qhta.wpf.converters.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\qhta.wpf.converters.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\enumtoresourceconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\enumtoresourceconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\enumvalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -150,7 +150,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 33,
           "Children": [
             {
               "$type": "Bookmark",
@@ -178,21 +178,17 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "EnumToResourceConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\EnumToResourceConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\EnumToResourceConverter.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\EnumToResourceConverter.cs",
               "RelativeToolTip": "Qhta.WPF.Converters\\EnumToResourceConverter.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAYwDcAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAADQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-13T19:38:54.143Z",
               "EditorCaption": ""
@@ -243,8 +239,7 @@
               "RelativeToolTip": "Qhta.WPF.Converters\\EnumValueConverter.cs",
               "ViewState": "AgIAAD0AAAAAAAAAAAAAAFcAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:12:14.367Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-02T18:12:14.367Z"
             },
             {
               "$type": "Document",
@@ -500,13 +495,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Qhta.WPF.Converters.csproj",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
               "RelativeToolTip": "Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2023-07-31T08:35:03.552Z",
               "EditorCaption": ""
@@ -606,6 +601,16 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2023-07-06T14:27:48.252Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 251,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             }
           ]
         }

@@ -168,7 +168,7 @@
         <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
           <StackPanel Orientation="Horizontal">
             <StackPanel.ToolTip>
-              <ToolTip Content="{Binding Tooltip}"/>
+              <ToolTip Content="{Binding ToolTip}"/>
             </StackPanel.ToolTip>
             <Image Source="{Binding Type, Converter={StaticResource TypeToImageConverter}}"
                    Width="16" Height="16" Stretch="Uniform" Margin="0,0,4,0"/>
@@ -193,7 +193,6 @@
                    SelectionChanged="WritingSystemsDataGrid_OnSelectionChanged"
                    ContextMenu="{StaticResource WritingSystemsContextMenu}"
                    RecordContextMenu="{StaticResource WritingSystemsRowContextMenu}"
-                   FilterItemsPopulated="WritingSystemsDataGrid_OnFilterItemsPopulated"
                    FilterItemsPopulating="WritingSystemsGrid_OnFilterItemsPopulating"
                    FilterChanging="WritingSystemsGrid_OnFilterChanging"
                    tools:SfDataGridBehavior.AllowRowResizing="True"
@@ -205,12 +204,12 @@
           <sf:GridCheckBoxColumn
           Width="70"
           MappingName="IsMarked">
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:WritingSystemStrings.Mark}" />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-        </sf:GridCheckBoxColumn>
+            <sf:GridColumn.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock Text="{x:Static resources:WritingSystemStrings.Mark}" />
+              </DataTemplate>
+            </sf:GridColumn.HeaderTemplate>
+          </sf:GridCheckBoxColumn>
 
           <sf:GridTextColumn 
           Width="150"
@@ -233,10 +232,13 @@
           <sf:GridComboBoxColumn
           Width="100"
           SortMode="Display"
-          MappingName="Type" 
+          MappingName="Type"  
+          DisplayMemberPath="DisplayName"
+          SelectedValuePath="Value"
           VerticalAlignment="Top"
+          ShowToolTip="True"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.WritingSystemTypes}"
+            Path=Instance.SelectableWritingSystemTypes}"
           >
             <sf:GridColumn.HeaderTemplate>
               <DataTemplate>
@@ -244,44 +246,40 @@
                          ToolTip="{x:Static resources:WritingSystemStrings.TypeTooltip}"  />
               </DataTemplate>
             </sf:GridColumn.HeaderTemplate>
-            <sf:GridComboBoxColumn.ItemTemplate>
-              <DataTemplate DataType="{x:Type models:WritingSystemType}">
-                <TextBlock Text="{Binding 
-                                  Converter={StaticResource WritingSystemTypeResourceConverter},
-                                  ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}"                        
-                         ToolTip="{Binding 
-                              Converter={StaticResource WritingSystemTypeResourceConverter},
-                              ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
-                              ConverterParameter=Tooltip}"  />
+            <sf:GridColumn.ToolTipTemplate>
+              <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
+                <TextBlock Text="{Binding Type,
+                            Converter={x:Static vm:_ViewModels.WritingSystemTypeTooltipConverter},
+                            ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}" 
+                           TextWrapping="Wrap"/>
               </DataTemplate>
-            </sf:GridComboBoxColumn.ItemTemplate>
+            </sf:GridColumn.ToolTipTemplate>
           </sf:GridComboBoxColumn>
-
           <sf:GridComboBoxColumn
           Width="100"
           SortMode="Display"
           MappingName="Kind"
+          DisplayMemberPath="DisplayName"
+          SelectedValuePath="Value"
           VerticalAlignment="Top"
+          ShowToolTip="True"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.WritingSystemKinds}"
+            Path=Instance.SelectableWritingSystemKinds}"
           >
             <sf:GridColumn.HeaderTemplate>
               <DataTemplate>
                 <TextBlock Text="{x:Static resources:WritingSystemStrings.Kind}" 
-                         ToolTip="{x:Static resources:WritingSystemStrings.KindTooltip}"  />
+                           ToolTip="{x:Static resources:WritingSystemStrings.KindTooltip}"  />
               </DataTemplate>
             </sf:GridColumn.HeaderTemplate>
-            <sf:GridComboBoxColumn.ItemTemplate>
-              <DataTemplate DataType="{x:Type models:WritingSystemKind}">
-                <TextBlock Text="{Binding 
-                                  Converter={StaticResource WritingSystemKindResourceConverter},
-                                  ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}"                        
-                         ToolTip="{Binding 
-                              Converter={StaticResource WritingSystemKindResourceConverter},
-                              ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}, 
-                              ConverterParameter=Tooltip}"  />
+            <sf:GridColumn.ToolTipTemplate>
+              <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
+                <TextBlock Text="{Binding Kind,
+                           Converter={x:Static vm:_ViewModels.WritingSystemKindTooltipConverter},
+                           ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}"
+                           TextWrapping="Wrap"/>
               </DataTemplate>
-            </sf:GridComboBoxColumn.ItemTemplate>
+            </sf:GridColumn.ToolTipTemplate>
           </sf:GridComboBoxColumn>
 
           <sf:GridComboBoxColumn
@@ -289,16 +287,23 @@
           SortMode="Display"
           MappingName="Parent"
           VerticalAlignment="Top"
+          ShowToolTip="True"
           Width="150"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableScripts}"
         >
             <sf:GridColumn.HeaderTemplate>
-              <DataTemplate>
+              <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
                 <TextBlock Text="{x:Static resources:WritingSystemStrings.Parent}" 
                          ToolTip="{x:Static resources:WritingSystemStrings.ParentTooltip}"  />
               </DataTemplate>
             </sf:GridColumn.HeaderTemplate>
+            <sf:GridColumn.ToolTipTemplate>
+              <DataTemplate DataType="{x:Type vm:WritingSystemViewModel}">
+                <TextBlock Text="{Binding Parent.ToolTip, FallbackValue={x:Null}}"
+                           TextWrapping="Wrap"/>
+              </DataTemplate>
+            </sf:GridColumn.ToolTipTemplate>
           </sf:GridComboBoxColumn>
 
           <sf:GridTextColumn 

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Threading;
 
 using Qhta.MVVM;
@@ -8,6 +9,7 @@ using Qhta.SF.Tools.Resources;
 using Qhta.UndoManager;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Resources;
+using Qhta.WPF.Converters;
 using Syncfusion.Data.Extensions;
 using DataStrings = Qhta.SF.Tools.Resources.Strings;
 
@@ -181,30 +183,62 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// <summary>
   /// Collection of selectable writing types exposed to the UI as an enumerable.
   /// </summary>
-  public IEnumerable<WritingSystemType?> SelectableWritingSystemTypes
+  public IEnumerable<SelectableItem> SelectableWritingSystemTypes
   {
     get
     {
-      List<WritingSystemType?> list = new();
+      List<SelectableItem> list = new();
+      list.Add(new SelectableItem { DisplayName = DataStrings.EmptyValue});
       foreach (var item in WritingSystemTypes)
-        list.Add(item);
+        list.Add(new SelectableItem 
+        { 
+          Value=item, 
+          ValueConverter= WritingSystemTypeValueConverter, 
+          TooltipConverter = WritingSystemTypeTooltipConverter
+        });
       return list;
     }
   }
+  /// <summary>
+  /// Value converter for writing system types, converting enum values to localized strings.
+  /// </summary>
+  public static readonly IValueConverter WritingSystemTypeValueConverter =
+    new EnumToResourceConverter { ResourceType = typeof(Resources.WritingSystemTypeStrings) };
+  /// <summary>
+  /// Value converter for writing system types, converting enum values to localized tooltips.
+  /// </summary>
+  public static readonly IValueConverter WritingSystemTypeTooltipConverter =
+    new EnumToResourceConverter { ResourceType = typeof(Resources.WritingSystemTypeStrings), Suffix="Tooltip"};
 
   /// <summary>
   /// Collection of selectable writing kinds exposed to the UI as an enumerable.
   /// </summary>
-  public IEnumerable<WritingSystemKind?> SelectableWritingSystemKinds
+  public IEnumerable<SelectableItem> SelectableWritingSystemKinds
   {
     get
     {
-      List<WritingSystemKind?> list = new();
+      List<SelectableItem> list = new();
+      list.Add(new SelectableItem { DisplayName = DataStrings.EmptyValue });
       foreach (var item in WritingSystemKinds)
-        list.Add(item);
+        list.Add(new SelectableItem
+        {
+          Value = item, 
+          ValueConverter = WritingSystemKindValueConverter,
+          TooltipConverter = WritingSystemKindTooltipConverter
+        });
       return list;
     }
   }
+  /// <summary>
+  /// Value converter for writing system kinds, converting enum values to localized strings.
+  /// </summary>
+  public static readonly IValueConverter WritingSystemKindValueConverter = 
+    new EnumToResourceConverter { ResourceType = typeof(Resources.WritingSystemKindStrings) };
+  /// <summary>
+  /// Value converter for writing system kinds, converting enum values to localized tooltips.
+  /// </summary>
+  public static readonly IValueConverter WritingSystemKindTooltipConverter =
+    new EnumToResourceConverter { ResourceType = typeof(Resources.WritingSystemKindStrings), Suffix = "Tooltip" };
 
   /// <summary>
   /// Collection of selectable Unicode categories exposed to the UI as an enumerable.

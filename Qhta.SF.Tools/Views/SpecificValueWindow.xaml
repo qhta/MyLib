@@ -33,7 +33,9 @@
        Margin="10,5"
       />
     <TabControl Grid.Row="1"
-                x:Name="TabControl">
+      x:Name="TabControl"
+      SelectionChanged="TabControl_SelectionChanged"
+      >
       <TabItem>
         <TabItem.Header>
           <Image Source="/Assets/List.png" Height="16" Width="16"></Image>

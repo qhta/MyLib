@@ -1048,7 +1048,7 @@
           }
         }
       },
-      "Qhta.WPF.Converters/1.6.0": {
+      "Qhta.WPF.Converters/1.7.0": {
         "type": "package",
         "dependencies": {
           "Qhta.TextUtils": "3.1.1",
@@ -2690,7 +2690,7 @@
           "Qhta.TextUtils": "3.8.0",
           "Qhta.TypeUtils": "1.4.0",
           "Qhta.UndoManager": "1.0.0",
-          "Qhta.WPF.Converters": "1.6.0",
+          "Qhta.WPF.Converters": "1.7.0",
           "Qhta.WPF.Utils": "3.5.0",
           "Syncfusion.Grid.WPF": "30.2.5",
           "Syncfusion.Grid.Windows": "30.2.5",
@@ -4724,10 +4724,10 @@
         "readme.md"
       ]
     },
-    "Qhta.WPF.Converters/1.6.0": {
-      "sha512": "1zpnph4xg9nCOO5/X41uJYNJjPCq3iF9OUzleXr8HW6LcuiY51hcV+OlHBK7gHkv1SWVj/Dl491pgOUVQLm4VA==",
+    "Qhta.WPF.Converters/1.7.0": {
+      "sha512": "8unJ2RsupXD7MxEyKVn9WHoMvGLdsujNHZCac/pN98ypIhKqxDmhYEXUaB2yrSFDjP2e4aaywx0jM00VbuxGnA==",
       "type": "package",
-      "path": "qhta.wpf.converters/1.6.0",
+      "path": "qhta.wpf.converters/1.7.0",
       "files": [
         ".nupkg.metadata",
         "lib/net6.0-windows7.0/Qhta.WPF.Converters.dll",
@@ -4738,7 +4738,7 @@
         "lib/net8.0-windows7.0/Qhta.WPF.Converters.xml",
         "lib/net9.0-windows7.0/Qhta.WPF.Converters.dll",
         "lib/net9.0-windows7.0/Qhta.WPF.Converters.xml",
-        "qhta.wpf.converters.1.6.0.nupkg.sha512",
+        "qhta.wpf.converters.1.7.0.nupkg.sha512",
         "qhta.wpf.converters.nuspec",
         "readme.md"
       ]
@@ -8195,7 +8195,7 @@
       "Qhta.ObservableObjects >= 4.3.0",
       "Qhta.SF.Tools >= 1.0.0",
       "Qhta.UndoManager >= 1.0.0",
-      "Qhta.WPF.Converters >= 1.6.0",
+      "Qhta.WPF.Converters >= 1.7.0",
       "Qhta.WPF.Utils >= 3.5.0",
       "Syncfusion.Grid.WPF >= 30.2.5",
       "Syncfusion.Grid.Windows >= 30.2.5",
@@ -8322,7 +8322,7 @@
           },
           "Qhta.WPF.Converters": {
             "target": "Package",
-            "version": "[1.6.0, )"
+            "version": "[1.7.0, )"
           },
           "Qhta.WPF.Utils": {
             "target": "Package",

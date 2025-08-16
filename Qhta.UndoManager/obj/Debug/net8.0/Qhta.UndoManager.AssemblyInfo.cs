@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Qhta.UndoManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aae852d868d2e52f7b0b012ca533ab9e98e39ffb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+126e78b7625f41bc0b0b6ab409cc642e45608aeb")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.UndoManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.UndoManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

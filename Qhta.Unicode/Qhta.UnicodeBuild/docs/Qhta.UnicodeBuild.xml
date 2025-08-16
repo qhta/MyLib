@@ -3175,6 +3175,16 @@
             Name of the item, used for display purposes.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.ToolTip">
+            <summary>
+            Implementation of the <see cref="P:Qhta.SF.Tools.ISelectableItem.ToolTip"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.ActualValue">
+            <summary>
+            Implementation of the <see cref="P:Qhta.SF.Tools.ISelectableItem.ActualValue"/> property.
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.IsSelected">
             <summary>
             Determines whether the item is selected in the UI.
@@ -3531,6 +3541,16 @@
             Name of the item, used for display purposes.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UnicodeCategoryViewModel.ToolTip">
+            <summary>
+            Implementation of the <see cref="P:Qhta.SF.Tools.ISelectableItem.ToolTip"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UnicodeCategoryViewModel.ActualValue">
+            <summary>
+            Implementation of the <see cref="P:Qhta.SF.Tools.ISelectableItem.ActualValue"/> property.
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UnicodeCategoryViewModel.IsSelected">
             <summary>
             Determines whether the item is selected in the UI.
@@ -3866,7 +3886,7 @@
             Description of the writing system, providing additional context or information.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.Tooltip">
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.ToolTip">
             <summary>
             Description of the writing system or its full name if description is null.
             </summary>
@@ -3952,6 +3972,11 @@
             Name of the item, used for display purposes.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.ActualValue">
+            <summary>
+            Implementation of the <see cref="P:Qhta.SF.Tools.ISelectableItem.ActualValue"/> property.
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.IsSelected">
             <summary>
             Determines whether the item is selected in the UI.
@@ -4033,9 +4058,29 @@
             Collection of selectable writing types exposed to the UI as an enumerable.
             </summary>
         </member>
+        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.WritingSystemTypeValueConverter">
+            <summary>
+            Value converter for writing system types, converting enum values to localized strings.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.WritingSystemTypeTooltipConverter">
+            <summary>
+            Value converter for writing system types, converting enum values to localized tooltips.
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.SelectableWritingSystemKinds">
             <summary>
             Collection of selectable writing kinds exposed to the UI as an enumerable.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.WritingSystemKindValueConverter">
+            <summary>
+            Value converter for writing system kinds, converting enum values to localized strings.
+            </summary>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.ViewModels._ViewModels.WritingSystemKindTooltipConverter">
+            <summary>
+            Value converter for writing system kinds, converting enum values to localized tooltips.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.SelectableCategories">
@@ -5505,6 +5550,36 @@
         <member name="M:Qhta.Unicode.Models._DbContext.Finalize">
             <summary>
             Destructs the context and releases all resources used by it.
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
             </summary>
         </member>
     </members>

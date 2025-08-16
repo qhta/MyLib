@@ -155,35 +155,7 @@ public partial class WritingSystemsView : UserControl, IRoutedCommandHandler
       button.ContextMenu.IsOpen = true;
     }
   }
-
-  private void WritingSystemsDataGrid_OnFilterItemsPopulated(object? sender, GridFilterItemsPopulatedEventArgs e)
-  {
-    if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Type))
-    {
-      foreach (var item in e.ItemsSource)
-        if (!item.DisplayText.StartsWith("("))
-        {
-          if (item.ActualValue is WritingSystemType writingSystemType && writingSystemType == WritingSystemType.SymbolSet)
-            Debug.Assert(true);
-          var displayText = item.DisplayText;
-          var newText = Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.ResourceManager.GetString(displayText);
-          if (newText != null) item.DisplayText = newText;
-        }
-    }
-    else if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Kind))
-    {
-      foreach (var item in e.ItemsSource)
-        if (!item.DisplayText.StartsWith("("))
-        {
-          if (item.ActualValue is WritingSystemKind writingSystemKind && writingSystemKind == WritingSystemKind.SemiSyllabary)
-            Debug.Assert(true);
-          var displayText = item.DisplayText;
-          var newText = Qhta.UnicodeBuild.Resources.WritingSystemKindStrings.ResourceManager.GetString(displayText);
-          if (newText != null) item.DisplayText = newText;
-        }
-    }
-  }
-
+  
   private void WritingSystemsGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e)
   {
     if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Type))
@@ -208,17 +180,11 @@ public partial class WritingSystemsView : UserControl, IRoutedCommandHandler
       filterControl.FilterMode = FilterMode.CheckboxFilter;
       filterControl.AllowBlankFilters = true;
       var selectableItems = _ViewModels.Instance.SelectableWritingSystemTypes.ToList();
-      selectableItems.Insert(0, null); // Add a null item at the top
 
       var UcdWritingSystemTypesFilter = selectableItems.Select(item => new FilterElement
       {
-        ActualValue = item,
-        FormattedString = (object obj) =>
-        {
-          if (obj is FilterElement filterElement && filterElement.ActualValue is WritingSystemType val)
-            return val.ToString();
-          return DataStrings.EmptyValue;
-        }
+        ActualValue = item.Value,
+        DisplayText = item.DisplayName,
       }).ToArray();
       e.ItemsSource = UcdWritingSystemTypesFilter;
       e.Handled = true;
@@ -231,17 +197,11 @@ public partial class WritingSystemsView : UserControl, IRoutedCommandHandler
       filterControl.FilterMode = FilterMode.CheckboxFilter;
       filterControl.AllowBlankFilters = true;
       var selectableItems = _ViewModels.Instance.SelectableWritingSystemKinds.ToList();
-      selectableItems.Insert(0, null); // Add a null item at the top
 
       var UcdWritingSystemKindFilter = selectableItems.Select(item => new FilterElement
       {
-        ActualValue = item,
-        FormattedString = (object obj) =>
-        {
-          if (obj is FilterElement filterElement && filterElement.ActualValue is WritingSystemKind val)
-            return val.ToString();
-          return DataStrings.EmptyValue;
-        }
+        ActualValue = item.Value,
+        DisplayText = item.DisplayName,
       }).ToArray();
       e.ItemsSource = UcdWritingSystemKindFilter;
       e.Handled = true;

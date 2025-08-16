@@ -65,18 +65,6 @@ public class SfDataGridFinder
   }
   internal object? specifiedValue { get; set; }
 
-  //public object? SelectedItem
-  //{
-  //  get => selectedItem;
-  //  set
-  //  {
-  //    if (!Property.CanRead)
-  //      throw new InvalidOperationException($"Property '{Property.Name}' can't be read.");
-  //    selectedItem = value;
-  //  }
-  //}
-  //internal object? selectedItem { get; set; }
-
   /// <summary>
   /// Determines whether to replace the found value with the specified value.
   /// </summary>
@@ -274,6 +262,11 @@ public class SfDataGridFinder
     }
     else if (predicate.FilterBehavior == FilterBehavior.StronglyTyped)
     {
+      if (specifiedValue is ISelectableItem selectableItem) 
+        specifiedValue = selectableItem?.ActualValue;
+      if (currentValue is ISelectableItem currentItem)
+        specifiedValue = currentItem?.ActualValue;
+
       if (predicate.FilterType == FilterType.Equals)
       {
         if (specifiedValue == null && currentValue == null) return true;

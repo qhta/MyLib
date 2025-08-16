@@ -9,6 +9,16 @@ public interface ISelectableItem
   /// Displayed name of the item, typically used in user interfaces to represent the item.
   /// </summary>
   public string DisplayName { get; set; }
+  
+  /// <summary>
+  /// Optional tooltip text that provides additional information about the item when hovered over in a user interface.
+  /// </summary>
+  public string? ToolTip { get; }
+
+  /// <summary>
+  /// Actual value of the item, which can be of any type. This is the underlying data associated with the item.
+  /// </summary>
+  public object? ActualValue { get; }
 
   /// <summary>
   /// Determines whether the item is currently selected in the user interface.

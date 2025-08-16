@@ -5,6 +5,7 @@
                     xmlns:tools="clr-namespace:Qhta.SF.Tools"
                     xmlns:converters="clr-namespace:Qhta.WPF.Converters;assembly=Qhta.WPF.Converters"
                     xmlns:mvvm="clr-namespace:Qhta.MVVM;assembly=Qhta.MVVM"
+                    xmlns:sys="clr-namespace:System.Globalization;assembly=System.Runtime"
                     x:Class="Qhta.SF.Tools.SfDataGridTools">
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   <converters:NegateValueConverter x:Key="NegateValueConverter"/>
@@ -349,4 +350,276 @@
     <Setter Property="IsUndoEnabled" Value="True"></Setter>
   </Style>
 
+  <Style x:Key="cmbBoxStyle" Style.TargetType="{x:Type ComboBox}">
+    <Setter Setter.Property="FrameworkElement.FocusVisualStyle">
+      <Setter.Value>
+        <Style>
+          <Setter Setter.Property="Control.Template">
+            <Setter.Value>
+              <ControlTemplate>
+                <Rectangle FrameworkElement.Margin="4,4,21,4" UIElement.SnapsToDevicePixels="True" Shape.Stroke="#FF000000" Shape.StrokeDashArray="1 2" Shape.StrokeThickness="1" />
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
+      </Setter.Value>
+    </Setter>
+    <Setter Setter.Property="Control.BorderBrush" Setter.Value="{DynamicResource MetroBorderBrush}" />
+    <Setter Setter.Property="Control.Background" Setter.Value="{DynamicResource MetroPanelBackgroundBrush}" />
+    <Setter Setter.Property="Control.Foreground" Setter.Value="{DynamicResource MetroForegroundBrush}" />
+    <Setter Setter.Property="Control.BorderThickness" Setter.Value="1" />
+    <Setter Setter.Property="ScrollViewer.HorizontalScrollBarVisibility" Setter.Value="Auto" />
+    <Setter Setter.Property="ScrollViewer.VerticalScrollBarVisibility" Setter.Value="Auto" />
+    <Setter Setter.Property="Control.Padding" Setter.Value="3,3,23,3" />
+    <Setter Setter.Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate ControlTemplate.TargetType="{x:Type ComboBox}">
+          <Grid>
+            <ToggleButton ToggleButton.Name="ToggleButton" Grid.Column="2"
+                          Control.Background="{TemplateBinding Control.Background}"
+                          Control.BorderBrush="{TemplateBinding Control.BorderBrush}" ButtonBase.ClickMode="Press"
+                          UIElement.Focusable="False"
+                          ToggleButton.IsChecked="{Binding IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}">
+              <FrameworkElement.Style>
+                <Style Style.TargetType="{x:Type ToggleButton}">
+                  <Setter Setter.Property="FrameworkElement.OverridesDefaultStyle" Setter.Value="True" />
+                  <Setter Setter.Property="Control.IsTabStop" Setter.Value="False" />
+                  <Setter Setter.Property="UIElement.Focusable" Setter.Value="False" />
+                  <Setter Setter.Property="Control.BorderThickness" Setter.Value="1" />
+                  <Setter Setter.Property="ButtonBase.ClickMode" Setter.Value="Press" />
+                  <Setter Setter.Property="Control.Template">
+                    <Setter.Value>
+                      <ControlTemplate ControlTemplate.TargetType="{x:Type ToggleButton}">
+                        <Border Border.Name="Chrome1" Border.Background="{TemplateBinding Control.Background}"
+                                Border.BorderBrush="{TemplateBinding Control.BorderBrush}"
+                                Border.BorderThickness="{TemplateBinding Control.BorderThickness}"
+                                UIElement.SnapsToDevicePixels="True">
+                          <Grid>
+                            <Grid.ColumnDefinitions>
+                              <ColumnDefinition ColumnDefinition.Width="*" />
+                              <ColumnDefinition ColumnDefinition.Width="20"
+                                                DefinitionBase.SharedSizeGroup="ComboBoxButton" />
+                            </Grid.ColumnDefinitions>
+                            <Path Path.Name="Arrow" Grid.Column="1" FrameworkElement.HorizontalAlignment="Center"
+                                  FrameworkElement.VerticalAlignment="Center" Path.Data="M0,0L3.5,4 7,0z"
+                                  Shape.Fill="{DynamicResource MetroForegroundBrush}" />
+                          </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                          <!--<Trigger Trigger.Property="SkinStorage.EnableTouch" Trigger.Value="True">
+                            <Setter Setter.TargetName="Arrow" Setter.Property="Path.Data" Setter.Value="M0,0L7,7 14,0z" />
+                          </Trigger>-->
+                          <Trigger Trigger.Property="ToggleButton.IsChecked" Trigger.Value="True">
+                            <Setter Setter.TargetName="Chrome1" Setter.Property="Border.Background"
+                                    Setter.Value="#FFFFFFFF" />
+                            <Setter Setter.TargetName="Arrow"
+                                    Setter.Value="{DynamicResource MetroHighlightedForegroundBrush}"
+                                    Setter.Property="Shape.Fill" />
+                          </Trigger>
+                          <Trigger Trigger.SourceName="Chrome1" Trigger.Property="UIElement.IsMouseOver"
+                                   Trigger.Value="True">
+                            <Setter Setter.TargetName="Chrome1" Setter.Value="{DynamicResource MetroHoverBrush}"
+                                    Setter.Property="Border.Background" />
+                          </Trigger>
+                          <Trigger Trigger.SourceName="Chrome1" Trigger.Property="UIElement.IsKeyboardFocusWithin"
+                                   Trigger.Value="True">
+                            <Setter Setter.TargetName="Chrome1" Setter.Property="Border.Background"
+                                    Setter.Value="#FFFFFFFF" />
+                          </Trigger>
+                          <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                              <Condition Condition.Property="ToggleButton.IsChecked" Condition.Value="True" />
+                              <Condition Condition.Property="UIElement.IsMouseOver" Condition.Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Setter.TargetName="Chrome1" Setter.Property="Border.Background"
+                                    Setter.Value="#FFFFFFFF" />
+                            <Setter Setter.TargetName="Arrow"
+                                    Setter.Value="{DynamicResource MetroHighlightedForegroundBrush}"
+                                    Setter.Property="Shape.Fill" />
+                          </MultiTrigger>
+                          <Trigger Trigger.Property="UIElement.IsEnabled" Trigger.Value="False">
+                            <Setter Setter.Property="UIElement.Opacity" Setter.Value="0.5" />
+                          </Trigger>
+                        </ControlTemplate.Triggers>
+                      </ControlTemplate>
+                    </Setter.Value>
+                  </Setter>
+                </Style>
+              </FrameworkElement.Style>
+            </ToggleButton>
+            <ContentPresenter ContentPresenter.Name="ContentSite" FrameworkElement.Margin="{TemplateBinding Control.Padding}" FrameworkElement.HorizontalAlignment="Left" FrameworkElement.VerticalAlignment="Center" ContentPresenter.Content="{TemplateBinding ComboBox.SelectionBoxItem}" ContentPresenter.ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}" UIElement.IsHitTestVisible="False" />
+            <TextBox TextBox.Name="PART_EditableTextBox" FrameworkElement.Margin="3,3,23,3" FrameworkElement.HorizontalAlignment="Left" FrameworkElement.VerticalAlignment="Center" Control.Background="#00FFFFFF" UIElement.Focusable="True" TextBoxBase.IsReadOnly="{TemplateBinding ComboBox.IsReadOnly}" UIElement.Visibility="Hidden">
+              <FrameworkElement.Style>
+                <Style Style.TargetType="{x:Type TextBox}">
+                  <Setter Setter.Property="FrameworkElement.OverridesDefaultStyle" Setter.Value="True" />
+                  <Setter Setter.Property="UIElement.AllowDrop" Setter.Value="True" />
+                  <Setter Setter.Property="FrameworkElement.MinWidth" Setter.Value="0" />
+                  <Setter Setter.Property="FrameworkElement.MinHeight" Setter.Value="0" />
+                  <Setter Setter.Property="FrameworkElement.FocusVisualStyle" Setter.Value="{x:Null}" />
+                  <Setter Setter.Property="Control.Template">
+                    <Setter.Value>
+                      <ControlTemplate ControlTemplate.TargetType="{x:Type TextBox}">
+                        <ScrollViewer ScrollViewer.Name="PART_ContentHost" Control.Background="#00FFFFFF" UIElement.Focusable="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" />
+                      </ControlTemplate>
+                    </Setter.Value>
+                  </Setter>
+                </Style>
+              </FrameworkElement.Style>
+            </TextBox>
+            <Popup Popup.Name="Popup" Popup.AllowsTransparency="True" UIElement.Focusable="False" Popup.IsOpen="{TemplateBinding ComboBox.IsDropDownOpen}" Popup.Placement="Bottom" Popup.PopupAnimation="Slide">
+              <Border Border.Name="DropDownBorder" Border.Background="{DynamicResource MetroPanelBackgroundBrush}" Border.BorderBrush="{DynamicResource MetroBorderBrush}" Border.BorderThickness="1">
+                <Grid Grid.Name="DropDown" FrameworkElement.MinWidth="{TemplateBinding FrameworkElement.ActualWidth}" FrameworkElement.MaxHeight="{TemplateBinding ComboBox.MaxDropDownHeight}" UIElement.SnapsToDevicePixels="True">
+                  <Grid.RowDefinitions>
+                    <RowDefinition RowDefinition.Height="*" />
+                    <RowDefinition RowDefinition.Height="Auto" />
+                  </Grid.RowDefinitions>
+                  <ScrollViewer FrameworkElement.Margin="4,6" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" UIElement.SnapsToDevicePixels="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ItemsPresenter ItemsPresenter.Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" UIElement.SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                  </ScrollViewer>
+                </Grid>
+              </Border>
+            </Popup>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Trigger.Property="ItemsControl.HasItems" Trigger.Value="False">
+              <Setter Setter.TargetName="DropDownBorder" Setter.Property="FrameworkElement.MinHeight" Setter.Value="95" />
+            </Trigger>
+            <Trigger Trigger.Property="UIElement.IsEnabled" Trigger.Value="False">
+              <Setter Setter.Value="{DynamicResource GrayTextBrush}" Setter.Property="Control.Foreground" />
+            </Trigger>
+            <Trigger Trigger.Property="ItemsControl.IsGrouping" Trigger.Value="True">
+              <Setter Setter.Property="ScrollViewer.CanContentScroll" Setter.Value="False" />
+            </Trigger>
+            <Trigger Trigger.SourceName="Popup" Trigger.Property="Popup.AllowsTransparency" Trigger.Value="True">
+              <Setter Setter.TargetName="DropDownBorder" Setter.Property="FrameworkElement.Margin" Setter.Value="0" />
+            </Trigger>
+            <Trigger Trigger.Property="ComboBox.IsEditable" Trigger.Value="True">
+              <Setter Setter.Property="Control.IsTabStop" Setter.Value="False" />
+              <Setter Setter.TargetName="PART_EditableTextBox" Setter.Property="UIElement.Visibility" Setter.Value="Visible" />
+              <Setter Setter.TargetName="ContentSite" Setter.Property="UIElement.Visibility" Setter.Value="Hidden" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <Trigger Trigger.Property="ComboBox.IsEditable" Trigger.Value="True">
+        <Setter Setter.Property="Control.BorderThickness" Setter.Value="1" />
+        <Setter Setter.Property="Control.BorderBrush" Setter.Value="{DynamicResource MetroBorderBrush}" />
+        <Setter Setter.Property="Control.Background" Setter.Value="{DynamicResource MetroPanelBackgroundBrush}" />
+        <Setter Setter.Property="Control.Foreground" Setter.Value="{DynamicResource MetroForegroundBrush}" />
+        <Setter Setter.Property="Control.IsTabStop" Setter.Value="False" />
+        <Setter Setter.Property="Control.Padding" Setter.Value="3" />
+        <Setter Setter.Property="Control.Template">
+          <Setter.Value>
+            <ControlTemplate ControlTemplate.TargetType="{x:Type ComboBox}">
+              <Grid>
+                <ToggleButton ToggleButton.Name="ToggleButton" Grid.Column="2" Control.Background="{TemplateBinding Control.Background}" Control.BorderBrush="{TemplateBinding Control.BorderBrush}" ButtonBase.ClickMode="Press" UIElement.Focusable="False" ToggleButton.IsChecked="{Binding IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}">
+                  <FrameworkElement.Style>
+                    <Style Style.TargetType="{x:Type ToggleButton}">
+                      <Setter Setter.Property="FrameworkElement.OverridesDefaultStyle" Setter.Value="True" />
+                      <Setter Setter.Property="Control.IsTabStop" Setter.Value="False" />
+                      <Setter Setter.Property="UIElement.Focusable" Setter.Value="False" />
+                      <Setter Setter.Property="Control.BorderThickness" Setter.Value="1" />
+                      <Setter Setter.Property="ButtonBase.ClickMode" Setter.Value="Press" />
+                      <Setter Setter.Property="Control.Template">
+                        <Setter.Value>
+                          <ControlTemplate ControlTemplate.TargetType="{x:Type ToggleButton}">
+                            <Border Border.Name="Chrome1" Border.Background="{TemplateBinding Control.Background}" Border.BorderBrush="{TemplateBinding Control.BorderBrush}" Border.BorderThickness="{TemplateBinding Control.BorderThickness}" UIElement.SnapsToDevicePixels="True">
+                              <Grid>
+                                <Grid.ColumnDefinitions>
+                                  <ColumnDefinition ColumnDefinition.Width="*" />
+                                  <ColumnDefinition ColumnDefinition.Width="20" DefinitionBase.SharedSizeGroup="ComboBoxButton" />
+                                </Grid.ColumnDefinitions>
+                                <Path Path.Name="Arrow" Grid.Column="1" FrameworkElement.HorizontalAlignment="Center" FrameworkElement.VerticalAlignment="Center" Path.Data="M0,0L3.5,4 7,0z" Shape.Fill="{DynamicResource MetroForegroundBrush}" />
+                              </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                              <!--<Trigger Trigger.Property="SkinStorage.EnableTouch" Trigger.Value="True">
+                                <Setter Setter.TargetName="Arrow" Setter.Property="Path.Data" Setter.Value="M0,0L7,7 14,0z" />
+                              </Trigger>-->
+                              <Trigger Trigger.Property="ToggleButton.IsChecked" Trigger.Value="True">
+                                <Setter Setter.TargetName="Chrome1" Setter.Property="Border.Background" Setter.Value="#FFFFFFFF" />
+                                <Setter Setter.TargetName="Arrow" Setter.Value="{DynamicResource MetroHighlightedForegroundBrush}" Setter.Property="Shape.Fill" />
+                              </Trigger>
+                              <Trigger Trigger.SourceName="Chrome1" Trigger.Property="UIElement.IsMouseOver" Trigger.Value="True">
+                                <Setter Setter.TargetName="Chrome1" Setter.Value="{DynamicResource MetroHoverBrush}" Setter.Property="Border.Background" />
+                              </Trigger>
+                              <Trigger Trigger.SourceName="Chrome1" Trigger.Property="UIElement.IsKeyboardFocusWithin" Trigger.Value="True">
+                                <Setter Setter.TargetName="Chrome1" Setter.Property="Border.Background" Setter.Value="#FFFFFFFF" />
+                              </Trigger>
+                              <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                  <Condition Condition.Property="ToggleButton.IsChecked" Condition.Value="True" />
+                                  <Condition Condition.Property="UIElement.IsMouseOver" Condition.Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter Setter.TargetName="Chrome1" Setter.Property="Border.Background" Setter.Value="#FFFFFFFF" />
+                                <Setter Setter.TargetName="Arrow" Setter.Value="{DynamicResource MetroHighlightedForegroundBrush}" Setter.Property="Shape.Fill" />
+                              </MultiTrigger>
+                              <Trigger Trigger.Property="UIElement.IsEnabled" Trigger.Value="False">
+                                <Setter Setter.Property="UIElement.Opacity" Setter.Value="0.5" />
+                              </Trigger>
+                            </ControlTemplate.Triggers>
+                          </ControlTemplate>
+                        </Setter.Value>
+                      </Setter>
+                    </Style>
+                  </FrameworkElement.Style>
+                </ToggleButton>
+                <ContentPresenter ContentPresenter.Name="ContentSite" FrameworkElement.Margin="3,3,23,3" FrameworkElement.HorizontalAlignment="Left" FrameworkElement.VerticalAlignment="Center" ContentPresenter.Content="{TemplateBinding ComboBox.SelectionBoxItem}" ContentPresenter.ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}" UIElement.IsHitTestVisible="False" />
+                <TextBox TextBox.Name="PART_EditableTextBox" FrameworkElement.Margin="3,3,23,3" FrameworkElement.HorizontalAlignment="Left" FrameworkElement.VerticalAlignment="Center" Control.Background="#00FFFFFF" UIElement.Focusable="True" TextBoxBase.IsReadOnly="{TemplateBinding ComboBox.IsReadOnly}" UIElement.Visibility="Hidden">
+                  <FrameworkElement.Style>
+                    <Style Style.TargetType="{x:Type TextBox}">
+                      <Setter Setter.Property="FrameworkElement.OverridesDefaultStyle" Setter.Value="True" />
+                      <Setter Setter.Property="UIElement.AllowDrop" Setter.Value="True" />
+                      <Setter Setter.Property="FrameworkElement.MinWidth" Setter.Value="0" />
+                      <Setter Setter.Property="FrameworkElement.MinHeight" Setter.Value="0" />
+                      <Setter Setter.Property="FrameworkElement.FocusVisualStyle" Setter.Value="{x:Null}" />
+                      <Setter Setter.Property="Control.Template">
+                        <Setter.Value>
+                          <ControlTemplate ControlTemplate.TargetType="{x:Type TextBox}">
+                            <ScrollViewer ScrollViewer.Name="PART_ContentHost" Control.Background="#00FFFFFF" UIElement.Focusable="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" />
+                          </ControlTemplate>
+                        </Setter.Value>
+                      </Setter>
+                    </Style>
+                  </FrameworkElement.Style>
+                </TextBox>
+                <Popup Popup.Name="Popup" Popup.AllowsTransparency="True" UIElement.Focusable="False" Popup.IsOpen="{TemplateBinding ComboBox.IsDropDownOpen}" Popup.Placement="Bottom" Popup.PopupAnimation="Slide">
+                  <Grid Grid.Name="DropDown" FrameworkElement.MinWidth="{TemplateBinding FrameworkElement.ActualWidth}" FrameworkElement.MaxHeight="{TemplateBinding ComboBox.MaxDropDownHeight}" UIElement.SnapsToDevicePixels="True">
+                    <Border Border.Name="DropDownBorder" Border.Background="{TemplateBinding Control.Background}" Border.BorderBrush="{TemplateBinding Control.BorderBrush}" Border.BorderThickness="1" />
+                    <ScrollViewer FrameworkElement.Margin="4,6" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" UIElement.SnapsToDevicePixels="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                      <ItemsPresenter ItemsPresenter.Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" UIElement.SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                    </ScrollViewer>
+                  </Grid>
+                </Popup>
+              </Grid>
+              <ControlTemplate.Triggers>
+                <Trigger Trigger.Property="UIElement.IsKeyboardFocusWithin" Trigger.Value="True">
+                  <Setter Setter.TargetName="ToggleButton" Setter.Value="{DynamicResource MetroBrush}" Setter.Property="Control.BorderBrush" />
+                </Trigger>
+                <Trigger Trigger.Property="ItemsControl.HasItems" Trigger.Value="False">
+                  <Setter Setter.TargetName="DropDownBorder" Setter.Property="FrameworkElement.MinHeight" Setter.Value="95" />
+                </Trigger>
+                <Trigger Trigger.Property="UIElement.IsEnabled" Trigger.Value="False">
+                  <Setter Setter.Value="{DynamicResource GrayTextBrush}" Setter.Property="Control.Foreground" />
+                </Trigger>
+                <Trigger Trigger.Property="ItemsControl.IsGrouping" Trigger.Value="True">
+                  <Setter Setter.Property="ScrollViewer.CanContentScroll" Setter.Value="False" />
+                </Trigger>
+                <Trigger Trigger.SourceName="Popup" Trigger.Property="Popup.AllowsTransparency" Trigger.Value="True">
+                  <Setter Setter.TargetName="DropDownBorder" Setter.Property="FrameworkElement.Margin" Setter.Value="0" />
+                </Trigger>
+                <Trigger Trigger.Property="ComboBox.IsEditable" Trigger.Value="True">
+                  <Setter Setter.Property="Control.IsTabStop" Setter.Value="False" />
+                  <Setter Setter.TargetName="PART_EditableTextBox" Setter.Property="UIElement.Visibility" Setter.Value="Visible" />
+                  <Setter Setter.TargetName="ContentSite" Setter.Property="UIElement.Visibility" Setter.Value="Hidden" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
 </ResourceDictionary>

@@ -249,6 +249,16 @@
             Displayed name of the item, typically used in user interfaces to represent the item.
             </summary>
         </member>
+        <member name="P:Qhta.SF.Tools.ISelectableItem.ToolTip">
+            <summary>
+            Optional tooltip text that provides additional information about the item when hovered over in a user interface.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.ISelectableItem.ActualValue">
+            <summary>
+            Actual value of the item, which can be of any type. This is the underlying data associated with the item.
+            </summary>
+        </member>
         <member name="P:Qhta.SF.Tools.ISelectableItem.IsSelected">
             <summary>
             Determines whether the item is currently selected in the user interface.
@@ -777,16 +787,39 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="T:Qhta.SF.Tools.SelectableItemStub">
+        <member name="T:Qhta.SF.Tools.SelectableItem">
             <summary>
             Class representing a selectable item with a display name and selection state - for UI purposes.
             </summary>
         </member>
-        <member name="P:Qhta.SF.Tools.SelectableItemStub.DisplayName">
+        <member name="P:Qhta.SF.Tools.SelectableItem.DisplayName">
             <inheritdoc />
         </member>
-        <member name="P:Qhta.SF.Tools.SelectableItemStub.IsSelected">
+        <member name="P:Qhta.SF.Tools.SelectableItem.ToolTip">
             <inheritdoc />
+        </member>
+        <member name="P:Qhta.SF.Tools.SelectableItem.IsSelected">
+            <inheritdoc />
+        </member>
+        <member name="P:Qhta.SF.Tools.SelectableItem.ActualValue">
+            <summary>
+            Implementation of the <see cref="P:Qhta.SF.Tools.ISelectableItem.ActualValue"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SelectableItem.Value">
+            <summary>
+            Value associated with the selectable item, which can be of any type.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SelectableItem.ValueConverter">
+            <summary>
+            Value converter for converting the value to a display string.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.SelectableItem.TooltipConverter">
+            <summary>
+            Value converter for converting the value to a tooltip string.
+            </summary>
         </member>
         <member name="T:Qhta.SF.Tools.SelectableItemValueConverter">
             <summary>
@@ -813,6 +846,21 @@
             <param name="culture"></param>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.SF.Tools.SelectedItemEnumToResourceConverter">
+            <summary>
+            Works like <see cref="T:Qhta.WPF.Converters.EnumToResourceConverter"/>, but if value is <see cref="T:Qhta.SF.Tools.ISelectableItem"/>, it takes its actual value.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.SelectedItemEnumToResourceConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Inherits from <see cref="T:Qhta.WPF.Converters.EnumToResourceConverter"/> and overrides the Convert method to handle <see cref="T:Qhta.SF.Tools.ISelectableItem"/>.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
         </member>
         <member name="T:Qhta.SF.Tools.SfDataGridBehavior">
             <summary>

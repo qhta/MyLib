@@ -68,8 +68,17 @@ public class UnicodeCategoryViewModel(UnicodeCategoryEntity model)
     get => Name ?? _DisplayName;
     set => _DisplayName = value;
   }
-
   private string _DisplayName = Strings.EmptyValue;
+
+  /// <summary>
+  /// Implementation of the <see cref="ISelectableItem.ToolTip"/> property.
+  /// </summary>
+  public string? ToolTip { get; } = null;
+
+  /// <summary>
+  /// Implementation of the <see cref="ISelectableItem.ActualValue"/> property.
+  /// </summary>
+  public object? ActualValue => this;
 
   /// <summary>
   /// Determines whether the item is selected in the UI.

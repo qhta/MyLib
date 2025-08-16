@@ -1,7 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Net.Mime;
 using System.Windows;
 using System.Windows.Controls;
+
 using Syncfusion.Data;
+using Syncfusion.Windows.Controls.Input;
 
 namespace Qhta.SF.Tools.Views;
 
@@ -206,15 +209,15 @@ public partial class SpecificValueWindow : Window
   /// Dependency property for the <see cref="TextValue"/> property, which is the value entered by the user in the text box.
   /// </summary>
   public static DependencyProperty TextValueProperty =
-    DependencyProperty.Register(nameof(TextValue), typeof(object), typeof(SpecificValueWindow), new PropertyMetadata(null));
+    DependencyProperty.Register(nameof(TextValue), typeof(string), typeof(SpecificValueWindow), new PropertyMetadata(null));
 
   /// <summary>
   /// Text value entered by the user in the text box.
   /// </summary>
-  public object? TextValue
+  public string? TextValue
   {
     [DebuggerStepThrough]
-    get => GetValue(TextValueProperty);
+    get => (string?)GetValue(TextValueProperty);
     set => SetValue(TextValueProperty, value);
   }
   #endregion
@@ -348,4 +351,31 @@ public partial class SpecificValueWindow : Window
     window.Close();
   }
   #endregion
+
+  private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+  {
+    if (sender is TabControl tabControl && ViewMode == SpecificViewMode.Both)
+    {
+      if (tabControl.SelectedIndex == 1)
+      {
+        if (SelectedItem is ISelectableItem selectableItem)
+        {
+          var displayName = selectableItem.DisplayName;
+          if (!displayName.StartsWith("(")) TextValue = selectableItem.DisplayName;
+        }
+      }
+      else
+      if (tabControl.SelectedIndex == 0)
+      {
+        if (!String.IsNullOrEmpty(TextValue))
+        {
+          if (ItemsSource is IQueryable<ISelectableItem> selectableItems)
+          {
+            var foundItem = selectableItems.FirstOrDefault(item => item.DisplayName == TextValue);
+            if (foundItem != null) SelectedItem = foundItem;
+          }
+        }
+      }
+    }
+  }
 }

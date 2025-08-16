@@ -76,7 +76,7 @@
             },
             "Qhta.WPF.Converters": {
               "target": "Package",
-              "version": "[1.6.0, )"
+              "version": "[1.7.0, )"
             },
             "Qhta.WPF.Utils": {
               "target": "Package",

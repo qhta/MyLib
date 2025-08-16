@@ -469,6 +469,11 @@
             Resource type that contains the localized strings for the enum values.
             </summary>
         </member>
+        <member name="P:Qhta.WPF.Converters.EnumToResourceConverter.Suffix">
+            <summary>
+            Suffix to append to the enum value name when looking up the resource key.
+            </summary>
+        </member>
         <member name="M:Qhta.WPF.Converters.EnumToResourceConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <summary>
             Converts an enum value to its corresponding localized resource string.

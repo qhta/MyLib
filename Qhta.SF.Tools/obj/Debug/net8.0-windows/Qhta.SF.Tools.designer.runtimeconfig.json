@@ -14,7 +14,7 @@
     "additionalProbingPaths": [
       "C:\\Users\\qhta1\\.nuget\\packages",
       "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-      "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.2.4\\ToolboxNuGetPackages"
+      "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\30.2.4\\ToolboxNuGetPackages"
     ],
     "configProperties": {
       "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": true,

@@ -46,9 +46,9 @@ public static class SfDataGridFiltering
       if (items.First() is { } firstItem && firstItem.DisplayName != Strings.EmptyValue)
       {
         // Add "Empty" item if not present.                        
-        items.Insert(0, new SelectableItemStub { DisplayName = Strings.EmptyValue });
+        items.Insert(0, new SelectableItem { DisplayName = Strings.EmptyValue });
       }
-      items.Insert(1, new SelectableItemStub { DisplayName = Strings.NonEmptyValue });
+      items.Insert(1, new SelectableItem { DisplayName = Strings.NonEmptyValue });
 
       var filters = items.Select(item => new FilterElement
       {

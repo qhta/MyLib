@@ -91,7 +91,7 @@ public class FindCommand : Command
     var column = selectedColumns.FirstOrDefault();
     if (column != null)
     {
-      if (column.GetFinder()==null)
+      if (column.GetFinder() == null)
       {
         //Debug.WriteLine("FindInColumnCommand: LastColumn does not match the current column.");
         return false;
@@ -143,17 +143,42 @@ public class FindCommand : Command
       };
 
       List<ISelectableItem>? items = null;
-      if (column is GridComboBoxColumn comboBoxColumn && comboBoxColumn.ItemsSource is IEnumerable<ISelectableItem> selectableItems)
+      if (column is GridComboBoxColumn comboBoxColumn)
       {
-        items = selectableItems.ToList();
-        if (items.First() is { } firstItem && firstItem.DisplayName != Strings.EmptyValue)
+        var itemTemplate = comboBoxColumn.ItemTemplate;
+        if (itemTemplate != null)
         {
-          // Add "Empty" item if not present.                        
-          items.Insert(0, new SelectableItemStub { DisplayName = Strings.EmptyValue });
+          //// If the column has an item template, we need to extract the display name from the items.
+          //var displayNameProperty = itemTemplate.VisualTree.FirstChild()
+          //FindName("DisplayName", selectValueWindow) as DependencyProperty;
+          //if (displayNameProperty == null)
+          //{
+          //  throw new InvalidOperationException("Item template must have a DisplayName property.");
+          //}
         }
-        items.Insert(1, new SelectableItemStub { DisplayName = Strings.NonEmptyValue });
-        selectValueWindow.ItemsSource = items;
-
+        if (comboBoxColumn.ItemsSource is IEnumerable<ISelectableItem> selectableItems)
+        {
+          items = selectableItems.ToList();
+          if (items.First() is { } firstItem && firstItem.DisplayName != Strings.EmptyValue)
+          {
+            // Add "Empty" item if not present.                        
+            items.Insert(0, new SelectableItem { DisplayName = Strings.EmptyValue });
+          }
+          items.Insert(1, new SelectableItem { DisplayName = Strings.NonEmptyValue });
+          selectValueWindow.ItemsSource = items;
+        }
+        else
+        {
+          items = new List<ISelectableItem>();
+          items.Add(new SelectableItem { DisplayName = Strings.EmptyValue});
+          items.Add(new SelectableItem { DisplayName = Strings.NonEmptyValue });
+          foreach (var item in comboBoxColumn.ItemsSource)
+            if (item!=null)
+            {
+              items.Add(new SelectableItem { Value = item });
+            }
+          selectValueWindow.ItemsSource = items;
+        }
       }
       SfDataGridFinder? finder = column.GetFinder();
       if (finder == null)
@@ -168,7 +193,7 @@ public class FindCommand : Command
         selectValueWindow.CaseSensitive = finder.Predicate.IsCaseSensitive;
         if (finder.SpecifiedValue is string str)
           selectValueWindow.TextValue = str;
-        else if (items!=null)
+        else if (items != null)
         {
           if (finder.SpecifiedValue is ISelectableItem selectableItem)
           {
@@ -196,7 +221,7 @@ public class FindCommand : Command
         var predicate = CreatePredicate(ref specifiedValue, viewMode, filterType, caseSensitive);
         finder.Predicate = predicate;
         finder.SpecifiedValue = specifiedValue;
-
+        finder.StrongTyped = (viewMode == SpecificViewMode.Selector);
         switch (findInSequence)
         {
           case FindInSequence.FindNext:

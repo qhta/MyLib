@@ -27,6 +27,10 @@
   <converters:EnumToResourceConverter 
     ResourceType="{x:Type resources:WritingSystemTypeStrings}" x:Key="WritingSystemTypeResourceConverter"/>
   <converters:EnumToResourceConverter 
+    ResourceType="{x:Type resources:WritingSystemTypeStrings}" Suffix="Tooltip"
+    x:Key="WritingSystemTypeTooltipResourceConverter"/>
+
+  <converters:EnumToResourceConverter 
     ResourceType="{x:Type resources:WritingSystemKindStrings}" x:Key="WritingSystemKindResourceConverter"/>
   <converters:EnumToResourceConverter 
     ResourceType="{x:Type resources:NameGenMethodStrings}" x:Key="NameGenMethodResourceConverter"/>

@@ -15,6 +15,12 @@ public class EnumToResourceConverter : IValueConverter
   /// Resource type that contains the localized strings for the enum values.
   /// </summary>
   public Type ResourceType { [DebuggerStepThrough] get; set; } = null!;
+
+  /// <summary>
+  /// Suffix to append to the enum value name when looking up the resource key.
+  /// </summary>
+  public string? Suffix { [DebuggerStepThrough] get; set; } = null!;
+
   private ResourceManager? resourceMan = null;
   private ResourceManager _resourceManager
   {
@@ -43,10 +49,8 @@ public class EnumToResourceConverter : IValueConverter
     string? resourceKey = value?.ToString();
     if (resourceKey==null)
       return null;
-    if (parameter is string param)
-    {
-      resourceKey = $"{resourceKey}{param}";
-    }
+    resourceKey += Suffix;
+
     // Retrieve the translation from the resource file
 
     string? translation = _resourceManager.GetString(resourceKey, culture);
