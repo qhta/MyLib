@@ -1,11 +1,6 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-
-using Qhta.SF.Tools.Resources;
 
 using Syncfusion.Data;
 using Syncfusion.UI.Xaml.Grid;
@@ -218,81 +213,94 @@ public class SfDataGridFinder
   /// <returns>True if the current value compared against specified value satisfies the conditions of the predicate.</returns>
   private static bool EvaluatePredicate(object? currentValue, object? specifiedValue, FilterPredicate predicate)
   {
-    if (predicate.FilterBehavior == FilterBehavior.StringTyped)
+    try
     {
-      // If the filter behavior is StringTyped, we treat both values as strings for comparison
-      var currentText = (currentValue is ISelectableItem selectableItem) ? selectableItem.DisplayName : currentValue?.ToString() ?? "";
-      var specifiedText = (specifiedValue is ISelectableItem selectableItem2) ? selectableItem2.DisplayName : specifiedValue?.ToString() ?? "";
-      if (!predicate.IsCaseSensitive)
+      if (predicate.FilterBehavior == FilterBehavior.StringTyped)
       {
-        // Case-insensitive comparison
-        specifiedText = specifiedText.ToLower();
-        currentText = currentText.ToLower();
+        // If the filter behavior is StringTyped, we treat both values as strings for comparison
+        var currentText = (currentValue is ISelectableItem selectableItem) ? selectableItem.DisplayName : currentValue?.ToString() ?? "";
+        var specifiedText = (specifiedValue is ISelectableItem selectableItem2) ? selectableItem2.DisplayName : specifiedValue?.ToString() ?? "";
+        if (!predicate.IsCaseSensitive)
+        {
+          // Case-insensitive comparison
+          specifiedText = specifiedText.ToLower();
+          currentText = currentText.ToLower();
+        }
+        double currentNumber;
+        double specifiedNumber;
+        //Debug.WriteLine($"Current text = {currentText}");
+        switch (predicate.FilterType)
+        {
+          case FilterType.Equals:
+            if (currentText == "" && specifiedText == "") return true;
+            return currentText.Equals(specifiedText);
+          case FilterType.NotEquals:
+            if (currentText != "" && specifiedText == "") return true;
+            return !currentText.Equals(specifiedText);
+          case FilterType.StartsWith:
+            if (currentText == "" && specifiedText == "") return true;
+            return currentText.StartsWith(specifiedText);
+          case FilterType.NotStartsWith:
+            if (currentText != "" && specifiedText == "") return true;
+            return !currentText.StartsWith(specifiedText);
+          case FilterType.EndsWith:
+            if (currentText == "" && specifiedText == "") return true;
+            return currentText.EndsWith(specifiedText);
+          case FilterType.NotEndsWith:
+            if (currentText != "" && specifiedText == "") return true;
+            return !currentText.EndsWith(specifiedText);
+          case FilterType.Contains:
+            if (currentText == "" && specifiedText == "") return true;
+            return currentText.Contains(specifiedText);
+          case FilterType.NotContains:
+            if (currentText != "" && specifiedText == "") return true;
+            return !currentText.Contains(specifiedText);
+          case FilterType.GreaterThan:
+            return (double.TryParse(currentText, out currentNumber) && double.TryParse(specifiedText, out specifiedNumber) && currentNumber > specifiedNumber);
+          case FilterType.GreaterThanOrEqual:
+            return (double.TryParse(currentText, out currentNumber) && double.TryParse(specifiedText, out specifiedNumber) && currentNumber >= specifiedNumber);
+          case FilterType.LessThan:
+            return (double.TryParse(currentText, out currentNumber) && double.TryParse(specifiedText, out specifiedNumber) && currentNumber < specifiedNumber);
+          case FilterType.LessThanOrEqual:
+            return (double.TryParse(currentText, out currentNumber) && double.TryParse(specifiedText, out specifiedNumber) && currentNumber <= specifiedNumber);
+        }
       }
-      double currentNumber;
-      double specifiedNumber;
-      //Debug.WriteLine($"Current text = {currentText}");
-      switch (predicate.FilterType)
+      else if (predicate.FilterBehavior == FilterBehavior.StronglyTyped)
       {
-        case FilterType.Equals:
-          if (currentText.Equals(specifiedText)) return true;
-          break;
-        case FilterType.NotEquals:
-          if (!currentText.Equals(specifiedText)) return true;
-          break;
-        case FilterType.StartsWith:
-          if (currentText.StartsWith(specifiedText)) return true;
-          break;
-        case FilterType.NotStartsWith:
-          if (!currentText.StartsWith(specifiedText)) return true;
-          break;
-        case FilterType.EndsWith:
-          if (currentText.EndsWith(specifiedText)) return true;
-          break;
-        case FilterType.NotEndsWith:
-          if (!currentText.EndsWith(specifiedText)) return true;
-          break;
-        case FilterType.Contains:
-          if (currentText.Contains(specifiedText)) return true;
-          break;
-        case FilterType.NotContains:
-          if (!currentText.Contains(specifiedText)) return true;
-          break;
-        case FilterType.GreaterThan:
-          if (double.TryParse(currentText, out currentNumber) && double.TryParse(specifiedText, out specifiedNumber))
-            if (currentNumber > specifiedNumber) return true;
-          break;
-        case FilterType.GreaterThanOrEqual:
-          if (double.TryParse(currentText, out currentNumber) && double.TryParse(specifiedText, out specifiedNumber))
-            if (currentNumber >= specifiedNumber) return true;
-          break;
-        case FilterType.LessThan:
-          if (double.TryParse(currentText, out currentNumber) && double.TryParse(specifiedText, out specifiedNumber))
-            if (currentNumber < specifiedNumber) return true;
-          break;
-        case FilterType.LessThanOrEqual:
-          if (double.TryParse(currentText, out currentNumber) && double.TryParse(specifiedText, out specifiedNumber))
-            if (currentNumber <= specifiedNumber) return true;
-          break;
+        if (specifiedValue is ISelectableItem selectableItem)
+          specifiedValue = selectableItem?.ActualValue;
+        if (currentValue is ISelectableItem currentItem)
+          currentValue = currentItem?.ActualValue;
+
+        switch (predicate.FilterType)
+        {
+          case FilterType.Equals:
+            if (currentValue == null && specifiedValue == null) return true;
+            if (currentValue != null && currentValue.Equals(specifiedValue)) return true;
+            return false;
+          case FilterType.NotEquals:
+            if (currentValue != null && specifiedValue == null) return true;
+            if (currentValue != null && !currentValue.Equals(specifiedValue)) return true;
+            return false;
+          case FilterType.StartsWith:
+          case FilterType.NotStartsWith:
+          case FilterType.EndsWith:
+          case FilterType.NotEndsWith:
+          case FilterType.Contains:
+          case FilterType.NotContains:
+            throw new InvalidOperationException($"FilterType '{predicate.FilterType}' is not supported for StronglyTyped behavior.");
+          case FilterType.GreaterThan:
+          case FilterType.GreaterThanOrEqual:
+          case FilterType.LessThan:
+          case FilterType.LessThanOrEqual:
+            throw new InvalidOperationException($"FilterType '{predicate.FilterType}' is not supported for StronglyTyped behavior.");
+        }
       }
     }
-    else if (predicate.FilterBehavior == FilterBehavior.StronglyTyped)
+    catch (Exception ex)
     {
-      if (specifiedValue is ISelectableItem selectableItem) 
-        specifiedValue = selectableItem?.ActualValue;
-      if (currentValue is ISelectableItem currentItem)
-        currentValue = currentItem?.ActualValue;
-
-      if (predicate.FilterType == FilterType.Equals)
-      {
-        if (specifiedValue == null && currentValue == null) return true;
-        if (currentValue != null && currentValue.Equals(specifiedValue)) return true;
-      }
-      else if (predicate.FilterType == FilterType.NotEquals)
-      {
-        if (specifiedValue == null && currentValue != null) return true;
-        if (currentValue != null && !currentValue.Equals(specifiedValue)) return true;
-      }
+      // Log the exception or handle it as needed
+      Debug.WriteLine($"Error evaluating predicate: {ex.Message}");
     }
     return false;
   }
@@ -314,7 +322,7 @@ public class SfDataGridFinder
       // If the filter behavior is StringTyped, we treat both values as strings for comparison
       var currentText = (currentValue is ISelectableItem selectableItem) ? selectableItem.DisplayName : currentValue?.ToString();
       var specifiedText = (specifiedValue is ISelectableItem selectableItem2) ? selectableItem2.DisplayName : specifiedValue?.ToString() ?? "";
-      var replacementText = (replacement is ISelectableItem selectableItem3) ? selectableItem3.DisplayName : specifiedValue?.ToString();
+      var replacementText = (replacement is ISelectableItem selectableItem3) ? selectableItem3.DisplayName : replacement?.ToString();
 
       if (!predicate.IsCaseSensitive)
       {

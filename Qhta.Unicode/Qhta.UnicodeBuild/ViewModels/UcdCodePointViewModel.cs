@@ -74,7 +74,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   /// </summary>
   public string? CharName
   {
-    get => Model.CharName;
+    get => (!string.IsNullOrEmpty(Model.CharName)) ? Model.CharName : null;
     set => ChangeEntityProperty(nameof(CharName), nameof(Model.CharName), value);
   }
 
