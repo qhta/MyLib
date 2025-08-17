@@ -86,7 +86,7 @@ public class FillColumnCommand : Command
         if (property == null) return;
         var propertyType = property.PropertyType;
         var itemsSource = comboBoxColumn.ItemsSource;
-        var selectValueWindow = new SpecificValueWindow
+       var selectValueWindow = new SpecificValueWindow
         {
           Prompt = String.Format(Strings.SelectValueForField, column.HeaderText),
           ItemsSource = itemsSource,

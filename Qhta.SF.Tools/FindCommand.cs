@@ -138,7 +138,6 @@ public class FindCommand : Command
       var selectValueWindow = new SpecificValueWindow
       {
         Prompt = String.Format(Strings.EnterValueForField, column.HeaderText),
-        WindowMode = SpecificWindowMode.Find,
         ViewMode = mode,
       };
 
@@ -159,27 +158,33 @@ public class FindCommand : Command
         if (comboBoxColumn.ItemsSource is IEnumerable<ISelectableItem> selectableItems)
         {
           items = selectableItems.ToList();
-          if (items.First() is { } firstItem && firstItem.DisplayName != Strings.EmptyValue)
+          if (items.First() is { } firstItem && !firstItem.IsEmpty)
           {
             // Add "Empty" item if not present.                        
             items.Insert(0, new SelectableItem { DisplayName = Strings.EmptyValue });
           }
-          items.Insert(1, new SelectableItem { DisplayName = Strings.NonEmptyValue });
+          items.Insert(1, new SelectableItem { DisplayName = Strings.NonEmptyValue, Value=NonEmptyValue.Instance });
           selectValueWindow.ItemsSource = items;
+          selectValueWindow.ReplacementSource = selectableItems;
         }
         else
         {
           items = new List<ISelectableItem>();
+          var items2 = new List<ISelectableItem>(); // almost same as items, but without NonEmptyValue
           items.Add(new SelectableItem { DisplayName = Strings.EmptyValue});
-          items.Add(new SelectableItem { DisplayName = Strings.NonEmptyValue });
+          items2.Add(new SelectableItem { DisplayName = Strings.EmptyValue });
+          items.Add(new SelectableItem { DisplayName = Strings.NonEmptyValue, Value=NonEmptyValue.Instance });
           foreach (var item in comboBoxColumn.ItemsSource)
             if (item!=null)
             {
               items.Add(new SelectableItem { Value = item });
+              items2.Add(new SelectableItem { Value = item });
             }
           selectValueWindow.ItemsSource = items;
+          selectValueWindow.ReplacementSource = items2;
         }
       }
+
       SfDataGridFinder? finder = column.GetFinder();
       if (finder == null)
       {
@@ -206,8 +211,20 @@ public class FindCommand : Command
             if (foundItem != null) selectValueWindow.SelectedItem = foundItem;
           }
         }
-
       }
+
+      if (!dataGrid.IsReadOnly && finder.Property.CanWrite)
+      {
+        selectValueWindow.WindowMode = SpecificWindowMode.FindAndReplace;
+        selectValueWindow.Replace = finder.Replace;
+        selectValueWindow.ReplacementItem = finder.Replacement;
+        selectValueWindow.ReplacementText = finder.Replacement?.ToString();
+      }
+      else
+      {
+        selectValueWindow.WindowMode = SpecificWindowMode.FindAndReplace;
+      }
+
       var dialogResult = selectValueWindow.ShowDialog();
 
       if (dialogResult == true)
@@ -221,6 +238,9 @@ public class FindCommand : Command
         var predicate = CreatePredicate(ref specifiedValue, viewMode, filterType, caseSensitive);
         finder.Predicate = predicate;
         finder.SpecifiedValue = specifiedValue;
+        finder.Replace = selectValueWindow.Replace;
+        finder.Replacement = (viewMode == SpecificViewMode.Selector)
+          ? selectValueWindow.ReplacementItem : selectValueWindow.ReplacementText;
         finder.StrongTyped = (viewMode == SpecificViewMode.Selector);
         switch (findInSequence)
         {
@@ -296,12 +316,12 @@ public class FindCommand : Command
   {
     if (viewMode == SpecificViewMode.Selector && specifiedValue is ISelectableItem selectableItem)
     {
-      if (selectableItem.DisplayName == Strings.EmptyValue || selectableItem.DisplayName == string.Empty)
+      if (selectableItem.IsEmpty)
       {
         specifiedValue = null; // Treat empty value as null for filtering
         return new FilterPredicate { FilterBehavior = FilterBehavior.StronglyTyped, FilterType = FilterType.Equals };
       }
-      if (selectableItem.DisplayName == Strings.NonEmptyValue)
+      if (selectableItem.IsNonEmpty)
       {
         specifiedValue = null; // Treat empty value as null for filtering
         return new FilterPredicate { FilterBehavior = FilterBehavior.StronglyTyped, FilterType = FilterType.NotEquals };

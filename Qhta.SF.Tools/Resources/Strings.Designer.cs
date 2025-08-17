@@ -178,6 +178,15 @@ namespace Qhta.SF.Tools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replace with.
+        /// </summary>
+        public static string ReplaceWith {
+            get {
+                return ResourceManager.GetString("ReplaceWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Searched text.
         /// </summary>
         public static string SearchedText {

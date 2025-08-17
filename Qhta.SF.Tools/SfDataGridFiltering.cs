@@ -43,12 +43,12 @@ public static class SfDataGridFiltering
       filterControl.FilterMode = FilterMode.Both;
       filterControl.AllowBlankFilters = true;
       var items = sourceCollection.ToList();
-      if (items.First() is { } firstItem && firstItem.DisplayName != Strings.EmptyValue)
+      if (items.First() is { } firstItem && !firstItem.IsEmpty)
       {
         // Add "Empty" item if not present.                        
         items.Insert(0, new SelectableItem { DisplayName = Strings.EmptyValue });
       }
-      items.Insert(1, new SelectableItem { DisplayName = Strings.NonEmptyValue });
+      items.Insert(1, new SelectableItem { DisplayName = Strings.NonEmptyValue, Value = NonEmptyValue.Instance });
 
       var filters = items.Select(item => new FilterElement
       {
@@ -84,12 +84,12 @@ public static class SfDataGridFiltering
         }
         else if (predicate.FilterValue is ISelectableItem item)
         {
-          if (item.DisplayName == Strings.EmptyValue)
+          if (item.IsEmpty)
           {
             predicate.FilterType = FilterType.Equals;
             predicate.FilterValue = null;
           }
-          if (item.DisplayName == Strings.NonEmptyValue)
+          if (item.IsNonEmpty)
           {
             predicate.FilterType = FilterType.NotEquals;
             predicate.FilterValue = null;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -63,7 +64,8 @@ public class SfDataGridFinder
       specifiedValue = value;
     }
   }
-  internal object? specifiedValue { get; set; }
+
+  internal object? specifiedValue;
 
   /// <summary>
   /// Determines whether to replace the found value with the specified value.
@@ -71,22 +73,22 @@ public class SfDataGridFinder
   public bool Replace { get; set; }
 
   /// <summary>
-  /// Specified value to search for.
-  /// It can be a string or any other type, depending on the FilterBehavior of the predicate.
+  /// Specified text to replace specified text (in StringTyped mode only).
   /// </summary>
   public object? Replacement
   {
-    get => _Replacement;
+    get => replacement;
     set
     {
       if (DataGrid.IsReadOnly)
         throw new InvalidOperationException($"DataGrid is read-only.");
       if (!Property.CanWrite)
         throw new InvalidOperationException($"Property '{Property.Name}' is read-only.");
-      _Replacement = value;
+      replacement = value;
     }
   }
-  internal object? _Replacement { get; set; }
+
+  internal object? replacement;
 
   /// <summary>
   /// Predicate defining the conditions of comparison.
@@ -96,7 +98,7 @@ public class SfDataGridFinder
     get => predicate;
     set => predicate = value;
   }
-  internal FilterPredicate predicate { get; set; } = new()
+  internal FilterPredicate predicate = new()
   {
     FilterBehavior = FilterBehavior.StringTyped,
     FilterType = FilterType.Contains,
@@ -120,6 +122,11 @@ public class SfDataGridFinder
         DataGrid.SelectAllColumns(false);
         DataGrid.SelectCells(row, Column, row, Column);
         DataGrid.ScrollInView(new RowColumnIndex(rowIndex, columnIndex));
+        if (Replace)
+        {
+          var replacementValue = EvaluateReplacement(currentValue, specifiedValue, replacement, predicate);
+          Property.SetValue(row, replacementValue);
+        }
         return true;
       }
     }
@@ -151,6 +158,11 @@ public class SfDataGridFinder
         DataGrid.SelectAllColumns(false);
         DataGrid.SelectCells(row, Column, row, Column);
         DataGrid.ScrollInView(new RowColumnIndex(rowIndex, columnIndex));
+        if (Replace)
+        {
+          var replacementValue = EvaluateReplacement(currentValue, specifiedValue, replacement, predicate);
+          Property.SetValue(row, replacementValue);
+        }
         return true;
       }
     }
@@ -182,6 +194,11 @@ public class SfDataGridFinder
           DataGrid.SelectAllColumns(false);
         }
         found++;
+        if (Replace)
+        {
+          var replacementValue = EvaluateReplacement(currentValue, specifiedValue, replacement, predicate);
+          Property.SetValue(row, replacementValue);
+        }
         DataGrid.SelectCells(row, Column, row, Column);
       }
     }
@@ -189,7 +206,6 @@ public class SfDataGridFinder
       DataGrid.ScrollInView(new RowColumnIndex(firstRowIndex, columnIndex));
     return found;
   }
-
 
   /// <summary>
   /// Evaluates the specified predicate against the current value and specified value.
@@ -265,7 +281,7 @@ public class SfDataGridFinder
       if (specifiedValue is ISelectableItem selectableItem) 
         specifiedValue = selectableItem?.ActualValue;
       if (currentValue is ISelectableItem currentItem)
-        specifiedValue = currentItem?.ActualValue;
+        currentValue = currentItem?.ActualValue;
 
       if (predicate.FilterType == FilterType.Equals)
       {
@@ -280,4 +296,53 @@ public class SfDataGridFinder
     }
     return false;
   }
+
+  /// <summary>
+  /// Replaces the specified text in the current value with the replacement text based on the predicate.
+  /// </summary>
+  /// <param name="currentValue">Value found in the cell</param>
+  /// <param name="specifiedValue">Specified value to compare to</param>
+  /// <param name="predicate">Conditions of comparison.
+  /// If predicate FilterBehavior is StringTyped, then all values of FilterType are evaluated.
+  /// For StronglyTyped behavior only Equals and NotEquals functions are evaluated.</param>
+  /// <param name="replacement">Value to replace specified value</param>
+  /// <returns>True if the current value compared against specified value satisfies the conditions of the predicate.</returns>
+  private static object? EvaluateReplacement(object? currentValue, object? specifiedValue, object? replacement, FilterPredicate predicate)
+  {
+    if (predicate.FilterBehavior == FilterBehavior.StringTyped)
+    {
+      // If the filter behavior is StringTyped, we treat both values as strings for comparison
+      var currentText = (currentValue is ISelectableItem selectableItem) ? selectableItem.DisplayName : currentValue?.ToString();
+      var specifiedText = (specifiedValue is ISelectableItem selectableItem2) ? selectableItem2.DisplayName : specifiedValue?.ToString() ?? "";
+      var replacementText = (replacement is ISelectableItem selectableItem3) ? selectableItem3.DisplayName : specifiedValue?.ToString();
+
+      if (!predicate.IsCaseSensitive)
+      {
+        // Case-insensitive comparison
+        specifiedText = specifiedText.ToLower();
+      }
+      switch (predicate.FilterType)
+      {
+        case FilterType.StartsWith:
+          if (currentText == null) return replacementText;
+          return replacementText + currentText.Substring(specifiedText.Length);
+        case FilterType.EndsWith:
+          if (currentText == null) return replacementText;
+          return currentText.Substring(0, currentText.Length - specifiedText.Length) + replacementText;
+        case FilterType.Contains:
+          if (currentText == null) return replacementText;
+          return currentText.Replace(specifiedText, replacementText, ignoreCase:true, culture: CultureInfo.CurrentCulture);
+        default:
+          return replacementText;
+      }
+    }
+    if (predicate.FilterBehavior == FilterBehavior.StronglyTyped)
+    {
+      if (replacement is ISelectableItem replacementItem)
+        replacement = replacementItem.ActualValue;
+      return replacement;
+    }
+    return currentValue;
+  }
+
 }

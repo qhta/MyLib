@@ -24,4 +24,14 @@ public interface ISelectableItem
   /// Determines whether the item is currently selected in the user interface.
   /// </summary>
   public bool IsSelected { get; set; }
+
+  /// <summary>
+  /// Determines whether the item should be considered as empty value.
+  /// </summary>
+  public bool IsEmpty => ActualValue is null;
+
+  /// <summary>
+  /// Determines whether the item should be considered as any non-empty value.
+  /// </summary>
+  public bool IsNonEmpty => ActualValue is NonEmptyValue;
 }

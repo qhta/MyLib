@@ -264,6 +264,16 @@
             Determines whether the item is currently selected in the user interface.
             </summary>
         </member>
+        <member name="P:Qhta.SF.Tools.ISelectableItem.IsEmpty">
+            <summary>
+            Determines whether the item should be considered as empty value.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.ISelectableItem.IsNonEmpty">
+            <summary>
+            Determines whether the item should be considered as any non-empty value.
+            </summary>
+        </member>
         <member name="T:Qhta.SF.Tools.LongTextColumn">
             <summary>
             Represents a column in a data grid that adjusts its row height based on the content length.
@@ -374,6 +384,16 @@
             <param name="culture"></param>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.SF.Tools.NonEmptyValue">
+            <summary>
+            Singleton class representing a non-empty value in the application.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.NonEmptyValue.Instance">
+            <summary>
+            Static singleton instance of the NonEmptyValue class.
+            </summary>
         </member>
         <member name="T:Qhta.SF.Tools.RecordNavigationBar">
             <summary>
@@ -653,6 +673,11 @@
         <member name="P:Qhta.SF.Tools.Resources.Strings.ReplacementText">
             <summary>
               Looks up a localized string similar to Replacement.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Resources.Strings.ReplaceWith">
+            <summary>
+              Looks up a localized string similar to Replace with.
             </summary>
         </member>
         <member name="P:Qhta.SF.Tools.Resources.Strings.SearchedText">
@@ -1220,8 +1245,7 @@
         </member>
         <member name="P:Qhta.SF.Tools.SfDataGridFinder.Replacement">
             <summary>
-            Specified value to search for.
-            It can be a string or any other type, depending on the FilterBehavior of the predicate.
+            Specified text to replace specified text (in StringTyped mode only).
             </summary>
         </member>
         <member name="P:Qhta.SF.Tools.SfDataGridFinder.Predicate">
@@ -1256,6 +1280,18 @@
             <param name="predicate">Conditions of comparison.
             If predicate FilterBehavior is StringTyped, then all values of FilterType are evaluated.
             For StronglyTyped behavior only Equals and NotEquals functions are evaluated.</param>
+            <returns>True if the current value compared against specified value satisfies the conditions of the predicate.</returns>
+        </member>
+        <member name="M:Qhta.SF.Tools.SfDataGridFinder.EvaluateReplacement(System.Object,System.Object,System.Object,Syncfusion.Data.FilterPredicate)">
+            <summary>
+            Replaces the specified text in the current value with the replacement text based on the predicate.
+            </summary>
+            <param name="currentValue">Value found in the cell</param>
+            <param name="specifiedValue">Specified value to compare to</param>
+            <param name="predicate">Conditions of comparison.
+            If predicate FilterBehavior is StringTyped, then all values of FilterType are evaluated.
+            For StronglyTyped behavior only Equals and NotEquals functions are evaluated.</param>
+            <param name="replacement">Value to replace specified value</param>
             <returns>True if the current value compared against specified value satisfies the conditions of the predicate.</returns>
         </member>
         <member name="T:Qhta.SF.Tools.SfDataGridSelector">
@@ -1305,6 +1341,13 @@
             Initializing constructor.
             </summary>
         </member>
+        <member name="M:Qhta.SF.Tools.Views.SpecificValueEdit.OnNotifyPropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Handler for property changes. Needed for view reconfiguration on <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.Replace"/> change.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
         <member name="M:Qhta.SF.Tools.Views.SpecificValueEdit.InitializeComponent">
             <summary>
             InitializeComponent
@@ -1322,6 +1365,13 @@
             <summary>
             Initializing constructor.
             </summary>
+        </member>
+        <member name="M:Qhta.SF.Tools.Views.SpecificValueSelector.OnNotifyPropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Handler for property changes. Needed for view reconfiguration on <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.Replace"/> change.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
         </member>
         <member name="M:Qhta.SF.Tools.Views.SpecificValueSelector.InitializeComponent">
             <summary>
@@ -1427,9 +1477,29 @@
             Text value entered by the user in the text box.
             </summary>
         </member>
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ReplaceProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.Replace"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.Replace">
+            <summary>
+            Should use replacement text.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ReplacementTextProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.ReplacementText"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.ReplacementText">
+            <summary>
+            Replacement text entered by the user.
+            </summary>
+        </member>
         <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ItemsSourceProperty">
             <summary>
-            Dependency property for the items source, which is the collection of items to select from.
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.ItemsSource"/>, which is the collection of items to select from.
             </summary>
         </member>
         <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.ItemsSource">
@@ -1439,12 +1509,32 @@
         </member>
         <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.SelectedItemProperty">
             <summary>
-            Dependency property for the selected item, which is the item currently selected by the user.
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.SelectedItem"/>, which is the item currently selected by the user.
             </summary>
         </member>
         <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.SelectedItem">
             <summary>
             Selected item in the selection window. This property is bound to the selected item in the ItemsSource.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ReplacementSourceProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.ReplacementSource"/>, which is the collection of replacement items to select from.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.ReplacementSource">
+            <summary>
+            Replacement source for the selection, typically a collection of Replacement that can be selected.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.ReplacementItemProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.Tools.Views.SpecificValueWindow.ReplacementItem"/>, which is the item selected for Replacement by the user.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.Tools.Views.SpecificValueWindow.ReplacementItem">
+            <summary>
+            Replacement item in the selection window. This property is bound to the selected item in the ItemsSource.
             </summary>
         </member>
         <member name="F:Qhta.SF.Tools.Views.SpecificValueWindow.OverwriteNonEmptyCellsProperty">

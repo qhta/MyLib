@@ -156,6 +156,9 @@
   <data name="ReplacementText" xml:space="preserve">
     <value>Replacement</value>
   </data>
+  <data name="ReplaceWith" xml:space="preserve">
+    <value>Replace with</value>
+  </data>
   <data name="SearchedText" xml:space="preserve">
     <value>Searched text</value>
   </data>

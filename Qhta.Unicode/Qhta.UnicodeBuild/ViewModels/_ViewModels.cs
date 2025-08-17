@@ -275,10 +275,10 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// </summary>
   /// <param name="types"></param>
   /// <returns></returns>
-  public IEnumerable<WritingSystemViewModel?> GetSelectableWritingSystems(params WritingSystemType[] types)
+  public IEnumerable<ISelectableItem> GetSelectableWritingSystems(params WritingSystemType[] types)
   {
-    List<WritingSystemViewModel?> list = new();
-    list.Add(new WritingSystemViewModel{ DisplayName = DataStrings.EmptyValue });
+    List<ISelectableItem> list = new();
+    list.Add(new SelectableItem(){ DisplayName = DataStrings.EmptyValue });
     list.AddRange(_ViewModels.Instance.WritingSystems.Where(item => item.Type != null && types.Contains((WritingSystemType)item.Type))
       .OrderBy(vm => vm.FullName));
     return list;
@@ -287,38 +287,38 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// <summary>
   /// Collection of selectable writing systems that can be used in the UI.
   /// </summary>
-  public IEnumerable<WritingSystemViewModel?> SelectableWritingSystems =>
+  public IEnumerable<ISelectableItem> SelectableWritingSystems =>
     GetSelectableWritingSystems(WritingSystemType.Area, WritingSystemType.Family, WritingSystemType.Script, WritingSystemType.Notation, WritingSystemType.SymbolSet);
 
   /// <summary>
   /// Collection of selectable areas, which are a type of writing system.
   /// </summary>
-  public IEnumerable<WritingSystemViewModel?> SelectableAreas => GetSelectableWritingSystems(WritingSystemType.Area);
+  public IEnumerable<ISelectableItem> SelectableAreas => GetSelectableWritingSystems(WritingSystemType.Area);
 
   /// <summary>
   /// Collection of selectable families, which are a type of writing system.
   /// </summary>
-  public IEnumerable<WritingSystemViewModel?> SelectableScripts => GetSelectableWritingSystems(WritingSystemType.Script, WritingSystemType.Family);
+  public IEnumerable<ISelectableItem> SelectableScripts => GetSelectableWritingSystems(WritingSystemType.Script, WritingSystemType.Family);
 
   /// <summary>
   /// Collection of selectable languages, which are a type of writing system.
   /// </summary>
-  public IEnumerable<WritingSystemViewModel?> SelectableLanguages => GetSelectableWritingSystems(WritingSystemType.Language);
+  public IEnumerable<ISelectableItem> SelectableLanguages => GetSelectableWritingSystems(WritingSystemType.Language);
 
   /// <summary>
   /// Collection of selectable notations, which are a type of writing system.
   /// </summary>
-  public IEnumerable<WritingSystemViewModel?> SelectableNotations => GetSelectableWritingSystems(WritingSystemType.Notation);
+  public IEnumerable<ISelectableItem> SelectableNotations => GetSelectableWritingSystems(WritingSystemType.Notation);
 
   /// <summary>
   /// Collection of selectable symbol sets, which are a type of writing system.
   /// </summary>
-  public IEnumerable<WritingSystemViewModel?> SelectableSymbolSets => GetSelectableWritingSystems(WritingSystemType.SymbolSet);
+  public IEnumerable<ISelectableItem> SelectableSymbolSets => GetSelectableWritingSystems(WritingSystemType.SymbolSet);
 
   /// <summary>
   /// C
   /// </summary>
-  public IEnumerable<WritingSystemViewModel?> SelectableSubsets => GetSelectableWritingSystems(WritingSystemType.Subset);
+  public IEnumerable<ISelectableItem> SelectableSubsets => GetSelectableWritingSystems(WritingSystemType.Subset);
 
   /// <summary>
   /// Gets the next available writing system ID.

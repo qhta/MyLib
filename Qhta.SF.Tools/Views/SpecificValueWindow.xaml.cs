@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Net.Mime;
 using System.Windows;
 using System.Windows.Controls;
@@ -57,6 +58,7 @@ public partial class SpecificValueWindow : Window
   public SpecificValueWindow()
   {
     InitializeComponent();
+    Replace = false;    
     Loaded += SpecifiedValueWindow_Loaded;
   }
 
@@ -120,14 +122,15 @@ public partial class SpecificValueWindow : Window
       case SpecificWindowMode.Find:
         OverWriteNonEmptyCellsButton.Visibility = Visibility.Collapsed;
         FindInSequenceComboBox.Visibility = Visibility.Visible;
-        ValueEdit.ReplacementTextBox.Visibility = Visibility.Collapsed;
+        ValueSelector.ReplaceCheckBox.Visibility = Visibility.Collapsed;
+        ValueEdit.ReplaceCheckBox.Visibility = Visibility.Collapsed;
         break;
 
       case SpecificWindowMode.FindAndReplace:
         OverWriteNonEmptyCellsButton.Visibility = Visibility.Collapsed;
         FindInSequenceComboBox.Visibility = Visibility.Visible;
-        ValueEdit.ReplacementTextBox.Visibility = Visibility.Visible;
-
+        ValueSelector.ReplaceCheckBox.Visibility = Visibility.Visible;
+        ValueEdit.ReplaceCheckBox.Visibility = Visibility.Visible;
         break;
     }
   }
@@ -163,12 +166,12 @@ public partial class SpecificValueWindow : Window
     {
       case SpecificViewMode.Edit:
         TabControl.Style = (Style)FindResource("HiddenTabControlStyle");
-        TabControl.SelectedIndex = 0;
+        TabControl.SelectedIndex = 1;
         break;
 
       case SpecificViewMode.Selector:
         TabControl.Style = (Style)FindResource("HiddenTabControlStyle");
-        TabControl.SelectedIndex = 1;
+        TabControl.SelectedIndex = 0;
         break;
 
       case SpecificViewMode.Both:
@@ -203,8 +206,7 @@ public partial class SpecificValueWindow : Window
   }
   #endregion
 
-  #region TextValueEdit
-
+  #region TextValue
   /// <summary>
   /// Dependency property for the <see cref="TextValue"/> property, which is the value entered by the user in the text box.
   /// </summary>
@@ -222,9 +224,56 @@ public partial class SpecificValueWindow : Window
   }
   #endregion
 
+  #region Replace
+  /// <summary>
+  /// Dependency property for the <see cref="Replace"/> property.
+  /// </summary>
+  public static DependencyProperty ReplaceProperty =
+    DependencyProperty.Register(nameof(Replace), typeof(bool), typeof(SpecificValueWindow), new PropertyMetadata(true, 
+      (d,e)=> (d as SpecificValueWindow)?.ReplaceChanged(e)));
+
+  private void ReplaceChanged(DependencyPropertyChangedEventArgs e)
+  {
+    if (e.NewValue is bool replace)
+    {
+      ValueEdit.OnNotifyPropertyChanged(this, new PropertyChangedEventArgs(nameof(Replace)));
+      ValueSelector.OnNotifyPropertyChanged(this, new PropertyChangedEventArgs(nameof(Replace)));
+    }
+  }
+
+  /// <summary>
+  /// Should use replacement text.
+  /// </summary>
+  public bool Replace
+  {
+    [DebuggerStepThrough]
+    get => (bool)GetValue(ReplaceProperty);
+    set => SetValue(ReplaceProperty, value);
+  }
+
+  #endregion
+
+  #region ReplacementText
+  /// <summary>
+  /// Dependency property for the <see cref="ReplacementText"/> property.
+  /// </summary>
+  public static DependencyProperty ReplacementTextProperty =
+    DependencyProperty.Register(nameof(ReplacementText), typeof(string), typeof(SpecificValueWindow), new PropertyMetadata(null));
+
+  /// <summary>
+  /// Replacement text entered by the user.
+  /// </summary>
+  public string? ReplacementText
+  {
+    [DebuggerStepThrough]
+    get => (string?)GetValue(ReplacementTextProperty);
+    set => SetValue(ReplacementTextProperty, value);
+  }
+  #endregion
+
   #region ListValueSelection
   /// <summary>
-  /// Dependency property for the items source, which is the collection of items to select from.
+  /// Dependency property for the <see cref="ItemsSource"/>, which is the collection of items to select from.
   /// </summary>
   public static DependencyProperty ItemsSourceProperty =
       DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(SpecificValueWindow), new PropertyMetadata(null));
@@ -240,7 +289,7 @@ public partial class SpecificValueWindow : Window
   }
 
   /// <summary>
-  /// Dependency property for the selected item, which is the item currently selected by the user.
+  /// Dependency property for the <see cref="SelectedItem"/>, which is the item currently selected by the user.
   /// </summary>
   public static DependencyProperty SelectedItemProperty =
       DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(SpecificValueWindow), new PropertyMetadata(null));
@@ -254,8 +303,39 @@ public partial class SpecificValueWindow : Window
     get => GetValue(SelectedItemProperty);
     set => SetValue(SelectedItemProperty, value);
   }
+
+  /// <summary>
+  /// Dependency property for the <see cref="ReplacementSource"/>, which is the collection of replacement items to select from.
+  /// </summary>
+  public static DependencyProperty ReplacementSourceProperty =
+    DependencyProperty.Register(nameof(ReplacementSource), typeof(object), typeof(SpecificValueWindow), new PropertyMetadata(null));
+
+  /// <summary>
+  /// Replacement source for the selection, typically a collection of Replacement that can be selected.
+  /// </summary>
+  public object? ReplacementSource
+  {
+    [DebuggerStepThrough]
+    get => GetValue(ReplacementSourceProperty);
+    set => SetValue(ReplacementSourceProperty, value);
+  }
+  /// <summary>
+  /// Dependency property for the <see cref="ReplacementItem"/>, which is the item selected for Replacement by the user.
+  /// </summary>
+  public static DependencyProperty ReplacementItemProperty =
+    DependencyProperty.Register(nameof(ReplacementItem), typeof(object), typeof(SpecificValueWindow), new PropertyMetadata(null));
+
+  /// <summary>
+  /// Replacement item in the selection window. This property is bound to the selected item in the ItemsSource.
+  /// </summary>
+  public object? ReplacementItem
+  {
+    [DebuggerStepThrough]
+    get => GetValue(ReplacementItemProperty);
+    set => SetValue(ReplacementItemProperty, value);
+  }
   #endregion
- 
+
   #region OverwriteNonEmptyCells
   /// <summary>
   /// Dependency property for the <see cref="OverwriteNonEmptyCells"/> flag, which indicates whether to fill only empty cells in the selection.
@@ -313,7 +393,6 @@ public partial class SpecificValueWindow : Window
     set => SetValue(FilterTypeProperty, value);
   }
   #endregion
-
 
   #region CaseSensitive
   /// <summary>
