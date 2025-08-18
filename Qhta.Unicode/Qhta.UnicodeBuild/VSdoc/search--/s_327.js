@@ -1,1 +1,0 @@
-search_result['327']=["topic_0000000000000127.html","CodePoint.Description Property","Looks up a localized string similar to Description."];

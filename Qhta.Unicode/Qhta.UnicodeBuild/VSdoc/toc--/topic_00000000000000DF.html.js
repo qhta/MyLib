@@ -1,1 +1,0 @@
-var breadcrumbs=[['-1',"",""],['2',"SOLUTION-WIDE PROPERTIES Reference","topic_0000000000000312.html"],['111',"Qhta.Unicode.Models Namespace","topic_0000000000000042.html"],['163',"WritingSystem Class","topic_00000000000000DC.html"],['164',"Properties","topic_00000000000000DC_props--.html"],['178',"Type Property","topic_00000000000000DF.html"]];

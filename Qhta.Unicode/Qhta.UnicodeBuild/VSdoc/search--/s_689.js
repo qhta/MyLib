@@ -1,1 +1,0 @@
-search_result['689']=["topic_000000000000024F.html","UcdCodePointViewModel.Notation Property","Exposes the notation writing system as a view model."];

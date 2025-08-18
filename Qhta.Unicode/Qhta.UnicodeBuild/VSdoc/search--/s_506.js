@@ -1,1 +1,0 @@
-search_result['506']=["topic_00000000000001C1.html","WritingSystemKind.LogographicTooltip Property","Looks up a localized string similar to A set of written characters that represent semantic components of a language, such as words or morphemes.."];

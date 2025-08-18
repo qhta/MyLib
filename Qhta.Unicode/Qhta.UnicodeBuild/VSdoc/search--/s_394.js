@@ -1,1 +1,0 @@
-search_result['394']=["topic_0000000000000165.html","Strings.SelectValue Property","Looks up a localized string similar to Select value."];

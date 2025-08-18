@@ -1,1 +1,0 @@
-search_result['893']=["topic_00000000000002BF.html","Controller Class","Controller class for managing SfDataGrid operations."];

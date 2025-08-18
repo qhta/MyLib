@@ -1,1 +1,0 @@
-search_result['672']=["topic_000000000000023E.html","UcdCodePointViewModel.NumVal Property","Number value of the Unicode code point, if applicable.\r\nIt is a read-only property that returns a nullable string value."];

@@ -1,1 +1,0 @@
-search_result['664']=["topic_0000000000000236.html","UcdCodePointViewModel.Description Property","Descriptive name of the Unicode code point.\r\nIt is a read/write property."];

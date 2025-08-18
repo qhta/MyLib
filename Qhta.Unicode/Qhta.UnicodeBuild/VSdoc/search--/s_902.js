@@ -1,1 +1,0 @@
-search_result['902']=["topic_00000000000002C3.html","Controller.CanCutData Method","Determines whether data can be cut from the specified data grid.\r\nThis method checks if all selected columns are editable and not read-only."];

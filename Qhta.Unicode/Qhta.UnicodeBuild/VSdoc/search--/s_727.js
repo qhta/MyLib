@@ -1,1 +1,0 @@
-search_result['727']=["topic_0000000000000266.html","WritingSystemMappingCollection.FindWritingSystem Method","Finds a writing system mapping by its code point."];

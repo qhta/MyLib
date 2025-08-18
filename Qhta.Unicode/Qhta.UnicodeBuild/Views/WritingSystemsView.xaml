@@ -9,7 +9,7 @@
              xmlns:vm="clr-namespace:Qhta.UnicodeBuild.ViewModels"
              xmlns:models="clr-namespace:Qhta.Unicode.Models"
              xmlns:sys="clr-namespace:System.Globalization;assembly=System.Runtime"
-             xmlns:tools="clr-namespace:Qhta.SF.Tools;assembly=Qhta.SF.Tools"
+             xmlns:tools="clr-namespace:Qhta.SF.WPF.Tools;assembly=Qhta.SF.WPF.Tools"
              xmlns:commands="clr-namespace:Qhta.UnicodeBuild.Commands"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">

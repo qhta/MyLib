@@ -1,1 +1,0 @@
-search_result['211']=["topic_000000000000007A.html","UcdBlock.Range Property","String representing the range of Unicode code points in the block, typically formatted as \"XXXX..YYYY\"."];

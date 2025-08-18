@@ -1,1 +1,0 @@
-search_result['878']=["topic_00000000000002BA.html","MainWindow Class","Main window for the application."];

@@ -1,1 +1,0 @@
-search_result['669']=["topic_000000000000023B.html","UcdCodePointViewModel.Decomposition Property","Decomposition of the Unicode code point, if applicable.\r\nIt is a read-only property."];

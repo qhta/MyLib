@@ -3,14 +3,19 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\sfdatagridfinder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\views\\specificvaluewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{481AF1B5-4523-49F2-9523-1A25CEE2AF5E}|..\\..\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.tools\\findcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\views\\specificvalueedit.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\viewmodels\\ucdcodepointviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:viewmodels\\ucdcodepointviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\views\\specificvalueselector.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\views\\specificvaluewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\views\\specificvalueedit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,8 +24,8 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 626,
-          "SelectedChildIndex": 8,
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -47,47 +52,77 @@
               "Name": "ST:0:0:{605322a2-17ae-43f4-b60f-766556e46c87}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FindCommand.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\FindCommand.cs",
-              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.Tools\\FindCommand.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\FindCommand.cs",
-              "RelativeToolTip": "..\\..\\Qhta.SF.Tools\\FindCommand.cs",
-              "ViewState": "AgIAACoBAAAAAAAAAAAYwEwBAAAyAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "SpecificValueWindow.xaml.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml.cs*",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml.cs*",
+              "ViewState": "AgIAAMwAAAAAAAAAAAAAAN4AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-17T17:53:55.824Z",
+              "WhenOpened": "2025-08-18T05:34:46.905Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SfDataGridFinder.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\SfDataGridFinder.cs",
-              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.Tools\\SfDataGridFinder.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\SfDataGridFinder.cs*",
-              "RelativeToolTip": "..\\..\\Qhta.SF.Tools\\SfDataGridFinder.cs*",
-              "ViewState": "AgIAAN8AAAAAAAAAAAAiwPoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-17T17:51:28.656Z",
+              "DocumentIndex": 3,
+              "Title": "SpecificValueWindow.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-18T05:34:25.331Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SpecificValueEdit.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-18T05:33:50.927Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "UcdCodePointViewModel.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\ViewModels\\UcdCodePointViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModels\\UcdCodePointViewModel.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\ViewModels\\UcdCodePointViewModel.cs",
-              "RelativeToolTip": "ViewModels\\UcdCodePointViewModel.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAAEwAAABKAAAAAAAAAA==",
+              "Title": "SpecificValueSelector.xaml.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueSelector.xaml.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueSelector.xaml.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueSelector.xaml.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueSelector.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-17T17:47:57.6Z",
+              "WhenOpened": "2025-08-18T05:33:44.212Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SpecificValueEdit.xaml.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-18T05:33:35.664Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 251,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             }
           ]
         }

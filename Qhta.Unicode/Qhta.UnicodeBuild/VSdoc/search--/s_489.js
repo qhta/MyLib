@@ -1,1 +1,0 @@
-search_result['489']=["topic_00000000000001B0.html","WritingSystemKind.Control Property","Looks up a localized string similar to Control."];

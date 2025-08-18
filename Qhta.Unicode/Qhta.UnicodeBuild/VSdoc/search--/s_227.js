@@ -1,1 +1,0 @@
-search_result['227']=["topic_00000000000000A3.html","UcdCodePoint.Code Property","Hexadecimal code of the Unicode code point, represented as a string."];

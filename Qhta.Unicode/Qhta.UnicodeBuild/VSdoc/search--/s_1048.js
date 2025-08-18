@@ -1,1 +1,0 @@
-search_result['1048']=["topic_000000000000030F.html","UndoMgr.Undo Method","Reverts the last operation performed, if undo is available."];

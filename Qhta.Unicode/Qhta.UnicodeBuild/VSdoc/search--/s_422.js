@@ -1,1 +1,0 @@
-search_result['422']=["topic_000000000000017C.html","UcdRange Class","A strongly-typed resource class, for looking up localized strings, etc."];

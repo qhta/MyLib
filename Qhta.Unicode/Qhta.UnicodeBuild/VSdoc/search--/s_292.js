@@ -1,1 +1,0 @@
-search_result['292']=["topic_0000000000000106.html","WritingSystemKindEntity.Name Property","Name of the writing system kind."];

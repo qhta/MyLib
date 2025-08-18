@@ -1,1 +1,0 @@
-search_result['691']=["topic_0000000000000251.html","UcdCodePointViewModel.SymbolSet Property","Exposes the symbol set writing system as a view model."];

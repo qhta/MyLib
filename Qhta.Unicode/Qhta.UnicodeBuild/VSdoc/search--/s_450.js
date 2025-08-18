@@ -1,1 +1,0 @@
-search_result['450']=["topic_000000000000018E.html","WritingSystem.Ctg Property","Looks up a localized string similar to Ctg."];

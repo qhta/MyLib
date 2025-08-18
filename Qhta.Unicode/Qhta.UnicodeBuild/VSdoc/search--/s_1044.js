@@ -1,1 +1,0 @@
-search_result['1044']=["topic_000000000000030B.html","UndoMgr.IsRedoAvailable Property","Flag to indicate if the Redo functionality is available."];

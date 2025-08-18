@@ -1,1 +1,0 @@
-search_result['448']=["topic_000000000000018C.html","WritingSystem.AbbrTooltip Property","Looks up a localized string similar to Abbreviation is a string to identify the writing system in the output text.."];

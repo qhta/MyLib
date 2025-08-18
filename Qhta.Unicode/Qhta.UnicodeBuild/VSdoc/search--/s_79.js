@@ -1,1 +1,0 @@
-search_result['79']=["topic_000000000000001D.html","EnumValuesExtension.ProvideValue Method","Method to provide all the values of the specified enumeration type."];

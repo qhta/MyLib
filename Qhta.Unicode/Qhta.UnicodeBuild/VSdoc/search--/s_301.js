@@ -1,1 +1,0 @@
-search_result['301']=["topic_0000000000000112.html","WritingSystemTypeEntity.Id Property","Identifier for the writing system type, represented as a WritingSystemType enum."];

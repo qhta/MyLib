@@ -1,1 +1,0 @@
-search_result['282']=["topic_00000000000000EA.html","WritingSystem.ChildrenCount Property","A count of the number of child writing systems associated with this writing system.\r\nZero if there are no children."];

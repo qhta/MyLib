@@ -1,1 +1,0 @@
-search_result['491']=["topic_00000000000001B2.html","WritingSystemKind.Cuneiform Property","Looks up a localized string similar to Cuneiform."];

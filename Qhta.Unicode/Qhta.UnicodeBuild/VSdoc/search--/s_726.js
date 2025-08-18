@@ -1,1 +1,0 @@
-search_result['726']=["topic_0000000000000265.html","WritingSystemMappingCollection.Add Method","Adds a new writing system mapping to the collection."];

@@ -1,1 +1,0 @@
-search_result['69']=["topic_0000000000000018.html","EnumToResourceConverter.ResourceType Property","Resource type that contains the localized strings for the enum values."];

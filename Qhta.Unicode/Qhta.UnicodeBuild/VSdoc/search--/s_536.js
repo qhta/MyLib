@@ -1,1 +1,0 @@
-search_result['536']=["topic_00000000000001DA.html","WritingSystemType.AreaTooltip Property","Looks up a localized string similar to Area is a range of code points that are not defined individually.."];

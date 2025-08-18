@@ -1,1 +1,0 @@
-search_result['314']=["topic_000000000000011A.html","CodePoint.ApplyBlockMappingConfirm Property","Looks up a localized string similar to Do you really want to apply block mapping from block ranges? All current \"block\" fields w be updated.."];

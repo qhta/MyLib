@@ -1,1 +1,0 @@
-search_result['460']=["topic_0000000000000198.html","WritingSystem.IsUsedTooltip Property","Looks up a localized string similar to Indicates whether the writing system is a parent for some other systems or is referenced in Unicode Blocks or Unicode Ranges.."];

@@ -1,1 +1,0 @@
-search_result['285']=["topic_0000000000000104.html","WritingSystemKindEntity Class","Represents an entity that defines a type of writing system."];

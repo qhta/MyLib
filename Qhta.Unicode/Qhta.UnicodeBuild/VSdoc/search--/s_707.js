@@ -1,1 +1,0 @@
-search_result['707']=["topic_000000000000025C.html","UnicodeCategoryViewModel.Equals Method","Compare the current instance with another UnicodeCategoryViewModel instance for equality."];

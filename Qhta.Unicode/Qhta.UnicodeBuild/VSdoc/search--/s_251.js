@@ -1,1 +1,0 @@
-search_result['251']=["topic_00000000000000BB.html","UcdCodePoint.Aliases Property","Collection of the aliases of this Unicode code point."];

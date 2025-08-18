@@ -1,1 +1,0 @@
-search_result['686']=["topic_000000000000024C.html","UcdCodePointViewModel.LanguageId Property","Identifier of the language writing system associated with this Unicode code point, if applicable."];

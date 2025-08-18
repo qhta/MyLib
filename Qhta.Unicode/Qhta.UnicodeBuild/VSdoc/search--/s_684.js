@@ -1,1 +1,0 @@
-search_result['684']=["topic_000000000000024A.html","UcdCodePointViewModel.ScriptId Property","Identifier of the script writing system associated with this Unicode code point, if applicable."];

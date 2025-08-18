@@ -2,7 +2,7 @@
 using System.Diagnostics;
 
 using Qhta.MVVM;
-using Qhta.SF.Tools;
+using Qhta.SF.WPF.Tools;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Helpers;
 using Qhta.UnicodeBuild.Resources;

@@ -1,1 +1,0 @@
-search_result['574']=["topic_00000000000001FB.html","_ViewModels.SelectableScripts Property","Collection of selectable families, which are a type of writing system."];

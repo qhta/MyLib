@@ -1,1 +1,0 @@
-search_result['568']=["topic_00000000000001F5.html","_ViewModels.Categories Property","Collection of Unicode categories exposed to the UI as an array."];

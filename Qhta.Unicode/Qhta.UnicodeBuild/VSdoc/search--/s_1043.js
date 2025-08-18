@@ -1,1 +1,0 @@
-search_result['1043']=["topic_000000000000030A.html","UndoMgr.IsUndoAvailable Property","Flag to indicate if the Undo functionality is available."];

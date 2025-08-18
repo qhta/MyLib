@@ -1,1 +1,0 @@
-search_result['661']=["topic_0000000000000233.html","UcdCodePointViewModel.Glyph Property","Visual representation of the Unicode code point, which can be a single character or two characters for diacritical marks.\r\nIt is a read-only property."];

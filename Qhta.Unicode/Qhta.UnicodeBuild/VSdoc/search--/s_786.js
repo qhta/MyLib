@@ -1,1 +1,0 @@
-search_result['786']=["topic_000000000000028B.html","WritingSystemViewModel.LongText Property","Long text property is the Description property of the writing system."];

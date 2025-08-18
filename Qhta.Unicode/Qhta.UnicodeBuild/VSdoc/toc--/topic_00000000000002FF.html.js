@@ -1,1 +1,0 @@
-var breadcrumbs=[['-1',"",""],['2',"SOLUTION-WIDE PROPERTIES Reference","topic_0000000000000312.html"],['4',"Qhta.SF.Tools Namespace","topic_00000000000002BE.html"],['83',"SfDataGridColumnConverter Class","topic_00000000000002FD.html"],['84',"Methods","topic_00000000000002FD_methods--.html"],['85',"Convert Method","topic_00000000000002FF.html"]];

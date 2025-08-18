@@ -1,1 +1,0 @@
-search_result['533']=["topic_00000000000001D7.html","WritingSystemType.ResourceManager Property","Returns the cached ResourceManager instance used by this class."];

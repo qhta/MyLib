@@ -1,0 +1,1579 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.SF.WPF.Tools</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.SF.WPF.Tools.DelRecordArgs">
+            <summary>
+            Arguments for changing a property.
+            </summary>
+            <param name="DataList">Target object</param>
+            <param name="Index">Number index of the record</param>
+            <param name="DataObject">Old value of the property</param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.DelRecordArgs.#ctor(System.Collections.IList,System.Nullable{System.Int32},System.Object)">
+            <summary>
+            Arguments for changing a property.
+            </summary>
+            <param name="DataList">Target object</param>
+            <param name="Index">Number index of the record</param>
+            <param name="DataObject">Old value of the property</param>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.DelRecordArgs.DataList">
+            <summary>Target object</summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.DelRecordArgs.Index">
+            <summary>Number index of the record</summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.DelRecordArgs.DataObject">
+            <summary>Old value of the property</summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.DelRecordAction">
+            <summary>
+            Undo/redo action for deleting records in a data grid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.DelRecordAction.Execute(System.Object)">
+            <summary>
+            Deletes a record in a data grid.
+            </summary>
+            <param name="args">Must be <see cref="T:Qhta.SF.WPF.Tools.DelRecordArgs"/></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.DelRecordAction.Undo(System.Object)">
+            <summary>
+            Undo a delete action.
+            </summary>
+            <param name="args">Must be <see cref="T:Qhta.SF.WPF.Tools.DelRecordArgs"/></param>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.DoubleUtil">
+            <summary>
+            Utility class for comparing double values with a specified tolerance.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.DoubleUtil.AreClose(System.Double,System.Double,System.Double)">
+            <summary>
+            Determines whether two double values are close to each other within a specified tolerance.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="tolerance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.DoubleUtil.GreaterThanOrClose(System.Double,System.Double,System.Double)">
+            <summary>
+            Determines whether the first double value is less than or equal to the second value, considering a specified tolerance.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="tolerance"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.FillColumnCommand">
+            <summary>
+            Command to fill the current column in the data grid with a value selected by user.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.FillColumnCommand.CanExecute(System.Object)">
+            <summary>
+            Checks whether the command can be executed basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.FillColumnCommand.Execute(System.Object)">
+            <summary>
+            Executes the command basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.FindInSequence">
+            <summary>
+            Specifies how to find a value in the context of the current selection.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.FindInSequence.FindNext">
+            <summary>
+            Find the next occurrence of the value.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.FindInSequence.FindFirst">
+            <summary>
+            Find the first occurrence of the value.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.FindInSequence.FindAll">
+            <summary>
+            Find all occurrences of the value.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.FindCommand">
+            <summary>
+            Command to find a value selected by the user int the current column in the data grid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.FindCommand.CanExecute(System.Object)">
+            <summary>
+            Checks whether the command can be executed basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.FindCommand.CanExecuteFindNext(System.Object)">
+            <summary>
+            Checks whether the FindNext command can be executed basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.FindCommand.Execute(System.Object)">
+            <summary>
+            Executes the command basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.FindCommand.ExecuteFindNext(System.Object)">
+            <summary>
+            Executes the FindNext command basing on the current selection in the data grid.
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.FindCommand.CreatePredicate(System.Object@,Qhta.SF.WPF.Tools.Views.SpecificViewMode,Syncfusion.Data.FilterType,System.Boolean)">
+            <summary>
+            Checks if the specified value is a selectable item or a special marker and prepares it for comparison.
+            if the value is an empty string, or it is an EmptyValue, it is treated as null.
+            </summary>
+            <param name="specifiedValue">Searched value. It can be an ISelectableItem or a text value</param>
+            <param name="viewMode">Window view mode. Determines whether filter behavior is StronglyTyped or sStringTyped</param>
+            <param name="filterType">Determines comparison functions</param>
+            <param name="caseSensitive">Determines whether the text comparison in case-sensitive</param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.GridColumnInfo">
+            <summary>
+            Information about a grid column, including its mapping name and value property.
+            It is needed if we want to operate on the data in the grid in the background thread,
+            as in this case operations on the grid (and on the grid column) are not possible.
+            </summary>
+            <param name="Column"></param>
+            <param name="MappingName"></param>
+            <param name="ValuePropertyInfo"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.GridColumnInfo.#ctor(Syncfusion.UI.Xaml.Grid.GridColumn,System.String,System.Reflection.PropertyInfo)">
+            <summary>
+            Information about a grid column, including its mapping name and value property.
+            It is needed if we want to operate on the data in the grid in the background thread,
+            as in this case operations on the grid (and on the grid column) are not possible.
+            </summary>
+            <param name="Column"></param>
+            <param name="MappingName"></param>
+            <param name="ValuePropertyInfo"></param>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.GridColumnInfo.Column">
+            <summary>
+            Identifies the column in the grid.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.GridColumnInfo.MappingName">
+            <summary>
+            Mapping name of the column, which corresponds to the property name in the data source.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.GridColumnInfo.ValuePropertyInfo">
+            <summary>
+            Gets the <see cref="T:System.Reflection.PropertyInfo"/> object that represents the metadata of the value property.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.GridColumnInfo.DisplayPropertyInfo">
+            <summary>
+            Gets or sets the <see cref="T:System.Reflection.PropertyInfo"/> object that represents the property to be displayed.
+            It is an optional property, used for example in <see cref="T:Syncfusion.UI.Xaml.Grid.GridComboBoxColumn"/> to display the value from the items source.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.GridColumnInfo.ItemsSource">
+            <summary>
+            Gets or sets the collection of items to be displayed.
+            it is an optional property, used for example in <see cref="T:Syncfusion.UI.Xaml.Grid.GridComboBoxColumn"/> to provide the items source for the combo box.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.IErrorMessageProvider">
+            <summary>
+            Interface for providing error message.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.IErrorMessageProvider.ErrorMessage">
+            <summary>
+            Gets or sets an error message.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.IRemovableCollection">
+            <summary>
+            A collection interface that supports removing items.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.IRemovableCollection.CanRemove(System.Object)">
+            <summary>
+            Returns a value indicating whether the specified item can be removed from the collection.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.IRemovableCollection.Remove(System.Object)">
+            <summary>
+            Removes the specified item from the collection.
+            </summary>
+            <param name="item">The item to remove.</param>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.IRemovableCollection.IsReadOnly">
+            <summary>
+            Indicates whether the collection is read-only.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.IRowHeightProvider">
+            <summary>
+            Interface for providing row height in a data grid.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.IRowHeightProvider.RowHeight">
+            <summary>
+            Gets or sets the height of a row in the grid.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.ISelectableItem">
+            <summary>
+            An interface representing an item that can be selected in a user interface.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ISelectableItem.DisplayName">
+            <summary>
+            Displayed name of the item, typically used in user interfaces to represent the item.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ISelectableItem.ToolTip">
+            <summary>
+            Optional tooltip text that provides additional information about the item when hovered over in a user interface.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ISelectableItem.ActualValue">
+            <summary>
+            Actual value of the item, which can be of any type. This is the underlying data associated with the item.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ISelectableItem.IsSelected">
+            <summary>
+            Determines whether the item is currently selected in the user interface.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ISelectableItem.IsEmpty">
+            <summary>
+            Determines whether the item should be considered as empty value.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ISelectableItem.IsNonEmpty">
+            <summary>
+            Determines whether the item should be considered as any non-empty value.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.LongTextColumn">
+            <summary>
+            Represents a column in a data grid that adjusts its row height based on the content length.
+            </summary>
+            <remarks>The <see cref="T:Qhta.SF.WPF.Tools.LongTextColumn"/> class is designed to work with data grids where the row height needs
+            to be dynamically adjusted to fit the content of cells containing long text. It listens to the <see
+            cref="T:Syncfusion.UI.Xaml.Grid.QueryRowHeightEventArgs"/> to determine the appropriate height for each row based on the text content and the
+            expansion state of the text.</remarks>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.LongTextColumn.DefaultFont">
+            <summary>
+            Gets the default font name used by the application.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.LongTextColumn.DefaultFontSize">
+            <summary>
+            Gets the default font size used by the application.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.LongTextColumn.OnQueryRowHeight(System.Object,Syncfusion.UI.Xaml.Grid.QueryRowHeightEventArgs)">
+            <summary>
+            Adjusts the height of a row in a <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> based on the content of long text columns.
+            Default font is <see cref="P:Qhta.SF.WPF.Tools.LongTextColumn.DefaultFont"/> and default font size is <see cref="P:Qhta.SF.WPF.Tools.LongTextColumn.DefaultFontSize"/>.
+            These properties can be set to change the font used for text evaluation.
+            </summary>
+            <remarks>This method calculates the required height for a row by evaluating the content of columns that
+            implement <see cref="T:Qhta.SF.WPF.Tools.LongTextColumn"/>. If the data associated with the row implements <see
+            cref="T:Qhta.MVVM.ILongTextViewModel"/> and the long text is expanded, the method sets the row height to accommodate the text.
+            The height is adjusted only if the row index is valid and the text is not empty. The method marks the event as
+            handled after setting the height.</remarks>
+            <param name="sender">The source of the event, typically an instance of <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.</param>
+            <param name="e">The event data containing information about the row height query.</param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.LongTextColumn.EvaluateTextHeight(System.String,System.Double,System.String,System.Double)">
+            <summary>
+            Evaluates the height of a given long text string based on a specified maximum width.
+            </summary>
+            <param name="longText">Text to evaluate</param>
+            <param name="maxWidth">Maximum text width i one line</param>
+            <param name="fontName">Name of the font used for evaluation</param>
+            <param name="fontSize">Em size of the font used for evaluation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.LongTextColumn.GetCellText(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object)">
+            <summary>
+            Retrieves the text representation of a cell's value from a specified data item and column.
+            </summary>
+            <param name="column">The column that specifies which property of the data item to retrieve.</param>
+            <param name="dataItem">The data item from which the cell value is extracted.</param>
+            <returns>A string representation of the cell's value. Returns an empty string if the property is not found or the value is
+            null.</returns>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.MappingNameBinder">
+            <summary>
+            A value converter that retrieves the mapping name from a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/> or a <see cref="T:System.Windows.Data.Binding"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.MappingNameBinder.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a given value to a specific target type using the provided culture information.
+            </summary>
+            <param name="value">The value to be converted. This can be a <see cref="T:System.Windows.Data.Binding"/> or a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/> object.</param>
+            <param name="targetType">The type to which the value is to be converted. This parameter is not used in the conversion logic.</param>
+            <param name="parameter">An optional parameter for the conversion. This parameter is not used in the conversion logic.</param>
+            <param name="culture">The culture to be used in the conversion process. This parameter is not used in the conversion logic.</param>
+            <returns>The source object if the value is a <see cref="T:System.Windows.Data.Binding"/>; the string representation of the property value
+            specified by the MappingName if the value is a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/>; otherwise,
+            an empty string.</returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.MappingNameBinder.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented method for converting back from the target type to the source type.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.MappingNameToValueConverter">
+            <summary>
+            A value converter that retrieves the value of a property specified by the mapping name from a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.MappingNameToValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/> value to a string representation based on the value of the mapped property.
+            </summary>
+            <remarks>The method checks if the <paramref name="value"/> is a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/> and if its
+            column is a <see cref="T:Syncfusion.UI.Xaml.Grid.GridTextColumn"/>. It then retrieves the property value from the data context using the
+            column's mapping name. If the mapping name is null or empty, or if the property cannot be found, the method
+            returns an empty string.</remarks>
+            <param name="value">The value to convert, expected to be of type <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/>.</param>
+            <param name="targetType">The type to which the value is being converted. This parameter is not used in the conversion process.</param>
+            <param name="parameter">An optional parameter for the conversion. This parameter is not used in the conversion process.</param>
+            <param name="culture">The culture to use in the conversion process. This parameter is not used in the conversion process.</param>
+            <returns>A string representation of the property value specified by the column mapping name if the conversion is
+            successful; otherwise, an empty string.</returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.MappingNameToValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented method for converting back from the target type to the source type.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.NonEmptyValue">
+            <summary>
+            Singleton class representing a non-empty value in the application.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.NonEmptyValue.Instance">
+            <summary>
+            Static singleton instance of the NonEmptyValue class.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.RecordNavigationBar">
+            <summary>
+            Navigation bar for navigating through records in a <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            It provides commands to navigate to the first, previous, next, and last records.
+            It also displays the current record number and the total number of records in the grid.
+            It should be placed under the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <summary>
+            RecordNavigationBar
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RecordNavigationBar.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.SF.WPF.Tools.RecordNavigationBar"/> class.
+            </summary>
+            <remarks>This constructor sets up the navigation commands for moving between records. It initializes the
+            component and assigns commands for navigating to the next, last, previous, and first items.</remarks>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.RecordNavigationBar.DataGridProperty">
+            <summary>
+            Dependency property for the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> associated with this navigation bar.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RecordNavigationBar.DataGridChanged(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Updates the binding of the <see cref="F:Qhta.SF.WPF.Tools.RecordNavigationBar.RowsCountProperty"/> to reflect the current item count of the specified data
+            grid.
+            </summary>
+            <remarks>This method sets a binding on the <see cref="F:Qhta.SF.WPF.Tools.RecordNavigationBar.RowsCountProperty"/> to the item count of the
+            provided data grid's data source. Ensure that the <paramref name="dataGrid"/> is not <see langword="null"/> before
+            calling this method.</remarks>
+            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> whose item count is used to update the binding. Cannot be <see langword="null"/>.</param>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.RecordNavigationBar.DataGrid">
+            <summary>
+            Gets or sets the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance associated with this component.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.RecordNavigationBar.RowsCountProperty">
+            <summary>
+            Dependency property for the number of rows in the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.RecordNavigationBar.RowsCount">
+            <summary>
+            Gets or sets the number of rows in the collection.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.RecordNavigationBar.NextItemCommand">
+            <summary>
+            Command to navigate to the next item in the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RecordNavigationBar.NextItemExecute">
+            <summary>
+            Selects the next item in the data grid, if available.
+            </summary>
+            <remarks>This method increments the selected index of the data grid by one, provided that the data grid is
+            not null and the current selection is not the last item. If the selection is successfully updated, the new item is
+            scrolled into view.</remarks>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.RecordNavigationBar.LastItemCommand">
+            <summary>
+            Command to navigate to the last item in the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RecordNavigationBar.LastItemExecute">
+            <summary>
+            Selects the last item in the data grid and scrolls it into view.  
+            </summary>
+            <remarks>This method sets the selected index of the data grid to the last item and ensures it is visible
+            by scrolling it into view. If the data grid is not initialized, the method exits without making changes.</remarks>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.RecordNavigationBar.PreviousItemCommand">
+            <summary>
+            Command to navigate to the previous item in the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RecordNavigationBar.PreviousItemExecute">
+            <summary>
+            Selects the previous item in the data grid, if possible.
+            </summary>
+            <remarks>This method decreases the selected index of the data grid by one, if the current selection is not
+            already at the first item. If the data grid is null or the first item is selected, the method does
+            nothing.</remarks>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.RecordNavigationBar.FirstItemCommand">
+            <summary>
+            Command to navigate to the first item in the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RecordNavigationBar.FirstItemExecute">
+            <summary>
+            Selects and executes the first item in the data grid.
+            </summary>
+            <remarks>This method sets the selected index of the data grid to the first item and ensures it is scrolled
+            into view. If the data grid is not initialized, the method exits without performing any action.</remarks>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RecordNavigationBar.ScrollInView(System.Int32)">
+            <summary>
+            This method scrolls the specified row into view in the <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+        </member>
+        <member name="E:Qhta.SF.WPF.Tools.RecordNavigationBar.PropertyChanged">
+            <summary>
+            Occurs when a property value changes.
+            </summary>
+            <remarks>This event is typically used to notify clients, such as user interfaces, that a property value
+            has changed.</remarks>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RecordNavigationBar.NotifyPropertyChanged(System.String)">
+            <summary>
+            Notifies subscribers that a property value has changed.
+            </summary>
+            <remarks>This method raises the <see cref="E:Qhta.SF.WPF.Tools.RecordNavigationBar.PropertyChanged"/> event, which is used to notify listeners,
+            typically UI elements, that a property value has changed.</remarks>
+            <param name="propertyName">The name of the property that changed. This value is optional and can be automatically supplied by the compiler.</param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RecordNavigationBar.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.Contains">
+            <summary>
+              Looks up a localized string similar to Contains.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.EndsWith">
+            <summary>
+              Looks up a localized string similar to Ends with.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.Equals">
+            <summary>
+              Looks up a localized string similar to Equals.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.GreaterThan">
+            <summary>
+              Looks up a localized string similar to Greater than.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.GreaterThanOrEqual">
+            <summary>
+              Looks up a localized string similar to Greater than or equal.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.LessThan">
+            <summary>
+              Looks up a localized string similar to Less then.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.LessThanOrEqual">
+            <summary>
+              Looks up a localized string similar to Less then or equal.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.NotContains">
+            <summary>
+              Looks up a localized string similar to Not contains.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.NotEndsWith">
+            <summary>
+              Looks up a localized string similar to Not ends with.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.NotEquals">
+            <summary>
+              Looks up a localized string similar to Not equals.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.NotStartsWith">
+            <summary>
+              Looks up a localized string similar to Not starts with.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.FilterTypeStrings.StartsWith">
+            <summary>
+              Looks up a localized string similar to Starts with.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.Resources.Strings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.Cancel">
+            <summary>
+              Looks up a localized string similar to Cancel.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.Confirm">
+            <summary>
+              Looks up a localized string similar to Confirm.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.DeleteAllDataConfirm">
+            <summary>
+              Looks up a localized string similar to Do you really want to delete all data?.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.DeleteRecordsConfirm">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to delete {0} records?.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.EmptyValue">
+            <summary>
+              Looks up a localized string similar to (Empty value).
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.EnterValueForField">
+            <summary>
+              Looks up a localized string similar to Enter value for field &quot;{0}&quot;.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.FoundNValues">
+            <summary>
+              Looks up a localized string similar to Found {0} values.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.NonEmptyValue">
+            <summary>
+              Looks up a localized string similar to (Non-empty value).
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.NotMoreValueFound">
+            <summary>
+              Looks up a localized string similar to No more value found..
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.OK">
+            <summary>
+              Looks up a localized string similar to OK.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.OperationNotAllowedInThisContext">
+            <summary>
+              Looks up a localized string similar to Operation {0} is not allowed in this context..
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.OverwriteNonEmptyCells">
+            <summary>
+              Looks up a localized string similar to Overwrite non-empty cells.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.ReplacementText">
+            <summary>
+              Looks up a localized string similar to Replacement.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.ReplaceWith">
+            <summary>
+              Looks up a localized string similar to Replace with.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.SearchedText">
+            <summary>
+              Looks up a localized string similar to Searched text.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.SelectValueForField">
+            <summary>
+              Looks up a localized string similar to Select value for field &quot;{0}&quot;.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.ValueNotFound">
+            <summary>
+              Looks up a localized string similar to Value not found..
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SfDataGridTools">
+            <summary>
+            Provides utility methods for handling mouse interactions with the header and row header cells in a <see
+            cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <remarks>This class contains methods that manage the selection behavior of columns and rows when interacting
+            with the grid's header cells. It supports features such as toggling column selection and clearing or setting
+            selections based on user input.</remarks>
+            <summary>
+            SfDataGridTools
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridTools.GridHeaderCellControl_MouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the mouse left button down event on a <see cref="T:Syncfusion.UI.Xaml.Grid.GridHeaderCellControl"/>. This method toggles the
+            IsSelected state of the column when the header cell is clicked. It also manages the selection of multiple
+            columns based on the Shift and Control keys pressed during the click event.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+            <remarks>If the column enables filtering or sorting, then selection is possible only if the mouse click
+            position omits filter icon or sorting icon on the right of the header control. This condition allows the method
+            to be handled on th PreviewMouseLeftButtonDown event of the header cell control, ensuring that the sorting
+            functionality is not triggered when the user intends to select the column instead.
+            </remarks>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridTools.GridRowHeaderIndentCell_MouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the left mouse button down event on a grid row header indent cell to toggle the selection of the whole grid.
+            </summary>
+            <remarks>This method toggles the selection state of the grid's columns. If any cells are currently
+            selected, it clears the selection. Otherwise, it selects or deselects all columns based on their current
+            state.</remarks>
+            <param name="sender">The source of the event, expected to be a <see cref="T:Syncfusion.UI.Xaml.Grid.GridRowHeaderIndentCell"/>.</param>
+            <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridTools.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.RowHeightProvider">
+            <summary>
+            Provides functionality to determine the height of rows in a data grid.
+            </summary>
+            <remarks>This class contains methods that interact with data grid events to set row heights based on the data
+            context.</remarks>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RowHeightProvider.OnQueryRowHeight(System.Object,Syncfusion.UI.Xaml.Grid.QueryRowHeightEventArgs)">
+            <summary>
+            Handles the query for row height in a data grid, setting the height based on the data context.
+            </summary>
+            <remarks>This method checks if the data context for the specified row index implements <see
+            cref="T:Qhta.SF.WPF.Tools.IRowHeightProvider"/>. If so, and the row height is not set to <see cref="F:System.Double.NaN"/>, it assigns the row
+            height from the data context to the event arguments and marks the event as handled.</remarks>
+            <param name="sender">The source of the event, typically an instance of <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.</param>
+            <param name="e">The <see cref="T:Syncfusion.UI.Xaml.Grid.QueryRowHeightEventArgs"/> containing event data, including the row index and a property to set the
+            row height.</param>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.RowResizer">
+            <summary>
+            This control allows resizing of rows in a <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            It is typically used at the bottom of the row header of a grid to adjust the height of rows.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RowResizer.#ctor">
+            <summary>
+            Instantiates a new instance of a RowResizer.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.RowResizer.MinRowHeightProperty">
+            <summary>
+            DependencyProperty for the <see cref="P:Qhta.SF.WPF.Tools.RowResizer.MinRowHeight"/> property.
+            Default value is 24.0
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.RowResizer.MinRowHeight">
+            <summary>
+                Minimum height of the Row being resized.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.RowResizer.MaxRowHeightProperty">
+            <summary>
+            DependencyProperty for the <see cref="P:Qhta.SF.WPF.Tools.RowResizer.MaxRowHeight"/> property.
+            Default value is 120.0
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.RowResizer.MaxRowHeight">
+            <summary>
+              Maximum height of the Row being resized.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RowResizer.OnMouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the mouse left button down event on the <see cref="T:Qhta.SF.WPF.Tools.RowResizer"/> to start resizing the row height.
+            Resizer is typically used at the bottom of the row header cell in a <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            This method checks if the data grid allows row resizing and if the click is near the bottom edge of the row header cell.
+            If so, it sets the state of the grid to indicate that row resizing is in progress.
+            Resizing a specific row requires the <see cref="T:Qhta.SF.WPF.Tools.IRowHeightProvider"/> interface to be implemented by the data context of the row header cell.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RowResizer.OnMouseMove(System.Object,System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Handles the mouse move event on the <see cref="T:Qhta.SF.WPF.Tools.RowResizer"/> to resize the row height.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.RowResizer.OnMouseLeftButtonUp(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the mouse left button up event on the <see cref="T:Qhta.SF.WPF.Tools.RowResizer"/> to stop resizing the row height.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SelectableItem">
+            <summary>
+            Class representing a selectable item with a display name and selection state - for UI purposes.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SelectableItem.DisplayName">
+            <inheritdoc />
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SelectableItem.ToolTip">
+            <inheritdoc />
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SelectableItem.IsSelected">
+            <inheritdoc />
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SelectableItem.ActualValue">
+            <summary>
+            Implementation of the <see cref="P:Qhta.SF.WPF.Tools.ISelectableItem.ActualValue"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SelectableItem.Value">
+            <summary>
+            Value associated with the selectable item, which can be of any type.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SelectableItem.ValueConverter">
+            <summary>
+            Value converter for converting the value to a display string.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SelectableItem.TooltipConverter">
+            <summary>
+            Value converter for converting the value to a tooltip string.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SelectableItemValueConverter">
+            <summary>
+            Value converter class for selectable item.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SelectableItemValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a selectable item to its display name.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SelectableItemValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Not implemented method for converting back from the target type to the source type.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SelectedItemEnumToResourceConverter">
+            <summary>
+            Works like <see cref="T:Qhta.WPF.Converters.EnumToResourceConverter"/>, but if value is <see cref="T:Qhta.SF.WPF.Tools.ISelectableItem"/>, it takes its actual value.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SelectedItemEnumToResourceConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Inherits from <see cref="T:Qhta.WPF.Converters.EnumToResourceConverter"/> and overrides the Convert method to handle <see cref="T:Qhta.SF.WPF.Tools.ISelectableItem"/>.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SfDataGridBehavior">
+            <summary>
+            A behavior class for managing the state of a Syncfusion DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridBehavior.GetAllowRowResizing(System.Windows.DependencyObject)">
+            <summary>
+            Gets whether the grid allows to resize rows by dragging a bottom edge of row-header cell.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridBehavior.SetAllowRowResizing(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Sets whether the grid allows to resize rows by dragging a bottom edge of row-header cell.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.SfDataGridBehavior.AllowRowResizingProperty">
+            <summary>
+            Attached dependency property that indicates whether the grid allows to resize rows by dragging a bottom edge of row-header cell.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridBehavior.GetIsRowResizing(System.Windows.DependencyObject)">
+            <summary>
+            Gets whether the grid is now resizing rows by dragging a bottom edge of row-header cell.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridBehavior.SetIsRowResizing(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Sets whether the grid is now resizing rows by dragging a bottom edge of row-header cell.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.SfDataGridBehavior.IsRowResizingProperty">
+            <summary>
+            Attached dependency property that indicates whether the grid is now resizing rows by dragging a bottom edge of row-header cell.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridBehavior.GetStartOffset(System.Windows.DependencyObject)">
+            <summary>
+            Gets the start offset for resizing rows in the grid. This is the difference between actual row height and the initial position of the mouse when resizing starts.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridBehavior.SetStartOffset(System.Windows.DependencyObject,System.Double)">
+            <summary>
+            Sets the start offset for resizing rows in the grid. This is the difference between actual row height and the initial position of the mouse when resizing starts.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.SfDataGridBehavior.StartOffsetProperty">
+            <summary>
+            Attached dependency property for the start offset for resizing rows in the grid. This is the difference between actual row height and the initial position of the mouse when resizing starts.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SfDataGridColumnBehavior">
+            <summary>
+            A behavior class for managing the selection state of a <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> in a Syncfusion DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridColumnBehavior.GetIsSelected(System.Windows.DependencyObject)">
+            <summary>
+            Gets whether the column is selected.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridColumnBehavior.SetIsSelected(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Sets the selection state of the column.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.SfDataGridColumnBehavior.IsSelectedProperty">
+            <summary>
+            Attached dependency property that indicates whether the column is selected.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridColumnBehavior.OnIsSelectedChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Handles changes to the IsSelected property of a GridColumn.
+            </summary>
+            <remarks>This method updates the styles of the GridColumn based on its selection state. If the column is
+            selected, it applies the "SelectedColumnHeaderStyle" and "SelectedGridStyle" resources. If not selected, it resets
+            the header style to its default and applies the "UnselectedGridStyle" to the cell style.</remarks>
+            <param name="d">The dependency object that represents the GridColumn whose IsSelected property has changed.</param>
+            <param name="e">The event data that contains information about the property change, including the new value.</param>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SfDataGridColumnBehaviorExtensions">
+            <summary>
+            Class containing extension methods for the <see cref="T:Qhta.SF.WPF.Tools.SfDataGridColumnBehavior"/>.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridColumnBehaviorExtensions.GetFinder(Syncfusion.UI.Xaml.Grid.GridColumn)">
+            <summary>
+            Gets the finder associated with the column.
+            </summary>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridColumnBehaviorExtensions.SetFinder(Syncfusion.UI.Xaml.Grid.GridColumn,Qhta.SF.WPF.Tools.SfDataGridFinder)">
+            <summary>
+            Sets the finder associated with the column.
+            </summary>
+            <param name="column"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.SfDataGridColumnBehaviorExtensions.FinderProperty">
+            <summary>
+            Attached dependency property that holds the finder associated with the column.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SfDataGridColumnConverter">
+            <summary>
+            Provides a mechanism to convert <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> objects to specific property values for data binding in a
+            <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <remarks>This converter is used to extract specific properties from <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> instances, such
+            as the selection state.</remarks>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.SfDataGridColumnConverter.LogIt">
+            <summary>
+            Debug flag to enable or disable logging of conversion operations.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridColumnConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> object to a specified property value based on the provided parameter.
+            </summary>
+            <param name="value">The object to convert, expected to be of type <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/>.</param>
+            <param name="targetType">The type to which the value is being converted. This parameter is not used in the conversion process.</param>
+            <param name="parameter">A string specifying the property name to retrieve from the <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/>. Must be "IsSelected".</param>
+            <param name="culture">The culture to use in the converter. This parameter is not used in the conversion process.</param>
+            <returns>The value of the specified property from the <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/>. For "IsSelected", returns the selection
+            state.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown if <paramref name="parameter"/> is not a string or if the property name is not recognized.</exception>
+            <exception cref="T:System.NotImplementedException">Thrown if <paramref name="value"/> is not of type <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/>.</exception>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridColumnConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented method for converting back from the target type to the source type.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SfDataGridCommander">
+            <summary>
+            Controller class for managing SfDataGrid operations.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.GetDataGrid(Syncfusion.UI.Xaml.Grid.GridColumn)">
+            <summary>
+            Gets the owner DataGrid of the specified column.
+            </summary>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.GetRowDataType(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Gets a type of the row data in the SfDataGrid.
+            </summary>
+            <param name="grid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.GetSelectedRows(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,System.Object[]@)">
+            <summary>
+            Gets the selected rows from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Returns the selected cells and outputs whether all rows are selected, along with the selected rows.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="allRowsSelected"></param>
+            <param name="selectedRows"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.GetSelectedColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,Syncfusion.UI.Xaml.Grid.GridColumn[]@)">
+            <summary>
+            Gets the selected columns from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Returns the selected cells and outputs whether all columns are selected, along with the selected columns.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="allColumnsSelected"></param>
+            <param name="selectedColumns"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.GetSelectedRowsAndColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,Syncfusion.UI.Xaml.Grid.GridColumn[]@,System.Boolean@,System.Object[]@)">
+            <summary>
+            Gets the selected rows and columns from the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Returns the selected cells and outputs whether all columns or rows are selected, along with the selected columns and rows.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="allColumnsSelected"></param>
+            <param name="selectedColumns"></param>
+            <param name="allRowsSelected"></param>
+            <param name="selectedRows"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.CanCopyData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be copied from the specified data grid.
+            </summary>
+            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance to check for copy capability.</param>
+            <returns><see langword="true"/> if data can be copied from the specified grid; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.CopyData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a copy operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.CanCutData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be cut from the specified data grid.
+            This method checks if all selected columns are editable and not read-only.
+            </summary>
+            <param name="dataGrid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.CutData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a cut operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SfDataGridCommander.DataOp">
+            <summary>
+            Enumeration representing the type of data operation to perform.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.SfDataGridCommander.DataOp.Copy">
+            <summary>
+            Data should be copied to clipboard.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.SfDataGridCommander.DataOp.Cut">
+            <summary>
+            Data should be cut from the grid and copied to clipboard.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.SfDataGridCommander.DataOp.Delete">
+            <summary>
+            Data should be deleted from the grid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.CanExecuteDataOp(Syncfusion.UI.Xaml.Grid.SfDataGrid,Qhta.SF.WPF.Tools.SfDataGridCommander.DataOp)">
+            <summary>
+            Determines whether a data operation can be executed on the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="op"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.ExecuteDataOp(Syncfusion.UI.Xaml.Grid.SfDataGrid,Qhta.SF.WPF.Tools.SfDataGridCommander.DataOp)">
+            <summary>
+            Performs a copy, cut or delete operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+            <param name="op"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.CanDeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be deleted from the specified data grid.
+            This method checks if all selected columns are editable and not read-only.
+            </summary>
+            <param name="dataGrid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.DeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a delete operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.CanPasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be pasted into the specified data grid.
+            </summary>
+            <param name="dataGrid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.PasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a paste operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.GetHeaders(System.String)">
+            <summary>
+            Splits a tab-delimited string into an array of header values.
+            </summary>
+            <param name="headerLine">A string containing tab-separated header values. Cannot be null.</param>
+            <returns>An array of strings, each representing a header value extracted from the input string.</returns>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SfDataGridFiltering">
+            <summary>
+            Class containing tools for filtering data in Syncfusion DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridFiltering.FilterItemsPopulating(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterItemsPopulatingEventArgs)">
+            <summary>
+            Handles the populating of filter items in a Syncfusion DataGrid. Sender must be a GridColumn or its descender.
+            If the column is a GridComboBoxColumn, it sets up the filter items based on the provided ItemsSource
+            adding "Empty" and "NonEmpty" options if applicable.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridFiltering.FilterChanging(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterEventArgs)">
+            <summary>
+            Handles the changing of filters in a Syncfusion DataGrid for proper ISelectableItem handling.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SfDataGridFinder">
+            <summary>
+            Class containing tools for finding values and text in Syncfusion DataGrid columns.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SfDataGridFinder.DataGrid">
+            <summary>
+            DataGrid instance to operate on.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SfDataGridFinder.Column">
+            <summary>
+            Gets or sets the column to search.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SfDataGridFinder.StrongTyped">
+            <summary>
+            Specifies whether the specified value is strongly typed or string typed.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SfDataGridFinder.SpecifiedValue">
+            <summary>
+            Specified value to search for.
+            It can be a string or any other type, depending on the FilterBehavior of the predicate.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SfDataGridFinder.Replace">
+            <summary>
+            Determines whether to replace the found value with the specified value.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SfDataGridFinder.Replacement">
+            <summary>
+            Specified text to replace specified text (in StringTyped mode only).
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SfDataGridFinder.Predicate">
+            <summary>
+            Predicate defining the conditions of comparison.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridFinder.FindFirst">
+            <summary>
+            Finds the first occurrence of a specified text in the column and selects the corresponding cell.
+            </summary>
+            <returns>True if first cells is found.</returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridFinder.FindNext">
+            <summary>
+            Finds the next occurrence of a specified value in the column and selects the corresponding cell.
+            </summary>
+            <returns>True if next cells is found.</returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridFinder.FindAll">
+            <summary>
+            Finds all occurrences of a specified value in the column and selects the corresponding cells.
+            </summary>
+            <returns>Number of selected cells</returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridFinder.EvaluatePredicate(System.Object,System.Object,Syncfusion.Data.FilterPredicate)">
+            <summary>
+            Evaluates the specified predicate against the current value and specified value.
+            </summary>
+            <param name="currentValue">Value found in the cell</param>
+            <param name="specifiedValue">Specified value to compare to</param>
+            <param name="predicate">Conditions of comparison.
+            If predicate FilterBehavior is StringTyped, then all values of FilterType are evaluated.
+            For StronglyTyped behavior only Equals and NotEquals functions are evaluated.</param>
+            <returns>True if the current value compared against specified value satisfies the conditions of the predicate.</returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridFinder.EvaluateReplacement(System.Object,System.Object,System.Object,Syncfusion.Data.FilterPredicate)">
+            <summary>
+            Replaces the specified text in the current value with the replacement text based on the predicate.
+            </summary>
+            <param name="currentValue">Value found in the cell</param>
+            <param name="specifiedValue">Specified value to compare to</param>
+            <param name="predicate">Conditions of comparison.
+            If predicate FilterBehavior is StringTyped, then all values of FilterType are evaluated.
+            For StronglyTyped behavior only Equals and NotEquals functions are evaluated.</param>
+            <param name="replacement">Value to replace specified value</param>
+            <returns>True if the current value compared against specified value satisfies the conditions of the predicate.</returns>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.SfDataGridSelector">
+            <summary>
+            Class containing tools for selecting columns in Syncfusion DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridSelector.IsSelected(Syncfusion.UI.Xaml.Grid.GridColumn)">
+            <summary>
+            Checks if the specific <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> column is selected or not.
+            </summary>
+            <param name="column">Column to check</param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridSelector.SetIsSelected(Syncfusion.UI.Xaml.Grid.GridColumn,System.Boolean,System.Boolean)">
+            <summary>
+            Selects or unselects the specific <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> column.
+            Any cell selection is cleared before selecting or unselecting the column.
+            </summary>
+            <param name="column">Column to select/unselect</param>
+            <param name="select">True for select, false for unselect.</param>
+            <param name="unselectOther">True to unselect other columns</param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridSelector.AreAllColumnsSelected(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Checks if all columns in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> are selected or not.
+            </summary>
+            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance.</param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridSelector.SelectAllColumns(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean)">
+            <summary>
+            Selects or unselects all columns in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            Any cell selection is cleared before selecting or unselecting columns.
+            </summary>
+            <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance.</param>
+            <param name="select">True for select all, false for unselect all.</param>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.Views.SpecificValueEdit">
+            <summary>
+            Part of the <see cref="T:Qhta.SF.WPF.Tools.Views.SpecificValueWindow"/> for edit a specific value in a text box.
+            </summary>
+            <summary>
+            SpecificValueEdit
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.Views.SpecificValueEdit.#ctor">
+            <summary>
+            Initializing constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.Views.SpecificValueEdit.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.Views.SpecificValueSelector">
+            <summary>
+            Part of the <see cref="T:Qhta.SF.WPF.Tools.Views.SpecificValueWindow"/> for selecting a specific value.
+            </summary>
+            <summary>
+            SpecificValueSelector
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.Views.SpecificValueSelector.#ctor">
+            <summary>
+            Initializing constructor.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.Views.SpecificValueSelector.OnNotifyPropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Handler for property changes. Needed for view reconfiguration on <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.Replace"/> change.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.Views.SpecificValueSelector.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.Views.SpecificWindowMode">
+            <summary>
+            Modes for the specific window.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificWindowMode.Fill">
+            <summary>
+            The window is used to edit the value for FillCommand.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificWindowMode.Find">
+            <summary>
+            The window is used to edit the value for FindCommand.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificWindowMode.FindAndReplace">
+            <summary>
+            The window is used to edit the value for FindAndReplaceCommand.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.Views.SpecificViewMode">
+            <summary>
+            Modes for the specific edit view.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificViewMode.Edit">
+            <summary>
+            <see cref="T:Qhta.SF.WPF.Tools.Views.SpecificValueEdit"/> is visible.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificViewMode.Selector">
+            <summary>
+            <see cref="T:Qhta.SF.WPF.Tools.Views.SpecificValueSelector"/> is visible.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificViewMode.Both">
+            <summary>
+            Both views are visible.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.Views.SpecificValueWindow">
+            <summary>
+            Window for selecting or editing a specific value.
+            </summary>
+            <summary>
+            SpecificValueWindow
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.SF.WPF.Tools.Views.SpecificValueWindow"/> class.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.PromptProperty">
+            <summary>
+            Dependency property for the prompt text displayed in the window.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.Prompt">
+            <summary>
+            Prompt text displayed in the window, guiding the user on what to select.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.WindowModeProperty">
+            <summary>
+            Dependency property for <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.WindowMode"/> property, which specifies the which specific view is visible, which can be either EditViewOnly, SelectorOnly, or Both.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.WindowMode">
+            <summary>
+            Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ViewModeProperty">
+            <summary>
+            Dependency property for <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ViewMode"/> property, which specifies the which specific view is visible, which can be either EditViewOnly, SelectorOnly, or Both.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ViewMode">
+            <summary>
+            Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.CurrentViewMode">
+            <summary>
+            Gets or sets the current view mode of the window.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.TextValueProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.TextValue"/> property, which is the value entered by the user in the text box.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.TextValue">
+            <summary>
+            Text value entered by the user in the text box.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ReplaceProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.Replace"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.Replace">
+            <summary>
+            Should use replacement text.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ReplacementTextProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ReplacementText"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ReplacementText">
+            <summary>
+            Replacement text entered by the user.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ItemsSourceProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ItemsSource"/>, which is the collection of items to select from.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ItemsSource">
+            <summary>
+            Items source for the selection, typically a collection of items that can be selected.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.SelectedItemProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.SelectedItem"/>, which is the item currently selected by the user.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.SelectedItem">
+            <summary>
+            Selected item in the selection window. This property is bound to the selected item in the ItemsSource.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ReplacementSourceProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ReplacementSource"/>, which is the collection of replacement items to select from.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ReplacementSource">
+            <summary>
+            Replacement source for the selection, typically a collection of Replacement that can be selected.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ReplacementItemProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ReplacementItem"/>, which is the item selected for Replacement by the user.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.ReplacementItem">
+            <summary>
+            Replacement item in the selection window. This property is bound to the selected item in the ItemsSource.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.OverwriteNonEmptyCellsProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.OverwriteNonEmptyCells"/> flag, which indicates whether to fill only empty cells in the selection.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.OverwriteNonEmptyCells">
+            <summary>
+            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.FindInSequenceProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.FindInSequence"/> flag, which indicates how to find value in the context of the current selection.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.FindInSequence">
+            <summary>
+            Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.FilterTypeProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.FilterType"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.FilterType">
+            <summary>
+            Determines the type of filter to apply when searching for values in the data grid.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.CaseSensitiveProperty">
+            <summary>
+            Dependency property for the <see cref="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.CaseSensitive"/> flag, which indicates whether to search text with case-sensitivity.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.CaseSensitive">
+            <summary>
+            Indicates whether to search text with case-sensitivity.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+    </members>
+</doc>

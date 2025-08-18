@@ -1,1 +1,0 @@
-search_result['523']=["topic_00000000000001D2.html","WritingSystemKind.Syllabary Property","Looks up a localized string similar to Syllabary."];

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 
-using Qhta.SF.Tools;
+using Qhta.SF.WPF.Tools;
 using Qhta.TextUtils;
 using Qhta.UndoManager;
 using Qhta.Unicode.Models;

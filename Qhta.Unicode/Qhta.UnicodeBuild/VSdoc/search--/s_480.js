@@ -1,1 +1,0 @@
-search_result['480']=["topic_00000000000001A7.html","WritingSystemKind.Culture Property","Overrides the current thread\u0027s CurrentUICulture property for all\r\n  resource lookups using this strongly typed resource class."];

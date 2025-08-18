@@ -1,1 +1,0 @@
-search_result['407']=["topic_0000000000000172.html","Strings.WritingSystemsTooltip Property","Looks up a localized string similar to A writing system comprises a set of symbols, called a script, as well as the rules by which the script represents a particular language.."];

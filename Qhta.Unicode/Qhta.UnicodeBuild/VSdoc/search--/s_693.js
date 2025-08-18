@@ -1,1 +1,0 @@
-search_result['693']=["topic_0000000000000253.html","UcdCodePointViewModel.Subset Property","Exposes the subset writing system as a view model."];

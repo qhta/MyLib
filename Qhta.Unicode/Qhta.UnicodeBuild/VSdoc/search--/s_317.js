@@ -1,1 +1,0 @@
-search_result['317']=["topic_000000000000011D.html","CodePoint.ApplyWritingSystemsMappingFromFileTooltip Property","Looks up a localized string similar to Apply code point mapping to scripts from a text file. The first column in a line should contain the character code or code range, the second column should contai..."];

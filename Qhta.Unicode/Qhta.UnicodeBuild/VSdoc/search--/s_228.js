@@ -1,1 +1,0 @@
-search_result['228']=["topic_00000000000000A4.html","UcdCodePoint.CharName Property","A short name of the Unicode code point, which may be used to identify the character in various contexts."];

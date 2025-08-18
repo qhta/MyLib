@@ -1,1 +1,0 @@
-search_result['38']=["topic_000000000000000D.html","CodeRangeValueConverter Class","Value converter for converting between a CodeRange and its string representation."];

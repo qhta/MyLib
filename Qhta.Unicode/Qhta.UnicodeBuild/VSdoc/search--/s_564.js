@@ -1,1 +1,0 @@
-search_result['564']=["topic_00000000000001F1.html","_ViewModels.WritingSystemKindsList Property","List of all writing system kinds exposed to the UI."];

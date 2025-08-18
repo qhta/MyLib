@@ -1,1 +1,0 @@
-search_result['667']=["topic_0000000000000239.html","UcdCodePointViewModel.Comb Property","Combining class of the Unicode code point, which indicates how the character combines with other characters.\r\nIt is a read-only property that returns a nullable enum value."];

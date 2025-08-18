@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 
-using Qhta.SF.Tools;
+using Qhta.SF.WPF.Tools;
 using Qhta.TypeUtils;
 using Qhta.UndoManager;
 using Qhta.UnicodeBuild.Helpers;

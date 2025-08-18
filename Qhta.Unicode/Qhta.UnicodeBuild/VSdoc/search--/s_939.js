@@ -1,1 +1,0 @@
-search_result['939']=["topic_00000000000002D4.html","MappingNameBinder Class","A value converter that retrieves the mapping name from a GridCell or a Binding."];

@@ -1,1 +1,0 @@
-search_result['540']=["topic_00000000000001DE.html","WritingSystemType.FamilyTooltip Property","Looks up a localized string similar to Family is a set of scripts or other writing systems.."];

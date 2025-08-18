@@ -1,1 +1,0 @@
-search_result['230']=["topic_00000000000000A6.html","UcdCodePoint.Ctg Property","Two-letter code representing the Unicode category of the code point, such as \"Lu\" for uppercase letter or \"Nd\" for decimal number."];

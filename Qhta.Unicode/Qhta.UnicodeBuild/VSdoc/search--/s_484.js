@@ -1,1 +1,0 @@
-search_result['484']=["topic_00000000000001AB.html","WritingSystemKind.AbugidaTooltip Property","Looks up a localized string similar to A segmental writing system in which consonant–vowel sequences are written as units; each unit is based on a consonant letter, and vowel notation is secondary, si..."];

@@ -1,1 +1,0 @@
-search_result['537']=["topic_00000000000001DB.html","WritingSystemType.Artefact Property","Looks up a localized string similar to Artefact."];

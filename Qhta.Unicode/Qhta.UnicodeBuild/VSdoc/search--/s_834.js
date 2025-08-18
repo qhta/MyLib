@@ -1,1 +1,0 @@
-search_result['834']=["topic_00000000000002AC.html","UcdCodePointsView Class","View for displaying Unicode code points collection."];

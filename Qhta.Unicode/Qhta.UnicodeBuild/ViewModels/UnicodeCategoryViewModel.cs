@@ -1,9 +1,9 @@
 ﻿using Qhta.MVVM;
-using Qhta.SF.Tools;
-using Qhta.SF.Tools.Resources;
+using Qhta.SF.WPF.Tools;
+using Qhta.SF.WPF.Tools.Resources;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Resources;
-using Strings = Qhta.SF.Tools.Resources.Strings;
+using Strings = Qhta.SF.WPF.Tools.Resources.Strings;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 

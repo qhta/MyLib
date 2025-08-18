@@ -1,1 +1,0 @@
-search_result['250']=["topic_00000000000000BA.html","UcdCodePoint.Artefact Property","Identifier for the artefact that this code point is associated with, if applicable."];

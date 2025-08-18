@@ -1,1 +1,0 @@
-search_result['638']=["topic_0000000000000226.html","UcdBlockViewModel.IsLongTextExpanded Property","Gets or sets a value indicating whether the long text is expanded."];

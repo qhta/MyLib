@@ -1,1 +1,0 @@
-search_result['577']=["topic_00000000000001FE.html","_ViewModels.SelectableSymbolSets Property","Collection of selectable symbol sets, which are a type of writing system."];

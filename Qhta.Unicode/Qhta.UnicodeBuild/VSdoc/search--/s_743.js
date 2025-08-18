@@ -1,1 +1,0 @@
-search_result['743']=["topic_000000000000026C.html","WritingSystemsCollection.Parent Property","Parent writing system view model, if this collection is a child of another writing system."];

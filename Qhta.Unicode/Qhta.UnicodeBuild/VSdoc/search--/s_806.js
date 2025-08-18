@@ -1,1 +1,0 @@
-search_result['806']=["topic_000000000000029A.html","EditWritingSystemWindow.OkCommand Property","OK command that is executed when the user clicks the OK button."];

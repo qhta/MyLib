@@ -1,1 +1,0 @@
-search_result['236']=["topic_00000000000000AC.html","UcdCodePoint.NumVal Property","A string which expresses the numeric value of the Unicode code point, if applicable."];

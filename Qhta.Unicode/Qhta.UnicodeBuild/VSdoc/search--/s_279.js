@@ -1,1 +1,0 @@
-search_result['279']=["topic_00000000000000E7.html","WritingSystem.Description Property","Description of the writing system, which explains its meaning."];

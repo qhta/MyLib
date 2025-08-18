@@ -1,1 +1,0 @@
-search_result['660']=["topic_0000000000000232.html","UcdCodePointViewModel.CP Property","Code point value.\r\nIt is a read-only property."];

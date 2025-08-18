@@ -1,1 +1,0 @@
-search_result['417']=["topic_0000000000000177.html","UcdBlock.NameTooltip Property","Looks up a localized string similar to Name of the Unicode block is defined by Unicode Consortium.."];

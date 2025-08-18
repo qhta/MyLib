@@ -1,1 +1,0 @@
-search_result['665']=["topic_0000000000000237.html","UcdCodePointViewModel.Ctg Property","Unicode category of the code point, represented as a two-letter code.\r\nIt is a read-only property."];

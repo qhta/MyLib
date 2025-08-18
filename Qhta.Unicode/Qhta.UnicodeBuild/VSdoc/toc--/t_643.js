@@ -1,1 +1,0 @@
-c['643']=[['644',"WritingSystemTypeViewModel Constructor","topic_0000000000000274.html",0],['645',"Properties","topic_0000000000000273_props--.html",1],['649',"Methods","topic_0000000000000273_methods--.html",1]];

@@ -1,1 +1,0 @@
-search_result['270']=["topic_00000000000000DE.html","WritingSystem.Name Property","Name of the writing system (in English)."];

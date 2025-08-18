@@ -1,1 +1,0 @@
-search_result['734']=["topic_0000000000000268.html","WritingSystemMappingViewModel Constructor","Initializes a new instance of the WritingSystemMappingViewModel class with a new WritingSystemMapping model."];

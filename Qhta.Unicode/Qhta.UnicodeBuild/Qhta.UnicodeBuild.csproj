@@ -148,7 +148,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Qhta.SF.Tools\Qhta.SF.Tools.csproj" />
+    <ProjectReference Include="..\..\Qhta.SF.WPF.Tools\Qhta.SF.WPF.Tools.csproj" />
     <ProjectReference Include="..\..\Qhta.UndoManager\Qhta.UndoManager.csproj" />
   </ItemGroup>
 

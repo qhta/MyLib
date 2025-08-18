@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-using Qhta.SF.Tools;
+using Qhta.SF.WPF.Tools;
 using Qhta.UndoManager;
 using Qhta.UnicodeBuild.ViewModels;
 using Qhta.WPF.Utils;

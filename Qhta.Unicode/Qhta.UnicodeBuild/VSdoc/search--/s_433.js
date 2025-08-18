@@ -1,1 +1,0 @@
-search_result['433']=["topic_0000000000000182.html","UcdRange.RangeTooltip Property","Looks up a localized string similar to Range of the Unicode range is a string consisting of two codepoints separated by two periods or a single codepoint. Each codepoint is a hexadecimal numbers of fo..."];

@@ -1,1 +1,0 @@
-var breadcrumbs=[['-1',"",""],['2',"SOLUTION-WIDE PROPERTIES Reference","topic_0000000000000312.html"],['4',"Qhta.SF.Tools Namespace","topic_00000000000002BE.html"],['36',"RecordNavigationBar Class","topic_00000000000002DA.html"],['37',"RecordNavigationBar Constructor","topic_00000000000002DB.html"]];

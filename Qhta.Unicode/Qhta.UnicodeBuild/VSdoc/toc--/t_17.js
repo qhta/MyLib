@@ -1,1 +1,0 @@
-c['17']=[['18',"Culture Property","topic_00000000000002CB.html",0],['19',"DeleteAllDataConfirmation Property","topic_00000000000002CC.html",0],['20',"ResourceManager Property","topic_00000000000002CA.html",0]];

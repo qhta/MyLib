@@ -1,1 +1,0 @@
-search_result['421']=["topic_000000000000017B.html","UcdBlock.WritingSystemTooltip Property","Looks up a localized string similar to Writing system of the Unicode block is a default writing system for all Unicode ranges belonging to this block.."];

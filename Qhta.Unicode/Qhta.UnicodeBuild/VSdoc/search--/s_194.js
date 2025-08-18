@@ -1,1 +1,0 @@
-search_result['194']=["topic_0000000000000057.html","AliasType Enumeration","Specifies the type of alias used of the code point."];

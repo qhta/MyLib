@@ -1,1 +1,0 @@
-search_result['505']=["topic_00000000000001C0.html","WritingSystemKind.Logographic Property","Looks up a localized string similar to Logographic."];

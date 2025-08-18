@@ -1,1 +1,0 @@
-search_result['322']=["topic_0000000000000122.html","CodePoint.Category Property","Looks up a localized string similar to Category."];

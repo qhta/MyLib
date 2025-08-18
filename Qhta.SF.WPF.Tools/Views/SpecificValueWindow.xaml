@@ -1,0 +1,87 @@
+﻿<Window x:Class="Qhta.SF.WPF.Tools.Views.SpecificValueWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Qhta.SF.WPF.Tools.Views"
+             xmlns:resources="clr-namespace:Qhta.SF.WPF.Tools.Resources"
+             xmlns:commands="clr-namespace:Qhta.SF.WPF.Tools.Views"
+             xmlns:sys="clr-namespace:System.Globalization;assembly=System.Runtime"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:tools="clr-namespace:Qhta.SF.WPF.Tools"
+             mc:Ignorable="d" 
+             Height="500" Width="400">
+  <Window.Resources>
+    <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type system:Enum}" x:Key="FindInSequenceProvider">
+      <ObjectDataProvider.MethodParameters>
+        <x:Type TypeName="tools:FindInSequence" />
+      </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+  </Window.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <TextBlock 
+      Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SpecificValueWindow}},
+        Path= Prompt}"
+       Margin="10,5"
+      />
+    <TabControl Grid.Row="1"
+      x:Name="TabControl"
+      SelectionChanged="TabControl_SelectionChanged"
+      >
+      <TabItem>
+        <TabItem.Header>
+          <Image Source="/Assets/List.png" Height="16" Width="16"></Image>
+        </TabItem.Header>
+        <local:SpecificValueSelector x:Name="ValueSelector"/>
+      </TabItem>
+      <TabItem>
+        <TabItem.Header>
+          <Image Source="/Assets/A.png" Height="16" Width="16"></Image>
+        </TabItem.Header>
+        <local:SpecificValueEdit x:Name="ValueEdit"/>
+      </TabItem>
+    </TabControl>
+    <CheckBox 
+      Grid.Row="2"
+      x:Name="OverWriteNonEmptyCellsButton"
+      Margin="10,5"
+      IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SpecificValueWindow}},
+        Path= OverwriteNonEmptyCells}"
+      Content="{x:Static resources:Strings.OverwriteNonEmptyCells}"/>
+    <ComboBox 
+      Grid.Row="3"
+      Margin="10,5"
+      x:Name="FindInSequenceComboBox"
+      Width="200"
+      HorizontalAlignment="Left"
+      ItemsSource="{Binding Source={StaticResource FindInSequenceProvider}}"
+      SelectedItem="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SpecificValueWindow}},
+        Path= FindInSequence}">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Converter={StaticResource FindInSequenceConverter},
+            ConverterCulture={x:Static sys:CultureInfo.CurrentUICulture}}" />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+    <WrapPanel 
+      Grid.Row="4"
+      Orientation="Horizontal"
+      HorizontalAlignment="Center"
+      Margin="10,5"
+      >
+      <Button x:Name="OkButton" Content="{x:Static resources:Strings.OK}" Width="80" Click="OkButton_OnClick"/>
+      <Button x:Name="CancelButton" Content="{x:Static resources:Strings.Cancel}" Width="80" Click="CancelButton_OnClick" 
+              IsCancel="True"
+              Margin="10,0,0,0"/>
+    </WrapPanel>
+  </Grid>
+</Window>

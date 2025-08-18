@@ -1,1 +1,0 @@
-search_result['334']=["topic_000000000000012E.html","CodePoint.NameTooltip Property","Looks up a localized string similar to Char name used in serialization.."];

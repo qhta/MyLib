@@ -1,1 +1,0 @@
-search_result['840']=["topic_00000000000002AD.html","UcdCodePointsView Constructor","Initializes a new instance of the UcdCodePointsView class."];

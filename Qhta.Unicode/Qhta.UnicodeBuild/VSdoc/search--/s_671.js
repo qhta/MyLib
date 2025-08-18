@@ -1,1 +1,0 @@
-search_result['671']=["topic_000000000000023D.html","UcdCodePointViewModel.DigitVal Property","Digit value of the Unicode code point, if applicable.\r\nIt is a read-only property that returns a nullable byte value."];

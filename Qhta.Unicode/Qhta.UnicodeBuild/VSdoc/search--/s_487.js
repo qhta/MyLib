@@ -1,1 +1,0 @@
-search_result['487']=["topic_00000000000001AE.html","WritingSystemKind.Constructed Property","Looks up a localized string similar to Constructed."];

@@ -1,1 +1,0 @@
-search_result['593']=["topic_000000000000020C.html","ApplyWritingSystemMappingBackgroundWorker Field","Background worker for applying writing system mappings to Unicode code points."];

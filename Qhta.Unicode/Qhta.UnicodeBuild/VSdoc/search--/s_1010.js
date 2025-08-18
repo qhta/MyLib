@@ -1,1 +1,0 @@
-search_result['1010']=["topic_00000000000002FD.html","SfDataGridColumnConverter Class","Provides a mechanism to convert GridColumn objects to specific property values for data binding in a\r\nSfDataGrid."];

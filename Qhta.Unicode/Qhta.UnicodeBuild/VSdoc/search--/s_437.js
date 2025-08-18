@@ -1,1 +1,0 @@
-search_result['437']=["topic_0000000000000186.html","UcdRange.WritingSystemTooltip Property","Looks up a localized string similar to Writing system of the Unicode range defines rules of use and translation of codepoints belonging to this range.."];

@@ -1,1 +1,0 @@
-search_result['494']=["topic_00000000000001B5.html","WritingSystemKind.EncodingTooltip Property","Looks up a localized string similar to A set of characters encoding other characters.."];

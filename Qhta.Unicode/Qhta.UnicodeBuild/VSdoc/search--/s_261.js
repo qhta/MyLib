@@ -1,1 +1,0 @@
-search_result['261']=["topic_00000000000000DA.html","UnicodeCategoryEntity.Name Property","Long name of the Unicode category, providing a more descriptive label for the category."];

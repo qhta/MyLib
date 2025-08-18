@@ -1,1 +1,0 @@
-search_result['278']=["topic_00000000000000E6.html","WritingSystem.Ext Property","Extension string added to the Abbr field to provide unique identification for the writing system,"];

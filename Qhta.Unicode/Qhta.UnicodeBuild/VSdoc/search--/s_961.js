@@ -1,1 +1,0 @@
-search_result['961']=["topic_00000000000002DB.html","RecordNavigationBar Constructor","Initializes a new instance of the RecordNavigationBar class."];

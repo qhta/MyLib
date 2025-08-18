@@ -1,1 +1,0 @@
-search_result['492']=["topic_00000000000001B3.html","WritingSystemKind.CuneiformTooltip Property","Looks up a localized string similar to A logo-syllabic writing system that was used to write several languages of the Ancient Near East, named for the characteristic wedge-shaped impressions which for..."];

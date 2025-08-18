@@ -1,1 +1,0 @@
-search_result['497']=["topic_00000000000001B8.html","WritingSystemKind.Graphical Property","Looks up a localized string similar to Graphical."];

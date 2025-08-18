@@ -1,1 +1,0 @@
-search_result['195']=["topic_000000000000005D.html","WritingSystemMapping Class","Mapping between Unicode code point ranges and writing systems.\r\nRead from the mapping files."];

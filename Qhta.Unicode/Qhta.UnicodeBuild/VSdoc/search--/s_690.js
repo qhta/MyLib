@@ -1,1 +1,0 @@
-search_result['690']=["topic_0000000000000250.html","UcdCodePointViewModel.SymbolSetId Property","Identifier of the symbol set writing system associated with this Unicode code point, if applicable."];

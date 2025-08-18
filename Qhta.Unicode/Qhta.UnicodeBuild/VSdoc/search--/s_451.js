@@ -1,1 +1,0 @@
-search_result['451']=["topic_000000000000018F.html","WritingSystem.CtgTooltip Property","Looks up a localized string similar to A category string is a value of \"Ctg\"  field of a code point which assigns the code point to this writing system. Wildcards \u0027*\u0027 and alternative operators \"|\" can..."];

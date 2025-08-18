@@ -1,1 +1,0 @@
-search_result['783']=["topic_0000000000000288.html","WritingSystemViewModel.IsUsed Property","Provides information about whether this writing system is used in any UCD blocks or has children."];

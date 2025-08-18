@@ -1,1 +1,0 @@
-search_result['539']=["topic_00000000000001DD.html","WritingSystemType.Family Property","Looks up a localized string similar to Family."];

@@ -1,1 +1,0 @@
-search_result['966']=["topic_00000000000002E0.html","RecordNavigationBar.NextItemCommand Property","Command to navigate to the next item in the SfDataGrid."];

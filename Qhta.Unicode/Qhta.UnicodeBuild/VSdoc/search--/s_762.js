@@ -1,1 +1,0 @@
-search_result['762']=["topic_0000000000000278.html","WritingSystemTypeViewModel.Equals Method","Compares this instance with another WritingSystemTypeViewModel for equality based on the Id property."];

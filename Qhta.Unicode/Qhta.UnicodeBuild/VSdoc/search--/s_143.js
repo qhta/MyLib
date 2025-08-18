@@ -1,1 +1,0 @@
-search_result['143']=["topic_000000000000003C.html","ViewModelsBindingProxy Class","Class that serves as a binding proxy for the ViewModels.\r\nUsed to bind the ViewModels static property Instance in the XAML resource file.\r\nIt is needed because the ViewModels class is static and canno..."];

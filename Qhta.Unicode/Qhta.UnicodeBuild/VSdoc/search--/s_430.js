@@ -1,1 +1,0 @@
-search_result['430']=["topic_000000000000017F.html","UcdRange.Name Property","Looks up a localized string similar to Block zakresu."];

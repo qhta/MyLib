@@ -1,1 +1,0 @@
-search_result['569']=["topic_00000000000001F6.html","_ViewModels.SelectableCategories Property","Collection of selectable Unicode categories exposed to the UI as an enumerable."];

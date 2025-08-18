@@ -1,1 +1,0 @@
-search_result['807']=["topic_000000000000029B.html","EditWritingSystemWindow.CancelCommand Property","Cancel command that is executed when the user clicks the Cancel button."];

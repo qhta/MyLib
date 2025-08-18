@@ -1,1 +1,0 @@
-search_result['9']=["topic_0000000000000004.html","CodePointValidationRule Class","Validation rule for checking if a string is a valid Unicode code point."];

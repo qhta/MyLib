@@ -1,1 +1,0 @@
-search_result['696']=["topic_0000000000000256.html","UcdCodePointViewModel.RowHeight Property","Simple property to provide the height of the row in a UI."];

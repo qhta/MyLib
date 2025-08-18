@@ -1,1 +1,0 @@
-search_result['248']=["topic_00000000000000B8.html","UcdCodePoint.SymbolSet Property","Identifier for the symbol set that this code point belongs to, if applicable."];

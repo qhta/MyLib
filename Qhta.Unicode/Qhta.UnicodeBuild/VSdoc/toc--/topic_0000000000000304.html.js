@@ -1,1 +1,0 @@
-var breadcrumbs=[['-1',"",""],['2',"SOLUTION-WIDE PROPERTIES Reference","topic_0000000000000312.html"],['93',"Qhta.UndoManager Namespace","topic_0000000000000302.html"],['108',"IAction Interface","topic_0000000000000303.html"],['109',"Methods","topic_0000000000000303_methods--.html"],['110',"Execute Method","topic_0000000000000304.html"]];

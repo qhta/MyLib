@@ -1,1 +1,0 @@
-search_result['330']=["topic_000000000000012A.html","CodePoint.GlyphTooltip Property","Looks up a localized string similar to Preview of character font face.."];

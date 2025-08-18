@@ -1,1 +1,0 @@
-search_result['538']=["topic_00000000000001DC.html","WritingSystemType.ArtefactTooltip Property","Looks up a localized string similar to The artifact of the human culture in which the symbol was found.."];

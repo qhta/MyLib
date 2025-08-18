@@ -2,7 +2,7 @@
 
 using Qhta.Collections;
 using Qhta.ObservableObjects;
-using Qhta.SF.Tools;
+using Qhta.SF.WPF.Tools;
 using Qhta.UndoManager;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Actions;

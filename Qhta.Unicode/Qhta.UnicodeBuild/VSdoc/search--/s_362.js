@@ -1,1 +1,0 @@
-search_result['362']=["topic_0000000000000145.html","Strings.CodePointsTooltip Property","Looks up a localized string similar to In Unicode, a code point is a unique numerical value assigned to each character within the Unicode standard. These code points range from U+0000 to U+10FFFF, for..."];

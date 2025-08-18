@@ -1,1 +1,0 @@
-search_result['673']=["topic_000000000000023F.html","UcdCodePointViewModel.Mirr Property","Mirror property indicating whether the code point is mirrored in bidirectional text.\r\nIt is a read-only property that returns a boolean value."];

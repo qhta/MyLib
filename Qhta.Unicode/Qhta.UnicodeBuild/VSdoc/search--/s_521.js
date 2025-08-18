@@ -1,1 +1,0 @@
-search_result['521']=["topic_00000000000001D0.html","WritingSystemKind.Stenography Property","Looks up a localized string similar to Stenography."];

@@ -1,1 +1,0 @@
-search_result['905']=["topic_00000000000002C6.html","Controller.DeleteData Method","Performs a delete operation on the data in the specified SfDataGrid."];

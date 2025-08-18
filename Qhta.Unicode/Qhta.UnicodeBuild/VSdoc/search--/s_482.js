@@ -1,1 +1,0 @@
-search_result['482']=["topic_00000000000001A9.html","WritingSystemKind.AbjadTooltip Property","Looks up a localized string similar to A writing system in which only consonants are represented, leaving the vowel sounds to be inferred by the reader.."];

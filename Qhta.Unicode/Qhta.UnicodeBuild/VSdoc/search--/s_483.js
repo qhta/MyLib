@@ -1,1 +1,0 @@
-search_result['483']=["topic_00000000000001AA.html","WritingSystemKind.Abugida Property","Looks up a localized string similar to Abugida."];

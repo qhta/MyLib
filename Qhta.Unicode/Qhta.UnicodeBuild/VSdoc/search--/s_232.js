@@ -1,1 +1,0 @@
-search_result['232']=["topic_00000000000000A8.html","UcdCodePoint.Bidir Property","Bidirectional category of the Unicode code point, which indicates how the character behaves in bidirectional text.\r\nEncoded as a string, such as \"L\" for left-to-right or \"R\" for right-to-left."];

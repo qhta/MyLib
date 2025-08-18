@@ -1,1 +1,0 @@
-search_result['245']=["topic_00000000000000B5.html","UcdCodePoint.Script Property","Identifier for the script that this code point is written in, if applicable."];

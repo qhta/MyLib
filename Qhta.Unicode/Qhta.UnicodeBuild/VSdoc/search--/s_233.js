@@ -1,1 +1,0 @@
-search_result['233']=["topic_00000000000000A9.html","UcdCodePoint.Decomposition Property","A string which describes the decomposition of the Unicode code point, if applicable."];

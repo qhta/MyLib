@@ -1,1 +1,0 @@
-search_result['803']=["topic_0000000000000297.html","EditWritingSystemWindow Constructor","Initializes a new instance of the EditWritingSystemWindow class."];

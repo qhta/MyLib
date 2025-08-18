@@ -1,1 +1,0 @@
-search_result['771']=["topic_000000000000027C.html","WritingSystemViewModel.Name Property","Gets or sets the name of the writing system.\r\nIt is required property and must not be null or empty."];

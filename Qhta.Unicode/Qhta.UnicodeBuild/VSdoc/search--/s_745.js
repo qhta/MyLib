@@ -1,1 +1,0 @@
-search_result['745']=["topic_000000000000026E.html","WritingSystemsCollection.FindById Method","Finds a writing system by its identifier."];

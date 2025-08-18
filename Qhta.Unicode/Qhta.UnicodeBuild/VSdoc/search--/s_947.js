@@ -1,1 +1,0 @@
-search_result['947']=["topic_00000000000002D7.html","MappingNameToValueConverter Class","A value converter that retrieves the value of a property specified by the mapping name from a GridCell."];

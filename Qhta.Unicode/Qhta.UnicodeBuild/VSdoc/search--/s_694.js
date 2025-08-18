@@ -1,1 +1,0 @@
-search_result['694']=["topic_0000000000000254.html","UcdCodePointViewModel.ArtefactId Property","Identifier of the artefact writing system associated with this Unicode code point, if applicable."];

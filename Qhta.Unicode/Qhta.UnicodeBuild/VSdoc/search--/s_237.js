@@ -1,1 +1,0 @@
-search_result['237']=["topic_00000000000000AD.html","UcdCodePoint.Mirr Property","A string which expresses if the character is mirrored in bidirectional text.\r\nIt is encoded as \"Y\" for yes or \"N\" for no."];

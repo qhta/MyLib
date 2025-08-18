@@ -1,1 +1,0 @@
-search_result['336']=["topic_0000000000000130.html","CodePoint.NotationTooltip Property","Looks up a localized string similar to Notation in which this code point is defined.."];

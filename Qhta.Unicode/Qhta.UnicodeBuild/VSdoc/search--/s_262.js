@@ -1,1 +1,0 @@
-search_result['262']=["topic_00000000000000DB.html","UnicodeCategoryEntity.Comment Property","Description of the Unicode category, explaining its purpose or characteristics."];

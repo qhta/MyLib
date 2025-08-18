@@ -1,1 +1,0 @@
-search_result['342']=["topic_0000000000000136.html","CodePoint.SymbolSetTooltip Property","Looks up a localized string similar to Symbol set to which this code point belongs.."];

@@ -1,1 +1,0 @@
-search_result['131']=["topic_0000000000000032.html","ValidationResultEx(String, IEnumerable\u0026lt;String\u0026gt;) Constructor","Initializes a new instance of the ValidationResultEx class."];

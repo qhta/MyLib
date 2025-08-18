@@ -1,1 +1,0 @@
-search_result['238']=["topic_00000000000000AE.html","UcdCodePoint.OldDescription Property","An old description of the Unicode code point, which may be used for historical reference or compatibility purposes."];

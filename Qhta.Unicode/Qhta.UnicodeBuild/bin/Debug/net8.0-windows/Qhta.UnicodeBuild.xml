@@ -3177,12 +3177,12 @@
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.ToolTip">
             <summary>
-            Implementation of the <see cref="P:Qhta.SF.Tools.ISelectableItem.ToolTip"/> property.
+            Implementation of the <see cref="P:Qhta.SF.WPF.Tools.ISelectableItem.ToolTip"/> property.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.ActualValue">
             <summary>
-            Implementation of the <see cref="P:Qhta.SF.Tools.ISelectableItem.ActualValue"/> property.
+            Implementation of the <see cref="P:Qhta.SF.WPF.Tools.ISelectableItem.ActualValue"/> property.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.IsSelected">
@@ -3543,12 +3543,12 @@
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UnicodeCategoryViewModel.ToolTip">
             <summary>
-            Implementation of the <see cref="P:Qhta.SF.Tools.ISelectableItem.ToolTip"/> property.
+            Implementation of the <see cref="P:Qhta.SF.WPF.Tools.ISelectableItem.ToolTip"/> property.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UnicodeCategoryViewModel.ActualValue">
             <summary>
-            Implementation of the <see cref="P:Qhta.SF.Tools.ISelectableItem.ActualValue"/> property.
+            Implementation of the <see cref="P:Qhta.SF.WPF.Tools.ISelectableItem.ActualValue"/> property.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UnicodeCategoryViewModel.IsSelected">
@@ -3974,7 +3974,7 @@
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.ActualValue">
             <summary>
-            Implementation of the <see cref="P:Qhta.SF.Tools.ISelectableItem.ActualValue"/> property.
+            Implementation of the <see cref="P:Qhta.SF.WPF.Tools.ISelectableItem.ActualValue"/> property.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.IsSelected">

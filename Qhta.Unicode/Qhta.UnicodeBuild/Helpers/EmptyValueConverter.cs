@@ -2,10 +2,10 @@
 using System.Globalization;
 using System.Resources;
 using System.Windows.Data;
-using Qhta.SF.Tools;
-using Qhta.SF.Tools.Resources;
+using Qhta.SF.WPF.Tools;
+using Qhta.SF.WPF.Tools.Resources;
 using Qhta.UnicodeBuild.Resources;
-using Strings = Qhta.SF.Tools.Resources.Strings;
+using Strings = Qhta.SF.WPF.Tools.Resources.Strings;
 
 namespace Qhta.UnicodeBuild.Helpers;
 

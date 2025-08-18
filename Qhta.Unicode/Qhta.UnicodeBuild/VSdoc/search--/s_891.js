@@ -1,1 +1,0 @@
-search_result['891']=["topic_00000000000002BD.html","NewWindow Constructor","Initializes a new instance of the NewWindow class."];

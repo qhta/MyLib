@@ -1,1 +1,0 @@
-search_result['747']=["topic_0000000000000270.html","WritingSystemsCollection.Add (WritingSystem) Method","Adds a writing system to the collection, creating a new view model if it does not already exist."];

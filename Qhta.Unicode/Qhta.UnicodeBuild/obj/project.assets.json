@@ -2681,7 +2681,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "Qhta.SF.Tools/1.0.0": {
+      "Qhta.SF.WPF.Tools/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
@@ -2700,10 +2700,10 @@
           "Syncfusion.Tools.WPF": "30.2.5"
         },
         "compile": {
-          "bin/placeholder/Qhta.SF.Tools.dll": {}
+          "bin/placeholder/Qhta.SF.WPF.Tools.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Qhta.SF.Tools.dll": {}
+          "bin/placeholder/Qhta.SF.WPF.Tools.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App.WPF"
@@ -8169,10 +8169,10 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
-    "Qhta.SF.Tools/1.0.0": {
+    "Qhta.SF.WPF.Tools/1.0.0": {
       "type": "project",
-      "path": "../../Qhta.SF.Tools/Qhta.SF.Tools.csproj",
-      "msbuildProject": "../../Qhta.SF.Tools/Qhta.SF.Tools.csproj"
+      "path": "../../Qhta.SF.WPF.Tools/Qhta.SF.WPF.Tools.csproj",
+      "msbuildProject": "../../Qhta.SF.WPF.Tools/Qhta.SF.WPF.Tools.csproj"
     },
     "Qhta.UndoManager/1.0.0": {
       "type": "project",
@@ -8193,7 +8193,7 @@
       "Qhta.DeepCopy >= 1.5.0",
       "Qhta.MVVM >= 4.14.0",
       "Qhta.ObservableObjects >= 4.3.0",
-      "Qhta.SF.Tools >= 1.0.0",
+      "Qhta.SF.WPF.Tools >= 1.0.0",
       "Qhta.UndoManager >= 1.0.0",
       "Qhta.WPF.Converters >= 1.7.0",
       "Qhta.WPF.Utils >= 3.5.0",
@@ -8247,8 +8247,8 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj": {
-              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.Tools\\Qhta.SF.Tools.csproj"
+            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj": {
+              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj"
             },
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.UndoManager\\Qhta.UndoManager.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.UndoManager\\Qhta.UndoManager.csproj"
@@ -8392,7 +8392,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

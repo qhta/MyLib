@@ -1,1 +1,0 @@
-search_result['773']=["topic_000000000000027E.html","WritingSystemViewModel.Type Property","Type of the writing system, such as script, language, or notation.\r\nIt is a required property and must not be null."];

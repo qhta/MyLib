@@ -3,8 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-using Qhta.SF.Tools;
-using Qhta.SF.Tools.Resources;
+using Qhta.SF.WPF.Tools;
+using Qhta.SF.WPF.Tools.Resources;
 using Qhta.TextUtils;
 using Qhta.UndoManager;
 using Qhta.Unicode.Models;
@@ -25,7 +25,7 @@ using DropPosition = Syncfusion.UI.Xaml.TreeView.DropPosition;
 using WritingSystem = Qhta.Unicode.Models.WritingSystem;
 using WritingSystemKind = Qhta.Unicode.Models.WritingSystemKind;
 using WritingSystemType = Qhta.Unicode.Models.WritingSystemType;
-using DataStrings = Qhta.SF.Tools.Resources.Strings;
+using DataStrings = Qhta.SF.WPF.Tools.Resources.Strings;
 
 namespace Qhta.UnicodeBuild.Views;
 

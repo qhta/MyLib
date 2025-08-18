@@ -1,1 +1,0 @@
-search_result['543']=["topic_00000000000001E1.html","WritingSystemType.Notation Property","Looks up a localized string similar to Notation."];

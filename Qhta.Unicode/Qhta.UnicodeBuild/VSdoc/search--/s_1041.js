@@ -1,1 +1,0 @@
-search_result['1041']=["topic_0000000000000308.html","UndoMgr.IsRedoing Property","Flag to indicate if the application is currently redoing an action."];

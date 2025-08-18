@@ -1,1 +1,0 @@
-search_result['901']=["topic_00000000000002C2.html","Controller.CutCopyData Method","Performs a cut or copy operation on the data in the specified SfDataGrid."];

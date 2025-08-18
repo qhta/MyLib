@@ -1,1 +1,0 @@
-search_result['965']=["topic_00000000000002DF.html","RecordNavigationBar.RowsCount Property","Gets or sets the number of rows in the collection."];

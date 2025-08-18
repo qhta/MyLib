@@ -1,1 +1,0 @@
-search_result['541']=["topic_00000000000001DF.html","WritingSystemType.Language Property","Looks up a localized string similar to Language."];

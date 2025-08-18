@@ -1,1 +1,0 @@
-search_result['641']=["topic_0000000000000229.html","UcdCodePointsCollection Class","Specialized collection for managing Unicode code points."];

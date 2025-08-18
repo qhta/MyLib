@@ -1,1 +1,0 @@
-search_result['280']=["topic_00000000000000E8.html","WritingSystem.ParentSystem Property","An optional parent writing system that this writing system is derived from or associated with.\r\nAssociated with the ParentId field."];

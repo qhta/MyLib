@@ -1,1 +1,0 @@
-search_result['785']=["topic_000000000000028A.html","WritingSystemViewModel.IsExpanded Property","Indicates whether the current item is expanded."];

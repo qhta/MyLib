@@ -1,1 +1,0 @@
-search_result['558']=["topic_00000000000001EB.html","_ViewModels.Instance Property","Instance property to access the singleton instance of the _ViewModels class."];

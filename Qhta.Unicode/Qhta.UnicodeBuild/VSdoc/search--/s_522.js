@@ -1,1 +1,0 @@
-search_result['522']=["topic_00000000000001D1.html","WritingSystemKind.StenographyTooltip Property","Looks up a localized string similar to An abbreviated symbolic writing method that increases speed and brevity of writing as compared to longhand, a more common method of writing a language.."];

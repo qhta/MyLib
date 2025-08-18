@@ -1,1 +1,0 @@
-search_result['456']=["topic_0000000000000194.html","WritingSystem.ExtTooltip Property","Looks up a localized string similar to Extension is a string which is appended to the abbreviation to create a unique key for each writing system. It does not appear in the output text.."];

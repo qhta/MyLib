@@ -1,1 +1,0 @@
-search_result['241']=["topic_00000000000000B1.html","UcdCodePoint.Lower Property","Code point for the lower case version of the character, if applicable."];

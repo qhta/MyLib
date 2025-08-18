@@ -1,1 +1,0 @@
-search_result['462']=["topic_000000000000019A.html","WritingSystem.KeyPhraseTooltip Property","Looks up a localized string similar to Key phrase should exist in a code point description to classify the code point to this writing system. Wildcards \u0027*\u0027 can be used to define more sophisticated cla..."];

@@ -1,1 +1,0 @@
-search_result['447']=["topic_000000000000018B.html","WritingSystem.Abbreviation Property","Looks up a localized string similar to Abbreviation."];

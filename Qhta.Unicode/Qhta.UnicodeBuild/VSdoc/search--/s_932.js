@@ -1,1 +1,0 @@
-search_result['932']=["topic_00000000000002D2.html","LongTextColumn Class","Represents a column in a data grid that adjusts its row height based on the content length."];

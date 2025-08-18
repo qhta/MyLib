@@ -1,1 +1,0 @@
-search_result['311']=["topic_0000000000000117.html","CodePoint.ResourceManager Property","Returns the cached ResourceManager instance used by this class."];

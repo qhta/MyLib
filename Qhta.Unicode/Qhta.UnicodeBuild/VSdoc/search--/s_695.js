@@ -1,1 +1,0 @@
-search_result['695']=["topic_0000000000000255.html","UcdCodePointViewModel.Artefact Property","Exposes the artefact writing system as a view model."];

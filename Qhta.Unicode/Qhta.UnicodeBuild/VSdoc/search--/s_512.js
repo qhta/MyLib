@@ -1,1 +1,0 @@
-search_result['512']=["topic_00000000000001C7.html","WritingSystemKind.NumericalTooltip Property","Looks up a localized string similar to A writing system for expressing numbers; that is, a mathematical notation for representing numbers of a given set, using digits or other symbols in a consistent ..."];

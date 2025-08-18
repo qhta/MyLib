@@ -1,1 +1,0 @@
-search_result['397']=["topic_0000000000000168.html","Strings.Tools Property","Looks up a localized string similar to Tools."];

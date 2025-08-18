@@ -1,1 +1,0 @@
-search_result['324']=["topic_0000000000000124.html","CodePoint.CPTooltip Property","Looks up a localized string similar to Code point is a hexadecimal integer from 4 to 6 digits.."];

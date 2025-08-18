@@ -1,1 +1,0 @@
-search_result['192']=["topic_0000000000000055.html","Alias.Type Property","Type of the alias, which is represented as a byte value."];

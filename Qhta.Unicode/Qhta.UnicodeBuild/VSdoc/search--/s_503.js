@@ -1,1 +1,0 @@
-search_result['503']=["topic_00000000000001BE.html","WritingSystemKind.Invisible Property","Looks up a localized string similar to Invisible."];

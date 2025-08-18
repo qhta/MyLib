@@ -1,1 +1,0 @@
-search_result['365']=["topic_0000000000000148.html","Strings.Cut Property","Looks up a localized string similar to Cut."];

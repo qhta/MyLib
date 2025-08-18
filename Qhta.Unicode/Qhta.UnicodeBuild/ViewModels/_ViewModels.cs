@@ -4,14 +4,14 @@ using System.Windows.Data;
 using System.Windows.Threading;
 
 using Qhta.MVVM;
-using Qhta.SF.Tools;
-using Qhta.SF.Tools.Resources;
+using Qhta.SF.WPF.Tools;
+using Qhta.SF.WPF.Tools.Resources;
 using Qhta.UndoManager;
 using Qhta.Unicode.Models;
 using Qhta.UnicodeBuild.Resources;
 using Qhta.WPF.Converters;
 using Syncfusion.Data.Extensions;
-using DataStrings = Qhta.SF.Tools.Resources.Strings;
+using DataStrings = Qhta.SF.WPF.Tools.Resources.Strings;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 

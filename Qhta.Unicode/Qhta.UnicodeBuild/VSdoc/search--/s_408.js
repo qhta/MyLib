@@ -1,1 +1,0 @@
-search_result['408']=["topic_0000000000000173.html","UcdBlock Class","A strongly-typed resource class, for looking up localized strings, etc."];

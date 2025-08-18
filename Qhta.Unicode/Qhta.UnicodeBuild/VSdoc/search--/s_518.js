@@ -1,1 +1,0 @@
-search_result['518']=["topic_00000000000001CD.html","WritingSystemKind.PictophoneticTooltip Property","Looks up a localized string similar to A writing system that combines ideographic and phonetic elements.."];

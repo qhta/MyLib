@@ -1,1 +1,0 @@
-search_result['687']=["topic_000000000000024D.html","UcdCodePointViewModel.Language Property","Exposes the language writing system as a view model."];

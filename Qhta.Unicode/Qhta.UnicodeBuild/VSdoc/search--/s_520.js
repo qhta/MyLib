@@ -1,1 +1,0 @@
-search_result['520']=["topic_00000000000001CF.html","WritingSystemKind.SemiSyllabaryTooltip Property","Looks up a localized string similar to A writing system that behaves partly as an alphabet and partly as a syllabary.."];

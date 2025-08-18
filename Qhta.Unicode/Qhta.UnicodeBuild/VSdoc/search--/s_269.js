@@ -1,1 +1,0 @@
-search_result['269']=["topic_00000000000000DD.html","WritingSystem.Id Property","Number that uniquely identifies the writing system in the database."];

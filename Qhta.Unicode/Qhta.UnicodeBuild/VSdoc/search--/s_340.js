@@ -1,1 +1,0 @@
-search_result['340']=["topic_0000000000000134.html","CodePoint.SubsetTooltip Property","Looks up a localized string similar to Subset, to which this code point can be classified.."];

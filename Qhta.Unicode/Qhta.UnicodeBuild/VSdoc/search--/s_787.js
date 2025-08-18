@@ -1,1 +1,0 @@
-search_result['787']=["topic_000000000000028C.html","WritingSystemViewModel.CanExpandLongText Property","Can the long text be expanded in the UI?"];

@@ -1,1 +1,0 @@
-search_result['877']=["topic_00000000000002B9.html","InvisibleWindow Constructor","Initializes a new instance of the InvisibleWindow class."];

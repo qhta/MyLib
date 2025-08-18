@@ -1,1 +1,0 @@
-search_result['658']=["topic_0000000000000230.html","UcdCodePointViewModel Constructor","Initializes a new instance of the UcdCodePointViewModel class with the specified model."];

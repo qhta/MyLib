@@ -1,1 +1,0 @@
-search_result['752']=["topic_0000000000000273.html","WritingSystemTypeViewModel Class","ViewModel for the WritingSystemTypeEntity."];

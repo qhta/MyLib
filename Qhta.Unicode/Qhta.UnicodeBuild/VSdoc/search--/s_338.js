@@ -1,1 +1,0 @@
-search_result['338']=["topic_0000000000000132.html","CodePoint.ScriptTooltip Property","Looks up a localized string similar to Script which uses this code point.."];

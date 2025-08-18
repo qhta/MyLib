@@ -1,1 +1,0 @@
-search_result['490']=["topic_00000000000001B1.html","WritingSystemKind.ControlTooltip Property","Looks up a localized string similar to A set of characters that control the flow of text,."];

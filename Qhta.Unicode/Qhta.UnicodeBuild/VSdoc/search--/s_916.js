@@ -1,1 +1,0 @@
-search_result['916']=["topic_00000000000002CC.html","DataStrings.DeleteAllDataConfirmation Property","Looks up a localized string similar to Do you really want to delete all data?."];

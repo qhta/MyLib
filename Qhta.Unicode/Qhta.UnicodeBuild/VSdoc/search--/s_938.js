@@ -1,1 +1,0 @@
-search_result['938']=["topic_00000000000002D3.html","LongTextColumn.OnQueryRowHeight Method","Adjusts the height of a row in a SfDataGrid based on the content of long text columns."];

@@ -1,1 +1,0 @@
-search_result['219']=["topic_00000000000000A0.html","UcdCodePoint Class","Entity representing a Unicode code point as defined in the Unicode Character Database (UCD)."];

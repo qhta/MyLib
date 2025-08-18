@@ -1,1 +1,0 @@
-search_result['904']=["topic_00000000000002C5.html","Controller.CanDeleteData Method","Determines whether data can be deleted from the specified data grid.\r\nThis method checks if all selected columns are editable and not read-only."];

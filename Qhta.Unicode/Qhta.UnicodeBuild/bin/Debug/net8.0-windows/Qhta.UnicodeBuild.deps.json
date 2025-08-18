@@ -19,7 +19,7 @@
           "Qhta.DeepCopy": "1.5.0",
           "Qhta.MVVM": "4.14.0",
           "Qhta.ObservableObjects": "4.3.0",
-          "Qhta.SF.Tools": "1.0.0",
+          "Qhta.SF.WPF.Tools": "1.0.0",
           "Qhta.UndoManager": "1.0.0",
           "Qhta.WPF.Converters": "1.7.0",
           "Qhta.WPF.Utils": "3.5.0",
@@ -1659,7 +1659,7 @@
           }
         }
       },
-      "Qhta.SF.Tools/1.0.0": {
+      "Qhta.SF.WPF.Tools/1.0.0": {
         "dependencies": {
           "Microsoft.Xaml.Behaviors.Wpf": "1.1.135",
           "Qhta.MVVM": "4.14.0",
@@ -1676,13 +1676,13 @@
           "Syncfusion.Tools.WPF": "30.2.5"
         },
         "runtime": {
-          "Qhta.SF.Tools.dll": {
+          "Qhta.SF.WPF.Tools.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         },
         "resources": {
-          "pl/Qhta.SF.Tools.resources.dll": {
+          "pl/Qhta.SF.WPF.Tools.resources.dll": {
             "locale": "pl"
           }
         }
@@ -2707,7 +2707,7 @@
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
     },
-    "Qhta.SF.Tools/1.0.0": {
+    "Qhta.SF.WPF.Tools/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

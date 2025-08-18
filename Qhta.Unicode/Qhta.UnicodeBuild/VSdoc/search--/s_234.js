@@ -1,1 +1,0 @@
-search_result['234']=["topic_00000000000000AA.html","UcdCodePoint.DecDigitVal Property","A string which expresses the decimal digit value of the Unicode code point, if applicable."];

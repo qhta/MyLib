@@ -1,1 +1,0 @@
-search_result['737']=["topic_000000000000026B.html","WritingSystemsCollection Class","Specialized collection for managing writing systems."];
