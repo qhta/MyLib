@@ -53,9 +53,9 @@ public static partial class _Commander
     else if (command == ApplicationCommands.Delete)
       e.CanExecute = SfDataGridCommander.CanDeleteData(GetDataGrid(sender, command));
     else if (command == ApplicationCommands.Undo)
-      e.CanExecute = UndoMgr.IsUndoAvailable;
+      e.CanExecute = UndoRedoManager.IsUndoAvailable;
     else if (command == ApplicationCommands.Redo)
-      e.CanExecute = UndoMgr.IsRedoAvailable;
+      e.CanExecute = UndoRedoManager.IsRedoAvailable;
     else if (command == ApplicationCommands.Find)
       e.CanExecute = FindCommand.CanExecute(e.Parameter ?? GetDataGrid(sender, command));
     else if (command == FindNextCommand)
@@ -109,12 +109,12 @@ public static partial class _Commander
     }
     else if (command == ApplicationCommands.Undo)
     {
-      UndoMgr.Undo();
+      UndoRedoManager.Undo();
       GetDataGrid(sender, command).UpdateLayout();
     }
     else if (command == ApplicationCommands.Redo)
     {
-      UndoMgr.Redo();
+      UndoRedoManager.Redo();
       GetDataGrid(sender, command).UpdateLayout();
     }
     else if (command == ApplicationCommands.Find)

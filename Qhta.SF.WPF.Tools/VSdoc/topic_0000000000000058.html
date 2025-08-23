@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>DoubleUtil.AreClose Method</title>
+	<title>OverwriteNonEmptyCellsProperty Field</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,11 +75,11 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">DoubleUtil.AreClose Method</h1>
+		<h1 class="title">OverwriteNonEmptyCellsProperty Field</h1>
         
 		<div class="metadata">
         Namespace:
-<a href="topic_0000000000000010.html">Qhta.SF.WPF.Tools</a>
+<a href="topic_0000000000000029.html">Qhta.SF.WPF.Tools.Views</a>
 
 
 
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Determines whether two double values are close to each other within a specified tolerance.</summary-info>
+        <summary-info>Dependency property for the <a target="_top" href="topic_0000000000000059.html" onclick="this.target='';return true;">OverwriteNonEmptyCells</a> flag, which indicates whether to fill only empty cells in the selection.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Shared Function AreClose( _&nbsp;<br />   ByVal <i>a</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">Double</a>, _&nbsp;<br />   ByVal <i>b</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">Double</a>, _&nbsp;<br />   Optional ByVal <i>tolerance</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">Double</a> = 1e-10 _&nbsp;<br />) As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Shared Shadows OverwriteNonEmptyCellsProperty As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> AreClose(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> <i>a</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> <i>b</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> <i>tolerance</i> = 1e-10&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: csharp">new public static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a> OverwriteNonEmptyCellsProperty</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> AreClose(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> <i>a</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> <i>b</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> <i>tolerance</i>&nbsp;<br />) </pre>			
+					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a>^ OverwriteNonEmptyCellsProperty;</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public static function AreClose(&nbsp;<br />    <i>a</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a>,&nbsp;<br />    <i>b</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a>,&nbsp;<br />    <i>tolerance</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a>&nbsp;<br />) : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>;</pre>			
+					<pre xml:space="preserve" class="brush: js">public static OverwriteNonEmptyCellsProperty : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -269,52 +269,10 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 	</div>
 
 
-<h4 class="subHeading">
-	Parameters</h4><dl paramName="a" class="parameterList">
-	<dt>
-		<span class="parameter">
-			a
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> 
-	</dd>
-</dl>
-<p>
-	 
-</p>
-<dl paramName="b" class="parameterList">
-	<dt>
-		<span class="parameter">
-			b
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> 
-	</dd>
-</dl>
-<p>
-	 
-</p>
-<dl paramName="tolerance" class="parameterList">
-	<dt>
-		<span class="parameter">
-			tolerance
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> 
-	</dd>
-</dl>
-<p>
-	 
-</p>
-
-<p />
 
 	<h4 class="subHeading">
-		Return Value</h4>
-	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> 
+		Field Value</h4>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a> 
 	
 
 
@@ -403,11 +361,11 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_0000000000000057.html">DoubleUtil Class</a><br />
+			<a href="topic_0000000000000041.html">SpecificValueWindow Class</a><br />
 
 
 
-<a href="topic_0000000000000010.html">Qhta.SF.WPF.Tools Namespace</a><br />
+<a href="topic_0000000000000029.html">Qhta.SF.WPF.Tools.Views Namespace</a><br />
 
 
 			
@@ -433,4 +391,3 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
     </div>
   </body>
 </html>
-

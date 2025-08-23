@@ -1,1 +1,1 @@
-search_result['118']=["topic_0000000000000057.html","DoubleUtil Class","Utility class for comparing double values with a specified tolerance."];
+search_result['118']=["topic_0000000000000042.html","SpecificValueWindow Constructor","Initializes a new instance of the SpecificValueWindow class."];

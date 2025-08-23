@@ -1,0 +1,1 @@
+search_result['524']=["topic_00000000000000E2.html","SfDataGridCommander.GetRowDataType Method","Gets a type of the row data in the SfDataGrid."];

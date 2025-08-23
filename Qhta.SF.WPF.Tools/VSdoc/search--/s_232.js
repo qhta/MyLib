@@ -1,1 +1,1 @@
-search_result['232']=["topic_000000000000008C.html","RecordNavigationBar.PreviousItemCommand Property","Command to navigate to the previous item in the SfDataGrid."];
+search_result['232']=["topic_0000000000000073.html","DoubleUtil.AreClose Method","Determines whether two double values are close to each other within a specified tolerance."];

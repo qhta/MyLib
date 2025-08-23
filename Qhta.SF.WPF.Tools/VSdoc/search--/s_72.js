@@ -1,1 +1,1 @@
-search_result['72']=["topic_000000000000002D.html","SpecificWindowMode Enumeration","Modes for the specific window."];
+search_result['72']=["topic_000000000000002D.html","ColumnManagementWindow.NotifyPropertyChanged Method","Method to notify that a property has changed."];

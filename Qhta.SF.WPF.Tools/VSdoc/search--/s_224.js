@@ -1,1 +1,1 @@
-search_result['224']=["topic_0000000000000084.html","DataGridProperty Field","Dependency property for the SfDataGrid associated with this navigation bar."];
+search_result['224']=["topic_0000000000000070.html","DelRecordAction.Execute Method","Deletes a record in a data grid."];

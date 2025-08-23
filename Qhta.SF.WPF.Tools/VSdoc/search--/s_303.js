@@ -1,1 +1,1 @@
-search_result['303']=["topic_00000000000000B1_methods--.html","SfDataGridColumnBehavior Methods",""];
+search_result['303']=["topic_000000000000008E.html","IRemovableCollection.IsReadOnly Property","Indicates whether the collection is read-only."];

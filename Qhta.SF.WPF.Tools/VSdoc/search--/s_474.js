@@ -1,0 +1,1 @@
+search_result['474']=["topic_00000000000000CE.html","SfDataGridBehavior.GetStartOffset Method","Gets the start offset for resizing rows in the grid. This is the difference between actual row height and the initial position of the mouse when resizing starts."];

@@ -1,1 +1,1 @@
-search_result['87']=["topic_000000000000003D.html","SpecificValueWindow.CurrentViewMode Property","Gets or sets the current view mode of the window."];
+search_result['87']=["topic_0000000000000033_props--.html","SpecificValueEdit Properties",""];

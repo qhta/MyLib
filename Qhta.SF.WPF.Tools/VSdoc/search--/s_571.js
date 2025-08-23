@@ -1,0 +1,1 @@
+search_result['571']=["topic_0000000000000105.html","SfDataGridSelector.IsSelected Method","Checks if the specific SfDataGrid column is selected or not."];

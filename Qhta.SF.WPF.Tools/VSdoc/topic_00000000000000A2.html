@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SelectableItemValueConverter Class</title>
+	<title>RecordNavigationBar Class</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SelectableItemValueConverter Class</h1>
+		<h1 class="title">RecordNavigationBar Class</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,7 +90,10 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Value converter class for selectable item.</summary-info>
+        <summary-info>Navigation bar for navigating through records in a <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
+It provides commands to navigate to the first, previous, next, and last records.
+It also displays the current record number and the total number of records in the grid.
+It should be placed under the <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.</summary-info>
 
 
 
@@ -140,7 +143,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Class SelectableItemValueConverter&nbsp;<br />    Implements <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.ivalueconverter">IValueConverter</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Class RecordNavigationBar&nbsp;<br />    Inherits <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.usercontrol">UserControl</a>&nbsp;<br />    Implements <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a>, _&nbsp;<br />               <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.markup.icomponentconnector">IComponentConnector</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +182,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public class SelectableItemValueConverter : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.ivalueconverter">IValueConverter</a></pre>			
+					<pre xml:space="preserve" class="brush: csharp">public class RecordNavigationBar : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.usercontrol">UserControl</a>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.markup.icomponentconnector">IComponentConnector</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +222,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public ref class SelectableItemValueConverter  : public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.ivalueconverter">IValueConverter</a></pre>			
+					<pre xml:space="preserve" class="brush: cpp">public ref class RecordNavigationBar : public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system::windows::controls::usercontrol">UserControl</a>,&nbsp;<br />   public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a>,&nbsp;<br />   public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.markup.icomponentconnector">IComponentConnector</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +261,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public class SelectableItemValueConverter&nbsp;<br />   implements <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.ivalueconverter">IValueConverter</a></pre>			
+					<pre xml:space="preserve" class="brush: js">public class RecordNavigationBar&nbsp;<br />   extends <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.usercontrol">UserControl</a>&nbsp;<br />   implements <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a>,&nbsp;<br />              <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.markup.icomponentconnector">IComponentConnector</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -288,7 +291,229 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 
 
+<div class="section_container">
+	<div class="section_heading">
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Constructors</a></span>
+		<div>&nbsp;</div>
+	</div>
 
+	<div id="ConstructorsSection" class="section">	
+  <table class="memberListTable">
+    <tr>
+      <th></th>
+      <th>
+        Name
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+
+
+	
+			<tr class="
+	
+	
+	">
+	  <td>
+    <img alt="Public constructor" title="Public constructor" src="msdn2019/pubmethod.png"></img>
+
+	
+	    
+	  </td>
+	  <td>
+	    <a href="topic_00000000000000A3.html">RecordNavigationBar()</a>
+
+	  </td>
+	  <td>
+	
+	Initializes a new instance of the <a target="_top" href="topic_00000000000000A2.html" onclick="this.target='';return true;">RecordNavigationBar</a> class.
+	
+		</td>
+	</tr>
+	
+
+
+  </table>
+
+  <a href="#mainBody">
+    Top
+  </a>
+
+	</div>					
+</div>
+
+<div class="section_container">
+	<div class="section_heading">
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Properties</a></span>
+		<div>&nbsp;</div>
+	</div>
+
+	<div id="PropertiesSection" class="section">	
+  <table class="memberListTable">
+    <tr>
+      <th></th>
+      <th>
+        Name
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_00000000000000A5.html">DataGrid</a>
+
+	</td>
+	<td>
+
+Gets or sets the <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> instance associated with this component.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_00000000000000AE.html">FirstItemCommand</a>
+
+	</td>
+	<td>
+
+Command to navigate to the first item in the <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_00000000000000AA.html">LastItemCommand</a>
+
+	</td>
+	<td>
+
+Command to navigate to the last item in the <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_00000000000000A8.html">NextItemCommand</a>
+
+	</td>
+	<td>
+
+Command to navigate to the next item in the <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_00000000000000AC.html">PreviousItemCommand</a>
+
+	</td>
+	<td>
+
+Command to navigate to the previous item in the <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_00000000000000A7.html">RowsCount</a>
+
+	</td>
+	<td>
+
+Gets or sets the number of rows in the collection.
+
+	</td>
+</tr>
+	
+
+
+  </table>
+
+  <a href="#mainBody">
+    Top
+  </a>
+
+	</div>					
+</div>
 
 
 
@@ -327,12 +552,12 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
     
 	</td>
 	<td>
-	<a href="topic_00000000000000A3.html">Convert(object, Type, object, CultureInfo)</a>
+	<a href="topic_00000000000000AF.html">FirstItemExecute()</a>
 
 	</td>
 	<td>
 
-Converts a selectable item to its display name.
+Selects and executes the first item in the data grid.
 
 	</td>
 </tr>
@@ -355,12 +580,99 @@ Converts a selectable item to its display name.
     
 	</td>
 	<td>
-	<a href="topic_00000000000000A4.html">ConvertBack(object, Type, object, CultureInfo)</a>
+	<a href="topic_00000000000000AB.html">LastItemExecute()</a>
 
 	</td>
 	<td>
 
-Not implemented method for converting back from the target type to the source type.
+Selects the last item in the data grid and scrolls it into view.
+
+	</td>
+</tr>
+
+
+
+
+
+
+
+
+	<tr class="
+
+
+">
+	<td>
+<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_00000000000000A9.html">NextItemExecute()</a>
+
+	</td>
+	<td>
+
+Selects the next item in the data grid, if available.
+
+	</td>
+</tr>
+
+
+
+
+
+
+
+
+	<tr class="
+
+
+">
+	<td>
+   <img alt="Protected method" title="Protected method" src="msdn2019/protmethod.png"></img>
+
+    
+	  
+
+
+    
+	</td>
+	<td>
+	<a href="topic_00000000000000B1.html">NotifyPropertyChanged(string)</a>
+
+	</td>
+	<td>
+
+Notifies subscribers that a property value has changed.
+
+	</td>
+</tr>
+
+
+
+
+
+
+
+
+	<tr class="
+
+
+">
+	<td>
+<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_00000000000000AD.html">PreviousItemExecute()</a>
+
+	</td>
+	<td>
+
+Selects the previous item in the data grid, if possible.
 
 	</td>
 </tr>
@@ -392,6 +704,56 @@ Not implemented method for converting back from the target type to the source ty
 
 
 
+
+
+<div class="section_container">
+	<div class="section_heading">
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Events</a></span>
+		<div>&nbsp;</div>
+	</div>
+
+	<div id="EventsSection" class="section">	
+  <table class="memberListTable">
+    <tr>
+      <th></th>
+      <th>
+        Name
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+
+	<tr class="
+	
+	
+	">
+	  <td>
+    <img alt="Public event" title="Public event" src="msdn2019/pubevent.png"></img>
+
+	
+	    
+	  </td>
+	  <td>
+	    <a href="topic_00000000000000B0.html">PropertyChanged</a>
+
+	  </td>
+	  <td>
+	
+	Occurs when a property value changes.
+	
+		</td>
+	</tr>
+
+  </table>
+
+  <a href="#mainBody">
+    Top
+  </a>
+
+	</div>					
+</div>
+
   
 
 <!-- Classes -->
@@ -408,6 +770,73 @@ Not implemented method for converting back from the target type to the source ty
 
 
 
+<div class="section_container">
+	<div class="section_heading">
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Fields</a></span>
+		<div>&nbsp;</div>
+	</div>
+
+	<div id="FieldsSection" class="section">	
+  <table class="memberListTable">
+    <tr>
+      <th></th>
+      <th>
+        Name
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+
+	<tr class="
+	
+	
+	">
+	  <td>
+		    <img alt="Public field" title="Public field" src="msdn2019/pubfield.png"></img>
+	
+		    <img alt="Static" title="Static" src="msdn2019/static.png"></img>
+	
+	    
+	  </td>
+	  <td>
+	    <a href="topic_00000000000000A4.html">DataGridProperty</a>
+	  </td>
+	  <td>
+	
+	Dependency property for the <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> associated with this navigation bar.
+	
+		</td>
+	</tr>
+	<tr class="
+	
+	
+	">
+	  <td>
+		    <img alt="Public field" title="Public field" src="msdn2019/pubfield.png"></img>
+	
+		    <img alt="Static" title="Static" src="msdn2019/static.png"></img>
+	
+	    
+	  </td>
+	  <td>
+	    <a href="topic_00000000000000A6.html">RowsCountProperty</a>
+	  </td>
+	  <td>
+	
+	Dependency property for the number of rows in the <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
+	
+		</td>
+	</tr>
+
+  </table>
+
+  <a href="#mainBody">
+    Top
+  </a>
+
+	</div>					
+</div>
 
 
 

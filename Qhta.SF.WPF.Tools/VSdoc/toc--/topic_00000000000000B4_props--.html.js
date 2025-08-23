@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_000000000000010F.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['91',"RowResizer Class","topic_00000000000000B4.html"],['93',"Properties","topic_00000000000000B4_props--.html"]];

@@ -1,1 +1,1 @@
-search_result['385']=["topic_00000000000000E6.html","SfDataGridBehavior.IsRowResizing Attached Property",""];
+search_result['385']=["topic_00000000000000A8.html","RecordNavigationBar.NextItemCommand Property","Command to navigate to the next item in the SfDataGrid."];

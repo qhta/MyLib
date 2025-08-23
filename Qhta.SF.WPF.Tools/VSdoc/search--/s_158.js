@@ -1,1 +1,1 @@
-search_result['158']=["topic_0000000000000068_events--.html","IRemovableCollection Events",""];
+search_result['158']=["topic_000000000000005B.html","SpecificValueWindow.FindInSequence Property","Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled."];

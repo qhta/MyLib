@@ -1,1 +1,1 @@
-var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_00000000000000EA.html"],['233',"Qhta.SF.WPF.Tools.Views Namespace","topic_0000000000000026.html"],['234',"SpecificValueEdit Class","topic_0000000000000027.html"],['236',"Methods","topic_0000000000000027_methods--.html"],['237',"OnNotifyPropertyChanged Method","topic_0000000000000029.html"]];
+var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_000000000000010F.html"],['265',"Qhta.SF.WPF.Tools.Views Namespace","topic_0000000000000029.html"]];

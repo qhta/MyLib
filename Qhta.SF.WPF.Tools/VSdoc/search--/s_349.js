@@ -1,1 +1,1 @@
-search_result['349']=["topic_00000000000000D1.html","SfDataGridCommander.GetHeaders Method","Splits a tab-delimited string into an array of header values."];
+search_result['349']=["topic_000000000000009D_attached_props--.html","LongTextColumnExpanderVisibilityConverter Attached Properties",""];

@@ -1,1 +1,1 @@
-search_result['331']=["topic_00000000000000BD_props--.html","SfDataGridCommander Properties",""];
+search_result['331']=["topic_0000000000000096.html","ISelectableItem.IsNonEmpty Property","Determines whether the item should be considered as any non-empty value."];

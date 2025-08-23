@@ -1,1 +1,0 @@
-var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_00000000000000EA.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['34',"MappingNameBinder Class","topic_000000000000007A.html"],['35',"Methods","topic_000000000000007A_methods--.html"]];

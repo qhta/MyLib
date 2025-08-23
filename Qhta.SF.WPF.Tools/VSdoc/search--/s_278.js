@@ -1,1 +1,1 @@
-search_result['278']=["topic_00000000000000A5_attached_props--.html","SelectedItemEnumToResourceConverter Attached Properties",""];
+search_result['278']=["topic_0000000000000084_overloads--.html","FindAndReplaceCommand.Execute Method","Executes the command basing on the current selection in the data grid."];

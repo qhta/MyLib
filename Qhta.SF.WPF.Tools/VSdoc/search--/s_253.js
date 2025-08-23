@@ -1,1 +1,1 @@
-search_result['253']=["topic_0000000000000097.html","RowResizer.MinRowHeight Property","Minimum height of the Row being resized."];
+search_result['253']=["topic_000000000000007C.html","FindOrReplaceMode Enumeration","Parameter that specifies whether to find or replace a value."];

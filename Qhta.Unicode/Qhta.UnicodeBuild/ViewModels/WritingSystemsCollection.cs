@@ -249,12 +249,12 @@ public sealed class WritingSystemsCollection : EntityCollection<WritingSystemVie
           var childIndex = parent.Children.IndexOf(item);
           parent.Children.Remove(item);
           parent.NotifyPropertyChanged(nameof(WritingSystem.Children));
-          UndoMgr.Record(new RemoveEntityAction(), new RemoveEntityArgs(parent.Children, item, childIndex));
+          UndoRedoManager.Record(new RemoveEntityAction(), new RemoveEntityArgs(parent.Children, item, childIndex));
         }
         _ViewModels.Instance.DbContext.WritingSystems.Remove(item.Model);
         var newState = entry.State;
-        UndoMgr.Record(new RemoveEntityAction(), new RemoveEntityArgs(this, item, index));
-        UndoMgr.Record(new DeleteDataEntityAction(), new DeleteDataEntityArgs(item.Model, oldState, newState));
+        UndoRedoManager.Record(new RemoveEntityAction(), new RemoveEntityArgs(this, item, index));
+        UndoRedoManager.Record(new DeleteDataEntityAction(), new DeleteDataEntityArgs(item.Model, oldState, newState));
       }
     }
     var count1 = base.Count;

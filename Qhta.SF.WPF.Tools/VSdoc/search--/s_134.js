@@ -1,1 +1,1 @@
-search_result['134']=["topic_000000000000005C.html","FillColumnCommand.Execute Method","Executes the command basing on the current selection in the data grid."];
+search_result['134']=["topic_0000000000000052.html","SelectedItemProperty Field","Dependency property for the SelectedItem, which is the item currently selected by the user."];

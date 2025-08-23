@@ -1,1 +1,1 @@
-c['131']=[['132',"DataOp Enumeration","topic_00000000000000C7.html",0],['133',"Methods","topic_00000000000000BD_methods--.html",1]];
+c['131']=[['132',"AllowColumnManagementProperty Field","topic_00000000000000D3.html",0],['133',"AllowRowResizingProperty Field","topic_00000000000000CA.html",0],['134',"IsRowResizingProperty Field","topic_00000000000000CD.html",0],['135',"StartOffsetProperty Field","topic_00000000000000D0.html",0]];

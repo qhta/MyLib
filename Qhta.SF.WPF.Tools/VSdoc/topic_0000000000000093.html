@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>RowHeightProvider.OnQueryRowHeight Method</title>
+	<title>ISelectableItem.ToolTip Property</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">RowHeightProvider.OnQueryRowHeight Method</h1>
+		<h1 class="title">ISelectableItem.ToolTip Property</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Handles the query for row height in a data grid, setting the height based on the data context.</summary-info>
+        <summary-info>Optional tooltip text that provides additional information about the item when hovered over in a user interface.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Shared Sub OnQueryRowHeight( _&nbsp;<br />   ByVal <i>sender</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">Object</a>, _&nbsp;<br />   ByVal <i>e</i> As <a target="_top" href=".html" onclick="this.target='';return true;">QueryRowHeightEventArgs</a> _&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: vb">ReadOnly Property ToolTip() As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.void">void</a> OnQueryRowHeight(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a> <i>sender</i>,&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">QueryRowHeightEventArgs</a> <i>e</i>&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: csharp"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">string</a> ToolTip {get;}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.void">void</a> OnQueryRowHeight(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>^ <i>sender</i>,&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">QueryRowHeightEventArgs</a>^ <i>e</i>&nbsp;<br />) </pre>			
+					<pre xml:space="preserve" class="brush: cpp">&nbsp;<br />property <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a>^ ToolTip {&nbsp;<br /> <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a>^ get( );&nbsp;<br />}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public static function OnQueryRowHeight(&nbsp;<br />    <i>sender</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>,&nbsp;<br />    <i>e</i> : <a target="_top" href=".html" onclick="this.target='';return true;">QueryRowHeightEventArgs</a>&nbsp;<br />);</pre>			
+					<pre xml:space="preserve" class="brush: js">function get ToolTip() : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a>;</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -269,37 +269,11 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 	</div>
 
 
-<h4 class="subHeading">
-	Parameters</h4><dl paramName="sender" class="parameterList">
-	<dt>
-		<span class="parameter">
-			sender
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a> 
-	</dd>
-</dl>
-<p>
-	The source of the event, typically an instance of <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>. 
-</p>
-<dl paramName="e" class="parameterList">
-	<dt>
-		<span class="parameter">
-			e
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href=".html" onclick="this.target='';return true;">QueryRowHeightEventArgs</a> 
-	</dd>
-</dl>
-<p>
-	The <a target="_top" href=".html" onclick="this.target='';return true;">QueryRowHeightEventArgs</a> containing event data, including the row index and a property to set the
-row height. 
-</p>
 
-<p />
-
+	<h4 class="subHeading">
+		Property Value</h4>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">string</a> 
+	
 
 
 
@@ -321,17 +295,6 @@ row height.
 
 
 
-<div class="section_container">
-	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Remarks</a></span>
-		<div>&nbsp;</div>
-	</div>
-
-	<div id="remarksSection" class="section">	
-			This method checks if the data context for the specified row index implements <a target="_top" href="topic_000000000000006C.html" onclick="this.target='';return true;">IRowHeightProvider</a>. If so, and the row height is not set to <a target="_top" href=".html" onclick="this.target='';return true;">NaN</a>, it assigns the row
-height from the data context to the event arguments and marks the event as handled.
-	</div>					
-</div>
 
 
 
@@ -398,7 +361,7 @@ height from the data context to the event arguments and marks the event as handl
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_0000000000000092.html">RowHeightProvider Class</a><br />
+			<a href="topic_0000000000000091.html">ISelectableItem Interface</a><br />
 
 
 

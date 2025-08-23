@@ -1,1 +1,1 @@
-search_result['124']=["topic_0000000000000058.html","DoubleUtil.AreClose Method","Determines whether two double values are close to each other within a specified tolerance."];
+search_result['124']=["topic_0000000000000048.html","SpecificValueWindow.ViewMode Property","Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both."];

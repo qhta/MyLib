@@ -1,1 +1,1 @@
-search_result['336']=["topic_00000000000000C1.html","SfDataGridCommander.GetSelectedColumns Method","Gets the selected columns from the specified SfDataGrid.\r\nReturns the selected cells and outputs whether all columns are selected, along with the selected columns."];
+search_result['336']=["topic_0000000000000098_methods--.html","LongTextColumn Methods",""];

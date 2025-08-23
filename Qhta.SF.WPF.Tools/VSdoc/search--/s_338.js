@@ -1,1 +1,1 @@
-search_result['338']=["topic_00000000000000C3.html","SfDataGridCommander.CanCopyData Method","Determines whether data can be copied from the specified data grid."];
+search_result['338']=["topic_0000000000000098_vars--.html","LongTextColumn Fields",""];

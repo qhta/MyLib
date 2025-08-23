@@ -1,1 +1,1 @@
-search_result['120']=["topic_0000000000000057_events--.html","DoubleUtil Events",""];
+search_result['120']=["topic_0000000000000044.html","SpecificValueWindow.Prompt Property","Prompt text displayed in the window, guiding the user on what to select."];

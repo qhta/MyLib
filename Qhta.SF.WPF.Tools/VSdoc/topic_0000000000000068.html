@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>IRemovableCollection Interface</title>
+	<title>ColumnSelectionItem Class</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">IRemovableCollection Interface</h1>
+		<h1 class="title">ColumnSelectionItem Class</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>A collection interface that supports removing items.</summary-info>
+        <summary-info>Class representing a selectable column item in ColumnSelectionCollection.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Interface IRemovableCollection&nbsp;<br />    Inherits <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.icollection">ICollection</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Class ColumnSelectionItem&nbsp;<br />    Inherits <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyobject">DependencyObject</a>&nbsp;<br />    Implements <a target="_top" href="topic_0000000000000091.html" onclick="this.target='';return true;">ISelectableItem</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public interface IRemovableCollection : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.icollection">ICollection</a></pre>			
+					<pre xml:space="preserve" class="brush: csharp">public class ColumnSelectionItem : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyobject">DependencyObject</a>,&nbsp;<br />   <a target="_top" href="topic_0000000000000091.html" onclick="this.target='';return true;">ISelectableItem</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public interface class IRemovableCollection : public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.icollection">ICollection</a></pre>			
+					<pre xml:space="preserve" class="brush: cpp">public ref class ColumnSelectionItem : public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system::windows::dependencyobject">DependencyObject</a>,&nbsp;<br />   public <a target="_top" href="topic_0000000000000091.html" onclick="this.target='';return true;">ISelectableItem</a>^</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public interface IRemovableCollection&nbsp;<br />   implements <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.icollection">ICollection</a></pre>			
+					<pre xml:space="preserve" class="brush: js">public class ColumnSelectionItem&nbsp;<br />   extends <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyobject">DependencyObject</a>&nbsp;<br />   implements <a target="_top" href="topic_0000000000000091.html" onclick="this.target='';return true;">ISelectableItem</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -320,12 +320,108 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
     
 	</td>
 	<td>
-	<a href="topic_000000000000006B.html">IsReadOnly</a>
+	<a href="topic_000000000000006C.html">ActualValue</a>
 
 	</td>
 	<td>
 
-Indicates whether the collection is read-only.
+Actual value is the referenced GridColumn.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000069.html">Column</a>
+
+	</td>
+	<td>
+
+Referenced GridColumn.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_000000000000006A.html">DisplayName</a>
+
+	</td>
+	<td>
+
+A displayed name of the column is its HeaderText.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_000000000000006D.html">IsSelected</a>
+
+	</td>
+	<td>
+
+Is selected checkbox state
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_000000000000006B.html">ToolTip</a>
+
+	</td>
+	<td>
+
+Tooltip is null.
 
 	</td>
 </tr>
@@ -378,40 +474,12 @@ Indicates whether the collection is read-only.
     
 	</td>
 	<td>
-	<a href="topic_0000000000000069.html">CanRemove(object)</a>
+	<a href="topic_000000000000006E.html">ToString()</a>
 
 	</td>
 	<td>
 
-Returns a value indicating whether the specified item can be removed from the collection.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-
-    
-	</td>
-	<td>
-	<a href="topic_000000000000006A.html">Remove(object)</a>
-
-	</td>
-	<td>
-
-Removes the specified item from the collection.
+Default string representation is the DisplayName.
 
 	</td>
 </tr>
@@ -440,7 +508,81 @@ Removes the specified item from the collection.
 
 
 
+<div class="section_container">
+	<div class="section_heading">
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Extension Methods</a></span>
+		<div>&nbsp;</div>
+	</div>
 
+	<div id="ExtensionMethodsSection" class="section">	
+  <table class="memberListTable">
+    <tr>
+      <th></th>
+      <th>
+        Name
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+
+
+	
+		<tr class="
+inheritedMember 
+
+
+">
+	<td>
+	<img alt="Public extension method" title="Public extension method" src="msdn2019/pubextensionmethod.png"></img>
+    
+	</td>
+	<td>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.wpf.utils.visualtreehelperext.findparent">FindParent&lt;T&gt;(DependencyObject)</a>
+
+	</td>
+	<td>
+
+
+(Defined by <strong>VisualTreeHelperExt</strong>).
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+inheritedMember 
+
+
+">
+	<td>
+	<img alt="Public extension method" title="Public extension method" src="msdn2019/pubextensionmethod.png"></img>
+    
+	</td>
+	<td>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.wpf.utils.bindingexpressionutils.refreshbinding">RefreshBinding(DependencyObject, DependencyProperty, object)</a>
+
+	</td>
+	<td>
+
+
+(Defined by <strong>BindingExpressionUtils</strong>).
+
+	</td>
+</tr>
+	
+
+
+  </table>
+
+  <a href="#mainBody">
+    Top
+  </a>
+
+	</div>					
+</div>
 
 
   
@@ -519,6 +661,7 @@ Removes the specified item from the collection.
 	
 	</div>					
 </div>
+
 
 <div class="section_container">
 	<div class="section_heading">

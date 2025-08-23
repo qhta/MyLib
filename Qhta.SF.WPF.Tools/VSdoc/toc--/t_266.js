@@ -1,0 +1,1 @@
+c['266']=[['267',"ColumnManagementWindow Constructor","topic_000000000000002B.html",0],['268',"Properties","topic_000000000000002A_props--.html",1],['271',"Methods","topic_000000000000002A_methods--.html",1],['273',"Events","topic_000000000000002A_events--.html",1]];

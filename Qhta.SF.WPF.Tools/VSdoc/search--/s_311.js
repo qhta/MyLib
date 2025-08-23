@@ -1,1 +1,1 @@
-search_result['311']=["topic_00000000000000B5_events--.html","SfDataGridColumnBehaviorExtensions Events",""];
+search_result['311']=["topic_0000000000000091.html","ISelectableItem Interface","An interface representing an item that can be selected in a user interface."];

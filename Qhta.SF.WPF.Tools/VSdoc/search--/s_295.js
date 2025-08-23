@@ -1,1 +1,1 @@
-search_result['295']=["topic_00000000000000AC.html","SfDataGridBehavior.SetIsRowResizing Method","Sets whether the grid is now resizing rows by dragging a bottom edge of row-header cell."];
+search_result['295']=["topic_000000000000008B.html","IRemovableCollection Interface","A collection interface that supports removing items."];

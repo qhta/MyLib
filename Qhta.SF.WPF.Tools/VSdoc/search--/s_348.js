@@ -1,1 +1,1 @@
-search_result['348']=["topic_00000000000000D0.html","SfDataGridCommander.PasteData Method","Performs a paste operation on the data in the specified SfDataGrid."];
+search_result['348']=["topic_000000000000009D.html","LongTextColumnExpanderVisibilityConverter Class","Converter for determining the visibility of the expander in a long text column."];

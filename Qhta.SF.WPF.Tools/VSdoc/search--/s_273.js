@@ -1,1 +1,1 @@
-search_result['273']=["topic_00000000000000A2_props--.html","SelectableItemValueConverter Properties",""];
+search_result['273']=["topic_0000000000000082_overloads--.html","FindAndReplaceCommand.CanExecute Method","Checks whether the command can be executed basing on the current selection in the data grid."];

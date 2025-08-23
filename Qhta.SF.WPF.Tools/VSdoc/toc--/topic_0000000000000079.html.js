@@ -1,1 +1,0 @@
-var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_00000000000000EA.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['27',"LongTextColumn Class","topic_0000000000000075.html"],['31',"Methods","topic_0000000000000075_methods--.html"],['32',"EvaluateTextHeight Method","topic_0000000000000079.html"]];

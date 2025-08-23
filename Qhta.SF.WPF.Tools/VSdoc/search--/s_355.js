@@ -1,1 +1,1 @@
-search_result['355']=["topic_00000000000000D2_vars--.html","SfDataGridFiltering Fields",""];
+search_result['355']=["topic_000000000000009F.html","LongTextColumnExpanderVisibilityConverter.ConvertBack Method","Converts a single value back to an array of values for binding purposes."];

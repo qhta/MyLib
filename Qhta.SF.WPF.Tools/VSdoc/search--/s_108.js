@@ -1,1 +1,1 @@
-search_result['108']=["topic_0000000000000052.html","CaseSensitiveProperty Field","Dependency property for the CaseSensitive flag, which indicates whether to search text with case-sensitivity."];
+search_result['108']=["topic_000000000000003D.html","SpecificViewMode Enumeration","Modes for the specific edit view."];

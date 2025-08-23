@@ -1,1 +1,1 @@
-search_result['162']=["topic_0000000000000069.html","IRemovableCollection.CanRemove Method","Returns a value indicating whether the specified item can be removed from the collection."];
+search_result['162']=["topic_000000000000005D.html","SpecificValueWindow.FilterType Property","Determines the type of filter to apply when searching for values in the data grid."];

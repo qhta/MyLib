@@ -1,1 +1,1 @@
-search_result['160']=["topic_0000000000000068_props--.html","IRemovableCollection Properties",""];
+search_result['160']=["topic_000000000000005C.html","FilterTypeProperty Field","Dependency property for the FilterType property."];

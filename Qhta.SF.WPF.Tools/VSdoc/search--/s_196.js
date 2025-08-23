@@ -1,1 +1,1 @@
-search_result['196']=["topic_000000000000007A_events--.html","MappingNameBinder Events",""];
+search_result['196']=["topic_0000000000000068.html","ColumnSelectionItem Class","Class representing a selectable column item in ColumnSelectionCollection."];

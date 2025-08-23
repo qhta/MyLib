@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SfDataGridFinder.SpecifiedValue Property</title>
+	<title>SfDataGridColumnBehaviorExtensions.GetFinder Method</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SfDataGridFinder.SpecifiedValue Property</h1>
+		<h1 class="title">SfDataGridColumnBehaviorExtensions.GetFinder Method</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,8 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Specified value to search for.
-It can be a string or any other type, depending on the FilterBehavior of the predicate.</summary-info>
+        <summary-info>Gets the finder associated with the column.</summary-info>
 
 
 
@@ -141,7 +140,7 @@ It can be a string or any other type, depending on the FilterBehavior of the pre
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Property SpecifiedValue() As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">Object</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">&lt;Extension()&gt; _&nbsp;<br />Public Shared Function GetFinder( _&nbsp;<br />   ByVal <i>column</i> As <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a> _&nbsp;<br />) As <a target="_top" href="topic_00000000000000F8.html" onclick="this.target='';return true;">SfDataGridFinder</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -180,7 +179,7 @@ It can be a string or any other type, depending on the FilterBehavior of the pre
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a> SpecifiedValue {get; set;}</pre>			
+					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href="topic_00000000000000F8.html" onclick="this.target='';return true;">SfDataGridFinder</a> GetFinder(&nbsp;<br />   this <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a> <i>column</i>&nbsp;<br />)</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -220,7 +219,7 @@ It can be a string or any other type, depending on the FilterBehavior of the pre
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />property <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>^ SpecifiedValue {&nbsp;<br /> <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>^ get( );&nbsp;<br /> void set(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>^ value&nbsp;<br /> );&nbsp;<br />}</pre>			
+					<pre xml:space="preserve" class="brush: cpp">[Extension()]&nbsp;<br />public: &nbsp;<br />static <a target="_top" href="topic_00000000000000F8.html" onclick="this.target='';return true;">SfDataGridFinder</a>^ GetFinder(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>^ <i>column</i>&nbsp;<br />) </pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -259,7 +258,7 @@ It can be a string or any other type, depending on the FilterBehavior of the pre
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public function get SpecifiedValue() : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>;&nbsp;<br />public function set SpecifiedValue(value : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>);</pre>			
+					<pre xml:space="preserve" class="brush: js">public &nbsp;<br />   Extension()&nbsp;<br />static function GetFinder(&nbsp;<br />    <i>column</i> : <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>&nbsp;<br />) : <a target="_top" href="topic_00000000000000F8.html" onclick="this.target='';return true;">SfDataGridFinder</a>;</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -270,10 +269,26 @@ It can be a string or any other type, depending on the FilterBehavior of the pre
 	</div>
 
 
+<h4 class="subHeading">
+	Parameters</h4><dl paramName="column" class="parameterList">
+	<dt>
+		<span class="parameter">
+			column
+		</span>
+	</dt>
+	<dd>
+		<a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a> 
+	</dd>
+</dl>
+<p>
+	 
+</p>
+
+<p />
 
 	<h4 class="subHeading">
-		Property Value</h4>
-	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a> 
+		Return Value</h4>
+	<a target="_top" href="topic_00000000000000F8.html" onclick="this.target='';return true;">SfDataGridFinder</a> 
 	
 
 
@@ -362,7 +377,7 @@ It can be a string or any other type, depending on the FilterBehavior of the pre
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_00000000000000D5.html">SfDataGridFinder Class</a><br />
+			<a href="topic_00000000000000D8.html">SfDataGridColumnBehaviorExtensions Class</a><br />
 
 
 

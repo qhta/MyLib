@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>FindCommand Class</title>
+	<title>ColumnManagementCommand.CanExecute Method</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">FindCommand Class</h1>
+		<h1 class="title">ColumnManagementCommand.CanExecute Method</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Command to find a value selected by the user int the current column in the data grid.</summary-info>
+        <summary-info>Command can execute only if parameter is SfDataGrid and its AllowColumnManagement is true.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Class FindCommand&nbsp;<br />    Inherits <strong>Command</strong></pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Overrides Function CanExecute( _&nbsp;<br />   ByVal <i>parameter</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">Object</a> _&nbsp;<br />) As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public class FindCommand : <strong>Command</strong></pre>			
+					<pre xml:space="preserve" class="brush: csharp">public override <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> CanExecute(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a> <i>parameter</i>&nbsp;<br />)</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public ref class FindCommand : public <strong>Command</strong>^</pre>			
+					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br /><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> CanExecute(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>^ <i>parameter</i>&nbsp;<br />) </pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public class FindCommand&nbsp;<br />   extends <strong>Command</strong></pre>			
+					<pre xml:space="preserve" class="brush: js">public function CanExecute(&nbsp;<br />    <i>parameter</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>&nbsp;<br />) : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>;</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -269,6 +269,27 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 	</div>
 
 
+<h4 class="subHeading">
+	Parameters</h4><dl paramName="parameter" class="parameterList">
+	<dt>
+		<span class="parameter">
+			parameter
+		</span>
+	</dt>
+	<dd>
+		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a> 
+	</dd>
+</dl>
+<p>
+	 
+</p>
+
+<p />
+
+	<h4 class="subHeading">
+		Return Value</h4>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> 
+	
 
 
 
@@ -285,264 +306,40 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 	</div>
 </div>
-
 
 
 
 <div class="section_container">
 	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Properties</a></span>
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Exceptions</a></span>
 		<div>&nbsp;</div>
 	</div>
 
-	<div id="PropertiesSection" class="section">	
-  <table class="memberListTable">
-    <tr>
-      <th></th>
-      <th>
-        Name
-      </th>
-      <th>
-        Description
-      </th>
-    </tr>
-
-
-	
-		<tr class="
-inheritedMember 
-
-
-">
-	<td>
-<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.mvvm.command.commandmanager">CommandManager</a>
-
-	</td>
-	<td>
-
-
-(inherited from <strong>Command</strong>).
-
-	</td>
-</tr>
-	
-
-
-	
-		<tr class="
-inheritedMember 
-
-
-">
-	<td>
-<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
-
-
-    
-	</td>
-	<td>
-	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.mvvm.command.name">Name</a>
-
-	</td>
-	<td>
-
-
-(inherited from <strong>Command</strong>).
-
-	</td>
-</tr>
-	
-
-
-  </table>
-
-  <a href="#mainBody">
-    Top
-  </a>
-
-	</div>					
-</div>
-
-
-
-
-
-
-<div class="section_container">
-	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Methods</a></span>
-		<div>&nbsp;</div>
+	<div id="exceptionsSection" class="section">	
+	<table>
+		<tr>
+			<th>
+				Exception type
+			</th>
+			<th>
+				Condition
+			</th>
+		</tr>
+		<tr>
+			<td>
+				<p>
+<a href="#">ArgumentException</a>
+				</p>
+			</td>
+			<td>
+				<p>
+					ArgumentException 
+				</p>
+			</td>
+		</tr>
+			
+	</table>
 	</div>
-
-	<div id="MethodsSection" class="section">	
-  <table class="memberListTable">
-    <tr>
-      <th></th>
-      <th>
-        Name
-      </th>
-      <th>
-        Description
-      </th>
-    </tr>
-
-
-
-			<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-
-    
-	</td>
-	<td>
-	<a href="topic_0000000000000062.html">CanExecute(object)</a>
-
-	</td>
-	<td>
-
-Checks whether the command can be executed basing on the current selection in the data grid.
-
-	</td>
-</tr>
-	
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-
-    
-	</td>
-	<td>
-	<a href="topic_0000000000000063.html">CanExecuteFindNext(object)</a>
-
-	</td>
-	<td>
-
-Checks whether the FindNext command can be executed basing on the current selection in the data grid.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-			<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-
-    
-	</td>
-	<td>
-	<a href="topic_0000000000000064.html">Execute(object)</a>
-
-	</td>
-	<td>
-
-Executes the command basing on the current selection in the data grid.
-
-	</td>
-</tr>
-	
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-
-    
-	</td>
-	<td>
-	<a href="topic_0000000000000065.html">ExecuteFindNext(object)</a>
-
-	</td>
-	<td>
-
-Executes the FindNext command basing on the current selection in the data grid.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-inheritedMember 
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-
-    
-	</td>
-	<td>
-	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.mvvm.command.notifycanexecutechanged">NotifyCanExecuteChanged()</a>
-
-	</td>
-	<td>
-
-
-(inherited from <strong>Command</strong>).
-
-	</td>
-</tr>
-
-
-
-
-
-
-  </table>
-
-  <a href="#mainBody">
-    Top
-  </a>
-
-	</div>					
 </div>
 
 
@@ -550,64 +347,6 @@ inheritedMember
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-
-<!-- Classes -->
-
-<!-- Classes End -->
-
-<!-- Standard Modules -->
-
-<!-- Standard Modules End -->
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section_container">
-	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Inheritance Hierarchy</a></span>
-		<div>&nbsp;</div>
-	</div>
-
-<div id="inheritanceHierarchySection" class="section">
-
-<div style="padding-left:0em;"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>
-</div>
-
-<div style="padding-left:1em;"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.observableobjects.observableobject">Qhta.ObservableObjects.ObservableObject</a>
-</div>
-
-<div style="padding-left:2em;"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.mvvm.command">Qhta.MVVM.Command</a>
-</div>
-
-
-
-<div style="padding-left:3em;">Qhta.SF.WPF.Tools.FindCommand</div>
-
-				
-</div>
-</div>
 
 
 
@@ -662,7 +401,6 @@ inheritedMember
 	</div>					
 </div>
 
-
 <div class="section_container">
 	<div class="section_heading">
 		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">See Also</a></span>
@@ -671,10 +409,14 @@ inheritedMember
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-	<a href="topic_0000000000000010.html">Qhta.SF.WPF.Tools Namespace</a><br />
+			<a href="topic_0000000000000060.html">ColumnManagementCommand Class</a><br />
 
 
-	
+
+<a href="topic_0000000000000010.html">Qhta.SF.WPF.Tools Namespace</a><br />
+
+
+			
 
 		</div>
 	</div>					

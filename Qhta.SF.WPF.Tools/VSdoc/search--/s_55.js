@@ -1,1 +1,1 @@
-search_result['55']=["topic_0000000000000026.html","Qhta.SF.WPF.Tools.Views Namespace",""];
+search_result['55']=["topic_0000000000000026.html","Strings.SearchedText Property","Looks up a localized string similar to Searched text."];

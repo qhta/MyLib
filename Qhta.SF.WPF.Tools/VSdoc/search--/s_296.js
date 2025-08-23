@@ -1,1 +1,1 @@
-search_result['296']=["topic_00000000000000AD.html","IsRowResizingProperty Field","Attached dependency property that indicates whether the grid is now resizing rows by dragging a bottom edge of row-header cell."];
+search_result['296']=["topic_000000000000008B_attached_props--.html","IRemovableCollection Attached Properties",""];

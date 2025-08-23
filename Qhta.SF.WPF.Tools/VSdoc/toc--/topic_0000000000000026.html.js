@@ -1,1 +1,1 @@
-var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_00000000000000EA.html"],['233',"Qhta.SF.WPF.Tools.Views Namespace","topic_0000000000000026.html"]];
+var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_000000000000010F.html"],['224',"Qhta.SF.WPF.Tools.Resources Namespace","topic_0000000000000000.html"],['241',"Strings Class","topic_0000000000000012.html"],['242',"Properties","topic_0000000000000012_props--.html"],['262',"SearchedText Property","topic_0000000000000026.html"]];

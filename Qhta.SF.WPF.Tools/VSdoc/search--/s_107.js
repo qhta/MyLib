@@ -1,1 +1,1 @@
-search_result['107']=["topic_0000000000000051.html","SpecificValueWindow.FilterType Property","Determines the type of filter to apply when searching for values in the data grid."];
+search_result['107']=["topic_000000000000003C.html","SpecificValueWindow.ViewMode Property","Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both."];

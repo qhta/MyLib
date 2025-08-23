@@ -1,1 +1,1 @@
-c['15']=[['16',"CanExecute(object) Method","topic_000000000000005B.html",0]];
+c['15']=[['16',"GetDataGridColumns Method","topic_0000000000000066.html",0],['17',"SetDataGridColumns Method","topic_0000000000000067.html",0]];

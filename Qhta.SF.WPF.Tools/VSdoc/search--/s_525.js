@@ -1,0 +1,1 @@
+search_result['525']=["topic_00000000000000E3.html","SfDataGridCommander.GetSelectedRows Method","Gets the selected rows from the specified SfDataGrid.\r\nReturns the selected cells and outputs whether all rows are selected, along with the selected rows."];

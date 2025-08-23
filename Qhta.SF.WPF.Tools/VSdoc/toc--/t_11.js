@@ -1,0 +1,1 @@
+c['11']=[['12',"ColumnSelectionCollection Constructor","topic_0000000000000065.html",0],['13',"Properties","topic_0000000000000063_props--.html",1],['15',"Methods","topic_0000000000000063_methods--.html",1]];

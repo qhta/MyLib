@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>PropertyChanged Event</title>
+	<title>IRowHeightProvider.RowHeight Property</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">PropertyChanged Event</h1>
+		<h1 class="title">IRowHeightProvider.RowHeight Property</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Occurs when a property value changes.</summary-info>
+        <summary-info>Gets or sets the height of a row in the grid.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Event PropertyChanged As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.propertychangedeventhandler">PropertyChangedEventHandler</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">Property RowHeight() As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">Double</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public event <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.propertychangedeventhandler">PropertyChangedEventHandler</a> PropertyChanged</pre>			
+					<pre xml:space="preserve" class="brush: csharp"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> RowHeight {get; set;}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />event <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.propertychangedeventhandler">PropertyChangedEventHandler</a>^ PropertyChanged {&nbsp;<br />}</pre>			
+					<pre xml:space="preserve" class="brush: cpp">&nbsp;<br />property <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> RowHeight {&nbsp;<br /> <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> get( );&nbsp;<br /> void set(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> value&nbsp;<br /> );&nbsp;<br />}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">JScript supports the use of events, but not the declaration of new ones.</pre>			
+					<pre xml:space="preserve" class="brush: js">function get RowHeight() : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a>;&nbsp;<br />function set RowHeight(value : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a>);</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -270,6 +270,10 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 
 
+	<h4 class="subHeading">
+		Property Value</h4>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> 
+	
 
 
 
@@ -291,17 +295,6 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 
 
-<div class="section_container">
-	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Remarks</a></span>
-		<div>&nbsp;</div>
-	</div>
-
-	<div id="remarksSection" class="section">	
-			This event is typically used to notify clients, such as user interfaces, that a property value
-has changed.
-	</div>					
-</div>
 
 
 
@@ -368,7 +361,7 @@ has changed.
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_0000000000000082.html">RecordNavigationBar Class</a><br />
+			<a href="topic_000000000000008F.html">IRowHeightProvider Interface</a><br />
 
 
 
@@ -398,3 +391,4 @@ has changed.
     </div>
   </body>
 </html>
+

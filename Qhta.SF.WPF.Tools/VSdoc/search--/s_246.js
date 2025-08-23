@@ -1,1 +1,1 @@
-search_result['246']=["topic_0000000000000094_attached_props--.html","RowResizer Attached Properties",""];
+search_result['246']=["topic_000000000000007A.html","MappingNameBinder Class","A value converter that retrieves the mapping name from a GridCell or a Binding."];

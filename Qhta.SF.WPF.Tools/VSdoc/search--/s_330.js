@@ -1,1 +1,1 @@
-search_result['330']=["topic_00000000000000BD_methods--.html","SfDataGridCommander Methods",""];
+search_result['330']=["topic_0000000000000095.html","ISelectableItem.IsEmpty Property","Determines whether the item should be considered as empty value."];

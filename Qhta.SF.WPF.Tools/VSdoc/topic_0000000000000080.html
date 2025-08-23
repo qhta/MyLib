@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>NonEmptyValue Class</title>
+	<title>FindAndReplaceCommand Class</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">NonEmptyValue Class</h1>
+		<h1 class="title">FindAndReplaceCommand Class</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Singleton class representing a non-empty value in the application.</summary-info>
+        <summary-info>Command to find a value selected by the user int the current column in the data grid.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Class NonEmptyValue</pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Class FindAndReplaceCommand&nbsp;<br />    Inherits <strong>Command</strong></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public class NonEmptyValue</pre>			
+					<pre xml:space="preserve" class="brush: csharp">public class FindAndReplaceCommand : <strong>Command</strong></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public ref class NonEmptyValue </pre>			
+					<pre xml:space="preserve" class="brush: cpp">public ref class FindAndReplaceCommand : public <strong>Command</strong>^</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public class NonEmptyValue</pre>			
+					<pre xml:space="preserve" class="brush: js">public class FindAndReplaceCommand&nbsp;<br />   extends <strong>Command</strong></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -310,6 +310,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 	
 		<tr class="
+inheritedMember 
 
 
 ">
@@ -321,12 +322,63 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
     
 	</td>
 	<td>
-	<a href="topic_0000000000000081.html">Instance</a>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.mvvm.command.commandmanager">CommandManager</a>
 
 	</td>
 	<td>
 
-Static singleton instance of the NonEmptyValue class.
+
+(inherited from <strong>Command</strong>).
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000081.html">FindOrReplaceMode</a>
+
+	</td>
+	<td>
+
+A mode that specifies whether to find or replace a value.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+inheritedMember 
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.mvvm.command.name">Name</a>
+
+	</td>
+	<td>
+
+
+(inherited from <strong>Command</strong>).
 
 	</td>
 </tr>
@@ -341,6 +393,192 @@ Static singleton instance of the NonEmptyValue class.
 
 	</div>					
 </div>
+
+
+
+
+
+
+<div class="section_container">
+	<div class="section_heading">
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Methods</a></span>
+		<div>&nbsp;</div>
+	</div>
+
+	<div id="MethodsSection" class="section">	
+  <table class="memberListTable">
+    <tr>
+      <th></th>
+      <th>
+        Name
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+
+
+
+			<tr class="
+
+
+">
+	<td>
+<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000082.html">CanExecute(object)</a>
+
+	</td>
+	<td>
+
+Checks whether the command can be executed basing on the current selection in the data grid.
+
+	</td>
+</tr>
+	
+
+
+
+
+
+
+
+
+	<tr class="
+
+
+">
+	<td>
+<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000083.html">CanExecuteFindNext(object)</a>
+
+	</td>
+	<td>
+
+Checks whether the FindNext command can be executed basing on the current selection in the data grid.
+
+	</td>
+</tr>
+
+
+
+
+
+
+
+			<tr class="
+
+
+">
+	<td>
+<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000084.html">Execute(object)</a>
+
+	</td>
+	<td>
+
+Executes the command basing on the current selection in the data grid.
+
+	</td>
+</tr>
+	
+
+
+
+
+
+
+
+
+	<tr class="
+
+
+">
+	<td>
+<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000085.html">ExecuteFindNext(object)</a>
+
+	</td>
+	<td>
+
+Executes the FindNext command basing on the current selection in the data grid.
+
+	</td>
+</tr>
+
+
+
+
+
+
+
+
+	<tr class="
+inheritedMember 
+
+
+">
+	<td>
+<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.mvvm.command.notifycanexecutechanged">NotifyCanExecuteChanged()</a>
+
+	</td>
+	<td>
+
+
+(inherited from <strong>Command</strong>).
+
+	</td>
+</tr>
+
+
+
+
+
+
+  </table>
+
+  <a href="#mainBody">
+    Top
+  </a>
+
+	</div>					
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -370,6 +608,30 @@ Static singleton instance of the NonEmptyValue class.
 
 
 
+<div class="section_container">
+	<div class="section_heading">
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Inheritance Hierarchy</a></span>
+		<div>&nbsp;</div>
+	</div>
+
+<div id="inheritanceHierarchySection" class="section">
+
+<div style="padding-left:0em;"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>
+</div>
+
+<div style="padding-left:1em;"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.observableobjects.observableobject">Qhta.ObservableObjects.ObservableObject</a>
+</div>
+
+<div style="padding-left:2em;"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.mvvm.command">Qhta.MVVM.Command</a>
+</div>
+
+
+
+<div style="padding-left:3em;">Qhta.SF.WPF.Tools.FindAndReplaceCommand</div>
+
+				
+</div>
+</div>
 
 
 

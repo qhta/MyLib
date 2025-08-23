@@ -1,1 +1,1 @@
-c['45']=[['46',"RecordNavigationBar Constructor","topic_0000000000000083.html",0],['47',"Properties","topic_0000000000000082_props--.html",1],['54',"Methods","topic_0000000000000082_methods--.html",1],['60',"Events","topic_0000000000000082_events--.html",1],['62',"Fields","topic_0000000000000082_vars--.html",1]];
+c['45']=[['46',"CanExecute(object) Method","topic_0000000000000082.html",0]];

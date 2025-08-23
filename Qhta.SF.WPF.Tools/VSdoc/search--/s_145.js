@@ -1,1 +1,1 @@
-search_result['145']=["topic_0000000000000063.html","FindCommand.CanExecuteFindNext Method","Checks whether the FindNext command can be executed basing on the current selection in the data grid."];
+search_result['145']=["topic_0000000000000057_attached_props--.html","DoubleUtil Attached Properties",""];

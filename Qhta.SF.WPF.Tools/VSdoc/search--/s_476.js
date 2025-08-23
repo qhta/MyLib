@@ -1,0 +1,1 @@
+search_result['476']=["topic_00000000000000D0.html","StartOffsetProperty Field","Attached dependency property for the start offset for resizing rows in the grid. This is the difference between actual row height and the initial position of the mouse when resizing starts."];

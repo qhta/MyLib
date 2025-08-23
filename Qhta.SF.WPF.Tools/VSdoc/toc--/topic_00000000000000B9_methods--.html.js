@@ -1,1 +1,0 @@
-var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_00000000000000EA.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['125',"SfDataGridColumnConverter Class","topic_00000000000000B9.html"],['126',"Methods","topic_00000000000000B9_methods--.html"]];

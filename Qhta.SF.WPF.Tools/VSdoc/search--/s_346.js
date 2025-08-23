@@ -1,1 +1,1 @@
-search_result['346']=["topic_00000000000000CE.html","SfDataGridCommander.DeleteData Method","Performs a delete operation on the data in the specified SfDataGrid."];
+search_result['346']=["topic_000000000000009B.html","LongTextColumn.OnQueryRowHeight Method","Adjusts the height of a row in a SfDataGrid based on the content of long text columns."];

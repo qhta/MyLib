@@ -1,1 +1,1 @@
-var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_00000000000000EA.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['45',"RecordNavigationBar Class","topic_0000000000000082.html"],['62',"Fields","topic_0000000000000082_vars--.html"],['64',"RowsCountProperty Field","topic_0000000000000086.html"]];
+var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_000000000000010F.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['51',"GridColumnMappingConverter Class","topic_0000000000000086.html"]];

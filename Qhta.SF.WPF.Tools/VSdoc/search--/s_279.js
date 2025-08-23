@@ -1,1 +1,1 @@
-search_result['279']=["topic_00000000000000A5_events--.html","SelectedItemEnumToResourceConverter Events",""];
+search_result['279']=["topic_0000000000000085.html","FindAndReplaceCommand.ExecuteFindNext Method","Executes the FindNext command basing on the current selection in the data grid."];

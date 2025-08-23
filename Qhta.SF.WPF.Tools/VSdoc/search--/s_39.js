@@ -1,1 +1,1 @@
-search_result['39']=["topic_0000000000000016.html","Strings.Confirm Property","Looks up a localized string similar to Confirm."];
+search_result['39']=["topic_0000000000000016.html","Strings.ColumnManagement Property","Looks up a localized string similar to Column management."];

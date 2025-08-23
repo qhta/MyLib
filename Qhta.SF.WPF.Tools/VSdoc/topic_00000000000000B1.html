@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SfDataGridColumnBehavior Class</title>
+	<title>RecordNavigationBar.NotifyPropertyChanged Method</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SfDataGridColumnBehavior Class</h1>
+		<h1 class="title">RecordNavigationBar.NotifyPropertyChanged Method</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>A behavior class for managing the selection state of a <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a> in a Syncfusion DataGrid.</summary-info>
+        <summary-info>Notifies subscribers that a property value has changed.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Class SfDataGridColumnBehavior&nbsp;<br />    Inherits <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.xaml.behaviors.behavior-1">Behavior</a>(Of <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>)</pre>			
+					<pre xml:space="preserve" class="brush: vb">Protected Overridable Sub NotifyPropertyChanged( _&nbsp;<br />   &lt;CallerMemberName()&gt; _&nbsp;<br />   Optional ByVal <i>propertyName</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a> = null _&nbsp;<br />)</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public class SfDataGridColumnBehavior : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.xaml.behaviors.behavior-1">Behavior</a>&lt;<a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>&gt;</pre>			
+					<pre xml:space="preserve" class="brush: csharp">protected virtual <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.void">void</a> NotifyPropertyChanged(&nbsp;<br />   [CallerMemberName()]&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">string</a> <i>propertyName</i> = null&nbsp;<br />)</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public ref class SfDataGridColumnBehavior : public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/microsoft::xaml::behaviors::behavior-1">Behavior</a>&lt;<a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>&gt;</pre>			
+					<pre xml:space="preserve" class="brush: cpp">protected: &nbsp;<br />virtual <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.void">void</a> NotifyPropertyChanged(&nbsp;<br />   [CallerMemberName()]&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a>^ <i>propertyName</i>&nbsp;<br />) </pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">JScript does not support generic types and methods.</pre>			
+					<pre xml:space="preserve" class="brush: js">protected function NotifyPropertyChanged(&nbsp;<br />   CallerMemberName()&nbsp;<br />    <i>propertyName</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a>&nbsp;<br />);</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -269,6 +269,23 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 	</div>
 
 
+<h4 class="subHeading">
+	Parameters</h4><dl paramName="propertyName" class="parameterList">
+	<dt>
+		<span class="parameter">
+			propertyName
+		</span>
+	</dt>
+	<dd>
+		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">string</a> 
+	</dd>
+</dl>
+<p>
+	The name of the property that changed. This value is optional and can be automatically supplied by the compiler. 
+</p>
+
+<p />
+
 
 
 
@@ -292,219 +309,15 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 <div class="section_container">
 	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Attached Properties</a></span>
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Remarks</a></span>
 		<div>&nbsp;</div>
 	</div>
 
-	<div id="AttachedPropertiesSection" class="section">	
-  <table class="memberListTable">
-    <tr>
-      <th></th>
-      <th>
-        Name
-      </th>
-      <th>
-        Description
-      </th>
-    </tr>
-
-	<tr class="
-	
-	
-	">
-	  <td>
-    	<img alt="Public attached property" title="Public attached property" src="msdn2019/pubproperty.png"></img>
-	    
-	  </td>
-	  <td>
-	    <a href="topic_00000000000000E8.html">IsSelected</a>
-
-	  </td>
-	  <td>
-	
-	
-	
-		</td>
-	</tr>
-
-  </table>
-
-  <a href="#mainBody">
-    Top
-  </a>
-
+	<div id="remarksSection" class="section">	
+			This method raises the <a target="_top" href="topic_00000000000000B0.html" onclick="this.target='';return true;">PropertyChanged</a> event, which is used to notify listeners,
+typically UI elements, that a property value has changed.
 	</div>					
 </div>
-
-
-
-
-
-<div class="section_container">
-	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Methods</a></span>
-		<div>&nbsp;</div>
-	</div>
-
-	<div id="MethodsSection" class="section">	
-  <table class="memberListTable">
-    <tr>
-      <th></th>
-      <th>
-        Name
-      </th>
-      <th>
-        Description
-      </th>
-    </tr>
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000B2.html">GetIsSelected(DependencyObject)</a>
-
-	</td>
-	<td>
-
-Gets whether the column is selected.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000B3.html">SetIsSelected(DependencyObject, bool)</a>
-
-	</td>
-	<td>
-
-Sets the selection state of the column.
-
-	</td>
-</tr>
-
-
-
-
-
-
-  </table>
-
-  <a href="#mainBody">
-    Top
-  </a>
-
-	</div>					
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-<!-- Classes -->
-
-<!-- Classes End -->
-
-<!-- Standard Modules -->
-
-<!-- Standard Modules End -->
-
-  
-
-
-
-
-
-<div class="section_container">
-	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Fields</a></span>
-		<div>&nbsp;</div>
-	</div>
-
-	<div id="FieldsSection" class="section">	
-  <table class="memberListTable">
-    <tr>
-      <th></th>
-      <th>
-        Name
-      </th>
-      <th>
-        Description
-      </th>
-    </tr>
-
-	<tr class="
-	
-	
-	">
-	  <td>
-		    <img alt="Public field" title="Public field" src="msdn2019/pubfield.png"></img>
-	
-		    <img alt="Static" title="Static" src="msdn2019/static.png"></img>
-	
-	    
-	  </td>
-	  <td>
-	    <a href="topic_00000000000000B4.html">IsSelectedProperty</a>
-	  </td>
-	  <td>
-	
-	Attached dependency property that indicates whether the column is selected.
-	
-		</td>
-	</tr>
-
-  </table>
-
-  <a href="#mainBody">
-    Top
-  </a>
-
-	</div>					
-</div>
-
-
-
 
 
 
@@ -563,7 +376,6 @@ Sets the selection state of the column.
 	</div>					
 </div>
 
-
 <div class="section_container">
 	<div class="section_heading">
 		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">See Also</a></span>
@@ -572,10 +384,14 @@ Sets the selection state of the column.
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-	<a href="topic_0000000000000010.html">Qhta.SF.WPF.Tools Namespace</a><br />
+			<a href="topic_00000000000000A2.html">RecordNavigationBar Class</a><br />
 
 
-	
+
+<a href="topic_0000000000000010.html">Qhta.SF.WPF.Tools Namespace</a><br />
+
+
+			
 
 		</div>
 	</div>					

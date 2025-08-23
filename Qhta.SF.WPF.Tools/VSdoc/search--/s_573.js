@@ -1,0 +1,1 @@
+search_result['573']=["topic_0000000000000107.html","SfDataGridSelector.AreAllColumnsSelected Method","Checks if all columns in the specified SfDataGrid are selected or not."];

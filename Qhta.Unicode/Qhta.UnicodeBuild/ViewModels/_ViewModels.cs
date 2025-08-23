@@ -59,7 +59,7 @@ public partial class _ViewModels : ViewModel, IDisposable
 
   private _ViewModels()
   {
-    UndoManager.UndoMgr.Enabled = false;
+    UndoManager.UndoRedoManager.IsEnabled = false;
     _Context = new _DbContext();
     {
       foreach (var wst in _Context.WritingSystemTypes.ToList())
@@ -133,7 +133,7 @@ public partial class _ViewModels : ViewModel, IDisposable
       }, TaskScheduler.FromCurrentSynchronizationContext());
     }
 
-    UndoManager.UndoMgr.Enabled = true;
+    UndoManager.UndoRedoManager.IsEnabled = true;
   }
 
   /// <summary>

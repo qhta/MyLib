@@ -1,1 +1,1 @@
-search_result['382']=["topic_00000000000000E3.html","SfDataGridSelector.AreAllColumnsSelected Method","Checks if all columns in the specified SfDataGrid are selected or not."];
+search_result['382']=["topic_00000000000000A7_methods--.html","SfDataGridBehavior Methods",""];

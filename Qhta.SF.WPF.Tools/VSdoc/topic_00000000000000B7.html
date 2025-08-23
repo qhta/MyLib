@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SfDataGridColumnBehaviorExtensions.SetFinder Method</title>
+	<title>RowResizer.MinRowHeight Property</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SfDataGridColumnBehaviorExtensions.SetFinder Method</h1>
+		<h1 class="title">RowResizer.MinRowHeight Property</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Sets the finder associated with the column.</summary-info>
+        <summary-info>Minimum height of the Row being resized.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">&lt;Extension()&gt; _&nbsp;<br />Public Shared Sub SetFinder( _&nbsp;<br />   ByVal <i>column</i> As <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>, _&nbsp;<br />   ByVal <i>value</i> As <a target="_top" href="topic_00000000000000D5.html" onclick="this.target='';return true;">SfDataGridFinder</a> _&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Property MinRowHeight() As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">Double</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.void">void</a> SetFinder(&nbsp;<br />   this <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a> <i>column</i>,&nbsp;<br />   <a target="_top" href="topic_00000000000000D5.html" onclick="this.target='';return true;">SfDataGridFinder</a> <i>value</i>&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: csharp">public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> MinRowHeight {get; set;}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">[Extension()]&nbsp;<br />public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.void">void</a> SetFinder(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>^ <i>column</i>,&nbsp;<br />   <a target="_top" href="topic_00000000000000D5.html" onclick="this.target='';return true;">SfDataGridFinder</a>^ <i>value</i>&nbsp;<br />) </pre>			
+					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />property <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> MinRowHeight {&nbsp;<br /> <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> get( );&nbsp;<br /> void set(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> value&nbsp;<br /> );&nbsp;<br />}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public &nbsp;<br />   Extension()&nbsp;<br />static function SetFinder(&nbsp;<br />    <i>column</i> : <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>,&nbsp;<br />    <i>value</i> : <a target="_top" href="topic_00000000000000D5.html" onclick="this.target='';return true;">SfDataGridFinder</a>&nbsp;<br />);</pre>			
+					<pre xml:space="preserve" class="brush: js">public function get MinRowHeight() : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a>;&nbsp;<br />public function set MinRowHeight(value : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a>);</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -269,36 +269,11 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 	</div>
 
 
-<h4 class="subHeading">
-	Parameters</h4><dl paramName="column" class="parameterList">
-	<dt>
-		<span class="parameter">
-			column
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a> 
-	</dd>
-</dl>
-<p>
-	 
-</p>
-<dl paramName="value" class="parameterList">
-	<dt>
-		<span class="parameter">
-			value
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href="topic_00000000000000D5.html" onclick="this.target='';return true;">SfDataGridFinder</a> 
-	</dd>
-</dl>
-<p>
-	 
-</p>
 
-<p />
-
+	<h4 class="subHeading">
+		Property Value</h4>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.double">double</a> 
+	
 
 
 
@@ -317,6 +292,43 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 </div>
 
 
+<div class="section_container">
+	<div class="section_heading">
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Dependency Property Information</a></span>
+		<div>&nbsp;</div>
+	</div>
+
+	<div id="dependencyPropertyInfoSection" class="section">	
+	<table>
+		<tr>
+			<td>
+				<p>Identifier field</p>
+			</td>
+			<td>
+				<p>
+<a href="topic_00000000000000B6.html">MinRowHeightProperty</a>
+
+
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>Metadata properties set to true</p>
+			</td>
+			<td>
+				<p>
+
+	None
+
+				</p>
+			</td>
+		</tr>
+	</table>
+	
+
+	</div>
+</div>
 
 
 
@@ -386,7 +398,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_00000000000000B5.html">SfDataGridColumnBehaviorExtensions Class</a><br />
+			<a href="topic_00000000000000B4.html">RowResizer Class</a><br />
 
 
 

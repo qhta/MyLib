@@ -42,10 +42,10 @@ public class EntityViewModel<T>: ViewModel<T>
       throw new ArgumentException($"Property '{thisPropertyName}' not found on entity type {type.Name}", nameof(thisPropertyName));
     
     var oldValue = property.GetValue(this);
-    if (!UndoMgr.IsUndoing)
+    if (!UndoRedoManager.IsUndoing)
       if (Equals(oldValue, newValue)) return false; // No change needed
     // Record the change for undo functionality
-    UndoMgr.Record(new ChangePropertyAction(), new ChangePropertyArgs(this, thisPropertyName, oldValue, newValue));
+    UndoRedoManager.Record(new ChangePropertyAction(), new ChangePropertyArgs(this, thisPropertyName, oldValue, newValue));
     ChangeModelProperty(modelPropertyName, newValue);
     NotifyPropertyChanged(thisPropertyName);
     if (pairedPropertyName != null && pairedPropertyName != thisPropertyName)
@@ -67,10 +67,10 @@ public class EntityViewModel<T>: ViewModel<T>
       throw new ArgumentException($"Property '{propertyName}' not found on entity type {type.Name}", nameof(propertyName));
 
     var oldValue = property.GetValue(Model);
-    if (!UndoMgr.IsUndoing)
+    if (!UndoRedoManager.IsUndoing)
       if (Equals(oldValue, newValue)) return false; // No change needed
     // Record the change for undo functionality
-    UndoMgr.Record(new ChangePropertyAction(), new ChangePropertyArgs(Model, propertyName, oldValue, newValue));
+    UndoRedoManager.Record(new ChangePropertyAction(), new ChangePropertyArgs(Model, propertyName, oldValue, newValue));
     property.SetValue(Model, newValue);
     NotifyPropertyChanged(propertyName);
     return true;

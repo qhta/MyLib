@@ -1,1 +1,1 @@
-search_result['112']=["topic_0000000000000054_events--.html","DelRecordAction Events",""];
+search_result['112']=["topic_0000000000000041.html","SpecificValueWindow Class","Window for selecting or editing a specific value."];

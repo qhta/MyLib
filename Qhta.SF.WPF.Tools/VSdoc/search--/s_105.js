@@ -1,1 +1,1 @@
-search_result['105']=["topic_000000000000004F.html","SpecificValueWindow.FindInSequence Property","Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled."];
+search_result['105']=["topic_000000000000003A.html","SpecificValueWindow.WindowMode Property","Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both."];

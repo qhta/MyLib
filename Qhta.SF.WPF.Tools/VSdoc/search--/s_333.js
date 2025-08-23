@@ -1,1 +1,1 @@
-search_result['333']=["topic_00000000000000BE.html","SfDataGridCommander.GetDataGrid Method","Gets the owner DataGrid of the specified column."];
+search_result['333']=["topic_0000000000000098.html","LongTextColumn Class","Represents a column in a data grid that adjusts its row height based on the content length."];

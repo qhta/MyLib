@@ -6,7 +6,7 @@
     <members>
         <member name="T:Qhta.UndoManager.ActionGroup">
             <summary>
-            Specialized action group for managing a collection of actions.
+            Specialized action group for grouping actions.
             </summary>
         </member>
         <member name="M:Qhta.UndoManager.ActionGroup.Execute(System.Object)">
@@ -88,100 +88,6 @@
             </summary>
             <param name="args"></param>
         </member>
-        <member name="T:Qhta.UndoManager.UndoMgr">
-            <summary>
-            Manager class for Undo/Redo functionality in application.
-            Records actions and manages undo/redo stacks.
-            Only registered actions can be undone or redone.
-            </summary>
-        </member>
-        <member name="F:Qhta.UndoManager.UndoMgr.UndoStack">
-            <summary>
-            Undo stack to keep track of executed actions for undo functionality.
-            </summary>
-        </member>
-        <member name="F:Qhta.UndoManager.UndoMgr.RedoStack">
-            <summary>
-            Redo stack to keep track of undone actions for redo functionality.
-            </summary>
-        </member>
-        <member name="P:Qhta.UndoManager.UndoMgr.Enabled">
-            <summary>
-            Determines whether the Record/Undo/Redo functionality is enabled.
-            </summary>
-        </member>
-        <member name="P:Qhta.UndoManager.UndoMgr.IsUndoing">
-            <summary>
-            Flag to indicate if the application is currently undoing an action.
-            </summary>
-        </member>
-        <member name="P:Qhta.UndoManager.UndoMgr.IsRedoing">
-            <summary>
-            Flag to indicate if the application is currently redoing an action.
-            </summary>
-        </member>
-        <member name="P:Qhta.UndoManager.UndoMgr.IsRecording">
-            <summary>
-            Flag to indicate if the application is currently recording an action.
-            </summary>
-        </member>
-        <member name="P:Qhta.UndoManager.UndoMgr.IsGrouping">
-            <summary>
-            Flag to indicate if the application is currently recording a group of actions;
-            </summary>
-        </member>
-        <member name="P:Qhta.UndoManager.UndoMgr.IsUndoAvailable">
-            <summary>
-            Flag to indicate if the Undo functionality is available.
-            </summary>
-        </member>
-        <member name="P:Qhta.UndoManager.UndoMgr.IsRedoAvailable">
-            <summary>
-            Flag to indicate if the Redo functionality is available.
-            </summary>
-        </member>
-        <member name="P:Qhta.UndoManager.UndoMgr.IsRecordingAvailable">
-            <summary>
-            Flag to indicate if the recording functionality is available.
-            </summary>
-        </member>
-        <member name="P:Qhta.UndoManager.UndoMgr.IsGroupingAvailable">
-            <summary>
-            Flag to indicate if the grouping functionality is available.
-            </summary>
-        </member>
-        <member name="M:Qhta.UndoManager.UndoMgr.Record(Qhta.UndoManager.IAction,System.Object)">
-            <summary>
-            Records an action with its arguments for undo functionality.
-            </summary>
-            <param name="action"></param>
-            <param name="args"></param>
-        </member>
-        <member name="M:Qhta.UndoManager.UndoMgr.Undo">
-            <summary>
-            Reverts the last operation performed, if undo is available.
-            </summary>
-            <remarks>This method checks if undo functionality is enabled and if there is an operation available to
-            undo. If both conditions are met, it executes the undo operation and prepares the operation for potential
-            redo.</remarks>
-        </member>
-        <member name="M:Qhta.UndoManager.UndoMgr.Redo">
-            <summary>
-            Re-executes the last undone action if redo is available.
-            </summary>
-            <remarks>This method checks if redo operations are enabled,
-            and then it executes the action and updates the undo and redo stacks accordingly.</remarks>
-        </member>
-        <member name="M:Qhta.UndoManager.UndoMgr.StartGrouping">
-            <summary>
-            Starts recording a group of actions.
-            </summary>
-        </member>
-        <member name="M:Qhta.UndoManager.UndoMgr.StopGrouping">
-            <summary>
-            Starts recording a group of actions.
-            </summary>
-        </member>
         <member name="T:Qhta.UndoManager.UndoRedoEntry">
             <summary>
             Entry record for storing action and its arguments in the undo/redo stacks.
@@ -201,6 +107,100 @@
         </member>
         <member name="P:Qhta.UndoManager.UndoRedoEntry.Args">
             <summary></summary>
+        </member>
+        <member name="T:Qhta.UndoManager.UndoRedoManager">
+            <summary>
+            Manager class for Undo/Redo functionality in application.
+            Records actions and manages undo/redo stacks.
+            Only registered actions can be undone or redone.
+            </summary>
+        </member>
+        <member name="F:Qhta.UndoManager.UndoRedoManager.UndoStack">
+            <summary>
+            Undo stack to keep track of executed actions for undo functionality.
+            </summary>
+        </member>
+        <member name="F:Qhta.UndoManager.UndoRedoManager.RedoStack">
+            <summary>
+            Redo stack to keep track of undone actions for redo functionality.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoRedoManager.IsEnabled">
+            <summary>
+            Determines whether the Record/Undo/Redo functionality is enabled.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoRedoManager.IsUndoing">
+            <summary>
+            Flag to indicate that the manager is currently undoing an action.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoRedoManager.IsRedoing">
+            <summary>
+            Flag to indicate that the manager is currently redoing an action.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoRedoManager.IsRecording">
+            <summary>
+            Flag to indicate that the manager is currently recording an action.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoRedoManager.IsGrouping">
+            <summary>
+            Flag to indicate that the manager is currently grouping actions.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoRedoManager.IsUndoAvailable">
+            <summary>
+            Flag to indicate that the Undo functionality is available.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoRedoManager.IsRedoAvailable">
+            <summary>
+            Flag to indicate that the Redo functionality is available.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoRedoManager.IsRecordingAvailable">
+            <summary>
+            Flag to indicate that the recording is available.
+            </summary>
+        </member>
+        <member name="P:Qhta.UndoManager.UndoRedoManager.IsGroupingAvailable">
+            <summary>
+            Flag to indicate that the grouping is available.
+            </summary>
+        </member>
+        <member name="M:Qhta.UndoManager.UndoRedoManager.Record(Qhta.UndoManager.IAction,System.Object)">
+            <summary>
+            Records an action with its arguments for undo functionality.
+            </summary>
+            <param name="action"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Qhta.UndoManager.UndoRedoManager.Undo">
+            <summary>
+            Reverts the last operation performed, if undo is available.
+            </summary>
+            <remarks>This method checks if undo functionality is enabled and if there is an operation available to
+            undo. If both conditions are met, it executes the undo operation and prepares the operation for potential
+            redo.</remarks>
+        </member>
+        <member name="M:Qhta.UndoManager.UndoRedoManager.Redo">
+            <summary>
+            Re-executes the last undone action if redo is available.
+            </summary>
+            <remarks>This method checks if redo operations are enabled,
+            and then it executes the action and updates the undo and redo stacks accordingly.</remarks>
+        </member>
+        <member name="M:Qhta.UndoManager.UndoRedoManager.StartGrouping">
+            <summary>
+            Starts recording a group of actions.
+            </summary>
+        </member>
+        <member name="M:Qhta.UndoManager.UndoRedoManager.StopGrouping">
+            <summary>
+            Starts recording a group of actions.
+            </summary>
         </member>
     </members>
 </doc>

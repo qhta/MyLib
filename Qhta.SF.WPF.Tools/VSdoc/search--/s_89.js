@@ -1,1 +1,1 @@
-search_result['89']=["topic_000000000000003F.html","SpecificValueWindow.TextValue Property","Text value entered by the user in the text box."];
+search_result['89']=["topic_0000000000000034.html","SpecificValueEdit Constructor","Initializing constructor."];

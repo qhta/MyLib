@@ -1,1 +1,1 @@
-search_result['218']=["topic_0000000000000082_attached_props--.html","RecordNavigationBar Attached Properties",""];
+search_result['218']=["topic_000000000000006F.html","DelRecordAction Class","Undo/redo action for deleting records in a data grid."];

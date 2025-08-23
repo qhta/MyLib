@@ -1,1 +1,1 @@
-search_result['260']=["topic_000000000000009A_props--.html","SelectableItem Properties",""];
+search_result['260']=["topic_000000000000007E.html","MappingNameToValueConverter.Convert Method","Converts a GridCell value to a string representation based on the value of the mapped property."];

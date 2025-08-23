@@ -1,1 +1,1 @@
-search_result['301']=["topic_00000000000000B1_attached_props--.html","SfDataGridColumnBehavior Attached Properties",""];
+search_result['301']=["topic_000000000000008C.html","IRemovableCollection.CanRemove Method","Returns a value indicating whether the specified item can be removed from the collection."];

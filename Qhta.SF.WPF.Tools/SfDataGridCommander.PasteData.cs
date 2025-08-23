@@ -85,7 +85,7 @@ public static partial class SfDataGridCommander
       Debug.WriteLine("PasteData: No content to paste.");
       return;
     }
-    UndoMgr.StartGrouping();
+    UndoRedoManager.StartGrouping();
     var lineNo = 0;
     foreach (var row in rowsToCopy)
     {
@@ -107,7 +107,7 @@ public static partial class SfDataGridCommander
         }
       }
     }
-    UndoMgr.StopGrouping();
+    UndoRedoManager.StopGrouping();
     Debug.WriteLine("Paste data completed");
   }
 

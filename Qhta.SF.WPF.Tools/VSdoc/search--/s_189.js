@@ -1,1 +1,1 @@
-search_result['189']=["topic_0000000000000075_vars--.html","LongTextColumn Fields",""];
+search_result['189']=["topic_0000000000000066.html","ColumnSelectionCollection.GetDataGridColumns Method","Gets the current columns from the data grid and populates the collection."];

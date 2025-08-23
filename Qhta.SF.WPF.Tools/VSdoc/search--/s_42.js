@@ -1,1 +1,1 @@
-search_result['42']=["topic_0000000000000019.html","Strings.EmptyValue Property","Looks up a localized string similar to (Empty value)."];
+search_result['42']=["topic_0000000000000019.html","Strings.DeleteRecordsConfirm Property","Looks up a localized string similar to Are you sure you want to delete {0} records?."];

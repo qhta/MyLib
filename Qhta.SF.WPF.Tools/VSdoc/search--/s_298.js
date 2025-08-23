@@ -1,1 +1,1 @@
-search_result['298']=["topic_00000000000000AF.html","SfDataGridBehavior.SetStartOffset Method","Sets the start offset for resizing rows in the grid. This is the difference between actual row height and the initial position of the mouse when resizing starts."];
+search_result['298']=["topic_000000000000008B_methods--.html","IRemovableCollection Methods",""];

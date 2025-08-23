@@ -1,0 +1,1 @@
+search_result['548']=["topic_00000000000000F8.html","SfDataGridFinder Class","Class containing tools for finding values and text in Syncfusion DataGrid columns."];

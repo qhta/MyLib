@@ -1,1 +1,1 @@
-search_result['383']=["topic_00000000000000E4.html","SfDataGridSelector.SelectAllColumns Method","Selects or unselects all columns in the specified SfDataGrid.\r\nAny cell selection is cleared before selecting or unselecting columns."];
+search_result['383']=["topic_00000000000000A7_props--.html","SfDataGridBehavior Properties",""];

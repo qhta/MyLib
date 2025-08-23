@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SpecificValueWindow.SelectedItem Property</title>
+	<title>ViewModeProperty Field</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,11 +75,11 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SpecificValueWindow.SelectedItem Property</h1>
+		<h1 class="title">ViewModeProperty Field</h1>
         
 		<div class="metadata">
         Namespace:
-<a href="topic_0000000000000026.html">Qhta.SF.WPF.Tools.Views</a>
+<a href="topic_0000000000000029.html">Qhta.SF.WPF.Tools.Views</a>
 
 
 
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Selected item in the selection window. This property is bound to the selected item in the ItemsSource.</summary-info>
+        <summary-info>Dependency property for <a target="_top" href="topic_0000000000000048.html" onclick="this.target='';return true;">ViewMode</a> property, which specifies the which specific view is visible, which can be either EditViewOnly, SelectorOnly, or Both.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Property SelectedItem() As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">Object</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Shared Shadows ReadOnly ViewModeProperty As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a> SelectedItem {get; set;}</pre>			
+					<pre xml:space="preserve" class="brush: csharp">new public static readonly <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a> ViewModeProperty</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />property <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>^ SelectedItem {&nbsp;<br /> <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>^ get( );&nbsp;<br /> void set(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>^ value&nbsp;<br /> );&nbsp;<br />}</pre>			
+					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a>^ ViewModeProperty;</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public function get SelectedItem() : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>;&nbsp;<br />public function set SelectedItem(value : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>);</pre>			
+					<pre xml:space="preserve" class="brush: js">public static readonly ViewModeProperty : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -271,8 +271,8 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 
 	<h4 class="subHeading">
-		Property Value</h4>
-	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a> 
+		Field Value</h4>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a> 
 	
 
 
@@ -292,43 +292,6 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 </div>
 
 
-<div class="section_container">
-	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Dependency Property Information</a></span>
-		<div>&nbsp;</div>
-	</div>
-
-	<div id="dependencyPropertyInfoSection" class="section">	
-	<table>
-		<tr>
-			<td>
-				<p>Identifier field</p>
-			</td>
-			<td>
-				<p>
-<a href="topic_0000000000000046.html">SelectedItemProperty</a>
-
-
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<p>Metadata properties set to true</p>
-			</td>
-			<td>
-				<p>
-
-	None
-
-				</p>
-			</td>
-		</tr>
-	</table>
-	
-
-	</div>
-</div>
 
 
 
@@ -398,11 +361,11 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_0000000000000035.html">SpecificValueWindow Class</a><br />
+			<a href="topic_0000000000000041.html">SpecificValueWindow Class</a><br />
 
 
 
-<a href="topic_0000000000000026.html">Qhta.SF.WPF.Tools.Views Namespace</a><br />
+<a href="topic_0000000000000029.html">Qhta.SF.WPF.Tools.Views Namespace</a><br />
 
 
 			
@@ -428,4 +391,3 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
     </div>
   </body>
 </html>
-

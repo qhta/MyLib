@@ -1,1 +1,1 @@
-search_result['186']=["topic_0000000000000075_events--.html","LongTextColumn Events",""];
+search_result['186']=["topic_0000000000000064.html","ColumnSelectionCollection.DataGrid Property","The data grid associated with this collection."];

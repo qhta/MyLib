@@ -1,1 +1,1 @@
-search_result['73']=["topic_0000000000000031.html","SpecificViewMode Enumeration","Modes for the specific edit view."];
+search_result['73']=["topic_000000000000002E.html","ColumnManagementWindow.IsMoveUpEnabled Property","Checks if the first item in the collection is selected."];

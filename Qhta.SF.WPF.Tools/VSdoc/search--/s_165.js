@@ -1,1 +1,1 @@
-search_result['165']=["topic_000000000000006C.html","IRowHeightProvider Interface","Interface for providing row height in a data grid."];
+search_result['165']=["topic_0000000000000060.html","ColumnManagementCommand Class","Command for managing column layout`"];

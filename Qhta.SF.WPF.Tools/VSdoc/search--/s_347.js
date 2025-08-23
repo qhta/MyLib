@@ -1,1 +1,1 @@
-search_result['347']=["topic_00000000000000CF.html","SfDataGridCommander.CanPasteData Method","Determines whether data can be pasted into the specified data grid."];
+search_result['347']=["topic_000000000000009C.html","LongTextColumn.EvaluateTextHeight Method","Evaluates the height of a given long text string based on a specified maximum width."];

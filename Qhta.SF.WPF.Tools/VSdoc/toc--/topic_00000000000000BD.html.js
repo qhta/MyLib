@@ -1,1 +1,1 @@
-var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_00000000000000EA.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['131',"SfDataGridCommander Class","topic_00000000000000BD.html"]];
+var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_000000000000010F.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['99',"SelectableItem Class","topic_00000000000000BA.html"],['100',"Properties","topic_00000000000000BA_props--.html"],['103',"IsSelected Property","topic_00000000000000BD.html"]];

@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SfDataGridCommander.CanDeleteData Method</title>
+	<title>IsRowResizingProperty Field</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SfDataGridCommander.CanDeleteData Method</h1>
+		<h1 class="title">IsRowResizingProperty Field</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,8 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Determines whether data can be deleted from the specified data grid.
-This method checks if all selected columns are editable and not read-only.</summary-info>
+        <summary-info>Attached dependency property that indicates whether the grid is now resizing rows by dragging a bottom edge of row-header cell.</summary-info>
 
 
 
@@ -141,7 +140,7 @@ This method checks if all selected columns are editable and not read-only.</summ
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Shared Function CanDeleteData( _&nbsp;<br />   ByVal <i>dataGrid</i> As <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> _&nbsp;<br />) As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Shared Shadows ReadOnly IsRowResizingProperty As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -180,7 +179,7 @@ This method checks if all selected columns are editable and not read-only.</summ
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> CanDeleteData(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> <i>dataGrid</i>&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: csharp">new public static readonly <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a> IsRowResizingProperty</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -220,7 +219,7 @@ This method checks if all selected columns are editable and not read-only.</summ
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> CanDeleteData(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>^ <i>dataGrid</i>&nbsp;<br />) </pre>			
+					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a>^ IsRowResizingProperty;</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -259,7 +258,7 @@ This method checks if all selected columns are editable and not read-only.</summ
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public static function CanDeleteData(&nbsp;<br />    <i>dataGrid</i> : <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>&nbsp;<br />) : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>;</pre>			
+					<pre xml:space="preserve" class="brush: js">public static readonly IsRowResizingProperty : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -270,26 +269,10 @@ This method checks if all selected columns are editable and not read-only.</summ
 	</div>
 
 
-<h4 class="subHeading">
-	Parameters</h4><dl paramName="dataGrid" class="parameterList">
-	<dt>
-		<span class="parameter">
-			dataGrid
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> 
-	</dd>
-</dl>
-<p>
-	 
-</p>
-
-<p />
 
 	<h4 class="subHeading">
-		Return Value</h4>
-	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> 
+		Field Value</h4>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a> 
 	
 
 
@@ -378,7 +361,7 @@ This method checks if all selected columns are editable and not read-only.</summ
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_00000000000000BD.html">SfDataGridCommander Class</a><br />
+			<a href="topic_00000000000000C7.html">SfDataGridBehavior Class</a><br />
 
 
 
@@ -408,4 +391,3 @@ This method checks if all selected columns are editable and not read-only.</summ
     </div>
   </body>
 </html>
-

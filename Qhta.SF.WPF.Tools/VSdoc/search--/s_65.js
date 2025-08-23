@@ -1,1 +1,1 @@
-search_result['65']=["topic_000000000000002A_attached_props--.html","SpecificValueSelector Attached Properties",""];
+search_result['65']=["topic_000000000000002A_attached_props--.html","ColumnManagementWindow Attached Properties",""];

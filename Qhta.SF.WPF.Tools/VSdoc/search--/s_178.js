@@ -1,1 +1,1 @@
-search_result['178']=["topic_000000000000006F.html","ISelectableItem.DisplayName Property","Displayed name of the item, typically used in user interfaces to represent the item."];
+search_result['178']=["topic_0000000000000062.html","ColumnManagementCommand.Execute Method","Command is executed by displaying ColumnManagementWindow for the given SfDataGrid."];

@@ -1,1 +1,1 @@
-search_result['378']=["topic_00000000000000E0_props--.html","SfDataGridSelector Properties",""];
+search_result['378']=["topic_00000000000000A6_overloads--.html","SelectedItemEnumToResourceConverter.Convert Method","Inherits from EnumToResourceConverter and overrides the Convert method to handle ISelectableItem."];

@@ -1,1 +1,1 @@
-search_result['377']=["topic_00000000000000E0_methods--.html","SfDataGridSelector Methods",""];
+search_result['377']=["topic_00000000000000A6.html","RowsCountProperty Field","Dependency property for the number of rows in the SfDataGrid."];

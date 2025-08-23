@@ -1,1 +1,1 @@
-search_result['244']=["topic_0000000000000093.html","RowHeightProvider.OnQueryRowHeight Method","Handles the query for row height in a data grid, setting the height based on the data context."];
+search_result['244']=["topic_0000000000000078.html","FindInSequence Enumeration","Specifies how to find a value in the context of the current selection."];

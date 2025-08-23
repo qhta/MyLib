@@ -1,1 +1,1 @@
-search_result['317']=["topic_00000000000000B8.html","FinderProperty Field","Attached dependency property that holds the finder associated with the column."];
+search_result['317']=["topic_0000000000000092.html","ISelectableItem.DisplayName Property","Displayed name of the item, typically used in user interfaces to represent the item."];

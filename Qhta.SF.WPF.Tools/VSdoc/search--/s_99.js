@@ -1,1 +1,1 @@
-search_result['99']=["topic_0000000000000049.html","SpecificValueWindow.ReplacementSource Property","Replacement source for the selection, typically a collection of Replacement that can be selected."];
+search_result['99']=["topic_0000000000000036_methods--.html","SpecificValueSelector Methods",""];

@@ -1,1 +1,1 @@
-var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_00000000000000EA.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['186',"ISelectableItem Interface","topic_000000000000006E.html"]];
+var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_000000000000010F.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['18',"ColumnSelectionItem Class","topic_0000000000000068.html"],['25',"Methods","topic_0000000000000068_methods--.html"],['26',"ToString Method","topic_000000000000006E.html"]];

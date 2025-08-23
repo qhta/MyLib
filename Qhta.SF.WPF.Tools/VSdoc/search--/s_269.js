@@ -1,1 +1,1 @@
-search_result['269']=["topic_00000000000000A2.html","SelectableItemValueConverter Class","Value converter class for selectable item."];
+search_result['269']=["topic_0000000000000082.html","FindAndReplaceCommand.CanExecute Method","Checks whether the command can be executed basing on the current selection in the data grid."];

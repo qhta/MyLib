@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SfDataGridCommander.CanCutData Method</title>
+	<title>SelectedItemEnumToResourceConverter Class</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SfDataGridCommander.CanCutData Method</h1>
+		<h1 class="title">SelectedItemEnumToResourceConverter Class</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,8 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Determines whether data can be cut from the specified data grid.
-This method checks if all selected columns are editable and not read-only.</summary-info>
+        <summary-info>Works like <a target="_top" href=".html" onclick="this.target='';return true;">EnumToResourceConverter</a>, but if value is <a target="_top" href="topic_0000000000000091.html" onclick="this.target='';return true;">ISelectableItem</a>, it takes its actual value.</summary-info>
 
 
 
@@ -141,7 +140,7 @@ This method checks if all selected columns are editable and not read-only.</summ
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Shared Function CanCutData( _&nbsp;<br />   ByVal <i>dataGrid</i> As <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> _&nbsp;<br />) As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Class SelectedItemEnumToResourceConverter&nbsp;<br />    Inherits <strong>EnumToResourceConverter</strong></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -180,7 +179,7 @@ This method checks if all selected columns are editable and not read-only.</summ
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> CanCutData(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> <i>dataGrid</i>&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: csharp">public class SelectedItemEnumToResourceConverter : <strong>EnumToResourceConverter</strong></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -220,7 +219,7 @@ This method checks if all selected columns are editable and not read-only.</summ
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> CanCutData(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>^ <i>dataGrid</i>&nbsp;<br />) </pre>			
+					<pre xml:space="preserve" class="brush: cpp">public ref class SelectedItemEnumToResourceConverter : public <strong>EnumToResourceConverter</strong>^</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -259,7 +258,7 @@ This method checks if all selected columns are editable and not read-only.</summ
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public static function CanCutData(&nbsp;<br />    <i>dataGrid</i> : <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>&nbsp;<br />) : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>;</pre>			
+					<pre xml:space="preserve" class="brush: js">public class SelectedItemEnumToResourceConverter&nbsp;<br />   extends <strong>EnumToResourceConverter</strong></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -270,27 +269,6 @@ This method checks if all selected columns are editable and not read-only.</summ
 	</div>
 
 
-<h4 class="subHeading">
-	Parameters</h4><dl paramName="dataGrid" class="parameterList">
-	<dt>
-		<span class="parameter">
-			dataGrid
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> 
-	</dd>
-</dl>
-<p>
-	 
-</p>
-
-<p />
-
-	<h4 class="subHeading">
-		Return Value</h4>
-	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> 
-	
 
 
 
@@ -311,11 +289,234 @@ This method checks if all selected columns are editable and not read-only.</summ
 
 
 
+<div class="section_container">
+	<div class="section_heading">
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Properties</a></span>
+		<div>&nbsp;</div>
+	</div>
+
+	<div id="PropertiesSection" class="section">	
+  <table class="memberListTable">
+    <tr>
+      <th></th>
+      <th>
+        Name
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+
+
+	
+		<tr class="
+inheritedMember 
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.wpf.converters.enumtoresourceconverter.resourcetype">ResourceType</a>
+
+	</td>
+	<td>
+
+
+(inherited from <strong>EnumToResourceConverter</strong>).
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+inheritedMember 
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.wpf.converters.enumtoresourceconverter.suffix">Suffix</a>
+
+	</td>
+	<td>
+
+
+(inherited from <strong>EnumToResourceConverter</strong>).
+
+	</td>
+</tr>
+	
+
+
+  </table>
+
+  <a href="#mainBody">
+    Top
+  </a>
+
+	</div>					
+</div>
 
 
 
 
 
+
+<div class="section_container">
+	<div class="section_heading">
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Methods</a></span>
+		<div>&nbsp;</div>
+	</div>
+
+	<div id="MethodsSection" class="section">	
+  <table class="memberListTable">
+    <tr>
+      <th></th>
+      <th>
+        Name
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+
+
+
+			<tr class="
+
+
+">
+	<td>
+<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_00000000000000C6.html">Convert(object, Type, object, CultureInfo)</a>
+
+	</td>
+	<td>
+
+Inherits from <a target="_top" href=".html" onclick="this.target='';return true;">EnumToResourceConverter</a> and overrides the Convert method to handle <a target="_top" href="topic_0000000000000091.html" onclick="this.target='';return true;">ISelectableItem</a>.
+
+	</td>
+</tr>
+	
+
+
+
+
+
+
+
+
+	<tr class="
+inheritedMember 
+
+
+">
+	<td>
+<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.wpf.converters.enumtoresourceconverter.convertback">ConvertBack(object?, Type, object?, CultureInfo)</a>
+
+	</td>
+	<td>
+
+
+(inherited from <strong>EnumToResourceConverter</strong>).
+
+	</td>
+</tr>
+
+
+
+
+
+
+  </table>
+
+  <a href="#mainBody">
+    Top
+  </a>
+
+	</div>					
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<!-- Classes -->
+
+<!-- Classes End -->
+
+<!-- Standard Modules -->
+
+<!-- Standard Modules End -->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section_container">
+	<div class="section_heading">
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Inheritance Hierarchy</a></span>
+		<div>&nbsp;</div>
+	</div>
+
+<div id="inheritanceHierarchySection" class="section">
+
+<div style="padding-left:0em;"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>
+</div>
+
+<div style="padding-left:1em;"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.wpf.converters.enumtoresourceconverter">Qhta.WPF.Converters.EnumToResourceConverter</a>
+</div>
+
+
+
+<div style="padding-left:2em;">Qhta.SF.WPF.Tools.SelectedItemEnumToResourceConverter</div>
+
+				
+</div>
+</div>
 
 
 
@@ -370,6 +571,7 @@ This method checks if all selected columns are editable and not read-only.</summ
 	</div>					
 </div>
 
+
 <div class="section_container">
 	<div class="section_heading">
 		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">See Also</a></span>
@@ -378,14 +580,10 @@ This method checks if all selected columns are editable and not read-only.</summ
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_00000000000000BD.html">SfDataGridCommander Class</a><br />
+	<a href="topic_0000000000000010.html">Qhta.SF.WPF.Tools Namespace</a><br />
 
 
-
-<a href="topic_0000000000000010.html">Qhta.SF.WPF.Tools Namespace</a><br />
-
-
-			
+	
 
 		</div>
 	</div>					

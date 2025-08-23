@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SfDataGridBehavior.AllowRowResizing Attached Property</title>
+	<title>SfDataGridCommander.GetSelectedRowsAndColumns Method</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SfDataGridBehavior.AllowRowResizing Attached Property</h1>
+		<h1 class="title">SfDataGridCommander.GetSelectedRowsAndColumns Method</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,6 +90,8 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
+        <summary-info>Gets the selected rows and columns from the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
+Returns the selected cells and outputs whether all columns or rows are selected, along with the selected columns and rows.</summary-info>
 
 
 
@@ -139,7 +141,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">See <a target="_top" href="topic_00000000000000A8.html" onclick="this.target='';return true;">GetAllowRowResizing</a>, <a target="_top" href="topic_00000000000000A9.html" onclick="this.target='';return true;">SetAllowRowResizing</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">&lt;Extension()&gt; _&nbsp;<br />Public Shared Function GetSelectedRowsAndColumns( _&nbsp;<br />   ByVal <i>dataGrid</i> As <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>, _&nbsp;<br />   ByRef <i>allColumnsSelected</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a>, _&nbsp;<br />   ByRef <i>selectedColumns</i> As <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>(), _&nbsp;<br />   ByRef <i>allRowsSelected</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a>, _&nbsp;<br />   ByRef <i>selectedRows</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">Object</a>() _&nbsp;<br />) As <a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>()</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -178,7 +180,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">See <a target="_top" href="topic_00000000000000A8.html" onclick="this.target='';return true;">GetAllowRowResizing</a>, <a target="_top" href="topic_00000000000000A9.html" onclick="this.target='';return true;">SetAllowRowResizing</a></pre>			
+					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>[] GetSelectedRowsAndColumns(&nbsp;<br />   this <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> <i>dataGrid</i>,&nbsp;<br />   out <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> <i>allColumnsSelected</i>,&nbsp;<br />   out <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>[] <i>selectedColumns</i>,&nbsp;<br />   out <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> <i>allRowsSelected</i>,&nbsp;<br />   out <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>[] <i>selectedRows</i>&nbsp;<br />)</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -218,7 +220,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">See <a target="_top" href="topic_00000000000000A8.html" onclick="this.target='';return true;">GetAllowRowResizing</a>, <a target="_top" href="topic_00000000000000A9.html" onclick="this.target='';return true;">SetAllowRowResizing</a></pre>			
+					<pre xml:space="preserve" class="brush: cpp">[Extension()]&nbsp;<br />public: &nbsp;<br />static array&lt; <a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>^ &gt;^ GetSelectedRowsAndColumns(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>^ <i>dataGrid</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a>&amp; <i>allColumnsSelected</i>,&nbsp;<br />   array&lt; <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>^ &gt;^&amp; <i>selectedColumns</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a>&amp; <i>allRowsSelected</i>,&nbsp;<br />   array&lt; <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>^ &gt;^&amp; <i>selectedRows</i>&nbsp;<br />) </pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -257,7 +259,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">See <a target="_top" href="topic_00000000000000A8.html" onclick="this.target='';return true;">GetAllowRowResizing</a>, <a target="_top" href="topic_00000000000000A9.html" onclick="this.target='';return true;">SetAllowRowResizing</a></pre>			
+					<pre xml:space="preserve" class="brush: js">public &nbsp;<br />   Extension()&nbsp;<br />static function GetSelectedRowsAndColumns(&nbsp;<br />    <i>dataGrid</i> : <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>,&nbsp;<br />    <i>allColumnsSelected</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>,&nbsp;<br />    <i>selectedColumns</i> : <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>[],&nbsp;<br />    <i>allRowsSelected</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>,&nbsp;<br />    <i>selectedRows</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>[]&nbsp;<br />) : <a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>[];</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -268,10 +270,78 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 	</div>
 
 
+<h4 class="subHeading">
+	Parameters</h4><dl paramName="dataGrid" class="parameterList">
+	<dt>
+		<span class="parameter">
+			dataGrid
+		</span>
+	</dt>
+	<dd>
+		<a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> 
+	</dd>
+</dl>
+<p>
+	 
+</p>
+<dl paramName="allColumnsSelected" class="parameterList">
+	<dt>
+		<span class="parameter">
+			allColumnsSelected
+		</span>
+	</dt>
+	<dd>
+		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> 
+	</dd>
+</dl>
+<p>
+	 
+</p>
+<dl paramName="selectedColumns" class="parameterList">
+	<dt>
+		<span class="parameter">
+			selectedColumns
+		</span>
+	</dt>
+	<dd>
+		<a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>[] 
+	</dd>
+</dl>
+<p>
+	 
+</p>
+<dl paramName="allRowsSelected" class="parameterList">
+	<dt>
+		<span class="parameter">
+			allRowsSelected
+		</span>
+	</dt>
+	<dd>
+		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> 
+	</dd>
+</dl>
+<p>
+	 
+</p>
+<dl paramName="selectedRows" class="parameterList">
+	<dt>
+		<span class="parameter">
+			selectedRows
+		</span>
+	</dt>
+	<dd>
+		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>[] 
+	</dd>
+</dl>
+<p>
+	 
+</p>
+
+<p />
 
 	<h4 class="subHeading">
-		Property Value</h4>
-	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> 
+		Return Value</h4>
+	<a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>[] 
 	
 
 
@@ -291,42 +361,6 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 </div>
 
 
-<div class="section_container">
-	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Dependency Property Information</a></span>
-		<div>&nbsp;</div>
-	</div>
-
-	<div id="dependencyPropertyInfoSection" class="section">	
-	<table>
-		<tr>
-			<td>
-				<p>Identifier field</p>
-			</td>
-			<td>
-				<p>
-<a href="topic_00000000000000AA.html">AllowRowResizingProperty</a>
-
-
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<p>Metadata properties set to true</p>
-			</td>
-			<td>
-				<p>
-
-	None
-
-				</p>
-			</td>
-		</tr>
-	</table>
-
-	</div>
-</div>
 
 
 
@@ -396,7 +430,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_00000000000000A7.html">SfDataGridBehavior Class</a><br />
+			<a href="topic_00000000000000E0.html">SfDataGridCommander Class</a><br />
 
 
 

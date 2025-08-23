@@ -1,1 +1,1 @@
-search_result['369']=["topic_00000000000000DB.html","SfDataGridFinder.Replacement Property","Specified text to replace specified text (in StringTyped mode only)."];
+search_result['369']=["topic_00000000000000A3.html","RecordNavigationBar Constructor","Initializes a new instance of the RecordNavigationBar class."];

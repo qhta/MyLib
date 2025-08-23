@@ -1,0 +1,1 @@
+search_result['556']=["topic_00000000000000FB.html","SfDataGridFinder.StrongTyped Property","Specifies whether the specified value is strongly typed or string typed."];

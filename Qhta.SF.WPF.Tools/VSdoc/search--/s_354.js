@@ -1,1 +1,1 @@
-search_result['354']=["topic_00000000000000D2_props--.html","SfDataGridFiltering Properties",""];
+search_result['354']=["topic_000000000000009E.html","LongTextColumnExpanderVisibilityConverter.Convert Method","Determines the visibility of the expander based on the length of the text in a long text column."];

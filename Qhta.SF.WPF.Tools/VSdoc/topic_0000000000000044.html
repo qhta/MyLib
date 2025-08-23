@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>ItemsSourceProperty Field</title>
+	<title>SpecificValueWindow.Prompt Property</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,11 +75,11 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">ItemsSourceProperty Field</h1>
+		<h1 class="title">SpecificValueWindow.Prompt Property</h1>
         
 		<div class="metadata">
         Namespace:
-<a href="topic_0000000000000026.html">Qhta.SF.WPF.Tools.Views</a>
+<a href="topic_0000000000000029.html">Qhta.SF.WPF.Tools.Views</a>
 
 
 
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Dependency property for the <a target="_top" href="topic_0000000000000045.html" onclick="this.target='';return true;">ItemsSource</a>, which is the collection of items to select from.</summary-info>
+        <summary-info>Prompt text displayed in the window, guiding the user on what to select.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Shared Shadows ItemsSourceProperty As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Property Prompt() As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">new public static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a> ItemsSourceProperty</pre>			
+					<pre xml:space="preserve" class="brush: csharp">public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">string</a> Prompt {get; set;}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a>^ ItemsSourceProperty;</pre>			
+					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />property <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a>^ Prompt {&nbsp;<br /> <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a>^ get( );&nbsp;<br /> void set(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a>^ value&nbsp;<br /> );&nbsp;<br />}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public static ItemsSourceProperty : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a></pre>			
+					<pre xml:space="preserve" class="brush: js">public function get Prompt() : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a>;&nbsp;<br />public function set Prompt(value : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a>);</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -271,8 +271,8 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 
 	<h4 class="subHeading">
-		Field Value</h4>
-	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.dependencyproperty">DependencyProperty</a> 
+		Property Value</h4>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">string</a> 
 	
 
 
@@ -292,6 +292,43 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 </div>
 
 
+<div class="section_container">
+	<div class="section_heading">
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Dependency Property Information</a></span>
+		<div>&nbsp;</div>
+	</div>
+
+	<div id="dependencyPropertyInfoSection" class="section">	
+	<table>
+		<tr>
+			<td>
+				<p>Identifier field</p>
+			</td>
+			<td>
+				<p>
+<a href="topic_0000000000000043.html">PromptProperty</a>
+
+
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>Metadata properties set to true</p>
+			</td>
+			<td>
+				<p>
+
+	None
+
+				</p>
+			</td>
+		</tr>
+	</table>
+	
+
+	</div>
+</div>
 
 
 
@@ -361,11 +398,11 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_0000000000000035.html">SpecificValueWindow Class</a><br />
+			<a href="topic_0000000000000041.html">SpecificValueWindow Class</a><br />
 
 
 
-<a href="topic_0000000000000026.html">Qhta.SF.WPF.Tools.Views Namespace</a><br />
+<a href="topic_0000000000000029.html">Qhta.SF.WPF.Tools.Views Namespace</a><br />
 
 
 			
@@ -391,3 +428,4 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
     </div>
   </body>
 </html>
+

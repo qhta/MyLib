@@ -1,0 +1,1 @@
+search_result['546']=["topic_00000000000000F6.html","SfDataGridFiltering.OnFilterItemsPopulating Method","Handles the populating of filter items in a Syncfusion DataGrid. Sender must be a GridColumn or its descender.\r\nIf the column is a GridComboBoxColumn, it sets up the filter items based on the provided..."];

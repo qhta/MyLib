@@ -1,1 +1,1 @@
-c['68']=[['69',"RowResizer Constructor","topic_0000000000000095.html",0],['70',"Properties","topic_0000000000000094_props--.html",1],['73',"Fields","topic_0000000000000094_vars--.html",1]];
+c['68']=[['69',"RecordNavigationBar Constructor","topic_00000000000000A3.html",0],['70',"Properties","topic_00000000000000A2_props--.html",1],['77',"Methods","topic_00000000000000A2_methods--.html",1],['83',"Events","topic_00000000000000A2_events--.html",1],['85',"Fields","topic_00000000000000A2_vars--.html",1]];

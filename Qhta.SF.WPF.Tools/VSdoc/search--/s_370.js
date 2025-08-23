@@ -1,1 +1,1 @@
-search_result['370']=["topic_00000000000000DC.html","SfDataGridFinder.Predicate Property","Predicate defining the conditions of comparison."];
+search_result['370']=["topic_00000000000000A4.html","DataGridProperty Field","Dependency property for the SfDataGrid associated with this navigation bar."];

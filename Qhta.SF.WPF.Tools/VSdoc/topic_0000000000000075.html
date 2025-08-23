@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>LongTextColumn Class</title>
+	<title>FillColumnCommand Class</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">LongTextColumn Class</h1>
+		<h1 class="title">FillColumnCommand Class</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Represents a column in a data grid that adjusts its row height based on the content length.</summary-info>
+        <summary-info>Command to fill the current column in the data grid with a value selected by user.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Class LongTextColumn&nbsp;<br />    Inherits <a target="_top" href=".html" onclick="this.target='';return true;">GridTemplateColumn</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Class FillColumnCommand&nbsp;<br />    Inherits <strong>Command</strong></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public class LongTextColumn : <a target="_top" href=".html" onclick="this.target='';return true;">GridTemplateColumn</a></pre>			
+					<pre xml:space="preserve" class="brush: csharp">public class FillColumnCommand : <strong>Command</strong></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public ref class LongTextColumn : public <a target="_top" href=".html" onclick="this.target='';return true;">GridTemplateColumn</a></pre>			
+					<pre xml:space="preserve" class="brush: cpp">public ref class FillColumnCommand : public <strong>Command</strong>^</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public class LongTextColumn&nbsp;<br />   extends <a target="_top" href=".html" onclick="this.target='';return true;">GridTemplateColumn</a></pre>			
+					<pre xml:space="preserve" class="brush: js">public class FillColumnCommand&nbsp;<br />   extends <strong>Command</strong></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -310,6 +310,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 	
 		<tr class="
+inheritedMember 
 
 
 ">
@@ -321,12 +322,13 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
     
 	</td>
 	<td>
-	<a href="topic_0000000000000076.html">DefaultFont</a>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.mvvm.command.commandmanager">CommandManager</a>
 
 	</td>
 	<td>
 
-Gets the default font name used by the application.
+
+(inherited from <strong>Command</strong>).
 
 	</td>
 </tr>
@@ -335,23 +337,24 @@ Gets the default font name used by the application.
 
 	
 		<tr class="
+inheritedMember 
 
 
 ">
 	<td>
 <img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
 
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
 
     
 	</td>
 	<td>
-	<a href="topic_0000000000000077.html">DefaultFontSize</a>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.mvvm.command.name">Name</a>
 
 	</td>
 	<td>
 
-Gets the default font size used by the application.
+
+(inherited from <strong>Command</strong>).
 
 	</td>
 </tr>
@@ -392,28 +395,55 @@ Gets the default font size used by the application.
 
 
 
-
-	<tr class="
+			<tr class="
 
 
 ">
 	<td>
 <img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
 
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
 
     
 	</td>
 	<td>
-	<a href="topic_0000000000000079.html">EvaluateTextHeight(string, double, string, double)</a>
+	<a href="topic_0000000000000076.html">CanExecute(object)</a>
 
 	</td>
 	<td>
 
-Evaluates the height of a given long text string based on a specified maximum width.
+Checks whether the command can be executed basing on the current selection in the data grid.
 
 	</td>
 </tr>
+	
+
+
+
+
+
+
+
+			<tr class="
+
+
+">
+	<td>
+<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000077.html">Execute(object)</a>
+
+	</td>
+	<td>
+
+Executes the command basing on the current selection in the data grid.
+
+	</td>
+</tr>
+	
 
 
 
@@ -423,25 +453,24 @@ Evaluates the height of a given long text string based on a specified maximum wi
 
 
 	<tr class="
+inheritedMember 
 
 
 ">
 	<td>
 <img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
 
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
 
     
 	</td>
 	<td>
-	<a href="topic_0000000000000078.html">OnQueryRowHeight(object, QueryRowHeightEventArgs)</a>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.mvvm.command.notifycanexecutechanged">NotifyCanExecuteChanged()</a>
 
 	</td>
 	<td>
 
-Adjusts the height of a row in a <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> based on the content of long text columns.
-Default font is <a target="_top" href="topic_0000000000000076.html" onclick="this.target='';return true;">DefaultFont</a> and default font size is <a target="_top" href="topic_0000000000000077.html" onclick="this.target='';return true;">DefaultFontSize</a>.
-These properties can be set to change the font used for text evaluation.
+
+(inherited from <strong>Command</strong>).
 
 	</td>
 </tr>
@@ -459,6 +488,7 @@ These properties can be set to change the font used for text evaluation.
 
 	</div>					
 </div>
+
 
 
 
@@ -492,22 +522,34 @@ These properties can be set to change the font used for text evaluation.
 
 
 
+
+
+
+
 <div class="section_container">
 	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Remarks</a></span>
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Inheritance Hierarchy</a></span>
 		<div>&nbsp;</div>
 	</div>
 
-	<div id="remarksSection" class="section">	
-			The <a target="_top" href="topic_0000000000000075.html" onclick="this.target='';return true;">LongTextColumn</a> class is designed to work with data grids where the row height needs
-to be dynamically adjusted to fit the content of cells containing long text. It listens to the <a target="_top" href=".html" onclick="this.target='';return true;">QueryRowHeightEventArgs</a> to determine the appropriate height for each row based on the text content and the
-expansion state of the text.
-	</div>					
+<div id="inheritanceHierarchySection" class="section">
+
+<div style="padding-left:0em;"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>
+</div>
+
+<div style="padding-left:1em;"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.observableobjects.observableobject">Qhta.ObservableObjects.ObservableObject</a>
+</div>
+
+<div style="padding-left:2em;"><a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/qhta.mvvm.command">Qhta.MVVM.Command</a>
 </div>
 
 
 
+<div style="padding-left:3em;">Qhta.SF.WPF.Tools.FillColumnCommand</div>
 
+				
+</div>
+</div>
 
 
 

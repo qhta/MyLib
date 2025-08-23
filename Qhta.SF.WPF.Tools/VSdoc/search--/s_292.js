@@ -1,1 +1,1 @@
-search_result['292']=["topic_00000000000000A9.html","SfDataGridBehavior.SetAllowRowResizing Method","Sets whether the grid allows to resize rows by dragging a bottom edge of row-header cell."];
+search_result['292']=["topic_0000000000000089_props--.html","IErrorMessageProvider Properties",""];

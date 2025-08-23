@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>RecordNavigationBar.NotifyPropertyChanged Method</title>
+	<title>ISelectableItem Interface</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">RecordNavigationBar.NotifyPropertyChanged Method</h1>
+		<h1 class="title">ISelectableItem Interface</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Notifies subscribers that a property value has changed.</summary-info>
+        <summary-info>An interface representing an item that can be selected in a user interface.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Protected Overridable Sub NotifyPropertyChanged( _&nbsp;<br />   &lt;CallerMemberName()&gt; _&nbsp;<br />   Optional ByVal <i>propertyName</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a> = null _&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Interface ISelectableItem</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">protected virtual <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.void">void</a> NotifyPropertyChanged(&nbsp;<br />   [CallerMemberName()]&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">string</a> <i>propertyName</i> = null&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: csharp">public interface ISelectableItem</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">protected: &nbsp;<br />virtual <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.void">void</a> NotifyPropertyChanged(&nbsp;<br />   [CallerMemberName()]&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a>^ <i>propertyName</i>&nbsp;<br />) </pre>			
+					<pre xml:space="preserve" class="brush: cpp">public interface class ISelectableItem</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">protected function NotifyPropertyChanged(&nbsp;<br />   CallerMemberName()&nbsp;<br />    <i>propertyName</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">String</a>&nbsp;<br />);</pre>			
+					<pre xml:space="preserve" class="brush: js">public interface ISelectableItem</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -269,23 +269,6 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 	</div>
 
 
-<h4 class="subHeading">
-	Parameters</h4><dl paramName="propertyName" class="parameterList">
-	<dt>
-		<span class="parameter">
-			propertyName
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.string">string</a> 
-	</dd>
-</dl>
-<p>
-	The name of the property that changed. This value is optional and can be automatically supplied by the compiler. 
-</p>
-
-<p />
-
 
 
 
@@ -302,22 +285,206 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 	</div>
 </div>
-
 
 
 
 
 <div class="section_container">
 	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Remarks</a></span>
+		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Properties</a></span>
 		<div>&nbsp;</div>
 	</div>
 
-	<div id="remarksSection" class="section">	
-			This method raises the <a target="_top" href="topic_0000000000000090.html" onclick="this.target='';return true;">PropertyChanged</a> event, which is used to notify listeners,
-typically UI elements, that a property value has changed.
+	<div id="PropertiesSection" class="section">	
+  <table class="memberListTable">
+    <tr>
+      <th></th>
+      <th>
+        Name
+      </th>
+      <th>
+        Description
+      </th>
+    </tr>
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000094.html">ActualValue</a>
+
+	</td>
+	<td>
+
+Actual value of the item, which can be of any type. This is the underlying data associated with the item.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000092.html">DisplayName</a>
+
+	</td>
+	<td>
+
+Displayed name of the item, typically used in user interfaces to represent the item.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000095.html">IsEmpty</a>
+
+	</td>
+	<td>
+
+Determines whether the item should be considered as empty value.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000096.html">IsNonEmpty</a>
+
+	</td>
+	<td>
+
+Determines whether the item should be considered as any non-empty value.
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000097.html">IsSelected</a>
+
+	</td>
+	<td>
+
+Is this element selected in the UI context (e.g., in a list of selectable items).
+
+	</td>
+</tr>
+	
+
+
+	
+		<tr class="
+
+
+">
+	<td>
+<img alt="Public property" title="Public property" src="msdn2019/pubproperty.png"></img>
+
+
+    
+	</td>
+	<td>
+	<a href="topic_0000000000000093.html">ToolTip</a>
+
+	</td>
+	<td>
+
+Optional tooltip text that provides additional information about the item when hovered over in a user interface.
+
+	</td>
+</tr>
+	
+
+
+  </table>
+
+  <a href="#mainBody">
+    Top
+  </a>
+
 	</div>					
 </div>
+
+
+
+
+
+
+  
+
+<!-- Classes -->
+
+<!-- Classes End -->
+
+<!-- Standard Modules -->
+
+<!-- Standard Modules End -->
+
+  
+
+
+
+
+
+
+
+
 
 
 
@@ -384,14 +551,10 @@ typically UI elements, that a property value has changed.
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_0000000000000082.html">RecordNavigationBar Class</a><br />
+	<a href="topic_0000000000000010.html">Qhta.SF.WPF.Tools Namespace</a><br />
 
 
-
-<a href="topic_0000000000000010.html">Qhta.SF.WPF.Tools Namespace</a><br />
-
-
-			
+	
 
 		</div>
 	</div>					

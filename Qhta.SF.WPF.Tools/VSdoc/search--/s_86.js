@@ -1,1 +1,1 @@
-search_result['86']=["topic_000000000000003C.html","SpecificValueWindow.ViewMode Property","Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both."];
+search_result['86']=["topic_0000000000000033_methods--.html","SpecificValueEdit Methods",""];

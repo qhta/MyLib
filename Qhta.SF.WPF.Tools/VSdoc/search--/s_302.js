@@ -1,1 +1,1 @@
-search_result['302']=["topic_00000000000000B1_events--.html","SfDataGridColumnBehavior Events",""];
+search_result['302']=["topic_000000000000008D.html","IRemovableCollection.Remove Method","Removes the specified item from the collection."];

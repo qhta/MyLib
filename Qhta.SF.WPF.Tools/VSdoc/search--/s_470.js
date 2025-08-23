@@ -1,0 +1,1 @@
+search_result['470']=["topic_00000000000000CA.html","AllowRowResizingProperty Field","Attached dependency property that indicates whether the grid allows to resize rows by dragging a bottom edge of row-header cell."];

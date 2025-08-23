@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SfDataGridCommander.GetSelectedRows Method</title>
+	<title>SelectableItem.ValueConverter Property</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SfDataGridCommander.GetSelectedRows Method</h1>
+		<h1 class="title">SelectableItem.ValueConverter Property</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,8 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Gets the selected rows from the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
-Returns the selected cells and outputs whether all rows are selected, along with the selected rows.</summary-info>
+        <summary-info>Value converter for converting the value to a display string.</summary-info>
 
 
 
@@ -141,7 +140,7 @@ Returns the selected cells and outputs whether all rows are selected, along with
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">&lt;Extension()&gt; _&nbsp;<br />Public Shared Function GetSelectedRows( _&nbsp;<br />   ByVal <i>dataGrid</i> As <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>, _&nbsp;<br />   ByRef <i>allRowsSelected</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a>, _&nbsp;<br />   ByRef <i>selectedRows</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">Object</a>() _&nbsp;<br />) As <a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>()</pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Property ValueConverter() As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.ivalueconverter">IValueConverter</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -180,7 +179,7 @@ Returns the selected cells and outputs whether all rows are selected, along with
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>[] GetSelectedRows(&nbsp;<br />   this <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> <i>dataGrid</i>,&nbsp;<br />   out <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> <i>allRowsSelected</i>,&nbsp;<br />   out <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>[] <i>selectedRows</i>&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: csharp">public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.ivalueconverter">IValueConverter</a> ValueConverter {get; set;}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -220,7 +219,7 @@ Returns the selected cells and outputs whether all rows are selected, along with
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">[Extension()]&nbsp;<br />public: &nbsp;<br />static array&lt; <a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>^ &gt;^ GetSelectedRows(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>^ <i>dataGrid</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a>&amp; <i>allRowsSelected</i>,&nbsp;<br />   array&lt; <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>^ &gt;^&amp; <i>selectedRows</i>&nbsp;<br />) </pre>			
+					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />property <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.ivalueconverter">IValueConverter</a>^ ValueConverter {&nbsp;<br /> <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.ivalueconverter">IValueConverter</a>^ get( );&nbsp;<br /> void set(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.ivalueconverter">IValueConverter</a>^ value&nbsp;<br /> );&nbsp;<br />}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -259,7 +258,7 @@ Returns the selected cells and outputs whether all rows are selected, along with
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public &nbsp;<br />   Extension()&nbsp;<br />static function GetSelectedRows(&nbsp;<br />    <i>dataGrid</i> : <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>,&nbsp;<br />    <i>allRowsSelected</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>,&nbsp;<br />    <i>selectedRows</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>[]&nbsp;<br />) : <a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>[];</pre>			
+					<pre xml:space="preserve" class="brush: js">public function get ValueConverter() : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.ivalueconverter">IValueConverter</a>;&nbsp;<br />public function set ValueConverter(value : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.ivalueconverter">IValueConverter</a>);</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -270,52 +269,10 @@ Returns the selected cells and outputs whether all rows are selected, along with
 	</div>
 
 
-<h4 class="subHeading">
-	Parameters</h4><dl paramName="dataGrid" class="parameterList">
-	<dt>
-		<span class="parameter">
-			dataGrid
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> 
-	</dd>
-</dl>
-<p>
-	 
-</p>
-<dl paramName="allRowsSelected" class="parameterList">
-	<dt>
-		<span class="parameter">
-			allRowsSelected
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> 
-	</dd>
-</dl>
-<p>
-	 
-</p>
-<dl paramName="selectedRows" class="parameterList">
-	<dt>
-		<span class="parameter">
-			selectedRows
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>[] 
-	</dd>
-</dl>
-<p>
-	 
-</p>
-
-<p />
 
 	<h4 class="subHeading">
-		Return Value</h4>
-	<a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>[] 
+		Property Value</h4>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.ivalueconverter">IValueConverter</a> 
 	
 
 
@@ -404,7 +361,7 @@ Returns the selected cells and outputs whether all rows are selected, along with
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_00000000000000BD.html">SfDataGridCommander Class</a><br />
+			<a href="topic_00000000000000BA.html">SelectableItem Class</a><br />
 
 
 

@@ -1,1 +1,1 @@
-search_result['103']=["topic_000000000000004D.html","SpecificValueWindow.OverwriteNonEmptyCells Property","Indicates whether to fill only empty cells in the selection. If true, only items that are empty will be filled."];
+search_result['103']=["topic_0000000000000038.html","SpecificValueSelector.OnNotifyPropertyChanged Method","Handler for property changes. Needed for view reconfiguration on SpecificValueWindow.Replace change."];

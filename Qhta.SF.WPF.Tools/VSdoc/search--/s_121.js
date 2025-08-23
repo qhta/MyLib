@@ -1,1 +1,1 @@
-search_result['121']=["topic_0000000000000057_methods--.html","DoubleUtil Methods",""];
+search_result['121']=["topic_0000000000000045.html","WindowModeProperty Field","Dependency property for WindowMode property, which specifies the which specific view is visible, which can be either EditViewOnly, SelectorOnly, or Both."];

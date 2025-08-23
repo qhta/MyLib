@@ -1,1 +1,1 @@
-search_result['388']=["topic_00000000000000E9.html","SfDataGridColumnBehaviorExtensions.Finder Attached Property",""];
+search_result['388']=["topic_00000000000000AB.html","RecordNavigationBar.LastItemExecute Method","Selects the last item in the data grid and scrolls it into view."];

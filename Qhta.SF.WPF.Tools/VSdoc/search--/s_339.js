@@ -1,1 +1,1 @@
-search_result['339']=["topic_00000000000000C4.html","SfDataGridCommander.CopyData Method","Performs a copy operation on the data in the specified SfDataGrid."];
+search_result['339']=["topic_0000000000000099.html","LongTextColumn Constructor","Initializes a new instance of the LongTextColumn class."];

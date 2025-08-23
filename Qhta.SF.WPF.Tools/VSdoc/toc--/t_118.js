@@ -1,1 +1,0 @@
-c['118']=[['119',"GetFinder Method","topic_00000000000000B6.html",0],['120',"SetFinder Method","topic_00000000000000B7.html",0]];

@@ -235,7 +235,7 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
       var i = 0;
       _ViewModels.Instance.UcdCodePoints.StatusMessage =
         String.Format(Resources.Strings.UpdatingField, Resources.UcdCodePointStrings.Name);
-      UndoMgr.StartGrouping();
+      UndoRedoManager.StartGrouping();
       foreach (var codePoint in listOfPoints)
       {
         i++;
@@ -270,7 +270,7 @@ public class ApplyCharNamesGenerationCommand : TimeConsumingCommand
     }
     finally
     {
-      UndoMgr.StopGrouping();
+      UndoRedoManager.StopGrouping();
     }
   }
 

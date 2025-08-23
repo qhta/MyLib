@@ -1,1 +1,1 @@
-search_result['277']=["topic_00000000000000A5.html","SelectedItemEnumToResourceConverter Class","Works like EnumToResourceConverter, but if value is ISelectableItem, it takes its actual value."];
+search_result['277']=["topic_0000000000000084.html","FindAndReplaceCommand.Execute Method","Executes the command basing on the current selection in the data grid."];

@@ -1,1 +1,1 @@
-search_result['357']=["topic_00000000000000D4.html","SfDataGridFiltering.FilterChanging Method","Handles the changing of filters in a Syncfusion DataGrid for proper ISelectableItem handling."];
+search_result['357']=["topic_00000000000000A0_attached_props--.html","NonEmptyValue Attached Properties",""];

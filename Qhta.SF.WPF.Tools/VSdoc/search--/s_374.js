@@ -1,1 +1,1 @@
-search_result['374']=["topic_00000000000000E0.html","SfDataGridSelector Class","Class containing tools for selecting columns in Syncfusion DataGrid."];
+search_result['374']=["topic_00000000000000A5_methods--.html","SelectedItemEnumToResourceConverter Methods",""];

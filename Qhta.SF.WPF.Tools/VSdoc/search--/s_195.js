@@ -1,1 +1,1 @@
-search_result['195']=["topic_000000000000007A_attached_props--.html","MappingNameBinder Attached Properties",""];
+search_result['195']=["topic_0000000000000067.html","ColumnSelectionCollection.SetDataGridColumns Method","Stores the current selection state of the columns back to the data grid."];

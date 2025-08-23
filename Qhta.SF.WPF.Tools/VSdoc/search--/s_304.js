@@ -1,1 +1,1 @@
-search_result['304']=["topic_00000000000000B1_props--.html","SfDataGridColumnBehavior Properties",""];
+search_result['304']=["topic_000000000000008F.html","IRowHeightProvider Interface","Interface for providing row height in a data grid."];

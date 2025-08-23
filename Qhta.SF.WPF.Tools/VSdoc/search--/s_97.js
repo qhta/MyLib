@@ -1,1 +1,1 @@
-search_result['97']=["topic_0000000000000047.html","SpecificValueWindow.SelectedItem Property","Selected item in the selection window. This property is bound to the selected item in the ItemsSource."];
+search_result['97']=["topic_0000000000000036_attached_props--.html","SpecificValueSelector Attached Properties",""];

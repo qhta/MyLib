@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SfDataGridSelector.SelectAllColumns Method</title>
+	<title>SfDataGridCommander.GetSelectedColumns Method</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SfDataGridSelector.SelectAllColumns Method</h1>
+		<h1 class="title">SfDataGridCommander.GetSelectedColumns Method</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,8 +90,8 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Selects or unselects all columns in the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
-Any cell selection is cleared before selecting or unselecting columns.</summary-info>
+        <summary-info>Gets the selected columns from the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
+Returns the selected cells and outputs whether all columns are selected, along with the selected columns.</summary-info>
 
 
 
@@ -141,7 +141,7 @@ Any cell selection is cleared before selecting or unselecting columns.</summary-
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">&lt;Extension()&gt; _&nbsp;<br />Public Shared Sub SelectAllColumns( _&nbsp;<br />   ByVal <i>dataGrid</i> As <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>, _&nbsp;<br />   ByVal <i>select</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a> _&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: vb">&lt;Extension()&gt; _&nbsp;<br />Public Shared Function GetSelectedColumns( _&nbsp;<br />   ByVal <i>dataGrid</i> As <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>, _&nbsp;<br />   ByRef <i>allColumnsSelected</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a>, _&nbsp;<br />   ByRef <i>selectedColumns</i> As <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>() _&nbsp;<br />) As <a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>()</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -180,7 +180,7 @@ Any cell selection is cleared before selecting or unselecting columns.</summary-
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.void">void</a> SelectAllColumns(&nbsp;<br />   this <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> <i>dataGrid</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> <i>select</i>&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>[] GetSelectedColumns(&nbsp;<br />   this <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> <i>dataGrid</i>,&nbsp;<br />   out <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> <i>allColumnsSelected</i>,&nbsp;<br />   out <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>[] <i>selectedColumns</i>&nbsp;<br />)</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -220,7 +220,7 @@ Any cell selection is cleared before selecting or unselecting columns.</summary-
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">[Extension()]&nbsp;<br />public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.void">void</a> SelectAllColumns(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>^ <i>dataGrid</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> <i>select</i>&nbsp;<br />) </pre>			
+					<pre xml:space="preserve" class="brush: cpp">[Extension()]&nbsp;<br />public: &nbsp;<br />static array&lt; <a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>^ &gt;^ GetSelectedColumns(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>^ <i>dataGrid</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a>&amp; <i>allColumnsSelected</i>,&nbsp;<br />   array&lt; <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>^ &gt;^&amp; <i>selectedColumns</i>&nbsp;<br />) </pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -259,7 +259,7 @@ Any cell selection is cleared before selecting or unselecting columns.</summary-
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public &nbsp;<br />   Extension()&nbsp;<br />static function SelectAllColumns(&nbsp;<br />    <i>dataGrid</i> : <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>,&nbsp;<br />    <i>select</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>&nbsp;<br />);</pre>			
+					<pre xml:space="preserve" class="brush: js">public &nbsp;<br />   Extension()&nbsp;<br />static function GetSelectedColumns(&nbsp;<br />    <i>dataGrid</i> : <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>,&nbsp;<br />    <i>allColumnsSelected</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>,&nbsp;<br />    <i>selectedColumns</i> : <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>[]&nbsp;<br />) : <a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>[];</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -282,12 +282,12 @@ Any cell selection is cleared before selecting or unselecting columns.</summary-
 	</dd>
 </dl>
 <p>
-	The <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> instance. 
+	 
 </p>
-<dl paramName="select" class="parameterList">
+<dl paramName="allColumnsSelected" class="parameterList">
 	<dt>
 		<span class="parameter">
-			select
+			allColumnsSelected
 		</span>
 	</dt>
 	<dd>
@@ -295,11 +295,28 @@ Any cell selection is cleared before selecting or unselecting columns.</summary-
 	</dd>
 </dl>
 <p>
-	True for select all, false for unselect all. 
+	 
+</p>
+<dl paramName="selectedColumns" class="parameterList">
+	<dt>
+		<span class="parameter">
+			selectedColumns
+		</span>
+	</dt>
+	<dd>
+		<a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>[] 
+	</dd>
+</dl>
+<p>
+	 
 </p>
 
 <p />
 
+	<h4 class="subHeading">
+		Return Value</h4>
+	<a target="_top" href=".html" onclick="this.target='';return true;">GridCellInfo</a>[] 
+	
 
 
 
@@ -387,7 +404,7 @@ Any cell selection is cleared before selecting or unselecting columns.</summary-
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_00000000000000E0.html">SfDataGridSelector Class</a><br />
+			<a href="topic_00000000000000E0.html">SfDataGridCommander Class</a><br />
 
 
 

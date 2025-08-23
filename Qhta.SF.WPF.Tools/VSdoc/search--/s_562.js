@@ -1,0 +1,1 @@
+search_result['562']=["topic_0000000000000101.html","SfDataGridFinder.FindFirst Method","Finds the first occurrence of a specified text in the column and selects the corresponding cell."];

@@ -1,1 +1,1 @@
-search_result['380']=["topic_00000000000000E1.html","SfDataGridSelector.IsSelected Method","Checks if the specific SfDataGrid column is selected or not."];
+search_result['380']=["topic_00000000000000A7_attached_props--.html","SfDataGridBehavior Attached Properties",""];

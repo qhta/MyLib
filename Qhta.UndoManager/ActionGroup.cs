@@ -1,9 +1,10 @@
-﻿using System.Diagnostics;
+﻿
+using System.Diagnostics;
 
 namespace Qhta.UndoManager;
 
 /// <summary>
-/// Specialized action group for managing a collection of actions.
+/// Specialized action group for grouping actions.
 /// </summary>
 public class ActionGroup: IAction
 {

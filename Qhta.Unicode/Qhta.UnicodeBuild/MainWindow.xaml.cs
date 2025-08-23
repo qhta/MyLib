@@ -65,18 +65,18 @@ public partial class MainWindow : Window
     //Debug.WriteLine($"MainWindow_PreviewKeyDown: {e.Key} {Keyboard.Modifiers}");
     if (e.Key == Key.Z && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
     {
-      if (UndoMgr.IsUndoAvailable)
+      if (UndoRedoManager.IsUndoAvailable)
       {
-        UndoMgr.Undo();
+        UndoRedoManager.Undo();
         e.Handled = true;
         return;
       }
     }
     if (e.Key == Key.Y && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
     {
-      if (UndoMgr.IsRedoAvailable)
+      if (UndoRedoManager.IsRedoAvailable)
       {
-        UndoMgr.Redo();
+        UndoRedoManager.Redo();
         e.Handled = true;
         return;
       }

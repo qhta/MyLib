@@ -1,1 +1,1 @@
-search_result['109']=["topic_0000000000000053.html","SpecificValueWindow.CaseSensitive Property","Indicates whether to search text with case-sensitivity."];
+search_result['109']=["topic_000000000000003E.html","TextValueProperty Field","Dependency property for the TextValue property, which is the value entered by the user in the text box."];

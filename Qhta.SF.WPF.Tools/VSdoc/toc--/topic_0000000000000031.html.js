@@ -1,1 +1,1 @@
-var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_00000000000000EA.html"],['233',"Qhta.SF.WPF.Tools.Views Namespace","topic_0000000000000026.html"],['275',"SpecificViewMode Enumeration","topic_0000000000000031.html"]];
+var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_000000000000010F.html"],['265',"Qhta.SF.WPF.Tools.Views Namespace","topic_0000000000000029.html"],['275',"DropPositionAdorner Class","topic_0000000000000030.html"],['276',"DropPositionAdorner Constructor","topic_0000000000000031.html"]];

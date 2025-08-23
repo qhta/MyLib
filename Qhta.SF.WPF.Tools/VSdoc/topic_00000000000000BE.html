@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SfDataGridCommander.GetDataGrid Method</title>
+	<title>SelectableItem.ActualValue Property</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SfDataGridCommander.GetDataGrid Method</h1>
+		<h1 class="title">SelectableItem.ActualValue Property</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,7 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Gets the owner DataGrid of the specified column.</summary-info>
+        <summary-info>Implementation of the <a target="_top" href="topic_0000000000000094.html" onclick="this.target='';return true;">ISelectableItem.ActualValue</a> property.</summary-info>
 
 
 
@@ -140,7 +140,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">&lt;Extension()&gt; _&nbsp;<br />Public Shared Function GetDataGrid( _&nbsp;<br />   ByVal <i>column</i> As <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a> _&nbsp;<br />) As <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">Public ReadOnly Property ActualValue() As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">Object</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +179,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> GetDataGrid(&nbsp;<br />   this <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a> <i>column</i>&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: csharp">public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a> ActualValue {get;}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +219,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">[Extension()]&nbsp;<br />public: &nbsp;<br />static <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>^ GetDataGrid(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>^ <i>column</i>&nbsp;<br />) </pre>			
+					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />property <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>^ ActualValue {&nbsp;<br /> <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>^ get( );&nbsp;<br />}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +258,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public &nbsp;<br />   Extension()&nbsp;<br />static function GetDataGrid(&nbsp;<br />    <i>column</i> : <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>&nbsp;<br />) : <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>;</pre>			
+					<pre xml:space="preserve" class="brush: js">public function get ActualValue() : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a>;</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -269,26 +269,10 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 	</div>
 
 
-<h4 class="subHeading">
-	Parameters</h4><dl paramName="column" class="parameterList">
-	<dt>
-		<span class="parameter">
-			column
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a> 
-	</dd>
-</dl>
-<p>
-	 
-</p>
-
-<p />
 
 	<h4 class="subHeading">
-		Return Value</h4>
-	<a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> 
+		Property Value</h4>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.object">object</a> 
 	
 
 
@@ -377,7 +361,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_00000000000000BD.html">SfDataGridCommander Class</a><br />
+			<a href="topic_00000000000000BA.html">SelectableItem Class</a><br />
 
 
 

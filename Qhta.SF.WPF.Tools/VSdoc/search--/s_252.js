@@ -1,1 +1,1 @@
-search_result['252']=["topic_0000000000000096.html","MinRowHeightProperty Field","DependencyProperty for the MinRowHeight property.\r\nDefault value is 24.0"];
+search_result['252']=["topic_000000000000007B.html","MappingNameBinder.Convert Method","Converts a given value to a specific target type using the provided culture information."];

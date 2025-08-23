@@ -1,1 +1,1 @@
-search_result['251']=["topic_0000000000000095.html","RowResizer Constructor","Instantiates a new instance of a RowResizer."];
+search_result['251']=["topic_000000000000007A_vars--.html","MappingNameBinder Fields",""];

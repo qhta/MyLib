@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SfDataGridColumnBehavior.IsSelected Attached Property</title>
+	<title>SfDataGridCommander.CanCutData Method</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SfDataGridColumnBehavior.IsSelected Attached Property</h1>
+		<h1 class="title">SfDataGridCommander.CanCutData Method</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,6 +90,8 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
+        <summary-info>Determines whether data can be cut from the specified data grid.
+This method checks if all selected columns are editable and not read-only.</summary-info>
 
 
 
@@ -139,7 +141,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">See <a target="_top" href="topic_00000000000000B2.html" onclick="this.target='';return true;">GetIsSelected</a>, <a target="_top" href="topic_00000000000000B3.html" onclick="this.target='';return true;">SetIsSelected</a></pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Shared Function CanCutData( _&nbsp;<br />   ByVal <i>dataGrid</i> As <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> _&nbsp;<br />) As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -178,7 +180,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">See <a target="_top" href="topic_00000000000000B2.html" onclick="this.target='';return true;">GetIsSelected</a>, <a target="_top" href="topic_00000000000000B3.html" onclick="this.target='';return true;">SetIsSelected</a></pre>			
+					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> CanCutData(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> <i>dataGrid</i>&nbsp;<br />)</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -218,7 +220,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">See <a target="_top" href="topic_00000000000000B2.html" onclick="this.target='';return true;">GetIsSelected</a>, <a target="_top" href="topic_00000000000000B3.html" onclick="this.target='';return true;">SetIsSelected</a></pre>			
+					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> CanCutData(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>^ <i>dataGrid</i>&nbsp;<br />) </pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -257,7 +259,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">See <a target="_top" href="topic_00000000000000B2.html" onclick="this.target='';return true;">GetIsSelected</a>, <a target="_top" href="topic_00000000000000B3.html" onclick="this.target='';return true;">SetIsSelected</a></pre>			
+					<pre xml:space="preserve" class="brush: js">public static function CanCutData(&nbsp;<br />    <i>dataGrid</i> : <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>&nbsp;<br />) : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>;</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -268,9 +270,25 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 	</div>
 
 
+<h4 class="subHeading">
+	Parameters</h4><dl paramName="dataGrid" class="parameterList">
+	<dt>
+		<span class="parameter">
+			dataGrid
+		</span>
+	</dt>
+	<dd>
+		<a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> 
+	</dd>
+</dl>
+<p>
+	 
+</p>
+
+<p />
 
 	<h4 class="subHeading">
-		Property Value</h4>
+		Return Value</h4>
 	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> 
 	
 
@@ -291,42 +309,6 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 </div>
 
 
-<div class="section_container">
-	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Dependency Property Information</a></span>
-		<div>&nbsp;</div>
-	</div>
-
-	<div id="dependencyPropertyInfoSection" class="section">	
-	<table>
-		<tr>
-			<td>
-				<p>Identifier field</p>
-			</td>
-			<td>
-				<p>
-<a href="topic_00000000000000B4.html">IsSelectedProperty</a>
-
-
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<p>Metadata properties set to true</p>
-			</td>
-			<td>
-				<p>
-
-	None
-
-				</p>
-			</td>
-		</tr>
-	</table>
-
-	</div>
-</div>
 
 
 
@@ -396,7 +378,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_00000000000000B1.html">SfDataGridColumnBehavior Class</a><br />
+			<a href="topic_00000000000000E0.html">SfDataGridCommander Class</a><br />
 
 
 

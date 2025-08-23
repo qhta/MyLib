@@ -1,1 +1,1 @@
-search_result['356']=["topic_00000000000000D3.html","SfDataGridFiltering.FilterItemsPopulating Method","Handles the populating of filter items in a Syncfusion DataGrid. Sender must be a GridColumn or its descender.\r\nIf the column is a GridComboBoxColumn, it sets up the filter items based on the provided..."];
+search_result['356']=["topic_00000000000000A0.html","NonEmptyValue Class","Singleton class representing a non-empty value in the application."];

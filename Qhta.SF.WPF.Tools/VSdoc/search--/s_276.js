@@ -1,1 +1,1 @@
-search_result['276']=["topic_00000000000000A4.html","SelectableItemValueConverter.ConvertBack Method","Not implemented method for converting back from the target type to the source type."];
+search_result['276']=["topic_0000000000000083.html","FindAndReplaceCommand.CanExecuteFindNext Method","Checks whether the FindNext command can be executed basing on the current selection in the data grid."];

@@ -1,1 +1,1 @@
-search_result['211']=["topic_0000000000000080_attached_props--.html","NonEmptyValue Attached Properties",""];
+search_result['211']=["topic_000000000000006D.html","ColumnSelectionItem.IsSelected Property","Is selected checkbox state"];

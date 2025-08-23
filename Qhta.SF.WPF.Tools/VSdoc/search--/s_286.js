@@ -1,1 +1,1 @@
-search_result['286']=["topic_00000000000000A7_attached_props--.html","SfDataGridBehavior Attached Properties",""];
+search_result['286']=["topic_0000000000000087.html","GridColumnMappingConverter.Convert Method","Gets the value of a property specified by the mapping name from the data context of a GridColumn."];

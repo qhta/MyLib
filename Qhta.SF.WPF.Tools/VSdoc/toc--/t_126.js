@@ -1,1 +1,1 @@
-c['126']=[['127',"Convert Method","topic_00000000000000BB.html",0],['128',"ConvertBack Method","topic_00000000000000BC.html",0]];
+c['126']=[['127',"AllowColumnManagement Attached Property","topic_000000000000010C.html",0],['128',"AllowRowResizing Attached Property","topic_0000000000000109.html",0],['129',"IsRowResizing Attached Property","topic_000000000000010A.html",0],['130',"StartOffset Attached Property","topic_000000000000010B.html",0]];

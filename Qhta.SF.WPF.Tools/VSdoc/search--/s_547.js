@@ -1,0 +1,1 @@
+search_result['547']=["topic_00000000000000F7.html","SfDataGridFiltering.OnFilterChanging Method","Handles the changing of filters in a Syncfusion DataGrid for proper ISelectableItem handling."];

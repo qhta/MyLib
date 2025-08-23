@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SfDataGridSelector.SetIsSelected Method</title>
+	<title>SfDataGridCommander.GetRowDataType Method</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SfDataGridSelector.SetIsSelected Method</h1>
+		<h1 class="title">SfDataGridCommander.GetRowDataType Method</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,8 +90,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Selects or unselects the specific <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> column.
-Any cell selection is cleared before selecting or unselecting the column.</summary-info>
+        <summary-info>Gets a type of the row data in the SfDataGrid.</summary-info>
 
 
 
@@ -141,7 +140,7 @@ Any cell selection is cleared before selecting or unselecting the column.</summa
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">&lt;Extension()&gt; _&nbsp;<br />Public Shared Sub SetIsSelected( _&nbsp;<br />   ByVal <i>column</i> As <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>, _&nbsp;<br />   ByVal <i>select</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a>, _&nbsp;<br />   ByVal <i>unselectOther</i> As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a> _&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Shared Function GetRowDataType( _&nbsp;<br />   ByVal <i>dataGrid</i> As <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> _&nbsp;<br />) As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.type">Type</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -180,7 +179,7 @@ Any cell selection is cleared before selecting or unselecting the column.</summa
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.void">void</a> SetIsSelected(&nbsp;<br />   this <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a> <i>column</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> <i>select</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> <i>unselectOther</i>&nbsp;<br />)</pre>			
+					<pre xml:space="preserve" class="brush: csharp">public static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.type">Type</a> GetRowDataType(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> <i>dataGrid</i>&nbsp;<br />)</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -220,7 +219,7 @@ Any cell selection is cleared before selecting or unselecting the column.</summa
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">[Extension()]&nbsp;<br />public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.void">void</a> SetIsSelected(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>^ <i>column</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> <i>select</i>,&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> <i>unselectOther</i>&nbsp;<br />) </pre>			
+					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />static <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.type">Type</a>^ GetRowDataType(&nbsp;<br />   <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>^ <i>dataGrid</i>&nbsp;<br />) </pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -259,7 +258,7 @@ Any cell selection is cleared before selecting or unselecting the column.</summa
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public &nbsp;<br />   Extension()&nbsp;<br />static function SetIsSelected(&nbsp;<br />    <i>column</i> : <a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a>,&nbsp;<br />    <i>select</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>,&nbsp;<br />    <i>unselectOther</i> : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>&nbsp;<br />);</pre>			
+					<pre xml:space="preserve" class="brush: js">public static function GetRowDataType(&nbsp;<br />    <i>dataGrid</i> : <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>&nbsp;<br />) : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.type">Type</a>;</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -271,48 +270,26 @@ Any cell selection is cleared before selecting or unselecting the column.</summa
 
 
 <h4 class="subHeading">
-	Parameters</h4><dl paramName="column" class="parameterList">
+	Parameters</h4><dl paramName="dataGrid" class="parameterList">
 	<dt>
 		<span class="parameter">
-			column
+			dataGrid
 		</span>
 	</dt>
 	<dd>
-		<a target="_top" href=".html" onclick="this.target='';return true;">GridColumn</a> 
+		<a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a> 
 	</dd>
 </dl>
 <p>
-	Column to select/unselect 
-</p>
-<dl paramName="select" class="parameterList">
-	<dt>
-		<span class="parameter">
-			select
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> 
-	</dd>
-</dl>
-<p>
-	True for select, false for unselect. 
-</p>
-<dl paramName="unselectOther" class="parameterList">
-	<dt>
-		<span class="parameter">
-			unselectOther
-		</span>
-	</dt>
-	<dd>
-		<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> 
-	</dd>
-</dl>
-<p>
-	True to unselect other columns 
+	 
 </p>
 
 <p />
 
+	<h4 class="subHeading">
+		Return Value</h4>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.type">Type</a> 
+	
 
 
 
@@ -400,7 +377,7 @@ Any cell selection is cleared before selecting or unselecting the column.</summa
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-			<a href="topic_00000000000000E0.html">SfDataGridSelector Class</a><br />
+			<a href="topic_00000000000000E0.html">SfDataGridCommander Class</a><br />
 
 
 

@@ -1,1 +1,1 @@
-search_result['245']=["topic_0000000000000094.html","RowResizer Class","This control allows resizing of rows in a SfDataGrid.\r\nIt is typically used at the bottom of the row header of a grid to adjust the height of rows."];
+search_result['245']=["topic_0000000000000079.html","LongTextColumn.EvaluateTextHeight Method","Evaluates the height of a given long text string based on a specified maximum width."];

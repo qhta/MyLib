@@ -1,1 +1,1 @@
-search_result['47']=["topic_000000000000001E.html","Strings.OK Property","Looks up a localized string similar to OK."];
+search_result['47']=["topic_000000000000001E.html","Strings.MoveUp Property","Looks up a localized string similar to Move up."];

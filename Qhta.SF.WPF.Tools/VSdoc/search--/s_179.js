@@ -1,1 +1,1 @@
-search_result['179']=["topic_0000000000000070.html","ISelectableItem.ToolTip Property","Optional tooltip text that provides additional information about the item when hovered over in a user interface."];
+search_result['179']=["topic_0000000000000062_overloads--.html","ColumnManagementCommand.Execute Method","Command is executed by displaying ColumnManagementWindow for the given SfDataGrid."];

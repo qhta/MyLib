@@ -1,1 +1,1 @@
-search_result['268']=["topic_00000000000000A1.html","SelectableItem.TooltipConverter Property","Value converter for converting the value to a tooltip string."];
+search_result['268']=["topic_0000000000000081.html","FindAndReplaceCommand.FindOrReplaceMode Property","A mode that specifies whether to find or replace a value."];

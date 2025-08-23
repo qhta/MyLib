@@ -1,1 +1,1 @@
-search_result['223']=["topic_0000000000000083.html","RecordNavigationBar Constructor","Initializes a new instance of the RecordNavigationBar class."];
+search_result['223']=["topic_000000000000006F_vars--.html","DelRecordAction Fields",""];

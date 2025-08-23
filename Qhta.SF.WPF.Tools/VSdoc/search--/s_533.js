@@ -1,0 +1,1 @@
+search_result['533']=["topic_00000000000000EB.html","SfDataGridCommander.DeleteData Method","Performs a delete operation on the data in the specified SfDataGrid."];

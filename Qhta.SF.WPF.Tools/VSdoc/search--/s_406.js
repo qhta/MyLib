@@ -1,0 +1,1 @@
+search_result['406']=["topic_00000000000000B3.html","RowHeightProvider.OnQueryRowHeight Method","Handles the query for row height in a data grid, setting the height based on the data context."];

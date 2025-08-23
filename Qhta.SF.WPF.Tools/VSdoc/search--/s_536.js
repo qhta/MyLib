@@ -1,0 +1,1 @@
+search_result['536']=["topic_00000000000000EE.html","SfDataGridCommander.GetHeaders Method","Splits a tab-delimited string into an array of header values."];

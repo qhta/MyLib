@@ -1,1 +1,1 @@
-search_result['364']=["topic_00000000000000D6.html","SfDataGridFinder.DataGrid Property","DataGrid instance to operate on."];
+search_result['364']=["topic_00000000000000A2_attached_props--.html","RecordNavigationBar Attached Properties",""];

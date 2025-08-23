@@ -1,1 +1,1 @@
-search_result['371']=["topic_00000000000000DD.html","SfDataGridFinder.FindFirst Method","Finds the first occurrence of a specified text in the column and selects the corresponding cell."];
+search_result['371']=["topic_00000000000000A5.html","RecordNavigationBar.DataGrid Property","Gets or sets the SfDataGrid instance associated with this component."];

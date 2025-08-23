@@ -1,1 +1,1 @@
-search_result['40']=["topic_0000000000000017.html","Strings.DeleteAllDataConfirm Property","Looks up a localized string similar to Do you really want to delete all data?."];
+search_result['40']=["topic_0000000000000017.html","Strings.Confirm Property","Looks up a localized string similar to Confirm."];

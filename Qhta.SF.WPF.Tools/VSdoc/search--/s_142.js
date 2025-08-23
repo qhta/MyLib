@@ -1,1 +1,1 @@
-search_result['142']=["topic_0000000000000061_vars--.html","FindCommand Fields",""];
+search_result['142']=["topic_0000000000000055.html","SpecificValueWindow.ReplacementSource Property","Replacement source for the selection, typically a collection of Replacement that can be selected."];

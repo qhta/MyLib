@@ -1,1 +1,1 @@
-search_result['171']=["topic_000000000000006D.html","IRowHeightProvider.RowHeight Property","Gets or sets the height of a row in the grid."];
+search_result['171']=["topic_0000000000000061.html","ColumnManagementCommand.CanExecute Method","Command can execute only if parameter is SfDataGrid and its AllowColumnManagement is true."];

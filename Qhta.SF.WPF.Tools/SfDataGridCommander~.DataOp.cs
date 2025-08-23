@@ -189,7 +189,7 @@ public static partial class SfDataGridCommander
       //await Task.Factory.StartNew(() =>
       //{
       if (op == DataOp.Cut || op == DataOp.Delete)
-        UndoMgr.StartGrouping();
+        UndoRedoManager.StartGrouping();
 
       if (op == DataOp.Delete)
       {
@@ -228,7 +228,7 @@ public static partial class SfDataGridCommander
       }
       //});
       if (op == DataOp.Cut || op == DataOp.Delete)
-        UndoMgr.StopGrouping();
+        UndoRedoManager.StopGrouping();
       switch (op)
       {
         case DataOp.Copy:
@@ -246,7 +246,7 @@ public static partial class SfDataGridCommander
     catch (Exception e)
     {
       if (op == DataOp.Cut || op == DataOp.Delete)
-        UndoMgr.StopGrouping();
+        UndoRedoManager.StopGrouping();
       Console.WriteLine(e);
     }
   }
@@ -261,15 +261,15 @@ public static partial class SfDataGridCommander
       {
         lock (dataGrid.ItemsSource)
         {
-          UndoManager.UndoMgr.StartGrouping();
+          UndoManager.UndoRedoManager.StartGrouping();
           foreach (var row in selectedRows)
           {
             errorMessageProvider = row as IErrorMessageProvider;
             var delRecordArgs = new DelRecordArgs(dataSource, dataSource.IndexOf(row), row);
-            UndoManager.UndoMgr.Record(new DelRecordAction(), delRecordArgs);
+            UndoManager.UndoRedoManager.Record(new DelRecordAction(), delRecordArgs);
             dataSource.Remove(row);
           }
-          UndoManager.UndoMgr.StopGrouping();
+          UndoManager.UndoRedoManager.StopGrouping();
         }
       }
       catch (Exception e)

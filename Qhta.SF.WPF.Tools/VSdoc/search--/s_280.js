@@ -1,1 +1,1 @@
-search_result['280']=["topic_00000000000000A5_methods--.html","SelectedItemEnumToResourceConverter Methods",""];
+search_result['280']=["topic_0000000000000086.html","GridColumnMappingConverter Class","Converter for getting and setting property values in a GridColumn based on the mapping name."];

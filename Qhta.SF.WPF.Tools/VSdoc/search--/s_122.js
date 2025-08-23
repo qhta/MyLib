@@ -1,1 +1,1 @@
-search_result['122']=["topic_0000000000000057_props--.html","DoubleUtil Properties",""];
+search_result['122']=["topic_0000000000000046.html","SpecificValueWindow.WindowMode Property","Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both."];

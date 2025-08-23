@@ -1,1 +1,1 @@
-search_result['175']=["topic_000000000000006E_methods--.html","ISelectableItem Methods",""];
+search_result['175']=["topic_0000000000000061_overloads--.html","ColumnManagementCommand.CanExecute Method","Command can execute only if parameter is SfDataGrid and its AllowColumnManagement is true."];

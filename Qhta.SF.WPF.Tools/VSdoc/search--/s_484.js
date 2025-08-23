@@ -1,0 +1,1 @@
+search_result['484']=["topic_00000000000000D3.html","AllowColumnManagementProperty Field","Attached dependency property that indicates whether the grid allows to manage columns by ColumnManagementCommand."];

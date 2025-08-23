@@ -1,1 +1,1 @@
-search_result['74']=["topic_0000000000000035.html","SpecificValueWindow Class","Window for selecting or editing a specific value."];
+search_result['74']=["topic_000000000000002F.html","ColumnManagementWindow.IsMoveDownEnabled Property","Checks if the last item in the collection is selected."];

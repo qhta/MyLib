@@ -1,1 +1,1 @@
-search_result['334']=["topic_00000000000000BF.html","SfDataGridCommander.GetRowDataType Method","Gets a type of the row data in the SfDataGrid."];
+search_result['334']=["topic_0000000000000098_attached_props--.html","LongTextColumn Attached Properties",""];

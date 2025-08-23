@@ -1,1 +1,1 @@
-search_result['180']=["topic_0000000000000071.html","ISelectableItem.ActualValue Property","Actual value of the item, which can be of any type. This is the underlying data associated with the item."];
+search_result['180']=["topic_0000000000000063.html","ColumnSelectionCollection Class","A collection of ColumnSelectionItem objects, representing a list of selectable columns in a data grid."];

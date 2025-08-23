@@ -1,1 +1,1 @@
-search_result['363']=["topic_00000000000000D5_vars--.html","SfDataGridFinder Fields",""];
+search_result['363']=["topic_00000000000000A2.html","RecordNavigationBar Class","Navigation bar for navigating through records in a SfDataGrid.\r\nIt provides commands to navigate to the first, previous, next, and last records.\r\nIt also displays the current record number and the tot..."];

@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_000000000000010F.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['214',"ISelectableItem Interface","topic_0000000000000091.html"],['215',"Properties","topic_0000000000000091_props--.html"]];

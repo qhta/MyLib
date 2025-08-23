@@ -1,1 +1,1 @@
-search_result['64']=["topic_000000000000002A.html","SpecificValueSelector Class","Part of the SpecificValueWindow for selecting a specific value."];
+search_result['64']=["topic_000000000000002A.html","ColumnManagementWindow Class","Window for managing columns in a data grid."];

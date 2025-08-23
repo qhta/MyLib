@@ -1,1 +1,1 @@
-search_result['379']=["topic_00000000000000E0_vars--.html","SfDataGridSelector Fields",""];
+search_result['379']=["topic_00000000000000A7.html","RecordNavigationBar.RowsCount Property","Gets or sets the number of rows in the collection."];

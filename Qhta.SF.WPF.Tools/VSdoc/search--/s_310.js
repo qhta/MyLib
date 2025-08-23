@@ -1,1 +1,1 @@
-search_result['310']=["topic_00000000000000B5_attached_props--.html","SfDataGridColumnBehaviorExtensions Attached Properties",""];
+search_result['310']=["topic_0000000000000090.html","IRowHeightProvider.RowHeight Property","Gets or sets the height of a row in the grid."];

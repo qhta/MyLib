@@ -1,1 +1,1 @@
-c['19']=[['20',"Methods","topic_0000000000000061_methods--.html",1]];
+c['19']=[['20',"ActualValue Property","topic_000000000000006C.html",0],['21',"Column Property","topic_0000000000000069.html",0],['22',"DisplayName Property","topic_000000000000006A.html",0],['23',"IsSelected Property","topic_000000000000006D.html",0],['24',"ToolTip Property","topic_000000000000006B.html",0]];

@@ -1,0 +1,1 @@
+search_result['540']=["topic_00000000000000F5.html","SfDataGridFiltering Class","Class containing tools for filtering data in Syncfusion DataGrid."];

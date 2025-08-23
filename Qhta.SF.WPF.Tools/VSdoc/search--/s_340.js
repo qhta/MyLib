@@ -1,1 +1,1 @@
-search_result['340']=["topic_00000000000000C5.html","SfDataGridCommander.CanCutData Method","Determines whether data can be cut from the specified data grid.\r\nThis method checks if all selected columns are editable and not read-only."];
+search_result['340']=["topic_000000000000009A.html","LongTextColumn.OnPropertyChanged Method","This method is needed to invalidate ShowPopupButton visibility when the ActualWidth changes."];

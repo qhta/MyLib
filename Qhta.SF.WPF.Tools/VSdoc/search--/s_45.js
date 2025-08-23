@@ -1,1 +1,1 @@
-search_result['45']=["topic_000000000000001C.html","Strings.NonEmptyValue Property","Looks up a localized string similar to (Non-empty value)."];
+search_result['45']=["topic_000000000000001C.html","Strings.FoundNValues Property","Looks up a localized string similar to Found {0} values."];

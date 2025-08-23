@@ -1,0 +1,1 @@
+search_result['530']=["topic_00000000000000E8.html","SfDataGridCommander.CanCutData Method","Determines whether data can be cut from the specified data grid.\r\nThis method checks if all selected columns are editable and not read-only."];

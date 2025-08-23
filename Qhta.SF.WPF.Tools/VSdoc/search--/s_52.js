@@ -1,1 +1,1 @@
-search_result['52']=["topic_0000000000000023.html","Strings.SearchedText Property","Looks up a localized string similar to Searched text."];
+search_result['52']=["topic_0000000000000023.html","Strings.OverwriteNonEmptyCells Property","Looks up a localized string similar to Overwrite non-empty cells."];

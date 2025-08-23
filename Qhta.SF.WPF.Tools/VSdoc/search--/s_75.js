@@ -1,1 +1,1 @@
-search_result['75']=["topic_0000000000000035_attached_props--.html","SpecificValueWindow Attached Properties",""];
+search_result['75']=["topic_0000000000000030.html","DropPositionAdorner Class","An adorner that indicates the drop position in a ListBox during drag-and-drop operations."];

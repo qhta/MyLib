@@ -98,7 +98,7 @@ public class ApplyWritingSystemRecognitionCommand : TimeConsumingCommand
       var i = 0;
       _ViewModels.Instance.UcdCodePoints.StatusMessage =
         String.Format(Resources.Strings.UpdatingField, Resources.UcdCodePointStrings.WritingSystem);
-      UndoMgr.StartGrouping();
+      UndoRedoManager.StartGrouping();
       foreach (var codePoint in listOfPoints)
       {
         i++;
@@ -135,7 +135,7 @@ public class ApplyWritingSystemRecognitionCommand : TimeConsumingCommand
     }
     finally
     {
-      UndoMgr.StopGrouping();
+      UndoRedoManager.StopGrouping();
     }
   }
 

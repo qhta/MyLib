@@ -1,0 +1,1 @@
+search_result['523']=["topic_00000000000000E1.html","SfDataGridCommander.GetDataGrid Method","Gets the owner DataGrid of the specified column."];

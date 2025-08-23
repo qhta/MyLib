@@ -1,1 +1,1 @@
-search_result['110']=["topic_0000000000000054.html","DelRecordAction Class","Undo/redo action for deleting records in a data grid."];
+search_result['110']=["topic_000000000000003F.html","SpecificValueWindow.TextValue Property","Text value entered by the user in the text box."];

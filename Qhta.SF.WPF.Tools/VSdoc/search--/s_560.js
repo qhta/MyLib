@@ -1,0 +1,1 @@
+search_result['560']=["topic_00000000000000FF.html","SfDataGridFinder.Predicate Property","Predicate defining the conditions of comparison."];

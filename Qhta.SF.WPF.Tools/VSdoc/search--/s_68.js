@@ -1,1 +1,1 @@
-search_result['68']=["topic_000000000000002A_props--.html","SpecificValueSelector Properties",""];
+search_result['68']=["topic_000000000000002A_props--.html","ColumnManagementWindow Properties",""];

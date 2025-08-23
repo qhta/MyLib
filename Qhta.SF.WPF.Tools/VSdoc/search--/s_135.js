@@ -1,1 +1,1 @@
-search_result['135']=["topic_000000000000005C_overloads--.html","FillColumnCommand.Execute Method","Executes the command basing on the current selection in the data grid."];
+search_result['135']=["topic_0000000000000053.html","SpecificValueWindow.SelectedItem Property","Selected item in the selection window. This property is bound to the selected item in the ItemsSource."];

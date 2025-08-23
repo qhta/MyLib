@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="GENERATOR" content="VSdocman - documentation generator; https://www.helixoft.com" />
 	<link rel="icon" href="favicon.ico">
-	<title>SfDataGridCommander Class</title>
+	<title>SelectableItem.IsSelected Property</title>
 
 	<link rel="stylesheet" type="text/css" href="msdn2019/toc.css" />
 	<script src="msdn2019/toc.js"></script>
@@ -75,7 +75,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
   </div>
 
 <div id="mainBody">
-		<h1 class="title">SfDataGridCommander Class</h1>
+		<h1 class="title">SelectableItem.IsSelected Property</h1>
         
 		<div class="metadata">
         Namespace:
@@ -90,7 +90,6 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
        
        
-        <summary-info>Controller class for managing SfDataGrid operations.</summary-info>
 
 
 
@@ -140,7 +139,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeVB">
-					<pre xml:space="preserve" class="brush: vb">Public Class SfDataGridCommander</pre>			
+					<pre xml:space="preserve" class="brush: vb">Public Property IsSelected() As <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">Boolean</a></pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -179,7 +178,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCsharp">
-					<pre xml:space="preserve" class="brush: csharp">public static class SfDataGridCommander</pre>			
+					<pre xml:space="preserve" class="brush: csharp">public <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> IsSelected {get; set;}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -219,7 +218,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeCpp">
-					<pre xml:space="preserve" class="brush: cpp">public ref class SfDataGridCommander </pre>			
+					<pre xml:space="preserve" class="brush: cpp">public: &nbsp;<br />property <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> IsSelected {&nbsp;<br /> <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> get( );&nbsp;<br /> void set(&nbsp;<br />   <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> value&nbsp;<br /> );&nbsp;<br />}</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -258,7 +257,7 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 				</div>
 				
 				<div class="codeSnippetCode codeJScript">
-					<pre xml:space="preserve" class="brush: js">public class SfDataGridCommander</pre>			
+					<pre xml:space="preserve" class="brush: js">public function get IsSelected() : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>;&nbsp;<br />public function set IsSelected(value : <a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">boolean</a>);</pre>			
 				</div>
 				<div class="codeSnippetCode codeNA">
 					<pre xml:space="preserve">This language is not supported or no code example is available.</pre>			
@@ -270,616 +269,27 @@ document.write(getCssCustomProperty('--headerTopCustomLineHtml'));
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-	</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-<div class="section_container">
-	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Methods</a></span>
-		<div>&nbsp;</div>
-	</div>
-
-	<div id="MethodsSection" class="section">	
-  <table class="memberListTable">
-    <tr>
-      <th></th>
-      <th>
-        Name
-      </th>
-      <th>
-        Description
-      </th>
-    </tr>
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000C3.html">CanCopyData(SfDataGrid)</a>
-
-	</td>
-	<td>
-
-Determines whether data can be copied from the specified data grid.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000C5.html">CanCutData(SfDataGrid)</a>
-
-	</td>
-	<td>
-
-Determines whether data can be cut from the specified data grid.
-This method checks if all selected columns are editable and not read-only.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000CD.html">CanDeleteData(SfDataGrid)</a>
-
-	</td>
-	<td>
-
-Determines whether data can be deleted from the specified data grid.
-This method checks if all selected columns are editable and not read-only.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000CB.html">CanExecuteDataOp(SfDataGrid, DataOp)</a>
-
-	</td>
-	<td>
-
-Determines whether a data operation can be executed on the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000CF.html">CanPasteData(SfDataGrid)</a>
-
-	</td>
-	<td>
-
-Determines whether data can be pasted into the specified data grid.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000C4.html">CopyData(SfDataGrid)</a>
-
-	</td>
-	<td>
-
-Performs a copy operation on the data in the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000C6.html">CutData(SfDataGrid)</a>
-
-	</td>
-	<td>
-
-Performs a cut operation on the data in the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000CE.html">DeleteData(SfDataGrid)</a>
-
-	</td>
-	<td>
-
-Performs a delete operation on the data in the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000CC.html">ExecuteDataOp(SfDataGrid, DataOp)</a>
-
-	</td>
-	<td>
-
-Performs a copy, cut or delete operation on the data in the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000BE.html">GetDataGrid(this GridColumn)</a>
-
-	</td>
-	<td>
-
-Gets the owner DataGrid of the specified column.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000D1.html">GetHeaders(string)</a>
-
-	</td>
-	<td>
-
-Splits a tab-delimited string into an array of header values.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000BF.html">GetRowDataType(SfDataGrid)</a>
-
-	</td>
-	<td>
-
-Gets a type of the row data in the SfDataGrid.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000C1.html">GetSelectedColumns(this SfDataGrid, out bool, out GridColumn[])</a>
-
-	</td>
-	<td>
-
-Gets the selected columns from the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
-Returns the selected cells and outputs whether all columns are selected, along with the selected columns.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000C0.html">GetSelectedRows(this SfDataGrid, out bool, out object[])</a>
-
-	</td>
-	<td>
-
-Gets the selected rows from the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
-Returns the selected cells and outputs whether all rows are selected, along with the selected rows.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000C2.html">GetSelectedRowsAndColumns(this SfDataGrid, out bool, out GridColumn[], out bool, out object[])</a>
-
-	</td>
-	<td>
-
-Gets the selected rows and columns from the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
-Returns the selected cells and outputs whether all columns or rows are selected, along with the selected columns and rows.
-
-	</td>
-</tr>
-
-
-
-
-
-
-
-
-	<tr class="
-
-
-">
-	<td>
-<img alt="Public method" title="Public method" src="msdn2019/pubmethod.png"></img>
-
-	<img alt="Static" title="Static" src="msdn2019/static.png"></img>
-
-    
-	</td>
-	<td>
-	<a href="topic_00000000000000D0.html">PasteData(SfDataGrid)</a>
-
-	</td>
-	<td>
-
-Performs a paste operation on the data in the specified <a target="_top" href=".html" onclick="this.target='';return true;">SfDataGrid</a>.
-
-	</td>
-</tr>
-
-
-
-
-
-
-  </table>
-
-  <a href="#mainBody">
-    Top
-  </a>
-
-	</div>					
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-<!-- Classes -->
-
-<!-- Classes End -->
-
-<!-- Standard Modules -->
-
-<!-- Standard Modules End -->
-
-  
-
-
-
-
-<div class="section_container">
-	<div class="section_heading">
-		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">Enumerations</a></span>
-		<div>&nbsp;</div>
-	</div>
-
-	<div id="EnumerationSection" class="section">	
-  <table class="memberListTable">
-    <tr>
-      <th></th>
-      <th>
-        Name
-      </th>
-      <th>
-        Description
-      </th>
-    </tr>
-
-	<tr class="
+	<h4 class="subHeading">
+		Property Value</h4>
+	<a target="_top" href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean">bool</a> 
 	
-	
-	">
-	  <td>
-    <img alt="Public enumeration" title="Public enumeration" src="msdn2019/pubenum.png"></img>
 
 
-    
-	  </td>
-	  <td>
-	    <a href="topic_00000000000000C7.html">DataOp</a>
-	  </td>
-	  <td>
 
-Enumeration representing the type of data operation to perform.
 
-		</td>
-	</tr>
 
-  </table>
 
-  <a href="#mainBody">
-    Top
-  </a>
 
-	</div>					
+
+
+
+
+
+
+
+	</div>
 </div>
+
 
 
 
@@ -942,7 +352,6 @@ Enumeration representing the type of data operation to perform.
 	</div>					
 </div>
 
-
 <div class="section_container">
 	<div class="section_heading">
 		<span><a href="javascript:void(0)" title="Collapse" onclick="toggleSection(this);">See Also</a></span>
@@ -951,10 +360,14 @@ Enumeration representing the type of data operation to perform.
 
 	<div id="seeAlsoSection" class="section">	
 		<div>
-	<a href="topic_0000000000000010.html">Qhta.SF.WPF.Tools Namespace</a><br />
+			<a href="topic_00000000000000BA.html">SelectableItem Class</a><br />
 
 
-	
+
+<a href="topic_0000000000000010.html">Qhta.SF.WPF.Tools Namespace</a><br />
+
+
+			
 
 		</div>
 	</div>					

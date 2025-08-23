@@ -1,1 +1,1 @@
-search_result['123']=["topic_0000000000000057_vars--.html","DoubleUtil Fields",""];
+search_result['123']=["topic_0000000000000047.html","ViewModeProperty Field","Dependency property for ViewMode property, which specifies the which specific view is visible, which can be either EditViewOnly, SelectorOnly, or Both."];

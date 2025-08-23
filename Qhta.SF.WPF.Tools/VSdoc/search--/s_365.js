@@ -1,1 +1,1 @@
-search_result['365']=["topic_00000000000000D7.html","SfDataGridFinder.Column Property","Gets or sets the column to search."];
+search_result['365']=["topic_00000000000000A2_events--.html","RecordNavigationBar Events",""];

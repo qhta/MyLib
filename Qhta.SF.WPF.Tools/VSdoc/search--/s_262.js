@@ -1,1 +1,1 @@
-search_result['262']=["topic_000000000000009B.html","SelectableItem.DisplayName Property",""];
+search_result['262']=["topic_0000000000000080.html","FindAndReplaceCommand Class","Command to find a value selected by the user int the current column in the data grid."];

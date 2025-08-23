@@ -1,0 +1,1 @@
+search_result['477']=["topic_00000000000000D1.html","SfDataGridBehavior.GetAllowColumnManagement Method","Gets whether the grid allows to manage columns by ColumnManagementCommand."];

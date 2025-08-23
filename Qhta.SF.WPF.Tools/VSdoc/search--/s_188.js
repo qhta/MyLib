@@ -1,1 +1,1 @@
-search_result['188']=["topic_0000000000000075_props--.html","LongTextColumn Properties",""];
+search_result['188']=["topic_0000000000000065.html","ColumnSelectionCollection Constructor","Initializes a new instance of the ColumnSelectionCollection class."];

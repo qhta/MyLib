@@ -1,1 +1,1 @@
-search_result['332']=["topic_00000000000000BD_vars--.html","SfDataGridCommander Fields",""];
+search_result['332']=["topic_0000000000000097.html","ISelectableItem.IsSelected Property","Is this element selected in the UI context (e.g., in a list of selectable items)."];

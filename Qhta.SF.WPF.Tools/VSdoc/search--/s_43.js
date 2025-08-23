@@ -1,1 +1,1 @@
-search_result['43']=["topic_000000000000001A.html","Strings.EnterValueForField Property","Looks up a localized string similar to Enter value for field \"{0}\"."];
+search_result['43']=["topic_000000000000001A.html","Strings.EmptyValue Property","Looks up a localized string similar to (Empty value)."];

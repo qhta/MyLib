@@ -1,1 +1,1 @@
-var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_00000000000000EA.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['68',"RowResizer Class","topic_0000000000000094.html"],['73',"Fields","topic_0000000000000094_vars--.html"],['74',"MaxRowHeightProperty Field","topic_0000000000000098.html"]];
+var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_000000000000010F.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['55',"LongTextColumn Class","topic_0000000000000098.html"]];

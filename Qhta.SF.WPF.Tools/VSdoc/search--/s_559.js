@@ -1,0 +1,1 @@
+search_result['559']=["topic_00000000000000FE.html","SfDataGridFinder.ReplacementValue Property","Specified text to replace specified text (in StringTyped mode only)."];

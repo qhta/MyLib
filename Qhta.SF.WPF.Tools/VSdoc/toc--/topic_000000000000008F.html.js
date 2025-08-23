@@ -1,1 +1,1 @@
-var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_00000000000000EA.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['45',"RecordNavigationBar Class","topic_0000000000000082.html"],['54',"Methods","topic_0000000000000082_methods--.html"],['55',"FirstItemExecute Method","topic_000000000000008F.html"]];
+var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_000000000000010F.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['211',"IRowHeightProvider Interface","topic_000000000000008F.html"]];
