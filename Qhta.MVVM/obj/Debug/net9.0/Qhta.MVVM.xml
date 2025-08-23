@@ -650,26 +650,6 @@
             A method to switch to the next invalid item.
             </summary>
         </member>
-        <member name="T:Qhta.MVVM.ILongTextViewModel">
-            <summary>
-            View model interface for handling long text properties.
-            </summary>
-        </member>
-        <member name="P:Qhta.MVVM.ILongTextViewModel.LongText">
-            <summary>
-            Long text property value that can be expanded or collapsed.
-            </summary>
-        </member>
-        <member name="P:Qhta.MVVM.ILongTextViewModel.CanExpandLongText">
-            <summary>
-            Gets a value indicating whether long text can be expanded.
-            </summary>
-        </member>
-        <member name="P:Qhta.MVVM.ILongTextViewModel.IsLongTextExpanded">
-            <summary>
-            Gets or sets a value indicating whether the long text is expanded.
-            </summary>
-        </member>
         <member name="T:Qhta.MVVM.INotifySelectionChanged">
             <summary>
             Interface that declares <see cref="E:Qhta.MVVM.INotifySelectionChanged.SelectionChanged"/> event.

@@ -3,19 +3,44 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\views\\specificvaluewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\resources\\sfdatagridtools.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\views\\specificvalueedit.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridcommander!.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\views\\specificvalueselector.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\columnselectioncollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\views\\specificvaluewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\views\\columnmanagementwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\views\\specificvalueedit.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\views\\columnmanagementwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\columnselectionitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\views\\writingsystemsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:views\\writingsystemsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\resources\\sfdatagridtools.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\columnmanagementcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\findandreplacecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\iselectableitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\resources\\strings.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -53,65 +78,167 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SpecificValueWindow.xaml.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml.cs",
-              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml.cs",
-              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml.cs",
-              "ViewState": "AgIAAMwAAAAAAAAAAAAAAN4AAAAMAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "SfDataGridCommander!.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander!.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander!.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander!.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander!.cs",
+              "ViewState": "AgIAAMYAAAAAAAAAAAAAAO0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-18T05:34:46.905Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SpecificValueWindow.xaml",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml",
-              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml",
-              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-08-18T05:34:25.331Z",
+              "WhenOpened": "2025-08-23T13:07:21.189Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "SpecificValueEdit.xaml",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml",
-              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml",
-              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml",
+              "Title": "ColumnManagementWindow.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\ColumnManagementWindow.xaml",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Views\\ColumnManagementWindow.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\ColumnManagementWindow.xaml",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Views\\ColumnManagementWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-08-18T05:33:50.927Z",
+              "WhenOpened": "2025-08-23T01:13:57.002Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SfDataGridTools.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml*",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-23T09:06:05.738Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "WritingSystemsView.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\WritingSystemsView.xaml",
+              "RelativeDocumentMoniker": "Views\\WritingSystemsView.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\WritingSystemsView.xaml",
+              "RelativeToolTip": "Views\\WritingSystemsView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-23T09:00:47.292Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SfDataGridTools.xaml.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-23T08:44:30.391Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SfDataGridBehavior.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridBehavior.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridBehavior.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridBehavior.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridBehavior.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAiwJMAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-23T08:38:29.475Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ColumnManagementCommand.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\ColumnManagementCommand.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\ColumnManagementCommand.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\ColumnManagementCommand.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\ColumnManagementCommand.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAAABwAAABYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-23T08:35:42.574Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ISelectableItem.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\ISelectableItem.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\ISelectableItem.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\ISelectableItem.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\ISelectableItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-23T01:40:14.186Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ColumnSelectionItem.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\ColumnSelectionItem.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\ColumnSelectionItem.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\ColumnSelectionItem.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\ColumnSelectionItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-23T01:38:24.267Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "SpecificValueSelector.xaml.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueSelector.xaml.cs",
-              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueSelector.xaml.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueSelector.xaml.cs",
-              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueSelector.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "ColumnSelectionCollection.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\ColumnSelectionCollection.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\ColumnSelectionCollection.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\ColumnSelectionCollection.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\ColumnSelectionCollection.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAiwEAAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-18T05:33:44.212Z",
+              "WhenOpened": "2025-08-23T01:37:25.451Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SpecificValueEdit.xaml.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml.cs",
-              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml.cs",
-              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Views\\SpecificValueEdit.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAADAAAAAAAAAA==",
+              "DocumentIndex": 12,
+              "Title": "Strings.resx",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Resources\\Strings.resx",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Resources\\Strings.resx",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Resources\\Strings.resx",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Resources\\Strings.resx",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2025-08-23T01:27:35.869Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ColumnManagementWindow.xaml.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\ColumnManagementWindow.xaml.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Views\\ColumnManagementWindow.xaml.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Views\\ColumnManagementWindow.xaml.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Views\\ColumnManagementWindow.xaml.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAnwFgAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-18T05:33:35.664Z",
+              "WhenOpened": "2025-08-23T01:15:44.905Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "FindAndReplaceCommand.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\FindAndReplaceCommand.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\FindAndReplaceCommand.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\FindAndReplaceCommand.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\FindAndReplaceCommand.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAAEUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-23T00:00:52.478Z",
               "EditorCaption": ""
             }
           ]

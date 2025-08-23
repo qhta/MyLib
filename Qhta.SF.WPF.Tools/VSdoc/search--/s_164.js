@@ -1,0 +1,1 @@
+search_result['164']=["topic_000000000000006B.html","IRemovableCollection.IsReadOnly Property","Indicates whether the collection is read-only."];

@@ -159,7 +159,7 @@ public static partial class _Commander
   /// <summary>
   /// Command to find a value selected by the user in the current column in the data grid.
   /// </summary>
-  public static FindCommand FindCommand { get; } = new();
+  public static FindAndReplaceCommand FindCommand { get; } = new();
 
   /// <summary>
   /// Command to find a value selected by the user in the current column in the data grid.

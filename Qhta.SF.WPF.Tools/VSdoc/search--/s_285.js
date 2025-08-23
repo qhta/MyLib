@@ -1,0 +1,1 @@
+search_result['285']=["topic_00000000000000A7.html","SfDataGridBehavior Class","A behavior class for managing the state of a Syncfusion DataGrid."];

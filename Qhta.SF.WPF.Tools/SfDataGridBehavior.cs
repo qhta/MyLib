@@ -114,5 +114,37 @@ public class SfDataGridBehavior : Behavior<SfDataGrid>
       new PropertyMetadata(0.0));
   #endregion
 
+  #region AllowColumnManagement property
+  /// <summary>
+  /// Gets whether the grid allows to manage columns by <see cref="ColumnManagementCommand"/>.
+  /// </summary>
+  /// <param name="obj"></param>
+  /// <returns></returns>
+  public static bool GetAllowColumnManagement(DependencyObject obj)
+  {
+    var result = (bool)obj.GetValue(AllowColumnManagementProperty);
+    //Debug.WriteLine($"GetAllowColumnManagement({column.MappingName})={result}");
+    return result;
+  }
 
+  /// <summary>
+  /// Sets whether the grid allows to manage columns by <see cref="ColumnManagementCommand"/>.
+  /// </summary>
+  /// <param name="obj"></param>
+  /// <param name="value"></param>
+  public static void SetAllowColumnManagement(DependencyObject obj, bool value)
+  {
+    //Debug.WriteLine($"SetAllowColumnManagement({column.MappingName})={value}");
+    obj.SetValue(AllowColumnManagementProperty, value);
+  }
+
+  /// <summary>
+  /// Attached dependency property that indicates whether the grid allows to manage columns by <see cref="ColumnManagementCommand"/>.
+  /// </summary>
+  public static readonly DependencyProperty AllowColumnManagementProperty =
+    DependencyProperty.RegisterAttached
+    (
+      "AllowColumnManagement", typeof(bool), typeof(SfDataGridBehavior),
+      new PropertyMetadata(false));
+  #endregion
 }

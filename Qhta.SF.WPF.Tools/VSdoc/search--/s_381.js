@@ -1,0 +1,1 @@
+search_result['381']=["topic_00000000000000E2.html","SfDataGridSelector.SetIsSelected Method","Selects or unselects the specific SfDataGrid column.\r\nAny cell selection is cleared before selecting or unselecting the column."];

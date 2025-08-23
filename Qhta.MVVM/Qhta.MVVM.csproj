@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0; net8.0-windows;net9.0; net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net8.0; net8.0-windows; net9.0; net9.0-windows</TargetFrameworks>
     <Authors>Yarreck Qhta</Authors>
     <Description>A simple MVVM framework which enables worker threads to invoke UI notification via ObservableObjects.</Description>
-    <Version>4.14</Version>
+    <Version>4.15</Version>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <AutoRedirectBindings>true</AutoRedirectBindings>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <BaseOutputPath>D:\OneDrive\VS\Projects\MyLib\bin</BaseOutputPath>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

@@ -1,0 +1,1 @@
+search_result['181']=["topic_0000000000000072.html","ISelectableItem.IsSelected Property","Determines whether the item is currently selected in the user interface."];

@@ -194,7 +194,7 @@ public partial class _ViewModels : ViewModel, IDisposable
         { 
           Value=item, 
           ValueConverter= WritingSystemTypeValueConverter, 
-          TooltipConverter = WritingSystemTypeTooltipConverter
+          ToolTipConverter = WritingSystemTypeTooltipConverter
         });
       return list;
     }
@@ -224,7 +224,7 @@ public partial class _ViewModels : ViewModel, IDisposable
         {
           Value = item, 
           ValueConverter = WritingSystemKindValueConverter,
-          TooltipConverter = WritingSystemKindTooltipConverter
+          ToolTipConverter = WritingSystemKindTooltipConverter
         });
       return list;
     }

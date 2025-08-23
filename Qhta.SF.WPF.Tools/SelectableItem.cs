@@ -41,8 +41,8 @@ public class SelectableItem: ISelectableItem
       {
         if (Value is ISelectableItem selectableItem)
           return selectableItem.ToolTip;
-        if (TooltipConverter != null)
-          return TooltipConverter.Convert(Value, typeof(string), null, null) as string ?? string.Empty;
+        if (ToolTipConverter != null)
+          return ToolTipConverter.Convert(Value, typeof(string), null, null) as string ?? string.Empty;
         return Value.ToString() ?? string.Empty;
       }
       return null;
@@ -72,5 +72,5 @@ public class SelectableItem: ISelectableItem
   /// <summary>
   /// Value converter for converting the value to a tooltip string.
   /// </summary>
-  public IValueConverter? TooltipConverter { get; set; }
+  public IValueConverter? ToolTipConverter { get; set; }
 }

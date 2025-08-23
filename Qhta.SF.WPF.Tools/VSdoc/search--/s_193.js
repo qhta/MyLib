@@ -1,0 +1,1 @@
+search_result['193']=["topic_0000000000000079.html","LongTextColumn.EvaluateTextHeight Method","Evaluates the height of a given long text string based on a specified maximum width."];

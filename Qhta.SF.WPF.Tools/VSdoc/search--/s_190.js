@@ -1,0 +1,1 @@
+search_result['190']=["topic_0000000000000076.html","LongTextColumn.DefaultFont Property","Gets the default font name used by the application."];

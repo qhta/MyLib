@@ -1,0 +1,1 @@
+search_result['343']=["topic_00000000000000CB.html","SfDataGridCommander.CanExecuteDataOp Method","Determines whether a data operation can be executed on the specified SfDataGrid."];

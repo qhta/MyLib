@@ -1,0 +1,1 @@
+search_result['14']=["topic_0000000000000007.html","FilterTypeStrings.GreaterThan Property","Looks up a localized string similar to Greater than."];

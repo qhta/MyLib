@@ -1,0 +1,1 @@
+search_result['18']=["topic_000000000000000B.html","FilterTypeStrings.NotContains Property","Looks up a localized string similar to Not contains."];

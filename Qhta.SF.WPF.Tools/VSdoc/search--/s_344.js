@@ -1,0 +1,1 @@
+search_result['344']=["topic_00000000000000CC.html","SfDataGridCommander.ExecuteDataOp Method","Performs a copy, cut or delete operation on the data in the specified SfDataGrid."];

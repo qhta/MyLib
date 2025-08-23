@@ -1,0 +1,1 @@
+search_result['83']=["topic_0000000000000039.html","WindowModeProperty Field","Dependency property for WindowMode property, which specifies the which specific view is visible, which can be either EditViewOnly, SelectorOnly, or Both."];

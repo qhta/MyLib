@@ -1,0 +1,1 @@
+search_result['225']=["topic_0000000000000085.html","RecordNavigationBar.DataGrid Property","Gets or sets the SfDataGrid instance associated with this component."];

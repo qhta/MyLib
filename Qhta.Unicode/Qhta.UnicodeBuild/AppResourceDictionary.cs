@@ -68,23 +68,23 @@ namespace Qhta.UnicodeBuild
       return null;
     }
 
-    private void WrapButton_CheckedChanged(object sender, RoutedEventArgs e)
-    {
-      if (sender is ToggleButton button)
-        if (button.DataContext is ILongTextViewModel viewModel)
-        {
-          var dataGrid = button.FindParent<SfDataGrid>();
-          if (dataGrid != null)
-          {
-            var rowIndex = dataGrid.ResolveToRowIndex(viewModel);
-            //Debug.WriteLine($"Resolved row index: {rowIndex}");
-            dataGrid.InvalidateRowHeight(rowIndex);
-            //Debug.WriteLine($"dataGrid.InvalidateRowHeight({rowIndex}) invoked");
-            dataGrid.UpdateLayout();
-            dataGrid.View.Refresh();
-          }
-        }
-    }
+    //private void WrapButton_CheckedChanged(object sender, RoutedEventArgs e)
+    //{
+    //  if (sender is ToggleButton button)
+    //    if (button.DataContext is ILongTextViewModel viewModel)
+    //    {
+    //      var dataGrid = button.FindParent<SfDataGrid>();
+    //      if (dataGrid != null)
+    //      {
+    //        var rowIndex = dataGrid.ResolveToRowIndex(viewModel);
+    //        //Debug.WriteLine($"Resolved row index: {rowIndex}");
+    //        dataGrid.InvalidateRowHeight(rowIndex);
+    //        //Debug.WriteLine($"dataGrid.InvalidateRowHeight({rowIndex}) invoked");
+    //        dataGrid.UpdateLayout();
+    //        dataGrid.View.Refresh();
+    //      }
+    //    }
+    //}
 
 
   }

@@ -17,7 +17,6 @@
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   <converters:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
   <converters:AddingConverter x:Key="AddingConverter"/>
-  <sfTools:MappingNameBinder x:Key="MappingNameBinder"/>
   <helpers:CodeRangeComparer x:Key="CodeRangeComparer"/>
   <helpers:CodeRangeValueConverter x:Key="CodeRangeValueConverter"/>
   <helpers:CodePointValueConverter x:Key="CodePointValueConverter"/>

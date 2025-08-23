@@ -1,0 +1,1 @@
+search_result['372']=["topic_00000000000000DE.html","SfDataGridFinder.FindNext Method","Finds the next occurrence of a specified value in the column and selects the corresponding cell."];

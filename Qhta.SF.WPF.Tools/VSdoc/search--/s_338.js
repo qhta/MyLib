@@ -1,0 +1,1 @@
+search_result['338']=["topic_00000000000000C3.html","SfDataGridCommander.CanCopyData Method","Determines whether data can be copied from the specified data grid."];

@@ -3922,16 +3922,6 @@
             Indicates whether the current item is marked.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.LongText">
-            <summary>
-            Long text property is the Description property of the writing system.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.CanExpandLongText">
-            <summary>
-            Can the long text be expanded in the UI?
-            </summary>
-        </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.IsLongTextExpanded">
             <summary>
             Indicates whether the long text is expanded in the UI.
@@ -3956,6 +3946,12 @@
             Converts the writing system to a string representation.
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.Item(System.String)">
+            <summary>
+            Gets or sets property value
+            </summary>
+            <param name="propertyName"></param>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.RowHeight">
             <summary>
@@ -4294,11 +4290,6 @@
         <member name="P:Qhta.UnicodeBuild.Views.UcdBlocksView.FirstItemCommand">
             <summary>
             Command to navigate to the first item in the data grid.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Views.UcdBlocksView.FillColumnCommand">
-            <summary>
-            Command to fill the current column in the data grid with a selected value.
             </summary>
         </member>
         <member name="M:Qhta.UnicodeBuild.Views.UcdBlocksView.InitializeComponent">

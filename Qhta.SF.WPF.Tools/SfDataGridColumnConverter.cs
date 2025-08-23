@@ -5,7 +5,7 @@ using Syncfusion.UI.Xaml.Grid;
 namespace Qhta.SF.WPF.Tools;
 
 /// <summary>
-/// Provides a mechanism to convert <see cref="GridColumn"/> objects to specific property values for data binding in a
+/// Provides a mechanism to get a <see cref="GridColumn"/> object to specific property values for data binding in a
 /// <see cref="SfDataGrid"/>.
 /// </summary>
 /// <remarks>This converter is used to extract specific properties from <see cref="GridColumn"/> instances, such

@@ -17,7 +17,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// </summary>
 /// <param name="model"></param>
 public class WritingSystemViewModel(WritingSystem model)
-  : EntityViewModel<WritingSystem>(model), ILongTextViewModel, IEquatable<WritingSystemViewModel>, IComparable<WritingSystemViewModel>,// INotifyDataErrorInfo
+  : EntityViewModel<WritingSystem>(model), IEquatable<WritingSystemViewModel>, IComparable<WritingSystemViewModel>,// INotifyDataErrorInfo
     ISelectableItem,
     IRowHeightProvider, IErrorMessageProvider
 {
@@ -301,29 +301,29 @@ public class WritingSystemViewModel(WritingSystem model)
 
   #region ILongTextViewModel implementation
 
-  /// <summary>
-  /// Long text property is the Description property of the writing system.
-  /// </summary>
-  public string? LongText { get => Description; set => Description = value; }
+  ///// <summary>
+  ///// Long text property is the Description property of the writing system.
+  ///// </summary>
+  //public string? LongText { get => Description; set => Description = value; }
 
-  /// <summary>
-  /// Can the long text be expanded in the UI?
-  /// </summary>
-  public bool CanExpandLongText
-  {
-    get
-    {
-      var longText = LongText;
-      if (longText == null)
-        return false;
-      var collectionLongTextColumnWidth = Collection?.LongTextColumnWidth ?? 300;
-      var maxRowHeight = LongTextColumn.EvaluateTextHeight(longText, collectionLongTextColumnWidth);
-      var actualRowHeight = RowHeight;
-      if (double.IsNaN(actualRowHeight))
-        actualRowHeight = 26;
-      return maxRowHeight > actualRowHeight;
-    }
-  }
+  ///// <summary>
+  ///// Can the long text be expanded in the UI?
+  ///// </summary>
+  //public bool CanExpandLongText
+  //{
+  //  get
+  //  {
+  //    var longText = LongText;
+  //    if (longText == null)
+  //      return false;
+  //    var collectionLongTextColumnWidth = Collection?.LongTextColumnWidth ?? 300;
+  //    var maxRowHeight = LongTextColumn.EvaluateTextHeight(longText, collectionLongTextColumnWidth);
+  //    var actualRowHeight = RowHeight;
+  //    if (double.IsNaN(actualRowHeight))
+  //      actualRowHeight = 26;
+  //    return maxRowHeight > actualRowHeight;
+  //  }
+  //}
 
 
 
@@ -457,6 +457,29 @@ public class WritingSystemViewModel(WritingSystem model)
     return Name + " " + Type?.ToString()?.ToLower();
   }
 
+  /// <summary>
+  /// Gets or sets property value
+  /// </summary>
+  /// <param name="propertyName"></param>
+  public object? this[string propertyName]
+  {
+    get
+    {
+      var propertyInfo = this.GetType().GetProperty(propertyName);
+      if (propertyInfo == null)
+        throw new InvalidOperationException($"Property {propertyName} not found in {this.GetType()}");
+      return propertyInfo.GetValue(this);
+    }
+    set
+    {
+      {
+        var propertyInfo = this.GetType().GetProperty(propertyName);
+        if (propertyInfo == null)
+          throw new InvalidOperationException($"Property {propertyName} not found in {this.GetType()}");
+        propertyInfo.SetValue(this, value);
+      }
+    }
+  }
   #region IRowHeightProvider implementation
   /// <summary>
   /// Simple property to provide the height of the row in a UI.

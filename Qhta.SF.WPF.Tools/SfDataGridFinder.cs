@@ -70,20 +70,20 @@ public class SfDataGridFinder
   /// <summary>
   /// Specified text to replace specified text (in StringTyped mode only).
   /// </summary>
-  public object? Replacement
+  public object? ReplacementValue
   {
-    get => replacement;
+    get => replacementValue;
     set
     {
       if (DataGrid.IsReadOnly)
         throw new InvalidOperationException($"DataGrid is read-only.");
       if (!Property.CanWrite)
         throw new InvalidOperationException($"Property '{Property.Name}' is read-only.");
-      replacement = value;
+      replacementValue = value;
     }
   }
 
-  internal object? replacement;
+  internal object? replacementValue;
 
   /// <summary>
   /// Predicate defining the conditions of comparison.
@@ -99,6 +99,11 @@ public class SfDataGridFinder
     FilterType = FilterType.Contains,
     IsCaseSensitive = false
   };
+
+  /// <summary>
+  /// Defines whether the specified value was found in the column.
+  /// </summary>
+  public bool Found { get; set; }
 
   /// <summary>
   /// Finds the first occurrence of a specified text in the column and selects the corresponding cell.
@@ -119,12 +124,14 @@ public class SfDataGridFinder
         DataGrid.ScrollInView(new RowColumnIndex(rowIndex, columnIndex));
         if (Replace)
         {
-          var replacementValue = EvaluateReplacement(currentValue, specifiedValue, replacement, predicate);
-          Property.SetValue(row, replacementValue);
+          var replacement = EvaluateReplacement(currentValue, SpecifiedValue, ReplacementValue, Predicate);
+          Property.SetValue(row, replacement);
         }
+        Found = true;
         return true;
       }
     }
+    Found = false;
     return false;
   }
 
@@ -155,12 +162,14 @@ public class SfDataGridFinder
         DataGrid.ScrollInView(new RowColumnIndex(rowIndex, columnIndex));
         if (Replace)
         {
-          var replacementValue = EvaluateReplacement(currentValue, specifiedValue, replacement, predicate);
-          Property.SetValue(row, replacementValue);
+          var replacement = EvaluateReplacement(currentValue, SpecifiedValue, ReplacementValue, predicate);
+          Property.SetValue(row, replacement);
         }
+        Found = true;
         return true;
       }
     }
+    Found = false;
     return false;
   }
 
@@ -170,7 +179,7 @@ public class SfDataGridFinder
   /// <returns>Number of selected cells</returns>
   public int FindAll()
   {
-    int found = 0;
+    int foundCount = 0;
     var columnIndex = DataGrid.Columns.IndexOf(Column);
     var selectedRow = DataGrid.GetSelectedCells().FirstOrDefault()?.RowData;
     var startSearching = selectedRow == null;
@@ -183,23 +192,24 @@ public class SfDataGridFinder
       {
         //Debug.WriteLine($"Found value: {value} in row: {row}");
         var rowIndex = DataGrid.ResolveToRowIndex(row);
-        if (found == 0)
+        if (foundCount == 0)
         {
           firstRowIndex = rowIndex;
           DataGrid.SelectAllColumns(false);
         }
-        found++;
+        foundCount++;
         if (Replace)
         {
-          var replacementValue = EvaluateReplacement(currentValue, specifiedValue, replacement, predicate);
-          Property.SetValue(row, replacementValue);
+          var replacement = EvaluateReplacement(currentValue, SpecifiedValue, ReplacementValue, predicate);
+          Property.SetValue(row, replacement);
         }
         DataGrid.SelectCells(row, Column, row, Column);
       }
     }
     if (firstRowIndex >= 0)
       DataGrid.ScrollInView(new RowColumnIndex(firstRowIndex, columnIndex));
-    return found;
+    Found = foundCount > 0;
+    return foundCount;
   }
 
   /// <summary>

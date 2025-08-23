@@ -1,0 +1,1 @@
+search_result['84']=["topic_000000000000003A.html","SpecificValueWindow.WindowMode Property","Specifies the mode of the window, which can be either EditViewOnly, SelectorOnly, or Both."];

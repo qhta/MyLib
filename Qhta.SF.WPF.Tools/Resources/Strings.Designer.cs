@@ -70,6 +70,15 @@ namespace Qhta.SF.WPF.Tools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Column management.
+        /// </summary>
+        public static string ColumnManagement {
+            get {
+                return ResourceManager.GetString("ColumnManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         public static string Confirm {
@@ -120,6 +129,24 @@ namespace Qhta.SF.WPF.Tools.Resources {
         public static string FoundNValues {
             get {
                 return ResourceManager.GetString("FoundNValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move down.
+        /// </summary>
+        public static string MoveDown {
+            get {
+                return ResourceManager.GetString("MoveDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move up.
+        /// </summary>
+        public static string MoveUp {
+            get {
+                return ResourceManager.GetString("MoveUp", resourceCulture);
             }
         }
         

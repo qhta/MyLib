@@ -1,0 +1,1 @@
+search_result['373']=["topic_00000000000000DF.html","SfDataGridFinder.FindAll Method","Finds all occurrences of a specified value in the column and selects the corresponding cells."];

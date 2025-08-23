@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"Qhta.SF.WPF.Tools Reference","topic_00000000000000EA.html"],['4',"Qhta.SF.WPF.Tools Namespace","topic_0000000000000010.html"],['45',"RecordNavigationBar Class","topic_0000000000000082.html"],['47',"Properties","topic_0000000000000082_props--.html"],['49',"FirstItemCommand Property","topic_000000000000008E.html"]];

@@ -18,18 +18,8 @@
       <RowDefinition Height="24"/>
     </Grid.RowDefinitions>
     <sf:SfDataGrid x:Name="UcdBlocksDataGrid"
-
                    ItemsSource ="{Binding}"
-                   AllowDraggingColumns="True"
-                   AllowEditing="True"
-                   AllowFiltering="True"
-                   AllowResizingColumns="True"
-                   ColumnSizer="Auto"
-                   HeaderRowHeight="26"
-                   QueryRowHeight="DataGrid_OnQueryRowHeight"
                    AutoGenerateColumns="False"
-                   ShowRowHeader="True"
-                   EditTrigger="OnTap"
     >
       <!--SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
 

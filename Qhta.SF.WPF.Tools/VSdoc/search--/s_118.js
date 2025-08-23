@@ -1,0 +1,1 @@
+search_result['118']=["topic_0000000000000057.html","DoubleUtil Class","Utility class for comparing double values with a specified tolerance."];

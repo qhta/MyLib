@@ -1,0 +1,1 @@
+search_result['109']=["topic_0000000000000053.html","SpecificValueWindow.CaseSensitive Property","Indicates whether to search text with case-sensitivity."];

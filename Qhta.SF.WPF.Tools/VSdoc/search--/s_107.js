@@ -1,0 +1,1 @@
+search_result['107']=["topic_0000000000000051.html","SpecificValueWindow.FilterType Property","Determines the type of filter to apply when searching for values in the data grid."];

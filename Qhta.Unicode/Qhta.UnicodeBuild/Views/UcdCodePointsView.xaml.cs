@@ -29,13 +29,13 @@ public partial class UcdCodePointsView : UserControl, IRoutedCommandHandler
     InitializeComponent();
   }
 
-  private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
-  {
-    RowHeightProvider.OnQueryRowHeight(sender, e);
-    if (e.Handled)
-      return;
-    LongTextColumn.OnQueryRowHeight(sender, e);
-  }
+  //private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
+  //{
+  //  RowHeightProvider.OnQueryRowHeight(sender, e);
+  //  if (e.Handled)
+  //    return;
+  //  LongTextColumn.OnQueryRowHeight(sender, e);
+  //}
 
   private void UpDown_OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
   {
@@ -61,10 +61,6 @@ public partial class UcdCodePointsView : UserControl, IRoutedCommandHandler
       dataGrid.View.Refresh();
     }
   }
-
-  private void CodePointDataGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e) => SfDataGridFiltering.FilterItemsPopulating(sender, e);
-
-  private void CodePointDataGrid_OnFilterChanging(object? sender, GridFilterEventArgs e) => SfDataGridFiltering.FilterChanging(sender, e);
 
   /// <summary>
   /// Implements the <see cref="IRoutedCommandHandler"/> interface to handle command execution and can-execute checks for routed commands.

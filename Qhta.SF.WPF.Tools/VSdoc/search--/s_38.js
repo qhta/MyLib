@@ -1,0 +1,1 @@
+search_result['38']=["topic_0000000000000015.html","Strings.Cancel Property","Looks up a localized string similar to Cancel."];

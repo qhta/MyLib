@@ -1,0 +1,1 @@
+search_result['227']=["topic_0000000000000087.html","RecordNavigationBar.RowsCount Property","Gets or sets the number of rows in the collection."];

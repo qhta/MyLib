@@ -1,9 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-
-using Syncfusion.UI.Xaml.Grid;
+﻿using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.SF.WPF.Tools;
 

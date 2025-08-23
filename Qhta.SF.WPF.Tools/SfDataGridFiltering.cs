@@ -20,10 +20,20 @@ public static class SfDataGridFiltering
   /// </summary>
   /// <param name="sender"></param>
   /// <param name="e"></param>
-  public static void FilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e)
+  public static void OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e)
   {
-    if (e.Column is GridComboBoxColumn comboBoxColumn && comboBoxColumn.ItemsSource is IEnumerable<ISelectableItem> selectableItems)
+    if (e.Column is GridComboBoxColumn comboBoxColumn)
+    {
+      if (comboBoxColumn.ItemsSource is not IEnumerable<ISelectableItem> selectableItems)
+      {
+        selectableItems = new List<ISelectableItem>();
+        foreach (var item in comboBoxColumn.ItemsSource)
+        {
+          selectableItems = selectableItems.Append(new SelectableItem { DisplayName = item?.ToString() ?? Strings.EmptyValue, Value = item });
+        }
+      }
       SetSelectableItemsFilter(selectableItems);
+    }
     else
       SetAdvancedFilter();
 
@@ -70,7 +80,7 @@ public static class SfDataGridFiltering
   /// </summary>
   /// <param name="sender"></param>
   /// <param name="e"></param>
-  public static void FilterChanging(object? sender, GridFilterEventArgs e)
+  public static void OnFilterChanging(object? sender, GridFilterEventArgs e)
   {
     if (e.FilterPredicates == null)
       return;

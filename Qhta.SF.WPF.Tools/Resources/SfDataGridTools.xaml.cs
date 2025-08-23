@@ -1,17 +1,13 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
 using Qhta.WPF.Utils;
-using Syncfusion.Linq;
+
 using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.UI.Xaml.Grid.Helpers;
-using Syncfusion.UI.Xaml.ScrollAxis;
 
 namespace Qhta.SF.WPF.Tools;
 
@@ -24,6 +20,7 @@ namespace Qhta.SF.WPF.Tools;
 /// selections based on user input.</remarks>
 public partial class SfDataGridTools : ResourceDictionary
 {
+  #region selection handling
   const int ResizeMargin = 5;
   /// <summary>
   /// Handles the mouse left button down event on a <see cref="GridHeaderCellControl"/>. This method toggles the
@@ -39,9 +36,9 @@ public partial class SfDataGridTools : ResourceDictionary
   /// </remarks>
   private void GridHeaderCellControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
   {
-    //Debug.WriteLine($"Grid_OnPreviewMouseLeftButtonDown({sender})");
+    //Debug.WriteLine($"GridHeaderCellControl_MouseLeftButtonDown({sender})");
 
-    if (sender is GridHeaderCellControl headerCellControl)
+    if (sender is GridHeaderCellControl headerCellControl && e.ChangedButton == MouseButton.Left)
     {
       var column = headerCellControl.Column;
       if (column == null) return;
@@ -81,31 +78,31 @@ public partial class SfDataGridTools : ResourceDictionary
       if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) && isSelected)
       {
         var selectedColumnIndex = dataGrid.Columns.IndexOf(column);
-        int? lastPreviousSelectedColumnIndex = null;
+        int? lastPriorSelectedColumnIndex = null;
         int? firstNextSelectedColumnIndex = null;
         for (var i = 0; i < dataGrid.Columns.Count; i++)
         {
           var col = dataGrid.Columns[i];
           if (SfDataGridColumnBehavior.GetIsSelected(col))
           {
-            if (i < selectedColumnIndex) lastPreviousSelectedColumnIndex = i;
+            if (i < selectedColumnIndex) lastPriorSelectedColumnIndex = i;
             else if (i > selectedColumnIndex) firstNextSelectedColumnIndex = i;
           }
         }
-        if (lastPreviousSelectedColumnIndex != null || firstNextSelectedColumnIndex != null)
+        if (lastPriorSelectedColumnIndex != null || firstNextSelectedColumnIndex != null)
         {
-          if (lastPreviousSelectedColumnIndex != null && (firstNextSelectedColumnIndex == null ||
+          if (lastPriorSelectedColumnIndex != null && (firstNextSelectedColumnIndex == null ||
                                                           firstNextSelectedColumnIndex - selectedColumnIndex >=
-                                                          selectedColumnIndex - lastPreviousSelectedColumnIndex))
+                                                          selectedColumnIndex - lastPriorSelectedColumnIndex))
             // Select all columns from last previous selected to current
-            for (var i = lastPreviousSelectedColumnIndex.Value + 1; i < selectedColumnIndex; i++)
+            for (var i = lastPriorSelectedColumnIndex.Value + 1; i < selectedColumnIndex; i++)
             {
               var col = dataGrid.Columns[i];
               if (col != column) SfDataGridColumnBehavior.SetIsSelected(col, isSelected);
             }
-          if (firstNextSelectedColumnIndex != null && (lastPreviousSelectedColumnIndex == null ||
+          if (firstNextSelectedColumnIndex != null && (lastPriorSelectedColumnIndex == null ||
                                                        firstNextSelectedColumnIndex - selectedColumnIndex >=
-                                                       selectedColumnIndex - lastPreviousSelectedColumnIndex))
+                                                       selectedColumnIndex - lastPriorSelectedColumnIndex))
             // Select all columns from current to first next selected
             for (var i = selectedColumnIndex + 1; i < firstNextSelectedColumnIndex.Value; i++)
             {
@@ -118,10 +115,6 @@ public partial class SfDataGridTools : ResourceDictionary
 
       //Debug.WriteLine($"GridColumnBehavior.IsSelected: {isSelected} for column: {column.MappingName}");
       SfDataGridColumnBehavior.SetIsSelected(column, isSelected);
-      //// Clear the current selection
-      //dataGrid.SelectionController.ClearSelections(false);
-      //dataGrid.SelectionController.SelectRows(0,0);
-      //dataGrid.SelectionController.ClearSelections(false);
       e.Handled = true;
     }
   }
@@ -136,10 +129,10 @@ public partial class SfDataGridTools : ResourceDictionary
   /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
   private void GridRowHeaderIndentCell_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
   {
-    //Debug.WriteLine($"Grid_OnPreviewMouseLeftButtonDown({sender})");
+    //Debug.WriteLine($"GridRowHeaderIndentCell_MouseLeftButtonDown({sender})");
     e.Handled = true;
 
-    if (sender is GridRowHeaderIndentCell indentCell)
+    if (sender is GridRowHeaderIndentCell indentCell && e.ChangedButton == MouseButton.Left)
     {
       var dataGrid = indentCell.FindParent<SfDataGrid>();
       if (dataGrid == null) return;
@@ -147,8 +140,41 @@ public partial class SfDataGridTools : ResourceDictionary
       dataGrid.SelectAllColumns(!dataGrid.AreAllColumnsSelected());
     }
   }
+  #endregion selection handling
 
-  private void ShowPopup_Click(object sender, RoutedEventArgs e)
+  #region column management
+  /// <summary>
+  /// Handles the mouse right button down event on a <see cref="GridHeaderCellControl"/>.
+  /// This method executes <see cref="ColumnManagementCommand"/> if the dataGrid allows column management and the control does not have a context menu
+  /// and the command can be executed.
+  /// </summary>
+  /// <param name="sender"></param>
+  /// <param name="e"></param>
+  private void GridHeaderCellControl_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+  {
+    //Debug.WriteLine($"GridHeaderCellControl_MouseRightButtonDown({sender})");
+
+    if (sender is GridHeaderCellControl headerCellControl && e.ChangedButton==MouseButton.Right)
+    {
+      var column = headerCellControl.Column;
+      if (column == null) return;
+      var dataGrid = headerCellControl.FindParent<SfDataGrid>();
+      if (dataGrid == null) return;
+      if (SfDataGridBehavior.GetAllowColumnManagement(dataGrid))
+      {
+        var columnManagementCommand = new ColumnManagementCommand();
+        if (headerCellControl.ContextMenu == null && columnManagementCommand.CanExecute(dataGrid))
+        {
+          columnManagementCommand.Execute(dataGrid);
+          e.Handled = true;
+        }
+      }
+    }
+  }
+  #endregion
+
+  #region LongTextColumn code-behind
+  private void ShowPopupButton_Click(object sender, RoutedEventArgs e)
   {
     if (sender is Button button)
     {
@@ -175,6 +201,20 @@ public partial class SfDataGridTools : ResourceDictionary
     }
   }
 
+  private void HidePopupButton_Click(object sender, RoutedEventArgs e)
+  {
+    if (sender is Button button)
+    {
+      if (VisualTreeHelper.GetParent(button) is Grid grid)
+      {
+        var popup = button.FindParent<Popup>();
+        if (popup != null)
+        {
+          popup.IsOpen = false;
+        }
+      }
+    }
+  }
   private void LongTextEditPopup_OnOpened(object? sender, EventArgs e)
   {
     if (sender is Popup popup)
@@ -200,7 +240,7 @@ public partial class SfDataGridTools : ResourceDictionary
   private void ScrollViewer_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
   {
     var popup = GetOpenLongTextEditPopup();
-    if (popup != null && popup.PlacementTarget!=null)
+    if (popup != null && popup.PlacementTarget != null)
     {
       var gridCell = VisualTreeHelperExt.FindParent<GridCell>(popup.PlacementTarget);
       if (gridCell != null && gridCell.ColumnBase.GridColumn is LongTextColumn)
@@ -233,16 +273,33 @@ public partial class SfDataGridTools : ResourceDictionary
     }
     return null;
   }
+  #endregion
 
-  private void DataGrid_Loaded(object? sender, EventArgs e)
+  private void DataGrid_OnLoaded(object? sender, EventArgs e)
   {
     if (sender is not SfDataGrid dataGrid)
       return;
+    dataGrid.QueryRowHeight += DataGrid_OnQueryRowHeight;
+    dataGrid.FilterItemsPopulating += DataGrid_OnFilterItemsPopulating;
+    dataGrid.FilterChanged += DataGrid_OnFilterChanged;
     // Attach event handlers for copy and paste operations
     dataGrid.GridCopyContent += DataGrid_OnGridCopyContent;
     dataGrid.GridPasteContent += DataGrid_OnGridPasteContent;
-    dataGrid.KeyDown += DataGrid_KeyDown;
   }
+
+  private void DataGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e) => SfDataGridFiltering.OnFilterItemsPopulating(sender, e);
+
+
+  private void DataGrid_OnFilterChanged(object? sender, GridFilterEventArgs e) => SfDataGridFiltering.OnFilterChanging(sender, e);
+
+  private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
+  {
+    RowHeightProvider.OnQueryRowHeight(sender, e);
+    if (e.Handled)
+      return;
+    LongTextColumn.OnQueryRowHeight(sender, e);
+  }
+
 
   private void DataGrid_OnGridCopyContent(object? sender, GridCopyPasteEventArgs e)
   {
@@ -266,37 +323,46 @@ public partial class SfDataGridTools : ResourceDictionary
     }
   }
 
-  private void DataGrid_KeyDown(object sender, KeyEventArgs e)
+  private void DataGrid_OnKeyDown(object sender, KeyEventArgs e)
   {
     //Debug.WriteLine($"CodePointDataGrid_KeyDown: {e.Key} {Keyboard.Modifiers}");
-    if (sender is not SfDataGrid grid)
+    if (sender is not SfDataGrid dataGrid)
       return;
+    FindAndReplaceCommand findCommand;
     switch (e.Key)
     {
       case Key.C when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
-      {
-        SfDataGridCommander.CopyData(grid);
+        SfDataGridCommander.CopyData(dataGrid);
         e.Handled = true;
         return;
-      }
       case Key.X when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
-      {
-        SfDataGridCommander.CutData(grid);
+        SfDataGridCommander.CutData(dataGrid);
         e.Handled = true;
         return;
-      }
       case Key.V when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
-      {
-        SfDataGridCommander.PasteData(grid);
+        SfDataGridCommander.PasteData(dataGrid);
         e.Handled = true;
         return;
-      }
       case Key.Delete:
-      {
-        SfDataGridCommander.DeleteData(grid);
+        SfDataGridCommander.DeleteData(dataGrid);
         e.Handled = true;
         return;
-      }
+      case Key.F when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
+        findCommand = new FindAndReplaceCommand();
+        if (findCommand.CanExecute(dataGrid))
+        {
+          findCommand.Execute(dataGrid);
+          e.Handled = true;
+        }
+        return;
+      case Key.F3:
+        findCommand = new FindAndReplaceCommand();
+        if (findCommand.CanExecuteFindNext(dataGrid))
+        {
+          findCommand.ExecuteFindNext(dataGrid);
+          e.Handled = true;
+        }
+        return;
     }
   }
 

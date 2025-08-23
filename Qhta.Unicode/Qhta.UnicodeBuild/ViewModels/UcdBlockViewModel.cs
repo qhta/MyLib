@@ -12,7 +12,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <summary>
 /// ViewModel for a Unicode Character Database (UCD) block.
 /// </summary>
-public partial class UcdBlockViewModel : ViewModel<UcdBlock>, ILongTextViewModel, IComparable<UcdBlockViewModel>, 
+public partial class UcdBlockViewModel : ViewModel<UcdBlock>, IComparable<UcdBlockViewModel>, 
   ISelectableItem,
   IRowHeightProvider, IErrorMessageProvider
 {

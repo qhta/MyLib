@@ -70,17 +70,16 @@ public class SfDataGridColumnBehavior : Behavior<GridColumn>
     if (isSelected)
     {
       column.HeaderStyle = Application.Current.FindResource("SelectedColumnHeaderStyle") as Style;
-      column.CellStyle = Application.Current.FindResource("SelectedGridStyle") as Style;
+      column.CellStyle = Application.Current.FindResource("SelectedGridCellStyle") as Style;
     }
     else
     {
       // Reset to default style or template
       column.ClearValue(GridColumnBase.HeaderStyleProperty);
-      column.CellStyle = Application.Current.FindResource("UnselectedGridStyle") as Style;
+      column.CellStyle = Application.Current.FindResource("UnselectedGridCellStyle") as Style;
     }
   }
   #endregion
-
 }
 
 /// <summary>

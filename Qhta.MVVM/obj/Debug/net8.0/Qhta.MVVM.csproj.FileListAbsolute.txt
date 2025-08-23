@@ -14,3 +14,7 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0\refint\Qhta.MVVM.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0\Qhta.MVVM.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0\Qhta.MVVM.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM\obj\Debug\net8.0\ref\Qhta.MVVM.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.MVVM.deps.json
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.MVVM.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.MVVM.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.MVVM.xml

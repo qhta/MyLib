@@ -1,0 +1,1 @@
+search_result['216']=["topic_0000000000000081.html","NonEmptyValue.Instance Property","Static singleton instance of the NonEmptyValue class."];

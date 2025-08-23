@@ -1,0 +1,1 @@
+search_result['184']=["topic_0000000000000075.html","LongTextColumn Class","Represents a column in a data grid that adjusts its row height based on the content length."];

@@ -1,0 +1,1 @@
+search_result['37']=["topic_0000000000000014.html","Strings.Culture Property","Overrides the current thread\u0027s CurrentUICulture property for all\r\n  resource lookups using this strongly typed resource class."];

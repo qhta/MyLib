@@ -1,0 +1,82 @@
+﻿<Window x:Class="Qhta.SF.WPF.Tools.Views.ColumnManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Qhta.SF.WPF.Tools"
+        xmlns:resources="clr-namespace:Qhta.SF.WPF.Tools.Resources"
+        xmlns:converters="clr-namespace:Qhta.WPF.Converters;assembly=Qhta.WPF.Converters"
+        xmlns:views="clr-namespace:Qhta.SF.WPF.Tools.Views"
+        mc:Ignorable="d"
+        Title="ColumnManagementWindow" Height="450" Width="300">
+  <Grid Background="LightGray">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <ListBox x:Name="ColumnsListBox"
+        Grid.Column="0"
+        Margin="10"
+        ItemsSource="{Binding}"
+        SelectionMode="Multiple">
+        <ListBox.ItemTemplate>
+          <DataTemplate DataType="{x:Type local:ColumnSelectionItem}">
+            <StackPanel 
+              Orientation="Horizontal"
+              VerticalAlignment="Center">
+              <CheckBox
+              IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+              <TextBlock
+              Text="{Binding DisplayName}"
+              Margin="10,0,0,0"/>
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <StackPanel Grid.Column="1"
+        Orientation="Vertical"
+        VerticalAlignment="Center"
+        Margin="0,10,10,10">
+        <Button x:Name="MoveUpButton"
+          Content="▲"
+          ToolTip="{x:Static resources:Strings.MoveUp}"
+          Width="20"
+          Height="20"
+          Focusable="False"
+          IsEnabled="{Binding IsMoveUpEnabled, RelativeSource={RelativeSource AncestorType={x:Type views:ColumnManagementWindow}}, Mode=OneWay}"
+          Click="MoveUpButton_OnClick"/>
+        <Button x:Name="MoveDownButton"
+          Content="▼"
+          ToolTip="{x:Static resources:Strings.MoveDown}"
+          Width="20"
+          Height="20"
+          Focusable="False"
+          Margin="0,10,0,0"
+          IsEnabled="{Binding IsMoveDownEnabled, RelativeSource={RelativeSource AncestorType={x:Type views:ColumnManagementWindow}}, Mode=OneWay}"
+          Click="MoveDownButton_OnClick"/>
+      </StackPanel>
+    </Grid>
+    <StackPanel Grid.Row="1"
+      Orientation="Horizontal"
+      HorizontalAlignment="Center"
+      Margin="10">
+      <Button x:Name="OkButton"
+        Content="{x:Static resources:Strings.OK}"
+        Width="80"
+        IsDefault="True"
+        Click="OkButton_OnClick"/>
+      <Button
+        x:Name="CancelButton"
+        Content="{x:Static resources:Strings.Cancel}"
+        Width="80"
+        Margin="10,0,0,0"
+        IsCancel="True"
+        Click="CancelButton_OnClick"/>
+    </StackPanel>
+  </Grid>
+</Window>

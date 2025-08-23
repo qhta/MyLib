@@ -188,15 +188,11 @@
                    x:Name="WritingSystemsDataGrid" 
                    DataContext ="{StaticResource ViewModels}"
                    ItemsSource ="{Binding Instance.WritingSystems}"
-                   QueryRowHeight="DataGrid_OnQueryRowHeight"
                    AutoGenerateColumns="False"
                    SelectionChanged="WritingSystemsDataGrid_OnSelectionChanged"
                    ContextMenu="{StaticResource WritingSystemsContextMenu}"
                    RecordContextMenu="{StaticResource WritingSystemsRowContextMenu}"
-                   FilterItemsPopulating="WritingSystemsGrid_OnFilterItemsPopulating"
-                   FilterChanging="WritingSystemsGrid_OnFilterChanging"
                    tools:SfDataGridBehavior.AllowRowResizing="True"
-                   GridCopyContent="WritingSystemsDataGrid_OnGridCopyContent"
                    RecordDeleted="WritingSystemsDataGrid_OnRecordDeleted"
                    >
         <!--GridValidationMode="InEdit"-->
@@ -310,7 +306,8 @@
           HeaderText="Key phrase"
           MappingName="KeyPhrase"
           VerticalAlignment="Top"
-          CellTemplate="{StaticResource TextCellTemplate}">
+          Padding="2"
+          >
             <sf:GridColumn.HeaderTemplate>
               <DataTemplate>
                 <TextBlock Text="{x:Static resources:WritingSystemStrings.KeyPhrase}" 

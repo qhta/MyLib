@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Qhta.WPF.Behaviors</name>
+    </assembly>
+    <members>
+        <member name="T:Qhta.WPF.Behaviors.ColumnSizerType">
+            <summary>
+            Defines the constants that specify how the elements in a DataGrid are sized.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.ColumnSizerType.None">
+            <summary>
+            No sizing. The DefaultLineSize will be set for the columns.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.ColumnSizerType.Auto">
+            <summary>
+            The size is based on the contents of both the cells and the column header.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.ColumnSizerType.AutoWithLastColumnFill">
+            <summary>
+            The size is based on the contents of both the cells and the column header with last column fill by default. The column to be filled can be any column.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.ColumnSizerType.AutoLastColumnFill">
+            <summary>
+            The size is based on the contents of both the cells and the column header with last column autofill. The column to be filled can be any column.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.ColumnSizerType.SizeToCells">
+            <summary>The size is based on the contents of the cells.</summary>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.ColumnSizerType.SizeToHeader">
+            <summary>
+            The size is based on the contents of the column header.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.ColumnSizerType.Star">
+            <summary>The size is a weighted proportion of available space.</summary>
+        </member>
+        <member name="T:Qhta.WPF.Behaviors.DataGridBehavior">
+            <summary>
+             Declares an extensive behavior for DataGrid controls.
+            </summary>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.DataGridBehavior.AllowEditingProperty">
+            <summary>
+            Attached property to allow direct editing in a DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.GetAllowEditing(System.Windows.Controls.DataGrid)">
+            <summary>
+             Get method for the AllowEditing attached property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.SetAllowEditing(System.Windows.Controls.DataGrid,System.Boolean)">
+            <summary>
+            Set method for the AllowEditing attached property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.DataGridBehavior.AllowDraggingColumnsProperty">
+            <summary>
+            Attached property to allow dragging columns in a DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.GetAllowDraggingColumns(System.Windows.Controls.DataGrid)">
+            <summary>
+             Get method for the AllowDraggingColumns attached property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.SetAllowDraggingColumns(System.Windows.Controls.DataGrid,System.Boolean)">
+            <summary>
+            Set method for the AllowDraggingColumns attached property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.DataGridBehavior.AllowFilteringProperty">
+            <summary>
+            Attached property to allow filtering data in a DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.GetAllowFiltering(System.Windows.Controls.DataGrid)">
+            <summary>
+             Get method for the AllowFiltering attached property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.SetAllowFiltering(System.Windows.Controls.DataGrid,System.Boolean)">
+            <summary>
+            Set method for the AllowFiltering attached property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.DataGridBehavior.AllowResizingColumnsProperty">
+            <summary>
+            Attached property to allow resizing columns in a DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.GetAllowResizingColumns(System.Windows.Controls.DataGrid)">
+            <summary>
+             Get method for the AllowResizingColumns attached property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.SetAllowResizingColumns(System.Windows.Controls.DataGrid,System.Boolean)">
+            <summary>
+            Set method for the AllowResizingColumns attached property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.DataGridBehavior.AllowSortingProperty">
+            <summary>
+            Attached property to allow sorting data in a DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.GetAllowSorting(System.Windows.Controls.DataGrid)">
+            <summary>
+             Get method for the AllowSorting attached property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.SetAllowSorting(System.Windows.Controls.DataGrid,System.Boolean)">
+            <summary>
+            Set method for the AllowSorting attached property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.DataGridBehavior.AllowTriStateSortingProperty">
+            <summary>
+            Attached property to allow 3-state sorting in a DataGrid.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.GetAllowTriStateSorting(System.Windows.Controls.DataGrid)">
+            <summary>
+             Get method for the AllowTriStateSorting attached property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.SetAllowTriStateSorting(System.Windows.Controls.DataGrid,System.Boolean)">
+            <summary>
+            Set method for the AllowTriStateSorting attached property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.WPF.Behaviors.DataGridBehavior.ColumnSizerProperty">
+            <summary>
+            Attached property to determine how column in a DataGrid are sized.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.GetColumnSizer(System.Windows.Controls.DataGrid)">
+            <summary>
+             Get method for the ColumnSizer attached property.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Behaviors.DataGridBehavior.SetColumnSizer(System.Windows.Controls.DataGrid,Qhta.WPF.Behaviors.ColumnSizerType)">
+            <summary>
+            Set method for the ColumnSizer attached property.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+    </members>
+</doc>

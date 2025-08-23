@@ -1,0 +1,1 @@
+search_result['162']=["topic_0000000000000069.html","IRemovableCollection.CanRemove Method","Returns a value indicating whether the specified item can be removed from the collection."];

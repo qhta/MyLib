@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using System.Reflection.Emit;
+using System.Windows;
 using System.Windows.Media;
 
-using Qhta.MVVM;
-
 using Syncfusion.UI.Xaml.Grid;
+using Syncfusion.UI.Xaml.Grid.Helpers;
+using Syncfusion.UI.Xaml.ScrollAxis;
 
 namespace Qhta.SF.WPF.Tools;
 
@@ -17,50 +19,67 @@ namespace Qhta.SF.WPF.Tools;
 public class LongTextColumn : GridTemplateColumn
 {
   /// <summary>
-  /// Gets the default font name used by the application.
+  /// Initializes a new instance of the <see cref="LongTextColumn"/> class.
   /// </summary>
-  public static string DefaultFont { [DebuggerStepThrough] get; set; } = "Segoe UI";
+  public LongTextColumn()
+  {
+    // Set default CellTemplate
+    CellTemplate = (DataTemplate)Application.Current.Resources["LongTextCellTemplate"]!;
+
+    // Set default CellEditTemplate
+    EditTemplate = (DataTemplate)Application.Current.Resources["LongTextEditTemplate"]!;
+
+  }
+
   /// <summary>
-  /// Gets the default font size used by the application.
+  /// This method is needed to invalidate ShowPopupButton visibility when the ActualWidth changes.
   /// </summary>
-  public static double DefaultFontSize { [DebuggerStepThrough] get; set; } = 12;
+  /// <param name="e"></param>
+  protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+  {
+    if (e.Property.Name == nameof(ActualWidth))
+    {
+      if (this.DataGrid != null)
+      {
+        // Access the visual container of the DataGrid
+        var visualContainer = this.DataGrid.GetVisualContainer();
+        if (visualContainer != null)
+        {
+          // Iterate through all visible rows using ScrollRows
+          foreach (var row in visualContainer.ScrollRows.GetVisibleLines())
+          {
+            this.DataGrid.UpdateDataRow(row.LineIndex);
+          }
+        }
+      }
+    }
+    base.OnPropertyChanged(e);
+  }
 
   /// <summary>
   /// Adjusts the height of a row in a <see cref="SfDataGrid"/> based on the content of long text columns.
-  /// Default font is <see cref="DefaultFont"/> and default font size is <see cref="DefaultFontSize"/>.
-  /// These properties can be set to change the font used for text evaluation.
   /// </summary>
-  /// <remarks>This method calculates the required height for a row by evaluating the content of columns that
-  /// implement <see cref="LongTextColumn"/>. If the data associated with the row implements <see
-  /// cref="ILongTextViewModel"/> and the long text is expanded, the method sets the row height to accommodate the text.
-  /// The height is adjusted only if the row index is valid and the text is not empty. The method marks the event as
-  /// handled after setting the height.</remarks>
+  /// <remarks>This method calculates the required height for a row by evaluating its text height</remarks>
   /// <param name="sender">The source of the event, typically an instance of <see cref="SfDataGrid"/>.</param>
   /// <param name="e">The event data containing information about the row height query.</param>
   public static void OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
   {
     if (sender is SfDataGrid dataGrid && e.RowIndex > 0 && e.RowIndex <= dataGrid.View.Records.Count)
     {
-      if (dataGrid.View.Records[e.RowIndex - 1].Data is ILongTextViewModel viewModel)
+      var longTextColumns = dataGrid.Columns.OfType<LongTextColumn>();
+      var maxRowHeight = 0.0;
+      foreach (var column in longTextColumns)
       {
-        var longTextColumns = dataGrid.Columns.OfType<LongTextColumn>();
-        var maxRowHeight = 0.0;
-        foreach (var longTextColumn in longTextColumns)
-        {
-          //Debug.WriteLine($"Found long text column: {longTextColumn.MappingName}");
-          var longText = GetCellText(longTextColumn, dataGrid.View.Records[e.RowIndex - 1].Data);
-          if (string.IsNullOrEmpty(longText))
-            return;
-          if (!viewModel.IsLongTextExpanded)
-            return;
-          var maxWidth = longTextColumn.ActualWidth - 6;
-          var cellHeight = EvaluateTextHeight(longText, maxWidth) + +12; // Add some padding;
-          if (cellHeight > maxRowHeight)
-            maxRowHeight = cellHeight;
-        }
-        e.Height = maxRowHeight;
-        e.Handled = true;
+        //Debug.WriteLine($"Found long text column: {longTextColumn.MappingName}");
+        var longText = GetCellText(column, dataGrid.View.Records[e.RowIndex - 1].Data);
+        if (string.IsNullOrEmpty(longText))
+          return;
+        var cellHeight = column.EvaluateTextHeight(longText) + 12; // Add some padding;
+        if (cellHeight > maxRowHeight)
+          maxRowHeight = cellHeight;
       }
+      e.Height = maxRowHeight;
+      e.Handled = true;
     }
   }
 
@@ -68,12 +87,13 @@ public class LongTextColumn : GridTemplateColumn
   /// Evaluates the height of a given long text string based on a specified maximum width.
   /// </summary>
   /// <param name="longText">Text to evaluate</param>
-  /// <param name="maxWidth">Maximum text width i one line</param>
-  /// <param name="fontName">Name of the font used for evaluation</param>
-  /// <param name="fontSize">Em size of the font used for evaluation</param>
   /// <returns></returns>
-  public static double EvaluateTextHeight(string longText, double maxWidth, string fontName = "Segoe UI", double fontSize = 12.0 )
+  public double EvaluateTextHeight(string longText)
   {
+    //Note: We assume that the font name and size of the column are the same as the whole grid has.
+    var dataGrid = this.DataGrid;
+    string fontName = dataGrid.FontFamily.Source;
+    double fontSize = dataGrid.FontSize;
     var formattedText = new FormattedText(
       longText,
       System.Globalization.CultureInfo.CurrentCulture,
@@ -83,7 +103,7 @@ public class LongTextColumn : GridTemplateColumn
       Brushes.Black,
       new NumberSubstitution(),
       1);
-    formattedText.MaxTextWidth = maxWidth;
+    formattedText.MaxTextWidth = ActualWidth - 6; // Subtract some padding
     var textHeight = formattedText.Height;
     return textHeight;
   }

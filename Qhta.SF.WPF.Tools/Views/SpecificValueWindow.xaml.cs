@@ -113,19 +113,19 @@ public partial class SpecificValueWindow : Window
     switch (WindowMode)
     {
       case SpecificWindowMode.Fill:
-        OverWriteNonEmptyCellsButton.Visibility = Visibility.Visible;
+        OverwriteNonEmptyCellsButton.Visibility = Visibility.Visible;
         FindInSequenceComboBox.Visibility = Visibility.Collapsed;
         break;
 
       case SpecificWindowMode.Find:
-        OverWriteNonEmptyCellsButton.Visibility = Visibility.Collapsed;
+        OverwriteNonEmptyCellsButton.Visibility = Visibility.Collapsed;
         FindInSequenceComboBox.Visibility = Visibility.Visible;
         ValueSelector.ReplaceCheckBox.Visibility = Visibility.Collapsed;
         ValueEdit.ReplaceCheckBox.Visibility = Visibility.Collapsed;
         break;
 
       case SpecificWindowMode.FindAndReplace:
-        OverWriteNonEmptyCellsButton.Visibility = Visibility.Collapsed;
+        OverwriteNonEmptyCellsButton.Visibility = Visibility.Collapsed;
         FindInSequenceComboBox.Visibility = Visibility.Visible;
         ValueSelector.ReplaceCheckBox.Visibility = Visibility.Visible;
         ValueEdit.ReplaceCheckBox.Visibility = Visibility.Visible;

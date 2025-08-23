@@ -23,11 +23,11 @@ public static partial class SfDataGridCommander
   /// <summary>
   /// Gets a type of the row data in the SfDataGrid.
   /// </summary>
-  /// <param name="grid"></param>
+  /// <param name="dataGrid"></param>
   /// <returns></returns>
-  public static Type? GetRowDataType(SfDataGrid grid)
+  public static Type? GetRowDataType(SfDataGrid dataGrid)
   {
-    var itemsSource = grid.View?.SourceCollection;
+    var itemsSource = dataGrid.View?.SourceCollection;
     if (itemsSource == null)
     {
       Debug.WriteLine("ItemsSource is null.");
@@ -110,8 +110,6 @@ public static partial class SfDataGridCommander
     var rowDataType = rowData.GetType();
     var propertyInfo = columnInfo.ValuePropertyInfo;
 
-    //if (columnInfo.MappingName=="Category")
-    //  Debug.Assert(true);
     var str = "";
     var cellValue = propertyInfo.GetValue(rowData);
     if (columnInfo.DisplayPropertyInfo != null)
@@ -122,7 +120,8 @@ public static partial class SfDataGridCommander
         str = (val is string str1) ? str1 : val?.ToString() ?? string.Empty;
       }
     }
-    else str = cellValue?.ToString() ?? string.Empty;
+    else 
+      str = cellValue?.ToString() ?? string.Empty;
     //Debug.Write($"{columnInfo.MappingName} = {str}");
     return str;
   }
@@ -223,16 +222,16 @@ public static partial class SfDataGridCommander
     out object[] selectedRows)
   {
     allColumnsSelected = false;
-    var selectedCells = dataGrid.GetSelectedCells().ToArray();
+    var selectedCells = dataGrid.GetSelectedCells().Where(cell => !cell.Column.IsHidden).ToArray();
     if (selectedCells.Length != 0)
       selectedColumns = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
     else
-      selectedColumns = dataGrid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
+      selectedColumns = dataGrid.Columns.Where(column => !column.IsHidden && SfDataGridColumnBehavior.GetIsSelected(column)).ToArray();
     if (!selectedColumns.Any())
     {
-      selectedColumns = dataGrid.Columns.ToArray();
+      selectedColumns = dataGrid.Columns.Where(column => !column.IsHidden).ToArray();
     }
-    else if (selectedColumns.Length == dataGrid.Columns.Count())
+    else if (selectedColumns.Length == dataGrid.Columns.Count(column => !column.IsHidden))
     {
       allColumnsSelected = true;
     }

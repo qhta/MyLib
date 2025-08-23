@@ -28,11 +28,11 @@ public static class RowHeightProvider
       //Debug.WriteLine($"OnQueryRowHeight invoked for {dataGrid.Name} in row {rowIndex}");
       if (rowIndex > 0 && rowIndex <= dataGrid.View.Records.Count)
       {
-        if (dataGrid.View.Records[rowIndex - 1].Data is IRowHeightProvider viewModel)
+        if (dataGrid.View.Records[rowIndex - 1].Data is IRowHeightProvider rowHeightProvider)
         {
-          if (Double.IsNaN(viewModel.RowHeight))
+          if (Double.IsNaN(rowHeightProvider.RowHeight))
             return;
-          e.Height = viewModel.RowHeight;
+          e.Height = rowHeightProvider.RowHeight;
           e.Handled = true;
         }
       }

@@ -8,7 +8,7 @@ public interface ISelectableItem
   /// <summary>
   /// Displayed name of the item, typically used in user interfaces to represent the item.
   /// </summary>
-  public string DisplayName { get; set; }
+  public string DisplayName { get;}
   
   /// <summary>
   /// Optional tooltip text that provides additional information about the item when hovered over in a user interface.
@@ -21,11 +21,6 @@ public interface ISelectableItem
   public object? ActualValue { get; }
 
   /// <summary>
-  /// Determines whether the item is currently selected in the user interface.
-  /// </summary>
-  public bool IsSelected { get; set; }
-
-  /// <summary>
   /// Determines whether the item should be considered as empty value.
   /// </summary>
   public bool IsEmpty => ActualValue is null;
@@ -34,4 +29,9 @@ public interface ISelectableItem
   /// Determines whether the item should be considered as any non-empty value.
   /// </summary>
   public bool IsNonEmpty => ActualValue is NonEmptyValue;
+
+  /// <summary>
+  /// Is this element selected in the UI context (e.g., in a list of selectable items).
+  /// </summary>
+  public bool IsSelected { get; set; }
 }

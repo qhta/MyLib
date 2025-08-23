@@ -1,0 +1,1 @@
+search_result['277']=["topic_00000000000000A5.html","SelectedItemEnumToResourceConverter Class","Works like EnumToResourceConverter, but if value is ISelectableItem, it takes its actual value."];

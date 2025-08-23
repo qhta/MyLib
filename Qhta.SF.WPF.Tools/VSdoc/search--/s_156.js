@@ -1,0 +1,1 @@
+search_result['156']=["topic_0000000000000068.html","IRemovableCollection Interface","A collection interface that supports removing items."];

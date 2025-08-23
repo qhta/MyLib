@@ -1,0 +1,1 @@
+search_result['315']=["topic_00000000000000B6.html","SfDataGridColumnBehaviorExtensions.GetFinder Method","Gets the finder associated with the column."];

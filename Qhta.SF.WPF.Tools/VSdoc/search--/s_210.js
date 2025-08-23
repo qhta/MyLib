@@ -1,0 +1,1 @@
+search_result['210']=["topic_0000000000000080.html","NonEmptyValue Class","Singleton class representing a non-empty value in the application."];

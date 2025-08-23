@@ -1,0 +1,1 @@
+search_result['192']=["topic_0000000000000078.html","LongTextColumn.OnQueryRowHeight Method","Adjusts the height of a row in a SfDataGrid based on the content of long text columns.\r\nDefault font is DefaultFont and default font size is DefaultFontSize.\r\nThese properties can be set to change the..."];

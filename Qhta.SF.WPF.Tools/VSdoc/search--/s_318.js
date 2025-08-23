@@ -1,0 +1,1 @@
+search_result['318']=["topic_00000000000000B9.html","SfDataGridColumnConverter Class","Provides a mechanism to convert GridColumn objects to specific property values for data binding in a\r\nSfDataGrid."];

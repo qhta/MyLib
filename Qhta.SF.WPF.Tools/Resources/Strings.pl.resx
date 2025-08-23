@@ -120,6 +120,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Anuluj</value>
   </data>
+  <data name="ColumnManagement" xml:space="preserve">
+    <value>Zarządzanie kolumnami</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Potwierdź</value>
   </data>
@@ -137,6 +140,12 @@
   </data>
   <data name="FoundNValues" xml:space="preserve">
     <value>Znaleziono {0} wartości</value>
+  </data>
+  <data name="MoveDown" xml:space="preserve">
+    <value>Przesuń w dół</value>
+  </data>
+  <data name="MoveUp" xml:space="preserve">
+    <value>Przesuń w górę</value>
   </data>
   <data name="NonEmptyValue" xml:space="preserve">
     <value>(Wartość niepusta)</value>

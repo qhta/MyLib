@@ -1,0 +1,1 @@
+c['31']=[['32',"EvaluateTextHeight Method","topic_0000000000000079.html",0],['33',"OnQueryRowHeight Method","topic_0000000000000078.html",0]];

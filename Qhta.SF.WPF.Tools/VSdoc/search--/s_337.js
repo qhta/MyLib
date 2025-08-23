@@ -1,0 +1,1 @@
+search_result['337']=["topic_00000000000000C2.html","SfDataGridCommander.GetSelectedRowsAndColumns Method","Gets the selected rows and columns from the specified SfDataGrid.\r\nReturns the selected cells and outputs whether all columns or rows are selected, along with the selected columns and rows."];

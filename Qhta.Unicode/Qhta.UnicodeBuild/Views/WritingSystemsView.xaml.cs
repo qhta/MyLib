@@ -40,26 +40,8 @@ public partial class WritingSystemsView : UserControl, IRoutedCommandHandler
   public WritingSystemsView()
   {
     InitializeComponent();
-    DataContextChanged += WritingSystemsView_DataContextChanged;
   }
 
-  private void WritingSystemsView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-  {
-    if (DataContext is WritingSystemsCollection writingSystemsCollection)
-      writingSystemsCollection.CollectionChanged += WritingSystemsView_CollectionChanged;
-  }
-
-  private void WritingSystemsView_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-  {
-    throw new NotImplementedException();
-  }
-
-  private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
-  {
-    RowHeightProvider.OnQueryRowHeight(sender, e);
-    if (!e.Handled)
-      LongTextColumn.OnQueryRowHeight(sender, e);
-  }
 
   private void WritingSystemsTreeView_OnSelectionChanged(object? sender, ItemSelectionChangedEventArgs e)
   {
@@ -155,101 +137,6 @@ public partial class WritingSystemsView : UserControl, IRoutedCommandHandler
       button.ContextMenu.IsOpen = true;
     }
   }
-  
-  private void WritingSystemsGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e)
-  {
-    if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Type))
-      SetTypeFilter();
-    else if (e.Column != null && e.Column.MappingName == nameof(WritingSystemViewModel.Kind))
-      SetKindFilter();
-    else
-      SetAdvancedFilter();
-
-    void SetAdvancedFilter()
-    {
-      var filterControl = e.FilterControl;
-      filterControl.SortOptionVisibility = Visibility.Visible;
-      filterControl.FilterMode = FilterMode.AdvancedFilter;
-      filterControl.AllowBlankFilters = true;
-    }
-
-    void SetTypeFilter()
-    {
-      var filterControl = e.FilterControl;
-      filterControl.SortOptionVisibility = Visibility.Visible;
-      filterControl.FilterMode = FilterMode.CheckboxFilter;
-      filterControl.AllowBlankFilters = true;
-      var selectableItems = _ViewModels.Instance.SelectableWritingSystemTypes.ToList();
-
-      var UcdWritingSystemTypesFilter = selectableItems.Select(item => new FilterElement
-      {
-        ActualValue = item.Value,
-        DisplayText = item.DisplayName,
-      }).ToArray();
-      e.ItemsSource = UcdWritingSystemTypesFilter;
-      e.Handled = true;
-    }
-
-    void SetKindFilter()
-    {
-      var filterControl = e.FilterControl;
-      filterControl.SortOptionVisibility = Visibility.Visible;
-      filterControl.FilterMode = FilterMode.CheckboxFilter;
-      filterControl.AllowBlankFilters = true;
-      var selectableItems = _ViewModels.Instance.SelectableWritingSystemKinds.ToList();
-
-      var UcdWritingSystemKindFilter = selectableItems.Select(item => new FilterElement
-      {
-        ActualValue = item.Value,
-        DisplayText = item.DisplayName,
-      }).ToArray();
-      e.ItemsSource = UcdWritingSystemKindFilter;
-      e.Handled = true;
-    }
-
-  }
-
-  private void WritingSystemsGrid_OnFilterChanging(object? sender, GridFilterEventArgs e)
-  {
-    if (e.FilterPredicates == null)
-      return;
-    foreach (var predicate in e.FilterPredicates)
-      if (predicate is not null)
-      {
-        if (predicate.FilterValue is string)
-        {
-          predicate.FilterBehavior = FilterBehavior.StringTyped;
-          predicate.FilterMode = ColumnFilter.DisplayText;
-          continue; // Skip further processing for null values
-        }
-        else if (predicate.FilterValue is UnicodeCategoryViewModel ctg)
-        {
-          if (ctg.Name == null)
-          {
-            predicate.FilterBehavior = FilterBehavior.StringTyped;
-            predicate.FilterType = FilterType.NotEquals;
-            predicate.FilterValue = null;
-          }
-        }
-        else if (predicate.FilterValue is UcdBlockViewModel bl)
-        {
-          if (bl.Name == null)
-          {
-            predicate.FilterBehavior = FilterBehavior.StringTyped;
-            predicate.FilterType = FilterType.NotEquals;
-            predicate.FilterValue = null;
-          }
-        }
-        else if (predicate.FilterValue is WritingSystemViewModel wm)
-        {
-          if (wm.Name == null)
-          {
-            predicate.FilterType = FilterType.NotEquals;
-            predicate.FilterValue = null;
-          }
-        }
-      }
-  }
 
   /// <summary>
   /// Implements the <see cref="IRoutedCommandHandler"/> interface to handle command execution and can execute checks.
@@ -271,14 +158,6 @@ public partial class WritingSystemsView : UserControl, IRoutedCommandHandler
   public void OnExecuted(object sender, ExecutedRoutedEventArgs e)
   {
     _Commander.OnExecute(sender, e);
-  }
-
-  private void WritingSystemsDataGrid_OnGridCopyContent(object? sender, GridCopyPasteEventArgs e)
-  {
-    if (sender is not SfDataGrid grid)
-      return;
-    SfDataGridCommander.CopyData(grid);
-    e.Handled = true;
   }
 
   private void WritingSystemsDataGrid_OnRecordDeleted(object? sender, RecordDeletedEventArgs e)

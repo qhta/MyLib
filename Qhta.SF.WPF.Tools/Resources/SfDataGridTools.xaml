@@ -9,7 +9,8 @@
                     x:Class="Qhta.SF.WPF.Tools.SfDataGridTools">
   <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
   <converters:NegateValueConverter x:Key="NegateValueConverter"/>
-  <tools:MappingNameToValueConverter x:Key="MappingNameToValueConverter"/>
+  <tools:GridColumnMappingConverter x:Key="GridColumnMappingConverter"/>
+  <tools:LongTextColumnExpanderVisibilityConverter x:Key="LongTextColumnExpanderVisibilityConverter"/>
 
   <Style x:Key="{x:Type tools:RowResizer}" Style.TargetType="{x:Type tools:RowResizer}" >
     <Setter Property="Control.Background" Value="#01000000" />
@@ -216,6 +217,7 @@
   <Style x:Key="{x:Type sf:GridRowHeaderCell}" BasedOn="{StaticResource ResizedGridRowHeaderCellStyle}" TargetType="{x:Type sf:GridRowHeaderCell}"/>
 
   <tools:SfDataGridColumnConverter x:Key="GridColumnConverter" />
+
   <Style TargetType="sf:GridRowHeaderIndentCell">
     <Setter Property="Background" Value="Silver" />
     <EventSetter Event="PreviewMouseDown" Handler="GridRowHeaderIndentCell_MouseLeftButtonDown" />
@@ -225,19 +227,21 @@
     <Setter Property="Foreground" Value="#FF404040" />
     <Setter Property="Background" Value="Silver" />
     <EventSetter Event="PreviewMouseDown" Handler="GridHeaderCellControl_MouseLeftButtonDown" />
+    <EventSetter Event="PreviewMouseDown" Handler="GridHeaderCellControl_MouseRightButtonDown"  />  
   </Style>
 
   <Style TargetType="sf:GridHeaderCellControl" x:Key="SelectedColumnHeaderStyle">
     <Setter Property="Foreground" Value="#FF404040" />
     <Setter Property="Background" Value="#FFA0A0A0" />
     <EventSetter Event="PreviewMouseDown" Handler="GridHeaderCellControl_MouseLeftButtonDown" />
+    <EventSetter Event="PreviewMouseDown" Handler="GridHeaderCellControl_MouseRightButtonDown"  />
   </Style>
 
-  <Style TargetType="sfx:GridCell" x:Key="UnselectedGridStyle">
+  <Style TargetType="sfx:GridCell" x:Key="UnselectedGridCellStyle">
     <Setter Property="Background" Value="Transparent" />
   </Style>
 
-  <Style TargetType="sfx:GridCell" x:Key="SelectedGridStyle">
+  <Style TargetType="sfx:GridCell" x:Key="SelectedGridCellStyle">
     <Setter Property="Background" Value="Silver" />
   </Style>
 
@@ -261,20 +265,12 @@
     <Setter Property="SelectionUnit" Value="Any" />
     <Setter Property="SelectionMode" Value="Extended" />
     <Setter Property="ShowRowHeader" Value="True" />
-    <EventSetter Event="Loaded" Handler="DataGrid_Loaded"/>
-    <EventSetter Event="KeyDown" Handler="DataGrid_KeyDown"/>
+    <Setter Property="tools:SfDataGridBehavior.AllowColumnManagement" Value="True" />
+    <EventSetter Event="Loaded" Handler="DataGrid_OnLoaded"/>
+    <EventSetter Event="KeyDown" Handler="DataGrid_OnKeyDown"/>
   </Style>
 
-  <DataTemplate x:Key="TextCellTemplate" DataType="{x:Type mvvm:IViewModel}">
-    <TextBlock      
-      Text="{Binding Path=TemplatedParent, 
-      RelativeSource={RelativeSource AncestorType=ContentPresenter}, 
-      Converter={StaticResource MappingNameToValueConverter}}"
-      Padding="2"
-      />
-  </DataTemplate>
-
-  <DataTemplate x:Key="LongTextCellTemplate" DataType="{x:Type mvvm:ILongTextViewModel}">
+  <DataTemplate x:Key="LongTextCellTemplate">
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
@@ -282,39 +278,98 @@
       </Grid.ColumnDefinitions>
       <TextBlock 
         x:Name="LongTextBlock"
-        Text="{Binding Path=LongText}" 
         Padding="3"
-        TextWrapping="Wrap"
-        />
+        TextWrapping="Wrap">
+        <TextBlock.Text>
+          <MultiBinding Converter="{StaticResource GridColumnMappingConverter}">
+            <Binding Path="DataContext" 
+                     RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+            <Binding Path="ColumnBase.GridColumn.MappingName" 
+                     RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+          </MultiBinding>
+        </TextBlock.Text>
+      </TextBlock>
       <Button 
         Grid.Column="1"
-        Visibility="{Binding CanExpandLongText, 
-          Converter={StaticResource BoolToVisibilityConverter}}"
+        x:Name="ShowPopupButton"
         Height="20"
         VerticalAlignment="Top"
         Background="Transparent"
         BorderThickness="0"
         BorderBrush="Transparent"
         Content="▼"
-        Click="ShowPopup_Click"/>
-      <!--<controls:RowResizer Grid.Column="0" Grid.ColumnSpan="2" MaxRowHeight="360" Background="LightGray"/>-->
+        Click="ShowPopupButton_Click">
+        <Button.Visibility>
+          <MultiBinding Converter="{StaticResource LongTextColumnExpanderVisibilityConverter}">
+            <Binding Path="DataContext" 
+                     RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+            <Binding Path="ColumnBase.GridColumn.MappingName" 
+                     RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+            <Binding BindsDirectlyToSource="True" 
+                     RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+          </MultiBinding>
+        </Button.Visibility>
+      </Button>
       <Popup Grid.Column="0" Grid.ColumnSpan="2" x:Name="LongTextPopup" Placement="Mouse" StaysOpen="false">
-        <Border Background="LightGray" BorderBrush="Black" BorderThickness="1" Padding="3" 
-                >
-          <TextBlock 
-            Text="{Binding Path=LongText}" 
-            TextWrapping="Wrap"/>
+        <Border Background="LightGray" BorderBrush="Black" BorderThickness="1" Padding="3" >
+          <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+            <TextBlock 
+            TextWrapping="Wrap">
+              <TextBlock.Text>
+                <MultiBinding Converter="{StaticResource GridColumnMappingConverter}">
+                  <Binding Path="DataContext" 
+                           RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+                  <Binding Path="ColumnBase.GridColumn.MappingName" 
+                           RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+                </MultiBinding>
+              </TextBlock.Text>
+            </TextBlock>
+          <Button 
+            Grid.Column="1"
+            x:Name="HidePopupButton"
+            Height="20"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            BorderThickness="0"
+            BorderBrush="Transparent"
+            Content="▲"
+            Click="HidePopupButton_Click">
+            <Button.Visibility>
+              <MultiBinding Converter="{StaticResource LongTextColumnExpanderVisibilityConverter}">
+                <Binding Path="DataContext" 
+                         RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+                <Binding Path="ColumnBase.GridColumn.MappingName" 
+                         RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+                <Binding BindsDirectlyToSource="True" 
+                         RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+              </MultiBinding>
+            </Button.Visibility>
+          </Button>
+
+          </Grid>
         </Border>
       </Popup>
     </Grid>
   </DataTemplate>
 
-  <DataTemplate x:Key="LongTextEditTemplate" DataType="{x:Type mvvm:ILongTextViewModel}">
+  <DataTemplate x:Key="LongTextEditTemplate" DataType="{x:Type sfx:GridCell}">
     <Grid x:Name="EditedGrid">
       <TextBlock 
-        Text="{Binding Path=LongText}" 
-        Padding="3"
-        TextWrapping="Wrap"/>
+        Padding="0"
+        TextWrapping="Wrap">
+        <TextBlock.Text>
+          <MultiBinding Converter="{StaticResource GridColumnMappingConverter}">
+            <Binding Path="DataContext" 
+                     RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+            <Binding Path="ColumnBase.GridColumn.MappingName" 
+                     RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+          </MultiBinding>
+        </TextBlock.Text>
+      </TextBlock>
       <Popup 
          x:Name="LongTextEditPopup" 
          PlacementTarget="{Binding 
@@ -334,13 +389,22 @@
         <Border Background="White" BorderBrush="Black" BorderThickness="1" Padding="3" 
         >
           <TextBox 
-            Text="{Binding Path=LongText}" 
-            BorderThickness="0"
-            BorderBrush="Transparent"
+            Padding="0"
             TextWrapping="Wrap"
+            BorderBrush="Transparent"
+            BorderThickness="0"
             AcceptsReturn="True"
-            sf:FocusManagerHelper.FocusedElement ="True"
-            />
+            AcceptsTab="True"
+            >
+            <TextBox.Text>
+              <MultiBinding Converter="{StaticResource GridColumnMappingConverter}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="DataContext" 
+                         RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+                <Binding Path="ColumnBase.GridColumn.MappingName" 
+                         RelativeSource="{RelativeSource AncestorType={x:Type sfx:GridCell}}" />
+              </MultiBinding>
+            </TextBox.Text>
+          </TextBox>
         </Border>
       </Popup>
     </Grid>

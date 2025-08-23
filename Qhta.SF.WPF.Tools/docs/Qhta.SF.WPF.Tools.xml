@@ -4,6 +4,87 @@
         <name>Qhta.SF.WPF.Tools</name>
     </assembly>
     <members>
+        <member name="T:Qhta.SF.WPF.Tools.ColumnManagementCommand">
+            <summary>
+            Command for managing column layout`
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.ColumnManagementCommand.CanExecute(System.Object)">
+            <summary>
+            Command can execute only if parameter is SfDataGrid and its AllowColumnManagement is true.
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.ColumnManagementCommand.Execute(System.Object)">
+            <summary>
+            Command is executed by displaying ColumnManagementWindow for the given SfDataGrid.
+            </summary>
+            <param name="parameter"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.ColumnSelectionCollection">
+            <summary>
+            A collection of ColumnSelectionItem objects, representing a list of selectable columns in a data grid.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ColumnSelectionCollection.DataGrid">
+            <summary>
+            The data grid associated with this collection.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.ColumnSelectionCollection.#ctor(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.SF.WPF.Tools.ColumnSelectionCollection"/> class.
+            </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.ColumnSelectionCollection.GetDataGridColumns">
+            <summary>
+            Gets the current columns from the data grid and populates the collection.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.ColumnSelectionCollection.SetDataGridColumns">
+            <summary>
+            Stores the current selection state of the columns back to the data grid.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.ColumnSelectionItem">
+            <summary>
+            Class representing a selectable column item in ColumnSelectionCollection.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ColumnSelectionItem.Column">
+            <summary>
+            Referenced GridColumn.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ColumnSelectionItem.DisplayName">
+            <summary>
+            A displayed name of the column is its HeaderText.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ColumnSelectionItem.ToolTip">
+            <summary>
+            Tooltip is null.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ColumnSelectionItem.ActualValue">
+            <summary>
+            Actual value is the referenced GridColumn.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ColumnSelectionItem.IsSelected">
+            <summary>
+            Is selected checkbox state
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.ColumnSelectionItem.ToString">
+            <summary>
+            Default string representation is the DisplayName.
+            </summary>
+        </member>
         <member name="T:Qhta.SF.WPF.Tools.DelRecordArgs">
             <summary>
             Arguments for changing a property.
@@ -107,38 +188,63 @@
             Find all occurrences of the value.
             </summary>
         </member>
-        <member name="T:Qhta.SF.WPF.Tools.FindCommand">
+        <member name="T:Qhta.SF.WPF.Tools.FindOrReplaceMode">
+            <summary>
+            Parameter that specifies whether to find or replace a value.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.FindOrReplaceMode.Auto">
+            <summary>
+            In automatic mode, the command decides whether to find or replace a value based on the column read/write capabilities.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.FindOrReplaceMode.Find">
+            <summary>
+            Find the value only, do not replace.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.FindOrReplaceMode.Replace">
+            <summary>
+            Replace the value - needs write access to the column.
+            </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.FindAndReplaceCommand">
             <summary>
             Command to find a value selected by the user int the current column in the data grid.
             </summary>
         </member>
-        <member name="M:Qhta.SF.WPF.Tools.FindCommand.CanExecute(System.Object)">
+        <member name="P:Qhta.SF.WPF.Tools.FindAndReplaceCommand.FindOrReplaceMode">
+            <summary>
+            A mode that specifies whether to find or replace a value.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.FindAndReplaceCommand.CanExecute(System.Object)">
             <summary>
             Checks whether the command can be executed basing on the current selection in the data grid.
             </summary>
             <param name="parameter"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.SF.WPF.Tools.FindCommand.CanExecuteFindNext(System.Object)">
+        <member name="M:Qhta.SF.WPF.Tools.FindAndReplaceCommand.CanExecuteFindNext(System.Object)">
             <summary>
             Checks whether the FindNext command can be executed basing on the current selection in the data grid.
             </summary>
             <param name="parameter"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.SF.WPF.Tools.FindCommand.Execute(System.Object)">
+        <member name="M:Qhta.SF.WPF.Tools.FindAndReplaceCommand.Execute(System.Object)">
             <summary>
             Executes the command basing on the current selection in the data grid.
             </summary>
             <param name="parameter"></param>
         </member>
-        <member name="M:Qhta.SF.WPF.Tools.FindCommand.ExecuteFindNext(System.Object)">
+        <member name="M:Qhta.SF.WPF.Tools.FindAndReplaceCommand.ExecuteFindNext(System.Object)">
             <summary>
             Executes the FindNext command basing on the current selection in the data grid.
             </summary>
             <param name="parameter"></param>
         </member>
-        <member name="M:Qhta.SF.WPF.Tools.FindCommand.CreatePredicate(System.Object@,Qhta.SF.WPF.Tools.Views.SpecificViewMode,Syncfusion.Data.FilterType,System.Boolean)">
+        <member name="M:Qhta.SF.WPF.Tools.FindAndReplaceCommand.CreatePredicate(System.Object@,Qhta.SF.WPF.Tools.Views.SpecificViewMode,Syncfusion.Data.FilterType,System.Boolean)">
             <summary>
             Checks if the specified value is a selectable item or a special marker and prepares it for comparison.
             if the value is an empty string, or it is an EmptyValue, it is treated as null.
@@ -195,6 +301,32 @@
             Gets or sets the collection of items to be displayed.
             it is an optional property, used for example in <see cref="T:Syncfusion.UI.Xaml.Grid.GridComboBoxColumn"/> to provide the items source for the combo box.
             </summary>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.GridColumnMappingConverter">
+            <summary>
+            Converter for getting and setting property values in a GridColumn based on the mapping name.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.GridColumnMappingConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Gets the value of a property specified by the mapping name from the data context of a GridColumn.
+            </summary>
+            <param name="values">Must be an array with first element bound to DataContext, and second element bound to MappingName</param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.GridColumnMappingConverter.ConvertBack(System.Object,System.Type[],System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a single value back to an array of values for binding purposes.
+            </summary>
+            <param name="value">The value produced by the binding target.</param>
+            <param name="targetTypes">The array of target types to which the value is being converted. Must contain at least two elements.</param>
+            <param name="parameter">An optional parameter to use during the conversion. This can be <see langword="null"/>.</param>
+            <param name="culture">The culture to use in the conversion process.</param>
+            <returns>An array of objects containing the converted values. Returns <see langword="null"/> if <paramref name="value"/> is
+            <see langword="null"/> or if <paramref name="targetTypes"/> contains fewer than two elements.</returns>
         </member>
         <member name="T:Qhta.SF.WPF.Tools.IErrorMessageProvider">
             <summary>
@@ -259,11 +391,6 @@
             Actual value of the item, which can be of any type. This is the underlying data associated with the item.
             </summary>
         </member>
-        <member name="P:Qhta.SF.WPF.Tools.ISelectableItem.IsSelected">
-            <summary>
-            Determines whether the item is currently selected in the user interface.
-            </summary>
-        </member>
         <member name="P:Qhta.SF.WPF.Tools.ISelectableItem.IsEmpty">
             <summary>
             Determines whether the item should be considered as empty value.
@@ -272,6 +399,11 @@
         <member name="P:Qhta.SF.WPF.Tools.ISelectableItem.IsNonEmpty">
             <summary>
             Determines whether the item should be considered as any non-empty value.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.ISelectableItem.IsSelected">
+            <summary>
+            Is this element selected in the UI context (e.g., in a list of selectable items).
             </summary>
         </member>
         <member name="T:Qhta.SF.WPF.Tools.LongTextColumn">
@@ -283,38 +415,30 @@
             cref="T:Syncfusion.UI.Xaml.Grid.QueryRowHeightEventArgs"/> to determine the appropriate height for each row based on the text content and the
             expansion state of the text.</remarks>
         </member>
-        <member name="P:Qhta.SF.WPF.Tools.LongTextColumn.DefaultFont">
+        <member name="M:Qhta.SF.WPF.Tools.LongTextColumn.#ctor">
             <summary>
-            Gets the default font name used by the application.
+            Initializes a new instance of the <see cref="T:Qhta.SF.WPF.Tools.LongTextColumn"/> class.
             </summary>
         </member>
-        <member name="P:Qhta.SF.WPF.Tools.LongTextColumn.DefaultFontSize">
+        <member name="M:Qhta.SF.WPF.Tools.LongTextColumn.OnPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs)">
             <summary>
-            Gets the default font size used by the application.
+            This method is needed to invalidate ShowPopupButton visibility when the ActualWidth changes.
             </summary>
+            <param name="e"></param>
         </member>
         <member name="M:Qhta.SF.WPF.Tools.LongTextColumn.OnQueryRowHeight(System.Object,Syncfusion.UI.Xaml.Grid.QueryRowHeightEventArgs)">
             <summary>
             Adjusts the height of a row in a <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> based on the content of long text columns.
-            Default font is <see cref="P:Qhta.SF.WPF.Tools.LongTextColumn.DefaultFont"/> and default font size is <see cref="P:Qhta.SF.WPF.Tools.LongTextColumn.DefaultFontSize"/>.
-            These properties can be set to change the font used for text evaluation.
             </summary>
-            <remarks>This method calculates the required height for a row by evaluating the content of columns that
-            implement <see cref="T:Qhta.SF.WPF.Tools.LongTextColumn"/>. If the data associated with the row implements <see
-            cref="T:Qhta.MVVM.ILongTextViewModel"/> and the long text is expanded, the method sets the row height to accommodate the text.
-            The height is adjusted only if the row index is valid and the text is not empty. The method marks the event as
-            handled after setting the height.</remarks>
+            <remarks>This method calculates the required height for a row by evaluating its text height</remarks>
             <param name="sender">The source of the event, typically an instance of <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.</param>
             <param name="e">The event data containing information about the row height query.</param>
         </member>
-        <member name="M:Qhta.SF.WPF.Tools.LongTextColumn.EvaluateTextHeight(System.String,System.Double,System.String,System.Double)">
+        <member name="M:Qhta.SF.WPF.Tools.LongTextColumn.EvaluateTextHeight(System.String)">
             <summary>
             Evaluates the height of a given long text string based on a specified maximum width.
             </summary>
             <param name="longText">Text to evaluate</param>
-            <param name="maxWidth">Maximum text width i one line</param>
-            <param name="fontName">Name of the font used for evaluation</param>
-            <param name="fontSize">Em size of the font used for evaluation</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.SF.WPF.Tools.LongTextColumn.GetCellText(Syncfusion.UI.Xaml.Grid.GridColumn,System.Object)">
@@ -326,64 +450,32 @@
             <returns>A string representation of the cell's value. Returns an empty string if the property is not found or the value is
             null.</returns>
         </member>
-        <member name="T:Qhta.SF.WPF.Tools.MappingNameBinder">
+        <member name="T:Qhta.SF.WPF.Tools.LongTextColumnExpanderVisibilityConverter">
             <summary>
-            A value converter that retrieves the mapping name from a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/> or a <see cref="T:System.Windows.Data.Binding"/>.
+            Converter for determining the visibility of the expander in a long text column.
             </summary>
+            <remarks>Implementation similar to <see cref="T:Qhta.SF.WPF.Tools.GridColumnMappingConverter"/>, but instead of string value it returns Visibility.</remarks>
         </member>
-        <member name="M:Qhta.SF.WPF.Tools.MappingNameBinder.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:Qhta.SF.WPF.Tools.LongTextColumnExpanderVisibilityConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
             <summary>
-            Converts a given value to a specific target type using the provided culture information.
+            Determines the visibility of the expander based on the length of the text in a long text column.
             </summary>
-            <param name="value">The value to be converted. This can be a <see cref="T:System.Windows.Data.Binding"/> or a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/> object.</param>
-            <param name="targetType">The type to which the value is to be converted. This parameter is not used in the conversion logic.</param>
-            <param name="parameter">An optional parameter for the conversion. This parameter is not used in the conversion logic.</param>
-            <param name="culture">The culture to be used in the conversion process. This parameter is not used in the conversion logic.</param>
-            <returns>The source object if the value is a <see cref="T:System.Windows.Data.Binding"/>; the string representation of the property value
-            specified by the MappingName if the value is a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/>; otherwise,
-            an empty string.</returns>
-        </member>
-        <member name="M:Qhta.SF.WPF.Tools.MappingNameBinder.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            Unimplemented method for converting back from the target type to the source type.
-            </summary>
-            <param name="value"></param>
+            <param name="values">Must be an array with first element bound to DataContext, second element bound to MappingName, and third element bound to GridCell itself.</param>
             <param name="targetType"></param>
             <param name="parameter"></param>
             <param name="culture"></param>
             <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="T:Qhta.SF.WPF.Tools.MappingNameToValueConverter">
+        <member name="M:Qhta.SF.WPF.Tools.LongTextColumnExpanderVisibilityConverter.ConvertBack(System.Object,System.Type[],System.Object,System.Globalization.CultureInfo)">
             <summary>
-            A value converter that retrieves the value of a property specified by the mapping name from a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/>.
+            Converts a single value back to an array of values for binding purposes.
             </summary>
-        </member>
-        <member name="M:Qhta.SF.WPF.Tools.MappingNameToValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            Converts a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/> value to a string representation based on the value of the mapped property.
-            </summary>
-            <remarks>The method checks if the <paramref name="value"/> is a <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/> and if its
-            column is a <see cref="T:Syncfusion.UI.Xaml.Grid.GridTextColumn"/>. It then retrieves the property value from the data context using the
-            column's mapping name. If the mapping name is null or empty, or if the property cannot be found, the method
-            returns an empty string.</remarks>
-            <param name="value">The value to convert, expected to be of type <see cref="T:Syncfusion.UI.Xaml.Grid.GridCell"/>.</param>
-            <param name="targetType">The type to which the value is being converted. This parameter is not used in the conversion process.</param>
-            <param name="parameter">An optional parameter for the conversion. This parameter is not used in the conversion process.</param>
-            <param name="culture">The culture to use in the conversion process. This parameter is not used in the conversion process.</param>
-            <returns>A string representation of the property value specified by the column mapping name if the conversion is
-            successful; otherwise, an empty string.</returns>
-        </member>
-        <member name="M:Qhta.SF.WPF.Tools.MappingNameToValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            Unimplemented method for converting back from the target type to the source type.
-            </summary>
-            <param name="value"></param>
-            <param name="targetType"></param>
-            <param name="parameter"></param>
-            <param name="culture"></param>
-            <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
+            <param name="value">The value produced by the binding target.</param>
+            <param name="targetTypes">The array of target types to which the value is being converted. Must contain at least two elements.</param>
+            <param name="parameter">An optional parameter to use during the conversion. This can be <see langword="null"/>.</param>
+            <param name="culture">The culture to use in the conversion process.</param>
+            <returns>An array of objects containing the converted values. Returns <see langword="null"/> if <paramref name="value"/> is
+            <see langword="null"/> or if <paramref name="targetTypes"/> contains fewer than two elements.</returns>
         </member>
         <member name="T:Qhta.SF.WPF.Tools.NonEmptyValue">
             <summary>
@@ -615,6 +707,11 @@
               Looks up a localized string similar to Cancel.
             </summary>
         </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.ColumnManagement">
+            <summary>
+              Looks up a localized string similar to Column management.
+            </summary>
+        </member>
         <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.Confirm">
             <summary>
               Looks up a localized string similar to Confirm.
@@ -643,6 +740,16 @@
         <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.FoundNValues">
             <summary>
               Looks up a localized string similar to Found {0} values.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.MoveDown">
+            <summary>
+              Looks up a localized string similar to Move down.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.MoveUp">
+            <summary>
+              Looks up a localized string similar to Move up.
             </summary>
         </member>
         <member name="P:Qhta.SF.WPF.Tools.Resources.Strings.NonEmptyValue">
@@ -730,6 +837,15 @@
             state.</remarks>
             <param name="sender">The source of the event, expected to be a <see cref="T:Syncfusion.UI.Xaml.Grid.GridRowHeaderIndentCell"/>.</param>
             <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridTools.GridHeaderCellControl_MouseRightButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Handles the mouse right button down event on a <see cref="T:Syncfusion.UI.Xaml.Grid.GridHeaderCellControl"/>.
+            This method executes <see cref="T:Qhta.SF.WPF.Tools.ColumnManagementCommand"/> if the dataGrid allows column management and the control does not have a context menu
+            and the command can be executed.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
         </member>
         <member name="M:Qhta.SF.WPF.Tools.SfDataGridTools.InitializeComponent">
             <summary>
@@ -841,7 +957,7 @@
             Value converter for converting the value to a display string.
             </summary>
         </member>
-        <member name="P:Qhta.SF.WPF.Tools.SelectableItem.TooltipConverter">
+        <member name="P:Qhta.SF.WPF.Tools.SelectableItem.ToolTipConverter">
             <summary>
             Value converter for converting the value to a tooltip string.
             </summary>
@@ -949,6 +1065,25 @@
             Attached dependency property for the start offset for resizing rows in the grid. This is the difference between actual row height and the initial position of the mouse when resizing starts.
             </summary>
         </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridBehavior.GetAllowColumnManagement(System.Windows.DependencyObject)">
+            <summary>
+            Gets whether the grid allows to manage columns by <see cref="T:Qhta.SF.WPF.Tools.ColumnManagementCommand"/>.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridBehavior.SetAllowColumnManagement(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Sets whether the grid allows to manage columns by <see cref="T:Qhta.SF.WPF.Tools.ColumnManagementCommand"/>.
+            </summary>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.SfDataGridBehavior.AllowColumnManagementProperty">
+            <summary>
+            Attached dependency property that indicates whether the grid allows to manage columns by <see cref="T:Qhta.SF.WPF.Tools.ColumnManagementCommand"/>.
+            </summary>
+        </member>
         <member name="T:Qhta.SF.WPF.Tools.SfDataGridColumnBehavior">
             <summary>
             A behavior class for managing the selection state of a <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> in a Syncfusion DataGrid.
@@ -1009,7 +1144,7 @@
         </member>
         <member name="T:Qhta.SF.WPF.Tools.SfDataGridColumnConverter">
             <summary>
-            Provides a mechanism to convert <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> objects to specific property values for data binding in a
+            Provides a mechanism to get a <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> object to specific property values for data binding in a
             <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
             </summary>
             <remarks>This converter is used to extract specific properties from <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> instances, such
@@ -1060,7 +1195,7 @@
             <summary>
             Gets a type of the row data in the SfDataGrid.
             </summary>
-            <param name="grid"></param>
+            <param name="dataGrid"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.GetSelectedRows(Syncfusion.UI.Xaml.Grid.SfDataGrid,System.Boolean@,System.Object[]@)">
@@ -1122,6 +1257,40 @@
             </summary>
             <param name="dataGrid"></param>
         </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.CanDeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be deleted from the specified data grid.
+            This method checks if all selected columns are editable and not read-only.
+            </summary>
+            <param name="dataGrid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.DeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a delete operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.CanPasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Determines whether data can be pasted into the specified data grid.
+            </summary>
+            <param name="dataGrid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.PasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
+            <summary>
+            Performs a paste operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
+            </summary>
+            <param name="dataGrid"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.GetHeaders(System.String)">
+            <summary>
+            Splits a tab-delimited string into an array of header values.
+            </summary>
+            <param name="headerLine">A string containing tab-separated header values. Cannot be null.</param>
+            <returns>An array of strings, each representing a header value extracted from the input string.</returns>
+        </member>
         <member name="T:Qhta.SF.WPF.Tools.SfDataGridCommander.DataOp">
             <summary>
             Enumeration representing the type of data operation to perform.
@@ -1157,46 +1326,12 @@
             <param name="dataGrid"></param>
             <param name="op"></param>
         </member>
-        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.CanDeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Determines whether data can be deleted from the specified data grid.
-            This method checks if all selected columns are editable and not read-only.
-            </summary>
-            <param name="dataGrid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.DeleteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Performs a delete operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            </summary>
-            <param name="dataGrid"></param>
-        </member>
-        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.CanPasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Determines whether data can be pasted into the specified data grid.
-            </summary>
-            <param name="dataGrid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.PasteData(Syncfusion.UI.Xaml.Grid.SfDataGrid)">
-            <summary>
-            Performs a paste operation on the data in the specified <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/>.
-            </summary>
-            <param name="dataGrid"></param>
-        </member>
-        <member name="M:Qhta.SF.WPF.Tools.SfDataGridCommander.GetHeaders(System.String)">
-            <summary>
-            Splits a tab-delimited string into an array of header values.
-            </summary>
-            <param name="headerLine">A string containing tab-separated header values. Cannot be null.</param>
-            <returns>An array of strings, each representing a header value extracted from the input string.</returns>
-        </member>
         <member name="T:Qhta.SF.WPF.Tools.SfDataGridFiltering">
             <summary>
             Class containing tools for filtering data in Syncfusion DataGrid.
             </summary>
         </member>
-        <member name="M:Qhta.SF.WPF.Tools.SfDataGridFiltering.FilterItemsPopulating(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterItemsPopulatingEventArgs)">
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridFiltering.OnFilterItemsPopulating(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterItemsPopulatingEventArgs)">
             <summary>
             Handles the populating of filter items in a Syncfusion DataGrid. Sender must be a GridColumn or its descender.
             If the column is a GridComboBoxColumn, it sets up the filter items based on the provided ItemsSource
@@ -1205,7 +1340,7 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Qhta.SF.WPF.Tools.SfDataGridFiltering.FilterChanging(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterEventArgs)">
+        <member name="M:Qhta.SF.WPF.Tools.SfDataGridFiltering.OnFilterChanging(System.Object,Syncfusion.UI.Xaml.Grid.GridFilterEventArgs)">
             <summary>
             Handles the changing of filters in a Syncfusion DataGrid for proper ISelectableItem handling.
             </summary>
@@ -1243,7 +1378,7 @@
             Determines whether to replace the found value with the specified value.
             </summary>
         </member>
-        <member name="P:Qhta.SF.WPF.Tools.SfDataGridFinder.Replacement">
+        <member name="P:Qhta.SF.WPF.Tools.SfDataGridFinder.ReplacementValue">
             <summary>
             Specified text to replace specified text (in StringTyped mode only).
             </summary>
@@ -1251,6 +1386,11 @@
         <member name="P:Qhta.SF.WPF.Tools.SfDataGridFinder.Predicate">
             <summary>
             Predicate defining the conditions of comparison.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.SfDataGridFinder.Found">
+            <summary>
+            Defines whether the specified value was found in the column.
             </summary>
         </member>
         <member name="M:Qhta.SF.WPF.Tools.SfDataGridFinder.FindFirst">
@@ -1327,6 +1467,45 @@
             </summary>
             <param name="dataGrid">The <see cref="T:Syncfusion.UI.Xaml.Grid.SfDataGrid"/> instance.</param>
             <param name="select">True for select all, false for unselect all.</param>
+        </member>
+        <member name="T:Qhta.SF.WPF.Tools.Views.ColumnManagementWindow">
+            <summary>
+            Window for managing columns in a data grid.
+            </summary>
+            <summary>
+            ColumnManagementWindow
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.Views.ColumnManagementWindow.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.SF.WPF.Tools.Views.ColumnManagementWindow"/> class.
+            </summary>
+        </member>
+        <member name="E:Qhta.SF.WPF.Tools.Views.ColumnManagementWindow.PropertyChanged">
+            <summary>
+            Event for INotifyPropertyChanged implementation.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.Views.ColumnManagementWindow.NotifyPropertyChanged(System.String)">
+            <summary>
+            Method to notify that a property has changed.
+            </summary>
+            <param name="propertyName"></param>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.ColumnManagementWindow.IsMoveUpEnabled">
+            <summary>
+            Checks if the first item in the collection is selected.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.Views.ColumnManagementWindow.IsMoveDownEnabled">
+            <summary>
+            Checks if the last item in the collection is selected.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.Views.ColumnManagementWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
         </member>
         <member name="T:Qhta.SF.WPF.Tools.Views.SpecificValueEdit">
             <summary>

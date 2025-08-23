@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A package of WPF Converters.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.7.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.7+126e78b7625f41bc0b0b6ab409cc642e45608aeb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.7+fddc18ce6d8efe5fc11fa70bf29efb63cd881aec")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.WPF.Converters")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.WPF.Converters")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.7.0.0")]

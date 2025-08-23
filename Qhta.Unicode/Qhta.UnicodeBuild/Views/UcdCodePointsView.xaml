@@ -102,10 +102,7 @@
                      Grid.Row="1"
                      DataContext ="{StaticResource ViewModels}"
                      ItemsSource ="{Binding Instance.UcdCodePoints}"
-                     QueryRowHeight="DataGrid_OnQueryRowHeight"
                      AutoGenerateColumns="False"
-                     FilterItemsPopulating="CodePointDataGrid_OnFilterItemsPopulating"
-                     FilterChanging="CodePointDataGrid_OnFilterChanging"
                      tools:SfDataGridBehavior.AllowRowResizing="True"
                    >
       <sf:SfDataGrid.Columns>

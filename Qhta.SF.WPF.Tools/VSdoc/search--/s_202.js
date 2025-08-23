@@ -1,0 +1,1 @@
+search_result['202']=["topic_000000000000007D.html","MappingNameToValueConverter Class","A value converter that retrieves the value of a property specified by the mapping name from a GridCell."];
