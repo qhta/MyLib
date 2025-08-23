@@ -400,9 +400,14 @@ However the basic control implementation requires, that the user drags column he
 We developed more traditional mechanism of column hiding or showing.
 
 ColumnManagementCommand opens the ColumnManagementWindow which shows all the columns in the grid. The column headers are listed along with checkboxes.
-The user can decide to hide or show each column by clicking the checkboz.
+The user can decide to hide or show each column by clicking the checkbox.
 
-Moreover, the ColumnManagementWindow allows user to change the order of column appearance by using MoveUp/MoveDown buttons.
+Moreover, the ColumnManagementWindow allows user to change the order of column appearance by using MoveUp/MoveDown buttons
+or by dragging selected items.
+
+To implement dragging selected items in the ColumnManagementWindow, we had to move selecting and deselecting items to PreviewLeftButtonUp event handler.
+PreviewLeftButtonDown event handler only stores drag start point. 
+If this event also selects/deselects items, it could accidentaly deselect clicked item.
 
 ColumnManagementCommand can be executed if SfDataGrid AllowColumnManagement attached property is set to true.
 

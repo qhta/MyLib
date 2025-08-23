@@ -23,7 +23,13 @@
         Grid.Column="0"
         Margin="10"
         ItemsSource="{Binding}"
-        SelectionMode="Multiple">
+        SelectionMode="Multiple"
+        AllowDrop="True"
+        PreviewMouseLeftButtonDown="ColumnsListBox_PreviewMouseLeftButtonDown"
+        PreviewMouseLeftButtonUp="ColumnsListBox_PreviewMouseLeftButtonUp"
+        PreviewMouseMove="ColumnsListBox_PreviewMouseMove"
+        DragOver="ColumnsListBox_DragOver"
+        Drop="ColumnsListBox_Drop">
         <ListBox.ItemTemplate>
           <DataTemplate DataType="{x:Type local:ColumnSelectionItem}">
             <StackPanel 

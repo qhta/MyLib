@@ -75,7 +75,7 @@ public partial class SfDataGridTools : ResourceDictionary
         foreach (var col in dataGrid.Columns)
           if (col != column)
             SfDataGridColumnBehavior.SetIsSelected(col, false);
-      if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) && isSelected)
+      if (Keyboard.Modifiers == ModifierKeys.Shift && isSelected)
       {
         var selectedColumnIndex = dataGrid.Columns.IndexOf(column);
         int? lastPriorSelectedColumnIndex = null;
@@ -111,7 +111,7 @@ public partial class SfDataGridTools : ResourceDictionary
             }
         }
       }
-      SfDataGridColumnConverter.LogIt = true;
+      //SfDataGridColumnConverter.LogIt = true;
 
       //Debug.WriteLine($"GridColumnBehavior.IsSelected: {isSelected} for column: {column.MappingName}");
       SfDataGridColumnBehavior.SetIsSelected(column, isSelected);

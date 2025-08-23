@@ -1,11 +1,12 @@
-﻿using Syncfusion.UI.Xaml.Grid;
+﻿using System.Windows;
+using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.SF.WPF.Tools;
 
 /// <summary>
 /// Class representing a selectable column item in ColumnSelectionCollection.
 /// </summary>
-public class ColumnSelectionItem: ISelectableItem
+public class ColumnSelectionItem: DependencyObject, ISelectableItem
 {
   /// <summary>
   /// Referenced GridColumn.

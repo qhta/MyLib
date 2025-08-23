@@ -1507,6 +1507,24 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:Qhta.SF.WPF.Tools.Views.DropPositionAdorner">
+            <summary>
+            An adorner that indicates the drop position in a ListBox during drag-and-drop operations.
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.Views.DropPositionAdorner.#ctor(System.Windows.Controls.ListBox,System.Int32)">
+            <summary>
+            Initializing constructor.
+            </summary>
+            <param name="listBox"></param>
+            <param name="targetIndex"></param>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.Views.DropPositionAdorner.OnRender(System.Windows.Media.DrawingContext)">
+            <summary>
+            Method to render the adorner, drawing a line at the target index position.
+            </summary>
+            <param name="drawingContext"></param>
+        </member>
         <member name="T:Qhta.SF.WPF.Tools.Views.SpecificValueEdit">
             <summary>
             Part of the <see cref="T:Qhta.SF.WPF.Tools.Views.SpecificValueWindow"/> for edit a specific value in a text box.
