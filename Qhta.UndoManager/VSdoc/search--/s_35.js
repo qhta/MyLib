@@ -1,0 +1,1 @@
+search_result['35']=["topic_000000000000000F.html","UndoRedoManager.IsGrouping Property","Flag to indicate that the manager is currently grouping actions."];

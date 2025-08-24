@@ -13,6 +13,7 @@
         "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
         "outputPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.UndoManager\\obj\\",
         "projectStyle": "PackageReference",
+        "crossTargeting": true,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
           "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\30.2.4\\ToolboxNuGetPackages"
@@ -25,7 +26,10 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Syncfusion Toolbox for WPF.config"
         ],
         "originalTargetFrameworks": [
-          "net8.0"
+          "net8.0",
+          "net8.0-windows",
+          "net9.0",
+          "net9.0-windows"
         ],
         "sources": {
           "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
@@ -35,6 +39,18 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
+            "projectReferences": {}
+          },
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {}
+          },
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          },
+          "net9.0-windows7.0": {
+            "targetAlias": "net9.0-windows",
             "projectReferences": {}
           }
         },
@@ -53,6 +69,84 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Qhta.Collections": {
+              "target": "Package",
+              "version": "[5.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        },
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "Qhta.Collections": {
+              "target": "Package",
+              "version": "[5.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        },
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Qhta.Collections": {
+              "target": "Package",
+              "version": "[5.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        },
+        "net9.0-windows7.0": {
+          "targetAlias": "net9.0-windows",
           "dependencies": {
             "Qhta.Collections": {
               "target": "Package",

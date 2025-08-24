@@ -1,0 +1,1 @@
+search_result['37']=["topic_0000000000000011.html","UndoRedoManager.IsRedoAvailable Property","Flag to indicate that the Redo functionality is available."];

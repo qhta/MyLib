@@ -12,3 +12,7 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net8.0\Qhta.UndoManager
 D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net8.0\refint\Qhta.UndoManager.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net8.0\Qhta.UndoManager.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net8.0\ref\Qhta.UndoManager.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.UndoManager.deps.json
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.UndoManager.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.UndoManager.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\UndoManager.xml

@@ -1,11 +1,4 @@
-﻿using System.Collections;
-using System.Diagnostics;
-using System.Windows;
-
-using Qhta.UndoManager;
-
-using Syncfusion.Data;
-using Syncfusion.UI.Xaml.Grid;
+﻿using Syncfusion.UI.Xaml.Grid;
 
 namespace Qhta.SF.WPF.Tools;
 

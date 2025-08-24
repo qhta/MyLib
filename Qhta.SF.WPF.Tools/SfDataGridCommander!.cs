@@ -134,8 +134,6 @@ public static partial class SfDataGridCommander
       Debug.WriteLine("Row data is null.");
       return;
     }
-    var column = columnInfo.Column;
-    var rowDataType = rowData.GetType();
     var propertyInfo = columnInfo.ValuePropertyInfo;
     if (!propertyInfo.CanWrite)
       return;

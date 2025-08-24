@@ -1,0 +1,59 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Qhta.UndoManager/1.0": {
+        "dependencies": {
+          "Qhta.Collections": "5.2.0"
+        },
+        "runtime": {
+          "Qhta.UndoManager.dll": {}
+        }
+      },
+      "Qhta.Collections/5.2.0": {
+        "dependencies": {
+          "Qhta.TextUtils": "3.6.0"
+        },
+        "runtime": {
+          "lib/net8.0/Qhta.Collections.dll": {
+            "assemblyVersion": "5.2.0.0",
+            "fileVersion": "5.2.0.0"
+          }
+        }
+      },
+      "Qhta.TextUtils/3.6.0": {
+        "runtime": {
+          "lib/net8.0/Qhta.TextUtils.dll": {
+            "assemblyVersion": "3.6.0.0",
+            "fileVersion": "3.6.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Qhta.UndoManager/1.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Qhta.Collections/5.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UYqc2SH4wbEtdbORbQ/TZ1hnVqIzF2Qej8tb/elgG8XeEPR8++polX/o0LLeBrVU75znLfNQoM1rYthvMt9sJQ==",
+      "path": "qhta.collections/5.2.0",
+      "hashPath": "qhta.collections.5.2.0.nupkg.sha512"
+    },
+    "Qhta.TextUtils/3.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-daPAXKOGjo+elnVoNALW/0oZsJTZDiDNKnF7gveABX7+PJApzVUYy20kvDobYFA0FMBlZ0xkKWlD88Q94Jl9rQ==",
+      "path": "qhta.textutils/3.6.0",
+      "hashPath": "qhta.textutils.3.6.0.nupkg.sha512"
+    }
+  }
+}

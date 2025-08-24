@@ -134,6 +134,17 @@
           }
         }
       },
+      "Qhta.UndoManager/1.0.0": {
+        "dependencies": {
+          "Qhta.Collections": "5.2.0"
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Qhta.UndoManager.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Qhta.WPF.Converters/1.7.0": {
         "dependencies": {
           "Qhta.TextUtils": "3.8.0",
@@ -854,17 +865,6 @@
             "fileVersion": "4.6.24705.1"
           }
         }
-      },
-      "Qhta.UndoManager/1.0.0": {
-        "dependencies": {
-          "Qhta.Collections": "5.2.0"
-        },
-        "runtime": {
-          "Qhta.UndoManager.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
       }
     }
   },
@@ -964,6 +964,13 @@
       "sha512": "sha512-5bRrb24q9Olnb4nOz/rtl0f7cNIiVd7jmoCYbNW5veCE3Qw1iihzuagVQYi2UOLALh4S3LZqzt+zjV8TOuB5XQ==",
       "path": "qhta.typeutils/1.4.0",
       "hashPath": "qhta.typeutils.1.4.0.nupkg.sha512"
+    },
+    "Qhta.UndoManager/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+hMPf8+rieLy3DKwq7ZpvYCyWw9F/CWtWG4d9AvFJmHXspghmC0ntL+igq8KEAphXTV5awYQylQyHuEavZtjng==",
+      "path": "qhta.undomanager/1.0.0",
+      "hashPath": "qhta.undomanager.1.0.0.nupkg.sha512"
     },
     "Qhta.WPF.Converters/1.7.0": {
       "type": "package",
@@ -1503,11 +1510,6 @@
       "sha512": "sha512-A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
-    },
-    "Qhta.UndoManager/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

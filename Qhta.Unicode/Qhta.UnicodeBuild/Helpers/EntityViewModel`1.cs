@@ -42,10 +42,9 @@ public class EntityViewModel<T>: ViewModel<T>
       throw new ArgumentException($"Property '{thisPropertyName}' not found on entity type {type.Name}", nameof(thisPropertyName));
     
     var oldValue = property.GetValue(this);
+    if (Equals(oldValue, newValue)) return false; // No change needed
     if (!UndoRedoManager.IsUndoing)
-      if (Equals(oldValue, newValue)) return false; // No change needed
-    // Record the change for undo functionality
-    UndoRedoManager.Record(new ChangePropertyAction(), new ChangePropertyArgs(this, thisPropertyName, oldValue, newValue));
+      UndoRedoManager.Record(new ChangePropertyAction(), new ChangePropertyArgs(this, thisPropertyName, oldValue, newValue));
     ChangeModelProperty(modelPropertyName, newValue);
     NotifyPropertyChanged(thisPropertyName);
     if (pairedPropertyName != null && pairedPropertyName != thisPropertyName)
@@ -54,7 +53,7 @@ public class EntityViewModel<T>: ViewModel<T>
   }
 
   /// <summary>
-  /// Changes the value of a specified model property and notifies a paired property was changed.
+  /// Changes the value of a specified model property.
   /// </summary>
   /// <param name="propertyName">The name of the property of the underlying model to change. Must be a valid property name of the model instance's type.</param>
   /// <param name="newValue">The new value to assign to the property. Can be null if the property type allows it.</param>
@@ -67,12 +66,8 @@ public class EntityViewModel<T>: ViewModel<T>
       throw new ArgumentException($"Property '{propertyName}' not found on entity type {type.Name}", nameof(propertyName));
 
     var oldValue = property.GetValue(Model);
-    if (!UndoRedoManager.IsUndoing)
-      if (Equals(oldValue, newValue)) return false; // No change needed
-    // Record the change for undo functionality
-    UndoRedoManager.Record(new ChangePropertyAction(), new ChangePropertyArgs(Model, propertyName, oldValue, newValue));
+    if (Equals(oldValue, newValue)) return false; // No change needed
     property.SetValue(Model, newValue);
-    NotifyPropertyChanged(propertyName);
     return true;
   }
 }

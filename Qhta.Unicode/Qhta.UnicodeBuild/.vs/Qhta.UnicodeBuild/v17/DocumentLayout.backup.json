@@ -3,11 +3,19 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\commands\\applycharnamesgenerationcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:commands\\applycharnamesgenerationcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\delrecordaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridcommander.deletedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\qhta.sf.wpf.tools.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridcommander~.dataop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridcommander!.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -17,7 +25,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -45,26 +53,65 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ApplyCharNamesGenerationCommand.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Commands\\ApplyCharNamesGenerationCommand.cs",
-              "RelativeDocumentMoniker": "Commands\\ApplyCharNamesGenerationCommand.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Commands\\ApplyCharNamesGenerationCommand.cs",
-              "RelativeToolTip": "Commands\\ApplyCharNamesGenerationCommand.cs",
-              "ViewState": "AgIAANIAAAAAAAAAAAASwO0AAAAGAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "SfDataGridCommander.DeleteData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander.DeleteData.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander.DeleteData.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander.DeleteData.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander.DeleteData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-23T20:29:22.409Z",
+              "WhenOpened": "2025-08-24T13:27:13.193Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "Qhta.SF.WPF.Tools",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-08-24T13:26:38.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DelRecordAction.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\DelRecordAction.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\DelRecordAction.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\DelRecordAction.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\DelRecordAction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T12:59:04.083Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SfDataGridCommander!.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander!.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander!.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander!.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander!.cs",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAiwLYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T09:19:04.303Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "SfDataGridCommander~.DataOp.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander~.DataOp.cs",
               "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander~.DataOp.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander~.DataOp.cs",
               "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander~.DataOp.cs",
-              "ViewState": "AgIAAKQAAAAAAAAAAAAqwL8AAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAPsAAAAAAAAAAAAqwAwBAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-23T20:29:16.375Z",
               "EditorCaption": ""

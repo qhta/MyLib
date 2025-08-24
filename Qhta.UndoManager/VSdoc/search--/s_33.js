@@ -1,0 +1,1 @@
+search_result['33']=["topic_000000000000000D.html","UndoRedoManager.IsRedoing Property","Flag to indicate that the manager is currently redoing an action."];

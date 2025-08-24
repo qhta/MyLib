@@ -851,7 +851,7 @@
         </member>
         <member name="M:Qhta.UnicodeBuild.Helpers.EntityViewModel`1.ChangeModelProperty(System.String,System.Object)">
             <summary>
-            Changes the value of a specified model property and notifies a paired property was changed.
+            Changes the value of a specified model property.
             </summary>
             <param name="propertyName">The name of the property of the underlying model to change. Must be a valid property name of the model instance's type.</param>
             <param name="newValue">The new value to assign to the property. Can be null if the property type allows it.</param>
@@ -5541,6 +5541,36 @@
         <member name="M:Qhta.Unicode.Models._DbContext.Finalize">
             <summary>
             Destructs the context and releases all resources used by it.
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
             </summary>
         </member>
     </members>

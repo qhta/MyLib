@@ -1,15 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net8.0; net8.0-windows; net9.0; net9.0-windows</TargetFrameworks>
+    <Authors>Yarreck Qhta</Authors>
+    <Description>Undo manager based on actions registering.</Description>
+    <Version>1.0</Version>
+    <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AutoRedirectBindings>true</AutoRedirectBindings>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <BaseOutputPath>D:\OneDrive\VS\Projects\MyLib\bin</BaseOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\docs\UndoMgr.xml</DocumentationFile>
+    <DocumentationFile>D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\docs\UndoManager.xml</DocumentationFile>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="docs\" />
+    <None Include="docs\readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>

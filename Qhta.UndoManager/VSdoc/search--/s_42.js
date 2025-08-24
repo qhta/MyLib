@@ -1,0 +1,1 @@
+search_result['42']=["topic_0000000000000016.html","UndoRedoManager.Redo Method","Re-executes the last undone action if redo is available."];

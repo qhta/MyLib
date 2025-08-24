@@ -1,0 +1,1 @@
+search_result['39']=["topic_0000000000000013.html","UndoRedoManager.IsGroupingAvailable Property","Flag to indicate that the grouping is available."];

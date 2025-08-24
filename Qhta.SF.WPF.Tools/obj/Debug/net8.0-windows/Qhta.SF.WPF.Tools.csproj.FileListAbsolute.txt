@@ -3,8 +3,6 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\bin\Debug\net8.0-windows\Qhta.SF
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\bin\Debug\net8.0-windows\Qhta.SF.WPF.Tools.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\bin\Debug\net8.0-windows\Qhta.SF.WPF.Tools.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\bin\Debug\net8.0-windows\pl\Qhta.SF.WPF.Tools.resources.dll
-D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\bin\Debug\net8.0-windows\Qhta.UndoManager.dll
-D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\bin\Debug\net8.0-windows\Qhta.UndoManager.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\Qhta.SF.WPF.Tools.csproj.AssemblyReference.cache
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\RecordNavigationBar.g.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\Resources\SfDataGridTools.g.cs
@@ -32,7 +30,6 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\Qhta.SF
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\Qhta.SF.WPF.Tools.csproj.CoreCompileInputs.cache
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\Qhta.SF.WPF.Tools.sourcelink.json
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\pl\Qhta.SF.WPF.Tools.resources.dll
-D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\Qhta.SF..89C15975.Up2Date
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\Qhta.SF.WPF.Tools.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\refint\Qhta.SF.WPF.Tools.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\Qhta.SF.WPF.Tools.pdb

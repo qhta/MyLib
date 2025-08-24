@@ -261,15 +261,15 @@ public static partial class SfDataGridCommander
       {
         lock (dataGrid.ItemsSource)
         {
-          UndoManager.UndoRedoManager.StartGrouping();
+          UndoRedoManager.StartGrouping();
           foreach (var row in selectedRows)
           {
             errorMessageProvider = row as IErrorMessageProvider;
             var delRecordArgs = new DelRecordArgs(dataSource, dataSource.IndexOf(row), row);
-            UndoManager.UndoRedoManager.Record(new DelRecordAction(), delRecordArgs);
+            UndoRedoManager.Record(new DelRecordAction(), delRecordArgs);
             dataSource.Remove(row);
           }
-          UndoManager.UndoRedoManager.StopGrouping();
+          UndoRedoManager.StopGrouping();
         }
       }
       catch (Exception e)
@@ -279,6 +279,11 @@ public static partial class SfDataGridCommander
         {
           errorMessageProvider.ErrorMessage = e.Message;
         }
+      }
+      finally
+      {
+        if (UndoRedoManager.IsGrouping)
+          UndoRedoManager.StopGrouping();
       }
     }
   }
@@ -297,6 +302,6 @@ public static partial class SfDataGridCommander
         }
       }
     }
-
   }
+
 }

@@ -1,0 +1,14 @@
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0-windows\Qhta.UndoManager.deps.json
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0-windows\Qhta.UndoManager.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0-windows\Qhta.UndoManager.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0-windows\UndoManager.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net9.0-windows\Qhta.UndoManager.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net9.0-windows\Qhta.UndoManager.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net9.0-windows\Qhta.UndoManager.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net9.0-windows\Qhta.UndoManager.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net9.0-windows\Qhta.UndoManager.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net9.0-windows\Qhta.UndoManager.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net9.0-windows\Qhta.UndoManager.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net9.0-windows\refint\Qhta.UndoManager.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net9.0-windows\Qhta.UndoManager.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\obj\Debug\net9.0-windows\ref\Qhta.UndoManager.dll

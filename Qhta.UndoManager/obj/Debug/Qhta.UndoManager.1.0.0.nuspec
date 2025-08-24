@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.UndoManager</id>
+    <version>1.0.0</version>
+    <authors>Yarreck Qhta</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>readme.md</readme>
+    <description>Undo manager based on actions registering.</description>
+    <repository type="git" commit="374f4edf637078b1dbe7fe0812c6471fbfa0727d" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Qhta.Collections" version="5.2.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net8.0-windows7.0">
+        <dependency id="Qhta.Collections" version="5.2.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net9.0">
+        <dependency id="Qhta.Collections" version="5.2.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net9.0-windows7.0">
+        <dependency id="Qhta.Collections" version="5.2.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.UndoManager.dll" target="lib\net8.0\Qhta.UndoManager.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\UndoManager.xml" target="lib\net8.0\UndoManager.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.UndoManager.dll" target="lib\net8.0-windows7.0\Qhta.UndoManager.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0-windows\UndoManager.xml" target="lib\net8.0-windows7.0\UndoManager.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.UndoManager.dll" target="lib\net9.0\Qhta.UndoManager.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\UndoManager.xml" target="lib\net9.0\UndoManager.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0-windows\Qhta.UndoManager.dll" target="lib\net9.0-windows7.0\Qhta.UndoManager.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0-windows\UndoManager.xml" target="lib\net9.0-windows7.0\UndoManager.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\Qhta.UndoManager\docs\readme.md" target="\readme.md" />
+  </files>
+</package>

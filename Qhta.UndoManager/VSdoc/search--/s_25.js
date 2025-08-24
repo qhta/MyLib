@@ -1,0 +1,1 @@
+search_result['25']=["topic_000000000000000A.html","UndoRedoManager Class","Manager class for Undo/Redo functionality in application.\r\nRecords actions and manages undo/redo stacks.\r\nOnly registered actions can be undone or redone."];

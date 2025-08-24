@@ -18,6 +18,7 @@
     <PackageReference Include="Qhta.MVVM" Version="4.15.0" />
     <PackageReference Include="Qhta.TextUtils" Version="3.8.0" />
     <PackageReference Include="Qhta.TypeUtils" Version="1.4.0" />
+    <PackageReference Include="Qhta.UndoManager" Version="1.0.0" />
     <PackageReference Include="Qhta.WPF.Converters" Version="1.7.0" />
     <PackageReference Include="Qhta.WPF.Utils" Version="3.5.0" />
     <PackageReference Include="Syncfusion.Grid.Windows" Version="30.2.6" />
@@ -59,10 +60,6 @@
 
   <ItemGroup>
     <Folder Include="docs\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Qhta.UndoManager\Qhta.UndoManager.csproj" />
   </ItemGroup>
 
   <ItemGroup>

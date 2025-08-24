@@ -1,0 +1,1 @@
+search_result['38']=["topic_0000000000000012.html","UndoRedoManager.IsRecordingAvailable Property","Flag to indicate that the recording is available."];

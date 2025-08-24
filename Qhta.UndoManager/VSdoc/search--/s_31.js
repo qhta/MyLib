@@ -1,0 +1,1 @@
+search_result['31']=["topic_000000000000000B.html","UndoRedoManager.IsEnabled Property","Determines whether the Record/Undo/Redo functionality is enabled."];

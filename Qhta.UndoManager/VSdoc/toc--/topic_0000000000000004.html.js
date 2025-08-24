@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"Qhta.UndoManager Reference","topic_0000000000000019.html"],['4',"Qhta.UndoManager Namespace","topic_0000000000000000.html"],['9',"ChangePropertyAction Class","topic_0000000000000004.html"]];
