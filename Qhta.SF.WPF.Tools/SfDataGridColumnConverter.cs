@@ -13,11 +13,6 @@ namespace Qhta.SF.WPF.Tools;
 public class SfDataGridColumnConverter: IValueConverter
 {
   /// <summary>
-  /// Debug flag to enable or disable logging of conversion operations.
-  /// </summary>
-  public static bool LogIt;
-
-  /// <summary>
   /// Converts a <see cref="GridColumn"/> object to a specified property value based on the provided parameter.
   /// </summary>
   /// <param name="value">The object to convert, expected to be of type <see cref="GridColumn"/>.</param>
@@ -32,8 +27,6 @@ public class SfDataGridColumnConverter: IValueConverter
   {
     if (value is GridColumn column)
     {
-      if (LogIt)
-        System.Diagnostics.Debug.WriteLine($"GridColumnConverter.Convert({value}, {targetType}, {parameter}, {culture})");
       if (parameter is not string propName)
         throw new InvalidOperationException("Parameter should be string");
       if (propName == "IsSelected")

@@ -50,7 +50,7 @@
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     <!-- Menu Bar -->
-    <Menu Grid.Row="0" Grid.ColumnSpan="2">
+    <Menu Grid.Row="0">
       <MenuItem Header="{x:Static resources:Strings.Data}">
         <MenuItem Header="{x:Static resources:Strings.Save}" Command="Save"/>
       </MenuItem>

@@ -23,12 +23,8 @@ public class LongTextColumn : GridTemplateColumn
   /// </summary>
   public LongTextColumn()
   {
-    // Set default CellTemplate
     CellTemplate = (DataTemplate)Application.Current.Resources["LongTextCellTemplate"]!;
-
-    // Set default CellEditTemplate
     EditTemplate = (DataTemplate)Application.Current.Resources["LongTextEditTemplate"]!;
-
   }
 
   /// <summary>
@@ -39,16 +35,16 @@ public class LongTextColumn : GridTemplateColumn
   {
     if (e.Property.Name == nameof(ActualWidth))
     {
-      if (this.DataGrid != null)
+      if (DataGrid != null)
       {
         // Access the visual container of the DataGrid
-        var visualContainer = this.DataGrid.GetVisualContainer();
+        var visualContainer = DataGrid.GetVisualContainer();
         if (visualContainer != null)
         {
           // Iterate through all visible rows using ScrollRows
           foreach (var row in visualContainer.ScrollRows.GetVisibleLines())
           {
-            this.DataGrid.UpdateDataRow(row.LineIndex);
+            DataGrid.UpdateDataRow(row.LineIndex);
           }
         }
       }

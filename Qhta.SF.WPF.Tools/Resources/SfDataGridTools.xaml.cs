@@ -36,8 +36,6 @@ public partial class SfDataGridTools : ResourceDictionary
   /// </remarks>
   private void GridHeaderCellControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
   {
-    //Debug.WriteLine($"GridHeaderCellControl_MouseLeftButtonDown({sender})");
-
     if (sender is GridHeaderCellControl headerCellControl && e.ChangedButton == MouseButton.Left)
     {
       var column = headerCellControl.Column;
@@ -111,7 +109,6 @@ public partial class SfDataGridTools : ResourceDictionary
             }
         }
       }
-      //SfDataGridColumnConverter.LogIt = true;
 
       //Debug.WriteLine($"GridColumnBehavior.IsSelected: {isSelected} for column: {column.MappingName}");
       SfDataGridColumnBehavior.SetIsSelected(column, isSelected);
@@ -129,15 +126,13 @@ public partial class SfDataGridTools : ResourceDictionary
   /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
   private void GridRowHeaderIndentCell_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
   {
-    //Debug.WriteLine($"GridRowHeaderIndentCell_MouseLeftButtonDown({sender})");
-    e.Handled = true;
-
     if (sender is GridRowHeaderIndentCell indentCell && e.ChangedButton == MouseButton.Left)
     {
       var dataGrid = indentCell.FindParent<SfDataGrid>();
       if (dataGrid == null) return;
 
       dataGrid.SelectAllColumns(!dataGrid.AreAllColumnsSelected());
+      e.Handled = true;
     }
   }
   #endregion selection handling
@@ -289,7 +284,6 @@ public partial class SfDataGridTools : ResourceDictionary
 
   private void DataGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e) => SfDataGridFiltering.OnFilterItemsPopulating(sender, e);
 
-
   private void DataGrid_OnFilterChanged(object? sender, GridFilterEventArgs e) => SfDataGridFiltering.OnFilterChanging(sender, e);
 
   private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
@@ -325,29 +319,28 @@ public partial class SfDataGridTools : ResourceDictionary
 
   private void DataGrid_OnKeyDown(object sender, KeyEventArgs e)
   {
-    //Debug.WriteLine($"CodePointDataGrid_KeyDown: {e.Key} {Keyboard.Modifiers}");
     if (sender is not SfDataGrid dataGrid)
       return;
     FindAndReplaceCommand findCommand;
     switch (e.Key)
     {
-      case Key.C when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
+      case Key.C when Keyboard.Modifiers == ModifierKeys.Control:
         SfDataGridCommander.CopyData(dataGrid);
         e.Handled = true;
         return;
-      case Key.X when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
+      case Key.X when Keyboard.Modifiers == ModifierKeys.Control:
         SfDataGridCommander.CutData(dataGrid);
         e.Handled = true;
         return;
-      case Key.V when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
+      case Key.V when Keyboard.Modifiers == ModifierKeys.Control:
         SfDataGridCommander.PasteData(dataGrid);
         e.Handled = true;
         return;
-      case Key.Delete:
+      case Key.Delete when Keyboard.Modifiers == ModifierKeys.None:
         SfDataGridCommander.DeleteData(dataGrid);
         e.Handled = true;
         return;
-      case Key.F when (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
+      case Key.F when Keyboard.Modifiers == ModifierKeys.Control:
         findCommand = new FindAndReplaceCommand();
         if (findCommand.CanExecute(dataGrid))
         {
@@ -355,7 +348,7 @@ public partial class SfDataGridTools : ResourceDictionary
           e.Handled = true;
         }
         return;
-      case Key.F3:
+      case Key.F3 when Keyboard.Modifiers == ModifierKeys.None:
         findCommand = new FindAndReplaceCommand();
         if (findCommand.CanExecuteFindNext(dataGrid))
         {

@@ -50,11 +50,7 @@ public class RowResizer : Thumb
   /// Default value is 24.0
   /// </summary>
   public static readonly DependencyProperty MinRowHeightProperty =
-    DependencyProperty.Register(
-      nameof(MinRowHeight),
-      typeof(double),
-      typeof(RowResizer),
-      new FrameworkPropertyMetadata(24.0));
+    DependencyProperty.Register(nameof(MinRowHeight), typeof(double), typeof(RowResizer), new FrameworkPropertyMetadata(24.0));
 
 
   /// <summary>
@@ -71,11 +67,7 @@ public class RowResizer : Thumb
   /// Default value is 120.0
   /// </summary>
   public static readonly DependencyProperty MaxRowHeightProperty =
-    DependencyProperty.Register(
-      nameof(MaxRowHeight),
-      typeof(double),
-      typeof(RowResizer),
-      new FrameworkPropertyMetadata(120.0));
+    DependencyProperty.Register(nameof(MaxRowHeight), typeof(double), typeof(RowResizer), new FrameworkPropertyMetadata(120.0));
 
   /// <summary>
   ///   Maximum height of the Row being resized.
@@ -100,19 +92,14 @@ public class RowResizer : Thumb
   /// <param name="e"></param>
   private static void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
   {
-    if (e.ChangedButton != MouseButton.Left)
-      return;
-
-    if (sender is RowResizer rowResizer)
+    if (sender is RowResizer rowResizer && e.ChangedButton == MouseButton.Left)
     {
       var rowHeaderCell = rowResizer.FindParent<GridRowHeaderCell>();
-      if (rowHeaderCell == null)
-        return;
+      if (rowHeaderCell == null) return;
       var dataGrid = rowHeaderCell.FindParent<SfDataGrid>();
       if (dataGrid == null) return;
 
-      if (rowResizer.DataContext is not IRowHeightProvider rowHeightProvider)
-        return;
+      if (rowResizer.DataContext is not IRowHeightProvider) return;
 
       var position = e.GetPosition(rowResizer);
       var actualHeight = rowResizer.ActualHeight;
@@ -141,8 +128,7 @@ public class RowResizer : Thumb
     if (sender is RowResizer rowResizer)
     {
       var rowHeaderCell = rowResizer.FindParent<GridRowHeaderCell>();
-      if (rowHeaderCell == null)
-        return;
+      if (rowHeaderCell == null) return;
       var dataGrid = rowHeaderCell.FindParent<SfDataGrid>();
       if (dataGrid == null) return;
 
@@ -152,7 +138,6 @@ public class RowResizer : Thumb
       if (SfDataGridBehavior.GetIsRowResizing(dataGrid))
       {
         var position = e.GetPosition(rowHeaderCell);
-        var actualHeight = rowHeaderCell.ActualHeight;
         var requestedHeight = position.Y + SfDataGridBehavior.GetStartOffset(dataGrid);
         if (!double.IsNaN(rowResizer.MinRowHeight) && requestedHeight < rowResizer.MinRowHeight)
           requestedHeight = rowResizer.MinRowHeight;
@@ -160,7 +145,6 @@ public class RowResizer : Thumb
           requestedHeight = rowResizer.MaxRowHeight;
 
         rowHeightProvider.RowHeight = requestedHeight;
-        //Debug.WriteLine($"Resized to {requestedHeight}");
         e.Handled = true;
         dataGrid.View.Refresh();
       }
@@ -174,13 +158,10 @@ public class RowResizer : Thumb
   /// <param name="e"></param>
   private static void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
   {
-    if (e.ChangedButton != MouseButton.Left)
-      return;
-    if (sender is RowResizer rowResizer)
+    if (sender is RowResizer rowResizer && e.ChangedButton==MouseButton.Left)
     {
       var rowHeaderCell = rowResizer.FindParent<GridRowHeaderCell>();
-      if (rowHeaderCell == null)
-        return;
+      if (rowHeaderCell == null) return;
       var grid = rowHeaderCell.FindParent<SfDataGrid>();
       if (grid == null) return;
 

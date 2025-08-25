@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -10,8 +9,8 @@ using System.Windows.Data;
 using Qhta.MVVM;
 using Qhta.ObservableObjects;
 
-using Syncfusion.Data;
 using Syncfusion.UI.Xaml.Grid;
+
 using ScrollAxis = Syncfusion.UI.Xaml.ScrollAxis;
 
 
@@ -48,12 +47,10 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
 
   private static void DataGridPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
   {
-    if (d is RecordNavigationBar recordNavigationBar)
+    if (d is RecordNavigationBar recordNavigationBar && e.NewValue is SfDataGrid dataGrid)
     {
-      if (e.NewValue is SfDataGrid dataGrid)
-      {
-        recordNavigationBar.DataGridChanged(dataGrid);
-      }
+      //Debug.WriteLine($"DataGrid property set to {dataGrid.Name}");
+      recordNavigationBar.DataGridChanged(dataGrid);
     }
   }
 
@@ -67,75 +64,43 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   /// <param name="dataGrid">The <see cref="SfDataGrid"/> whose item count is used to update the binding. Cannot be <see langword="null"/>.</param>
   private void DataGridChanged(SfDataGrid dataGrid)
   {
-    //Debug.WriteLine($"DataGrid {dataGrid.Name} changed");
-    SetBinding(RowsCountProperty, new Binding("ItemsSource.Count") { Source = dataGrid });
     dataGrid.Loaded += (s, e) =>
     {
-      //Debug.WriteLine($"DataGrid {dataGrid.Name} Loaded");
+      //Debug.WriteLine($"{dataGrid.Name} loaded");
       BindRowsCount(dataGrid);
     };
   }
-
-
+ 
   private void BindRowsCount(SfDataGrid dataGrid)
   {
-    if (dataGrid.ItemsSource is ILoadable loadable)
+    if (dataGrid.View != null)
     {
-      if (dataGrid.View != null)
-      {
-        //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to ViewCollectionChanged event.");
-        dataGrid.View.CollectionChanged += ViewOnCollectionChanged(dataGrid);
-        loadable.Loaded += (object? sender, EventArgs e) =>
-        {
-          //Update the RowsCount when the loadable is loaded, as last RowsCount is trimmed to 1000 records.
-          //Debug.WriteLine($"DataGrid {dataGrid.Name} Loaded 2");
-          if (dataGrid.View != null)
-          {
-            RowsCount = dataGrid.View.Records.Count;
-          }
-        };
-      }
-      else
-      {
-        //Debug.WriteLine($"DataGrid {dataGrid.Name} View is null, binding to Loaded event.");
-        loadable.Loaded += (object? sender, EventArgs e) =>
-        {
-          //Debug.WriteLine($"DataGrid {dataGrid.Name} View Loaded");
-          if (dataGrid.View != null)
-          {
-            //Debug.WriteLine($"DataGrid {dataGrid.Name} View is not null, binding to CollectionChanged event.");
-            dataGrid.View.CollectionChanged += ViewOnCollectionChanged(dataGrid);
-          }
-        };
-      }
-      if (dataGrid.View?.Records != null)
-      {
+      if (dataGrid.View.Records != null)
         RowsCount = dataGrid.View.Records.Count;
-        //Debug.WriteLine($"RowsCount = {RowsCount}");
-      }
+      dataGrid.View.CollectionChanged += ViewOnCollectionChanged(dataGrid);
     }
+    if (dataGrid.ItemsSource is ILoadable loadable && !loadable.IsLoaded)
+      loadable.Loaded += (object? sender, EventArgs e) =>
+      {
+        if (dataGrid.View?.Records != null)
+        {
+          RowsCount = dataGrid.View.Records.Count;
+        }
+      };
   }
-
-
+  
   private NotifyCollectionChangedEventHandler? ViewOnCollectionChanged(SfDataGrid dataGrid)
   {
     return (s, e) =>
     {
-      //Debug.WriteLine($"ViewOnCollectionChanged {dataGrid.Name}");
-      if (dataGrid.ItemsSource is ILoadable loadable)
+      if (dataGrid.ItemsSource is ILoadable loadable && !loadable.IsLoaded)
       {
-        if (!loadable.IsLoaded)
-        {
-          if (dataGrid.View.Records.Count % 1000 == 0)
-          {
-            //Debug.WriteLine($"RowsCount1 = {RowsCount}");
-            RowsCount = dataGrid.View.Records.Count;
-          }
-          return;
-        }
+        var count = dataGrid.View.Records.Count;
+        if (UpdateDivider == 0 || count % UpdateDivider == 0)
+          RowsCount = count;
       }
-      RowsCount = dataGrid.View.Records.Count;
-      //Debug.WriteLine($"RowsCount2 = {RowsCount}");
+      else
+        RowsCount = dataGrid.View.Records.Count;
     };
   }
 
@@ -144,7 +109,8 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   /// </summary>
   public SfDataGrid? DataGrid
   {
-    [DebuggerStepThrough] get => (SfDataGrid?)GetValue(DataGridProperty);
+    [DebuggerStepThrough]
+    get => (SfDataGrid?)GetValue(DataGridProperty);
     set => SetValue(DataGridProperty, value);
   }
 
@@ -160,8 +126,27 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
   /// </summary>
   public int RowsCount
   {
-    [DebuggerStepThrough] get => (int)GetValue(RowsCountProperty);
+    [DebuggerStepThrough]
+    get => (int)GetValue(RowsCountProperty);
     set => SetValue(RowsCountProperty, value);
+  }
+
+  /// <summary>
+  /// Dependency property for <see cref="UpdateDivider"/> property.
+  /// </summary>
+  public static DependencyProperty UpdateDividerProperty =
+    DependencyProperty.Register(nameof(UpdateDivider), typeof(int), typeof(RecordNavigationBar),
+      new PropertyMetadata(1000));
+
+  /// <summary>
+  /// Integer value which determines how often is <see cref="RowsCount"/> updated when loading large datasets.
+  /// Only every Nth change in the collection will update the <see cref="RowsCount"/> property.
+  /// </summary>
+  public int UpdateDivider
+  {
+    [DebuggerStepThrough]
+    get => (int)GetValue(UpdateDividerProperty);
+    set => SetValue(UpdateDividerProperty, value);
   }
 
   #region NextItemCommand
@@ -291,11 +276,6 @@ public partial class RecordNavigationBar : UserControl, INotifyPropertyChanged
     }
     var selectedItem = dataGrid.View.Records[selectedIndex].Data;
     dataGrid.View.MoveCurrentTo(selectedItem);
-
-    //var firstLine = dataGrid.GetVisualContainer().ScrollRows.GetVisibleLines().FirstOrDefault(line => line.Region == ScrollAxisRegion.Body);
-    //var lastLine = dataGrid.GetVisualContainer().ScrollRows.GetVisibleLines().LastOrDefault(line => line.Region == ScrollAxisRegion.Body);
-    //Debug.WriteLine($"firstLine={firstLine}");
-    //Debug.WriteLine($"lastLine={lastLine}");
   }
 
   /// <summary>

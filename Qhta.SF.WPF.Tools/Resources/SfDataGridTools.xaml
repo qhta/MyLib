@@ -386,8 +386,7 @@
          IsOpen = "true"   
          StaysOpen="false"
          Opened="LongTextEditPopup_OnOpened">
-        <Border Background="White" BorderBrush="Black" BorderThickness="1" Padding="3" 
-        >
+        <Border Background="White" BorderBrush="Black" BorderThickness="1" Padding="3" >
           <TextBox 
             Padding="0"
             TextWrapping="Wrap"

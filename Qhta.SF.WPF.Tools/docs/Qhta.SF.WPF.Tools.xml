@@ -127,29 +127,6 @@
             </summary>
             <param name="args">Must be <see cref="T:Qhta.SF.WPF.Tools.DelRecordArgs"/></param>
         </member>
-        <member name="T:Qhta.SF.WPF.Tools.DoubleUtil">
-            <summary>
-            Utility class for comparing double values with a specified tolerance.
-            </summary>
-        </member>
-        <member name="M:Qhta.SF.WPF.Tools.DoubleUtil.AreClose(System.Double,System.Double,System.Double)">
-            <summary>
-            Determines whether two double values are close to each other within a specified tolerance.
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <param name="tolerance"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.SF.WPF.Tools.DoubleUtil.GreaterThanOrClose(System.Double,System.Double,System.Double)">
-            <summary>
-            Determines whether the first double value is less than or equal to the second value, considering a specified tolerance.
-            </summary>
-            <param name="a"></param>
-            <param name="b"></param>
-            <param name="tolerance"></param>
-            <returns></returns>
-        </member>
         <member name="T:Qhta.SF.WPF.Tools.FillColumnCommand">
             <summary>
             Command to fill the current column in the data grid with a value selected by user.
@@ -533,6 +510,17 @@
         <member name="P:Qhta.SF.WPF.Tools.RecordNavigationBar.RowsCount">
             <summary>
             Gets or sets the number of rows in the collection.
+            </summary>
+        </member>
+        <member name="F:Qhta.SF.WPF.Tools.RecordNavigationBar.UpdateDividerProperty">
+            <summary>
+            Dependency property for <see cref="P:Qhta.SF.WPF.Tools.RecordNavigationBar.UpdateDivider"/> property.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.RecordNavigationBar.UpdateDivider">
+            <summary>
+            Integer value which determines how often is <see cref="P:Qhta.SF.WPF.Tools.RecordNavigationBar.RowsCount"/> updated when loading large datasets.
+            Only every Nth change in the collection will update the <see cref="P:Qhta.SF.WPF.Tools.RecordNavigationBar.RowsCount"/> property.
             </summary>
         </member>
         <member name="P:Qhta.SF.WPF.Tools.RecordNavigationBar.NextItemCommand">
@@ -1149,11 +1137,6 @@
             </summary>
             <remarks>This converter is used to extract specific properties from <see cref="T:Syncfusion.UI.Xaml.Grid.GridColumn"/> instances, such
             as the selection state.</remarks>
-        </member>
-        <member name="F:Qhta.SF.WPF.Tools.SfDataGridColumnConverter.LogIt">
-            <summary>
-            Debug flag to enable or disable logging of conversion operations.
-            </summary>
         </member>
         <member name="M:Qhta.SF.WPF.Tools.SfDataGridColumnConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <summary>

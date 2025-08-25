@@ -78,8 +78,6 @@ public static partial class SfDataGridCommander
           gridColumnInfo.ItemsSource = comboBoxColumn.ItemsSource;
         }
       }
-
-
       return gridColumnInfo;
     }).Where(info => info != null).ToArray();
     return columnInfos;

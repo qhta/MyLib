@@ -28,6 +28,7 @@ public static partial class SfDataGridCommander
     string[] lines = text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
     if (lines.Length == 0) return;
     if (lines.Length == 1 && lines[0].Length == 0) return;
+
     var pasteHeaders = GetHeaders(lines[0]);
     if (pasteHeaders.Length == 0) return;
     var allColumns = dataGrid.Columns.ToArray();
@@ -41,26 +42,27 @@ public static partial class SfDataGridCommander
       columnsToFill = selectedCells.Select(cell => cell.Column).Distinct().ToArray();
     else
       columnsToFill = dataGrid.Columns.Where(SfDataGridColumnBehavior.GetIsSelected).ToArray();
-    if (!columnsToFill.Any())
-    {
+    if (!columnsToFill.Any()) 
       columnsToFill = dataGrid.Columns.ToArray();
-    }
 
-    object[] rowsToCopy;
+    List<object> selectedRows;
     if (selectedCells.Length != 0)
-      rowsToCopy = selectedCells.Select(cell => cell.RowData).Distinct().ToArray();
-    else
-      rowsToCopy = dataGrid.SelectionController.SelectedRows.Select(row => row.RowData).ToArray();
-    if (!rowsToCopy.Any())
     {
-      rowsToCopy = dataGrid.View.Records.Select(record => record.Data).ToArray();
+      selectedRows = selectedCells.Select(cell => cell.RowData).Distinct().ToList();
     }
+    else
+      selectedRows = dataGrid.SelectionController.SelectedRows.Select(row => row.RowData).ToList();
+    if (!selectedRows.Any())
+      selectedRows = dataGrid.View.Records.Select(record => record.Data).ToList();
+    
+
     var rowDataType = GetRowDataType(dataGrid);
     if (rowDataType == null)
     {
       Debug.WriteLine("PasteData: No row data type found.");
       return;
     }
+
     string[] content;
     if (foundHeaders.Any())
     {
@@ -73,6 +75,7 @@ public static partial class SfDataGridCommander
     }
     if (noColumnsSelected || !columnsToFill.Any())
       return;
+
     GridColumnInfo?[] ? columnInfos = GetGridColumnInfos(columnsToFill, rowDataType, true);
     if (!columnInfos.Any())
     {
@@ -85,9 +88,10 @@ public static partial class SfDataGridCommander
       Debug.WriteLine("PasteData: No content to paste.");
       return;
     }
+
     UndoRedoManager.StartGrouping();
     var lineNo = 0;
-    foreach (var row in rowsToCopy)
+    foreach (var row in selectedRows)
     {
       var line = content[lineNo++];
       if (line.Length == 0) continue;
@@ -97,13 +101,26 @@ public static partial class SfDataGridCommander
       var columnNo = 0;
       foreach (var column in columnsToFill)
       {
-        var cellStr = cellValues[columnNo++];
-        if (columnNo >= cellValues.Length) columnNo = 0; // Loop through content line if more columns than line items
-        var cellInfo = new GridCellInfo(column, row, null);
-        var columnInfo = columnInfos?.FirstOrDefault(info => info?.MappingName == column.MappingName);
-        if (columnInfo != null)
+        try
         {
-          SetCellData(cellInfo, columnInfo, cellStr);
+          var cellStr = cellValues[columnNo++];
+          if (columnNo >= cellValues.Length) columnNo = 0; // Loop through content line if more columns than line items
+          var cellInfo = new GridCellInfo(column, row, null);
+          var columnInfo = columnInfos?.FirstOrDefault(info => info?.MappingName == column.MappingName);
+          if (columnInfo?.ValuePropertyInfo != null && columnInfo.ValuePropertyInfo.CanWrite)
+          {
+            if (columnInfo.ValuePropertyInfo.PropertyType == typeof(string))
+              SetCellData(cellInfo, columnInfo, cellStr);
+            else
+            {
+              var val = Convert.ChangeType(cellStr, columnInfo.ValuePropertyInfo.PropertyType);
+              SetCellData(cellInfo, columnInfo, cellStr);
+            }
+          }
+        }
+        catch (Exception ex)
+        {
+          Debug.WriteLine($"PasteData: Error pasting data into column {column.MappingName}: {ex.Message}");
         }
       }
     }

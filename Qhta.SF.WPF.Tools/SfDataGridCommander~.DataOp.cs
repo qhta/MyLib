@@ -269,7 +269,6 @@ public static partial class SfDataGridCommander
             UndoRedoManager.Record(new DelRecordAction(), delRecordArgs);
             dataSource.Remove(row);
           }
-          UndoRedoManager.StopGrouping();
         }
       }
       catch (Exception e)

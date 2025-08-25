@@ -21,7 +21,6 @@
   <helpers:CodeRangeValueConverter x:Key="CodeRangeValueConverter"/>
   <helpers:CodePointValueConverter x:Key="CodePointValueConverter"/>
   <helpers:StringFormattingValueConverter x:Key="StringFormattingValueConverter"/>
-  <converters:NegateValueConverter x:Key="NegateValueConverter"/>
   <helpers:WritingSystemTypeToImageConverter x:Key="TypeToImageConverter" />
   <converters:EnumToResourceConverter 
     ResourceType="{x:Type resources:WritingSystemTypeStrings}" x:Key="WritingSystemTypeResourceConverter"/>

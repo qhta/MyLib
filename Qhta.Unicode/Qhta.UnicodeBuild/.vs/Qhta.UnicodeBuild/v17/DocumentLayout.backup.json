@@ -3,19 +3,64 @@
   "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\delrecordaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\recordnavigationbar.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridcommander.deletedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridcommander!.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\qhta.sf.wpf.tools.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridcommander.pastedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridcommander~.dataop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridcommander!.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridcommander.copydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\helpers\\entitycollection\u00601.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:helpers\\entitycollection\u00601.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\recordnavigationbar.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\longtextcolumnexpandervisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\gridcolumnmappingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\resources\\sfdatagridtools.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\appresourcedictionary.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:appresourcedictionary.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\longtextcolumn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\resources\\sfdatagridtools.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\rowresizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridcolumnconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.unicode\\qhta.unicodebuild\\views\\ucdcodepointsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{38FDE1CD-E5FC-AF6E-3AE8-AD610771FA41}|Qhta.UnicodeBuild.csproj|solutionrelative:views\\ucdcodepointsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\delrecordaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\ierrormessageprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A93107B7-2349-7D05-A178-25E37B578F52}|..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.sf.wpf.tools\\sfdatagridcommander.deletedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,7 +70,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -53,7 +98,185 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "SfDataGridCommander.PasteData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander.PasteData.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander.PasteData.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander.PasteData.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander.PasteData.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAqwFkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T20:39:52.111Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SfDataGridCommander.CopyData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander.CopyData.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander.CopyData.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander.CopyData.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander.CopyData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T20:04:47.295Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EntityCollection\u00601.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Helpers\\EntityCollection\u00601.cs",
+              "RelativeDocumentMoniker": "Helpers\\EntityCollection\u00601.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Helpers\\EntityCollection\u00601.cs",
+              "RelativeToolTip": "Helpers\\EntityCollection\u00601.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T18:30:11.921Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RecordNavigationBar.xaml.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\RecordNavigationBar.xaml.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\RecordNavigationBar.xaml.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\RecordNavigationBar.xaml.cs*",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\RecordNavigationBar.xaml.cs*",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAEQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T17:43:20.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "RecordNavigationBar.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\RecordNavigationBar.xaml",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\RecordNavigationBar.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\RecordNavigationBar.xaml",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\RecordNavigationBar.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-24T17:43:02.204Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LongTextColumnExpanderVisibilityConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\LongTextColumnExpanderVisibilityConverter.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\LongTextColumnExpanderVisibilityConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\LongTextColumnExpanderVisibilityConverter.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\LongTextColumnExpanderVisibilityConverter.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T17:41:58.79Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GridColumnMappingConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\GridColumnMappingConverter.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\GridColumnMappingConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\GridColumnMappingConverter.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\GridColumnMappingConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T17:40:37.211Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AppResourceDictionary.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\AppResourceDictionary.xaml",
+              "RelativeDocumentMoniker": "AppResourceDictionary.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\AppResourceDictionary.xaml",
+              "RelativeToolTip": "AppResourceDictionary.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-24T17:39:21.697Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "LongTextColumn.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\LongTextColumn.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\LongTextColumn.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\LongTextColumn.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\LongTextColumn.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T17:29:48.116Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "RowResizer.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\RowResizer.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\RowResizer.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\RowResizer.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\RowResizer.cs",
+              "ViewState": "AgIAAGQAAAAAAAAAAAAnwH8AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T17:09:00.215Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "SfDataGridColumnConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridColumnConverter.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridColumnConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridColumnConverter.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridColumnConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T16:55:33.81Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SfDataGridTools.xaml.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml.cs",
+              "ViewState": "AgIAAJcAAAAAAAAAAAAnwCcBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T16:19:43.934Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SfDataGridTools.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Resources\\SfDataGridTools.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-24T16:16:14.591Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "UcdCodePointsView.xaml",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\UcdCodePointsView.xaml",
+              "RelativeDocumentMoniker": "Views\\UcdCodePointsView.xaml",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.UnicodeBuild\\Views\\UcdCodePointsView.xaml",
+              "RelativeToolTip": "Views\\UcdCodePointsView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-24T15:17:52.411Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IErrorMessageProvider.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\IErrorMessageProvider.cs",
+              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\IErrorMessageProvider.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\IErrorMessageProvider.cs",
+              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\IErrorMessageProvider.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T13:33:46.065Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "SfDataGridCommander.DeleteData.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander.DeleteData.cs",
               "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander.DeleteData.cs",
@@ -61,44 +284,29 @@
               "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander.DeleteData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T13:27:13.193Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-24T13:27:13.193Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Qhta.SF.WPF.Tools",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj",
-              "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj",
-              "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-08-24T13:26:38.992Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 16,
               "Title": "DelRecordAction.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\DelRecordAction.cs",
               "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\DelRecordAction.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\DelRecordAction.cs",
               "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\DelRecordAction.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T12:59:04.083Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-24T12:59:04.083Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "SfDataGridCommander!.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander!.cs",
               "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander!.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander!.cs",
               "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander!.cs",
-              "ViewState": "AgIAAIEAAAAAAAAAAAAiwLYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAANoAAAAAAAAAAAASwPUAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-24T09:19:04.303Z",
               "EditorCaption": ""
@@ -111,10 +319,9 @@
               "RelativeDocumentMoniker": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander~.DataOp.cs",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\SfDataGridCommander~.DataOp.cs",
               "RelativeToolTip": "..\\..\\Qhta.SF.WPF.Tools\\SfDataGridCommander~.DataOp.cs",
-              "ViewState": "AgIAAPsAAAAAAAAAAAAqwAwBAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAqwHUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-23T20:29:16.375Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-23T20:29:16.375Z"
             }
           ]
         },
