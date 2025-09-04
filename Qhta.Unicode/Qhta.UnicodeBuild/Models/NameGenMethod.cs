@@ -9,7 +9,7 @@ public enum NameGenMethod: byte
   /// Name is not generated for this writing system.
   /// However, if the code point has other writing systems assigned, they are used to generate names.
   /// </summary>
-  NoGeneration = 0,
+  None = 0,
   /// <summary>
   /// Names are taken from a predefined list of names.
   /// </summary>

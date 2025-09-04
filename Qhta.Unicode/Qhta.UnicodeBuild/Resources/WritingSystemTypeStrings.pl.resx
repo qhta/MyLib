@@ -120,8 +120,8 @@
   <data name="Area" xml:space="preserve">
     <value>Obszar</value>
   </data>
-  <data name="Family" xml:space="preserve">
-    <value>Rodzina</value>
+  <data name="Group" xml:space="preserve">
+    <value>Grupa</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Język</value>
@@ -141,7 +141,7 @@
   <data name="AreaTooltip" xml:space="preserve">
     <value>Zakres punktów kodowych, które nie są definiowane indywidualnie.</value>
   </data>
-  <data name="FamilyTooltip" xml:space="preserve">
+  <data name="GroupTooltip" xml:space="preserve">
     <value>Jednostka organizacyjna systemów pisma.</value>
   </data>
   <data name="LanguageTooltip" xml:space="preserve">

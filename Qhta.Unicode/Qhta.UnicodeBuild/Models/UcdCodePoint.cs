@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 
 namespace Qhta.Unicode.Models;
@@ -9,6 +10,7 @@ namespace Qhta.Unicode.Models;
 [Table("UcdCodePoints")]
 public partial class UcdCodePoint
 {
+  #region Basic fields
   /// <summary>
   /// Identifier for the Unicode code point, which is an integer number of the Code field.
   /// </summary>
@@ -101,6 +103,7 @@ public partial class UcdCodePoint
   /// Code point for the title case version of the character, if applicable.
   /// </summary>
   public string? Title { [DebuggerStepThrough] get; set; }
+  #endregion
 
   #region Classification fields
   /// <summary>
@@ -110,28 +113,10 @@ public partial class UcdCodePoint
   public int? BlockId { [DebuggerStepThrough] get; set; }
 
   /// <summary>
-  /// Identifier for the area writing system that this code point is associated with, if applicable.
+  /// Identifier for the main writing system that this code point is written in, if applicable.
   /// </summary>
-  [Column("Area")]
-  public int? AreaId { [DebuggerStepThrough] get; set; }
-
-  /// <summary>
-  /// Identifier for the script that this code point is written in, if applicable.
-  /// </summary>
-  [Column("Script")]
-  public int? ScriptId { [DebuggerStepThrough] get; set; }
-
-  /// <summary>
-  /// Identifier for the language that this code point is associated with, if applicable.
-  /// </summary>
-  [Column("Language")]
-  public int? LanguageId { [DebuggerStepThrough] get; set; }
-
-  /// <summary>
-  /// Identifier for the notation that this code point is associated with, if applicable.
-  /// </summary>
-  [Column("Notation")]
-  public int? NotationId { [DebuggerStepThrough] get; set; }
+  [Column("WritingSystem")]
+  public int? WritingSystemId { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Identifier for the symbol set that this code point belongs to, if applicable.
@@ -144,9 +129,8 @@ public partial class UcdCodePoint
   /// </summary>
   [Column("Subset")]
   public int? SubsetId { [DebuggerStepThrough] get; set; }
-
   #endregion
-
+  
   /// <summary>
   /// Collection of the aliases of this Unicode code point.
   /// </summary>

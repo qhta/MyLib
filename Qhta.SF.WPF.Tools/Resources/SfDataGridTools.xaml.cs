@@ -275,16 +275,10 @@ public partial class SfDataGridTools : ResourceDictionary
     if (sender is not SfDataGrid dataGrid)
       return;
     dataGrid.QueryRowHeight += DataGrid_OnQueryRowHeight;
-    dataGrid.FilterItemsPopulating += DataGrid_OnFilterItemsPopulating;
-    dataGrid.FilterChanged += DataGrid_OnFilterChanged;
     // Attach event handlers for copy and paste operations
     dataGrid.GridCopyContent += DataGrid_OnGridCopyContent;
     dataGrid.GridPasteContent += DataGrid_OnGridPasteContent;
   }
-
-  private void DataGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e) => SfDataGridFiltering.OnFilterItemsPopulating(sender, e);
-
-  private void DataGrid_OnFilterChanged(object? sender, GridFilterEventArgs e) => SfDataGridFiltering.OnFilterChanging(sender, e);
 
   private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
   {

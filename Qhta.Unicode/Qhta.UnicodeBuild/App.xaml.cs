@@ -49,7 +49,11 @@ public partial class App : Application
       if (result == MessageBoxResult.No)
         _ViewModels.Instance.DbContext.AutoSaveChanges = false;
       else
+      {
         _ViewModels.Instance.DbContext.AutoSaveChanges = true;
+        MessageBox.Show(
+          ResourceStrings.DataSaveStarted, ResourceStrings.Info, MessageBoxButton.YesNo, MessageBoxImage.Information);
+      }
     }
 
     _ViewModels.Instance.Dispose();

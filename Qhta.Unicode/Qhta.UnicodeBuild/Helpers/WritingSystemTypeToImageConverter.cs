@@ -29,7 +29,7 @@ public class WritingSystemTypeToImageConverter : IValueConverter
         WritingSystemType.Language => "pack://application:,,,/Assets/Language.png",
         WritingSystemType.Script => "pack://application:,,,/Assets/Script.png",
         WritingSystemType.Notation => "pack://application:,,,/Assets/Notation.png",
-        WritingSystemType.Family => "pack://application:,,,/Assets/Family.png",
+        WritingSystemType.Group => "pack://application:,,,/Assets/Family.png",
         _ => "pack://application:,,,/Assets/_Empty.png"
       };
     }

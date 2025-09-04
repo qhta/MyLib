@@ -87,9 +87,6 @@ public class ApplyWritingSystemRecognitionCommand : TimeConsumingCommand
       throw new ArgumentException("Argument must be of type (List<UcdCodePointViewModel>, WritingSystemType[]).", nameof(e.Argument));
     }
     var listOfPoints = argument.ListOfPoints;
-    WritingSystemType[] allowedWritingSystems = (argument.SelectedWritingSystems != null)
-      ? argument.SelectedWritingSystems.ToArray()
-      : [WritingSystemType.Subset, WritingSystemType.SymbolSet, WritingSystemType.Notation, WritingSystemType.Language, WritingSystemType.Script];
     try
     {
       InitWritingSystemCategoryPhraseMap();
@@ -111,7 +108,7 @@ public class ApplyWritingSystemRecognitionCommand : TimeConsumingCommand
           return;
         }
 
-        WritingSystemViewModel[] oldWritingSystems = codePoint.GetWritingSystems(allowedWritingSystems)!.ToArray();
+        WritingSystemViewModel[] oldWritingSystems = codePoint.GetWritingSystems()!.ToArray();
 
 
         var newWritingSystems = RecognizeWritingSystems(codePoint);

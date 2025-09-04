@@ -264,7 +264,14 @@ public sealed class WritingSystemsCollection : EntityCollection<WritingSystemVie
   /// <summary>
   /// Gets the top-level writing systems in the collection, which are those without a parent.
   /// </summary>
-  public IEnumerable<WritingSystemViewModel> TopWritingSystems => base.Items.Where(item => item.ParentId == null);
+  public IEnumerable<WritingSystemTopViewModel> TopWritingSystems =>
+    _TopWritingSystems ??= Enum.GetValues<WritingSystemType>()
+      .Select(type => new WritingSystemTopViewModel(this, type))
+      .Where(vm => vm.Children.Any())
+      .OrderBy(vm => vm.Type)
+      .ToList();
+
+  private List<WritingSystemTopViewModel>? _TopWritingSystems = null!;
 
   /// <summary>
   /// Column width for the long text in the UI.

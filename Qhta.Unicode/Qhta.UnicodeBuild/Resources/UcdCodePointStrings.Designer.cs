@@ -214,6 +214,24 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name without writing system.
+        /// </summary>
+        public static string NameWithoutWS {
+            get {
+                return ResourceManager.GetString("NameWithoutWS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description name without keyphrase of recognized writing system..
+        /// </summary>
+        public static string NameWithoutWSTooltip {
+            get {
+                return ResourceManager.GetString("NameWithoutWSTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notation.
         /// </summary>
         public static string Notation {
@@ -331,7 +349,7 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Writing system to which this code point belongs. You can choose script, language or artifact, notation, character set or subset here..
+        ///   Looks up a localized string similar to Writing system to which this code point belongs. You can choose script, notation, a group of scripts or notations, or area here..
         /// </summary>
         public static string WritingSystemTooltip {
             get {

@@ -120,8 +120,8 @@
   <data name="Area" xml:space="preserve">
     <value>Area</value>
   </data>
-  <data name="Family" xml:space="preserve">
-    <value>Family</value>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
@@ -141,8 +141,8 @@
   <data name="AreaTooltip" xml:space="preserve">
     <value>Area is a range of code points that are not defined individually.</value>
   </data>
-  <data name="FamilyTooltip" xml:space="preserve">
-    <value>Family is a set of scripts or other writing systems.</value>
+  <data name="GroupTooltip" xml:space="preserve">
+    <value>Group is a set of scripts or other writing systems.</value>
   </data>
   <data name="LanguageTooltip" xml:space="preserve">
     <value>Language is a structured system of communication that consists of grammar and vocabulary.</value>

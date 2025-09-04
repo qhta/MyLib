@@ -9,9 +9,14 @@ namespace Qhta.Unicode.Models;
 public partial class Alias
 {
   /// <summary>
-  /// Ordinal number of the alias associated with the specific code point.
+  /// Prime key identifier for the alias entity.
   /// </summary>
   [Key]
+  public int Id { [DebuggerStepThrough] get; set; }
+
+  /// <summary>
+  /// Ordinal number of the alias associated with the specific code point.
+  /// </summary>
   public int Ord { [DebuggerStepThrough] get; set; }
 
   /// <summary>

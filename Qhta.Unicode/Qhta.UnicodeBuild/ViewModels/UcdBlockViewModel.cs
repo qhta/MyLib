@@ -12,7 +12,7 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// <summary>
 /// ViewModel for a Unicode Character Database (UCD) block.
 /// </summary>
-public partial class UcdBlockViewModel : ViewModel<UcdBlock>, IComparable<UcdBlockViewModel>, 
+public partial class UcdBlockViewModel : EntityViewModel<UcdBlock>, IComparable<UcdBlockViewModel>, 
   ISelectableItem,
   IRowHeightProvider, IErrorMessageProvider
 {
@@ -86,7 +86,17 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, IComparable<UcdBlo
   }
 
   /// <summary>
-  /// Main writing system associated with this UCD block, if applicable.
+  /// Identifier of the WritingSystem.
+  /// </summary>
+  public int? WritingSystemId
+  {
+    [DebuggerStepThrough]
+    get => Model.WritingSystemId;
+    set => ChangeViewModelProperty(nameof(WritingSystemId), nameof(Model.WritingSystemId), value, nameof(WritingSystem));
+  }
+
+  /// <summary>
+  /// Default writing system associated with this UCD block, if applicable.
   /// </summary>
   public WritingSystemViewModel? WritingSystem
   {
@@ -95,8 +105,9 @@ public partial class UcdBlockViewModel : ViewModel<UcdBlock>, IComparable<UcdBlo
       var result = Model.WritingSystemId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.WritingSystemId);
       return result;
     }
-    set => Model.WritingSystemId = value?.Id;
+    set => ChangeViewModelProperty(nameof(WritingSystemId), nameof(Model.WritingSystemId), value?.Id, nameof(WritingSystem));
   }
+
 
   #region ILongTextViewModel implementation
   /// <summary>

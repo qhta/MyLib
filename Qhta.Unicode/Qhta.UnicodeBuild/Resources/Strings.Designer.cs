@@ -124,42 +124,6 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply char names generation.
-        /// </summary>
-        public static string ApplyCharNamesGeneration {
-            get {
-                return ResourceManager.GetString("ApplyCharNamesGeneration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Char names generation completed. {0} code points named..
-        /// </summary>
-        public static string ApplyCharNamesGenerationCompleted {
-            get {
-                return ResourceManager.GetString("ApplyCharNamesGenerationCompleted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do you really want to generate char names for {0} code points? (Existing names will not be overwritten.).
-        /// </summary>
-        public static string ApplyCharNamesGenerationConfirm {
-            get {
-                return ResourceManager.GetString("ApplyCharNamesGenerationConfirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Apply code point char names generation based on writing systems mapping..
-        /// </summary>
-        public static string ApplyCharNamesGenerationTooltip {
-            get {
-                return ResourceManager.GetString("ApplyCharNamesGenerationTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Apply writing systems mapping.
         /// </summary>
         public static string ApplyWritingSystemsMappingFromFile {
@@ -340,6 +304,15 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A data write operation has been initiated. It may take a moment to complete. The database may be temporarily out of date..
+        /// </summary>
+        public static string DataSaveStarted {
+            get {
+                return ResourceManager.GetString("DataSaveStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Description {
@@ -489,6 +462,78 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string FindValueTitle {
             get {
                 return ResourceManager.GetString("FindValueTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate char names.
+        /// </summary>
+        public static string GenerateCharNames {
+            get {
+                return ResourceManager.GetString("GenerateCharNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Char names generation completed. {0} code points named..
+        /// </summary>
+        public static string GenerateCharNamesCompleted {
+            get {
+                return ResourceManager.GetString("GenerateCharNamesCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to generate char names for {0} code points? (Existing names will not be overwritten.).
+        /// </summary>
+        public static string GenerateCharNamesConfirm {
+            get {
+                return ResourceManager.GetString("GenerateCharNamesConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate code point char names based on writing systems mapping..
+        /// </summary>
+        public static string GenerateCharNamesTooltip {
+            get {
+                return ResourceManager.GetString("GenerateCharNamesTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate char names without WS.
+        /// </summary>
+        public static string GenerateNamesWithoutWS {
+            get {
+                return ResourceManager.GetString("GenerateNamesWithoutWS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Char names without WS generation completed. {0} code points named..
+        /// </summary>
+        public static string GenerateNamesWithoutWSCompleted {
+            get {
+                return ResourceManager.GetString("GenerateNamesWithoutWSCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to generate char names without WS for {0} code points?.
+        /// </summary>
+        public static string GenerateNamesWithoutWSConfirm {
+            get {
+                return ResourceManager.GetString("GenerateNamesWithoutWSConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate code point names without WS based on writing systems mapping..
+        /// </summary>
+        public static string GenerateNamesWithoutWSTooltip {
+            get {
+                return ResourceManager.GetString("GenerateNamesWithoutWSTooltip", resourceCulture);
             }
         }
         

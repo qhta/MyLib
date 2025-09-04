@@ -34,7 +34,7 @@ public class EntityViewModel<T>: ViewModel<T>
   /// <param name="pairedPropertyName">The name of the paired property to notify that was changed too.</param>
   /// <returns>True if change was done, false if no change was needed</returns>
   /// <exception cref="ArgumentException">Thrown if <paramref name="thisPropertyName"/> does not correspond to a valid property on the current instance's type.</exception>
-  public bool ChangeEntityProperty(string thisPropertyName, string modelPropertyName, object? newValue, string? pairedPropertyName = null)
+  public bool ChangeViewModelProperty(string thisPropertyName, string modelPropertyName, object? newValue, string? pairedPropertyName = null)
   {
     var type = this.GetType();
     var property = type.GetProperty(thisPropertyName);

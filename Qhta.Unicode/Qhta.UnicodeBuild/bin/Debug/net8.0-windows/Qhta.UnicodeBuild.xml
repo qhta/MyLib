@@ -112,8 +112,8 @@
         </member>
         <member name="T:Qhta.UnicodeBuild.Commands.ApplyBlockMappingCommand">
             <summary>
-            Command to apply writing system mappings from a file.
-            A list of mappings is read from a file, and each code point in the specified blocks is updated with the corresponding UcdBlock.
+            Command to map code points to blocks.
+            A code point is mapped to a block if its code value is within the block range, this command fills the Block property of code points.
             </summary>
         </member>
         <member name="M:Qhta.UnicodeBuild.Commands.ApplyBlockMappingCommand.Execute(System.Object)">
@@ -128,42 +128,10 @@
         <member name="M:Qhta.UnicodeBuild.Commands.ApplyBlockMappingCommand.BackgroundWorker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
             <inheritdoc/>
         </member>
-        <member name="T:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand">
-            <summary>
-            Command to apply character names generation to selected Unicode code points.
-            </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.CanExecute(System.Object)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.Execute(System.Object)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.LoadAndParseKnownPhrasesFile(System.String)">
-            <summary>
-            Loads and parses the abbreviated words file.
-            Parses each line, expecting the format:
-            phrase; abbreviation; [adj]
-            </summary>
-            <param name="filename"></param>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.BackgroundWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
-            <inheritdoc/>
-        </member>
-        <member name="F:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.GeneratedNamesCount">
-            <summary>
-            Count of recognized writing systems during the last recognition operation.
-            </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.BackgroundWorker_ProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.Commands.ApplyCharNamesGenerationCommand.BackgroundWorker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
-            <inheritdoc/>
-        </member>
         <member name="T:Qhta.UnicodeBuild.Commands.ApplyWritingSystemMappingCommand">
             <summary>
             Command to apply writing system mappings from a file.
+            A list of mappings is read from a file, and each code point in the specified blocks is updated with the corresponding UcdBlock.
             </summary>
         </member>
         <member name="M:Qhta.UnicodeBuild.Commands.ApplyWritingSystemMappingCommand.#ctor">
@@ -278,6 +246,64 @@
             <summary>
             Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.Commands.EditWritingSystemCommand"/> class.
             </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.GenerateCharNamesCommand">
+            <summary>
+            Command to apply character names generation to selected Unicode code points.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.GenerateCharNamesCommand.CanExecute(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.GenerateCharNamesCommand.Execute(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.GenerateCharNamesCommand.LoadAndParseKnownPhrasesFile(System.String)">
+            <summary>
+            Loads and parses the abbreviated words file.
+            Parses each line, expecting the format:
+            phrase; abbreviation; [adj]
+            </summary>
+            <param name="filename"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.GenerateCharNamesCommand.BackgroundWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.Commands.GenerateCharNamesCommand.GeneratedNamesCount">
+            <summary>
+            Count of recognized writing systems during the last recognition operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.GenerateCharNamesCommand.BackgroundWorker_ProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.GenerateCharNamesCommand.BackgroundWorker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Commands.GenerateNamesWithoutWSCommand">
+            <summary>
+            Command to apply character names generation to selected Unicode code points.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.GenerateNamesWithoutWSCommand.CanExecute(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.GenerateNamesWithoutWSCommand.Execute(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.GenerateNamesWithoutWSCommand.BackgroundWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:Qhta.UnicodeBuild.Commands.GenerateNamesWithoutWSCommand.GeneratedNamesCount">
+            <summary>
+            Count of recognized writing systems during the last recognition operation.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.GenerateNamesWithoutWSCommand.BackgroundWorker_ProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Commands.GenerateNamesWithoutWSCommand.BackgroundWorker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+            <inheritdoc/>
         </member>
         <member name="T:Qhta.UnicodeBuild.Commands.MarkUnusedWritingSystemsCommand">
             <summary>
@@ -424,9 +450,14 @@
             Command to apply writing systems recognition in a set of Unicode code points. 
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Commands._Commander.ApplyCharNamesGenerationCommand">
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.GenerateNamesWithoutWSCommand">
             <summary>
-            Command to apply character names generation to selected Unicode code points.
+            Command to generate names without WS for selected Unicode code points.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Commands._Commander.GenerateCharNamesCommand">
+            <summary>
+            Command to generate character names of selected Unicode code points.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Commands._Commander.MarkUnusedWritingSystemsCommand">
@@ -757,14 +788,14 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="T:Qhta.UnicodeBuild.Helpers.EmptyValueConverter">
+        <member name="T:Qhta.UnicodeBuild.Helpers.EmptyOrNullToVisibilityConverter">
             <summary>
-            Value converter that returns a string value or "empty" tag.
+            Converts empty or whitespace strings to null values.
             </summary>
         </member>
-        <member name="M:Qhta.UnicodeBuild.Helpers.EmptyValueConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:Qhta.UnicodeBuild.Helpers.EmptyOrNullToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <summary>
-            Converts a value to a string representation.
+            Converts an empty or whitespace string to null; otherwise, returns the original string.
             </summary>
             <param name="value"></param>
             <param name="targetType"></param>
@@ -772,16 +803,50 @@
             <param name="culture"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.UnicodeBuild.Helpers.EmptyValueConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+        <member name="M:Qhta.UnicodeBuild.Helpers.EmptyOrNullToVisibilityConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <summary>
-            Unimplemented method for converting back from the target type to the source type.
+            Unimplemented. Converts a value back to its original form.
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Helpers.EmptyToFalseConverter">
+            <summary>
+            Converts empty or whitespace strings to false value, otherwise true.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.EmptyToFalseConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts an empty or whitespace string to false; otherwise, returns true.
             </summary>
             <param name="value"></param>
             <param name="targetType"></param>
             <param name="parameter"></param>
             <param name="culture"></param>
             <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.EmptyToFalseConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented. Converts a value back to its original form.
+            </summary>
+        </member>
+        <member name="T:Qhta.UnicodeBuild.Helpers.EmptyToNullConverter">
+            <summary>
+            Converts empty or whitespace strings to null values.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.EmptyToNullConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts an empty or whitespace string to null; otherwise, returns the original string.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.Helpers.EmptyToNullConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented. Converts a value back to its original form.
+            </summary>
         </member>
         <member name="T:Qhta.UnicodeBuild.Helpers.EntityCollection`1">
             <summary>
@@ -836,7 +901,7 @@
             </summary>
             <param name="entity"></param>
         </member>
-        <member name="M:Qhta.UnicodeBuild.Helpers.EntityViewModel`1.ChangeEntityProperty(System.String,System.String,System.Object,System.String)">
+        <member name="M:Qhta.UnicodeBuild.Helpers.EntityViewModel`1.ChangeViewModelProperty(System.String,System.String,System.Object,System.String)">
             <summary>
             Changes the value of a specified property on the current instance.
             </summary>
@@ -1292,6 +1357,7 @@
         </member>
         <member name="F:Qhta.UnicodeBuild.NameGen.NameGenerator._UnbrokenPhrases">
             A list with known multi-word phrases that should not be split.
+            Ordered by length descending to avoid partial matches.
         </member>
         <member name="F:Qhta.UnicodeBuild.NameGen.NameGenerator.AllNames">
             <summary>
@@ -1312,20 +1378,18 @@
             A dictionary containing first codes for each ordinal generated writing system.
             </summary>
         </member>
+        <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.GenerateNameWithoutWS(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel)">
+            <summary>
+            Removes writing system key phrases from the description and generates a short name without writing system prefix.
+            </summary>
+            <param name="codePoint"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.GenerateShortName(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel)">
             <summary>
             Generates a short name for a given Unicode code point.
             </summary>
             <param name="codePoint"></param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentNullException"></exception>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.GenerateShortName(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel,Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel[])">
-            <summary>
-            Generates a short name for a given Unicode code point based on the provided writing systems.
-            </summary>
-            <param name="codePoint"></param>
-            <param name="writingSystems"></param>
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
         </member>
@@ -1367,6 +1431,64 @@
             If a word (neither single nor composite) is not found, it is replaced with its first letter in uppercase.
             </summary>
             <param name="codePoint"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.CreateProceduralName(Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel,System.Collections.Generic.LinkedListNode{Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel})">
+            <summary>
+            Creates a procedural name for the code point based on its description and the writing system's key phrase.
+            Precedes the name with a backslash and ensures it is a unique name.
+            </summary>
+            <param name="codePoint"></param>
+            <param name="wsNode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.CreateProceduralName(System.Collections.Generic.List{System.String},System.Collections.Generic.LinkedListNode{Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel})">
+            <summary>
+            Creates a procedural name for the code point based on its description and the writing system's key phrase.
+            </summary>
+            <param name="words"></param>
+            <param name="wsNode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.RemoveKeyPhrase(System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Removes the specified key phrase from the list of words.
+            </summary>
+            <param name="words"></param>
+            <param name="keyPhrase"></param>
+            <returns>True if the key phrase was found</returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.SplitDescription(System.String)">
+            <summary>
+            Splits the description into words, taking into account known multi-word phrases that should not be split.
+            </summary>
+            <param name="description"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.PrepareDescription(System.String)">
+            <summary>
+            Prepares the description by replacing known multi-word phrases with underscores instead of spaces.
+            </summary>
+            <param name="description"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.DetectAndParseWITHClause(System.Collections.Generic.List{System.String},Qhta.UnicodeBuild.NameGen.SpecialFunction)">
+            <summary>
+            Parses a list of words when it has a WITH clause.
+            Divides the phrase into left and right parts and parses them separately.
+            Precedes the name with a diacritical function.
+            If there is no WITH clause, it simply parses the left part.
+            </summary>
+            <param name="words"></param>
+            <param name="letterCase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.NameGen.NameGenerator.ParseLeftPart(System.Collections.Generic.List{System.String},Qhta.UnicodeBuild.NameGen.SpecialFunction)">
+            <summary>
+            Parses the left part of a phrase, applying any special functions as needed.
+            </summary>
+            <param name="words"></param>
+            <param name="specialFunction"></param>
             <returns></returns>
         </member>
         <member name="T:Qhta.UnicodeBuild.NameGen.NameGenOptions">
@@ -1582,26 +1704,6 @@
               Looks up a localized string similar to Apply code point mapping to Unicode blocks by checking block ranges..
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyCharNamesGeneration">
-            <summary>
-              Looks up a localized string similar to Apply char names generation.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyCharNamesGenerationCompleted">
-            <summary>
-              Looks up a localized string similar to Char names generation completed. {0} code points named..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyCharNamesGenerationConfirm">
-            <summary>
-              Looks up a localized string similar to Do you really want to generate char names for {0} code points? (Existing names will not be overwritten.).
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyCharNamesGenerationTooltip">
-            <summary>
-              Looks up a localized string similar to Apply code point char names generation based on writing systems mapping..
-            </summary>
-        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.ApplyWritingSystemsMappingFromFile">
             <summary>
               Looks up a localized string similar to Apply writing systems mapping.
@@ -1702,6 +1804,11 @@
               Looks up a localized string similar to Data.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.DataSaveStarted">
+            <summary>
+              Looks up a localized string similar to A data write operation has been initiated. It may take a moment to complete. The database may be temporarily out of date..
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Description">
             <summary>
               Looks up a localized string similar to Description.
@@ -1785,6 +1892,46 @@
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.FindValueTitle">
             <summary>
               Looks up a localized string similar to Find &quot;{0}&quot;.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.GenerateCharNames">
+            <summary>
+              Looks up a localized string similar to Generate char names.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.GenerateCharNamesCompleted">
+            <summary>
+              Looks up a localized string similar to Char names generation completed. {0} code points named..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.GenerateCharNamesConfirm">
+            <summary>
+              Looks up a localized string similar to Do you really want to generate char names for {0} code points? (Existing names will not be overwritten.).
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.GenerateCharNamesTooltip">
+            <summary>
+              Looks up a localized string similar to Generate code point char names based on writing systems mapping..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.GenerateNamesWithoutWS">
+            <summary>
+              Looks up a localized string similar to Generate char names without WS.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.GenerateNamesWithoutWSCompleted">
+            <summary>
+              Looks up a localized string similar to Char names without WS generation completed. {0} code points named..
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.GenerateNamesWithoutWSConfirm">
+            <summary>
+              Looks up a localized string similar to Do you really want to generate char names without WS for {0} code points?.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.Strings.GenerateNamesWithoutWSTooltip">
+            <summary>
+              Looks up a localized string similar to Generate code point names without WS based on writing systems mapping..
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.Strings.Help">
@@ -2343,6 +2490,16 @@
               Looks up a localized string similar to Char name used in serialization..
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.NameWithoutWS">
+            <summary>
+              Looks up a localized string similar to Name without writing system.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.NameWithoutWSTooltip">
+            <summary>
+              Looks up a localized string similar to Description name without keyphrase of recognized writing system..
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Notation">
             <summary>
               Looks up a localized string similar to Notation.
@@ -2410,7 +2567,7 @@
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.WritingSystemTooltip">
             <summary>
-              Looks up a localized string similar to Writing system to which this code point belongs. You can choose script, language or artifact, notation, character set or subset here..
+              Looks up a localized string similar to Writing system to which this code point belongs. You can choose script, notation, a group of scripts or notations, or area here..
             </summary>
         </member>
         <member name="T:Qhta.UnicodeBuild.Resources.UcdRangeStrings">
@@ -2927,14 +3084,14 @@
               Looks up a localized string similar to Area is a range of code points that are not defined individually..
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.Family">
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.Group">
             <summary>
-              Looks up a localized string similar to Family.
+              Looks up a localized string similar to Group.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.FamilyTooltip">
+        <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.GroupTooltip">
             <summary>
-              Looks up a localized string similar to Family is a set of scripts or other writing systems..
+              Looks up a localized string similar to Group is a set of scripts or other writing systems..
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.WritingSystemTypeStrings.Language">
@@ -2987,6 +3144,49 @@
               Looks up a localized string similar to A set of symbols that can be scattered across different Unicode ranges..
             </summary>
         </member>
+        <member name="T:Qhta.UnicodeBuild.ViewModels.AliasCollection">
+            <summary>
+            Specialized collection for UCD blocks, providing methods to find blocks by ID or name.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.AliasCollection.#ctor">
+            <summary>
+            Default constructor for the <see cref="T:Qhta.UnicodeBuild.ViewModels.AliasCollection"/> class, initializing an empty collection.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.AliasCollection.#ctor(System.Collections.Generic.IEnumerable{Qhta.Unicode.Models.Alias})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.ViewModels.AliasCollection"/> class built from an existing collection of UcdBlock models.
+            </summary>
+            <param name="models"></param>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.AliasCollection.FindById(System.Int32)">
+            <summary>
+            Finds a AliasViewModel by its ID.
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.AliasCollection.FindByName(System.String)">
+            <summary>
+            Finds a AliasViewModel by its name.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.AliasCollection.Add(Qhta.Unicode.Models.Alias)">
+            <summary>
+            Adds a new AliasViewModel on the existing UcdBlock entity to the collection if it does not already exist.
+            </summary>
+            <param name="alias"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.AliasCollection.Add(Qhta.UnicodeBuild.ViewModels.AliasViewModel)">
+            <summary>
+            Adds a new AliasViewModel to the collection.
+            </summary>
+            <param name="vm"></param>
+        </member>
         <member name="T:Qhta.UnicodeBuild.ViewModels.AliasViewModel">
             <summary>
             ViewModel for the Alias entity.
@@ -2998,6 +3198,11 @@
             ViewModel for the Alias entity.
             </summary>
             <param name="model"></param>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.AliasViewModel.Id">
+            <summary>
+            Primary key identifier of the entity.
+            </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.AliasViewModel.Ord">
             <summary>
@@ -3132,9 +3337,14 @@
             Description of the block, which provides additional context or information about its purpose.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.WritingSystemId">
+            <summary>
+            Identifier of the WritingSystem.
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.WritingSystem">
             <summary>
-            Main writing system associated with this UCD block, if applicable.
+            Default writing system associated with this UCD block, if applicable.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdBlockViewModel.CanExpandLongText">
@@ -3394,44 +3604,14 @@
             Exposes the Unicode code point block as a view model.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.AreaId">
-            <summary>
-            Identifier of the area writing system associated with this Unicode code point, if applicable.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Area">
-            <summary>
-            Exposes the area writing system as a view model.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.ScriptId">
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.WritingSystemId">
             <summary>
             Identifier of the script writing system associated with this Unicode code point, if applicable.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Script">
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.WritingSystem">
             <summary>
             Exposes the script writing system as a view model.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.LanguageId">
-            <summary>
-            Identifier of the language writing system associated with this Unicode code point, if applicable.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Language">
-            <summary>
-            Exposes the language writing system as a view model.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.NotationId">
-            <summary>
-            Identifier of the notation writing system associated with this Unicode code point, if applicable.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Notation">
-            <summary>
-            Exposes the notation writing system as a view model.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.SymbolSetId">
@@ -3454,30 +3634,10 @@
             Exposes the subset writing system as a view model.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.WritingSystem">
-            <summary>
-            Exposes the writing system which can be one of all the above writing systems.
-            Returned value is taken from the following references: <see cref="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Subset"/>, <see cref="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.SymbolSet"/>, <see cref="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Notation"/>, <see cref="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Language"/>, <see cref="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Script"/>, <see cref="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Area"/>.
-            First non-null writing system is returned.
-            In a set method, the proper reference is set based on <see cref="T:Qhta.Unicode.Models.WritingSystemType"/> of the provided value.
-            </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.GetWritingSystem(Qhta.Unicode.Models.WritingSystemType)">
-            <summary>
-            Exposes the writing system which type is specified by <paramref name="allowedType"/>.
-            </summary>
-            <param name="allowedType">Specifies which type of writing system is allowed.</param>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.GetWritingSystems(Qhta.Unicode.Models.WritingSystemType[])">
-            <summary>
-            Exposes the collection of writing systems which types are specified by <paramref name="allowedTypes"/>.
-            All non-null writing system properties are returned in the order of types in <paramref name="allowedTypes"/>.
-            </summary>
-            <param name="allowedTypes">Specifies which types of writing system are allowed.</param>
-        </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.GetWritingSystems">
             <summary>
             Exposes the collection of all writing systems that are used by this code point.
+            All non-null writing system properties are returned.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.RowHeight">
@@ -3496,7 +3656,7 @@
             </summary>
             <param name="model"></param>
         </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels.UnicodeCategoryViewModel.#ctor(Qhta.Unicode.Models.UnicodeCategoryEntity)">
+        <member name="M:Qhta.UnicodeBuild.ViewModels.UnicodeCategoryViewModel.#ctor(Qhta.Unicode.Models.UcdCategoryEntity)">
             <summary>
             ViewModel for representing a Unicode category.
             </summary>
@@ -3752,6 +3912,39 @@
             <param name="item"></param>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="T:Qhta.UnicodeBuild.ViewModels.WritingSystemTopViewModel">
+            <summary>
+            Represents a top node in a hierarchical tree structure for writing systems.
+            Represents a top-level category of writing systems, such as Area, Family, Script, Language, Notation, SymbolSet, or Subset.
+            </summary>
+        </member>
+        <member name="M:Qhta.UnicodeBuild.ViewModels.WritingSystemTopViewModel.#ctor(Qhta.UnicodeBuild.ViewModels.WritingSystemsCollection,Qhta.Unicode.Models.WritingSystemType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.UnicodeBuild.ViewModels.WritingSystemTopViewModel"/> class with the specified writing system type.
+            </summary>
+            <param name="baseCollection">A base collection from which all items of the specific type are retrieved</param>
+            <param name="type">A type of retrieved items</param>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemTopViewModel.BaseCollection">
+            <summary>
+            Reference to the base collection of writing systems that this top-level node represents.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemTopViewModel.Type">
+            <summary>
+            Specifies the type of writing system this top-level node represents.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemTopViewModel.Name">
+            <summary>
+            New implementation of the Name property that returns the string representation of the Type property.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemTopViewModel.Children">
+            <summary>
+            Retrieves the child writing systems that belong to this top-level category.
+            </summary>
+        </member>
         <member name="T:Qhta.UnicodeBuild.ViewModels.WritingSystemTypeViewModel">
             <summary>
             ViewModel for the WritingSystemTypeEntity.
@@ -3853,7 +4046,7 @@
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.ParentId">
             <summary>
-            Identifier of the parent writing system, if this writing system is a child of another.
+            Identifier of the family or or writing system, if this writing system is a child of another.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.KeyPhrase">
@@ -3999,6 +4192,11 @@
             Code points collection representing Unicode code points.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.Aliases">
+            <summary>
+            Aliases of code point names.
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels._ViewModels.UcdBlocks">
             <summary>
             Blocks collection representing Unicode blocks.
@@ -4130,12 +4328,6 @@
             <summary>
             C
             </summary>
-        </member>
-        <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.GetNewWritingSystemId">
-            <summary>
-            Gets the next available writing system ID.
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels._ViewModels.Dispose(System.Boolean)">
             <summary>
@@ -4384,6 +4576,11 @@
             An alias entity representing a Unicode code point alias.
             </summary>
         </member>
+        <member name="P:Qhta.Unicode.Models.Alias.Id">
+            <summary>
+            Prime key identifier for the alias entity.
+            </summary>
+        </member>
         <member name="P:Qhta.Unicode.Models.Alias.Ord">
             <summary>
             Ordinal number of the alias associated with the specific code point.
@@ -4440,7 +4637,7 @@
             This enum defines the methods used for generating names.
             </summary>
         </member>
-        <member name="F:Qhta.Unicode.Models.NameGenMethod.NoGeneration">
+        <member name="F:Qhta.Unicode.Models.NameGenMethod.None">
             <summary>
             Name is not generated for this writing system.
             However, if the code point has other writing systems assigned, they are used to generate names.
@@ -4829,6 +5026,31 @@
             Separator, Space
             </summary>
         </member>
+        <member name="T:Qhta.Unicode.Models.UcdCategoryEntity">
+            <summary>
+            Entity representing a Unicode category.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.Models.UcdCategoryEntity.Id">
+            <summary>
+            Identifier for the Unicode category, which is an enumeration value of type UcdCategory.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.Models.UcdCategoryEntity.Ctg">
+            <summary>
+            Two-letter code representing the Unicode category, typically used for classification purposes.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.Models.UcdCategoryEntity.Name">
+            <summary>
+            Long name of the Unicode category, providing a more descriptive label for the category.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.Models.UcdCategoryEntity.Comment">
+            <summary>
+            Description of the Unicode category, explaining its purpose or characteristics.
+            </summary>
+        </member>
         <member name="T:Qhta.Unicode.Models.UcdCodePoint">
             <summary>
             Entity representing a Unicode code point as defined in the Unicode Character Database (UCD).
@@ -4931,24 +5153,9 @@
             Identifier for the Unicode block that this code point belongs to.
             </summary>
         </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.AreaId">
+        <member name="P:Qhta.Unicode.Models.UcdCodePoint.WritingSystemId">
             <summary>
-            Identifier for the area writing system that this code point is associated with, if applicable.
-            </summary>
-        </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.ScriptId">
-            <summary>
-            Identifier for the script that this code point is written in, if applicable.
-            </summary>
-        </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.LanguageId">
-            <summary>
-            Identifier for the language that this code point is associated with, if applicable.
-            </summary>
-        </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.NotationId">
-            <summary>
-            Identifier for the notation that this code point is associated with, if applicable.
+            Identifier for the main writing system that this code point is written in, if applicable.
             </summary>
         </member>
         <member name="P:Qhta.Unicode.Models.UcdCodePoint.SymbolSetId">
@@ -5102,31 +5309,6 @@
             Below (iota subscript)
             </summary>
         </member>
-        <member name="T:Qhta.Unicode.Models.UnicodeCategoryEntity">
-            <summary>
-            Entity representing a Unicode category.
-            </summary>
-        </member>
-        <member name="P:Qhta.Unicode.Models.UnicodeCategoryEntity.Id">
-            <summary>
-            Identifier for the Unicode category, which is an enumeration value of type UcdCategory.
-            </summary>
-        </member>
-        <member name="P:Qhta.Unicode.Models.UnicodeCategoryEntity.Ctg">
-            <summary>
-            Two-letter code representing the Unicode category, typically used for classification purposes.
-            </summary>
-        </member>
-        <member name="P:Qhta.Unicode.Models.UnicodeCategoryEntity.Name">
-            <summary>
-            Long name of the Unicode category, providing a more descriptive label for the category.
-            </summary>
-        </member>
-        <member name="P:Qhta.Unicode.Models.UnicodeCategoryEntity.Comment">
-            <summary>
-            Description of the Unicode category, explaining its purpose or characteristics.
-            </summary>
-        </member>
         <member name="T:Qhta.Unicode.Models.WritingSystem">
             <summary>
             Entity representing a writing system, which can be a script, language, or notation.
@@ -5142,6 +5324,11 @@
             Name of the writing system (in English).
             </summary>
         </member>
+        <member name="P:Qhta.Unicode.Models.WritingSystem.Aliases">
+            <summary>
+            Alias names of the writing system (separated by commas).
+            </summary>
+        </member>
         <member name="P:Qhta.Unicode.Models.WritingSystem.Type">
             <summary>
             A type of writing system, such as script, language, or notation.
@@ -5154,7 +5341,7 @@
         </member>
         <member name="P:Qhta.Unicode.Models.WritingSystem.ParentId">
             <summary>
-            Identifier of the parent writing system, if this writing system is a child of another.
+            Identifier of the family or writing system, if this writing system is a child of another.
             </summary>
         </member>
         <member name="P:Qhta.Unicode.Models.WritingSystem.KeyPhrase">
@@ -5381,7 +5568,7 @@
             A range of code points that are not defined individually
             </summary>
         </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemType.Family">
+        <member name="F:Qhta.Unicode.Models.WritingSystemType.Group">
             <summary>
             A set of writing systems or scripts that share common characteristics
             </summary>
@@ -5450,6 +5637,11 @@
         <member name="P:Qhta.Unicode.Models._DbContext.CodePoints">
             <summary>
             Gets or sets the collection of Unicode code points.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.Models._DbContext.Aliases">
+            <summary>
+            Gets or sets the collection of Unicode code point aliases.
             </summary>
         </member>
         <member name="P:Qhta.Unicode.Models._DbContext.UcdBlocks">
@@ -5541,6 +5733,36 @@
         <member name="M:Qhta.Unicode.Models._DbContext.Finalize">
             <summary>
             Destructs the context and releases all resources used by it.
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
             </summary>
         </member>
     </members>

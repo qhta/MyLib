@@ -79,20 +79,20 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Family.
+        ///   Looks up a localized string similar to Group.
         /// </summary>
-        public static string Family {
+        public static string Group {
             get {
-                return ResourceManager.GetString("Family", resourceCulture);
+                return ResourceManager.GetString("Group", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Family is a set of scripts or other writing systems..
+        ///   Looks up a localized string similar to Group is a set of scripts or other writing systems..
         /// </summary>
-        public static string FamilyTooltip {
+        public static string GroupTooltip {
             get {
-                return ResourceManager.GetString("FamilyTooltip", resourceCulture);
+                return ResourceManager.GetString("GroupTooltip", resourceCulture);
             }
         }
         

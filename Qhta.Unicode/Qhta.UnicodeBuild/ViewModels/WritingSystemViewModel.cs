@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿  using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
@@ -40,7 +40,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Id;
-    set => ChangeEntityProperty(nameof(Id), nameof(Model.Id), value);
+    set => ChangeViewModelProperty(nameof(Id), nameof(Model.Id), value);
   }
 
   /// <summary>
@@ -54,7 +54,7 @@ public class WritingSystemViewModel(WritingSystem model)
     get => Model.Name;
     set
     {
-      if (ChangeEntityProperty(nameof(Name), nameof(Model.Name), value))
+      if (ChangeViewModelProperty(nameof(Name), nameof(Model.Name), value))
       {
         NotifyPropertyChanged(nameof(FullName));
         NotifyPropertyChanged(nameof(ToolTip));
@@ -78,7 +78,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Type;
-    set => ChangeEntityProperty(nameof(Type), nameof(Model.Type), value);
+    set => ChangeViewModelProperty(nameof(Type), nameof(Model.Type), value);
   }
 
   /// <summary>
@@ -88,7 +88,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Kind;
-    set => ChangeEntityProperty(nameof(Kind), nameof(Model.Kind), value);
+    set => ChangeViewModelProperty(nameof(Kind), nameof(Model.Kind), value);
   }
 
   /// <summary>
@@ -98,7 +98,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.NameGenMethod;
-    set => ChangeEntityProperty(nameof(NameGenMethod), nameof(Model.NameGenMethod), value);
+    set => ChangeViewModelProperty(nameof(NameGenMethod), nameof(Model.NameGenMethod), value);
   }
 
   /// <summary>
@@ -108,17 +108,17 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.NameGenFile;
-    set => ChangeEntityProperty(nameof(NameGenFile), nameof(Model.NameGenFile), value);
+    set => ChangeViewModelProperty(nameof(NameGenFile), nameof(Model.NameGenFile), value);
   }
 
   /// <summary>
-  /// Identifier of the parent writing system, if this writing system is a child of another.
+  /// Identifier of the family or or writing system, if this writing system is a child of another.
   /// </summary>
   public int? ParentId
   {
     [DebuggerStepThrough]
     get => Model.ParentId;
-    set => ChangeEntityProperty(nameof(ParentId), nameof(Model.ParentId), value);
+    set => ChangeViewModelProperty(nameof(ParentId), nameof(Model.ParentId), value);
   }
 
   /// <summary>
@@ -128,7 +128,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.KeyPhrase;
-    set => ChangeEntityProperty(nameof(KeyPhrase), nameof(Model.KeyPhrase), value);
+    set => ChangeViewModelProperty(nameof(KeyPhrase), nameof(Model.KeyPhrase), value);
   }
 
   /// <summary>
@@ -138,7 +138,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Ctg;
-    set => ChangeEntityProperty(nameof(Ctg), nameof(Model.Ctg), value);
+    set => ChangeViewModelProperty(nameof(Ctg), nameof(Model.Ctg), value);
   }
 
   /// <summary>
@@ -148,7 +148,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Iso;
-    set => ChangeEntityProperty(nameof(Iso), nameof(Model.Iso), value);
+    set => ChangeViewModelProperty(nameof(Iso), nameof(Model.Iso), value);
   }
 
   /// <summary>
@@ -158,7 +158,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Abbr;
-    set => ChangeEntityProperty(nameof(Abbr), nameof(Model.Abbr), value);
+    set => ChangeViewModelProperty(nameof(Abbr), nameof(Model.Abbr), value);
   }
 
   /// <summary>
@@ -168,7 +168,7 @@ public class WritingSystemViewModel(WritingSystem model)
   {
     [DebuggerStepThrough]
     get => Model.Ext;
-    set => ChangeEntityProperty(nameof(Ext), nameof(Model.Ext), value);
+    set => ChangeViewModelProperty(nameof(Ext), nameof(Model.Ext), value);
   }
 
   /// <summary>
@@ -180,7 +180,7 @@ public class WritingSystemViewModel(WritingSystem model)
     [DebuggerStepThrough]
     get => Model.Description;
     set {  
-      if (ChangeEntityProperty(nameof(Description), nameof(Model.Description), value)) 
+      if (ChangeViewModelProperty(nameof(Description), nameof(Model.Description), value)) 
         NotifyPropertyChanged(nameof(ToolTip)); 
     }
   }

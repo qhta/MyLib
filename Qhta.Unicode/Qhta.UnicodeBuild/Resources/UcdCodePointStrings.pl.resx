@@ -157,7 +157,7 @@
     <value>System pisma</value>
   </data>
   <data name="WritingSystemTooltip" xml:space="preserve">
-    <value>System pisania, do którego należy ten punkt kodu. Można wybrać skrypt, język lub artefakt, notację, zbiór lub podzbiór znaków.</value>
+    <value>System pisma, do którego należy ten punkt kodowy. Można wybrać skrypt, notację, grupę skryptów lub notacji albo obszar.</value>
   </data>
   <data name="Script" xml:space="preserve">
     <value>Pismo</value>
@@ -209,5 +209,11 @@
   </data>
   <data name="Category" xml:space="preserve">
     <value>Kategoria</value>
+  </data>
+  <data name="NameWithoutWS" xml:space="preserve">
+    <value>Nazwa bez systemu pisma</value>
+  </data>
+  <data name="NameWithoutWSTooltip" xml:space="preserve">
+    <value>Nazwa opisowa z usuniętą frazą kluczową rozpoznanego systemu pisma.</value>
   </data>
 </root>

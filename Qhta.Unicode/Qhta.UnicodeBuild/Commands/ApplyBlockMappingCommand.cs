@@ -1,9 +1,5 @@
 ﻿using System.ComponentModel;
-using System.IO;
-using System.Reflection;
 using System.Windows;
-
-using Microsoft.Win32;
 
 using Qhta.UnicodeBuild.ViewModels;
 
@@ -11,8 +7,8 @@ namespace Qhta.UnicodeBuild.Commands;
 
 
 /// <summary>
-/// Command to apply writing system mappings from a file.
-/// A list of mappings is read from a file, and each code point in the specified blocks is updated with the corresponding UcdBlock.
+/// Command to map code points to blocks.
+/// A code point is mapped to a block if its code value is within the block range, this command fills the Block property of code points.
 /// </summary>
 public class ApplyBlockMappingCommand : TimeConsumingCommand
 {

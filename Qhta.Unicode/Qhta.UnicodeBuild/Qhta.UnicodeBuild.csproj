@@ -99,7 +99,6 @@
 
   <ItemGroup>
     <None Remove="Assets\Area.png" />
-    <None Remove="Assets\Family.png" />
     <None Remove="Assets\Language.png" />
     <None Remove="Assets\Notation.png" />
     <None Remove="Assets\Script.png" />
@@ -164,7 +163,7 @@
     <Resource Include="Assets\A.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\Family.png">
+    <Resource Include="Assets\Group.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Language.png">
@@ -292,6 +291,27 @@
   <ItemGroup>
     <None Update="appSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Block-WritingSystem.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\KnownPhrases.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\PredefinedNames.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Range-WritingSystem.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\RemovableWords.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Scripts.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\SpecialFunctions.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\KnownPhrases.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

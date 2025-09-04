@@ -24,16 +24,16 @@ public partial class MainWindow : Window
   {
     InitializeComponent();
     this.KeyDown += MainWindow_KeyDown;
-    _backgroundTimer = new Timer(TimerProc, null, TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(500));
+    BackgroundTimer = new Timer(TimerProc, null, TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(500));
     Closing += MainWindow_Closing;
   }
 
   private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
   {
-    _backgroundTimer.Dispose();
+    BackgroundTimer.Dispose();
   }
 
-  private readonly Timer _backgroundTimer;
+  private readonly Timer BackgroundTimer;
 
   private void TimerProc(object? state)
   {
@@ -44,7 +44,7 @@ public partial class MainWindow : Window
     }
     catch (System.Threading.Tasks.TaskCanceledException)
     {
-      _backgroundTimer.Dispose();
+      BackgroundTimer.Dispose();
     }
     catch (Exception e)
     {
@@ -63,7 +63,7 @@ public partial class MainWindow : Window
   private void MainWindow_KeyDown(object sender, KeyEventArgs e)
   {
     //Debug.WriteLine($"MainWindow_PreviewKeyDown: {e.Key} {Keyboard.Modifiers}");
-    if (e.Key == Key.Z && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+    if (e.Key == Key.Z && Keyboard.Modifiers  == ModifierKeys.Control)
     {
       if (UndoRedoManager.IsUndoAvailable)
       {
@@ -72,7 +72,7 @@ public partial class MainWindow : Window
         return;
       }
     }
-    if (e.Key == Key.Y && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+    if (e.Key == Key.Y && Keyboard.Modifiers == ModifierKeys.Control)
     {
       if (UndoRedoManager.IsRedoAvailable)
       {

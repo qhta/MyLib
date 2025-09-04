@@ -116,7 +116,6 @@
       <add key="VBdocman_fileNamingConvention"><![CDATA[1]]></add>
     </SettingsGroup>
     <add key="VBdocman_Qhta.SF.WPF.Tools"><![CDATA[default]]></add>
-    <add key="VBdocman_Qhta.UndoManager"><![CDATA[default]]></add>
     <add key="VBdocman_Qhta.UnicodeBuild"><![CDATA[default]]></add>
   </appSettings>
 </configuration>

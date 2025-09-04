@@ -33,6 +33,11 @@ public partial class _DbContext : DbContext, IDisposable
   public virtual DbSet<UcdCodePoint> CodePoints { [DebuggerStepThrough] get; set; }
 
   /// <summary>
+  /// Gets or sets the collection of Unicode code point aliases.
+  /// </summary>
+  public virtual DbSet<Alias> Aliases { [DebuggerStepThrough] get; set; }
+
+  /// <summary>
   /// Gets or sets the collection of Unicode Character Database (UCD) blocks.
   /// </summary>
   public virtual DbSet<UcdBlock> UcdBlocks { [DebuggerStepThrough] get; set; }
@@ -55,7 +60,7 @@ public partial class _DbContext : DbContext, IDisposable
   /// <summary>
   /// Gets or sets the collection of Unicode category entities.
   /// </summary>
-  public virtual DbSet<UnicodeCategoryEntity> UnicodeCategories { [DebuggerStepThrough] get; set; }
+  public virtual DbSet<UcdCategoryEntity> UnicodeCategories { [DebuggerStepThrough] get; set; }
 
 
   /// <summary>
@@ -97,7 +102,8 @@ public partial class _DbContext : DbContext, IDisposable
 
     modelBuilder.Entity<Alias>(entity =>
     {
-      entity.HasKey(e => new { e.Ord, Name = e.Name }).HasName("PrimaryKey");
+      entity.HasKey(e => e.Id).HasName("PrimaryKey");
+      entity.HasIndex(e => new { e.Ord, Name = e.Name }).IsUnique();
       entity.Property(e => e.Name).HasColumnName("Alias");
       entity.Property(e => e.Name).HasMaxLength(255);
       entity.Property(e => e.Type).HasConversion<byte>();
@@ -163,6 +169,8 @@ public partial class _DbContext : DbContext, IDisposable
       entity.Property(e => e.Kind).HasConversion<byte>();
       entity.Property(e => e.Id).HasColumnName("ID");
       entity.Property(e => e.Name).HasMaxLength(255);
+      entity.Property(e => e.Name).HasMaxLength(255);
+      entity.Property(e => e.Aliases).HasMaxLength(255);
       entity.Property(e => e.KeyPhrase).HasMaxLength(255);
       entity.Property(e => e.Abbr).HasMaxLength(255);
       entity.Property(e => e.Ctg).HasMaxLength(2);
@@ -198,7 +206,7 @@ public partial class _DbContext : DbContext, IDisposable
       entity.Property(e => e.Description).HasMaxLength(255);
     });
 
-    modelBuilder.Entity<UnicodeCategoryEntity>(entity =>
+    modelBuilder.Entity<UcdCategoryEntity>(entity =>
     {
       entity.Property(e => e.Id).HasConversion<byte>();
       entity.HasKey(e => e.Id).HasName("PrimaryKey");

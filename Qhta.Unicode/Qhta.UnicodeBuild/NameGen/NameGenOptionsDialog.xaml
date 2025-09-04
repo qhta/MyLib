@@ -20,7 +20,7 @@
              >
       <TextBlock.Text>
         <MultiBinding Converter="{StaticResource StringFormattingValueConverter}" 
-                      ConverterParameter="{x:Static resources:Strings.ApplyCharNamesGenerationConfirm}">
+                      ConverterParameter="{x:Static resources:Strings.GenerateCharNamesConfirm}">
           <Binding Path="CodePointsCount" />
         </MultiBinding>
       </TextBlock.Text>

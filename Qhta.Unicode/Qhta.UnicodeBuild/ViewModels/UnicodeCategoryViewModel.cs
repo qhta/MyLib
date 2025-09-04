@@ -11,15 +11,15 @@ namespace Qhta.UnicodeBuild.ViewModels;
 /// ViewModel for representing a Unicode category.
 /// </summary>
 /// <param name="model"></param>
-public class UnicodeCategoryViewModel(UnicodeCategoryEntity model)
+public class UnicodeCategoryViewModel(UcdCategoryEntity model)
 #pragma warning disable CS9107 // Parameter is captured into the state of the enclosing type and its value is also passed to the base constructor. The value might be captured by the base class as well.
-  : ViewModel<UnicodeCategoryEntity>(model), IEquatable<UnicodeCategoryViewModel>, IComparable<UnicodeCategoryViewModel>, ISelectableItem
+  : ViewModel<UcdCategoryEntity>(model), IEquatable<UnicodeCategoryViewModel>, IComparable<UnicodeCategoryViewModel>, ISelectableItem
 #pragma warning restore CS9107 // Parameter is captured into the state of the enclosing type and its value is also passed to the base constructor. The value might be captured by the base class as well.
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="UnicodeCategoryViewModel"/> class with a default model.
   /// </summary>
-  public UnicodeCategoryViewModel() : this(new UnicodeCategoryEntity())
+  public UnicodeCategoryViewModel() : this(new UcdCategoryEntity())
   {
   }
 

@@ -157,7 +157,7 @@
     <value>Writing System</value>
   </data>
   <data name="WritingSystemTooltip" xml:space="preserve">
-    <value>Writing system to which this code point belongs. You can choose script, language or artifact, notation, character set or subset here.</value>
+    <value>Writing system to which this code point belongs. You can choose script, notation, a group of scripts or notations, or area here.</value>
   </data>
   <data name="Script" xml:space="preserve">
     <value>Script</value>
@@ -210,5 +210,11 @@
   </data>
   <data name="Category" xml:space="preserve">
     <value>Category</value>
+  </data>
+  <data name="NameWithoutWS" xml:space="preserve">
+    <value>Name without writing system</value>
+  </data>
+  <data name="NameWithoutWSTooltip" xml:space="preserve">
+    <value>Description name without keyphrase of recognized writing system.</value>
   </data>
 </root>

@@ -182,9 +182,14 @@ public static partial class _Commander
   public static ApplyWritingSystemRecognitionCommand ApplyWritingSystemRecognitionCommand { get; } = new();
 
   /// <summary>
-  /// Command to apply character names generation to selected Unicode code points.
+  /// Command to generate names without WS for selected Unicode code points.
   /// </summary>
-  public static ApplyCharNamesGenerationCommand ApplyCharNamesGenerationCommand { get; } = new();
+  public static GenerateNamesWithoutWSCommand GenerateNamesWithoutWSCommand { get; } = new();
+
+  /// <summary>
+  /// Command to generate character names of selected Unicode code points.
+  /// </summary>
+  public static GenerateCharNamesCommand GenerateCharNamesCommand { get; } = new();
 
   /// <summary>
   /// Command to mark unused writing systems.

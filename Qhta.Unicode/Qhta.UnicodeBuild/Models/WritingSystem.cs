@@ -22,6 +22,11 @@ public partial class WritingSystem
   public string? Name { [DebuggerStepThrough] get; set; } = null!;
 
   /// <summary>
+  /// Alias names of the writing system (separated by commas).
+  /// </summary>
+  public string? Aliases { [DebuggerStepThrough] get; set; } = null!;
+
+  /// <summary>
   /// A type of writing system, such as script, language, or notation.
   /// </summary>
   public WritingSystemType? Type { [DebuggerStepThrough] get; set; }
@@ -32,7 +37,7 @@ public partial class WritingSystem
   public WritingSystemKind? Kind { [DebuggerStepThrough] get; set; }
 
   /// <summary>
-  /// Identifier of the parent writing system, if this writing system is a child of another.
+  /// Identifier of the family or writing system, if this writing system is a child of another.
   /// </summary>
   public int? ParentId { [DebuggerStepThrough] get; set; }
 

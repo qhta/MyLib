@@ -264,7 +264,7 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="CannotDeleteWritingSystem" xml:space="preserve">
     <value>Cannot delete writing system as it is used in other entities.</value>
   </data>
-  <data name="ApplyCharNamesGenerationConfirm" xml:space="preserve">
+  <data name="GenerateCharNamesConfirm" xml:space="preserve">
     <value>Do you really want to generate char names for {0} code points? (Existing names will not be overwritten.)</value>
   </data>
   <data name="Confirm" xml:space="preserve">
@@ -318,16 +318,16 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   <data name="InvalidWritingSystemCategory" xml:space="preserve">
     <value>Invalid category '{0}' in writing system {1}.</value>
   </data>
-  <data name="ApplyCharNamesGeneration" xml:space="preserve">
-    <value>Apply char names generation</value>
+  <data name="GenerateCharNames" xml:space="preserve">
+    <value>Generate char names</value>
   </data>
   <data name="ApplyWritingSystemsRecognitionConfirm" xml:space="preserve">
     <value>Do you really want to recognize writing systems for {0} code points? (Existing mapping will not be overwritten.)</value>
   </data>
-  <data name="ApplyCharNamesGenerationTooltip" xml:space="preserve">
-    <value>Apply code point char names generation based on writing systems mapping.</value>
+  <data name="GenerateCharNamesTooltip" xml:space="preserve">
+    <value>Generate code point char names based on writing systems mapping.</value>
   </data>
-  <data name="ApplyCharNamesGenerationCompleted" xml:space="preserve">
+  <data name="GenerateCharNamesCompleted" xml:space="preserve">
     <value>Char names generation completed. {0} code points named.</value>
   </data>
   <data name="MarkUnusedWritingSystems" xml:space="preserve">
@@ -407,5 +407,20 @@ The "Unicode Ranges" tab contains a full list of ranges.</value>
   </data>
   <data name="SearchedText" xml:space="preserve">
     <value>Search text</value>
+  </data>
+  <data name="GenerateNamesWithoutWS" xml:space="preserve">
+    <value>Generate char names without WS</value>
+  </data>
+  <data name="GenerateNamesWithoutWSCompleted" xml:space="preserve">
+    <value>Char names without WS generation completed. {0} code points named.</value>
+  </data>
+  <data name="GenerateNamesWithoutWSConfirm" xml:space="preserve">
+    <value>Do you really want to generate char names without WS for {0} code points?</value>
+  </data>
+  <data name="GenerateNamesWithoutWSTooltip" xml:space="preserve">
+    <value>Generate code point names without WS based on writing systems mapping.</value>
+  </data>
+  <data name="DataSaveStarted" xml:space="preserve">
+    <value>A data write operation has been initiated. It may take a moment to complete. The database may be temporarily out of date.</value>
   </data>
 </root>

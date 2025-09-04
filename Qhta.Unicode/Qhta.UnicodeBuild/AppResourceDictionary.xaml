@@ -22,6 +22,8 @@
   <helpers:CodePointValueConverter x:Key="CodePointValueConverter"/>
   <helpers:StringFormattingValueConverter x:Key="StringFormattingValueConverter"/>
   <helpers:WritingSystemTypeToImageConverter x:Key="TypeToImageConverter" />
+  <helpers:EmptyToNullConverter x:Key="EmptyToNullConverter"/>
+  <helpers:EmptyToFalseConverter x:Key="EmptyToFalseConverter"/>
   <converters:EnumToResourceConverter 
     ResourceType="{x:Type resources:WritingSystemTypeStrings}" x:Key="WritingSystemTypeResourceConverter"/>
   <converters:EnumToResourceConverter 
@@ -38,6 +40,7 @@
   <!--<helpers:InsertItemConverter x:Key="InsertItemConverter"/>-->
   <viewModels:WritingSystemViewModel x:Key="BlankWritingSystem"/>
   <viewModels:UcdBlockViewModel x:Key="BlankUcdBlock"/>
+  <commands:BrowseNameGenFileCommand x:Key="BrowseNameGenFileCommand"/>  
 
   <Style x:Key="HiddenTabControlStyle" TargetType="TabControl">
     <Setter Property="Template">
@@ -117,7 +120,7 @@
     </Style.Triggers>
   </Style>
 
-  <Style TargetType="ToolTip">
+  <!--<Style TargetType="ToolTip">
     <Setter Property="MaxWidth" Value="400"/>
     <Setter Property="ContentTemplate">
       <Setter.Value>
@@ -128,6 +131,44 @@
         </DataTemplate>
       </Setter.Value>
     </Setter>
+  </Style>-->
+
+  <helpers:EmptyOrNullToVisibilityConverter x:Key="EmptyOrNullToVisibilityConverter"/>
+  <SolidColorBrush x:Key="ǒ" Color="#FFF1F2F7" />
+  <SolidColorBrush x:Key="Ǔ" Color="#FF767676" />
+  <SolidColorBrush x:Key="ǔ" Color="#FF575757" />
+  <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
+    <Setter Property="Background" Value="{StaticResource ǒ}" />
+    <Setter Property="BorderBrush" Value="{StaticResource Ǔ}" />
+    <Setter Property="Foreground" Value="{StaticResource ǔ}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="6,4" />
+    <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.StatusFontFamilyKey}}" />
+    <Setter Property="FontSize" Value="{DynamicResource {x:Static SystemFonts.StatusFontSizeKey}}" />
+    <Setter Property="FontStyle" Value="{DynamicResource {x:Static SystemFonts.StatusFontStyleKey}}" />
+    <Setter Property="FontWeight" Value="{DynamicResource {x:Static SystemFonts.StatusFontWeightKey}}" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="HasDropShadow" Value="False" />
+    <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+    <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Setter Property="MaxWidth" Value="400"/>
+    <Setter Property="ContentTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <StackPanel>
+            <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap"/>
+          </StackPanel>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="Visibility" Value="Visible" />
+
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}, Converter={StaticResource EmptyOrNullToVisibilityConverter}}" Value="Collapsed">
+        <Setter Property="Visibility" Value="Collapsed" />
+      </DataTrigger>
+    </Style.Triggers>
   </Style>
 
   <DataTemplate x:Key="RangeCellTemplate">

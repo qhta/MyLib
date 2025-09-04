@@ -75,4 +75,5 @@ public partial class UcdCodePointsView : UserControl, IRoutedCommandHandler
   /// <param name="sender"></param>
   /// <param name="e"></param>
   public void OnExecuted(object sender, ExecutedRoutedEventArgs e) => _Commander.OnExecute(sender, e);
+
 }

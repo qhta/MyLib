@@ -10,6 +10,10 @@ namespace Qhta.UnicodeBuild.ViewModels;
 public partial class AliasViewModel(Alias model) : ViewModel<Alias>(model)
 {
   /// <summary>
+  /// Primary key identifier of the entity.
+  /// </summary>
+  public int Id { get => Model.Id; set { if (Model.Id != value) { Model.Id = value; NotifyPropertyChanged(nameof(Id)); } } }
+  /// <summary>
   /// Ordinal number of the alias associated with the specific code point.
   /// </summary>
   public int Ord { get => Model.Ord; set { if (Model.Ord != value) { Model.Ord = value; NotifyPropertyChanged(nameof(Ord)); } } }

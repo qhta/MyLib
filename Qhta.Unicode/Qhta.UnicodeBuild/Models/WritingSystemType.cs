@@ -12,7 +12,7 @@ public enum WritingSystemType: byte
   /// <summary>
   /// A set of writing systems or scripts that share common characteristics
   /// </summary>
-  Family = 2,
+  Group = 2,
   /// <summary>
   /// A script is a set of symbols used to write a language, which may include letters, numbers, punctuation, and other characters.
   /// </summary>

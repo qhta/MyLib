@@ -9,6 +9,7 @@
              xmlns:views="clr-namespace:Qhta.UnicodeBuild.Views"
              xmlns:tools="clr-namespace:Qhta.SF.WPF.Tools;assembly=Qhta.SF.WPF.Tools"
              xmlns:commands="clr-namespace:Qhta.UnicodeBuild.Commands"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DesignHeight="850" d:DesignWidth="1600">
   <UserControl.Resources>
@@ -20,7 +21,6 @@
     <Style x:Key="filterControlStyle" TargetType="sf:GridFilterControl">
       <Setter Property="FilterMode" Value="AdvancedFilter" />
     </Style>
-
   </UserControl.Resources>
   <UserControl.CommandBindings>
     <CommandBinding Command="Save" CanExecute="OnCanExecute" Executed="OnExecuted"/>
@@ -39,7 +39,7 @@
                     CanExecute="OnCanExecute" Executed="OnExecuted"/>
     <CommandBinding Command="{x:Static commands:_Commander.ApplyWritingSystemRecognitionCommand}"
                     CanExecute="OnCanExecute" Executed="OnExecuted"/>
-    <CommandBinding Command="{x:Static commands:_Commander.ApplyCharNamesGenerationCommand}"
+    <CommandBinding Command="{x:Static commands:_Commander.GenerateCharNamesCommand}"
                     CanExecute="OnCanExecute" Executed="OnExecuted"/>
   </UserControl.CommandBindings>
 
@@ -84,9 +84,14 @@
                   ToolTip="{x:Static resources:Strings.ApplyWritingSystemsRecognitionTooltip}"
                   Command="{x:Static commands:_Commander.ApplyWritingSystemRecognitionCommand}"
                   CommandParameter="{Binding ElementName=CodePointDataGrid}"/>
-        <MenuItem Header="{x:Static resources:Strings.ApplyCharNamesGeneration}"
-                  ToolTip="{x:Static resources:Strings.ApplyCharNamesGenerationTooltip}"
-                  Command="{x:Static commands:_Commander.ApplyCharNamesGenerationCommand}"
+        <Separator/>
+        <MenuItem Header="{x:Static resources:Strings.GenerateNamesWithoutWS}"
+                  ToolTip="{x:Static resources:Strings.GenerateNamesWithoutWSTooltip}"
+                  Command="{x:Static commands:_Commander.GenerateNamesWithoutWSCommand}"
+                  CommandParameter="{Binding ElementName=CodePointDataGrid}"/>
+        <MenuItem Header="{x:Static resources:Strings.GenerateCharNames}"
+                  ToolTip="{x:Static resources:Strings.GenerateCharNamesTooltip}"
+                  Command="{x:Static commands:_Commander.GenerateCharNamesCommand}"
                   CommandParameter="{Binding ElementName=CodePointDataGrid}"/>
 
 
@@ -234,8 +239,8 @@
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{Binding Block.Name}" 
-                         ToolTip="{Binding Block.Description}" 
+              <TextBlock Text="{Binding Block.Name, FallbackValue=''}" 
+                         ToolTip="{Binding Block.Description, FallbackValue=''}" 
                          Padding="3"
                          />
             </DataTemplate>
@@ -243,35 +248,8 @@
         </sf:GridComboBoxColumn>
 
         <sf:GridComboBoxColumn 
-          MappingName="Area" 
-          HeaderText="{x:Static resources:UcdCodePointStrings.Area}"
-          ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableAreas}"
-          DisplayMemberPath="DisplayName" 
-          VerticalAlignment="Top"
-          AllowEditing="True"
-          Width="100"
-        >
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:UcdCodePointStrings.Area}" 
-                         ToolTip="{x:Static resources:UcdCodePointStrings.AreaTooltip}"
-                         />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-          <sf:GridColumn.CellTemplate>
-            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{Binding Area.Name}" 
-                         ToolTip="{Binding Area.Description}" 
-                         Padding="3"
-                         />
-            </DataTemplate>
-          </sf:GridColumn.CellTemplate>
-        </sf:GridComboBoxColumn>
-
-        <sf:GridComboBoxColumn 
-          MappingName="Script" 
-          HeaderText="{x:Static resources:UcdCodePointStrings.Script}"
+          MappingName="WritingSystem" 
+          HeaderText="{x:Static resources:UcdCodePointStrings.WritingSystem}"
           ItemsSource="{Binding Source={StaticResource ViewModels}, 
             Path=Instance.SelectableScripts}"
           DisplayMemberPath="DisplayName"
@@ -282,74 +260,21 @@
         >
           <sf:GridColumn.HeaderTemplate>
             <DataTemplate>
-              <TextBlock Text="{x:Static resources:UcdCodePointStrings.Script}" 
-                         ToolTip="{x:Static resources:UcdCodePointStrings.ScriptTooltip}"
+              <TextBlock Text="{x:Static resources:UcdCodePointStrings.WritingSystem}" 
+                         ToolTip="{x:Static resources:UcdCodePointStrings.WritingSystemTooltip}"
                          />
             </DataTemplate>
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{Binding Script.Name}" 
-                         ToolTip="{Binding Script.Description}" 
+              <TextBlock Text="{Binding WritingSystem.Name, FallbackValue=''}" 
+                         ToolTip="{Binding WritingSystem.Description, FallbackValue=''}"
                          Padding="3"
                          />
             </DataTemplate>
           </sf:GridColumn.CellTemplate>
         </sf:GridComboBoxColumn>
 
-        <sf:GridComboBoxColumn 
-          MappingName="Language" 
-          HeaderText="{x:Static resources:UcdCodePointStrings.Language}"
-          ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableLanguages}"
-          DisplayMemberPath="DisplayName" 
-          VerticalAlignment="Top"
-          AllowEditing="True"
-          Width="100"
-        >
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:UcdCodePointStrings.Language}" 
-                         ToolTip="{x:Static resources:UcdCodePointStrings.LanguageTooltip}"
-                         />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-          <sf:GridColumn.CellTemplate>
-            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{Binding Language.Name}" 
-                         ToolTip="{Binding Language.Description}" 
-                         Padding="3"
-                         />
-            </DataTemplate>
-          </sf:GridColumn.CellTemplate>
-        </sf:GridComboBoxColumn>
-
-        <sf:GridComboBoxColumn 
-          MappingName="Notation" 
-          HeaderText="{x:Static resources:UcdCodePointStrings.Notation}"
-          ItemsSource="{Binding Source={StaticResource ViewModels}, 
-            Path=Instance.SelectableNotations}"
-          DisplayMemberPath="DisplayName" 
-          VerticalAlignment="Top"
-          AllowEditing="True"
-          Width="100"
-        >
-          <sf:GridColumn.HeaderTemplate>
-            <DataTemplate>
-              <TextBlock Text="{x:Static resources:UcdCodePointStrings.Notation}" 
-                         ToolTip="{x:Static resources:UcdCodePointStrings.NotationTooltip}"
-                         />
-            </DataTemplate>
-          </sf:GridColumn.HeaderTemplate>
-          <sf:GridColumn.CellTemplate>
-            <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{Binding Notation.Name}" 
-                         ToolTip="{Binding Notation.Description}" 
-                         Padding="3"
-                         />
-            </DataTemplate>
-          </sf:GridColumn.CellTemplate>
-        </sf:GridComboBoxColumn>
 
         <sf:GridComboBoxColumn 
           MappingName="SymbolSet" 
@@ -370,8 +295,8 @@
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{Binding SymbolSet.Name}" 
-                         ToolTip="{Binding SymbolSet.Description}" 
+              <TextBlock Text="{Binding SymbolSet.Name, FallbackValue=''}" 
+                         ToolTip="{Binding SymbolSet.Description, FallbackValue=''}" 
                          Padding="3"
                          />
             </DataTemplate>
@@ -397,8 +322,8 @@
           </sf:GridColumn.HeaderTemplate>
           <sf:GridColumn.CellTemplate>
             <DataTemplate DataType="{x:Type viewModels:UcdCodePointViewModel}">
-              <TextBlock Text="{Binding Subset.Name}" 
-                         ToolTip="{Binding Subset.Description}" 
+              <TextBlock Text="{Binding Subset.Name, FallbackValue=''}" 
+                         ToolTip="{Binding Subset.Description, FallbackValue=''}" 
                          Padding="3"
               />
             </DataTemplate>

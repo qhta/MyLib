@@ -140,6 +140,12 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// Code points collection representing Unicode code points.
   /// </summary>
   public UcdCodePointsCollection UcdCodePoints { [DebuggerStepThrough] get; set; } = new();
+
+  /// <summary>
+  /// Aliases of code point names.
+  /// </summary>
+  public AliasCollection Aliases { [DebuggerStepThrough] get; set; } = new();
+
   /// <summary>
   /// Blocks collection representing Unicode blocks.
   /// </summary>
@@ -288,7 +294,7 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// Collection of selectable writing systems that can be used in the UI.
   /// </summary>
   public IEnumerable<ISelectableItem> SelectableWritingSystems =>
-    GetSelectableWritingSystems(WritingSystemType.Area, WritingSystemType.Family, WritingSystemType.Script, WritingSystemType.Notation, WritingSystemType.SymbolSet);
+    GetSelectableWritingSystems(WritingSystemType.Area, WritingSystemType.Group, WritingSystemType.Script, WritingSystemType.Notation, WritingSystemType.SymbolSet);
 
   /// <summary>
   /// Collection of selectable areas, which are a type of writing system.
@@ -298,7 +304,7 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// <summary>
   /// Collection of selectable families, which are a type of writing system.
   /// </summary>
-  public IEnumerable<ISelectableItem> SelectableScripts => GetSelectableWritingSystems(WritingSystemType.Script, WritingSystemType.Family);
+  public IEnumerable<ISelectableItem> SelectableScripts => GetSelectableWritingSystems(WritingSystemType.Script, WritingSystemType.Group);
 
   /// <summary>
   /// Collection of selectable languages, which are a type of writing system.
@@ -320,22 +326,6 @@ public partial class _ViewModels : ViewModel, IDisposable
   /// </summary>
   public IEnumerable<ISelectableItem> SelectableSubsets => GetSelectableWritingSystems(WritingSystemType.Subset);
 
-  /// <summary>
-  /// Gets the next available writing system ID.
-  /// </summary>
-  /// <returns></returns>
-  public int GetNewWritingSystemId()
-  {
-    var lastItem = _Context?.WritingSystems.OrderByDescending(ws => ws.Id).FirstOrDefault();
-    if (lastItem == null) return 1; // If no writing systems exist, start with ID 1.
-    var maxId = lastItem.Id ?? 0;
-    if (lastItem.Name == "" || lastItem.Name!.StartsWith("<"))
-    {
-      // If the last item has no name, or it has a special name we can use its ID directly.
-      return maxId;
-    }
-    return maxId + 1;
-  }
 
   #region IDisposable implementation
   /// <summary>

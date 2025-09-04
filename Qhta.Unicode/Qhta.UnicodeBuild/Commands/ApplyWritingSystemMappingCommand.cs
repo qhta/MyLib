@@ -14,6 +14,7 @@ namespace Qhta.UnicodeBuild.Commands;
 
 /// <summary>
 /// Command to apply writing system mappings from a file.
+/// A list of mappings is read from a file, and each code point in the specified blocks is updated with the corresponding UcdBlock.
 /// </summary>
 public class ApplyWritingSystemMappingCommand : TimeConsumingCommand
 {
@@ -37,10 +38,10 @@ public class ApplyWritingSystemMappingCommand : TimeConsumingCommand
 
     var dialog = new OpenFileDialog
     {
-      FileName = "WritingSystems.txt", // Default file name
+      FileName = "Scripts.txt", // Default file name
       DefaultExt = ".txt", // Default file extension
       Filter = Strings.TextFilesFilter,
-      InitialDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "Resources")
+      InitialDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "Data")
     };
 
 

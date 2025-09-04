@@ -30,7 +30,7 @@
 
     <TabControl Name="TabControl"
                 SelectionChanged="MainTabControl_OnSelectionChanged">
-      <TabItem MouseMove="TabItem_MouseMove">
+      <TabItem x:Name="UcdPointsTab" MouseMove="TabItem_MouseMove">
         <TabItem.Header>
           <TextBlock Text="{x:Static resources:Strings.CodePoints}" 
                      ToolTip="{x:Static resources:Strings.CodePointsTooltip}"
@@ -38,7 +38,7 @@
         </TabItem.Header>
         <views:UcdCodePointsView/>
       </TabItem>
-      <TabItem MouseMove="TabItem_MouseMove">
+      <TabItem x:Name="UcdBlocksTab" MouseMove="TabItem_MouseMove">
         <TabItem.Header>
           <TextBlock Text="{x:Static resources:Strings.UcdBlocks}" 
                      ToolTip="{x:Static resources:Strings.UcdBlocksTooltip}"
@@ -46,7 +46,7 @@
         </TabItem.Header>
         <views:UcdBlocksView/>
       </TabItem>
-      <TabItem MouseMove="TabItem_MouseMove">
+      <TabItem x:Name="WritingSystemsTab" MouseMove="TabItem_MouseMove">
         <TabItem.Header>
           <TextBlock Text="{x:Static resources:Strings.WritingSystems}"
                      ToolTip="{x:Static resources:Strings.WritingSystemsTooltip}"

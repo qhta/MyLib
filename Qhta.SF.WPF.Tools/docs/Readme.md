@@ -1,6 +1,6 @@
-Package Qhta.SF.WPF.Tools is a library for extending Syncfusion WPF controls functionality.
+The Qhta.SF.WPF.Tools package is a library that extends the functionality of WPF Syncfusion controls.
 
-*Note: Trying to name it “Qhta.Syncfusion.WPF.Tools” result compiling errors due to Visual Studio C# namespace resolving policy!*
+*Note: Attempting to name it "Qhta.Syncfusion.WPF.Tools" causes compilation errors due to namespace resolution rules in Visual Studio C#!*
 
 The package contains:
 - [Default SfDataGrid styles and templates](#default-sfdatagrid-styles-and-templates),
@@ -9,7 +9,6 @@ The package contains:
 - [LongTextColumn template and functionality](#longtextcolumn-template-and-functionality),
 - [RecordNavigationBar](#recordnavigationbar),
 - [Clipboard operations on SfDataGrid](#clipboard-operations-on-sfdatagrid),
-- [SfDataGridFiltering tools](#sfdatagridfiltering-tools),
 - [SfDataGridFinder class and commanding](#sfdatagridfinder-class-and-commanding),
 - [Fill Column Command](#fill-column-command),
 - [Column Management Command](#column-management-command),
@@ -17,12 +16,11 @@ The package contains:
 
 # Default SfDataGrid styles and templates
 
-The SfDataGridTools resource dictionary contains styles, converters and data templates extending functionality of the original SfDataGrid. 
-Some of the style resources only contain specific default property setters, 
-some are extracted from the original Syncfusion.SfGrid.WPF resources and extended with new templates. 
-The resource dictionary code-behind functionality is also provided in the SfDataGridTools.cs file. 
+The SfDataGridTools resource dictionary contains styles, converters, and data templates that extend the functionality of the original SfDataGrid.
+Some style resources only contain specific default property setters, while others are extracted from the original Syncfusion.SfGrid.WPF resources and extended with new templates.
+The source code for the resource dictionary is also available in the SfDataGridTools.cs file.
 
-Used styles provide a SfDataGrid layout with a grayed column headers row and grayed row headers column.
+The styles used provide an SfDataGrid layout with a grayed-out row of column headers and a grayed-out column of row headers.
 
 ![image info](Images/DefaultSfDataGridLayout.png)
 
@@ -59,8 +57,8 @@ Both event handlers are implemented in the code-behind in the SfDataGridTools.xa
 
 ### SfDataGrid OnLoaded event handler
 
-SfDataGrid Loaded event is needed to initialize these event handlers, which are not RoutedEvent handlers
-and can not be initialized in xaml. Also GridCopyContent and GridPasteContent event handlers must be initiated.
+The SfDataGrid Loaded event is needed to initialize these event handlers, which are not RoutedEvent handlers
+and cannot be initialized in XAML. The GridCopyContent and GridPasteContent event handlers must also be initialized.
 
 ```csharp
   private void DataGrid_OnLoaded(object? sender, EventArgs e)
@@ -68,23 +66,22 @@ and can not be initialized in xaml. Also GridCopyContent and GridPasteContent ev
     if (sender is not SfDataGrid dataGrid)
       return;
     dataGrid.QueryRowHeight += DataGrid_OnQueryRowHeight;
-    dataGrid.FilterItemsPopulating += DataGrid_OnFilterItemsPopulating;
-    dataGrid.FilterChanged += DataGrid_OnFilterChanged;
     // Attach event handlers for copy and paste operations
     dataGrid.GridCopyContent += DataGrid_OnGridCopyContent;
     dataGrid.GridPasteContent += DataGrid_OnGridPasteContent;
   }
 ```
-In contrast to the above events, KeyDown event is a RoutedEvent and is initialized in SfDataGrid default style (see above).
+Unlike the events described above, the KeyDown event is a RoutedEvent and is initiated in the default SfDataGrid style (see above).
 
 ### SfDataGrid OnQueryRowHeight event handler
 
-QueryRowHeight simply invokes OnQueryRowHeight method of the RowHeightProvider static class. 
-This method checks if the appropriate record of the SfDataGrid.View.Records collection implements IRowHeightProvider interface
-and sets event args Height property to its RowHeight property value. If this value is not NaN, the event is just handled.
+QueryRowHeight simply calls the OnQueryRowHeight method of the static RowHeightProvider class. 
+This method checks whether the corresponding record in the SfDataGrid.View.Records collection 
+implements the IRowHeightProvider interface and sets the event's "Height" property to the RowHeight value. 
+If this value is not NaN, the event is simply handled.
 
-If the QueryRowHeight event is not handled by RowHeightProvider then SfDataGrid invokes OnQueryRowHeight method 
-of the LongTextColumn class (both classes are described further below).
+If the QueryRowHeight event is not handled by the RowHeightProvider, 
+then SfDataGrid calls the OnQueryRowHeight method of the LongTextColumn class (both classes are described below).
 
 ```csharp
   private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
@@ -96,22 +93,12 @@ of the LongTextColumn class (both classes are described further below).
   }
 ```
 
-### SfDataGrid OnFilterItemsPopulating and OnFilterChanged event handlers
-
-These methods handle events used in data filtering.
-They simply redirect invocations to SfDataGridFiltering static class appropriate methods.
-
-```csharp
-  private void DataGrid_OnFilterItemsPopulating(object? sender, GridFilterItemsPopulatingEventArgs e) => SfDataGridFiltering.OnFilterItemsPopulating(sender, e);
-
-  private void DataGrid_OnFilterChanged(object? sender, GridFilterEventArgs e) => SfDataGridFiltering.OnFilterChanging(sender, e);
-```
-
 ### SfDataGrid OnGridCopyContent and OnGridPasteContent event handlers
 
-These handlers use SfDataGridCommander static class and its CanCopyData, CopyData, CanPasteData, and PasteData appropriately.
-These handlers are needed because in specific (and not very clear) conditions the internal logic of SfDataGrid tries 
-to copy or paste data ommiting Copy and Paste commands.
+These handlers use the static SfDataGridCommander class and its CanCopyData, CopyData, CanPasteData, and PasteData parameters.
+
+These handlers are needed because, under certain (and not entirely clear) conditions, the internal logic of SfDataGrid 
+attempts to copy or paste data, bypassing the Copy and Paste commands.
 
 ```csharp
   private void DataGrid_OnGridCopyContent(object? sender, GridCopyPasteEventArgs e)
@@ -137,17 +124,17 @@ to copy or paste data ommiting Copy and Paste commands.
   }
 ```
 
-Note that there are no similar CutData nor DeleteData events declared in the original SfDataGrid.
+Please note that the original SfDataGrid did not declare similar CutData or DeleteData events.
 
 ### SfDataGrid OnKeyDown event handler
 
 This method handles common command shortcuts:
-- Ctrl-C key combination to invoke SfDataGridCommander.CopyData method,
-- Ctrl-X key combination to invoke SfDataGridCommander.CutData method,
-- Ctrl-V key combination to invoke SfDataGridCommander.PasteData method,
-- Delete key to invoke SfDataGridCommander.DeleteData method,
-- Ctrl-F key combination to invoke FindCommand.Execute method,
-- F3 key to invoke FindCommand.ExecuteNext method.
+- Ctrl-C key combination to call SfDataGridCommander.CopyData method,
+- Ctrl-X key combination to call SfDataGridCommander.CutData method,
+- Ctrl-V key combination to call SfDataGridCommander.PasteData method,
+- Delete key to call SfDataGridCommander.DeleteData method,
+- Ctrl-F key combination to call FindCommand.Execute method,
+- F3 key to call FindCommand.ExecuteNext method.
 
 ```csharp
   private void DataGrid_OnKeyDown(object sender, KeyEventArgs e)
@@ -197,21 +184,22 @@ This method handles common command shortcuts:
 
 # SfDataGrid Column and row selection functionality
 
-Original SfDataGrid lets user to select cells or whole rows. It lacks of column selection.
+The original SfDataGrid allows the user to select cells or entire rows. It lacks column selection.
 
 ## The whole SfDataGrid column selection
 
 ![image info](Images/ColumnSelection.png)
 
-Default styles for GridHeaderCellControl, GridCell are defined to let the application to select the grid columns, 
-and mark them by gray background.
+The default styles for GridHeaderCellControl and GridCellControl are defined to allow the application to select grid columns
+and mark them with a gray background.
 
-When nothing is selected, the column header row and row header column are displayed with silver background with graphite foreground 
+When nothing is selected, the column header row and row header column appear on a silver background with a graphite background,
 and the grid cell background is transparent.
 
-When the column is selected, its header cell background turns to dark gray, and its cells background turns to silver. 
-The appropriate styles are named as "SelectedColumnHeaderStyle", "SelectedGridCellStyle" and "UnselectedGridCellStyle".
-Default GridHeaderCellControl style has no name (as required for default styles).
+When a column is selected, the background of its header cell turns dark gray and the background of its cells turns silver.
+
+The corresponding styles are named "SelectedColumnHeaderStyle," "SelectedGridCellStyle," and "UnselectedGridCellStyle."
+The default GridHeaderCellControl style has no name (which is required for default styles).
 
 ```xml
   <Style TargetType="sf:GridHeaderCellControl">
@@ -238,11 +226,11 @@ Default GridHeaderCellControl style has no name (as required for default styles)
 
 ```
 
-The GridHeaderCellControl style handles MouseLeftButtonDown event to let the user to select the whole column with mouse click on the column's header cell. 
-The code-behind method is rather sophisticated as we must enable user to click filter button and the sorting marker at the right of the header cell.
-So if the column allows filtering, we set the right margin limit to 20 pcx, and if the column allows sorting, we add more 20 pcx to the right margin limit.
-We must also enable user to resize columns by dragging their left edges, so we set the small (5 pcx) left margin limit. 
-We continue to handle the mouse click only if its position is between left and right margin limits.
+The GridHeaderCellControl style handles the MouseLeftButtonDown event, allowing the user to select an entire column by clicking the column header cell.
+The code method is quite complex because we need to allow the user to click the filter button and the sorting marker to the right of the header cell.
+If the column allows filtering, we set the right margin limit to 20 pcx, and if the column allows sorting, we add another 20 pcx to the right margin limit.
+We also need to allow the user to resize the columns by dragging their left edges, so we set a small (5 pcx) left margin limit.
+Mouse clicks will still only be handled if their position is between the left and right margin limits.
 
 ```csharp
   private void GridHeaderCellControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -277,12 +265,12 @@ We continue to handle the mouse click only if its position is between left and r
       }
 ```
 
-We use SfDataGridColumnBehavior to mark the column as selected. 
-We do not use the SfDataGrid.SelectionController to select all the cells in the column separately because of the two reasons. 
-First, because of the performance of selection. When the data grid contains a large number of rows, selection of all the cells in the column takes much time.
-Second reason is to let the application to load the data of the grid in the background task. 
-If we would select the cells of the column separately, the cells in rows which data have not been loaded yet, would stay unmarked.
-Instead we use the data grid SelectionController to ClearSelections if some cells they were selected separately.
+We use SfDataGridColumnBehavior to mark a column as selected.
+We don't use the SfDataGrid.SelectionController to select all cells in a column individually for two reasons.
+First, for selection performance reasons. When a data grid contains a large number of rows, selecting all cells in a column takes a long time.
+Second, we want to allow the application to load data from the grid in the background.
+If we selected the column cells individually, cells in rows whose data hasn't been loaded yet would remain unselected.
+Instead, we use the data grid's SelectionController to clear the selection if some cells are individually selected.
 
 ```csharp
       dataGrid.SelectionController.ClearSelections(false);
@@ -290,14 +278,14 @@ Instead we use the data grid SelectionController to ClearSelections if some cell
       isSelected = !isSelected;
 ```
 
-Next we handle keyboard modifier as Shift and Control. 
-If none of them is pressed, only the currently clicked column is selected, and other columns are unselected.
-If only the Control modifier key is pressed, no other columns are unselected.
-If the Shift modifier key is pressed (and Control modifier is not pressed), 
-then all the column between the currently clicked column the previously selected columns are selected.
-As the columns are represented by the indexed collection, we find the last prior (left) selected column index and the first next (right) selected column index.
-If the previously selected columns where both on the left and on the right of the currently clicked column, 
-all the columns between the current and the nearest one are marked as selected.
+Next, we handle keyboard modifiers like Shift and Control.
+If neither is pressed, only the currently clicked column is selected, and the other columns are deselected.
+If only the Control modifier key is pressed, no other columns are deselected.
+If the Shift modifier key is pressed (and the Control key is not pressed),
+all columns between the currently clicked column and the previously selected columns are selected.
+Because columns are represented by an indexed collection, we find the last previously (left) index of the selected column and the first next (right) index of the selected column.
+If previously selected columns were both to the left and right of the currently clicked column,
+all columns between the current and the next one are marked as selected.
 
 ```csharp
       if (!Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) && !Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
@@ -349,7 +337,7 @@ all the columns between the current and the nearest one are marked as selected.
   }
 ```
 
-SfDataGridColumnConverter class is used to provide a mechanism to get a GridColumn object "IsSelected" property for data binding in SfDataGrid. 
+The SfDataGridColumnConverter class is used to provide a mechanism to retrieve the "IsSelected" property of a GridColumn object for data binding in an SfDataGrid.
 
 ```csharp
 public class SfDataGridColumnConverter: IValueConverter
@@ -371,13 +359,13 @@ public class SfDataGridColumnConverter: IValueConverter
 
 ## The whole SfDataGrid row selection
 
-The whole row selection is handled by the original SfDataGrid, so we do not need to handle it in SfDataGridTools. 
-If the SfDataGrid SelectionUnit property is set to Any, then when the user click the row header, all the cells in the row are selected.
+Selecting an entire row is handled by the original SfDataGrid class, so we don't need to do it in SfDataGridTools.
+If the SelectionUnit property of the SfDataGrid class is set to Any, then when the user clicks the row header, all cells in the row will be selected.
 
 ## The whole data selection
 
-The user can select the whole data in the data grid by clicking the "cell" at the crossing of the column headers row and row headers column.
-This cell control type is GridRowIndencCell, and its style declared in the SfDataGridTools resource dictionary sets the event handler of the MouseLeftButtonDown event.
+The user can select all data in a data grid by clicking a "cell" at the intersection of the column and row headers and the row header columns. 
+This cell control type is GridRowIndencCell, and its style, declared in the SfDataGridTools resource dictionary, sets the MouseLeftButtonDown event handler.
 
 ```xml
   <Style TargetType="sf:GridRowHeaderIndentCell">
@@ -386,8 +374,8 @@ This cell control type is GridRowIndencCell, and its style declared in the SfDat
   </Style>
 ```
 
-Its implementation in code-behing simply selects or unselects all columns of the data grid. 
-It uses the extension methods AreAllColumnSelected and SelectAllColumns implemented in SfDataGridSelector static class.
+Its code implementation simply selects or deselects all columns in the data grid. 
+It uses the AreAllColumnSelected and SelectAllColumns extension methods implemented in the SfDataGridSelector static class.
 
 ```csharp
   private void GridRowHeaderIndentCell_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -405,11 +393,12 @@ It uses the extension methods AreAllColumnSelected and SelectAllColumns implemen
 
 # Individual SfDataGrid row resizing functionality
 
-SfDataGrid has AllowResizingColumns property which lets the user to resize columns by dragging their edges, but there is no AllowsResizingRows property.
-Original SfDataGrid allows the application to evaluate the individual rows heights by the QueryRowHeight event, 
-but it lacks user functionality to manipulate the heights.
+SfDataGrid has an AllowResizingColumns property that allows the user to resize columns by dragging their edges, but it does not have an AllowsResizingRows property.
 
-To fill this gap, we defined a control named RowResizer (as a descender of Thumb control). 
+The original SfDataGrid allows the application to estimate the height of individual rows using the QueryRowHeight event, 
+but it lacks user-defined functionality for manipulating heights.
+
+To fill this gap, we defined a control called RowResizer (as a child of the Thumb control).
 
 ```xml
   <Style x:Key="{x:Type tools:RowResizer}" Style.TargetType="{x:Type tools:RowResizer}" >
@@ -449,8 +438,8 @@ The dependency properties of this control are:
   }
 ```
 
-RowResizer control handles LeftMouseDown, MouseMove, and LeftMouseUp to let user to drag this control. 
-To resize the row, its dataContext must implement IRowHeightProvider interface. 
+The RowResizer control supports LeftMouseDown, MouseMove, and LeftMouseUp functions, allowing the user to drag the control.
+To resize a row, its dataContext must implement the IRowHeightProvider interface.
 This interface declares a single RowHeight property to store the current row height.
 
 ```csharp
@@ -533,14 +522,15 @@ This interface declares a single RowHeight property to store the current row hei
   }
 ```
 
-The application can switch the row resizing functionality on by using SfDataGridBehavior AllowRowResizing attached property. 
-RowResizer control uses SfDataGridBehavior IsRowResizing attached property to mark the state between LeftMouseDown and LeftMouseUp 
-and let the user to drag the boundary between rows.
+An application can enable row resizing using the SfDataGridBehavior AllowRowResizing attached property.
+The RowResizer control uses the SfDataGridBehavior IsRowResizing attached property to indicate the state between the LeftMouseDown and LeftMouseUp keys
+and allows the user to drag the border between rows.
 
-The new GridRowHeaderCell style is named as "ResizedGridRowHeaderCellStyle". 
-It differs from the original GridRowHeaderCellStyle in the content of "PART_RowHeaderIndicatorGrid", where we included RowResizer.
-If the PART_RowHeaderIndicatorGrid is visible, the appropriate row's height can be increased or decreased 
-by dragging the bottom edge of the row header cell down and up.
+The new GridRowHeaderCell style is called "ResizedGridRowHeaderCellStyle."
+It differs from the original GridRowHeaderCellStyle in that it contains the "PART_RowHeaderIndicatorGrid" content, to which we have added the RowResizer.
+
+If the PART_RowHeaderIndicatorGrid control is visible, the height of the corresponding row can be increased or decreased
+by dragging the bottom edge of the row header cell up or down.
 
 ```xml
   <Style TargetType="{x:Type sf:GridRowHeaderCell}" x:Key="ResizedGridRowHeaderCellStyle" >
@@ -581,8 +571,8 @@ by dragging the bottom edge of the row header cell down and up.
   </Style>
 ```
 
-As the current row height is stored in the row's data context RowHeight property, this functionality requires that the data grid handles 
-QueryRowHeight event. The event handler is implemented in code-behind in the SfDataGridTools.cs file.
+Because the current row height is stored in the RowHeight property of the row data context, this functionality requires 
+that the data grid handle the QueryRowHeight event. This event handling is implemented in the source code in the SfDataGridTools.cs file.
 
 ```csharp
   private void DataGrid_OnQueryRowHeight(object? sender, QueryRowHeightEventArgs e)
@@ -594,17 +584,17 @@ QueryRowHeight event. The event handler is implemented in code-behind in the SfD
   }
 ```
 
-Individual row resizing may be useful if we want to increase the row height temporary as the following sample.
+Resizing a single row can be useful when you want to temporarily increase the height of a row, as in the example below.
 
 ![imageinfo](Images/RowResizing.png)
 
 # LongTextColumn template and functionality
 
-Original Syncfusion WPF library defines several types of column. GridTextColumn is one of them, and it operates on String data.
-However its cell template is limited to simple TextBox functionality, which is not enough if the cell content string is long.
+The original WPF Syncfusion library defines several column types. One of these is GridTextColumn, which operates on String data. 
+However, its cell template is limited to simple text field functionality, which is insufficient if the cell string is long.
 
-LongTextColumn class was thought as an extension for the original GridTextColumn. 
-However as we need to define new template, it is declared as an extension for GridTemplateColumn class.
+The LongTextColumn class was intended as an extension of the original GridTextColumn class. 
+However, since we need to define a new template, it is declared as an extension of the GridTemplateColumn class.
 
 ```csharp
 public class LongTextColumn : GridTemplateColumn
@@ -616,13 +606,12 @@ public class LongTextColumn : GridTemplateColumn
   }
 ```
 
-LongTextColumn provides sophisticated functionality for those SfDataGrid colums which are mapped to string-typed properties with no length limit. 
-When the column is wide enough to display the whole text content, its layout does not differ from the GridTextColumn.
-When the text does not fit in a single line, a triangle-down button is displayed on the right of the cell.
-The user can click the button to show a popup text box with the whole text. 
-The popup stays open until the user clicks a triangle-up button displayed at the rigth-top corner of the popup, or selects another cell.
-The popup is displayed also when the user starts editing. 
-Its height grows when the user add more and more text.
+The LongTextColumn function provides advanced functionality for SfDataGrid columns, which are mapped to string properties with no length limit. 
+When a column is wide enough to display all text content, its layout is identical to that of a GridTextColumn. 
+When the text exceeds a single line, a button with a downward-pointing triangle appears to the right of the cell. 
+The user can click the button to display a text pop-up window displaying the entire text. 
+The pop-up window remains open until the user clicks the upward-pointing triangle button in the upper-right corner of the pop-up window or selects another cell. 
+The pop-up window also appears when the user begins editing. Its height increases as the user adds more text.
 
 Two data templates are defined for a LongTextColumn control:
 - LongTextCellTemplate for displaying the text,
@@ -715,8 +704,8 @@ Two data templates are defined for a LongTextColumn control:
     </Grid>
   </DataTemplate>
 ```
-LongTextEditTemplate differs from LongTextCell template in that a TextBlock replaces TextBlock in the Popup.
-Binding is TwoWay, and the UpdateSourceTrigger is PropertyChanged.
+The LongTextEditTemplate template differs from the LongTextCell template in that the text block replaces the text block in the popup. 
+The binding is bidirectional, and the UpdateSourceTrigger is changed depending on the property.
 
 ```xml
           <TextBox 
@@ -742,9 +731,9 @@ Both templates use two specially-defined value converters:
 - GridColumnMappingConverter and
 - LongTextColumnExpanderVisibilityConverter.
 
-These converters take the bound property name which is stored in a MappingName property of the column. 
-First converter returns the name of the bound property. 
-It implements IMultiValueConverter interface, but not IValueConverter because of two-way binding purposes (needed for editing).
+These converters accept the name of the bound property, which is stored in the column's MappingName property.
+The first converter returns the name of the bound property.
+It implements the IMultiValueConverter interface, but not the IValueConverter interface due to two-way binding (needed for editing).
 
 ```csharp
 public class GridColumnMappingConverter : IMultiValueConverter
@@ -766,9 +755,9 @@ public class GridColumnMappingConverter : IMultiValueConverter
   }
 ```
 
-The second converter also implements IMultiValueConverter despite it returns a Visibility-typed value used to hide and show ShowPopupButton.
-It could be an implementation of IValueConverter interface, but copies much code from the GridColumnMappingConverter. 
-To determine whether the ShowPopupButton should be visible or collapsed, it uses an EvaluateTextHeight method of the LongTextColumn class.
+The second converter also implements the IMultiValueConverter interface, although it returns a Visibility value for hiding and displaying the ShowPopupButton.
+This could be an implementation of the IValueConverter interface, but it copies much of the code from GridColumnMappingConverter.
+To determine whether the ShowPopupButton should be visible or collapsed, it uses the EvaluateTextHeight method of the LongTextColumn class.
 
 ```csharp
 public class LongTextColumnExpanderVisibilityConverter : IMultiValueConverter
@@ -798,7 +787,7 @@ public class LongTextColumnExpanderVisibilityConverter : IMultiValueConverter
 
 # RecordNavigationBar
 
-RecordNavigationBar is a Control to be displayed below a SfDataGrid to help the user to navigate through records.
+RecordNavigationBar is a control displayed under SfDataGrid that helps the user navigate through records.
 
 ![image info](Images/RecordNavigationBar.png) 
 
@@ -810,8 +799,8 @@ It presents (from the left):
 - a button to go to the next record,
 - a button to go to the last record.
 
-XAML definition of RecordNavigationBar uses images (PNG files) to display button faces. 
-We tried to use Unicode symbol characters instead, but they differ in size.
+The XAML definition of the RecordNavigationBar element uses images (PNG files) to display button icons. 
+We tried using Unicode symbols instead, but they vary in size.
 
 ```xml
 <UserControl x:Class="Qhta.SF.WPF.Tools.RecordNavigationBar"
@@ -866,9 +855,9 @@ We tried to use Unicode symbol characters instead, but they differ in size.
 </UserControl>
 ```
 
-Navigation is implemented in code-behind using RelayCommands. Example of LastItemCommand is shown below. 
-LastItemExecute method sets the selected index of the data grid to the last item and ensures it is visible
-by scrolling it into view. If the data grid is not initialized, the method exits without making changes.
+Navigation is implemented in code-behind using RelayCommands. An example of LastItemCommand is shown below.
+The LastItemExecute method sets the selected data grid index to the last item and makes it visible by scrolling it into view. 
+If the data grid is not initialized, the method exits without making any changes.
 
 ```csharp
   public RelayCommand LastItemCommand { [DebuggerStepThrough] get; set; }
@@ -886,9 +875,8 @@ by scrolling it into view. If the data grid is not initialized, the method exits
   }
 ```
 
-The RecorNavigationBar class has a sophisticated RowsCount property implementation. 
-Although the declaration of the dependency property is rather simple:
-
+Klasa RecorNavigationBar ma zaawansowaną implementację właściwości RowsCount.
+Chociaż deklaracja właściwości zależności jest dość prosta,
 ```csharp
   public static DependencyProperty RowsCountProperty =
     DependencyProperty.Register(nameof(RowsCount), typeof(int), typeof(RecordNavigationBar),
@@ -901,24 +889,26 @@ Although the declaration of the dependency property is rather simple:
   }
 ```
 
-binding this property to underlaying DataGrid items source is difficult. 
-In a primitive implementation RowsCountProperty can be bound to ItemsSource.Count path.
-But we had to consider three special cases:
-- ItemsSource Count is not a dependency property and does not notify observers at change.
-- Items source of the SfDataGrid is lazy loaded (in parallel in a background task),
+Binding this property to the DataGrid's item source is difficult.
+In a primitive implementation, the RowsCountProperty property can be bound to the ItemsSource.Count path.
+
+However, we had to consider three special cases:
+- The ItemsSource item count is not a dependency property and does not notify observers of changes.
+- The SfDataGrid item source is loaded lazily (in parallel, in a background task).
 - SfDataGrid records can be filtered.
 
-In the first case we can't rely on binding mechanism.
-In second case the RowsCount property should be increased to show the currently loaded records count.
-In the last case RowsCount property should express the currently visible rows count.
+In the first case, we cannot rely on the binding mechanism.
+In the second case, the RowsCount property should be incremented to show the number of currently loaded records.
+In the last case, the RowsCount property should express the number of currently visible rows.
 
-To cover the three cases we use the fact that SfDataGrid.View.Records implements INotifyCollectionChanged interface
-with CollectionChanged event. 
-We define the handler for the event that get the SfDataGrid.View.Records.Count and assings it to RowsCount property.
-Before we check if SfDataGrid.ItemsSource implements a ILoadable interface.
+To cover these three cases, we exploit the fact that SfDataGrid.View.Records implements the INotifyCollectionChanged interface
+with a CollectionChanged event.
 
-ILoadable interface is defined in Qhta.ObservableObjects package. It declares IsLoaded boolean property 
-and simple Loaded event handler.
+We define an event handler that retrieves SfDataGrid.View.Records.Count and assigns it to the RowsCount property.
+
+We first check whether SfDataGrid.ItemsSource implements the ILoadable interface.
+The ILoadable interface is defined in the Qhta.ObservableObjects package. It declares a Boolean IsLoaded property
+and a simple Loaded event handler.
 
 ```csharp
 public interface ILoadable
@@ -930,10 +920,9 @@ public interface ILoadable
 }
 ```
 
-If SfDataGrid.ItemsSource implements a ILoadable interface and it is not loaded then we get the current Value 
-of dataGrid.View.Records.Count. 
-We assign its value to RowsCount but not each value, and only a value divided by UpdateDivider. 
-This dependency property is initially set to 1000, and improves update efficiency.
+If SfDataGrid.ItemsSource implements the ILoadable interface and is not loaded, we get the current value of dataGrid.View.Records.Count.
+We assign its value to RowsCount, but not each value, only the value divided by UpdateDivider.
+This dependency property is initially set to 1000 and improves update performance.
 
 ```csharp
   private NotifyCollectionChangedEventHandler? ViewOnCollectionChanged(SfDataGrid dataGrid)
@@ -952,11 +941,8 @@ This dependency property is initially set to 1000, and improves update efficienc
   }
 ```
 
-Some problem can be with setting the event handler, as dataGrid's View can be initialized with some delay.
-We solved this problem with a cascade of four methods.
-
-Static DataGridPropertyChanged method is declared as DataGrid property changed callback.
-
+Some issues may arise with event handling, as the dataGrid view may take some time to initialize. We solved this problem using a cascade of three methods.
+1. Static DataGridPropertyChanged method is declared as DataGrid property changed callback.
 ```csharp
   private static void DataGridPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
   {
@@ -968,9 +954,7 @@ Static DataGridPropertyChanged method is declared as DataGrid property changed c
   }
 ```
 
-This method passes invocation to DataGridChanged method which assigns a handler to dataGrid's Control
-Loaded event.
-
+2. This method passes a call to the DataGridChanged method, which assigns a handler to the Control Loaded event of the dataGrid object.
 ```csharp
   private void DataGridChanged(SfDataGrid dataGrid)
   {
@@ -981,11 +965,8 @@ Loaded event.
   }
 ```
 
-The BindRowsCount method checks if the dataGrid's View property is just initialized 
-and then assigns ViewCollectionChanged handler. 
-If dataGrid.ItemsSource implements ILoadable and it is not loaded yet 
-then Loaded event handler is initialized to set the final RowsCount.
-
+3. The BindRowsCount method checks whether the dataGrid object's View property has just been initialized, and then assigns a ViewCollectionChanged handler. 
+If dataGrid.ItemsSource implements ILoadable and the object has not yet been loaded, then the Loaded event handler is initialized to set the final RowsCount value.
 ```csharp
   private void BindRowsCount(SfDataGrid dataGrid)
   {
@@ -1006,11 +987,11 @@ then Loaded event handler is initialized to set the final RowsCount.
   }
 ```
 
-The usage of the RecordNavigationBar is simple. First declare a grid with at least two rows 
-(in the example below there are three rows - first is used for main menu).
-Next place an SfDataGrid in the row with height declared as "*".
-Finally place a RecordNavigationBar in the row below and bind the dataGrid to a DataGrid property.
+Using a RecordNavigationBar is simple. First, declare a grid with at least two rows (in the example below, there are three rows – the first is used for the main menu).
 
+Then, place the SfDataGrid in the row with a height declared as "*".
+
+Finally, place the RecordNavigationBar in the row below and bind the dataGrid to the DataGrid property.
 ```xml
   <Grid>
     <Grid.RowDefinitions>
@@ -1035,8 +1016,8 @@ Finally place a RecordNavigationBar in the row below and bind the dataGrid to a 
 
 # Clipboard operations on SfDataGrid
 
-Three clipboard commands: Copy, Cut, and Paste are implemented in SfDataGridCommander class. 
-Because a Delete command implementation is similar to the Cut command, it was added to the same class.
+The three clipboard commands: Copy, Cut, and Paste are implemented in the SfDataGridCommander class. 
+Because the Delete command's implementation is similar to the Cut command, it has been added to the same class.
 
 SfDataGridCommander class is partially encoded in six files:
 - SfDataGridCommander!.cs
@@ -1048,7 +1029,8 @@ SfDataGridCommander class is partially encoded in six files:
 
 *Note that "!" and "~" suffixes are used solely to achieve logical file-name sorting.*
 
-First file contains basic methods used in core methods implementation. Next four files contain methods directly invoked in commands implementation:
+The first file contains the basic methods used in the core method implementation. 
+The next four files contain methods called directly in the command implementation:
 - CanCopyData, CopyData - for Copy command,
 - CanCutData, CutData - for Cut command,
 - CanDeleteData, DeleteData - for Delete command,
@@ -1058,12 +1040,12 @@ Each method has a single parameter of SfDataGrid type.
 
 ## Common data operations (Copy, Cut, Delete)
 
-We take advantage of the fact that the three operations Copy, Cut, and Delete share common elements of functionality. 
-Methods invoked for Copy, Cut, and Delete commands redirect invocations to the last file (SfDataGridCommander~.DataOp.cs), 
-which contains general implementation of one of three data operations 
-(defined as enum type DataOp): Copy, Cut, and Delete. 
+We take advantage of the fact that the three operations Copy, Cut, and Delete share common functionalities.
+The methods called for the Copy, Cut, and Delete commands redirect calls to the final file (SfDataGridCommander~.DataOp.cs),
+which contains a general implementation of one of the three data operations
+(defined as the DataOp enumeration type): Copy, Cut, and Delete.
 
-Below are method for Copy command implementation. Methods for other three commands are similar.
+The methods implementing the Copy command are shown below. The methods for the other three commands are similar.
 
 ```cSharp
 public static partial class SfDataGridCommander
@@ -1074,15 +1056,17 @@ public static partial class SfDataGridCommander
 }
 ```
 
-There are two general methods: CanExecuteDataOp and ExecuteDataOp, which have two parameters:
-one of SfDataGrid type and one of DataOp type.
-They operate on selected columns, rows, or cells of the data grid. 
-They use a GetSelectedRowsAndColumns method, which returns an array of GridCellInfo of selected cells of the data grid, 
-but also have four output parameters:
-- allColumnsSelected - set to true if and only if all the columns of the grid are selected,
-- selectedColumn (as an array of GridColumn) - filled with those columns, which are currently selected,
-- allRowsSelected - set to true if and only if all the rows of the grid are selected,
-- selectedRows (as an array of object) - filled with those data rows, which are currently selected.
+There are two general methods: CanExecuteDataOp and ExecuteDataOp, which take two parameters:
+- one of type SfDataGrid and 
+- one of type DataOp.
+
+They operate on selected columns, rows, or cells of a data grid.
+They use the GetSelectedRowsAndColumns method, which returns an array of GridCellInfo of the selected data grid cells.
+But they also have four output parameters:
+- allColumnsSelected – set to true if and only if all grid columns are selected,
+- selectedColumn (as a GridColumn array) – populated with the columns that are currently selected,
+- allRowsSelected – set to true if and only if all grid rows are selected,
+- selectedRows (as an object array) – populated with the data rows that are currently selected.
 
 ```csharp
   public static GridCellInfo[] GetSelectedRowsAndColumns (this SfDataGrid dataGrid, out bool allColumnsSelected, out GridColumn[] selectedColumns, out bool allRowsSelected, out object[] selectedRows)
@@ -1116,7 +1100,7 @@ but also have four output parameters:
   }
 ```
 
-They also use GetRowDataType method which returns a type of elements of the grid.View.SourceCollection.
+They also use the GetRowDataType method, which returns the type of the grid items.View.SourceCollection.
 
 ```csharp
   public static Type? GetRowDataType(SfDataGrid dataGrid)
@@ -1130,7 +1114,7 @@ They also use GetRowDataType method which returns a type of elements of the grid
   }
 ```
 
-GetGridColumnInfos method returns additional array of GridColumnInfo (exposing ValuePropertyInfo and DisplayPropertyInfo).
+The GetGridColumnInfos method returns an additional GridColumnInfo array (exposing ValuePropertyInfo and DisplayPropertyInfo).
 
 ```csharp
   private static GridColumnInfo?[] GetGridColumnInfos(GridColumn[] columns, Type rowDataType, bool write)
@@ -1167,10 +1151,10 @@ GetGridColumnInfos method returns additional array of GridColumnInfo (exposing V
 
 ```
 
-Copy and Cut operations build clipboard content as a text lines. 
-The first line in the content is a header line, which consists of data grid headers 
-(HeaderText or MappingName of the columns declarations) separated with Tab ('\t') characters.
-Header line is omitted if only one cell is copied to the clipboard.
+Copy and Cut operations create clipboard contents as lines of text.
+The first line of content is the header row, which consists of the data grid headers
+(HeaderText or MappingName column declarations) separated by tab characters ('\t').
+The header row is skipped if only one cell is copied to the clipboard.
 
 ```cSharp
       var content = new List<string>();
@@ -1186,8 +1170,8 @@ Header line is omitted if only one cell is copied to the clipboard.
       }
 ```
 
-Each data line consists of cell data (get using ValuePropertyInfo or DisplayPropertyInfo) also separated with Tab characters.
-In the main loop Cut and Delete operations set null values to each selected cell -- in case of deleting separate cells. 
+Each data row consists of cell data (retrieved via ValuePropertyInfo or DisplayPropertyInfo), also separated by tabs. 
+In the main loop, the "Cut" and "Delete" operations set null values ​​for each selected cell when deleting individual cells.
 
 ```csharp
         foreach (var row in selectedRows)
@@ -1210,7 +1194,7 @@ In the main loop Cut and Delete operations set null values to each selected cell
           content.Add(line);
 ```
 
-If the whole rows are selected, data records are removed from the data grid's items source, which must implement IList interface.
+If you select entire rows, the data records are removed from the data grid item source, which must implement the IList interface.
 
 ```cSharp
       if (op == DataOp.Delete)
@@ -1222,7 +1206,7 @@ If the whole rows are selected, data records are removed from the data grid's it
       }
 ```
 
-However, in the implementation of the CanExecuteDataOp method, if the items source implements IRemovableCollection, 
+However, when implementing the CanExecuteDataOp method, if the item source implements IRemovableCollection, 
 we can check whether we can remove individual records.
 
 ```csharp
@@ -1245,42 +1229,50 @@ we can check whether we can remove individual records.
 ```
 ## PasteData operations
 
-CanPasteData and PasteData method are implemented directly in SfDataGridCommander.PasteData.cs file. 
-CanPasteData method simply checks if there is text in the clipboard.
+The CanPasteData and PasteData methods are implemented directly in the SfDataGridCommander.PasteData.cs file. 
+The CanPasteData method simply checks whether there is text on the clipboard.
 
 ```cSharp
   public static bool CanPasteData(SfDataGrid dataGrid) => Clipboard.ContainsText();
 ```
-PasteData method is much more complicated. We assume not only that clipboard contains text,
-but also this text can be divided to lines by  "\r\n" or "\n" separators,
-and each line can be split to elements by "\t" separators.
+The PasteData method is much more complicated. We assume not only that the clipboard contains text,
+but also that this text can be split into rows using the "\r\n" or "\n" separators,
+and each row can be split into elements using the "\t" separators.
 
-First line should contain column headers (header text) which are compared to current column headers.
-An exception is when the clipboard text contains only one line. 
-In this case this line should contain only one value which is assigned to the current cell.
-In other cases values are assigned to appropriate cells.
-Values are assigned only to selected rows.
-If there is more data lines in clipboard then selected rows, data lines cycle from the beginning.
+The first row should contain the column headers (header text), which are compared to the current column headers.
+
+The exception is if the text in the clipboard contains only a single row.
+In this case, this row should contain only one value, which is assigned to the current cell.
+
+Otherwise, values ​​are assigned to the appropriate cells.
+Values ​​are assigned only to the selected rows.
+If there are more rows of data in the clipboard than the number of selected rows, the data rows are repeated from the beginning.
 
 ## Undoing clipboard and delete operations
 
-To provide undo operations, an UndoRedoManager class (defined in Qhta.UndoManager library) is used in PasteData, CutData and DeleteData operations.
-UndoRedoManager enables action recording. An action is a class implementing IAction interface, and provides two methods:
-- Undo and 
+To support undo operations, the UndoRedoManager class (defined in the Qhta.UndoManager library) is used for the PasteData, CutData, and DeleteData operations.
+
+UndoRedoManager allows you to register actions. An action is a class implementing the IAction interface and provides two methods:
+- Undo and
 - Execute.
 
-Undo is a method to roll-back the recorded action, Execute is a method to redo the action.
-When we want to support undo/redo, we must to record a new action (with action arguments) before executing the undoable operation.
-UndoManager defines two classes that implement IAction interface:
-- ChangePropertyAction to undo/redo the operation of property change,
-- ActionGroup to undo/redo many operations in one step.
+Undo is the method that undoes the registered action, and Execute is the method that redoes the action.
+
+To support undo/redo, we must register a new action (with action arguments) before performing the undone operation.
+
+UndoManager defines two classes that implement the IAction interface:
+- ChangePropertyAction for undoing/redoing property changes,
+- ActionGroup for undoing/redoing multiple operations in one step.
 
 Both are used in DataOp methods (ActionGroup is used indirectly by StartGrouping and StopGrouping).
-ChangePropertyAction is used to delete SfDataGrid cells, as deleting is implemented as setting null to the cell content.
-However, to undo/redo record delete, we defined a special IAction implementation in DelRecordAction class.
 
-This class uses a DelRecordArg record that holds DataList, Index, and DataObject arguments of the action.
-Code of the DelRecordAction is as simple as below:
+The ChangePropertyAction is used to delete cells in an SfDataGrid, as deletion is implemented by setting the cell content to null.
+
+However, to undo/redo delete a record, we defined a special IAction implementation in the DelRecordAction class.
+
+This class uses the DelRecordArg record, which holds the action arguments: DataList, Index, and DataObject.
+
+The DelRecordAction code is simple:
 
 ```csharp
 public class DelRecordAction: IAction
@@ -1315,7 +1307,7 @@ public class DelRecordAction: IAction
 DeleteRecords method uses UndoRedoManager StartGrouping method to enable undo/redo in one step.
 Before each dataSource Remove call we register a new DelRecordAction with appropriate argumens.
 Note that we moved UndoRedo StopGrouping call to finally clause of try-catch-finally instruction
-to be sure that it is invoked even in case of exception.
+to be sure that it is calld even in case of exception.
 
 ```csharp
   private static void DeleteRecords(SfDataGrid dataGrid, object[] selectedRows)
@@ -1349,201 +1341,148 @@ to be sure that it is invoked even in case of exception.
 
 ```
 
-# SfDataGridFiltering tools
-
-SfDataGrid class has just implemented filtering and sorting operations. 
-When AllowSorting is set to true, the user can switch sorting on by clicking column headers. 
-If also AllowTriStateSorting is set to true, the user can switch sorting on and off. 
-If AllowTriStateSorting is set to to, the user can only switch sorting direction.
-
-If AllowFiltering is set to true, a funnel-shape button is displayed at the right of each column header. 
-When the user click this button, SfDataGrid displays FilterControl popup. FilterControl enables user to sort and filter data.
-The use can have two modes of filtering:
-- selectable filtering,
-- advanced fitering.
-
-Selectable filtering is used when the column maps to enumerable data. A check list is displayed with selectable element 
-and, additionaly, with empty and non-empty elements. However, enumerable elements are identified by enum names.
-If an combobox popup list displays elements in other way, both lists are inconsistent. 
-
-A static class SfDataGridFiltering contains two methods to address this problem:
-- OnFilterItemsPopulating,
-- OnFilterChanging.
-
-Both methods are event handlers used by SfDataGrid. First method is invoked when filtering is applied to a column.
-If it is a GridComboBoxColumn, a local SetSelectableItemsFilter method is invoked. Otherwise SetAdvancedFilter is invoked.
-
-SetSelectableItemsFilter method parameter an enumeration of elements that implement ISelectableItem. 
-If the items source is not IEnumerable of ISelectableItem, a temporary list of SelectableItem is created.
-ISelectableItem interface provides properties used to build and to apply selectable filtering:
-- DisplayName - to display an item in the checked list,
-- ToolTip - to display a tooltip for selectabe items,
-- ActualValue - to provide a value to evaluate filtering predicates,
-- IsEmpty - a read-only property with default method checking whether the ActualValue is null,
-- IsNotEmpty - a read-only property with default method checking whether the ActualValue is NonEmptyValue,
-- IsSelected - determines whether an item is selected in UI.
-
-IsEmpty and IsNotEmpty properties are used in evaluating filtering predicates for special values. 
-NonEmptyValue is a special singleton type to express all elements that are not null.
-These two properties have default implementation declared in the ISelectableItem interface
-and do not need to be implemented separately in the class that implements this interface.
-
-The second method, OnFilterChanging, is used to fit predicate FilterType and FilterValue according to empty and non-empty values.
-If the predicate FilterValue is a ISelectableItem implementation, then if it is an empty item (IsEmpty property gives True), 
-then filter value is set to null, and filter type is set to Equals. 
-It the item it is non-empty (IsNotEmpty property gives True), then filter value is set to null, but filter type is set to NotEquals. 
-
-ISelectableItem interface can be implemented directly in a ViewModel class, or a SelectableItem class may be used.
-The SelectableItem class is usefull especially when the selectable items list must display enum-typed values.
-As the enum-typde values are simple static fields of the enum type, it is not possible to make them to implement the ISelectableItem interface.
-In this case, we can wrap enum type values with SelectableItem class.
-
-The SelectableItem class define (in addition to ISelectableItem properties) also two properties having IValueConverter types:
-- ValueConverter and
-- ToolTipConverter.
-
-These converters are used in get-methods of DisplayName and ToolTip values.
-ValueConverter can be used to transform enum-typed value programmatic names (which are singular words) 
-to more friendly display names (including localized resource strings in non-English applications).
-ToolTipConverter can be used to transform enum-typed value programmatic names to longer explanations (also using localized resource strings).
-
-This way we get a fully-localizable user interface for setting column filters.
-
-![image info](Images/Filtering.png)
-
 # SfDataGridFinder class and commanding
 
-Original Syncfusion framework lacks of finding and replacing values or text functionality. SfDataGridFinder class 
-(along whith some other classes) fill this gap by providing a UI and API for finding and selecting data in the SfDataGrid.
+The original Syncfusion framework lacks functionality for finding and replacing values ​​or text. The SfDataGridFinder class (along with several other classes) 
+fills this gap by providing a user interface and API for finding and selecting data in an SfDataGrid.
 
 ![image info](Images/FindValue.png)
 
-First, we provide a FindAndReplaceCommand class which enables user to start finding (and optionally replacing) 
-values or text in SfDataGrid columns. The command can be executed when one and only one column of the grid is selected.
+First, we provide a FindAndReplaceCommand class that allows the user to start searching for (and optionally replacing) values ​​or text in SfDataGrid columns. This command can be executed when one and only one column of the grid is selected.
 
-The FindAndReplaceCommand has four public methods:
+FindAndReplaceCommand has four public methods:
 - CanExecute,
 - Execute,
 - CanExecuteFindNext,
 - ExecuteFindNext.
 
-First two methods are used to handle full interactive Find/Replace command, which opens a SpecificValueWindow in one of two modes:
+The first two methods support a fully interactive Find/Replace command that opens the SpecificValueWindow in one of two modes:
 - Find mode,
-- FindAndReplace mode.
+- Find and Replace mode.
 
-Last two methods are used to handle Find/Replace next item command, which does not open a dialog window, but is based on previous Find/Replace settings.
+The last two methods support the Find/Replace Next command, which does not open a dialog box but relies on previous Find/Replace settings.
 
-SpecificValueWindow open mode can be determined by a property FindOrReplaceMode of FindAndReplaceCommand instance. It can be one of:
+The opening mode of the SpecificValueWindow can be specified using the FindOrReplaceMode property of the FindAndReplaceCommand instance. This can be one of the following options:
 - Auto (default),
 - Find,
 - Replace.
 
-In Auto mode, the window open mode is determined by the data grid and column read/write capabilities.
-In Find mode, the window open mode is set to Find.
-In Replace mode, if the the data grid or column does not allow writing, CanExecute method returns false and Execute method throws an exception.
+In Auto mode, the window opening mode is determined by the read/write capabilities of the data grid and column.
+In Find mode, the window opening mode is set to Find.
+In Replace mode, if the data grid or column does not allow writing, the CanExecute method returns false and the Execute method throws an exception.
 
-Find mode enables user to select a value and an option how to find a value in sequence:
+Find mode allows the user to select a value and select the search options for the value in the following order:
 - FindFirst,
 - FindNext,
 - FindAll.
 
-In FindFirst mode, the selected value is searched from the beginning of the column (from the top row). When found, the cell is selected.
-If not found, the appropriate message is displayed for the user.
-In FindNext mode, the selected value is searched beginning from the next cell (below the current cell) in the column.
-In FindAll mode, all the cells in the column are iterated and all cells, that fulfills the search criteria, are selected.
+In FindFirst mode, the selected value is searched from the beginning of the column (top row). If a match is found, the cell is selected.
+If the match is not found, an appropriate message is displayed. In FindNext mode, the selected value is searched for, starting from the next cell (below the current one) in the column.
+In FindAll mode, all cells in the column are iterated, and all cells that meet the search criteria are selected.
 
-FindAndReplace mode is similar to Find mode, but enables an option to select a replacement value. 
-When the user clicks to select a replacement value, the secondary field for it is shown. 
-In command execution, the cells are not only selected, but also replaced with a replacement value.
+FindAndReplace mode is similar to Find mode, but allows the selection of a replacement value.
 
-The SpecificValueWindow can work in one of SpecificViewModes:
+When the user clicks to select a replacement value, a helper box for it is displayed.
+
+During the command execution, cells are not only selected but also replaced with the replacement value.
+
+The SpecifiedValueWindow can operate in one of the following modes:
 - Edit mode,
 - Selector mode,
-- Both mode.
+- Both modes.
 
-In Edit mode, a SpecificEditView is visible in the SpecificValueWindow. 
-The SpecificEditView enables user to edit a specific value in a TextBox. 
-After checking Replace option, the user can also edit a replacement value. 
-In Selector mode, a SpecificValueSelector view is visible. 
-The SpecifiedEditSelector enables user to select a specific value in a ListBox, 
-and after checking Replace option, also to select a replacement value. 
-In Both mode, both views are visible and selectable in a TabControl.
+In Edit mode, the SpecificValueWindow displays the SpecificEditView.
+The SpecifiedEditView allows the user to edit a specified value in a TextBox.
+After selecting the Replace option, the user can also edit the replacement value.
 
-To execute the FindAndReplace command, a special SfDataGridFinder class is defined. 
-The instance of this class is created and stored for a column in first command execution.
+In Selector mode, the SpecificValueSelector view is visible.
+The SpecifiedEditSelector allows the user to select a specific value in the list box (ListBox),
+and after selecting the Replace option, also select the replacement value.
+In Both mode, both views are visible and selectable in the TabControl.
 
-SfDataGridFinder stores the SpecifiedValue, the ReplacementValue, boolean Replace option, and boolean Found result. 
-It also stored a Predicate property using FilterPredicate class. 
-The stored Predicate is created in FindFirst and FindAll modes, and used in FindNext modes. 
+To execute the FindAndReplace command, a special SfDataGridFinder class is defined.
 
-We do not use FilterValue property of FilterPredicate. 
-Instead, in EvaluatePredicate method of SfDataGridFinder, a separate specifiedValue parameter is applied.
-In EvaluateReplacement, both separate specifiedValue and replacementValue properties are applied.
+An instance of this class is created and saved for the column when the command is first executed.
+
+SfDataGridFinder stores the SpecifiedValue, ReplacementValue, the Boolean Replace option, and the Boolean Found result.
+It also stores the Predicate property using the FilterPredicate class.
+The stored Predicate is created in FindFirst and FindAll modes and used in FindNext modes.
+
+We do not use the FilterValue property of the FilterPredicate class.
+Instead, the EvaluatePredicate method of the SfDataGridFinder class uses a separate parameter, specificValue.
+
+The EvaluateReplacement method uses separate properties, specificValue and replacementValue.
 
 We use other properties of FilterPredicate:
-- FilterBehavior property to select if the SpecifiedValue is StringTyped or StronglyType,
-- FilterType property to select a comparison operation,
-- IsCaseSensitive property to determine if SpecifiedValue in StringTyped mode is searched with case sensitivity.
-
+- the FilterBehavior property to determine whether SpecifiedValue is of type StringTyped or StronglyType,
+- the FilterType property to select the comparison operation,
+- the IsCaseSensitive property to determine whether SpecifiedValue is case-sensitive in StringTyped mode.
+- 
 # Fill Column Command
 
-A FillColumnCommand uses SpecificValueWindow in Fill mode. In this mode, specifying a replacement value is not possible. 
-Also FindInSequence option is not visible. 
-Instead an OverwriteNonEmptyCells options is visible to let the execution method to fill also non-empty cells.
+FillColumnCommand uses SpecificValueWindow in fill mode. In this mode, specifying a replacement value is not possible.
+
+The FindInSequence option is also not visible.
+
+Instead, the OverwriteNonEmptyCells option is visible, which allows the execute method to also fill non-empty cells.
 
 ![image info](Images/FillColumn.png)
 
 # Column Management Command
 
-Original SfDataGrid library contains a class named GridColumnChooserControl. 
-It is a class of a popup window, which enables user to hide/show individual grid columns.
-However the basic control implementation requires, that the user drags column header to the popup window to hide it. 
-We developed more traditional mechanism of column hiding or showing.
+The original SfDataGrid library includes a class called GridColumnChooserControl.
+This is a pop-up window class that allows the user to hide/show individual grid columns.
+However, the basic implementation of the control requires the user to drag a column header onto the pop-up window to hide it.
+We developed a more traditional mechanism for hiding or showing columns.
 
 ![image info](Images/ColumnManagement.png)
 
-ColumnManagementCommand opens the ColumnManagementWindow which shows all the columns in the grid. The column headers are listed along with checkboxes.
-The user can decide to hide or show each column by clicking the checkbox.
+ColumnManagementCommand opens a ColumnManagementWindow that displays all the columns in the grid. Column headers are displayed with checkboxes.
 
-Moreover, the ColumnManagementWindow allows user to change the order of column appearance by using MoveUp/MoveDown buttons
-or by dragging selected items.
+The user can choose to hide or show each column by clicking the checkbox.
 
-To implement dragging selected items in the ColumnManagementWindow, we had to move selecting and deselecting items to PreviewLeftButtonUp event handler.
-PreviewLeftButtonDown event handler only stores drag start point. 
-If this event also selects/deselects items, it could accidentaly deselect clicked item.
+Furthermore, the ColumnManagementWindow allows the user to change the column display order using the MoveUp/MoveDown buttons or by dragging selected items.
 
-ColumnManagementCommand can be executed if SfDataGrid AllowColumnManagement attached property is set to true.
+To implement dragging selected items in a ColumnManagementWindow, we had to move the selection and deselection of items to the PreviewLeftButtonUp event handler.
 
-ColumnManagementCommand can be activated by right mouse button click on any column header cell 
-(but only if there is no ContextMenu assigned to the column).
-To do so, both styles for GridHeaderCellControl defined in SfDataGridTools.Xml file (default style ant SelectedColumnHeaderStyle)
-assign GridHeaderCellControl_MouseRightButtonDown handler to PreviewMouseDown event.
+The PreviewLeftButtonDown event handler only stores the starting point of the drag.
+
+If this event also selects/deselects items, it may accidentally deselect the clicked item.
+
+The ColumnManagementCommand can be executed if the SfDataGrid attached property AllowColumnManagement is set to true.
+
+The ColumnManagementCommand can be activated by right-clicking on any column header cell
+(but ​​only if the column does not have a context menu assigned).
+To achieve this, both styles for the GridHeaderCellControl defined in the SfDataGridTools.Xml file (the default style and the SelectedColumnHeaderStyle)
+assign the GridHeaderCellControl_MouseRightButtonDown handler to the PreviewMouseDown event.
 
 # Behavior extensions for SfDataGrid and GridColumn classes
 
-There are two classes defined that implement Behavior mechanism. These are:
+Two classes implementing the Behavior mechanism have been defined:
 - SfDataGridBehavior and
 - SfDataGridColumnBehavior.
 
-The Behavior is a Microsoft extension mechanism for PresentationFramefork controls. 
-It enables the XAML developer to attach new properties to existing controls without redefining their classes.
+Behavior is a Microsoft extension mechanism for PresentationFramefork controls.
 
-The SfDataGridBehavior defines the following properties for SfDataGrid:
-- AllowRowResizing - to enable resizing rows by dragging low edge or row header cells.
-- IsRowResizing - to determine the current state of row resizing,
-- StartOfOffset - to store the pixel distance between the starting position of mouse click and the row intial height.
-- AllowColumnManagement - to let user to execute ColumnManagementCommand on right mouse button click on any column header cell.
+It allows XAML developers to attach new properties to existing controls without having to redefine their classes.
 
-The SfDataGridColumnBehavior defines one attachable property:
+SfDataGridBehavior defines the following properties for SfDataGrid:
+- AllowRowResizing – allows rows to be resized by dragging the bottom border or row header cells.
+- IsRowResizing – specifies the current row resize state.
+- StartOfOffset – stores the distance in pixels between the initial mouse click position and the initial row height.
+- AllowColumnManagement – ​​allows the user to execute a ColumnManagementCommand by right-clicking on any column header cell.
+
+The SfDataGridColumnBehavior class defines one attachable property:
 - IsSelected.
 
-It can work for GridColumn and for GridHeaderCellControl.
- When it is get or set to GridHeaderCellControl, its boolean value is stored to the appropriate CellColumn. 
- 
-There is als SfDataGridColumnBehaviorExtensions static class. 
-It defines static methods to store SfDataGridFinder instance in a GridColumn:
+This property can apply to both GridColumn and GridHeaderCellControl.
+
+When set or get it from a GridHeaderCellControl, its boolean value is stored in the corresponding CellColumn.
+
+There is also a static SfDataGridColumnBehaviorExtensions class.
+
+It defines static methods for storing SfDataGridFinder instances in a GridColumn:
 - SetFinder and
 - GetFinder.
- 
-The accessor SetFinder/GetFinder methods can not be declared in SfDataGridColumnBehavior class because this class is not static.
 
+The SetFinder/GetFinder accessor methods cannot be declared in the SfDataGridColumnBehavior class because it is not static.

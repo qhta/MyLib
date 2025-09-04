@@ -75,7 +75,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   public string? CharName
   {
     get => (!string.IsNullOrEmpty(Model.CharName)) ? Model.CharName : null;
-    set => ChangeEntityProperty(nameof(CharName), nameof(Model.CharName), value);
+    set => ChangeViewModelProperty(nameof(CharName), nameof(Model.CharName), value);
   }
 
   /// <summary>
@@ -177,7 +177,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   /// <summary>
   /// Alias collection for the Unicode code point, which contains alternative names of the code point.
   /// </summary>
-  public ICollection<Alias> Aliases { [DebuggerStepThrough] get; } = new List<Alias>();
+  public AliasCollection Aliases { [DebuggerStepThrough] get; } = new ();
 
   /// <summary>
   /// Identifier of the Unicode code point block, which is used to group code points into blocks.
@@ -186,7 +186,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   {
     [DebuggerStepThrough]
     get => Model.BlockId;
-    set => ChangeEntityProperty(nameof(BlockId), nameof(Model.BlockId), value, nameof(Block));
+    set => ChangeViewModelProperty(nameof(BlockId), nameof(Model.BlockId), value, nameof(Block));
   }
 
   /// <summary>
@@ -199,76 +199,26 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
       var result = Model.BlockId is null ? null : _ViewModels.Instance.UcdBlocks.FindById((int)Model.BlockId);
       return result;
     }
-    set => ChangeEntityProperty(nameof(BlockId), nameof(Model.BlockId), value?.Id, nameof(Block));
+    set => ChangeViewModelProperty(nameof(BlockId), nameof(Model.BlockId), value?.Id, nameof(Block));
   }
 
-  /// <summary>
-  /// Identifier of the area writing system associated with this Unicode code point, if applicable.
-  /// </summary>
-  public int? AreaId
-  {
-    get => Model.AreaId; 
-    set => ChangeEntityProperty(nameof(AreaId), nameof(Model.AreaId), value, nameof(Area));
-  }
-
-  /// <summary>
-  /// Exposes the area writing system as a view model.
-  /// </summary>
-  public WritingSystemViewModel? Area
-  {
-    get => Model.AreaId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.AreaId);
-    set => ChangeEntityProperty(nameof(AreaId), nameof(Model.AreaId), value?.Id, nameof(Area));
-  }
 
   /// <summary>
   /// Identifier of the script writing system associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? ScriptId
+  public int? WritingSystemId
   {
-    get => Model.ScriptId; 
-    set => ChangeEntityProperty(nameof(ScriptId), nameof(Model.ScriptId), value, nameof(Script));
+    get => Model.WritingSystemId; 
+    set => ChangeViewModelProperty(nameof(WritingSystemId), nameof(Model.WritingSystemId), value, nameof(WritingSystem));
   }
+
   /// <summary>
   /// Exposes the script writing system as a view model.
   /// </summary>
-  public WritingSystemViewModel? Script
+  public WritingSystemViewModel? WritingSystem
   {
-    get => Model.ScriptId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.ScriptId);
-    set => ChangeEntityProperty(nameof(ScriptId), nameof(Model.ScriptId), value?.Id, nameof(Script));
-  }
-
-  /// <summary>
-  /// Identifier of the language writing system associated with this Unicode code point, if applicable.
-  /// </summary>
-  public int? LanguageId
-  {
-    get => Model.LanguageId; 
-    set => ChangeEntityProperty(nameof(LanguageId), nameof(Model.LanguageId), value, nameof(Language));
-  }
-  /// <summary>
-  /// Exposes the language writing system as a view model.
-  /// </summary>
-  public WritingSystemViewModel? Language
-  {
-    get => Model.LanguageId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.LanguageId);
-    set => ChangeEntityProperty(nameof(LanguageId), nameof(Model.BlockId), value?.Id, nameof(Language));
-  }
-
-  /// <summary>
-  /// Identifier of the notation writing system associated with this Unicode code point, if applicable.
-  /// </summary>
-  public int? NotationId
-  {
-    get => Model.NotationId; 
-    set => ChangeEntityProperty(nameof(NotationId), nameof(Model.NotationId), value, nameof(Notation));
-  }
-  /// <summary>
-  /// Exposes the notation writing system as a view model.
-  /// </summary>
-  public WritingSystemViewModel? Notation
-  {
-    get => Model.NotationId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.NotationId);
-    set => ChangeEntityProperty(nameof(NotationId), nameof(Model.NotationId), value?.Id, nameof(Notation));
+    get => Model.WritingSystemId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.WritingSystemId);
+    set => ChangeViewModelProperty(nameof(WritingSystemId), nameof(Model.WritingSystemId), value?.Id, nameof(WritingSystem));
   }
 
   /// <summary>
@@ -277,7 +227,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   public int? SymbolSetId
   {
     get => Model.SymbolSetId; 
-    set => ChangeEntityProperty(nameof(SymbolSetId), nameof(Model.SymbolSetId), value, nameof(SymbolSet));
+    set => ChangeViewModelProperty(nameof(SymbolSetId), nameof(Model.SymbolSetId), value, nameof(SymbolSet));
   }
   /// <summary>
   /// Exposes the symbol set writing system as a view model.
@@ -285,7 +235,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   public WritingSystemViewModel? SymbolSet
   {
     get => Model.SymbolSetId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.SymbolSetId);
-    set => ChangeEntityProperty(nameof(SymbolSetId), nameof(Model.SymbolSetId), value?.Id, nameof(SymbolSet));
+    set => ChangeViewModelProperty(nameof(SymbolSetId), nameof(Model.SymbolSetId), value?.Id, nameof(SymbolSet));
   }
 
   /// <summary>
@@ -294,7 +244,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   public int? SubsetId
   {
     get => Model.SubsetId; 
-    set => ChangeEntityProperty(nameof(SubsetId), nameof(Model.SubsetId), value, nameof(Subset));
+    set => ChangeViewModelProperty(nameof(SubsetId), nameof(Model.SubsetId), value, nameof(Subset));
   }
   /// <summary>
   /// Exposes the subset writing system as a view model.
@@ -302,104 +252,21 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   public WritingSystemViewModel? Subset
   {
     get => Model.SubsetId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.SubsetId);
-    set => ChangeEntityProperty(nameof(SubsetId), nameof(Model.SubsetId), value?.Id, nameof(Subset));
-  }
-
-  /// <summary>
-  /// Exposes the writing system which can be one of all the above writing systems.
-  /// Returned value is taken from the following references: <see cref="Subset"/>, <see cref="SymbolSet"/>, <see cref="Notation"/>, <see cref="Language"/>, <see cref="Script"/>, <see cref="Area"/>.
-  /// First non-null writing system is returned.
-  /// In a set method, the proper reference is set based on <see cref="WritingSystemType"/> of the provided value.
-  /// </summary>
-  public WritingSystemViewModel? WritingSystem
-  {
-    get
-    {
-      var writingSystemId = Model.SubsetId ?? Model.SymbolSetId ?? Model.NotationId ?? Model.LanguageId ?? Model.ScriptId ?? Model.AreaId;
-      WritingSystemViewModel? result = null;
-      if (writingSystemId != null)
-        result = _ViewModels.Instance.WritingSystems.FindById((int)writingSystemId);
-      return result;
-    }
-    set
-    {
-      if (value is not null)
-      {
-        switch (value.Type)
-        {
-          case WritingSystemType.Area:
-            Area = value;
-            break;
-          case WritingSystemType.Script:
-            Script = value;
-            break;
-          case WritingSystemType.Language:
-            Language = value;
-            break;
-          case WritingSystemType.Notation:
-            Notation = value;
-            break;
-          case WritingSystemType.SymbolSet:
-            SymbolSet = value;
-            break;
-          case WritingSystemType.Subset:
-            Subset = value;
-            break;
-          default:
-            Debug.WriteLine($"Unsupported WritingSystem type {value.Type} for {value.Name}");
-            break;
-        }
-      }
-    }
-  }
-
-  /// <summary>
-  /// Exposes the writing system which type is specified by <paramref name="allowedType"/>.
-  /// </summary>
-  /// <param name="allowedType">Specifies which type of writing system is allowed.</param>
-  public WritingSystemViewModel? GetWritingSystem(WritingSystemType allowedType)
-  {
-    switch (allowedType)
-    {
-      case WritingSystemType.Area:
-        return Area;
-      case WritingSystemType.Script:
-        return Script;
-      case WritingSystemType.Language:
-        return Language;
-      case WritingSystemType.Notation:
-        return Notation;
-      case WritingSystemType.SymbolSet:
-        return SymbolSet;
-      case WritingSystemType.Subset:
-        return Subset;
-    }
-    return null;
-  }
-
-  /// <summary>
-  /// Exposes the collection of writing systems which types are specified by <paramref name="allowedTypes"/>.
-  /// All non-null writing system properties are returned in the order of types in <paramref name="allowedTypes"/>.
-  /// </summary>
-  /// <param name="allowedTypes">Specifies which types of writing system are allowed.</param>
-  public IEnumerable<WritingSystemViewModel> GetWritingSystems(WritingSystemType[] allowedTypes)
-  {
-    List<WritingSystemViewModel> result = new List<WritingSystemViewModel>(); ;
-    foreach (var type in allowedTypes)
-    {
-      var resultItem = GetWritingSystem(type);
-      if (resultItem is not null)
-      {
-        result.Add(resultItem);
-      }
-    }
-    return result;
+    set => ChangeViewModelProperty(nameof(SubsetId), nameof(Model.SubsetId), value?.Id, nameof(Subset));
   }
 
   /// <summary>
   /// Exposes the collection of all writing systems that are used by this code point.
+  /// All non-null writing system properties are returned.
   /// </summary>
-  public IEnumerable<WritingSystemViewModel> GetWritingSystems() => GetWritingSystems(Enum.GetValues<WritingSystemType>());
+  public IEnumerable<WritingSystemViewModel> GetWritingSystems()
+  {
+    List<WritingSystemViewModel> result = new List<WritingSystemViewModel>(); 
+    if (WritingSystem!=null) result.Add(WritingSystem);
+    if (SymbolSet!=null) result.Add(SymbolSet);
+    if (Subset!=null) result.Add(Subset);
+    return result;
+  }
 
   #region IRowHeightProvider implementation
   /// <summary>

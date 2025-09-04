@@ -264,7 +264,7 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="CannotDeleteWritingSystem" xml:space="preserve">
     <value>Nie można usunąć systemu pisma, gdyż jest używany w innych encjach.</value>
   </data>
-  <data name="ApplyCharNamesGenerationConfirm" xml:space="preserve">
+  <data name="GenerateCharNamesConfirm" xml:space="preserve">
     <value>Czy na pewno chcesz generować nazwy znaków dla {0} punktów kodowych? (Istniejące nazwy nie zostaną nadpisane.)</value>
   </data>
   <data name="Confirm" xml:space="preserve">
@@ -318,16 +318,16 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   <data name="InvalidWritingSystemCategory" xml:space="preserve">
     <value>Nieprawidłowa kategoria {0} w systemie pisma {1}.</value>
   </data>
-  <data name="ApplyCharNamesGeneration" xml:space="preserve">
-    <value>Zastosuj generowanie nazw znaków</value>
+  <data name="GenerateCharNames" xml:space="preserve">
+    <value>Generuj nazwy znaków</value>
   </data>
   <data name="ApplyWritingSystemsRecognitionConfirm" xml:space="preserve">
     <value>Czy na pewno chcesz rozpoznać systemy pisma dla {0} punktów kodowych? (Istniejące odwzorowania nie zostaną nadpisane.)</value>
   </data>
-  <data name="ApplyCharNamesGenerationTooltip" xml:space="preserve">
-    <value>Zastosuj generowanie nazw znaków dla punktów kodowych na podstawie mapowania do systemów pisma.</value>
+  <data name="GenerateCharNamesTooltip" xml:space="preserve">
+    <value>Generuj nazwy znaków dla punktów kodowych na podstawie mapowania do systemów pisma.</value>
   </data>
-  <data name="ApplyCharNamesGenerationCompleted" xml:space="preserve">
+  <data name="GenerateCharNamesCompleted" xml:space="preserve">
     <value>Zakończono generowanie nazw znaków dla punktów kodowych. Nazwano {0} punktów kodowych.</value>
   </data>
   <data name="MarkUnusedWritingSystems" xml:space="preserve">
@@ -407,5 +407,20 @@ Zakładka "Zakresy Unicode" zawiera pełną listę zakresów.</value>
   </data>
   <data name="SearchedText" xml:space="preserve">
     <value>Tekst szukany</value>
+  </data>
+  <data name="GenerateNamesWithoutWS" xml:space="preserve">
+    <value>Generuj nazwy znaków bez systemu pisma</value>
+  </data>
+  <data name="GenerateNamesWithoutWSCompleted" xml:space="preserve">
+    <value>Zakończono generowanie nazw znaków bez systemu pisma. Nazwano {0} punktów kodowych.</value>
+  </data>
+  <data name="GenerateNamesWithoutWSConfirm" xml:space="preserve">
+    <value>Czy na pewno chcesz generować nazwy znaków bez systemu pisma dla {0} punktów kodowych?</value>
+  </data>
+  <data name="GenerateNamesWithoutWSTooltip" xml:space="preserve">
+    <value>Generuj nazwy znaków bez systemu pisma na podstawie mapowania do systemów pisma.</value>
+  </data>
+  <data name="DataSaveStarted" xml:space="preserve">
+    <value>Rozpoczęto operację zapisu danych. Jej ukończenie może potrwać chwilę. Baza danych może być przez pewien czas nieaktualna.</value>
   </data>
 </root>

@@ -14,7 +14,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <UserControl.Resources>
-    <Image x:Key="FamilyIcon" Source="/Assets/Family.png" Width="16" Height="16"/>
+    <Image x:Key="GroupIcon" Source="/Assets/Group.png" Width="16" Height="16"/>
     <Image x:Key="AreaIcon" Source="/Assets/Area.png" Width="16" Height="16"/>
     <Image x:Key="LanguageIcon" Source="/Assets/Language.png" Width="16" Height="16"/>
     <Image x:Key="ScriptIcon" Source="/Assets/Script.png" Width="16" Height="16"/>
@@ -26,17 +26,17 @@
     <helpers:MenuItemCollection x:Key="NewWritingSystemMenuItem"
               Header="{x:Static resources:Strings.NewWritingSystem}">
       <helpers:MenuItemObject
-        Header="{x:Static resources:WritingSystemTypeStrings.Area}" 
-        ToolTip="{x:Static resources:WritingSystemTypeStrings.AreaTooltip}" 
-        Icon="{StaticResource AreaIcon}"
-        Command="{Binding Source={StaticResource NewWritingSystemCommand}}"
-        CommandParameter="{x:Static models:WritingSystemType.Area}"/>
-      <helpers:MenuItemObject
-                Header="{x:Static resources:WritingSystemTypeStrings.Family}" 
-                ToolTip="{x:Static resources:WritingSystemTypeStrings.FamilyTooltip}" 
-                Icon="{StaticResource FamilyIcon}"
+                Header="{x:Static resources:WritingSystemTypeStrings.Area}" 
+                ToolTip="{x:Static resources:WritingSystemTypeStrings.AreaTooltip}" 
+                Icon="{StaticResource AreaIcon}"
                 Command="{Binding Source={StaticResource NewWritingSystemCommand}}"
-                CommandParameter="{x:Static models:WritingSystemType.Family}"/>
+                CommandParameter="{x:Static models:WritingSystemType.Area}"/>
+      <helpers:MenuItemObject
+                Header="{x:Static resources:WritingSystemTypeStrings.Group}" 
+                ToolTip="{x:Static resources:WritingSystemTypeStrings.GroupTooltip}" 
+                Icon="{StaticResource GroupIcon}"
+                Command="{Binding Source={StaticResource NewWritingSystemCommand}}"
+                CommandParameter="{x:Static models:WritingSystemType.Group}"/>
       <helpers:MenuItemObject
                 Header="{x:Static resources:WritingSystemTypeStrings.Language}" 
                 ToolTip="{x:Static resources:WritingSystemTypeStrings.LanguageTooltip}" 
@@ -352,6 +352,7 @@
               </DataTemplate>
             </sf:GridColumn.HeaderTemplate>
           </sf:GridTextColumn>
+
           <sf:GridTextColumn 
           HeaderText="Ext" 
           MappingName="Ext"
@@ -407,7 +408,7 @@
             </sf:GridComboBoxColumn.ItemTemplate>
           </sf:GridComboBoxColumn>
 
-          <!--<sf:GridTemplateColumn
+          <sf:GridTemplateColumn
             HeaderText="NameGenFile"
             MappingName="NameGenFile"
             VerticalAlignment="Top"
@@ -434,7 +435,7 @@
                 </Grid>
               </DataTemplate>
             </sf:GridTemplateColumn.CellTemplate>
-          </sf:GridTemplateColumn>-->
+          </sf:GridTemplateColumn>
 
         </sf:SfDataGrid.Columns>
       </sf:SfDataGrid>
