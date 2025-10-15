@@ -701,6 +701,21 @@ public partial class QXmlSerializer
       else
       if (KnownTypes.TryGetValue(innerTag, out var innerTypeInfo))
         throw new InvalidOperationException($"Type {innerTag} not registered");
+        //  ReadElementAsProperty(memberValue!, innerTypeInfo, innerMemberInfo);
+        //}
+        //    else if (KnownTypes.TryGetValue(innerTag, out var innerTypeInfo))
+        //{
+        //  if (innerTypeInfo.Type.IsEqualOrSubclassOf(memberInfo.ValueType.Type))
+        //    memberValue = ReadObjectWithKnownTypeInfo(instance, memberInfo.ValueType);
+        //  else
+        //    throw new InvalidOperationException($"Type {innerTypeInfo.Type} is not compatible with {memberInfo.ValueType.Type}");
+
+
+        //Debug.Assert(false);
+        //if (Reader.IsEndElement(propertyTag))
+        //  Reader.ReadEndElement(propertyTag);
+      }
+
     }
     //        }
     //        else
