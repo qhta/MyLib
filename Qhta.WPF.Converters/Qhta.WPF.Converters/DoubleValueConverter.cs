@@ -67,7 +67,11 @@ namespace Qhta.WPF.Converters
     private string DoubleToString(double d, object? parameter, System.Globalization.CultureInfo culture)
     {
       if (!Double.IsNaN(d))
+      {
+        if (parameter is string format && format.Length>0)
+          return (d.ToString(format, culture));
         return (d.ToString(culture));
+      }
       return string.Empty;
     }
   }

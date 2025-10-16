@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 
 namespace Qhta.Xml.Serialization;
@@ -66,7 +68,7 @@ public class XmlSerializationInfoMapper
       aType = baseType;
     #region Checking if a type was already registered
 
-    if (KnownTypes.TryGetValue(aType, out var knownTypeInfo) && knownTypeInfo != null) 
+    if (KnownTypes.TryGetValue(aType, out var knownTypeInfo) && knownTypeInfo != null)
       return knownTypeInfo;
 
     #endregion
@@ -151,8 +153,7 @@ public class XmlSerializationInfoMapper
   private string GetElementNamespace(Type aType)
   {
     var elementNamespace = aType.Namespace ?? "";
-    var k = aType.Name.IndexOf('`');
-    if (k >= 0)
+    if (aType.Name.Contains('`'))
       foreach (var argType in aType.GenericTypeArguments)
         elementNamespace += "_" + GetElementNamespace(argType);
     return elementNamespace;
@@ -227,8 +228,8 @@ public class XmlSerializationInfoMapper
     var elemCount = 0;
     foreach (var memberInfo in members)
     {
-      if (memberInfo.Name=="Compatibility")
-        Debug.Assert(true);
+      //if (memberInfo.Name=="Compatibility")
+      //  Debug.Assert(true);
       if (memberInfo.GetCustomAttributes(true).OfType<XmlIgnoreAttribute>().Any())
         continue;
       if (memberInfo.Name == typeInfo.ContentProperty?.Member.Name)
@@ -292,7 +293,7 @@ public class XmlSerializationInfoMapper
                       if (!type.IsDictionary() || (memberInfo.Name != "Keys" && memberInfo.Name != "Values"))
                         TryAddMemberAsCollection(typeInfo, memberInfo, null, ++elemCount);
                     }
-                    else if (Options.AcceptAllProperties || Options.AcceptDataMembers && memberInfo.GetCustomAttribute<DataMemberAttribute>()!=null)
+                    else if (Options.AcceptAllProperties || Options.AcceptDataMembers && memberInfo.GetCustomAttribute<DataMemberAttribute>() != null)
                     {
                       if (memberType.IsSimple() == true)
                       {
@@ -310,7 +311,8 @@ public class XmlSerializationInfoMapper
                         bool ok = false;
                         if (Options.SimplePropertiesAsAttributes
                           && (memberInfo.GetCustomAttribute<TypeConverterAttribute>() != null
-                           || memberType.GetCustomAttribute<TypeConverterAttribute>() != null))
+                           || memberType.GetCustomAttribute<TypeConverterAttribute>() != null
+                           || memberInfo.GetCustomAttribute<XmlReferenceAttribute>() != null))
                           ok = TryAddMemberAsAttribute(typeInfo, memberInfo, null, ++elemCount);
                         if (!ok)
                           TryAddMemberAsElement(typeInfo, memberInfo, null, ++elemCount);
@@ -490,8 +492,8 @@ public class XmlSerializationInfoMapper
     var elemNamespace = attribute?.Namespace;
     if (string.IsNullOrEmpty(elemName))
       elemName = memberInfo.Name;
-    if (elemName != null && Options.ElementNameCase != 0)
-      elemName = elemName.ChangeCase(Options.ElementNameCase);
+    if (Options.ElementNameCase != 0)
+      elemName = elemName!.ChangeCase(Options.ElementNameCase);
     var qElemName = new QualifiedName(elemName ?? "", elemNamespace);
     if (typeInfo.KnownMembers.ContainsKey(qElemName))
       return false;
@@ -518,14 +520,17 @@ public class XmlSerializationInfoMapper
   protected SerializationMemberInfo CreateSerializationMemberInfo(SerializationTypeInfo typeInfo, QualifiedName name, MemberInfo memberInfo, int order)
   {
     var serializationMemberInfo = new SerializationMemberInfo(typeInfo, name, memberInfo, order);
-    if (memberInfo.GetCustomAttribute<XmlReferenceAttribute>() != null)
-      serializationMemberInfo.IsReference = true;
     if (memberInfo is PropertyInfo propInfo)
       serializationMemberInfo.ValueType = RegisterType(propInfo.PropertyType);
     else if (memberInfo is FieldInfo fieldInfo)
       serializationMemberInfo.ValueType = RegisterType(fieldInfo.FieldType);
     serializationMemberInfo.DefaultValue =
       (memberInfo.GetCustomAttributes(typeof(DefaultValueAttribute), false).FirstOrDefault() as DefaultValueAttribute)?.Value;
+    if (memberInfo.GetCustomAttribute<XmlReferenceAttribute>() != null)
+    {
+      serializationMemberInfo.IsReference = true;
+      serializationMemberInfo.IdProperty = GetIdProperty(serializationMemberInfo.ValueType);
+    }
     var converterTypeName = memberInfo.GetCustomAttribute<TypeConverterAttribute>()?.ConverterTypeName;
     if (converterTypeName != null)
       serializationMemberInfo.TypeConverter = FindTypeConverter(converterTypeName);
@@ -541,7 +546,80 @@ public class XmlSerializationInfoMapper
   }
 
   /// <summary>
-  ///   Registers a property which is indended to be serialized as a text content of the Xml element.
+  /// Gets a property which is indented to be serialized as identifier the entity.
+  /// First a property which is marked with <see cref="System.ComponentModel.DataAnnotations.KeyAttribute"/> is searched.
+  /// If there is more than one such property, then properties are sorted by <see cref="System.ComponentModel.DataAnnotations.Schema.ColumnAttribute.Order"/>
+  /// If no property is marked with [Key], then properties started with "Id" or as "[TypeName]Id" or named as "Name" are searched.
+  /// Only the first such property is used. If others are found, an exception is thrown.
+  /// When the id property is found, it is registered in serialization type info.
+  /// </summary>
+  /// <param name="typeInfo">Serialization info for type to reflect</param>
+  /// <returns>A serialization property info or null if not found</returns>
+  /// <exception cref="InvalidOperationException">
+  ///   If a property pointed out with <see cref="Qhta.Xml.Serialization.XmlContentPropertyAttribute" /> is not found.
+  /// </exception>
+  public virtual SerializationMemberInfo? GetIdProperty(SerializationTypeInfo typeInfo)
+  {
+    if (typeInfo.IdProperty!=null)
+      return typeInfo.IdProperty;
+    var type = typeInfo.Type;
+    var idProperties = GetKeyProperties(type);
+
+    if (!idProperties.Any())
+    {
+      idProperties = type.GetProperties().Where(item => item.CanRead && item.Name.StartsWith("Id", StringComparison.OrdinalIgnoreCase)).ToArray();
+      if (!idProperties.Any())
+        idProperties = type.GetProperties().Where(item => item.CanRead && item.Name.StartsWith($"{type.Name}Id", StringComparison.OrdinalIgnoreCase)).ToArray();
+      if (!idProperties.Any())
+        idProperties = type.GetProperties().Where(item => item.CanRead && item.Name.Equals("Name", StringComparison.OrdinalIgnoreCase)).ToArray();
+      if (!idProperties.Any())
+        return null;
+      if (idProperties.Count() > 1)
+        throw new InvalidOperationException($"Type {type.Name} has multiple Name properties, but only one is allowed");
+    }
+
+    var idProperty = idProperties.First();
+    var knownIdProperty = new SerializationMemberInfo(typeInfo, "", idProperty);
+    knownIdProperty.ValueType = RegisterType(typeof(string));
+    if (idProperties.Length > 1) 
+      knownIdProperty.MoreMembers = idProperties.Skip(1).ToArray();
+    typeInfo.IdProperty = knownIdProperty;
+
+    return knownIdProperty;
+  }
+
+  /// <summary>
+  /// Helper method to get properties marked with [Key] attribute from the type.
+  /// </summary>
+  /// <param name="type"></param>
+  /// <returns></returns>
+  /// <exception cref="InvalidOperationException"></exception>
+  private PropertyInfo[] GetKeyProperties(Type type)
+  {
+    var idProperties
+      = type.GetProperties().Where(item => item.CanRead && item.GetCustomAttributes(true).OfType<KeyAttribute>().Any()).ToArray();
+    if (idProperties.Count() > 1)
+    {
+      var sortedProperties = new PropertyInfo[idProperties.Length];
+      foreach (var _idProperty in idProperties)
+      {
+        var columnAttribute = _idProperty.GetCustomAttribute<ColumnAttribute>();
+        if (columnAttribute == null)
+          throw new InvalidOperationException($"Type {type.Name} has multiple properties marked with [Key] attribute, but {_idProperty.Name} has no [Column] attribute");
+
+        var order = columnAttribute.Order;
+        if (sortedProperties[order] != null!)
+          throw new InvalidOperationException($"Type {type.Name} has multiple properties marked with [Key] attribute and at least two properties ({sortedProperties[order].Name}, {_idProperty.Name} have [Column] attribute with the same order={order}");
+        sortedProperties[order] = _idProperty;
+      }
+      idProperties = sortedProperties;
+    }
+    return idProperties;
+  }
+
+
+  /// <summary>
+  ///   Registers a property which is indented to be serialized as a text content of the Xml element.
   ///   This is the first property which is marked with <see cref="System.Xml.Serialization.XmlTextAttribute" />.
   ///   Note that only the first found property is used. If others are found, an exception is thrown.
   /// </summary>
@@ -555,7 +633,7 @@ public class XmlSerializationInfoMapper
     var type = typeInfo.Type;
     var textProperties = type.GetProperties().Where(item =>
       item.CanWrite && item.CanRead &&
-      item.GetCustomAttributes(true).OfType<XmlTextAttribute>().Any());
+      item.GetCustomAttributes(true).OfType<XmlTextAttribute>().Any()).ToArray();
     if (!textProperties.Any())
       return null;
 
@@ -569,7 +647,7 @@ public class XmlSerializationInfoMapper
   }
 
   /// <summary>
-  ///   Registers a property which is indended to get/set Xml content of the Xml element.
+  ///   Registers a property which is indented to get/set Xml content of the Xml element.
   ///   This property are marked in the type header with <see cref="Qhta.Xml.Serialization.XmlContentPropertyAttribute" />.
   ///   Note that System.Windows.Markup.ContentPropertyAttribute is not used to avoid the need of System.Xaml
   ///   package.
@@ -602,24 +680,25 @@ public class XmlSerializationInfoMapper
 
   #region KnownTypes handling.
   /// <summary>
-  ///   Get types which are assigned to the class with KnownType attribute.
+  ///  Get types which are assigned to the class with KnownType attribute.
+  ///  Searches a type assembly for types inherited from the type.
   /// </summary>
   /// <param name="aType">Type to reflect</param>
   /// <returns>A dictionary of known item types (or null) if no KnownType attributes found)</returns>
   public virtual KnownTypesCollection? GetKnownTypes(Type aType)
   {
-    KnownTypesCollection? knownItems = null;
+    KnownTypesCollection? knownTypes = null;
     var xmlKnownTypeAttributes = aType.GetCustomAttributes<KnownTypeAttribute>(false).ToList();
     if (xmlKnownTypeAttributes.Any())
     {
-      knownItems = new KnownTypesCollection(KnownNamespaces);
+      knownTypes = new KnownTypesCollection(KnownNamespaces);
       foreach (var xmlKnownTypeAttribute in xmlKnownTypeAttributes)
       {
         var itemType = xmlKnownTypeAttribute.Type;
         if (itemType != null)
         {
           var knownTypeInfo = RegisterType(itemType);
-          knownItems.Add(knownTypeInfo);
+          knownTypes.Add(knownTypeInfo);
         }
         else
         {
@@ -636,14 +715,14 @@ public class XmlSerializationInfoMapper
             if (!methodInfo.ReturnType.IsEnumerable(out var resultItemType) || resultItemType != typeof(Type))
               throw new InvalidOperationException(
                 $"KnownTypeAttribute assigned to type {aType.Name} specifies a static method name \"{methodName}\" which must return a result implementing IEnumerable<Type> interface");
-            var knownTypesResult = methodInfo.Invoke(null, new object[0]) as IEnumerable<Type>;
+            var knownTypesResult = methodInfo.Invoke(null, []) as IEnumerable<Type>;
             if (knownTypesResult == null)
               throw new InvalidOperationException(
                 $"KnownTypeAttribute assigned to type {aType.Name} specifies a static method name \"{methodName}\" which returns null");
             foreach (var item in knownTypesResult)
             {
               var knownTypeInfo = RegisterType(item);
-              knownItems.Add(knownTypeInfo);
+              knownTypes.Add(knownTypeInfo);
             }
           }
           else
@@ -654,11 +733,36 @@ public class XmlSerializationInfoMapper
         }
       }
     }
-    return knownItems;
+    if (aType.IsClass && !aType.IsSealed)
+    {
+      knownTypes ??= new KnownTypesCollection(KnownNamespaces);
+      SearchInheritedTypes(aType, aType.Assembly, knownTypes);
+    }
+    return knownTypes;
+  }
+
+  /// <summary>
+  /// Searches
+  /// </summary>
+  /// <param name="aType"></param>
+  /// <param name="assembly"></param>
+  /// <param name="knownTypes"></param>
+  private void SearchInheritedTypes(Type aType, Assembly assembly, KnownTypesCollection knownTypes)
+  {
+    if (aType == typeof(object) || aType == typeof(ValueType) || aType == typeof(Enum))
+      return;
+    foreach (var type in assembly.GetTypes())
+    {
+      if (type.IsClass && !type.IsAbstract && aType.IsAssignableFrom(type) && type != aType)
+      {
+        var knownTypeInfo = RegisterType(type);
+        knownTypes.Add(knownTypeInfo);
+      }
+    }
   }
 
   ///// <summary>
-  /////   Registers types, which are indended to be serialized as Xml children elements.
+  /////   Registers types, which are intended to be serialized as Xml children elements.
   /////   These types are marked for the type with XmlItemElementAttribute />
   ///// </summary>
   ///// <param name="aType">Type to reflect</param>
@@ -806,14 +910,14 @@ public class XmlSerializationInfoMapper
   /// <summary>
   /// Gets a qualified tag name for the type.
   /// If a type is registered in <see cref="KnownTypes"/>, its tag name is returned.
-  /// Otherwise a new qualified tag name is created for the type.
+  /// Otherwise, a new qualified tag name is created for the type.
   /// </summary>
   public XmlQualifiedTagName GetXmlTag(Type type)
   {
     if (KnownTypes.TryGetValue(type, out var typeInfo))
       return GetXmlTag(typeInfo);
     var name = type.Name;
-    var k = name.IndexOfAny(new char[] { '`', '[' });
+    var k = name.IndexOfAny(['`', '[']);
     if (k != -1)
     {
       var sep = name[k];
@@ -827,7 +931,7 @@ public class XmlSerializationInfoMapper
   /// <summary>
   /// Gets a qualified tag name for the named element.
   /// If a type is registered in <see cref="KnownTypes"/>, its tag name is returned.
-  /// Otherwise a new qualified tag name is created for the type.
+  /// Otherwise, a new qualified tag name is created for the type.
   /// </summary>
   public XmlQualifiedTagName GetXmlTag(INamedElement element)
   {
@@ -997,39 +1101,36 @@ public class XmlSerializationInfoMapper
       if (itemTypeInfo == null)
         throw new InvalidOperationException($"Unknown type {itemType} for deserialization");
       var addMethodName = "Add";
-      if (addMethodName != null)
+      var addMethods = aType.GetMethods().Where(m => m.Name == addMethodName).ToList();
+      if (!addMethods.Any())
       {
-        var addMethods = aType.GetMethods().Where(m => m.Name == addMethodName).ToList();
-        if (!addMethods.Any())
-        {
-          throw new InvalidOperationException($"Add methods in type {aType} not found for deserialization");
-        }
-        MethodInfo? addMethodInfo = null;
-        foreach (var addMethod in addMethods)
-        {
-          var parameters = addMethod.GetParameters();
-          if (parameters.Length == 1)
-          {
-            if (itemType.IsEqualOrSubclassOf(parameters[0].ParameterType))
-            {
-              addMethodInfo = addMethod;
-              break;
-            }
-          }
-          else if (parameters.Length == 2)
-          {
-            if (itemType.IsEqualOrSubclassOf(parameters[1].ParameterType))
-            {
-              addMethodInfo = addMethod;
-              break;
-            }
-          }
-        }
-        if (addMethodInfo != null)
-          knownItemTypeInfo.AddMethod = addMethodInfo;
-        else
-          throw new InvalidOperationException($"No compatible add method for {itemType} found in type {aType}");
+        throw new InvalidOperationException($"Add methods in type {aType} not found for deserialization");
       }
+      MethodInfo? addMethodInfo = null;
+      foreach (var addMethod in addMethods)
+      {
+        var parameters = addMethod.GetParameters();
+        if (parameters.Length == 1)
+        {
+          if (itemType.IsEqualOrSubclassOf(parameters[0].ParameterType))
+          {
+            addMethodInfo = addMethod;
+            break;
+          }
+        }
+        else if (parameters.Length == 2)
+        {
+          if (itemType.IsEqualOrSubclassOf(parameters[1].ParameterType))
+          {
+            addMethodInfo = addMethod;
+            break;
+          }
+        }
+      }
+      if (addMethodInfo != null)
+        knownItemTypeInfo.AddMethod = addMethodInfo;
+      else
+        throw new InvalidOperationException($"No compatible add method for {itemType} found in type {aType}");
     }
 
   }
@@ -1168,7 +1269,7 @@ public class XmlSerializationInfoMapper
   {
     if (!converterType.IsSubclassOf(typeof(TypeConverter)))
       throw new InvalidOperationException($"Declared type converter \"{converterType.Name}\" must be a subclass of {typeof(TypeConverter).FullName}");
-    var constructor = converterType.GetConstructor(new Type[0]);
+    var constructor = converterType.GetConstructor([]);
     if (constructor == null)
       throw new InvalidOperationException($"Declared type converter \"{converterType.Name}\" must have a public parameterless constructor");
     return constructor.Invoke(null) as TypeConverter;

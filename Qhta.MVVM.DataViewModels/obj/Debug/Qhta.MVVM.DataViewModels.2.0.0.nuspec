@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.MVVM.DataViewModels</id>
+    <version>2.0.0</version>
+    <authors>Yarreck Qhta</authors>
+    <readme>readme.md</readme>
+    <description>Some data view models: DataListViewModel, DataTreeViewModel, DataSetViewModel.</description>
+    <repository type="git" commit="b2fbfbd21470b6e27cf62787c75cd4c105b7810b" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Qhta.DispatchedObjects" version="2.3.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.MVVM" version="4.15.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Dane\VS\Projects\MyLib\bin\Qhta.MVVM.DataViewModels.dll" target="lib\net8.0\Qhta.MVVM.DataViewModels.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\Qhta.MVVM.DataViewModels\docs\readme.md" target="\readme.md" />
+  </files>
+</package>

@@ -1,0 +1,17 @@
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\bin\Debug\net8.0\UnicodeCompiler.exe
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\bin\Debug\net8.0\UnicodeCompiler.deps.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\bin\Debug\net8.0\UnicodeCompiler.runtimeconfig.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\bin\Debug\net8.0\UnicodeCompiler.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\bin\Debug\net8.0\UnicodeCompiler.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\obj\Debug\net8.0\UnicodeCompiler.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\obj\Debug\net8.0\UnicodeCompiler.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\obj\Debug\net8.0\UnicodeCompiler.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\obj\Debug\net8.0\UnicodeCompiler.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\obj\Debug\net8.0\UnicodeCompiler.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\obj\Debug\net8.0\UnicodeCompiler.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\obj\Debug\net8.0\refint\UnicodeCompiler.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\obj\Debug\net8.0\UnicodeCompiler.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\obj\Debug\net8.0\UnicodeCompiler.genruntimeconfig.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\obj\Debug\net8.0\ref\UnicodeCompiler.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\bin\Debug\net8.0\Data\KnownPhrases.txt
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\UnicodeCompiler\bin\Debug\net8.0\Data\UnicodePoints.txt

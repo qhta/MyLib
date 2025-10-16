@@ -99,8 +99,7 @@ public partial class QXmlSerializer
   /// <summary>
   /// Tries to find serialization type info for a specified type.
   /// If it can't be found and options allow to serialize unregistered types,
-  /// it tries to register it.
-  /// Otherwise it throws an exception.
+  /// it tries to register it,  Otherwise it throws an exception.
   /// </summary>
   /// <param name="aType"></param>
   /// <exception cref="InvalidOperationException">Thrown when the object type is not registered.</exception>
@@ -116,6 +115,8 @@ public partial class QXmlSerializer
     return serializationTypeInfo;
   }
 
+  private HashSet<Object> writtenObject = new();
+
   /// <summary>
   /// Writes an object using specific tag name.
   /// </summary>
@@ -129,6 +130,13 @@ public partial class QXmlSerializer
   /// </remarks>
   public void WriteObject(object? context, object obj, XmlQualifiedTagName? tag)
   {
+    if (!writtenObject.Add(obj))
+    {
+      if (Options.ThrowOnCircularReferences)
+        throw new InvalidOperationException("Circular reference detected");
+      else
+        return;
+    }
     var aType = obj.GetType();
     if (aType.TryGetConverter(out var typeConverter) && typeConverter is IXmlConverter xmlConverter && xmlConverter.CanWrite)
     {
@@ -237,14 +245,19 @@ public partial class QXmlSerializer
     out List<SerializationMemberInfo>? rejectedMembers)
   {
     var type = obj.GetType();
-    var propList = typeInfo.MembersAsAttributes.OrderBy(item=>item.Order);
+    var propList = typeInfo.MembersAsAttributes.OrderBy(item => item.Order);
     var attrsWritten = 0;
     rejectedMembers = null;
     foreach (var memberInfo in propList)
     {
+      if (typeInfo.Type.Name == "List`1")
+        /*&& memberInfo.QualifiedName.Name=="Capacity"*/
+        if (!Options.WriteListCapacity)
+          continue;
+
       if (memberInfo.CheckMethod != null)
       {
-        var shouldSerializeProperty = memberInfo.CheckMethod.Invoke(new[] { obj }, new object[0]);
+        var shouldSerializeProperty = memberInfo.CheckMethod.Invoke(new[] { obj }, []);
         if (shouldSerializeProperty is bool shouldSerialize)
           if (!shouldSerialize)
             continue;
@@ -255,8 +268,7 @@ public partial class QXmlSerializer
         continue;
       if (!CanConvertMemberValueToString(propValue, memberInfo))
       {
-        if (rejectedMembers == null)
-          rejectedMembers = new List<SerializationMemberInfo>();
+        rejectedMembers ??= new List<SerializationMemberInfo>();
         rejectedMembers.Add(memberInfo);
         continue;
       }
@@ -264,7 +276,9 @@ public partial class QXmlSerializer
       var defaultValue = memberInfo.DefaultValue;
       if (defaultValue != null && propValue.Equals(defaultValue))
         continue;
-      var str = ConvertMemberValueToString(propValue, memberInfo);
+      var str = (memberInfo.IsReference)
+        ? ConvertMemberValueToReferenceString(propValue, memberInfo)
+        : ConvertMemberValueToString(propValue, memberInfo);
       if (str != null)
       {
         Writer.WriteAttributeString(attrTag, str);
@@ -292,9 +306,12 @@ public partial class QXmlSerializer
     ITypeDescriptorContext? typeDescriptorContext = new TypeDescriptorContext(obj);
     foreach (var memberInfo in props)
     {
+      if (memberInfo.QualifiedName.Name == "Children")
+        if (typeInfo.ContentProperty == memberInfo)
+          continue;
       if (memberInfo.CheckMethod != null)
       {
-        var shouldSerializeProperty = memberInfo.CheckMethod.Invoke(obj, new object[0]);
+        var shouldSerializeProperty = memberInfo.CheckMethod.Invoke(obj, []);
         if (shouldSerializeProperty is bool shouldSerialize)
           if (!shouldSerialize)
             continue;
@@ -354,10 +371,10 @@ public partial class QXmlSerializer
             else if (propType.IsArray(out var itemType) && itemType == typeof(byte))
               WriteValue(ConvertMemberValueToString(propValue, memberInfo));
             else if (memberInfo.IsReference)
-              WriteValue(ConvertMemberValueToString(propValue, memberInfo));
+              WriteValue(ConvertMemberValueToReferenceString(propValue, memberInfo));
             else if (propValue is ICollection collection)
             {
-              if (memberInfo.ValueType.MembersAsAttributes.Count() > 0 || memberInfo.IsObject /*&& memberInfo.ContentInfo != null*/)
+              if (memberInfo.ValueType.MembersAsAttributes.Any() || memberInfo.IsObject /*&& memberInfo.ContentInfo != null*/)
                 WriteObject(context, propValue);
               else
                 WriteCollectionItems(context, collection, memberInfo.ContentInfo);
@@ -853,6 +870,14 @@ public partial class QXmlSerializer
     }
   }
 
+  /// <summary>
+  /// Helper method to convert reference value to reference string.
+  /// </summary>
+  /// <param name="memberInfo"></param>
+  /// <param name="value"></param>
+  /// <returns>string version of the value</returns>
+  protected string? ConvertMemberValueToReferenceString(object? value, SerializationMemberInfo memberInfo)
+    => ReferencedObjectHelper.GetReferenceString(value, memberInfo.IdProperty!);
   #endregion
 
   #region Create element tag methods

@@ -10,3 +10,17 @@ D:\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Se
 D:\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.dll
 D:\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.xml
 D:\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.pdb
+D:\OneDrive\VS\Projects\bin\Debug\netstandard2.0\Qhta.Xml.Serialization.deps.json
+D:\OneDrive\VS\Projects\bin\Debug\netstandard2.0\Qhta.Xml.Serialization.dll
+D:\OneDrive\VS\Projects\bin\Debug\netstandard2.0\Qhta.Xml.Serialization.pdb
+D:\OneDrive\VS\Projects\bin\Debug\netstandard2.0\Qhta.Xml.Serialization.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.DC881BC4.Up2Date

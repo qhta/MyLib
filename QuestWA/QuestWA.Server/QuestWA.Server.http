@@ -1,0 +1,12 @@
+@QuestWA.Server_HostAddress = https://localhost:5001
+
+POST {{QuestWA.Server_HostAddress}}/api/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "password": "password123"
+   }
+
+   ###

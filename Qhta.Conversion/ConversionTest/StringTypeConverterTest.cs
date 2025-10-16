@@ -143,7 +143,7 @@ namespace ConversionTest
       if (str2 != null)
       {
         foreach (var ch in str2)
-          Assert.IsTrue(!char.IsControl(ch), $"Invalid character \\u{((UInt16)ch):X4} in output");
+          Assert.That(!char.IsControl(ch), $"Invalid character \\u{((UInt16)ch):X4} in output");
       }
       if (str2 != null)
       {
@@ -164,7 +164,7 @@ namespace ConversionTest
       if (str2 != null)
       {
         foreach (var ch in str2)
-          Assert.IsTrue(!char.IsControl(ch), $"Invalid character \\u{((UInt16)ch):X4} in output");
+          Assert.That(!char.IsControl(ch), $"Invalid character \\u{((UInt16)ch):X4} in output");
       }
       if (str2 != null)
       {

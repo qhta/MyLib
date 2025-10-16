@@ -101,7 +101,7 @@ public class GenerateNamesWithoutWSCommand : TimeConsumingCommand
       GeneratedNamesCount = 0;
       var i = 0;
       _ViewModels.Instance.UcdCodePoints.StatusMessage =
-        String.Format(Resources.Strings.UpdatingField, Resources.UcdCodePointStrings.NameWithoutWS);
+        String.Format(Resources.Strings.UpdatingField, Resources.UcdCodePointStrings.CharName);
       UndoRedoManager.StartGrouping();
       foreach (var codePoint in listOfPoints)
       {

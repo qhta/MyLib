@@ -627,15 +627,18 @@
             <inheritdoc/>
         </member>
         <member name="M:Qhta.Conversion.NumericTypeConverter.ConvertFrom(System.Object)">
-            <inheritdoc/>
+            <summary>
+            Converts from object to the expected numeric type using invariant culture.
+            </summary>
         </member>
         <member name="M:Qhta.Conversion.NumericTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
             <inheritdoc/>
         </member>
-        <member name="M:Qhta.Conversion.NumericTypeConverter.TryParseAnyNumber(System.String,System.Globalization.NumberStyles,System.Globalization.CultureInfo,System.Object@)">
+        <member name="M:Qhta.Conversion.NumericTypeConverter.TryParseAnyNumber(System.Type,System.String,System.Globalization.NumberStyles,System.Globalization.CultureInfo,System.Object@)">
             <summary>
             Universal method to parse any number from string.
             </summary>
+            <param name="expectedType"></param>
             <param name="str"></param>
             <param name="numberStyle"></param>
             <param name="culture"></param>

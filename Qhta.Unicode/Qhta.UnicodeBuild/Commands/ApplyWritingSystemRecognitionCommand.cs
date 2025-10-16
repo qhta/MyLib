@@ -117,7 +117,7 @@ public class ApplyWritingSystemRecognitionCommand : TimeConsumingCommand
           if (newWritingSystem.Type == null ||
               oldWritingSystems.Any(item => item.Type == (WritingSystemType)newWritingSystem.Type))
             continue;
-          codePoint.WritingSystem = newWritingSystem;
+          codePoint.Script = newWritingSystem;
           RecognizedWritingSystemsCount++;
         }
       }

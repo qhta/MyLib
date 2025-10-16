@@ -2430,6 +2430,16 @@
               Looks up a localized string similar to Category.
             </summary>
         </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.CharName">
+            <summary>
+              Looks up a localized string similar to Char name.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.CharNameTooltip">
+            <summary>
+              Looks up a localized string similar to Character name generated with this application..
+            </summary>
+        </member>
         <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.CP">
             <summary>
               Looks up a localized string similar to Code.
@@ -2488,16 +2498,6 @@
         <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.NameTooltip">
             <summary>
               Looks up a localized string similar to Char name used in serialization..
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.NameWithoutWS">
-            <summary>
-              Looks up a localized string similar to Name without writing system.
-            </summary>
-        </member>
-        <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.NameWithoutWSTooltip">
-            <summary>
-              Looks up a localized string similar to Description name without keyphrase of recognized writing system..
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.Resources.UcdCodePointStrings.Notation">
@@ -3604,34 +3604,64 @@
             Exposes the Unicode code point block as a view model.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.WritingSystemId">
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.AreaId">
             <summary>
-            Identifier of the script writing system associated with this Unicode code point, if applicable.
+            Identifier of the Area associated with this Unicode code point, if applicable.
             </summary>
         </member>
-        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.WritingSystem">
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Area">
             <summary>
-            Exposes the script writing system as a view model.
+            Exposes the Area a view model.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.ScriptId">
+            <summary>
+            Identifier of the Script associated with this Unicode code point, if applicable.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Script">
+            <summary>
+            Exposes the Script as a view model.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.LanguageId">
+            <summary>
+            Identifier of the language associated with this Unicode code point, if applicable.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Language">
+            <summary>
+            Exposes the Language as a view model.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.NotationId">
+            <summary>
+            Identifier of the Notation associated with this Unicode code point, if applicable.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Notation">
+            <summary>
+            Exposes the Notation as a view model.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.SymbolSetId">
             <summary>
-            Identifier of the symbol set writing system associated with this Unicode code point, if applicable.
+            Identifier of the symbol set associated with this Unicode code point, if applicable.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.SymbolSet">
             <summary>
-            Exposes the symbol set writing system as a view model.
+            Exposes the symbol set as a view model.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.SubsetId">
             <summary>
-            Identifier of the subset writing system associated with this Unicode code point, if applicable.
+            Identifier of the subset associated with this Unicode code point, if applicable.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.Subset">
             <summary>
-            Exposes the subset writing system as a view model.
+            Exposes the subset as a view model.
             </summary>
         </member>
         <member name="M:Qhta.UnicodeBuild.ViewModels.UcdCodePointViewModel.GetWritingSystems">
@@ -4015,6 +4045,11 @@
             <summary>
             Gets or sets the name of the writing system.
             It is required property and must not be null or empty.
+            </summary>
+        </member>
+        <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.Aliases">
+            <summary>
+            Gets or sets alias names of the writing system.
             </summary>
         </member>
         <member name="P:Qhta.UnicodeBuild.ViewModels.WritingSystemViewModel.FullName">
@@ -5153,9 +5188,24 @@
             Identifier for the Unicode block that this code point belongs to.
             </summary>
         </member>
-        <member name="P:Qhta.Unicode.Models.UcdCodePoint.WritingSystemId">
+        <member name="P:Qhta.Unicode.Models.UcdCodePoint.AreaId">
             <summary>
-            Identifier for the main writing system that this code point is written in, if applicable.
+            Identifier for the area that this code point belongs to, if applicable.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.Models.UcdCodePoint.ScriptId">
+            <summary>
+            Identifier for the script that this code point belongs to, if applicable.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.Models.UcdCodePoint.LanguageId">
+            <summary>
+            Identifier for the language that this code point belongs to, if applicable.
+            </summary>
+        </member>
+        <member name="P:Qhta.Unicode.Models.UcdCodePoint.NotationId">
+            <summary>
+            Identifier for the notation that this code point belongs to, if applicable.
             </summary>
         </member>
         <member name="P:Qhta.Unicode.Models.UcdCodePoint.SymbolSetId">

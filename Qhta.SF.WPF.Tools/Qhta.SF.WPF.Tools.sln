@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.SF.WPF.Tools", "Qhta.SF.WPF.Tools.csproj", "{EDC3527D-8815-FEA0-04C4-E71B412D122E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDC3527D-8815-FEA0-04C4-E71B412D122E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC3527D-8815-FEA0-04C4-E71B412D122E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDC3527D-8815-FEA0-04C4-E71B412D122E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC3527D-8815-FEA0-04C4-E71B412D122E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED20B528-21BA-409A-9AED-205D76E5291A}
+	EndGlobalSection
+EndGlobal

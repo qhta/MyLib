@@ -36,3 +36,8 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\Qhta.SF
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\ref\Qhta.SF.WPF.Tools.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\Views\ColumnManagementWindow.g.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\obj\Debug\net8.0-windows\Views\ColumnManagementWindow.baml
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.SF.WPF.Tools.deps.json
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.SF.WPF.Tools.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.SF.WPF.Tools.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.SF.WPF.Tools.xml
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0-windows\pl\Qhta.SF.WPF.Tools.resources.dll

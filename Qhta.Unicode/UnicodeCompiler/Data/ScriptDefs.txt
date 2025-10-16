@@ -1,0 +1,165 @@
+Name	KeyPhrase
+Adlam	ADLAM *
+Ahom	AHOM *
+Anatolian hieroglyphs	ANATOLIAN HIEROGLYPH *
+Arabic	ARABIC *
+Armenian	ARMENIAN *
+Avestan	AVESTAN *
+Balinese	BALINESE *
+Bamum	BAMUM *
+Bassa Vah	BASSA VAH *
+Batak	BATAK *
+Bengali	BENGALI *
+Bhaiksuki	BHAIKSUKI *
+Bopomofo	BOPOMOFO *
+Brahmi	BRAHMI *
+Lontara	BUGINESE *
+Buhid	BUHID *
+Canadian Aboriginal	CANADIAN SYLLABICS *
+Carian	CARIAN *
+Caucasian Albanian	CAUCASIAN ALBANIAN *
+Chakma	CHAKMA *
+Cham	CHAM *
+Cherokee	CHEROKEE *
+Chorasmian	CHORASMIAN *
+Coptic	COPTIC *
+Cuneiform	CUNEIFORM *
+Cypriot	CYPRIO T*
+Cypro-Minoan	CYPRO-MINOAN *
+Cyrillic	CYRILLI C*
+Deseret	DESERET *
+Devanagari	DEVANAGARI *
+Dives Akuru	DIVES AKURU *
+Dogra	DOGRA *
+Egyptian hieroglyphs	EGYPTIAN HIEROGLYPH *
+Elbasan	ELBASAN *
+Elymaic	ELYMAIC *
+Ethiopic	ETHIOPIC *
+Garay	GARAY *
+Georgian	GEORGIAN *
+Glagolitic	GLAGOLITIC *
+Gothic	GOTHIC *
+Grantha	GRANTHA *
+Greek	GREEK *
+Gujarati	GUJARATI *
+Gunjala Gondi	GUNJALA GONDI *
+Gurmukhi	GURMUKHI *
+Gurung Khema	GURUNG KHEMA*
+Hangul	HANGUL *
+Hanifi Rohingya	HANIFI ROHINGYA *
+Hanunoo	HANUNOO *
+Hatran	HATRAN *
+Hebrew	HEBREW *
+Hentaigana	HENTAIGANA *
+Hiragana	HIRAGANA *
+Imperial Aramaic	IMPERIAL ARAMAIC *
+Inscriptional Pahlavi	INSCRIPTIONAL PAHLAVI *
+Inscriptional Parthian	INSCRIPTIONAL PARTHIAN *
+Javanese	JAVANESE *
+Kaithi	KAITHI *
+Kannada	KANNADA *
+Katakana	KATAKANA *
+Kawi	KAWI *
+Kayah Li	KAYAH LI *
+Kharoshthi	KHAROSHTHI *
+Khitan small	KHITAN SMALL SCRIPT *
+Khmer	KHMER *
+Khojki	KHOJKI *
+Khudawadi	KHUDAWADI *
+Kirat Rai	KIRAT RAI *
+Lao	LAO *
+Latin	LATIN *
+Lepcha	LEPCHA *
+Limbu	LIMBU *
+Linear A	LINEAR A *
+Linear B	LINEAR B *
+Lisu	LISU *
+Lycian	LYCIAN *
+Lydian	LYDIAN *
+Mahajani	MAHAJANI *
+Makasar	MAKASAR *
+Malayalam	MALAYALAM *
+Mandaic	MANDAIC *
+Manichaean	MANICHAEAN *
+Marchen	MARCHEN *
+Masaram Gondi	MASARAM GONDI *
+Medefaidrin	MEDEFAIDRIN *
+Meetei Mayek	MEETEI MAYEK *
+Mende Kikakui	MENDE KIKAKUI *
+Meroitic cursive	MEROITIC CURSIVE *
+Meroitic hieroglyphs	MEROITIC HIEROGLYPHIC *
+Miao	MIAO *
+Modi	MODI *
+Mongolian	MONGOLIAN *
+Mro	MRO *
+Multani	MULTANI *
+Myanmar	MYANMAR *
+Nabataean	NABATAEAN *
+Nag Mundari	NAG MUNDARI *
+Nandinagari	NANDINAGARI *
+New Tai Lue	NEW TAI LUE *
+Newa	NEWA *
+Nko	NKO *
+Nushu	NUSHU *
+Nyiakeng Puachue Hmong	NYIAKENG PUACHUE HMONG *
+Ogham	OGHAM *
+Ol Chiki	OL CHIKI *
+Ol Onal	OL ONAL *
+Old Hungarian	OLD HUNGARIAN *
+Old Italic	OLD ITALIC *
+Old North Arabian	OLD NORTH ARABIAN *
+Old Permic	OLD PERMIC *
+Old Persian	OLD PERSIAN *
+Old Sogdian	OLD SOGDIAN *
+Old South Arabian	OLD SOUTH ARABIAN *
+Old Turkic	OLD TURKIC *
+Old Uyghur	OLD UYGHUR *
+Oriya	ORIYA *
+Osage	OSAGE *
+Osmanya	OSMANYA *
+Pahawh Hmong	PAHAWH HMONG *
+Palmyrene	PALMYRENE *
+Pau Cin Hau	PAU CIN HAU *
+Phags Pa	PHAGS-PA *
+Phoenician	PHOENICIAN *
+Psalter Pahlavi	PSALTER PAHLAVI *
+Rejang	REJANG *
+Runic	RUNIC *
+Samaritan	SAMARITAN *
+Saurashtra	SAURASHTRA *
+Sharada	SHARADA *
+Shavian	SHAVIAN *
+Siddham	SIDDHAM *
+Sinhala	SINHALA *
+Sogdian	SOGDIAN *
+Sora Sompeng	SORA SOMPENG *
+Soyombo	SOYOMBO *
+Sundanese	SUNDANESE *
+Sunuwar	SUNUWAR *
+Syloti Nagri	SYLOTI NAGRI *
+Syriac	SYRIAC *
+Tagalog	TAGALOG *
+Tagbanwa	TAGBANWA *
+Tai Le	TAI LE *
+Tai Tham	TAI THAM *
+Tai Viet	TAI VIET *
+Takri	TAKRI *
+Tamil	TAMIL *
+Tangsa	TANGSA *
+Tangut	TANGUT *
+Telugu	TELUGU *
+Thaana	THAANA *
+Thai	THAI *
+Tibetan	TIBETAN *
+Tifinagh	TIFINAGH *
+Tirhuta	TIRHUTA *
+Todhri	TODHRI *
+Toto	TOTO *
+Tulu Tigalari	TULU-TIGALARI *
+Ugaritic	UGARITIC *
+Vai	VAI *
+Vithkuqi	VITHKUQI *
+Wancho	WANCHO *
+Warang Citi	WARANG CITI *
+Yezidi	YEZIDI *
+Zanabazar Square	ZANABAZAR SQUARE *

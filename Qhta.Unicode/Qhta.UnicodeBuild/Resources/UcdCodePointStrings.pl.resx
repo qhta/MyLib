@@ -210,10 +210,10 @@
   <data name="Category" xml:space="preserve">
     <value>Kategoria</value>
   </data>
-  <data name="NameWithoutWS" xml:space="preserve">
-    <value>Nazwa bez systemu pisma</value>
+  <data name="CharName" xml:space="preserve">
+    <value>Nazwa znaku</value>
   </data>
-  <data name="NameWithoutWSTooltip" xml:space="preserve">
-    <value>Nazwa opisowa z usuniętą frazą kluczową rozpoznanego systemu pisma.</value>
+  <data name="CharNameTooltip" xml:space="preserve">
+    <value>Nazwa znaku generowana przez tę aplikację.</value>
   </data>
 </root>

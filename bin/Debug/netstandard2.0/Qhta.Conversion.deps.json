@@ -7,14 +7,10 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.Conversion/2.1": {
+      "Qhta.Conversion/2.2": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
-          "Qhta.Collections": "4.0.0",
-          "Qhta.TextUtils": "3.1.1",
-          "Qhta.TypeUtils": "1.3.10.1",
-          "Qhta.Xml": "2.1.0",
-          "System.Configuration.ConfigurationManager": "7.0.0"
+          "Qhta.Xml": "3.2.0"
         },
         "runtime": {
           "Qhta.Conversion.dll": {}
@@ -26,103 +22,53 @@
           "Microsoft.NETCore.Platforms": "1.1.0"
         }
       },
-      "Qhta.Collections/4.0.0": {
+      "Qhta.Collections/5.2.0": {
         "dependencies": {
-          "Qhta.TextUtils": "3.1.1"
+          "Qhta.TextUtils": "3.8.0"
         },
         "runtime": {
           "lib/netstandard2.0/Qhta.Collections.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.0.0.0"
+            "assemblyVersion": "5.2.0.0",
+            "fileVersion": "5.2.0.0"
           }
         }
       },
-      "Qhta.TextUtils/3.1.1": {
+      "Qhta.TextUtils/3.8.0": {
         "runtime": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
-            "assemblyVersion": "3.1.1.0",
-            "fileVersion": "3.1.1.0"
+            "assemblyVersion": "3.8.0.0",
+            "fileVersion": "3.8.0.0"
           }
         }
       },
-      "Qhta.TypeUtils/1.3.10.1": {
+      "Qhta.TypeUtils/1.4.0": {
         "dependencies": {
-          "Qhta.Collections": "4.0.0"
+          "Qhta.Collections": "5.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Qhta.TypeUtils.dll": {
-            "assemblyVersion": "1.3.10.1",
-            "fileVersion": "1.3.10.1"
+            "assemblyVersion": "1.4.0.0",
+            "fileVersion": "1.4.0.0"
           }
         }
       },
-      "Qhta.Xml/2.1.0": {
+      "Qhta.Xml/3.2.0": {
         "dependencies": {
-          "Qhta.Collections": "4.0.0",
-          "Qhta.TextUtils": "3.1.1",
-          "Qhta.TypeUtils": "1.3.10.1"
+          "Qhta.Collections": "5.2.0",
+          "Qhta.TextUtils": "3.8.0",
+          "Qhta.TypeUtils": "1.4.0"
         },
         "runtime": {
-          "lib/netstandard2.0/Qhta.Xml.dll": {
-            "assemblyVersion": "2.1.0.0",
-            "fileVersion": "2.1.0.0"
-          }
-        }
-      },
-      "System.Configuration.ConfigurationManager/7.0.0": {
-        "dependencies": {
-          "System.Security.Cryptography.ProtectedData": "7.0.0",
-          "System.Security.Permissions": "7.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
-          }
-        }
-      },
-      "System.Security.AccessControl/6.0.0": {
-        "dependencies": {
-          "System.Security.Principal.Windows": "5.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Security.AccessControl.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
-          }
-        }
-      },
-      "System.Security.Cryptography.ProtectedData/7.0.0": {
-        "runtime": {
-          "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
-          }
-        }
-      },
-      "System.Security.Permissions/7.0.0": {
-        "dependencies": {
-          "System.Security.AccessControl": "6.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Security.Permissions.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
-          }
-        }
-      },
-      "System.Security.Principal.Windows/5.0.0": {
-        "runtime": {
-          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
+          "Qhta.Xml.dll": {
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.0"
           }
         }
       }
     }
   },
   "libraries": {
-    "Qhta.Conversion/2.1": {
+    "Qhta.Conversion/2.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -141,68 +87,31 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
-    "Qhta.Collections/4.0.0": {
+    "Qhta.Collections/5.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-vp4uSq+EPe682KlYdo/Dk4Yizzk+sOL3oowLm3TzlAvi7ysAsXTAD6jj7r5hxO7f8WmvsIkkLn8cSQ+DfCSvVw==",
-      "path": "qhta.collections/4.0.0",
-      "hashPath": "qhta.collections.4.0.0.nupkg.sha512"
+      "sha512": "sha512-UYqc2SH4wbEtdbORbQ/TZ1hnVqIzF2Qej8tb/elgG8XeEPR8++polX/o0LLeBrVU75znLfNQoM1rYthvMt9sJQ==",
+      "path": "qhta.collections/5.2.0",
+      "hashPath": "qhta.collections.5.2.0.nupkg.sha512"
     },
-    "Qhta.TextUtils/3.1.1": {
+    "Qhta.TextUtils/3.8.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-eeLbjNYAJbyJb+N3zDFNSkiGyoAUxRV0L2yIBbe+HqWw1OkoINYKFDCg3QQWRlg5IVKUQXV7KHFOXA1NkjnYzQ==",
-      "path": "qhta.textutils/3.1.1",
-      "hashPath": "qhta.textutils.3.1.1.nupkg.sha512"
+      "sha512": "sha512-BW8TkXbdrXOV5XtkFmMs3pzpEhzRHrEIsKGNWXUFqD/vY4yjxjsthUIK2Ls4GW66bjUwl0PbdxIO9v4l90Lrrw==",
+      "path": "qhta.textutils/3.8.0",
+      "hashPath": "qhta.textutils.3.8.0.nupkg.sha512"
     },
-    "Qhta.TypeUtils/1.3.10.1": {
+    "Qhta.TypeUtils/1.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Ftu0du3ern/ZqB524tZpK0pQ4e4AgUpnRKYGqPI01JfipLIwImTbdL4PB5ULHl4kwy0JEyuLaiIIUhtzfh3oHg==",
-      "path": "qhta.typeutils/1.3.10.1",
-      "hashPath": "qhta.typeutils.1.3.10.1.nupkg.sha512"
+      "sha512": "sha512-5bRrb24q9Olnb4nOz/rtl0f7cNIiVd7jmoCYbNW5veCE3Qw1iihzuagVQYi2UOLALh4S3LZqzt+zjV8TOuB5XQ==",
+      "path": "qhta.typeutils/1.4.0",
+      "hashPath": "qhta.typeutils.1.4.0.nupkg.sha512"
     },
-    "Qhta.Xml/2.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-H8iZlMiDOsXJHeVDzO5+J+acSv+DQT3QgquZGfGStutSEs+yW56uxbiDYnr4Vkwss4L9siTAUxnoL3qdKG6daQ==",
-      "path": "qhta.xml/2.1.0",
-      "hashPath": "qhta.xml.2.1.0.nupkg.sha512"
-    },
-    "System.Configuration.ConfigurationManager/7.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-WvRUdlL1lB0dTRZSs5XcQOd5q9MYNk90GkbmRmiCvRHThWiojkpGqWdmEDJdXyHbxG/BhE5hmVbMfRLXW9FJVA==",
-      "path": "system.configuration.configurationmanager/7.0.0",
-      "hashPath": "system.configuration.configurationmanager.7.0.0.nupkg.sha512"
-    },
-    "System.Security.AccessControl/6.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-AUADIc0LIEQe7MzC+I0cl0rAT8RrTAKFHl53yHjEUzNVIaUlhFY11vc2ebiVJzVBuOzun6F7FBA+8KAbGTTedQ==",
-      "path": "system.security.accesscontrol/6.0.0",
-      "hashPath": "system.security.accesscontrol.6.0.0.nupkg.sha512"
-    },
-    "System.Security.Cryptography.ProtectedData/7.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-xSPiLNlHT6wAHtugASbKAJwV5GVqQK351crnILAucUioFqqieDN79evO1rku1ckt/GfjIn+b17UaSskoY03JuA==",
-      "path": "system.security.cryptography.protecteddata/7.0.0",
-      "hashPath": "system.security.cryptography.protecteddata.7.0.0.nupkg.sha512"
-    },
-    "System.Security.Permissions/7.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Vmp0iRmCEno9BWiskOW5pxJ3d9n+jUqKxvX4GhLwFhnQaySZmBN2FuC0N5gjFHgyFMUjC5sfIJ8KZfoJwkcMmA==",
-      "path": "system.security.permissions/7.0.0",
-      "hashPath": "system.security.permissions.7.0.0.nupkg.sha512"
-    },
-    "System.Security.Principal.Windows/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-t0MGLukB5WAVU9bO3MGzvlGnyJPgUlcwerXn1kzBRjwLKixT96XV0Uza41W49gVd8zEMFu9vQEFlv0IOrytICA==",
-      "path": "system.security.principal.windows/5.0.0",
-      "hashPath": "system.security.principal.windows.5.0.0.nupkg.sha512"
+    "Qhta.Xml/3.2.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

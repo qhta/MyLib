@@ -24,3 +24,11 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\
 D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net6.0-windows\Qhta.WPF.Converters.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net6.0-windows\Qhta.WPF.Converters.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\Qhta.WPF.Converters\obj\Debug\net6.0-windows\ref\Qhta.WPF.Converters.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\bin\Debug\net6.0-windows\Qhta.WPF.Converters.deps.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\bin\Debug\net6.0-windows\Qhta.WPF.Converters.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\bin\Debug\net6.0-windows\Qhta.WPF.Converters.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.WPF.Converters\bin\Debug\net6.0-windows\Qhta.WPF.Converters.xml
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Converters.deps.json
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Converters.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Converters.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net6.0-windows\Qhta.WPF.Converters.xml

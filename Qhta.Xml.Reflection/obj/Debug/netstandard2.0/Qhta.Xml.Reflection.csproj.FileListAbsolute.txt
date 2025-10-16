@@ -10,3 +10,17 @@ D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Refle
 D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.dll
 D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.xml
 D:\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.AEBF5913.Up2Date
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\netstandard2.0\Qhta.Xml.Reflection.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Xml.Reflection.deps.json
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Xml.Reflection.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Xml.Reflection.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Xml.Reflection.xml

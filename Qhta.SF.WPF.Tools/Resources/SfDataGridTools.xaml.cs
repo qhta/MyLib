@@ -275,7 +275,6 @@ public partial class SfDataGridTools : ResourceDictionary
     if (sender is not SfDataGrid dataGrid)
       return;
     dataGrid.QueryRowHeight += DataGrid_OnQueryRowHeight;
-    // Attach event handlers for copy and paste operations
     dataGrid.GridCopyContent += DataGrid_OnGridCopyContent;
     dataGrid.GridPasteContent += DataGrid_OnGridPasteContent;
   }

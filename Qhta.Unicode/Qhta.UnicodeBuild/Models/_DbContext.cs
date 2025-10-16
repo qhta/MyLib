@@ -134,7 +134,6 @@ public partial class _DbContext : DbContext, IDisposable
     modelBuilder.Entity<UcdCodePoint>(entity =>
     {
       entity.HasKey(e => e.Id).HasName("PrimaryKey");
-
       entity.HasIndex(e => e.CharName, "CharName");
       entity.Property(e => e.CharName).HasMaxLength(255);
       entity.Property(e => e.Bidir).HasMaxLength(3);

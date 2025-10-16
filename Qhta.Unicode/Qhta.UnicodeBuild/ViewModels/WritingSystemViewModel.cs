@@ -63,6 +63,16 @@ public class WritingSystemViewModel(WritingSystem model)
   }
 
   /// <summary>
+  /// Gets or sets alias names of the writing system.
+  /// </summary>
+  public string? Aliases
+  {
+    [DebuggerStepThrough]
+    get => Model.Aliases;
+    set => ChangeViewModelProperty(nameof(Aliases), nameof(Model.Aliases), value);
+  }
+
+  /// <summary>
   /// Full name of the writing system, combining the name and type in a readable format.
   /// It is used for display purposes in the UI.
   /// </summary>

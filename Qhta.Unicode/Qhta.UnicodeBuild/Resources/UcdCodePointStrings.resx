@@ -211,10 +211,10 @@
   <data name="Category" xml:space="preserve">
     <value>Category</value>
   </data>
-  <data name="NameWithoutWS" xml:space="preserve">
-    <value>Name without writing system</value>
+  <data name="CharName" xml:space="preserve">
+    <value>Char name</value>
   </data>
-  <data name="NameWithoutWSTooltip" xml:space="preserve">
-    <value>Description name without keyphrase of recognized writing system.</value>
+  <data name="CharNameTooltip" xml:space="preserve">
+    <value>Character name generated with this application.</value>
   </data>
 </root>

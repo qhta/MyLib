@@ -7,72 +7,12 @@
       "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\qhta.wpf.converters.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\enumtoresourceconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\enumtoresourceconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\imagetograyconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\imagetograyconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\enumvalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\enumvalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\negatevalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\negatevalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\booltotextwrappingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\booltotextwrappingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\colordictionary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\colordictionary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\colorconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\colorconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\camelstringconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\camelstringconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\booltovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\booltovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\bittestconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\bittestconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\arithmeticconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\arithmeticconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\appendingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\appendingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\addingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\addingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\notnulltovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\notnulltovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\enumvalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\enumvalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\colortosolidbrushconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\colortosolidbrushconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\stringconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\stringconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\rowtoindexconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\rowtoindexconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\iconenabledconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\iconenabledconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\numericvalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -83,64 +23,24 @@
       "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\decimalvalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\dividingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\dividingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\doublevalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\doublevalueconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\multiplyingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\multiplyingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\stringswidthconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\stringswidthconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\typenameconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\typenameconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\subtractingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\subtractingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\validitybrushconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\validitybrushconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\string2objectconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\string2objectconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\indexingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\indexingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\arithmeticconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\arithmeticconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\qhta.wpf.converters.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\qhta.wpf.converters.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\addingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\addingconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\docs\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\docs\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\indirectpropertyconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\indirectpropertyconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\iconenabledconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\iconenabledconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\dashstyleconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\dashstyleconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\dashstyleutils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\dashstyleutils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.wpf.converters\\qhta.wpf.converters\\docs\\readme.md||{24510B54-A648-4D69-A6C5-F68CBDF07546}",
+      "RelativeMoniker": "D:0:0:{A6790075-0885-4F68-B9B8-67B964470E4B}|Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj|solutionrelative:qhta.wpf.converters\\docs\\readme.md||{24510B54-A648-4D69-A6C5-F68CBDF07546}"
     }
   ],
   "DocumentGroupContainers": [
@@ -150,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 33,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -178,337 +78,115 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EnumToResourceConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\EnumToResourceConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\EnumToResourceConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\EnumToResourceConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\EnumToResourceConverter.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAADQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-13T19:38:54.143Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NegateValueConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\NegateValueConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\NegateValueConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\NegateValueConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\NegateValueConverter.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABwAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-18T18:53:13.692Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BoolToTextWrappingConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\BoolToTextWrappingConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\BoolToTextWrappingConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\BoolToTextWrappingConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\BoolToTextWrappingConverter.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAA8AAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:56:25.352Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "EnumValue.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\EnumValue.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\EnumValue.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\EnumValue.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\EnumValue.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:13:12.693Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "EnumValueConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\EnumValueConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\EnumValueConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\EnumValueConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\EnumValueConverter.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAAAFcAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:12:14.367Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "ColorToSolidBrushConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ColorToSolidBrushConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\ColorToSolidBrushConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ColorToSolidBrushConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\ColorToSolidBrushConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:11:53.562Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "RowToIndexConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\RowToIndexConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\RowToIndexConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\RowToIndexConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\RowToIndexConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:07:44.461Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ColorConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ColorConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\ColorConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ColorConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\ColorConverter.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAAC8AAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:05:47.286Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "NumericValueConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\NumericValueConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\NumericValueConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\NumericValueConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\NumericValueConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJoAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:04:56.857Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "DecimalValueConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DecimalValueConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\DecimalValueConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DecimalValueConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\DecimalValueConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:04:17.501Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "DoubleValueConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DoubleValueConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\DoubleValueConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DoubleValueConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\DoubleValueConverter.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAhwEIAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:03:19.97Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "MultiplyingConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\MultiplyingConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\MultiplyingConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\MultiplyingConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\MultiplyingConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:00:39.093Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "DividingConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DividingConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\DividingConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DividingConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\DividingConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T17:59:07.843Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "CamelStringConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\CamelStringConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\CamelStringConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\CamelStringConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\CamelStringConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAABGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T17:58:30.377Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "BitTestConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\BitTestConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\BitTestConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\BitTestConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\BitTestConverter.cs",
-              "ViewState": "AgIAAHkAAAAAAAAAAAAAAGUAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T17:55:03.899Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "StringsWidthConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\StringsWidthConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\StringsWidthConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\StringsWidthConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\StringsWidthConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T17:54:07.355Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "SubtractingConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\SubtractingConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\SubtractingConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\SubtractingConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\SubtractingConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T17:53:23.367Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "TypeNameConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\TypeNameConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\TypeNameConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\TypeNameConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\TypeNameConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAABGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T17:53:11.146Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "ValidityBrushConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ValidityBrushConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\ValidityBrushConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ValidityBrushConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\ValidityBrushConverter.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAC0AAABGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T17:52:47.375Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "String2ObjectConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\String2ObjectConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\String2ObjectConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\String2ObjectConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\String2ObjectConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAABGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T17:52:13.792Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "IndexingConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\IndexingConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\IndexingConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\IndexingConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\IndexingConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T17:50:42.893Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ColorDictionary.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ColorDictionary.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\ColorDictionary.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ColorDictionary.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\ColorDictionary.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T17:49:55.363Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 0,
               "Title": "Qhta.WPF.Converters",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
               "RelativeToolTip": "Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-08-22T14:50:38.564Z",
+              "WhenOpened": "2025-10-05T05:53:46.249Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IconEnabledConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\IconEnabledConverter.cs",
+              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\IconEnabledConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\IconEnabledConverter.cs",
+              "RelativeToolTip": "Qhta.WPF.Converters\\IconEnabledConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T05:53:27.528Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ImageToGrayConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ImageToGrayConverter.cs",
+              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\ImageToGrayConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ImageToGrayConverter.cs",
+              "RelativeToolTip": "Qhta.WPF.Converters\\ImageToGrayConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T05:52:09.155Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NumericValueConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\NumericValueConverter.cs",
+              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\NumericValueConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\NumericValueConverter.cs",
+              "RelativeToolTip": "Qhta.WPF.Converters\\NumericValueConverter.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAADwvywAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T05:49:33.554Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DoubleValueConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DoubleValueConverter.cs",
+              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\DoubleValueConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DoubleValueConverter.cs",
+              "RelativeToolTip": "Qhta.WPF.Converters\\DoubleValueConverter.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAEYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T05:47:32.845Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DecimalValueConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DecimalValueConverter.cs",
+              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\DecimalValueConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DecimalValueConverter.cs",
+              "RelativeToolTip": "Qhta.WPF.Converters\\DecimalValueConverter.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAEUAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T05:46:57.485Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "String2ObjectConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\String2ObjectConverter.cs",
+              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\String2ObjectConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\String2ObjectConverter.cs",
+              "RelativeToolTip": "Qhta.WPF.Converters\\String2ObjectConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T05:46:52.751Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ArithmeticConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ArithmeticConverter.cs",
+              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\ArithmeticConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ArithmeticConverter.cs",
+              "RelativeToolTip": "Qhta.WPF.Converters\\ArithmeticConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T05:46:19.357Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "BoolToVisibilityConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\BoolToVisibilityConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\BoolToVisibilityConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\BoolToVisibilityConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\BoolToVisibilityConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-22T14:50:00.61Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "NotNullToVisibilityConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\NotNullToVisibilityConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\NotNullToVisibilityConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\NotNullToVisibilityConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\NotNullToVisibilityConverter.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB4AAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-08-10T16:43:45.236Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "IndirectPropertyConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\IndirectPropertyConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\IndirectPropertyConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\IndirectPropertyConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\IndirectPropertyConverter.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAgwCwAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-07-31T11:39:33.552Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Qhta.WPF.Converters.csproj",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
-              "RelativeToolTip": "Qhta.WPF.Converters\\Qhta.WPF.Converters.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2023-07-31T08:35:03.552Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
               "Title": "AddingConverter.cs",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\AddingConverter.cs",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\AddingConverter.cs",
@@ -516,91 +194,21 @@
               "RelativeToolTip": "Qhta.WPF.Converters\\AddingConverter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-07-31T08:31:55.694Z"
+              "WhenOpened": "2025-10-05T05:46:01.712Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "StringConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\StringConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\StringConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\StringConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\StringConverter.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACsAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-07-31T08:27:20.903Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ArithmeticConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ArithmeticConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\ArithmeticConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\ArithmeticConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\ArithmeticConverter.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAhwEAAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-07-31T08:27:04.814Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "AppendingConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\AppendingConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\AppendingConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\AppendingConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\AppendingConverter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-07-31T08:26:38.787Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 9,
               "Title": "readme.md",
               "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\docs\\readme.md",
               "RelativeDocumentMoniker": "Qhta.WPF.Converters\\docs\\readme.md",
               "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\docs\\readme.md",
               "RelativeToolTip": "Qhta.WPF.Converters\\docs\\readme.md",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAACcAAACLAAAA",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2023-07-06T14:43:46.987Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "IconEnabledConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\IconEnabledConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\IconEnabledConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\IconEnabledConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\IconEnabledConverter.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAABJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-07-06T14:35:55.701Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "DashStyleUtils.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DashStyleUtils.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\DashStyleUtils.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DashStyleUtils.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\DashStyleUtils.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAsAAAAkAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-07-06T14:27:54.853Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "DashStyleConverter.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DashStyleConverter.cs",
-              "RelativeDocumentMoniker": "Qhta.WPF.Converters\\DashStyleConverter.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WPF.Converters\\Qhta.WPF.Converters\\DashStyleConverter.cs",
-              "RelativeToolTip": "Qhta.WPF.Converters\\DashStyleConverter.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAbAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-07-06T14:27:48.252Z"
+              "WhenOpened": "2025-10-05T05:45:31.057Z",
+              "EditorCaption": ""
             }
           ]
         },

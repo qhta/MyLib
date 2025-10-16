@@ -9,6 +9,7 @@ using Qhta.UnicodeBuild.Actions;
 using Qhta.UnicodeBuild.Helpers;
 
 using Syncfusion.Data.Extensions;
+using Syncfusion.Windows.Controls.Input;
 
 namespace Qhta.UnicodeBuild.ViewModels;
 
@@ -19,13 +20,13 @@ public sealed class WritingSystemsCollection : EntityCollection<WritingSystemVie
 {
 
   private BiDiDictionary<int, WritingSystemViewModel> IntDictionary { [DebuggerStepThrough] get; } = new();
-  private BiDiDictionary<string, WritingSystemViewModel> StringDictionary { [DebuggerStepThrough] get; } = new();
+  private Dictionary<string, WritingSystemViewModel> StringDictionary { [DebuggerStepThrough] get; } = new(StringComparer.OrdinalIgnoreCase);
 
   /// <summary>
   /// Parent writing system view model, if this collection is a child of another writing system.
   /// </summary>
   public WritingSystemViewModel? Parent { [DebuggerStepThrough] get; }
-  
+
   /// <summary>
   /// Default constructor for the <see cref="WritingSystemsCollection"/> class.
   /// </summary>
@@ -84,6 +85,15 @@ public sealed class WritingSystemsCollection : EntityCollection<WritingSystemVie
           IntDictionary.Remove((int)item.Id!);
         if (item.Name != null && !item.Name.StartsWith("<"))
           StringDictionary.Remove(item.Name);
+        if (item.Aliases != null)
+        {
+          var aliases = item.Aliases.Split([',', ';']);
+          foreach (var alias in aliases)
+          {
+            if (!string.IsNullOrEmpty(alias))
+              StringDictionary.Remove(alias);
+          }
+        }
         if (!IsLoaded)
           continue;
         if (item.ParentId == null)
@@ -103,6 +113,15 @@ public sealed class WritingSystemsCollection : EntityCollection<WritingSystemVie
           IntDictionary.TryAdd((int)item.Id, item);
         if (!string.IsNullOrEmpty(item.Name) && !item.Name.StartsWith("<"))
           StringDictionary.TryAdd(item.Name, item);
+        if (item.Aliases != null)
+        {
+          var aliases = item.Aliases.Split([',', ';']);
+          foreach (var alias in aliases)
+          {
+            if (!string.IsNullOrEmpty(alias))
+              StringDictionary.TryAdd(alias, item);
+          }
+        }
         if (!IsLoaded)
           continue;
         if (item.ParentId == null)
@@ -147,6 +166,39 @@ public sealed class WritingSystemsCollection : EntityCollection<WritingSystemVie
         StringDictionary.Remove(oldValue.ToString()!);
       if (newValue is string newName && !String.IsNullOrEmpty(newName) && !newName.StartsWith('<'))
         StringDictionary.Add(newName, vm);
+      // Notify that the collection has changed, so that the UI can update
+      //OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
+    }
+    if (e.PropertyName == nameof(WritingSystemViewModel.Aliases))
+    {
+      object? oldValue = null;
+      object? newValue = null;
+      if (e is PropertyChanged2EventArgs e2)
+      {
+        oldValue = e2.OldValue;
+        newValue = e2.NewValue;
+      }
+      else
+        newValue = vm.Name;
+
+      if (oldValue is string oldName)
+      {
+        var aliases = oldName.Split([',', ';']);
+        foreach (var alias in aliases)
+        {
+          if (!string.IsNullOrEmpty(alias))
+            StringDictionary.Remove(alias);
+        }
+      }
+      if (newValue is string newName && !String.IsNullOrEmpty(newName))
+      {
+        var aliases = newName.Split([',', ';']);
+        foreach (var alias in aliases)
+        {
+          if (!string.IsNullOrEmpty(alias))
+            StringDictionary.Add(alias, vm);
+        }
+      }
       // Notify that the collection has changed, so that the UI can update
       //OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
     }
@@ -211,6 +263,15 @@ public sealed class WritingSystemsCollection : EntityCollection<WritingSystemVie
       return;
     if (vm.Id != null) IntDictionary.TryAdd((int)vm.Id, vm);
     if (!String.IsNullOrEmpty(vm.Name) && !vm.Name.StartsWith("<")) StringDictionary.TryAdd(vm.Name, vm);
+    if (vm.Aliases != null)
+    {
+      var aliases = vm.Aliases.Split([',', ';']);
+      foreach (var alias in aliases)
+      {
+        if (!string.IsNullOrEmpty(alias))
+          StringDictionary.TryAdd(alias, vm);
+      }
+    }
     vm.PropertyChanged += WritingSystemViewModel_PropertyChanged;
     base.Add(vm);
   }

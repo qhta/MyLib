@@ -27,8 +27,8 @@ public class ApplyWritingSystemMappingCommand : TimeConsumingCommand
   }
 
   /// <summary>
-   /// Collection of writing system mappings to be applied to Unicode code points.
-   /// </summary>
+  /// Collection of writing system mappings to be applied to Unicode code points.
+  /// </summary>
   public WritingSystemMappingCollection WritingSystemMappings { [DebuggerStepThrough] get; set; } = new();
 
   /// <inheritdoc/>
@@ -122,7 +122,6 @@ public class ApplyWritingSystemMappingCommand : TimeConsumingCommand
     LoadWritingSystemsFile(worker, e);
     _ViewModels.Instance.UcdCodePoints.IsBusy = true;
     _ViewModels.Instance.UcdCodePoints.BreakCommand = BreakCommand;
-    WritingSystemViewModel? WritingSystem = null;
     var n = WritingSystemMappings.Count;
     var i = 0;
     _ViewModels.Instance.UcdCodePoints.StatusMessage = String.Format(Resources.Strings.UpdatingField, Resources.UcdCodePointStrings.WritingSystem);
@@ -137,23 +136,21 @@ public class ApplyWritingSystemMappingCommand : TimeConsumingCommand
         e.Cancel = true; // Indicate that the operation was canceled
         return;
       }
-      if (WritingSystem == null || WritingSystem.Name != mapping.WritingSystem?.Name)
+
+      var WritingSystem = _ViewModels.Instance.WritingSystems.FindByName(mapping.WritingSystem!.Name!);
+      if (WritingSystem == null)
       {
-        WritingSystem = _ViewModels.Instance.WritingSystems.FindByName(mapping.WritingSystem!.Name!);
-        if (WritingSystem == null)
+        Debug.WriteLine($"WritingSystem {mapping.WritingSystem?.Name} not found.");
+        continue;
+      }
+      var start = mapping.Range.Start;
+      var end = mapping.Range.End ?? start;
+      for (int cp = start; cp <= end; cp++)
+      {
+        var codePoint = _ViewModels.Instance.UcdCodePoints.FindById(cp);
+        if (codePoint != null)
         {
-          Debug.WriteLine($"WritingSystem {mapping.WritingSystem?.Name} not found.");
-          continue;
-        }
-        var start = mapping.Range.Start;
-        var end = mapping.Range.End ?? start;
-        for (int cp = start; cp <= end; cp++)
-        {
-          var codePoint = _ViewModels.Instance.UcdCodePoints.FindById(cp);
-          if (codePoint != null)
-          {
-            codePoint.WritingSystem = WritingSystem;
-          }
+          codePoint.Script = WritingSystem;
         }
       }
     }

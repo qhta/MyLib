@@ -14,7 +14,7 @@ public partial class UcdCodePoint
   /// <summary>
   /// Identifier for the Unicode code point, which is an integer number of the Code field.
   /// </summary>
-  [Column("Ord")]
+  [Column("ID")]
   public int Id { [DebuggerStepThrough] get; set; }
 
   /// <summary>
@@ -113,10 +113,28 @@ public partial class UcdCodePoint
   public int? BlockId { [DebuggerStepThrough] get; set; }
 
   /// <summary>
-  /// Identifier for the main writing system that this code point is written in, if applicable.
+  /// Identifier for the area that this code point belongs to, if applicable.
   /// </summary>
-  [Column("WritingSystem")]
-  public int? WritingSystemId { [DebuggerStepThrough] get; set; }
+  [Column("Area")]
+  public int? AreaId { [DebuggerStepThrough] get; set; }
+
+  /// <summary>
+  /// Identifier for the script that this code point belongs to, if applicable.
+  /// </summary>
+  [Column("Script")]
+  public int? ScriptId { [DebuggerStepThrough] get; set; }
+
+  /// <summary>
+  /// Identifier for the language that this code point belongs to, if applicable.
+  /// </summary>
+  [Column("Language")]
+  public int? LanguageId { [DebuggerStepThrough] get; set; }
+
+  /// <summary>
+  /// Identifier for the notation that this code point belongs to, if applicable.
+  /// </summary>
+  [Column("Notation")]
+  public int? NotationId { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Identifier for the symbol set that this code point belongs to, if applicable.

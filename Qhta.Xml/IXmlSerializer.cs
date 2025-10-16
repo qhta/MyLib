@@ -79,7 +79,7 @@ public interface IXmlSerializer
   /// <summary>
   /// Reads an existing object in a specified context from XML.
   /// </summary>
-  public void ReadObject(object? context, object obj);
+  public object? ReadObject(object? context, object obj);
   #endregion
 
   #region helper methods
@@ -89,7 +89,7 @@ public interface IXmlSerializer
   /// <param name="typeName"></param>
   /// <param name="type"></param>
   /// <returns></returns>
-  public bool TryGetKnownType(string typeName, out Type type);
+  public bool TryGetKnownType(string typeName, out Type? type);
 
   /// <summary>
   /// Tries to get a type converter for a specified type.
@@ -97,7 +97,7 @@ public interface IXmlSerializer
   /// <param name="type"></param>
   /// <param name="converter"></param>
   /// <returns></returns>
-  public bool TryGetTypeConverter(Type type, out TypeConverter converter);
+  public bool TryGetTypeConverter(Type type, out TypeConverter? converter);
   #endregion
 
 

@@ -32,9 +32,9 @@ namespace Qhta.WPF.Converters
     /// <summary>
     /// Format dependency property.
     /// </summary>
-    public string Format
+    public string? Format
     {
-      get => (string)GetValue(FormatProperty);
+      get => (string?)GetValue(FormatProperty);
       set => SetValue(FormatProperty, value);
     }
 
@@ -42,7 +42,7 @@ namespace Qhta.WPF.Converters
     /// static format dependency property.
     /// </summary>
     public static readonly DependencyProperty FormatProperty = DependencyProperty.Register
-      ("Format", typeof(string), typeof(NumericValueConverter));
+      (nameof(Format), typeof(string), typeof(NumericValueConverter));
     #endregion
 
     /// <summary>

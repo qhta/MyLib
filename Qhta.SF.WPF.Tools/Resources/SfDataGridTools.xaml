@@ -12,6 +12,10 @@
   <tools:GridColumnMappingConverter x:Key="GridColumnMappingConverter"/>
   <tools:LongTextColumnExpanderVisibilityConverter x:Key="LongTextColumnExpanderVisibilityConverter"/>
 
+  <Style x:Key="GridTextColumnStyle" TargetType="TextBlock">
+    <Setter Property="Margin" Value="3,3,3,3"/>
+  </Style>
+
   <Style x:Key="{x:Type tools:RowResizer}" Style.TargetType="{x:Type tools:RowResizer}" >
     <Setter Property="Control.Background" Value="#01000000" />
     <Setter Property="Control.Template">
@@ -33,7 +37,7 @@
     <Setter Property="Padding" Value="0,0,0,0" />
     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
     <Setter Property="IsTabStop" Value="False" />
-    <Setter Property="RowErrorMessage" Value="{Binding ErrorMessage}" />
+    <!--<Setter Property="RowErrorMessage" Value="{Binding ErrorMessage}" />-->
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate>

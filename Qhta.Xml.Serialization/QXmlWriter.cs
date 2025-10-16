@@ -156,8 +156,7 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
         BaseXmlWriter.WriteStartElement(tag.Prefix, tag.Name, tag.Namespace);
       else
         BaseXmlWriter.WriteStartElement(tag.Name, tag.Namespace);
-      if (!NamespacesUsed.Contains(tag.Namespace))
-        NamespacesUsed.Add(tag.Namespace);
+      NamespacesUsed.Add(tag.Namespace);
     }
     else
       BaseXmlWriter.WriteStartElement(tag.Name);

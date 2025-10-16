@@ -118,13 +118,13 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
       if (_Format != value)
       {
         _Format = value;
-        if (_Format != null && 
+        if (_Format != null &&
 #if NET6_0_OR_GREATER
           _Format.Contains('X', StringComparison.InvariantCultureIgnoreCase)
 #else
-          _Format.Contains('X') || _Format.Contains('x')
+            _Format.Contains('X') || _Format.Contains('x')
 #endif
-          )
+           )
           NumberStyle |= NumberStyles.HexNumber;
       }
     }
@@ -196,15 +196,19 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
     return sourceType == typeof(string);
   }
 
-  /// <inheritdoc/>
+  /// <summary>
+  /// Converts from object to the expected numeric type using invariant culture.
+  /// </summary>
   public new object? ConvertFrom(object value)
   {
     return ConvertFrom(null, CultureInfo.InvariantCulture, value);
   }
 
   /// <inheritdoc/>
-  public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+  public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object? value)
   {
+    if (culture == null)
+      culture = CultureInfo.InvariantCulture;
     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
     if (value is null)
       return null;
@@ -214,7 +218,7 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
         return null;
       if (ExpectedType == typeof(string))
         return str;
-      if (TryParseAnyNumber(str, NumberStyle, culture, out var number))
+      if (TryParseAnyNumber(ExpectedType, str, NumberStyle, culture, out var number))
       {
         if (number != null)
         {
@@ -227,111 +231,180 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
           if (MinExclusive != null && Convert.ToDouble(number) >= MinExclusive)
             throw new InvalidDataException($"Converter value {number} is not less than max exclusive value {MinExclusive}");
         }
-        if (ExpectedType != null)
-          return Convert.ChangeType(number, ExpectedType, culture);
-        return number;
       }
-      throw new InvalidDataException($"NumericTypeConverter cannot convert from string \"{str}\"");
+      return number;
     }
-    return base.ConvertFrom(context, culture, value);
+    return base.ConvertFrom(context!, culture, value);
   }
 
   /// <summary>
   /// Universal method to parse any number from string.
   /// </summary>
+  /// <param name="expectedType"></param>
   /// <param name="str"></param>
   /// <param name="numberStyle"></param>
   /// <param name="culture"></param>
   /// <param name="value"></param>
   /// <returns></returns>
-  public bool TryParseAnyNumber(string? str, NumberStyles numberStyle, CultureInfo? culture, out object? value)
+  public bool TryParseAnyNumber(Type? expectedType, string? str, NumberStyles numberStyle, CultureInfo? culture, out object? value)
   {
     value = null;
-    if (string.IsNullOrEmpty(str)) return true;
-    if (culture == null)
-      culture = CultureInfo.InvariantCulture;
-#if NET6_0_OR_GREATER
-    if (str.Contains("E+", StringComparison.InvariantCultureIgnoreCase) || str.Contains("E-", StringComparison.InvariantCultureIgnoreCase))
-#else
-    if (str!= null && (str.Contains("E+") || str.Contains("E-") || str.Contains("e+") || str.Contains("e-")))
-#endif
+    if (str == null || str == String.Empty) return true;
+    culture ??= CultureInfo.InvariantCulture;
+    bool isFloat = false;
+    bool isNegative = false;
+    if (str.StartsWith("NAN", StringComparison.InvariantCultureIgnoreCase))
+    {
+      value = double.NaN;
+      return true;
+    }
+    if (str.StartsWith("-INF", StringComparison.InvariantCultureIgnoreCase))
+    {
+      value = double.NegativeInfinity;
+      return true;
+    }
+    if (str.StartsWith("INF", StringComparison.InvariantCultureIgnoreCase))
+    {
+      value = double.PositiveInfinity;
+      return true;
+    }
+
+
+    if (str.Contains("E+") || str.Contains("E-") || str.Contains("e+") || str.Contains("e-") || str.Contains(culture.NumberFormat.NumberDecimalSeparator))
     {
       numberStyle |= NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
-      if (XsdType == XsdSimpleType.Float)
-      {
-        if (float.TryParse(str, numberStyle, culture, out var flt))
-        {
-          value = flt;
-          return true;
-        }
-      }
-      else
-      if (double.TryParse(str, numberStyle, culture, out var dbl))
-      {
-        value = dbl;
-        return true;
-      }
-      return false;
+      isFloat = true;
     }
-    if (str != null && str.Contains(culture.NumberFormat.NumberDecimalSeparator))
-    {
-      numberStyle |= NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
-      if (decimal.TryParse(str, numberStyle, culture, out var dm))
-      {
-        value = dm;
-        return true;
-      }
-      return false;
-    }
-    if (str != null && str.Contains(culture.NumberFormat.NegativeSign))
+    if (str.Contains(culture.NumberFormat.NegativeSign))
     {
       numberStyle |= NumberStyles.AllowLeadingSign;
-      if (Int64.TryParse(str, numberStyle, culture, out var i64))
-      {
-        if (i64 >= Int32.MinValue)
-          value = (Int32)i64;
-        else
-          value = i64;
-        return true;
-      }
-      if (decimal.TryParse(str, numberStyle, culture, out var dm))
-      {
-        value = dm;
-        return true;
-      }
-      if (str != null && str.StartsWith("-INF", StringComparison.InvariantCultureIgnoreCase))
-      {
-        value = double.NegativeInfinity;
-        return true;
-      }
-      return false;
+      isNegative = true;
+    }
+
+    Type[] intTypes = { typeof(SByte), typeof(Int16), typeof(Int32), typeof(Int64) };
+    Type[] uintTypes = { typeof(Byte), typeof(UInt16), typeof(UInt32), typeof(UInt64) };
+
+    if (expectedType == null)
+    {
+      if (isFloat)
+        expectedType = typeof(double);
+      else if (isNegative)
+        expectedType = typeof(Int64);
+      else
+        expectedType = typeof(UInt64);
     }
     else
     {
-      if (UInt64.TryParse(str, numberStyle, culture, out var u64))
+      if (isFloat && intTypes.Contains(expectedType))
+        throw new InvalidOperationException($"Type {expectedType} cannot be parsed from '{str}'");
+      if (isNegative && uintTypes.Contains(expectedType))
+        throw new InvalidOperationException($"Type {expectedType} cannot be parsed from '{str}'");
+    }
+    if (expectedType == typeof(float))
+    {
+      if (float.TryParse(str, numberStyle, culture, out var num))
       {
-        if (u64 <= Int32.MaxValue)
-          value = (Int32)u64;
-        else
-          value = u64;
+        value = num;
         return true;
       }
-      if (decimal.TryParse(str, numberStyle, culture, out var dm))
+    }
+    else if (ExpectedType == typeof(decimal))
+
+    {
+      if (decimal.TryParse(str, numberStyle, culture, out var num))
       {
-        value = dm;
+        value = num;
         return true;
       }
-      if (String.Equals(str, "NaN", StringComparison.InvariantCultureIgnoreCase))
+    }
+    else if (ExpectedType == typeof(double))
+    {
+      if (double.TryParse(str, numberStyle, culture, out var num))
       {
-        value = double.NaN;
-        return true;
-      }
-      if (str != null && str.StartsWith("INF", StringComparison.InvariantCultureIgnoreCase))
-      {
-        value = double.PositiveInfinity;
+        value = num;
         return true;
       }
       return false;
     }
+    if (expectedType == typeof(Byte))
+    {
+      if (Byte.TryParse(str, numberStyle, culture, out var num))
+      {
+        value = num;
+        return true;
+      }
+      return false;
+    }
+
+    if (ExpectedType == typeof(SByte))
+    {
+      if (SByte.TryParse(str, numberStyle, culture, out var num))
+      {
+        value = num;
+        return true;
+      }
+      return false;
+    }
+
+    if (ExpectedType == typeof(Int16))
+    {
+      if (Int16.TryParse(str, numberStyle, culture, out var num))
+      {
+        value = num;
+        return true;
+      }
+      return false;
+    }
+
+    if (ExpectedType == typeof(UInt16))
+    {
+      if (UInt16.TryParse(str, numberStyle, culture, out var num))
+      {
+        value = num;
+        return true;
+      }
+      return false;
+    }
+
+    if (ExpectedType == typeof(Int32))
+    {
+      if (Int32.TryParse(str, numberStyle, culture, out var num))
+      {
+        value = num;
+        return true;
+      }
+      return false;
+    }
+
+    if (ExpectedType == typeof(UInt32))
+    {
+      if (UInt32.TryParse(str, numberStyle, culture, out var num))
+      {
+        value = num;
+        return true;
+      }
+      return false;
+    }
+
+    if (ExpectedType == typeof(Int64))
+    {
+      if (Int64.TryParse(str, numberStyle, culture, out var num))
+      {
+        value = num;
+        return true;
+      }
+      return false;
+    }
+
+    if (ExpectedType == typeof(UInt64))
+    {
+      if (UInt64.TryParse(str, numberStyle, culture, out var num))
+      {
+        value = num;
+        return true;
+      }
+      return false;
+    }
+    return false;
   }
 }

@@ -41,6 +41,8 @@ public class EntityViewModel<T>: ViewModel<T>
     if (property == null)
       throw new ArgumentException($"Property '{thisPropertyName}' not found on entity type {type.Name}", nameof(thisPropertyName));
     
+    if (newValue is string newString && newString=="")
+      newValue = null; // Normalize empty strings to null
     var oldValue = property.GetValue(this);
     if (Equals(oldValue, newValue)) return false; // No change needed
     if (!UndoRedoManager.IsUndoing)

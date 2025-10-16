@@ -8,44 +8,49 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Flexible implementation of XmlSerializer</description>
-    <repository type="git" commit="e47c2a7786f3b476a1c04d7fdbdcff6482118646" />
+    <repository type="git" commit="e48235358c10fac7364c555d3e0d22ba900a5fb8" />
     <dependencies>
       <group targetFramework="net6.0">
-        <dependency id="Qhta.Conversion" version="2.1.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TextUtils" version="3.2.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TypeUtils" version="1.3.11" exclude="Build,Analyzers" />
-        <dependency id="Qhta.Xml" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Conversion" version="2.2.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.Xml.Reflection" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Xml" version="3.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TestHelper" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TextUtils" version="3.8.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.4.0" exclude="Build,Analyzers" />
         <dependency id="System.CodeDom" version="8.0.0" exclude="Build,Analyzers" />
         <dependency id="System.Collections.Specialized" version="4.3.0" exclude="Build,Analyzers" />
         <dependency id="System.Security.Permissions" version="8.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net7.0">
-        <dependency id="Qhta.Conversion" version="2.1.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TextUtils" version="3.2.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TypeUtils" version="1.3.11" exclude="Build,Analyzers" />
-        <dependency id="Qhta.Xml" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Conversion" version="2.2.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.Xml.Reflection" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Xml" version="3.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TestHelper" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TextUtils" version="3.8.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.4.0" exclude="Build,Analyzers" />
         <dependency id="System.CodeDom" version="8.0.0" exclude="Build,Analyzers" />
         <dependency id="System.Collections.Specialized" version="4.3.0" exclude="Build,Analyzers" />
         <dependency id="System.Security.Permissions" version="8.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net8.0">
-        <dependency id="Qhta.Conversion" version="2.1.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TextUtils" version="3.2.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TypeUtils" version="1.3.11" exclude="Build,Analyzers" />
-        <dependency id="Qhta.Xml" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Conversion" version="2.2.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.Xml.Reflection" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Xml" version="3.2.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore.Abstractions" version="9.0.9" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TestHelper" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TextUtils" version="3.8.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.4.0" exclude="Build,Analyzers" />
         <dependency id="System.CodeDom" version="8.0.0" exclude="Build,Analyzers" />
         <dependency id="System.Collections.Specialized" version="4.3.0" exclude="Build,Analyzers" />
         <dependency id="System.Security.Permissions" version="8.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Qhta.Conversion" version="2.1.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TextUtils" version="3.2.0" exclude="Build,Analyzers" />
-        <dependency id="Qhta.TypeUtils" version="1.3.11" exclude="Build,Analyzers" />
-        <dependency id="Qhta.Xml" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Conversion" version="2.2.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.Xml.Reflection" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Xml" version="3.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TestHelper" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TextUtils" version="3.8.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.4.0" exclude="Build,Analyzers" />
         <dependency id="System.CodeDom" version="8.0.0" exclude="Build,Analyzers" />
         <dependency id="System.Collections.Specialized" version="4.3.0" exclude="Build,Analyzers" />
         <dependency id="System.Security.Permissions" version="8.0.0" exclude="Build,Analyzers" />
@@ -53,14 +58,14 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.Xml.Serialization.dll" target="lib\net6.0\Qhta.Xml.Serialization.dll" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.Xml.Serialization.xml" target="lib\net6.0\Qhta.Xml.Serialization.xml" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net7.0\Qhta.Xml.Serialization.dll" target="lib\net7.0\Qhta.Xml.Serialization.dll" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net7.0\Qhta.Xml.Serialization.xml" target="lib\net7.0\Qhta.Xml.Serialization.xml" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.Xml.Serialization.dll" target="lib\net8.0\Qhta.Xml.Serialization.dll" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.Xml.Serialization.xml" target="lib\net8.0\Qhta.Xml.Serialization.xml" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Xml.Serialization.dll" target="lib\netstandard2.0\Qhta.Xml.Serialization.dll" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Xml.Serialization.xml" target="lib\netstandard2.0\Qhta.Xml.Serialization.xml" />
-    <file src="D:\VS\Projects\MyLib\Qhta.Xml.Serialization\docs\readme.md" target="\readme.md" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\net6.0\Qhta.Xml.Serialization.dll" target="lib\net6.0\Qhta.Xml.Serialization.dll" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\net6.0\Qhta.Xml.Serialization.xml" target="lib\net6.0\Qhta.Xml.Serialization.xml" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\net7.0\Qhta.Xml.Serialization.dll" target="lib\net7.0\Qhta.Xml.Serialization.dll" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\net7.0\Qhta.Xml.Serialization.xml" target="lib\net7.0\Qhta.Xml.Serialization.xml" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\net8.0\Qhta.Xml.Serialization.dll" target="lib\net8.0\Qhta.Xml.Serialization.dll" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\net8.0\Qhta.Xml.Serialization.xml" target="lib\net8.0\Qhta.Xml.Serialization.xml" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\netstandard2.0\Qhta.Xml.Serialization.dll" target="lib\netstandard2.0\Qhta.Xml.Serialization.dll" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\netstandard2.0\Qhta.Xml.Serialization.xml" target="lib\netstandard2.0\Qhta.Xml.Serialization.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\docs\readme.md" target="\readme.md" />
   </files>
 </package>

@@ -206,6 +206,12 @@
             Gets a string from element content or gets content as string.
             </summary>
         </member>
+        <member name="M:Qhta.Xml.Serialization.QXDocReader.ReadContentAs(System.Type)">
+            <summary>
+             Concatenates values of textual nodes of the current content, ignoring comments and PIs, expanding entity references,
+             and converts the content to the requested type. Stops at start tags and end tags.
+            </summary>
+        </member>
         <member name="M:Qhta.Xml.Serialization.QXDocReader.ReadElementContentAsString">
             <summary>
             Wrapper for ReadElementContentAsString operation.
@@ -727,6 +733,11 @@
             Optional event raised when a reader meets an element or attribute which can't be recognized.
             </summary>
         </member>
+        <member name="F:Qhta.Xml.Serialization.QXmlSerializer.ReferencedObjects">
+            <summary>
+              Collection of referenced objects during serialization/deserialization.
+            </summary>
+        </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.DeserializeObject(System.Xml.XmlReader,System.Object)">
             <summary>
               Main deserialization entry.
@@ -773,12 +784,12 @@
             <remarks>
             A typeInfo is get from the <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> object. 
             If a typeInfo has <see cref="T:Qhta.Xml.Serialization.XmlConverter"/> defined, then this converter is used.
-            Otherwise <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectWithKnownTypeInfo(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> method is invoked.
+            Otherwise, <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectWithKnownTypeInfo(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> method is invoked.
             </remarks>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObject(System.Object,System.Object)">
             <summary>
-            Reads an existig object in a specific context. 
+            Reads an existing object in a specific context. 
             </summary>
             <param name="context">An object in which this object is contained. It can be null (when reading a root XML element)</param>
             <param name="instance">Existing object which content is filled</param>
@@ -794,7 +805,7 @@
             <remarks>
             A typeInfo is get from the <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> object. 
             If a typeInfo has <see cref="T:Qhta.Xml.Serialization.XmlConverter"/> defined, then this converter is used.
-            Otherwise <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectWithKnownTypeInfo(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> method is invoked.
+            Otherwise, <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectWithKnownTypeInfo(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> method is invoked.
             </remarks>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectWithKnownTypeInfo(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)">
@@ -852,7 +863,7 @@
             </exitstate>
             <remarks>
              xmlns prefixes are recognized as xml namespace declarations. The xml:space attribute is recognized correctly.
-             The Xsd prefix causes the attribute to be omitted. To read each attribue value a ReadValue method is invoked
+             The Xsd prefix causes the attribute to be omitted. To read each attribute value a ReadValue method is invoked
             </remarks>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlElements(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)">
@@ -906,7 +917,7 @@
             <param name="instance">Instance which member is to be read</param>
             <param name="memberInfo">Member info of the member</param>
             <param name="currentMemberTypeInfo">Optional current TypeInfo of the member (if known).</param>
-            <returns>Read member value (may be null)</returns>
+            <returns>Read member value (can be null)</returns>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
             </entrystate>
@@ -915,7 +926,7 @@
             </exitstate>
             <remarks>
             If a member has an XmlConverter assigner, then it is used to read the value.
-            Otherwise a member may be read as a collection (or dictionary) by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberCollection(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)"/>,
+            Otherwise, a member can be read as a collection (or dictionary) by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberCollection(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)"/>,
             however a collection may have its own properties, and then should read as a "normal" object.
             Other, "normal" object are read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)"/>.
             </remarks>
@@ -926,7 +937,7 @@
             </summary>
             <param name="instance">Instance which content property is to be read</param>
             <param name="memberInfo">Member info of the member which represents a ContentProperty</param>
-            <returns>Read value (may be null)</returns>
+            <returns>Read value (can be null)</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on invalid type mapping.</exception>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the object.
@@ -958,7 +969,7 @@
             If it is not found, then it can be created temporarily basing on start tag name.
             Next an item element is read. 
             If the collection is dictionary, then a pair of key-item is read using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)"/> method.
-            Otherwise an item is read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo)"/>.
+            Otherwise, an item is read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo)"/>.
             At the end the item (or key-item pair) is added to the instance with an Add method.
             The Add method can be declared in knownItemTypeInfo or localized in the type of instance using type reflection.
             </remarks>
@@ -983,7 +994,7 @@
             If it is not found, then it can be created temporarily basing on start tag name.
             Next an item element is read. 
             If the collection is dictionary, then a pair of key-item is read using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)"/> method.
-            Otherwise an item is read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo)"/>.
+            Otherwise, an item is read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo)"/>.
             At the end the item (or key-item pair) is added to the instance with an Add method.
             The Add method can be declared in knownItemTypeInfo or localized in the type of instance using type reflection.
             </remarks>
@@ -1011,7 +1022,7 @@
             <param name="instance">Instance which member should be read.</param>
             <param name="memberInfo">Serialization member info.</param>
             <param name="valueTypeInfo">Serialization type info for expected value.</param>
-            <returns>Read object (may be null)</returns>
+            <returns>Read object (can be null)</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on errors.</exception>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the instance member.
@@ -1036,7 +1047,7 @@
             <param name="instance">Instance which member should be read.</param>
             <param name="memberInfo">Serialization member info.</param>
             <param name="valueTypeInfo">Serialization type info for expected value.</param>
-            <returns>Read object (may be null)</returns>
+            <returns>Read object (can be null)</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on errors.</exception>
             <remarks>Internal method for <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectWithKnownType(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)"/>.</remarks>
             <entrystate>
@@ -1058,7 +1069,7 @@
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo)">
             <summary>
-            Reads an element of collection when a serialization item item is known.
+            Reads an element of collection when a serialization item is known.
             Item info is used to get type info of the expected object.
             If type info has XmlConverter defined, this converter is used.
             Simple types and array of bytes are read by using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadValue(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/> method.
@@ -1066,7 +1077,7 @@
             </summary>
             <param name="context">Context object, instance which member is to be read.</param>
             <param name="itemInfo">Serialization item info that holds expected type info</param>
-            <returns>Read object (may be null)</returns>
+            <returns>Read object (can be null)</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on errors</exception>
             <remarks>
             Internal method for <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)"/>. 
@@ -1193,7 +1204,7 @@
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlTextElement(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
             <summary>
-            Reads Xml text element and assignes it to the instance.
+            Reads Xml text element and assigns it to the instance.
             To assign the value, <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.SetValue(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,System.Object)"/> method is invoked, 
             which allows to translate value to the valid type.
             </summary>
@@ -1206,7 +1217,7 @@
             </summary>
             <param name="context">Context of read (instance or collection) passed to <see cref="T:Qhta.Xml.Serialization.XmlConverter"/></param>
             <param name="memberInfo">Serialization member info of the read member</param>
-            <returns>Read value (may be null)</returns>
+            <returns>Read value (can be null)</returns>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadValueWithTypeConverter(System.Object,System.Type,System.ComponentModel.TypeConverter,Qhta.Xml.Reflection.SerializationMemberInfo)">
             <summary>
@@ -1216,15 +1227,23 @@
             <param name="expectedType">Expected type of the value to read. Used to convert read string to the object value.</param>
             <param name="typeConverter">
             If it is <see cref="T:Qhta.Xml.Serialization.XmlConverter"/>, it is used to read the XML. 
-            Otherwise is can be used to convert string value to the object value.
+            Otherwise, is can be used to convert string value to the object value.
             </param>
             <param name="memberInfo">Serialization member info of the read member</param>
-            <returns>Read value (may be null)</returns>
+            <returns>Read value (can be null)</returns>
             <remarks>This method has its own algorithm to convert simple type values from string.</remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadReferenceValue(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Reads a reference value from XML text according to member info.
+            </summary>
+            <param name="context"></param>
+            <param name="memberInfo"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.TryGetTypeInfo(System.Type,Qhta.Xml.Reflection.SerializationTypeInfo@)">
             <summary>
-            Tries to get a registered typeinfo for a specified type. 
+            Tries to get a registered type info for a specified type. 
             A type should be registered in <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> object.
             </summary>
             <param name="type">Searched type.</param>
@@ -1233,7 +1252,7 @@
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.TryGetTypeInfo(Qhta.Xml.XmlQualifiedTagName,Qhta.Xml.Reflection.SerializationTypeInfo@)">
             <summary>
-            Tries to get a registered typeinfo for a specified tag name. 
+            Tries to get a registered type info for a specified tag name. 
             A type should be registered in <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> object.
             </summary>
             <param name="tag">Searched XML tag.</param>
@@ -1271,7 +1290,7 @@
             </summary>
             <param name="instance">The object instance to which the value is to be assigned.</param>
             <param name="memberInfo">Serialization member info of the value.</param>
-            <param name="value">The value to set (may be null).</param>
+            <param name="value">The value to set (can be null).</param>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.SerializeObject(System.IO.Stream,System.Object)">
             <summary>
@@ -1322,8 +1341,7 @@
             <summary>
             Tries to find serialization type info for a specified type.
             If it can't be found and options allow to serialize unregistered types,
-            it tries to register it.
-            Otherwise it throws an exception.
+            it tries to register it,  Otherwise it throws an exception.
             </summary>
             <param name="aType"></param>
             <exception cref="T:System.InvalidOperationException">Thrown when the object type is not registered.</exception>
@@ -1483,6 +1501,14 @@
             <param name="value"></param>
             <returns>string version of the value</returns>
         </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ConvertMemberValueToReferenceString(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Helper method to convert reference value to reference string.
+            </summary>
+            <param name="memberInfo"></param>
+            <param name="value"></param>
+            <returns>string version of the value</returns>
+        </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.CreateElementTag(System.Type)">
             <summary>
             Creates element tag for a specific type
@@ -1635,7 +1661,7 @@
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.TryGetKnownType(System.String,System.Type@)">
             <summary>
-            Try get known type searched by the type name.
+            Try to get known type searched by the type name.
             </summary>
             <param name="typeName">Name of type to find.</param>
             <param name="type">Found type (or null if not found).</param>
@@ -1651,7 +1677,7 @@
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Init(System.Type,System.Type[],System.String)">
             <summary>
-            Initializes the serializator.
+            Initializes the serializer.
             </summary>
             <param name="type"></param>
             <param name="extraTypes"></param>
@@ -1659,7 +1685,7 @@
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Init(System.Type,System.Type[],System.String,Qhta.Xml.Serialization.SerializationOptions)">
             <summary>
-            Initializes the serializator.
+            Initializes the serializer.
             </summary>
             <param name="type"></param>
             <param name="extraTypes"></param>
@@ -2098,6 +2124,44 @@
             Wrapper for Dispose operation
             </summary>
         </member>
+        <member name="T:Qhta.Xml.Serialization.ReferencedObjectHelper">
+            <summary>
+            Provides utility methods for working with referenced objects, including converting object values  to their
+            corresponding reference string representations.
+            </summary>
+            <remarks>This class is designed to assist with serialization and deserialization scenarios where objects  are
+            identified by reference strings. It supports composite keys and handles null values gracefully.</remarks>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.ReferencedObjectHelper.GetReferenceString(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
+            <summary>
+            Helper method to get the reference string of an object instance based on the provided member information.
+            </summary>
+            <param name="idProperty"></param>
+            <param name="instance"></param>
+            <returns>string version of the value</returns>
+        </member>
+        <member name="T:Qhta.Xml.Serialization.ReferencedObjects">
+            <summary>
+            Collection of referenced objects during serialization/deserialization.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.ReferencedObjects.AddReference(System.Type,System.String,System.Object)">
+            <summary>
+            Adds a referenced object with a specified key and type.
+            </summary>
+            <param name="type">The type of the referenced object.</param>
+            <param name="key">Primary key for the referenced object. Unique in T type.</param>
+            <param name="value">Object of class T</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.ReferencedObjects.GetReference(System.Type,System.String)">
+            <summary>
+            Retrieves a reference of the specified type associated with the given key.
+            </summary>
+            <param name="type">The type of the referenced object.</param>
+            <param name="key">Primary key for the referenced object. Unique in T type.</param>
+            <returns>The reference of type associated with the specified key, or <see langword="null"/> if no
+            such reference exists.</returns>
+        </member>
         <member name="T:Qhta.Xml.Serialization.SerializationCase">
             <summary>
             Specifies modes for name case change.
@@ -2160,7 +2224,7 @@
         <member name="P:Qhta.Xml.Serialization.SerializationOptions.AcceptDataMembers">
             <summary>
               Whether only properties marked with DataMember attribute are to be serialized.
-             XmlAttribute/XmlElement atributes are also recognized.
+             XmlAttribute/XmlElement attributes are also recognized.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Serialization.SerializationOptions.AcceptFields">
@@ -2243,6 +2307,16 @@
         <member name="P:Qhta.Xml.Serialization.SerializationOptions.UseXsdScheme">
             <summary>
               Writes xmlns:xsd="http://www.w3.org/2001/XMLSchema" in the first element.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.WriteListCapacity">
+            <summary>
+            Specifies whether the capacity of lists should be written as an attribute during serialization.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Serialization.SerializationOptions.ThrowOnCircularReferences">
+            <summary>
+            Specifies whether an exception should be thrown when a circular reference is detected during serialization.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Serialization.SerializationOptions.LineLengthLimit">
@@ -2495,9 +2569,32 @@
             <param name="order">Order of the attribute or element</param>
             <returns>Created serialization member info</returns>
         </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetIdProperty(Qhta.Xml.Reflection.SerializationTypeInfo)">
+            <summary>
+            Gets a property which is indented to be serialized as identifier the entity.
+            First a property which is marked with <see cref="T:System.ComponentModel.DataAnnotations.KeyAttribute"/> is searched.
+            If there is more than one such property, then properties are sorted by <see cref="P:System.ComponentModel.DataAnnotations.Schema.ColumnAttribute.Order"/>
+            If no property is marked with [Key], then properties started with "Id" or as "[TypeName]Id" or named as "Name" are searched.
+            Only the first such property is used. If others are found, an exception is thrown.
+            When the id property is found, it is registered in serialization type info.
+            </summary>
+            <param name="typeInfo">Serialization info for type to reflect</param>
+            <returns>A serialization property info or null if not found</returns>
+            <exception cref="T:System.InvalidOperationException">
+              If a property pointed out with <see cref="T:Qhta.Xml.Serialization.XmlContentPropertyAttribute" /> is not found.
+            </exception>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetKeyProperties(System.Type)">
+            <summary>
+            Helper method to get properties marked with [Key] attribute from the type.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
         <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetTextProperty(Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>
-              Registers a property which is indended to be serialized as a text content of the Xml element.
+              Registers a property which is indented to be serialized as a text content of the Xml element.
               This is the first property which is marked with <see cref="T:System.Xml.Serialization.XmlTextAttribute" />.
               Note that only the first found property is used. If others are found, an exception is thrown.
             </summary>
@@ -2509,7 +2606,7 @@
         </member>
         <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetContentProperty(Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>
-              Registers a property which is indended to get/set Xml content of the Xml element.
+              Registers a property which is indented to get/set Xml content of the Xml element.
               This property are marked in the type header with <see cref="T:Qhta.Xml.Serialization.XmlContentPropertyAttribute" />.
               Note that System.Windows.Markup.ContentPropertyAttribute is not used to avoid the need of System.Xaml
               package.
@@ -2522,10 +2619,19 @@
         </member>
         <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetKnownTypes(System.Type)">
             <summary>
-              Get types which are assigned to the class with KnownType attribute.
+             Get types which are assigned to the class with KnownType attribute.
+             Searches a type assembly for types inherited from the type.
             </summary>
             <param name="aType">Type to reflect</param>
             <returns>A dictionary of known item types (or null) if no KnownType attributes found)</returns>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.SearchInheritedTypes(System.Type,System.Reflection.Assembly,Qhta.Xml.Reflection.KnownTypesCollection)">
+            <summary>
+            Searches
+            </summary>
+            <param name="aType"></param>
+            <param name="assembly"></param>
+            <param name="knownTypes"></param>
         </member>
         <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetTypeConverter(System.Type)">
             <summary>
@@ -2557,14 +2663,14 @@
             <summary>
             Gets a qualified tag name for the type.
             If a type is registered in <see cref="P:Qhta.Xml.Serialization.XmlSerializationInfoMapper.KnownTypes"/>, its tag name is returned.
-            Otherwise a new qualified tag name is created for the type.
+            Otherwise, a new qualified tag name is created for the type.
             </summary>
         </member>
         <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetXmlTag(Qhta.Xml.Reflection.INamedElement)">
             <summary>
             Gets a qualified tag name for the named element.
             If a type is registered in <see cref="P:Qhta.Xml.Serialization.XmlSerializationInfoMapper.KnownTypes"/>, its tag name is returned.
-            Otherwise a new qualified tag name is created for the type.
+            Otherwise, a new qualified tag name is created for the type.
             </summary>
         </member>
         <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.ToQualifiedName(System.String)">

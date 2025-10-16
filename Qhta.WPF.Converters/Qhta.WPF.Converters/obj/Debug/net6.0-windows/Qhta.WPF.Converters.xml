@@ -620,6 +620,35 @@
             Overlay added to Image.
             </summary>
         </member>
+        <member name="T:Qhta.WPF.Converters.ImageToGrayConverter">
+            <summary>
+            Converts an image file path to a grayscale image representation.
+            </summary>
+            <remarks>This converter takes a file path to an image as input and returns a grayscale version of the image.
+            The input value must be a string representing the image file path. If the input is not a valid string or the file
+            path is invalid, the original value is returned unchanged.</remarks>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ImageToGrayConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts an image file path to a grayscale image.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ImageToGrayConverter.ConvertToGrayscaleWithAlpha(System.Windows.Media.Imaging.BitmapSource)">
+            <summary>
+            Converts a BitmapSource to grayscale while preserving the alpha channel.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ImageToGrayConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Not implemented - conversion back is not supported.
+            </summary>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Qhta.WPF.Converters.IndexingConverter">
             <summary>
             One-way multi-value converter that invokes an indexing property from the first value item.

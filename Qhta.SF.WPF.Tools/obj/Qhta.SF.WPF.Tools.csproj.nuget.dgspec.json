@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj": {
-      "version": "1.0.0",
+      "version": "1.2.0",
       "restore": {
         "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.SF.WPF.Tools\\Qhta.SF.WPF.Tools.csproj",
         "projectName": "Qhta.SF.WPF.Tools",
@@ -15,7 +15,7 @@
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\30.2.4\\ToolboxNuGetPackages"
+          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\31.1.17\\ToolboxNuGetPackages"
         ],
         "configFilePaths": [
           "D:\\OneDrive\\VS\\Projects\\NuGet.Config",
@@ -28,6 +28,7 @@
           "net8.0-windows"
         ],
         "sources": {
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
           "D:\\OneDrive\\VS\\Projects\\MyLib\\bin\\Debug": {},
           "https://api.nuget.org/v3/index.json": {}
@@ -84,31 +85,31 @@
             },
             "Syncfusion.Grid.WPF": {
               "target": "Package",
-              "version": "[30.2.6, )"
+              "version": "[31.1.21, )"
             },
             "Syncfusion.Grid.Windows": {
               "target": "Package",
-              "version": "[30.2.6, )"
+              "version": "[31.1.21, )"
             },
             "Syncfusion.SfGrid.WPF": {
               "target": "Package",
-              "version": "[30.2.6, )"
+              "version": "[31.1.21, )"
             },
             "Syncfusion.SfInput.WPF": {
               "target": "Package",
-              "version": "[30.2.6, )"
+              "version": "[31.1.21, )"
             },
             "Syncfusion.Shared.Base": {
               "target": "Package",
-              "version": "[30.2.6, )"
+              "version": "[31.1.21, )"
             },
             "Syncfusion.Shared.WPF": {
               "target": "Package",
-              "version": "[30.2.6, )"
+              "version": "[31.1.21, )"
             },
             "Syncfusion.Tools.WPF": {
               "target": "Package",
-              "version": "[30.2.6, )"
+              "version": "[31.1.21, )"
             }
           },
           "imports": [
@@ -130,7 +131,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

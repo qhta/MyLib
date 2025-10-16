@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "UnicodeCompiler/1.0.0": {
+        "runtime": {
+          "UnicodeCompiler.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "UnicodeCompiler/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -62,20 +62,23 @@ public class LongTextColumn : GridTemplateColumn
   {
     if (sender is SfDataGrid dataGrid && e.RowIndex > 0 && e.RowIndex <= dataGrid.View.Records.Count)
     {
-      var longTextColumns = dataGrid.Columns.OfType<LongTextColumn>();
-      var maxRowHeight = 0.0;
-      foreach (var column in longTextColumns)
+      var longTextColumns = dataGrid.Columns.OfType<LongTextColumn>().ToArray();
+      if (longTextColumns.Length>0)
       {
-        //Debug.WriteLine($"Found long text column: {longTextColumn.MappingName}");
-        var longText = GetCellText(column, dataGrid.View.Records[e.RowIndex - 1].Data);
-        if (string.IsNullOrEmpty(longText))
-          return;
-        var cellHeight = column.EvaluateTextHeight(longText) + 12; // Add some padding;
-        if (cellHeight > maxRowHeight)
-          maxRowHeight = cellHeight;
+        var maxRowHeight = 0.0;
+        foreach (var column in longTextColumns)
+        {
+          //Debug.WriteLine($"Found long text column: {longTextColumn.MappingName}");
+          var longText = GetCellText(column, dataGrid.View.Records[e.RowIndex - 1].Data);
+          if (string.IsNullOrEmpty(longText))
+            return;
+          var cellHeight = column.EvaluateTextHeight(longText) + 12; // Add some padding;
+          if (cellHeight > maxRowHeight)
+            maxRowHeight = cellHeight;
+        }
+        e.Height = maxRowHeight;
+        e.Handled = true;
       }
-      e.Height = maxRowHeight;
-      e.Handled = true;
     }
   }
 

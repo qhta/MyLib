@@ -1,15 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "L9mfvD9Vv5U=",
+  "dgSpecHash": "ds8Ga7U6syA=",
   "success": true,
-  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj",
+  "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\4.6.0\\qhta.collections.4.6.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.2.0\\qhta.textutils.3.2.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.3.10.1\\qhta.typeutils.1.3.10.1.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.xml\\3.0.0\\qhta.xml.3.0.0.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\5.2.0\\qhta.collections.5.2.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.8.0\\qhta.textutils.3.8.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.4.0\\qhta.typeutils.1.4.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

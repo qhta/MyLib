@@ -7,11 +7,11 @@
     <UseWPF>true</UseWPF>
     <Description>A package of WPF Converters.</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>1.7</Version>
+    <Version>1.8</Version>
     <AutoRedirectBindings>true</AutoRedirectBindings>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <BaseOutputPath>..\..\bin</BaseOutputPath>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

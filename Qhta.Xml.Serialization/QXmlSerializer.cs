@@ -124,7 +124,7 @@ public partial class QXmlSerializer : IXmlSerializer
   public static XmlSerializationInfoMapper Mapper { get; protected set; } = null!;
 
   /// <summary>
-  /// Try get known type searched by the type name.
+  /// Try to get known type searched by the type name.
   /// </summary>
   /// <param name="typeName">Name of type to find.</param>
   /// <param name="type">Found type (or null if not found).</param>
@@ -147,20 +147,20 @@ public partial class QXmlSerializer : IXmlSerializer
   /// <param name="type">Type to search.</param>
   /// <param name="typeConverter">Found type converter (or null if not found).</param>
   /// <returns>True if type found, false otherwise.</returns>
-  public bool TryGetTypeConverter(Type type, [NotNullWhen(true)] out TypeConverter typeConverter)
+  public bool TryGetTypeConverter(Type type, [NotNullWhen(true)] out TypeConverter? typeConverter)
   {
     var qualifiedTypeName = Mapper.ToQualifiedName(type.FullName ?? "");
     if (Mapper.KnownTypes.TryGetValue(qualifiedTypeName, out var serializationTypeInfo))
     {
-      typeConverter = serializationTypeInfo?.TypeConverter!;
-      return typeConverter != null;
+      typeConverter = serializationTypeInfo.TypeConverter!;
+      return true;
     }
     typeConverter = null!;
     return false;
   }
 
   /// <summary>
-  /// Initializes the serializator.
+  /// Initializes the serializer.
   /// </summary>
   /// <param name="type"></param>
   /// <param name="extraTypes"></param>
@@ -171,7 +171,7 @@ public partial class QXmlSerializer : IXmlSerializer
   }
 
   /// <summary>
-  /// Initializes the serializator.
+  /// Initializes the serializer.
   /// </summary>
   /// <param name="type"></param>
   /// <param name="extraTypes"></param>
@@ -330,18 +330,15 @@ public partial class QXmlSerializer : IXmlSerializer
   public object? Deserialize(XmlReader xmlReader, object? instance)
   {
     var type = xmlReader.GetType();
-    if (type != null)
-    {
-      var prop = type.GetProperty("WhitespaceHandling", BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.Static);
-      if (prop!=null)
-        prop.SetValue(xmlReader , WhitespaceHandling.Significant);
-      prop = type.GetProperty("Normalization", BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.Static);
-      if (prop!=null)
-        prop.SetValue(xmlReader , true);
-      prop = type.GetProperty("XmlResolver", BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.Static);
-      if (prop!=null)
-        prop.SetValue(xmlReader , null);
-      }
+    var prop = type.GetProperty("WhitespaceHandling", BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.Static);
+    if (prop!=null)
+      prop.SetValue(xmlReader , WhitespaceHandling.Significant);
+    prop = type.GetProperty("Normalization", BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.Static);
+    if (prop!=null)
+      prop.SetValue(xmlReader , true);
+    prop = type.GetProperty("XmlResolver", BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.Static);
+    if (prop!=null)
+      prop.SetValue(xmlReader , null);
     return DeserializeObject(xmlReader, instance);
   }
 
@@ -351,7 +348,7 @@ public partial class QXmlSerializer : IXmlSerializer
   /// </summary>
   /// <param name="xmlReader">Source of serialized data.</param>
   /// <returns>Deserialized object.</returns>
-  public object? Deserialize(IXmlReader xmlReader) => Deserialize(xmlReader);
+  public object? Deserialize(IXmlReader xmlReader) => Deserialize(xmlReader, null);
 
   /// <summary>
   /// Deserialized and object from the IXmlReader.
@@ -359,7 +356,7 @@ public partial class QXmlSerializer : IXmlSerializer
   /// <param name="xmlReader">Source of serialized data.</param>
   /// <param name="instance">Optional existing object instance</param>
   /// <returns>Deserialized object.</returns>
-  public object? Deserialize(IXmlReader xmlReader, object? instance=null)
+  public object? Deserialize(IXmlReader xmlReader, object? instance)
   {
     return DeserializeObject(xmlReader, instance);
   }

@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>A package with value type converter class.</description>
-    <repository type="git" commit="73aa45527c1044cc6e98d259c08dbcc74544ecfa" />
+    <repository type="git" commit="e48235358c10fac7364c555d3e0d22ba900a5fb8" />
     <dependencies>
       <group targetFramework="net6.0">
         <dependency id="Qhta.Collections" version="4.0.0" exclude="Build,Analyzers" />

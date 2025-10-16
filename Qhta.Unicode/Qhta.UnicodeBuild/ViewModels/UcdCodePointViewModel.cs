@@ -202,27 +202,80 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
     set => ChangeViewModelProperty(nameof(BlockId), nameof(Model.BlockId), value?.Id, nameof(Block));
   }
 
-
   /// <summary>
-  /// Identifier of the script writing system associated with this Unicode code point, if applicable.
+  /// Identifier of the Area associated with this Unicode code point, if applicable.
   /// </summary>
-  public int? WritingSystemId
+  public int? AreaId
   {
-    get => Model.WritingSystemId; 
-    set => ChangeViewModelProperty(nameof(WritingSystemId), nameof(Model.WritingSystemId), value, nameof(WritingSystem));
+    get => Model.AreaId;
+    set => ChangeViewModelProperty(nameof(AreaId), nameof(Model.AreaId), value, nameof(Area));
   }
 
   /// <summary>
-  /// Exposes the script writing system as a view model.
+  /// Exposes the Area a view model.
   /// </summary>
-  public WritingSystemViewModel? WritingSystem
+  public WritingSystemViewModel? Area
   {
-    get => Model.WritingSystemId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.WritingSystemId);
-    set => ChangeViewModelProperty(nameof(WritingSystemId), nameof(Model.WritingSystemId), value?.Id, nameof(WritingSystem));
+    get => Model.AreaId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.AreaId);
+    set => ChangeViewModelProperty(nameof(AreaId), nameof(Model.AreaId), value?.Id, nameof(Area));
   }
 
   /// <summary>
-  /// Identifier of the symbol set writing system associated with this Unicode code point, if applicable.
+  /// Identifier of the Script associated with this Unicode code point, if applicable.
+  /// </summary>
+  public int? ScriptId
+  {
+    get => Model.ScriptId; 
+    set => ChangeViewModelProperty(nameof(ScriptId), nameof(Model.ScriptId), value, nameof(Script));
+  }
+
+  /// <summary>
+  /// Exposes the Script as a view model.
+  /// </summary>
+  public WritingSystemViewModel? Script
+  {
+    get => Model.ScriptId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.ScriptId);
+    set => ChangeViewModelProperty(nameof(ScriptId), nameof(Model.ScriptId), value?.Id, nameof(Script));
+  }
+
+  /// <summary>
+  /// Identifier of the language associated with this Unicode code point, if applicable.
+  /// </summary>
+  public int? LanguageId
+  {
+    get => Model.LanguageId;
+    set => ChangeViewModelProperty(nameof(LanguageId), nameof(Model.LanguageId), value, nameof(Language));
+  }
+
+  /// <summary>
+  /// Exposes the Language as a view model.
+  /// </summary>
+  public WritingSystemViewModel? Language
+  {
+    get => Model.LanguageId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.LanguageId);
+    set => ChangeViewModelProperty(nameof(LanguageId), nameof(Model.LanguageId), value?.Id, nameof(Language));
+  }
+
+  /// <summary>
+  /// Identifier of the Notation associated with this Unicode code point, if applicable.
+  /// </summary>
+  public int? NotationId
+  {
+    get => Model.NotationId;
+    set => ChangeViewModelProperty(nameof(NotationId), nameof(Model.NotationId), value, nameof(Notation));
+  }
+
+  /// <summary>
+  /// Exposes the Notation as a view model.
+  /// </summary>
+  public WritingSystemViewModel? Notation
+  {
+    get => Model.NotationId is null ? null : _ViewModels.Instance.WritingSystems.FindById((int)Model.NotationId);
+    set => ChangeViewModelProperty(nameof(NotationId), nameof(Model.NotationId), value?.Id, nameof(Notation));
+  }
+
+  /// <summary>
+  /// Identifier of the symbol set associated with this Unicode code point, if applicable.
   /// </summary>
   public int? SymbolSetId
   {
@@ -230,7 +283,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
     set => ChangeViewModelProperty(nameof(SymbolSetId), nameof(Model.SymbolSetId), value, nameof(SymbolSet));
   }
   /// <summary>
-  /// Exposes the symbol set writing system as a view model.
+  /// Exposes the symbol set as a view model.
   /// </summary>
   public WritingSystemViewModel? SymbolSet
   {
@@ -239,7 +292,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   }
 
   /// <summary>
-  /// Identifier of the subset writing system associated with this Unicode code point, if applicable.
+  /// Identifier of the subset associated with this Unicode code point, if applicable.
   /// </summary>
   public int? SubsetId
   {
@@ -247,7 +300,7 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
     set => ChangeViewModelProperty(nameof(SubsetId), nameof(Model.SubsetId), value, nameof(Subset));
   }
   /// <summary>
-  /// Exposes the subset writing system as a view model.
+  /// Exposes the subset as a view model.
   /// </summary>
   public WritingSystemViewModel? Subset
   {
@@ -262,7 +315,10 @@ public partial class UcdCodePointViewModel : EntityViewModel<UcdCodePoint>, IRow
   public IEnumerable<WritingSystemViewModel> GetWritingSystems()
   {
     List<WritingSystemViewModel> result = new List<WritingSystemViewModel>(); 
-    if (WritingSystem!=null) result.Add(WritingSystem);
+    if (Area!=null) result.Add(Area);
+    if (Script!=null) result.Add(Script);
+    if (Language!=null) result.Add(Language);
+    if (Notation!=null) result.Add(Notation);
     if (SymbolSet!=null) result.Add(SymbolSet);
     if (Subset!=null) result.Add(Subset);
     return result;

@@ -41,7 +41,7 @@ public class SerializationOptions
 
   /// <summary>
   ///   Whether only properties marked with DataMember attribute are to be serialized.
-  ///  XmlAttribute/XmlElement atributes are also recognized.
+  ///  XmlAttribute/XmlElement attributes are also recognized.
   /// </summary>
   public bool AcceptDataMembers { get; set; } = true;
 
@@ -132,6 +132,16 @@ public class SerializationOptions
   ///   Writes xmlns:xsd="http://www.w3.org/2001/XMLSchema" in the first element.
   /// </summary>
   public bool UseXsdScheme { get; set; } = true;
+
+  /// <summary>
+  /// Specifies whether the capacity of lists should be written as an attribute during serialization.
+  /// </summary>
+  public bool WriteListCapacity { get; set; } = false;
+
+  /// <summary>
+  /// Specifies whether an exception should be thrown when a circular reference is detected during serialization.
+  /// </summary>
+  public bool ThrowOnCircularReferences { get; set; } = false;
 
   /// <summary>
   /// Limit divides text to separate lines when Base64Binary converter was used.

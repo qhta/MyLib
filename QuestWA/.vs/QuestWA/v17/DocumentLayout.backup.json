@@ -1,0 +1,286 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|solutionrelative:questwa.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa.server\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|solutionrelative:questwa.server\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa.server\\questwa.server.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|solutionrelative:questwa.server\\questwa.server.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa.server\\questwa.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|solutionrelative:questwa.server\\questwa.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88D76EC0-A5B1-4219-898B-CFD25DDAC282}|QuestWA\\QuestWA.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{88D76EC0-A5B1-4219-898B-CFD25DDAC282}|QuestWA\\QuestWA.csproj|solutionrelative:questwa\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa.server\\controllers\\registercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|solutionrelative:questwa.server\\controllers\\registercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|solutionrelative:questwa.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa.server\\questwa.server.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|solutionrelative:questwa.server\\questwa.server.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa.server\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|solutionrelative:questwa.server\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa.server\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69C4AB8B-6539-42A0-BF18-F6E5CBE05EE4}|QuestWA.Server\\QuestWA.Server.csproj|solutionrelative:questwa.server\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88D76EC0-A5B1-4219-898B-CFD25DDAC282}|QuestWA\\QuestWA.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa\\pages\\register.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{88D76EC0-A5B1-4219-898B-CFD25DDAC282}|QuestWA\\QuestWA.csproj|solutionrelative:questwa\\pages\\register.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88D76EC0-A5B1-4219-898B-CFD25DDAC282}|QuestWA\\QuestWA.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{88D76EC0-A5B1-4219-898B-CFD25DDAC282}|QuestWA\\QuestWA.csproj|solutionrelative:questwa\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88D76EC0-A5B1-4219-898B-CFD25DDAC282}|QuestWA\\QuestWA.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{88D76EC0-A5B1-4219-898B-CFD25DDAC282}|QuestWA\\QuestWA.csproj|solutionrelative:questwa\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88D76EC0-A5B1-4219-898B-CFD25DDAC282}|QuestWA\\QuestWA.csproj|d:\\onedrive\\vs\\projects\\mylib\\questwa\\questwa\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88D76EC0-A5B1-4219-898B-CFD25DDAC282}|QuestWA\\QuestWA.csproj|solutionrelative:questwa\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 13,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{be4d7042-ba3f-11d2-840e-00c04f9902c1}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{605322a2-17ae-43f4-b60f-766556e46c87}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{8f327563-f26c-53af-8d20-e0592ddce838}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "QuestWA.Server",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\QuestWA.Server.csproj",
+              "RelativeDocumentMoniker": "QuestWA.Server\\QuestWA.Server.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\QuestWA.Server.csproj",
+              "RelativeToolTip": "QuestWA.Server\\QuestWA.Server.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-12T14:20:25.453Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "QuestWA.Server.csproj",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\QuestWA.Server.csproj",
+              "RelativeDocumentMoniker": "QuestWA.Server\\QuestWA.Server.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\QuestWA.Server.csproj",
+              "RelativeToolTip": "QuestWA.Server\\QuestWA.Server.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-12T12:08:24.642Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "QuestWA.Server\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\Properties\\launchSettings.json",
+              "RelativeToolTip": "QuestWA.Server\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-12T12:07:12.832Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "QuestWA.Server.http",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\QuestWA.Server.http",
+              "RelativeDocumentMoniker": "QuestWA.Server\\QuestWA.Server.http",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\QuestWA.Server.http",
+              "RelativeToolTip": "QuestWA.Server\\QuestWA.Server.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-09-12T11:51:05.271Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\appsettings.json",
+              "RelativeDocumentMoniker": "QuestWA.Server\\appsettings.json",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\appsettings.json",
+              "RelativeToolTip": "QuestWA.Server\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-12T11:22:13.653Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\Program.cs",
+              "RelativeDocumentMoniker": "QuestWA.Server\\Program.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\Program.cs",
+              "RelativeToolTip": "QuestWA.Server\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-12T11:21:41.572Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "QuestWA.Server\\Data\\AppDbContext.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "QuestWA.Server\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-12T11:21:04.977Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\Models\\User.cs",
+              "RelativeDocumentMoniker": "QuestWA.Server\\Models\\User.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\Models\\User.cs",
+              "RelativeToolTip": "QuestWA.Server\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-12T11:19:39.062Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RegisterController.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\Controllers\\RegisterController.cs",
+              "RelativeDocumentMoniker": "QuestWA.Server\\Controllers\\RegisterController.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA.Server\\Controllers\\RegisterController.cs",
+              "RelativeToolTip": "QuestWA.Server\\Controllers\\RegisterController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-12T11:17:15.967Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "QuestWA\\Layout\\MainLayout.razor",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "QuestWA\\Layout\\MainLayout.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-12T11:06:31.064Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "QuestWA\\Layout\\NavMenu.razor",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "QuestWA\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-12T11:06:17.694Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "App.razor",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA\\App.razor",
+              "RelativeDocumentMoniker": "QuestWA\\App.razor",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA\\App.razor",
+              "RelativeToolTip": "QuestWA\\App.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-12T11:02:07.485Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Register.razor",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA\\Pages\\Register.razor",
+              "RelativeDocumentMoniker": "QuestWA\\Pages\\Register.razor",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA\\Pages\\Register.razor",
+              "RelativeToolTip": "QuestWA\\Pages\\Register.razor",
+              "ViewState": "AgIAACMAAAAAAAAAAIAwwDMAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-12T11:01:03.156Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA\\Program.cs",
+              "RelativeDocumentMoniker": "QuestWA\\Program.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\QuestWA\\QuestWA\\Program.cs",
+              "RelativeToolTip": "QuestWA\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-12T10:55:52.84Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 251,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

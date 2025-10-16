@@ -106,6 +106,24 @@ namespace Qhta.UnicodeBuild.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Char name.
+        /// </summary>
+        public static string CharName {
+            get {
+                return ResourceManager.GetString("CharName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Character name generated with this application..
+        /// </summary>
+        public static string CharNameTooltip {
+            get {
+                return ResourceManager.GetString("CharNameTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Code.
         /// </summary>
         public static string CP {
@@ -210,24 +228,6 @@ namespace Qhta.UnicodeBuild.Resources {
         public static string NameTooltip {
             get {
                 return ResourceManager.GetString("NameTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name without writing system.
-        /// </summary>
-        public static string NameWithoutWS {
-            get {
-                return ResourceManager.GetString("NameWithoutWS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Description name without keyphrase of recognized writing system..
-        /// </summary>
-        public static string NameWithoutWSTooltip {
-            get {
-                return ResourceManager.GetString("NameWithoutWSTooltip", resourceCulture);
             }
         }
         

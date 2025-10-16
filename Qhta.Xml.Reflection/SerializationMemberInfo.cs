@@ -88,6 +88,17 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   public MemberInfo Member { [DebuggerStepThrough] get; }
 
   /// <summary>
+  /// Specifies whether the member is part of composite key (multiple members forming a key).
+  /// </summary>
+  public bool IsCompositeKey { [DebuggerStepThrough] get; set; }
+
+  /// <summary>
+  ///   More members if it is composite key.
+  /// </summary>
+  [XmlIgnore]
+  public PropertyInfo[]? MoreMembers { [DebuggerStepThrough] get; set; }
+
+  /// <summary>
   ///   XSD standard data type for simple value text conversion.
   /// </summary>
   [XmlAttribute]
@@ -134,6 +145,12 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   public bool IsReference { [DebuggerStepThrough] get; set; }
 
   /// <summary>
+  ///   Specifies Id property of referenced type.
+  /// </summary>
+  [XmlIgnore]
+  public SerializationMemberInfo? IdProperty { [DebuggerStepThrough] get; set; }
+
+  /// <summary>
   ///   Specifies a default value (for simple types only) which is not serialized.
   /// </summary>
   [XmlAttribute]
@@ -164,7 +181,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   public MethodInfo? CheckMethod { [DebuggerStepThrough] get; set; }
 
   /// <summary>
-  /// Specifies whether this instance has check method.
+  /// Specifies whether this instance has a check method.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
@@ -174,11 +191,11 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   /// Gets a value indicating whether this instance has known subtypes.
   /// </summary>
   /// <value>
-  ///   <c>true</c> if this instance is polymorfic; otherwise, <c>false</c>.
+  ///   <c>true</c> if this instance is polymorphic; otherwise, <c>false</c>.
   /// </value>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsPolymorfic => GetKnownSubtypes() != null;
+  public bool IsPolymorphic => GetKnownSubtypes() != null;
 
   /// <summary>
   ///   If a valueType can be substituted by subclasses then these classes are listed here.
@@ -252,7 +269,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   public string? ClrNamespace { [DebuggerStepThrough] get; private set; }
 
   /// <summary>
-  /// Gets the the qualified name (XmlName, XmlNamespace) of the element.
+  /// Gets the qualified name (XmlName, XmlNamespace) of the element.
   /// </summary>
   [XmlIgnore] public QualifiedName QualifiedName => new(XmlName, ClrNamespace);
 
@@ -267,7 +284,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
     {
       var getMethod = Property.GetGetMethod();
       if (getMethod != null)
-        return getMethod.Invoke(obj, new object[0]);
+        return getMethod.Invoke(obj, []);
     }
     else
     if (Field != null)
@@ -309,7 +326,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   }
 
   /// <summary>
-  /// Converts to string in format "name(membername)"
+  /// Converts to string in format 'name(member-name)'
   /// </summary>
   /// <returns>
   /// A <see cref="System.String" /> that represents this instance.

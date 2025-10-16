@@ -89,7 +89,7 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsCollection => ContentInfo is ContentItemInfo && !IsDictionary;
+  public bool IsCollection => ContentInfo != null && !IsDictionary;
 
   /// <summary>
   ///   Specifies whether the type is serialized as a dictionary but not as a collection.
@@ -102,6 +102,11 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   ///   Known property to accept content of XmlElement.
   /// </summary>
   public SerializationMemberInfo? ContentProperty { [DebuggerStepThrough] get; set; }
+
+  /// <summary>
+  ///   Property that represents the unique identifier of the element.
+  /// </summary>
+  public SerializationMemberInfo? IdProperty { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Specifies whether the type instance must be serialized as an object, not a simple collection.
@@ -180,7 +185,7 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   }
 
   /// <summary>
-  /// Gets the the qualified name (XmlName, XmlNamespace) of the element
+  /// Gets the qualified name (XmlName, XmlNamespace) of the element
   /// </summary>
   public QualifiedName QualifiedName => new(XmlName, XmlNamespace);
 }

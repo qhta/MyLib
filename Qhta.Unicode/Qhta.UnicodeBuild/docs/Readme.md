@@ -46,7 +46,7 @@ The database contains of many tables, but only a few of them are used in the app
 
 The UcdCodePoints table contains code point definitions from the UCD file UnicodeData.txt. 
 Several modifications were made to the original data:
-- The CodePoint identifier is stored as a number (Long Integer) field named Ord. 
+- The CodePoint identifier is stored as a number (Long Integer) field named ID. 
 It is easier to present code points in the code-value ascending order then using hexadecimal code.
 - The Glyph field was added to store the character itself. It is useful for visualization of the character. 
 Combined characters are expressed as a sequence of dashed circle and this combining character.

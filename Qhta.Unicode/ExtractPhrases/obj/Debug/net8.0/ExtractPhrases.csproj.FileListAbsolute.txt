@@ -1,0 +1,15 @@
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\bin\Debug\net8.0\ExtractPhrases.exe
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\bin\Debug\net8.0\ExtractPhrases.deps.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\bin\Debug\net8.0\ExtractPhrases.runtimeconfig.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\bin\Debug\net8.0\ExtractPhrases.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\bin\Debug\net8.0\ExtractPhrases.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\obj\Debug\net8.0\ExtractPhrases.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\obj\Debug\net8.0\ExtractPhrases.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\obj\Debug\net8.0\ExtractPhrases.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\obj\Debug\net8.0\ExtractPhrases.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\obj\Debug\net8.0\ExtractPhrases.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\obj\Debug\net8.0\ExtractPhrases.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\obj\Debug\net8.0\refint\ExtractPhrases.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\obj\Debug\net8.0\ExtractPhrases.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\obj\Debug\net8.0\ExtractPhrases.genruntimeconfig.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Unicode\ExtractPhrases\obj\Debug\net8.0\ref\ExtractPhrases.dll

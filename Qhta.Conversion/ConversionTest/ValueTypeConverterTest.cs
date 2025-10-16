@@ -156,7 +156,7 @@ namespace ConversionTest
       //StringAssert.AreEqualIgnoringCase(str1, str0);
       Assert.That(str1, Is.EqualTo(str0), $"Expected string was \"{str0}\" but \"{str1}\" produced" + ErrorMsgTail(converter, data.XsdType));
       var value = converter.ConvertFrom(str1);
-      Assert.IsNotNull(value, $"Value expected but null produced" + ErrorMsgTail(converter, data.XsdType));
+      Assert.That(value is not null, $"Value expected but null produced" + ErrorMsgTail(converter, data.XsdType));
       if (expectedType != null && value != null)
       {
         if (expectedType == typeof(Array))

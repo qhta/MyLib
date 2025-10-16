@@ -65,6 +65,8 @@ namespace Qhta.WPF.Converters
 
     private string DoubleToString(decimal d, object? parameter, System.Globalization.CultureInfo culture)
     {
+      if (parameter is string format && format.Length > 0)
+        return (d.ToString(format, culture));
       return (d.ToString(culture));
     }
   }

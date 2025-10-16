@@ -1,21 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net8.0</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
     <OutputPath>D:\Dane\VS\Projects\MyLib\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <Version>1.0.1</Version>
+    <Version>2.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Some data view models: DataListViewModel, DataTreeViewModel, DataSetViewModel.</Description>
     <Authors>Yarreck Qhta</Authors>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Qhta.DispatchedObjects" Version="1.0.1" />
-    <PackageReference Include="Qhta.MVVM" Version="1.0.1" />
+    <None Include="docs\readme.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Qhta.DispatchedObjects" Version="2.3.0" />
+    <PackageReference Include="Qhta.MVVM" Version="4.15.0" />
   </ItemGroup>
 
 </Project>

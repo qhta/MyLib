@@ -1,5 +1,8 @@
 is_global = true
 build_property.RootNamespace = Qhta.Xml
-build_property.ProjectDir = D:\VS\Projects\MyLib\Qhta.Xml\
+build_property.ProjectDir = D:\OneDrive\VS\Projects\MyLib\Qhta.Xml\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 

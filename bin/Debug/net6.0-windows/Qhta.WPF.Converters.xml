@@ -76,7 +76,7 @@
         </member>
         <member name="M:Qhta.WPF.Converters.ArithmeticConverter.TryGetValue(System.Object,System.Double@)">
             <summary>
-            A method to convert an object parameter to double.
+            A method to convert an object? parameter to double.
             </summary>
             <param name="parameter"></param>
             <param name="value"></param>
@@ -85,7 +85,7 @@
         <member name="T:Qhta.WPF.Converters.BitTestConverter">
             <summary>
             One way converter to convert a specific bitset to bool.
-            It return true value when a bitset value equals int mask,
+            It returns true value when a bitset value equals int mask,
             otherwise it returns false.
             </summary>
         </member>
@@ -145,7 +145,7 @@
         <member name="M:Qhta.WPF.Converters.BitTestConverter.ConvertArguments(System.Object,System.Object,System.Int32@,System.Int32@)">
             <summary>
             A method to convert an object to int value.
-            The object value can be an enum or any integer type.
+            The object? value can be an enum or any integer type.
             </summary>
             <param name="value"></param>
             <param name="parameter"></param>
@@ -163,7 +163,7 @@
         </member>
         <member name="M:Qhta.WPF.Converters.BitTestConverter.ConvertParameterArgument(System.Object,System.Collections.Generic.Dictionary{System.String,System.Int32},System.Int32@)">
             <summary>
-            Helper method to convert an object parameter to int mask
+            Helper method to convert an object? parameter to int mask
             eventually using string-int dictionary.
             </summary>
             <param name="parameter"></param>
@@ -172,17 +172,47 @@
             <returns></returns>
             <exception cref="T:System.InvalidOperationException"></exception>
         </member>
+        <member name="T:Qhta.WPF.Converters.BoolToTextWrappingConverter">
+            <summary>
+            One way value converter bool to TextWrapping (Wrap, NoWrap).
+            Parameter can be a string consisting of two TextWrapping values divided by comma.
+            First value is assigned when true, second when false.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.BoolToTextWrappingConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts true to Wrap, false to NoWrap.
+            Parameter can be a string consisting of two TextWrapping values divided by comma.
+            First value is assigned when true, second when false.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.BoolToTextWrappingConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented convert back method.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Qhta.WPF.Converters.BoolToVisibilityConverter">
             <summary>
             One way value converter bool to Visibility (Visible, Collapsed).
-            Parameter can be a string consisting of two Visiblity values divided by comma.
+            Parameter can be a string consisting of two Visibility values divided by comma.
             First value is assigned when true, second when false.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Converters.BoolToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <summary>
             Converts true to Visible, false to Collapsed.
-            Parameter can be a string consisting of two Visiblity values divided by comma.
+            Parameter can be a string consisting of two Visibility values divided by comma.
             First value is assigned when true, second when false.
             </summary>
             <param name="value"></param>
@@ -429,6 +459,42 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="T:Qhta.WPF.Converters.EnumToResourceConverter">
+            <summary>
+            Value converter that retrieves a localized resource string for an enum value.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.EnumToResourceConverter.ResourceType">
+            <summary>
+            Resource type that contains the localized strings for the enum values.
+            </summary>
+        </member>
+        <member name="P:Qhta.WPF.Converters.EnumToResourceConverter.Suffix">
+            <summary>
+            Suffix to append to the enum value name when looking up the resource key.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.EnumToResourceConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts an enum value to its corresponding localized resource string.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.EnumToResourceConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Unimplemented method for converting back from the target type to the source type.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Qhta.WPF.Converters.EnumValue">
             <summary>
             An object that replaces the enumeration value for displaying national names in selection lists.
@@ -553,6 +619,35 @@
             <summary>
             Overlay added to Image.
             </summary>
+        </member>
+        <member name="T:Qhta.WPF.Converters.ImageToGrayConverter">
+            <summary>
+            Converts an image file path to a grayscale image representation.
+            </summary>
+            <remarks>This converter takes a file path to an image as input and returns a grayscale version of the image.
+            The input value must be a string representing the image file path. If the input is not a valid string or the file
+            path is invalid, the original value is returned unchanged.</remarks>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ImageToGrayConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts an image file path to a grayscale image.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ImageToGrayConverter.ConvertToGrayscaleWithAlpha(System.Windows.Media.Imaging.BitmapSource)">
+            <summary>
+            Converts a BitmapSource to grayscale while preserving the alpha channel.
+            </summary>
+        </member>
+        <member name="M:Qhta.WPF.Converters.ImageToGrayConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Not implemented - conversion back is not supported.
+            </summary>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="T:Qhta.WPF.Converters.IndexingConverter">
             <summary>
@@ -734,14 +829,14 @@
         <member name="T:Qhta.WPF.Converters.NotNullToVisibilityConverter">
             <summary>
             One way converter that checks if the value is not null and converts it to Visibility (Visible, Collapsed).
-            Parameter can be a string consisting of two Visiblity values divided by comma.
+            Parameter can be a string consisting of two Visibility values divided by comma.
             First value is assigned when true, second when false.
             </summary>
         </member>
         <member name="M:Qhta.WPF.Converters.NotNullToVisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <summary>
             Converts NotNull to Visible, Null to Collapsed.
-            Parameter can be a string consisting of two Visiblity values divided by comma.
+            Parameter can be a string consisting of two Visibility values divided by comma.
             First value is assigned when true, second when false.
             </summary>
             <param name="value"></param>
@@ -963,7 +1058,7 @@
         </member>
         <member name="M:Qhta.WPF.Converters.StringConverter.TryGetValue(System.Object,System.String@)">
             <summary>
-            A method to convert an object parameter to string.
+            A method to convert an object? parameter to string.
             </summary>
             <param name="parameter"></param>
             <param name="value"></param>

@@ -544,6 +544,16 @@
               Applied member info.
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsCompositeKey">
+            <summary>
+            Specifies whether the member is part of composite key (multiple members forming a key).
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.MoreMembers">
+            <summary>
+              More members if it is composite key.
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.DataType">
             <summary>
               XSD standard data type for simple value text conversion.
@@ -575,6 +585,11 @@
               Specifies whether a member is serialized as a reference to an object.
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IdProperty">
+            <summary>
+              Specifies Id property of referenced type.
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.DefaultValue">
             <summary>
               Specifies a default value (for simple types only) which is not serialized.
@@ -603,15 +618,15 @@
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.HasCheckMethod">
             <summary>
-            Specifies whether this instance has check method.
+            Specifies whether this instance has a check method.
             </summary>
         </member>
-        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsPolymorfic">
+        <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.IsPolymorphic">
             <summary>
             Gets a value indicating whether this instance has known subtypes.
             </summary>
             <value>
-              <c>true</c> if this instance is polymorfic; otherwise, <c>false</c>.
+              <c>true</c> if this instance is polymorphic; otherwise, <c>false</c>.
             </value>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.KnownSubtypes">
@@ -666,7 +681,7 @@
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationMemberInfo.QualifiedName">
             <summary>
-            Gets the the qualified name (XmlName, XmlNamespace) of the element.
+            Gets the qualified name (XmlName, XmlNamespace) of the element.
             </summary>
         </member>
         <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.GetValue(System.Object)">
@@ -697,7 +712,7 @@
         </member>
         <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.ToString">
             <summary>
-            Converts to string in format "name(membername)"
+            Converts to string in format 'name(member-name)'
             </summary>
             <returns>
             A <see cref="T:System.String" /> that represents this instance.
@@ -790,6 +805,11 @@
               Known property to accept content of XmlElement.
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IdProperty">
+            <summary>
+              Property that represents the unique identifier of the element.
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsObject">
             <summary>
               Specifies whether the type instance must be serialized as an object, not a simple collection.
@@ -848,7 +868,7 @@
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.QualifiedName">
             <summary>
-            Gets the the qualified name (XmlName, XmlNamespace) of the element
+            Gets the qualified name (XmlName, XmlNamespace) of the element
             </summary>
         </member>
         <member name="T:Qhta.Xml.Reflection.TypeInfoCollection`1">

@@ -125,7 +125,24 @@ public partial class QXDocReader : IXmlReader, IDisposable
         localName = xElement.Name.LocalName;
         var uri = xElement.Name.NamespaceName;
         if (!String.IsNullOrEmpty(uri))
+        {
+          if (uri.StartsWith("System."))
+            return new XmlQualifiedTagName(localName, "System");
           return new XmlQualifiedTagName(localName, uri);
+        }
+        return new XmlQualifiedTagName(localName);
+      }
+      else
+      if (CurrentNode is XEndElement xEndElement)
+      {
+        localName = xEndElement.Name.LocalName;
+        var uri = xEndElement.Name.NamespaceName;
+        if (!String.IsNullOrEmpty(uri))
+        {
+          if (uri.StartsWith("System."))
+            return new XmlQualifiedTagName(localName, "System");
+          return new XmlQualifiedTagName(localName, uri);
+        }
         return new XmlQualifiedTagName(localName);
       }
       else
@@ -592,6 +609,15 @@ public partial class QXDocReader : IXmlReader, IDisposable
       throw new InvalidOperationException($"Can't ReadString from empty node");
   }
 
+  /// <summary>
+  ///  Concatenates values of textual nodes of the current content, ignoring comments and PIs, expanding entity references,
+  ///  and converts the content to the requested type. Stops at start tags and end tags.
+  /// </summary>
+  public object ReadContentAs(Type returnType)
+  {
+    throw new NotImplementedException();
+  }
+
   ///// <summary>
   ///// Wrapper for ReadContentAs operation.
   ///// Reads the content as an object of the type specified.
@@ -959,7 +985,7 @@ public partial class QXDocReader : IXmlReader, IDisposable
   {
     if (CurrentNode is XElement xElement && xElement.NodeType == XmlNodeType.Element)
     {
-      if (xElement.Name.LocalName == tag.Name && (xElement.BaseUri == tag.Namespace || xElement.BaseUri==""))
+      if (xElement.Name.LocalName == tag.Name && (xElement.BaseUri == tag.Namespace || xElement.BaseUri == ""))
       {
         var aNode = xElement.DescendantNodes().FirstOrDefault();
         if (aNode != null)
@@ -1043,7 +1069,7 @@ public partial class QXDocReader : IXmlReader, IDisposable
   {
     if (CurrentNode is XEndElement xElement)
     {
-      if (xElement.Name.LocalName == tag.Name && xElement.Namespace == tag.Namespace)
+      if (xElement.Name.LocalName == tag.Name && GetNamespace(xElement) == tag.Namespace)
         CurrentNode = NextNode(xElement);
       else
         throw new XmlInvalidOperationException($"EndElement of \"{tag}\" expected but {xElement.Name} found", this);
@@ -1055,6 +1081,13 @@ public partial class QXDocReader : IXmlReader, IDisposable
   }
   #endregion
 
+  private string GetNamespace(XEndElement xElement)
+  {
+    var result = xElement.Namespace;
+    if (result.StartsWith("System."))
+      return "System";
+    return result;
+  }
   #region closing methods
   /// <summary>
   /// Wrapper for Close operation.
