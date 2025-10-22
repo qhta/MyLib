@@ -10,7 +10,8 @@
       "Qhta.Conversion/2.2": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
-          "Qhta.Xml": "3.2.0"
+          "Qhta.Collections": "5.2.0",
+          "Qhta.TypeUtils": "1.5.0"
         },
         "runtime": {
           "Qhta.Conversion.dll": {}
@@ -22,9 +23,17 @@
           "Microsoft.NETCore.Platforms": "1.1.0"
         }
       },
+      "NullableAttributes/1.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/NullableAttributes.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Qhta.Collections/5.2.0": {
         "dependencies": {
-          "Qhta.TextUtils": "3.8.0"
+          "Qhta.TextUtils": "3.6.0"
         },
         "runtime": {
           "lib/netstandard2.0/Qhta.Collections.dll": {
@@ -33,35 +42,23 @@
           }
         }
       },
-      "Qhta.TextUtils/3.8.0": {
+      "Qhta.TextUtils/3.6.0": {
         "runtime": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
-            "assemblyVersion": "3.8.0.0",
-            "fileVersion": "3.8.0.0"
+            "assemblyVersion": "3.6.0.0",
+            "fileVersion": "3.6.0.0"
           }
         }
       },
-      "Qhta.TypeUtils/1.4.0": {
+      "Qhta.TypeUtils/1.5.0": {
         "dependencies": {
+          "NullableAttributes": "1.0.0",
           "Qhta.Collections": "5.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Qhta.TypeUtils.dll": {
-            "assemblyVersion": "1.4.0.0",
-            "fileVersion": "1.4.0.0"
-          }
-        }
-      },
-      "Qhta.Xml/3.2.0": {
-        "dependencies": {
-          "Qhta.Collections": "5.2.0",
-          "Qhta.TextUtils": "3.8.0",
-          "Qhta.TypeUtils": "1.4.0"
-        },
-        "runtime": {
-          "Qhta.Xml.dll": {
-            "assemblyVersion": "3.2.0.0",
-            "fileVersion": "3.2.0.0"
+            "assemblyVersion": "1.5.0.0",
+            "fileVersion": "1.5.0.0"
           }
         }
       }
@@ -87,6 +84,13 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
+    "NullableAttributes/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9PimadS9SAiqojkGRK57tleoC4dkHjPB8/2nA6dwHl+e5beUkLcTRx6f/8qMBm81Qvsna9a5EEa9lVGBdKh19Q==",
+      "path": "nullableattributes/1.0.0",
+      "hashPath": "nullableattributes.1.0.0.nupkg.sha512"
+    },
     "Qhta.Collections/5.2.0": {
       "type": "package",
       "serviceable": true,
@@ -94,24 +98,19 @@
       "path": "qhta.collections/5.2.0",
       "hashPath": "qhta.collections.5.2.0.nupkg.sha512"
     },
-    "Qhta.TextUtils/3.8.0": {
+    "Qhta.TextUtils/3.6.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BW8TkXbdrXOV5XtkFmMs3pzpEhzRHrEIsKGNWXUFqD/vY4yjxjsthUIK2Ls4GW66bjUwl0PbdxIO9v4l90Lrrw==",
-      "path": "qhta.textutils/3.8.0",
-      "hashPath": "qhta.textutils.3.8.0.nupkg.sha512"
+      "sha512": "sha512-daPAXKOGjo+elnVoNALW/0oZsJTZDiDNKnF7gveABX7+PJApzVUYy20kvDobYFA0FMBlZ0xkKWlD88Q94Jl9rQ==",
+      "path": "qhta.textutils/3.6.0",
+      "hashPath": "qhta.textutils.3.6.0.nupkg.sha512"
     },
-    "Qhta.TypeUtils/1.4.0": {
+    "Qhta.TypeUtils/1.5.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-5bRrb24q9Olnb4nOz/rtl0f7cNIiVd7jmoCYbNW5veCE3Qw1iihzuagVQYi2UOLALh4S3LZqzt+zjV8TOuB5XQ==",
-      "path": "qhta.typeutils/1.4.0",
-      "hashPath": "qhta.typeutils.1.4.0.nupkg.sha512"
-    },
-    "Qhta.Xml/3.2.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
+      "sha512": "sha512-ETr1BWM1EJGDx8v+fLriEIJT2pSRDGDU0sEF1ZU9bph7rS2ipx+SNrwwB9hDzU+9wP8JzyXY5vS1cKhgFjjCrQ==",
+      "path": "qhta.typeutils/1.5.0",
+      "hashPath": "qhta.typeutils.1.5.0.nupkg.sha512"
     }
   }
 }

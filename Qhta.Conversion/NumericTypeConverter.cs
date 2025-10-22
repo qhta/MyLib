@@ -9,7 +9,7 @@
 public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
 {
   private string? _Format;
-  private XsdSimpleType? _XsdType;
+  private SimpleType? _SimpleType;
 
   /// <summary>
   /// Additional formatting property.
@@ -49,59 +49,59 @@ public class NumericTypeConverter : BaseTypeConverter, INumberRestrictions
   /// <summary>
   /// Overrides the base XsdType property such that setting a XsdType also sets ExpectedType.
   /// </summary>
-  public override XsdSimpleType? XsdType
+  public override SimpleType? SimpleType
   {
-    get => _XsdType;
+    get => _SimpleType;
     set
     {
       if (ExpectedType == null && value != null)
       {
         switch (value)
         {
-          case XsdSimpleType.Byte:
+          case Xml.SimpleType.Byte:
             ExpectedType = typeof(SByte);
             break;
-          case XsdSimpleType.UnsignedByte:
+          case Xml.SimpleType.UnsignedByte:
             ExpectedType = typeof(Byte);
             break;
-          case XsdSimpleType.Short:
+          case Xml.SimpleType.Short:
             ExpectedType = typeof(Int16);
             break;
-          case XsdSimpleType.UnsignedShort:
+          case Xml.SimpleType.UnsignedShort:
             ExpectedType = typeof(UInt16);
             break;
-          case XsdSimpleType.Int:
+          case Xml.SimpleType.Int:
             ExpectedType = typeof(Int32);
             break;
-          case XsdSimpleType.UnsignedInt:
+          case Xml.SimpleType.UnsignedInt:
             ExpectedType = typeof(UInt32);
             break;
-          case XsdSimpleType.Long:
+          case Xml.SimpleType.Long:
             ExpectedType = typeof(Int64);
             break;
-          case XsdSimpleType.UnsignedLong:
+          case Xml.SimpleType.UnsignedLong:
             ExpectedType = typeof(UInt64);
             break;
-          case XsdSimpleType.Decimal:
+          case Xml.SimpleType.Decimal:
             ExpectedType = typeof(Decimal);
             break;
-          case XsdSimpleType.Float:
+          case Xml.SimpleType.Float:
             ExpectedType = typeof(Single);
             break;
-          case XsdSimpleType.Double:
+          case Xml.SimpleType.Double:
             ExpectedType = typeof(Double);
             break;
-          case XsdSimpleType.Integer:
-          case XsdSimpleType.PositiveInteger:
-          case XsdSimpleType.NegativeInteger:
-          case XsdSimpleType.NonNegativeInteger:
-          case XsdSimpleType.NonPositiveInteger:
+          case Xml.SimpleType.Integer:
+          case Xml.SimpleType.PositiveInteger:
+          case Xml.SimpleType.NegativeInteger:
+          case Xml.SimpleType.NonNegativeInteger:
+          case Xml.SimpleType.NonPositiveInteger:
             ExpectedType = typeof(String);
             break;
           default:
             return;
         }
-        _XsdType = value;
+        _SimpleType = value;
       }
     }
   }

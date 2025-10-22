@@ -2,42 +2,6 @@
   "version": 3,
   "targets": {
     "net8.0-windows7.0": {
-      "Qhta.MVVM/3.3.0": {
-        "type": "package",
-        "dependencies": {
-          "Qhta.ObservableObjects": "2.7.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/Qhta.MVVM.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/Qhta.MVVM.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Qhta.WPF.Behaviors/1.4.0": {
-        "type": "package",
-        "dependencies": {
-          "Qhta.MVVM": "3.3.0",
-          "Qhta.ObservableObjects": "2.6.1"
-        },
-        "compile": {
-          "lib/net6.0-windows7.0/Qhta.WPF.Behaviors.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0-windows7.0/Qhta.WPF.Behaviors.dll": {
-            "related": ".xml"
-          }
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App.WPF"
-        ]
-      },
       "System.Collections.Immutable/9.0.7": {
         "type": "package",
         "compile": {
@@ -70,32 +34,6 @@
     }
   },
   "libraries": {
-    "Qhta.MVVM/3.3.0": {
-      "sha512": "CWYpmlS9gWxsPV/Z8LA/Bo7+9cae9Qu+zzEwH0U/JjH2llPEqP4Yraa6gNKfaDXp2fKEe/k8z4vO1KWZU5eAIQ==",
-      "type": "package",
-      "path": "qhta.mvvm/3.3.0",
-      "files": [
-        ".nupkg.metadata",
-        "lib/netstandard2.0/Qhta.MVVM.dll",
-        "lib/netstandard2.0/Qhta.MVVM.xml",
-        "qhta.mvvm.3.3.0.nupkg.sha512",
-        "qhta.mvvm.nuspec",
-        "readme.md"
-      ]
-    },
-    "Qhta.WPF.Behaviors/1.4.0": {
-      "sha512": "U3C3RAhUgTEkX0Z3OKv8pP2vrZKN/VL/7EfyY7BmfJl4F4D+znUk7EI33razxClQSjrugcTYVzy0uA9uDx5g2Q==",
-      "type": "package",
-      "path": "qhta.wpf.behaviors/1.4.0",
-      "files": [
-        ".nupkg.metadata",
-        "lib/net6.0-windows7.0/Qhta.WPF.Behaviors.dll",
-        "lib/net6.0-windows7.0/Qhta.WPF.Behaviors.xml",
-        "qhta.wpf.behaviors.1.4.0.nupkg.sha512",
-        "qhta.wpf.behaviors.nuspec",
-        "readme.md"
-      ]
-    },
     "System.Collections.Immutable/9.0.7": {
       "sha512": "0WeYGUWsWXA0e2CZU+TelZR+tFu3Fg1FwS2GikIrrFEFRKLBS2MyFNlJD3h1G94S6gnl4lVijF7JY3vAmTKVjw==",
       "type": "package",
@@ -132,14 +70,13 @@
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
-      "Qhta.ObservableObjects >= 4.3.0",
-      "Qhta.WPF.Behaviors >= 1.4.0"
+      "Qhta.ObservableObjects >= 4.3.0"
     ]
   },
   "packageFolders": {
     "C:\\Users\\qhta1\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.2.4\\ToolboxNuGetPackages": {}
+    "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\31.1.17\\ToolboxNuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -152,7 +89,7 @@
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.2.4\\ToolboxNuGetPackages"
+        "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\31.1.17\\ToolboxNuGetPackages"
       ],
       "configFilePaths": [
         "D:\\OneDrive\\VS\\Projects\\NuGet.Config",
@@ -165,8 +102,9 @@
         "net8.0-windows"
       ],
       "sources": {
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
-        "d:\\VS\\Projects\\mylib\\bin": {},
+        "D:\\OneDrive\\VS\\Projects\\MyLib\\bin\\Debug": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -194,12 +132,6 @@
     "frameworks": {
       "net8.0-windows7.0": {
         "targetAlias": "net8.0-windows",
-        "dependencies": {
-          "Qhta.WPF.Behaviors": {
-            "target": "Package",
-            "version": "[1.4.0, )"
-          }
-        },
         "imports": [
           "net461",
           "net462",
@@ -219,7 +151,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

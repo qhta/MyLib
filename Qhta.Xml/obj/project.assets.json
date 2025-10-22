@@ -54,22 +54,6 @@
             "related": ".xml"
           }
         }
-      },
-      "Qhta.TypeUtils/1.4.0": {
-        "type": "package",
-        "dependencies": {
-          "Qhta.Collections": "2.0.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/Qhta.TypeUtils.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/Qhta.TypeUtils.dll": {
-            "related": ".xml"
-          }
-        }
       }
     },
     "net6.0": {
@@ -98,22 +82,6 @@
         },
         "runtime": {
           "lib/net6.0/Qhta.TextUtils.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Qhta.TypeUtils/1.4.0": {
-        "type": "package",
-        "dependencies": {
-          "Qhta.Collections": "2.0.0"
-        },
-        "compile": {
-          "lib/net6.0/Qhta.TypeUtils.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Qhta.TypeUtils.dll": {
             "related": ".xml"
           }
         }
@@ -148,22 +116,6 @@
             "related": ".xml"
           }
         }
-      },
-      "Qhta.TypeUtils/1.4.0": {
-        "type": "package",
-        "dependencies": {
-          "Qhta.Collections": "2.0.0"
-        },
-        "compile": {
-          "lib/net7.0/Qhta.TypeUtils.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net7.0/Qhta.TypeUtils.dll": {
-            "related": ".xml"
-          }
-        }
       }
     },
     "net8.0": {
@@ -192,22 +144,6 @@
         },
         "runtime": {
           "lib/net8.0/Qhta.TextUtils.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Qhta.TypeUtils/1.4.0": {
-        "type": "package",
-        "dependencies": {
-          "Qhta.Collections": "2.0.0"
-        },
-        "compile": {
-          "lib/net8.0/Qhta.TypeUtils.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Qhta.TypeUtils.dll": {
             "related": ".xml"
           }
         }
@@ -400,48 +336,25 @@
         "qhta.textutils.nuspec",
         "readme.md"
       ]
-    },
-    "Qhta.TypeUtils/1.4.0": {
-      "sha512": "5bRrb24q9Olnb4nOz/rtl0f7cNIiVd7jmoCYbNW5veCE3Qw1iihzuagVQYi2UOLALh4S3LZqzt+zjV8TOuB5XQ==",
-      "type": "package",
-      "path": "qhta.typeutils/1.4.0",
-      "files": [
-        ".nupkg.metadata",
-        "lib/net6.0/Qhta.TypeUtils.dll",
-        "lib/net6.0/Qhta.TypeUtils.xml",
-        "lib/net7.0/Qhta.TypeUtils.dll",
-        "lib/net7.0/Qhta.TypeUtils.xml",
-        "lib/net8.0/Qhta.TypeUtils.dll",
-        "lib/net8.0/Qhta.TypeUtils.xml",
-        "lib/netstandard2.0/Qhta.TypeUtils.dll",
-        "lib/netstandard2.0/Qhta.TypeUtils.xml",
-        "qhta.typeutils.1.4.0.nupkg.sha512",
-        "qhta.typeutils.nuspec",
-        "readme.md"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
       "Qhta.Collections >= 5.2.0",
-      "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.4.0"
+      "Qhta.TextUtils >= 3.8.0"
     ],
     "net6.0": [
       "Qhta.Collections >= 5.2.0",
-      "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.4.0"
+      "Qhta.TextUtils >= 3.8.0"
     ],
     "net7.0": [
       "Qhta.Collections >= 5.2.0",
-      "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.4.0"
+      "Qhta.TextUtils >= 3.8.0"
     ],
     "net8.0": [
       "Qhta.Collections >= 5.2.0",
-      "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.4.0"
+      "Qhta.TextUtils >= 3.8.0"
     ]
   },
   "packageFolders": {
@@ -523,10 +436,6 @@
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.8.0, )"
-          },
-          "Qhta.TypeUtils": {
-            "target": "Package",
-            "version": "[1.4.0, )"
           }
         },
         "imports": [
@@ -557,10 +466,6 @@
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.8.0, )"
-          },
-          "Qhta.TypeUtils": {
-            "target": "Package",
-            "version": "[1.4.0, )"
           }
         },
         "imports": [
@@ -591,10 +496,6 @@
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.8.0, )"
-          },
-          "Qhta.TypeUtils": {
-            "target": "Package",
-            "version": "[1.4.0, )"
           }
         },
         "imports": [
@@ -631,10 +532,6 @@
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.8.0, )"
-          },
-          "Qhta.TypeUtils": {
-            "target": "Package",
-            "version": "[1.4.0, )"
           }
         },
         "imports": [

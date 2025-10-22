@@ -219,9 +219,9 @@ public partial class QXmlSerializer : IXmlSerializer
       if (Options.RemoveUnusedNamespaces)
       {
         if (!Writer.XsiNamespaceUsed)
-          str = str.ReplaceFirst($" xmlns:xsi=\"{QXmlSerializationHelper.xsiNamespace}\"", "");
+          str = str.ReplaceFirst($" xmlns:xsi=\"{MappingHelper.xsiNamespace}\"", "");
         if (!Writer.XsdNamespaceUsed)
-          str = str.ReplaceFirst($" xmlns:xsd=\"{QXmlSerializationHelper.xsdNamespace}\"", "");
+          str = str.ReplaceFirst($" xmlns:xsd=\"{MappingHelper.xsdNamespace}\"", "");
         foreach (var item in KnownNamespaces)
         {
           var ns = item.XmlNamespace;
@@ -238,7 +238,7 @@ public partial class QXmlSerializer : IXmlSerializer
     }
     else
     {
-      var xmlWriter = XmlTextWriter.Create(textWriter, XmlWriterSettings);
+      var xmlWriter = XmlWriter.Create(textWriter, XmlWriterSettings);
       SerializeObject(xmlWriter, obj);
     }
   }

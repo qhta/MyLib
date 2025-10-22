@@ -94,7 +94,7 @@ public static class QXmlSerializationHelper
   }
 
   /// <summary>
-  /// Checkes if the first letter of the text is lowercase.
+  /// Checks if the first letter of the text is lowercase.
   /// </summary>
   public static bool IsFirstLetterLower(this string text)
   {
@@ -107,7 +107,7 @@ public static class QXmlSerializationHelper
   }
 
   /// <summary>
-  /// Checkes if the first letter of the text is uppercase.
+  /// Checks if the first letter of the text is uppercase.
   /// </summary>
   public static bool IsFirstLetterUpper(this string text)
   {

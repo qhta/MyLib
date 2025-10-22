@@ -12,3 +12,7 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net9.0-windows\re
 D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net9.0-windows\Qhta.ObservableObjects.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net9.0-windows\Qhta.ObservableObjects.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\obj\Debug\net9.0-windows\ref\Qhta.ObservableObjects.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0-windows\Qhta.ObservableObjects.deps.json
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0-windows\Qhta.ObservableObjects.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0-windows\Qhta.ObservableObjects.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0-windows\Qhta.ObservableObjects.xml

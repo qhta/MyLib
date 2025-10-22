@@ -94,21 +94,21 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsArray => ContentInfo is ArrayContentInfo;
+  public bool IsArray => ContentInfo?.GetType() == typeof(ArrayContentInfo);
 
   /// <summary>
   ///   Specifies whether the type is serialized as a collection.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsCollection => ContentInfo is CollectionContentInfo;
+  public bool IsCollection => ContentInfo?.GetType() == typeof(CollectionContentInfo);
 
   /// <summary>
   ///   Specifies whether the type is serialized as a dictionary.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsDictionary => ContentInfo is DictionaryContentInfo;
+  public bool IsDictionary => ContentInfo?.GetType() == typeof(DictionaryContentInfo);
 
   /// <summary>
   ///   Known property to accept content of XmlElement.

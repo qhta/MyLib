@@ -7,10 +7,9 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.ObservableObjects/2.8": {
+      "Qhta.ObservableObjects/4.5": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
-          "System.Collections.Concurrent": "4.0.0",
           "System.Collections.Immutable": "1.1.36"
         },
         "runtime": {
@@ -23,7 +22,6 @@
           "Microsoft.NETCore.Platforms": "1.1.0"
         }
       },
-      "System.Collections.Concurrent/4.0.0": {},
       "System.Collections.Immutable/1.1.36": {
         "runtime": {
           "lib/portable-net45+win8+wp8+wpa81/System.Collections.Immutable.dll": {
@@ -35,7 +33,7 @@
     }
   },
   "libraries": {
-    "Qhta.ObservableObjects/2.8": {
+    "Qhta.ObservableObjects/4.5": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -53,13 +51,6 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
-    },
-    "System.Collections.Concurrent/4.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1f5SWoX7UlFkvUt7A8JoG5lXgZDw4cRAcKG8Eaxa+3Sq6e/UgVWl2YWew1evJv+p+edNNlIIorDfREKcoEDHGw==",
-      "path": "system.collections.concurrent/4.0.0",
-      "hashPath": "system.collections.concurrent.4.0.0.nupkg.sha512"
     },
     "System.Collections.Immutable/1.1.36": {
       "type": "package",

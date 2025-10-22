@@ -6,7 +6,7 @@
 /// On ConvertFrom, it gives DBNull value.
 /// This converter also implements Qhta.Xml.IXmlConverter interface.
 /// </summary>
-public class DbNullTypeXmlConverter : BaseTypeConverter, IXmlConverter
+public class DbNullTypeXmlConverter : BaseTypeConverter
 {
   /// <summary>
   /// Sets ExpectedType to DBNull and XsdType to XsdSimpleType.String.
@@ -14,7 +14,7 @@ public class DbNullTypeXmlConverter : BaseTypeConverter, IXmlConverter
   public DbNullTypeXmlConverter()
   {
     ExpectedType = typeof(DBNull);
-    XsdType = XsdSimpleType.String;
+    SimpleType = Xml.SimpleType.String;
   }
 
   /// <inheritdoc/>
@@ -40,31 +40,24 @@ public class DbNullTypeXmlConverter : BaseTypeConverter, IXmlConverter
   }
 
   /// <inheritdoc/>
-  public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+  public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object? value)
   {
     return DBNull.Value;
   }
 
-  /// <inheritdoc/>
+  /// <summary>
+  /// CanRead is always true.
+  /// </summary>
   public bool CanRead => true;
 
-  /// <inheritdoc/>
+  /// <summary>
+  /// CanWrite is always false.
+  /// </summary>
   public bool CanWrite => false;
 
-  /// <inheritdoc/>
-  public void WriteXml(object? context, IXmlWriter writer, object? value, IXmlSerializer? serializer)
-  {
-    throw new NotImplementedException();
-  }
-
-  /// <inheritdoc/>
-  public object? ReadXml(object? context, IXmlReader reader, Type objectType, object? existingValue, IXmlSerializer? serializer)
-  {
-    reader.Read();
-    return DBNull.Value;
-  }
-
-  /// <inheritdoc/>
+  /// <summary>
+  /// Can convert only DBNull type.
+  /// </summary>
   public bool CanConvert(Type objectType)
   {
     return objectType == typeof(DBNull);

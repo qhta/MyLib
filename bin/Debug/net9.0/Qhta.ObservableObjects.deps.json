@@ -6,29 +6,29 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v9.0": {
-      "Qhta.ObservableObjects/4.3": {
+      "Qhta.ObservableObjects/4.5": {
         "dependencies": {
-          "System.Collections.Immutable": "9.0.7"
+          "System.Collections.Immutable": "9.0.10"
         },
         "runtime": {
           "Qhta.ObservableObjects.dll": {}
         }
       },
-      "System.Collections.Immutable/9.0.7": {}
+      "System.Collections.Immutable/9.0.10": {}
     }
   },
   "libraries": {
-    "Qhta.ObservableObjects/4.3": {
+    "Qhta.ObservableObjects/4.5": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "System.Collections.Immutable/9.0.7": {
+    "System.Collections.Immutable/9.0.10": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-0WeYGUWsWXA0e2CZU+TelZR+tFu3Fg1FwS2GikIrrFEFRKLBS2MyFNlJD3h1G94S6gnl4lVijF7JY3vAmTKVjw==",
-      "path": "system.collections.immutable/9.0.7",
-      "hashPath": "system.collections.immutable.9.0.7.nupkg.sha512"
+      "sha512": "sha512-2FkVxKnJVqFtv5zGKSEu2FPqbOScpxw+CvgV0C2MYtXPrT1ZcylAdYlTj3S64iRDV7HGykvagoadUUhZN1/eQg==",
+      "path": "system.collections.immutable/9.0.10",
+      "hashPath": "system.collections.immutable.9.0.10.nupkg.sha512"
     }
   }
 }

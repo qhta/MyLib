@@ -34,20 +34,20 @@ public class GDateTypeConverter : BaseTypeConverter
       if (destinationType == typeof(string))
       {
         var sb = new StringBuilder();
-        switch (XsdType)
+        switch (SimpleType)
         {
-          case XsdSimpleType.GYear:
+          case Xml.SimpleType.GYear:
             return dt.Year.ToString("D4");
-          case XsdSimpleType.GYearMonth:
+          case Xml.SimpleType.GYearMonth:
             return dt.Year.ToString("D4") + "-" + dt.Month.ToString("D2");
-          case XsdSimpleType.GMonth:
+          case Xml.SimpleType.GMonth:
             return "--" + dt.Month.ToString("D2");
-          case XsdSimpleType.GMonthDay:
+          case Xml.SimpleType.GMonthDay:
             sb.Append("--" + dt.Month.ToString("D2") + "-" + dt.Day.ToString("D2"));
             if (ShowTimeZone)
               sb.Append(ZoneToStr(dt));
             return sb.ToString();
-          case XsdSimpleType.GDay:
+          case Xml.SimpleType.GDay:
             sb.Append("---" + dt.Day.ToString("D2"));
             if (ShowTimeZone)
               sb.Append(ZoneToStr(dt));

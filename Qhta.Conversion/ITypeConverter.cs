@@ -16,9 +16,9 @@ public interface ITypeConverter
   public Type[]? KnownTypes { get; set; }
 
   /// <summary>
-  /// XsdType for convert-forth methods.
+  /// Simple for convert-forth methods.
   /// </summary>
-  public XsdSimpleType? XsdType { get; set; }
+  public SimpleType? SimpleType { get; set; }
 
   /// <summary>
   /// Format of string values.

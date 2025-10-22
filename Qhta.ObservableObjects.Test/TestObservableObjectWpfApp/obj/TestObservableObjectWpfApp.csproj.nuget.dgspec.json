@@ -15,7 +15,7 @@
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.2.4\\ToolboxNuGetPackages"
+          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\31.1.17\\ToolboxNuGetPackages"
         ],
         "configFilePaths": [
           "D:\\OneDrive\\VS\\Projects\\NuGet.Config",
@@ -28,8 +28,9 @@
           "net8.0-windows"
         ],
         "sources": {
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
-          "d:\\VS\\Projects\\mylib\\bin": {},
+          "D:\\OneDrive\\VS\\Projects\\MyLib\\bin\\Debug": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -57,12 +58,6 @@
       "frameworks": {
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
-          "dependencies": {
-            "Qhta.WPF.Behaviors": {
-              "target": "Package",
-              "version": "[1.4.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -82,7 +77,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -98,7 +93,7 @@
         "crossTargeting": true,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\29.2.4\\ToolboxNuGetPackages"
+          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\31.1.17\\ToolboxNuGetPackages"
         ],
         "configFilePaths": [
           "D:\\OneDrive\\VS\\Projects\\NuGet.Config",
@@ -114,8 +109,9 @@
           "net9.0-windows"
         ],
         "sources": {
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
-          "d:\\VS\\Projects\\mylib\\bin": {},
+          "D:\\OneDrive\\VS\\Projects\\MyLib\\bin\\Debug": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -173,7 +169,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
         },
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
@@ -199,7 +195,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
         },
         "net9.0": {
           "targetAlias": "net9.0",
@@ -225,7 +221,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
         },
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
@@ -251,7 +247,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

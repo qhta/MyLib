@@ -1027,7 +1027,7 @@ public class XmlSerializationInfoMapper
   /// </summary>
   protected ContentInfo? GetCollectionInfo(Type aType)
   {
-    return RegisterCollectionTypeContentItemInfo(aType);
+    return RegisterCollectionItemInfo(aType);
   }
 
   /// <summary>
@@ -1043,7 +1043,7 @@ public class XmlSerializationInfoMapper
     if (!valueType.IsCollection())
       return null;
     var result = arrayItemsAttributes.Any()
-      ? CreateCollectionTypeInfo(valueType, arrayItemsAttributes) : RegisterCollectionTypeContentItemInfo(valueType);
+      ? CreateCollectionTypeInfo(valueType, arrayItemsAttributes) : RegisterCollectionItemInfo(valueType);
     if (result != null && memberInfo.GetCustomAttribute<XmlReferencesAttribute>() != null)
       result.StoresReferences = true;
     return result;
@@ -1052,15 +1052,15 @@ public class XmlSerializationInfoMapper
   /// <summary>
   /// Helper method that creates and registers a content item info for a collection type.
   /// </summary>
-  protected ContentInfo? RegisterCollectionTypeContentItemInfo(Type aType)
+  protected ContentInfo? RegisterCollectionItemInfo(Type aType)
   {
-    Debug.WriteLine($"RegisterCollectionTypeContentItemInfo({aType.Name})");
     if (aType.IsCollection(out var itemType) && itemType != null)
     {
       var itemTypeInfo = RegisterType(itemType);
       var collectionTypeInfo = itemTypeInfo.ContentInfo;
       if (collectionTypeInfo == null)
       {
+        Debug.WriteLine($"RegisterCollectionItemInfo({aType.Name})");
         collectionTypeInfo = new CollectionContentInfo();
         itemTypeInfo.ContentInfo = collectionTypeInfo;
 
@@ -1077,8 +1077,6 @@ public class XmlSerializationInfoMapper
         if (!aType.IsArray)
           SetAddMethods(aType, collectionTypeInfo);
       }
-      else
-        Debug.WriteLine($"CollectionTypeInfo for {aType.Name} was already registered");
       return collectionTypeInfo;
     }
     return null;

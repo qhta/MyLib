@@ -13,7 +13,7 @@ public class DateTimeTypeConverter : BaseTypeConverter
   public DateTimeTypeConverter()
   {
     ExpectedType = typeof(DateTime);
-    XsdType = XsdSimpleType.DateTime;
+    SimpleType = Xml.SimpleType.DateTime;
   }
 
   /// <summary>
@@ -52,18 +52,18 @@ public class DateTimeTypeConverter : BaseTypeConverter
   {
     if (value == null)
       return null;
-    var mode = XsdType;
+    var mode = SimpleType;
     var showTimeZone = ShowTimeZone || value is DateTimeOffset;
 #if NET6_0_OR_GREATER
     if (value is DateOnly dateOnly)
     {
       value = new DateTimeOffset(dateOnly.ToDateTime(new TimeOnly()));
-      mode = XsdSimpleType.Date;
+      mode = Xml.SimpleType.Date;
     }
     else if (value is TimeOnly timeOnly)
     {
       value = new DateTimeOffset(new DateOnly(1, 1, 1).ToDateTime(timeOnly));
-      mode = XsdSimpleType.Time;
+      mode = Xml.SimpleType.Time;
     }
     else 
 #endif
@@ -81,13 +81,13 @@ public class DateTimeTypeConverter : BaseTypeConverter
           var showFullTime = ShowFullTime || dt.TimeOfDay.Milliseconds != 0;
           switch (mode)
           {
-            case XsdSimpleType.DateTime:
+            case Xml.SimpleType.DateTime:
               format = GetDateTimeFormat(culture, showFullTime, showTimeZone);
               break;
-            case XsdSimpleType.Date:
+            case Xml.SimpleType.Date:
               format = GetDateFormat(culture);
               break;
-            case XsdSimpleType.Time:
+            case Xml.SimpleType.Time:
               format = GetTimeFormat(culture, showFullTime, showTimeZone);
               break;
             default:

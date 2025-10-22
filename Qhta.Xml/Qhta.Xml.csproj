@@ -25,7 +25,6 @@
   <ItemGroup>
     <PackageReference Include="Qhta.Collections" Version="5.2.0" />
     <PackageReference Include="Qhta.TextUtils" Version="3.8.0" />
-    <PackageReference Include="Qhta.TypeUtils" Version="1.4.0" />
   </ItemGroup>
 
 </Project>

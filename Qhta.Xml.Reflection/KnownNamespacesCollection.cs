@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Qhta.Xml.Reflection;
+﻿namespace Qhta.Xml.Reflection;
 
 /// <summary>
 /// Named collection of xml namespace info

@@ -8,19 +8,23 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>A package with value type converter class.</description>
-    <repository type="git" commit="0062127d033d8f79679681d00c51160520ac19f0" />
+    <repository type="git" commit="56fd72dd300e068762eaa51c113f9ef6356fa83b" />
     <dependencies>
       <group targetFramework="net6.0">
-        <dependency id="Qhta.Xml" version="3.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Collections" version="5.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.5.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net8.0">
-        <dependency id="Qhta.Xml" version="3.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Collections" version="5.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.5.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net9.0">
-        <dependency id="Qhta.Xml" version="3.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Collections" version="5.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.5.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Qhta.Xml" version="3.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Collections" version="5.2.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.5.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

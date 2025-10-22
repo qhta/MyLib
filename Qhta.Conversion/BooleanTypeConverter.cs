@@ -71,9 +71,9 @@ public class BooleanTypeConverter : BaseTypeConverter, ITextRestrictions
     if (value is bool bv)
     {
       var mode = 0;
-      if (XsdType == XsdSimpleType.Int || XsdType == XsdSimpleType.Integer)
+      if (SimpleType == Xml.SimpleType.Int || SimpleType == Xml.SimpleType.Integer)
         mode = 1;
-      else if (XsdType == XsdSimpleType.String || XsdType == XsdSimpleType.NormalizedString)
+      else if (SimpleType == Xml.SimpleType.String || SimpleType == Xml.SimpleType.NormalizedString)
         mode = 2;
 
       if (destinationType == typeof(string))

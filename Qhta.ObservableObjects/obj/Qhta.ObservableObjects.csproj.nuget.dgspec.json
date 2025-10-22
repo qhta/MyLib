@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj": {
-      "version": "4.3.0",
+      "version": "4.5.0",
       "restore": {
         "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
         "projectName": "Qhta.ObservableObjects",
@@ -26,10 +26,11 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Syncfusion Toolbox for WPF.config"
         ],
         "originalTargetFrameworks": [
+          "net6.0",
+          "net7.0",
           "net8.0",
-          "net8.0-windows",
           "net9.0",
-          "net9.0-windows"
+          "netstandard2.0"
         ],
         "sources": {
           "C:\\Program Files\\dotnet\\library-packs": {},
@@ -38,20 +39,24 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           },
-          "net8.0-windows7.0": {
-            "targetAlias": "net8.0-windows",
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          },
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           },
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {}
           },
-          "net9.0-windows7.0": {
-            "targetAlias": "net9.0-windows",
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
             "projectReferences": {}
           }
         },
@@ -68,14 +73,8 @@
         "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "dependencies": {
-            "System.Collections.Immutable": {
-              "target": "Package",
-              "version": "[9.0.7, )"
-            }
-          },
+        "net6.0": {
+          "targetAlias": "net6.0",
           "imports": [
             "net461",
             "net462",
@@ -92,14 +91,34 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\RuntimeIdentifierGraph.json"
         },
-        "net8.0-windows7.0": {
-          "targetAlias": "net8.0-windows",
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\RuntimeIdentifierGraph.json"
+        },
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "System.Collections.Immutable": {
               "target": "Package",
-              "version": "[9.0.7, )"
+              "version": "[9.0.10, )"
             }
           },
           "imports": [
@@ -125,7 +144,7 @@
           "dependencies": {
             "System.Collections.Immutable": {
               "target": "Package",
-              "version": "[9.0.7, )"
+              "version": "[9.0.10, )"
             }
           },
           "imports": [
@@ -146,12 +165,14 @@
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
         },
-        "net9.0-windows7.0": {
-          "targetAlias": "net9.0-windows",
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
           "dependencies": {
-            "System.Collections.Immutable": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.7, )"
+              "version": "[2.0.3, )",
+              "autoReferenced": true
             }
           },
           "imports": [
@@ -165,12 +186,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }

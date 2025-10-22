@@ -8,31 +8,27 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Classes to use replace ObservableCollection when used in background task.</description>
-    <repository type="git" commit="e48235358c10fac7364c555d3e0d22ba900a5fb8" />
+    <repository type="git" commit="56fd72dd300e068762eaa51c113f9ef6356fa83b" />
     <dependencies>
       <group targetFramework="net8.0">
-        <dependency id="System.Collections.Immutable" version="9.0.7" exclude="Build,Analyzers" />
+        <dependency id="System.Collections.Immutable" version="9.0.10" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net8.0-windows7.0">
-        <dependency id="System.Collections.Immutable" version="9.0.7" exclude="Build,Analyzers" />
+        <dependency id="System.Collections.Immutable" version="9.0.10" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net9.0">
-        <dependency id="System.Collections.Immutable" version="9.0.7" exclude="Build,Analyzers" />
+        <dependency id="System.Collections.Immutable" version="9.0.10" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net9.0-windows7.0">
-        <dependency id="System.Collections.Immutable" version="9.0.7" exclude="Build,Analyzers" />
+        <dependency id="System.Collections.Immutable" version="9.0.10" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.ObservableObjects.dll" target="lib\net8.0\Qhta.ObservableObjects.dll" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.ObservableObjects.xml" target="lib\net8.0\Qhta.ObservableObjects.xml" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.ObservableObjects.dll" target="lib\net8.0-windows7.0\Qhta.ObservableObjects.dll" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net8.0-windows\Qhta.ObservableObjects.xml" target="lib\net8.0-windows7.0\Qhta.ObservableObjects.xml" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.ObservableObjects.dll" target="lib\net9.0\Qhta.ObservableObjects.dll" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.ObservableObjects.xml" target="lib\net9.0\Qhta.ObservableObjects.xml" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net9.0-windows\Qhta.ObservableObjects.dll" target="lib\net9.0-windows7.0\Qhta.ObservableObjects.dll" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net9.0-windows\Qhta.ObservableObjects.xml" target="lib\net9.0-windows7.0\Qhta.ObservableObjects.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.ObservableObjects.dll" target="lib\net8.0\Qhta.ObservableObjects.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.ObservableObjects.xml" target="lib\net8.0\Qhta.ObservableObjects.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.ObservableObjects.dll" target="lib\net9.0\Qhta.ObservableObjects.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.ObservableObjects.xml" target="lib\net9.0\Qhta.ObservableObjects.xml" />
     <file src="D:\OneDrive\VS\Projects\MyLib\Qhta.ObservableObjects\docs\readme.md" target="\readme.md" />
   </files>
 </package>

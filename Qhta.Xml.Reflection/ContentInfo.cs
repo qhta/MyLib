@@ -1,12 +1,11 @@
 ﻿namespace Qhta.Xml.Reflection;
 
 /// <summary>
-/// Information on type content. It can be an array, collection or dictionary.
+/// Information on type content. It is used for array, collection or dictionary types.
 /// </summary>
-[KnownType(typeof(ArrayContentInfo))]
 [KnownType(typeof(CollectionContentInfo))]
 [KnownType(typeof(DictionaryContentInfo))]
-public abstract class ContentInfo : IEquatable<ContentInfo>
+public class ContentInfo : IEquatable<ContentInfo>
 {
   /// <summary>
   ///  If a collection of objects stores references only.

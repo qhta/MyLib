@@ -29,65 +29,65 @@ public class ValueTypeConverter : BaseTypeConverter
   /// <summary>
   /// Declares XsdSimpleType to Type conversion.
   /// </summary>
-  public static readonly Dictionary<XsdSimpleType, Type[]> XsdSimpleTypeAcceptedTypes = new()
+  public static readonly Dictionary<SimpleType, Type[]> XsdSimpleTypeAcceptedTypes = new()
   {
-    { XsdSimpleType.AnyUri, new[] { typeof(Uri), typeof(string) } },
-    { XsdSimpleType.Base64Binary, new[] { typeof(byte[]) } },
-    { XsdSimpleType.Boolean, new[] { typeof(bool) } },
+    { Xml.SimpleType.AnyUri, new[] { typeof(Uri), typeof(string) } },
+    { Xml.SimpleType.Base64Binary, new[] { typeof(byte[]) } },
+    { Xml.SimpleType.Boolean, new[] { typeof(bool) } },
     {
-      XsdSimpleType.Byte, new[] { typeof(sbyte), typeof(int), typeof(byte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) }
+      Xml.SimpleType.Byte, new[] { typeof(sbyte), typeof(int), typeof(byte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) }
     },
 #if NET6_0_OR_GREATER
-    { XsdSimpleType.Date, new[] { typeof(DateTime), typeof(DateTimeOffset), typeof(DateOnly) } },
+    { Xml.SimpleType.Date, new[] { typeof(DateTime), typeof(DateTimeOffset), typeof(DateOnly) } },
 #endif
-    { XsdSimpleType.DateTime, new[] { typeof(DateTime), typeof(DateTimeOffset) } },
+    { Xml.SimpleType.DateTime, new[] { typeof(DateTime), typeof(DateTimeOffset) } },
     {
-      XsdSimpleType.Decimal,
+      Xml.SimpleType.Decimal,
       new[] { typeof(decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) }
     },
-    { XsdSimpleType.Double, new[] { typeof(double), typeof(float) } },
-    { XsdSimpleType.Duration, new[] { typeof(TimeSpan), typeof(string) } },
-    { XsdSimpleType.Entities, new[] { typeof(string[]) } },
-    { XsdSimpleType.Entity, new[] { typeof(string) } },
-    { XsdSimpleType.Float, new[] { typeof(float), typeof(double) } },
-    { XsdSimpleType.GDay, new[] { typeof(GDate) } },
-    { XsdSimpleType.GMonth, new[] { typeof(GDate) } },
-    { XsdSimpleType.GMonthDay, new[] { typeof(GDate) } },
-    { XsdSimpleType.GYear, new[] { typeof(GDate) } },
-    { XsdSimpleType.GYearMonth, new[] { typeof(GDate) } },
-    { XsdSimpleType.HexBinary, new[] { typeof(byte[]) } },
-    { XsdSimpleType.Id, new[] { typeof(string) } },
-    { XsdSimpleType.IdRef, new[] { typeof(string) } },
-    { XsdSimpleType.IdRefs, new[] { typeof(string[]) } },
+    { Xml.SimpleType.Double, new[] { typeof(double), typeof(float) } },
+    { Xml.SimpleType.Duration, new[] { typeof(TimeSpan), typeof(string) } },
+    { Xml.SimpleType.Entities, new[] { typeof(string[]) } },
+    { Xml.SimpleType.Entity, new[] { typeof(string) } },
+    { Xml.SimpleType.Float, new[] { typeof(float), typeof(double) } },
+    { Xml.SimpleType.GDay, new[] { typeof(GDate) } },
+    { Xml.SimpleType.GMonth, new[] { typeof(GDate) } },
+    { Xml.SimpleType.GMonthDay, new[] { typeof(GDate) } },
+    { Xml.SimpleType.GYear, new[] { typeof(GDate) } },
+    { Xml.SimpleType.GYearMonth, new[] { typeof(GDate) } },
+    { Xml.SimpleType.HexBinary, new[] { typeof(byte[]) } },
+    { Xml.SimpleType.Id, new[] { typeof(string) } },
+    { Xml.SimpleType.IdRef, new[] { typeof(string) } },
+    { Xml.SimpleType.IdRefs, new[] { typeof(string[]) } },
     {
-      XsdSimpleType.Int, new[] { typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) }
+      Xml.SimpleType.Int, new[] { typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) }
     },
     {
-      XsdSimpleType.Integer,
+      Xml.SimpleType.Integer,
       new[]
       {
         typeof(decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong),
         typeof(string)
       }
     },
-    { XsdSimpleType.Language, new[] { typeof(string) } },
+    { Xml.SimpleType.Language, new[] { typeof(string) } },
     {
-      XsdSimpleType.Long, new[] { typeof(long), typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(ushort) }
+      Xml.SimpleType.Long, new[] { typeof(long), typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(ushort) }
     },
-    { XsdSimpleType.Name, new[] { typeof(string) } },
-    { XsdSimpleType.NcName, new[] { typeof(string) } },
+    { Xml.SimpleType.Name, new[] { typeof(string) } },
+    { Xml.SimpleType.NcName, new[] { typeof(string) } },
     {
-      XsdSimpleType.NegativeInteger,
+      Xml.SimpleType.NegativeInteger,
       new[]
       {
         typeof(decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong),
         typeof(string)
       }
     },
-    { XsdSimpleType.NmToken, new[] { typeof(string) } },
-    { XsdSimpleType.NmTokens, new[] { typeof(string[]) } },
+    { Xml.SimpleType.NmToken, new[] { typeof(string) } },
+    { Xml.SimpleType.NmTokens, new[] { typeof(string[]) } },
     {
-      XsdSimpleType.NonNegativeInteger,
+      Xml.SimpleType.NonNegativeInteger,
       new[]
       {
         typeof(decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong),
@@ -95,47 +95,47 @@ public class ValueTypeConverter : BaseTypeConverter
       }
     },
     {
-      XsdSimpleType.NonPositiveInteger,
+      Xml.SimpleType.NonPositiveInteger,
       new[]
       {
         typeof(decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong),
         typeof(string)
       }
     },
-    { XsdSimpleType.NormalizedString, new[] { typeof(string) } },
-    { XsdSimpleType.Notation, new[] { typeof(string) } },
+    { Xml.SimpleType.NormalizedString, new[] { typeof(string) } },
+    { Xml.SimpleType.Notation, new[] { typeof(string) } },
     {
-      XsdSimpleType.PositiveInteger,
+      Xml.SimpleType.PositiveInteger,
       new[]
       {
         typeof(decimal), typeof(int), typeof(byte), typeof(sbyte), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong),
         typeof(string)
       }
     },
-    { XsdSimpleType.QName, new[] { typeof(XmlQualifiedName), typeof(string) } },
+    { Xml.SimpleType.QName, new[] { typeof(XmlQualifiedName), typeof(string) } },
     {
-      XsdSimpleType.Short,
+      Xml.SimpleType.Short,
       new[] { typeof(short), typeof(ushort), typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(long) }
     },
-    { XsdSimpleType.String, new[] { typeof(string) } },
+    { Xml.SimpleType.String, new[] { typeof(string) } },
 #if NET6_0_OR_GREATER
-    { XsdSimpleType.Time, new[] { typeof(DateTime), typeof(DateTimeOffset), typeof(TimeOnly) } },
+    { Xml.SimpleType.Time, new[] { typeof(DateTime), typeof(DateTimeOffset), typeof(TimeOnly) } },
 #endif
-    { XsdSimpleType.Token, new[] { typeof(string) } },
+    { Xml.SimpleType.Token, new[] { typeof(string) } },
     {
-      XsdSimpleType.UnsignedByte,
+      Xml.SimpleType.UnsignedByte,
       new[] { typeof(byte), typeof(sbyte), typeof(int), typeof(uint), typeof(short), typeof(ushort), typeof(long), typeof(ulong) }
     },
     {
-      XsdSimpleType.UnsignedInt,
+      Xml.SimpleType.UnsignedInt,
       new[] { typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(ushort), typeof(long), typeof(ulong) }
     },
     {
-      XsdSimpleType.UnsignedLong,
+      Xml.SimpleType.UnsignedLong,
       new[] { typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(ushort), typeof(long) }
     },
     {
-      XsdSimpleType.UnsignedShort,
+      Xml.SimpleType.UnsignedShort,
       new[] { typeof(ushort), typeof(ulong), typeof(uint), typeof(byte), typeof(sbyte), typeof(int), typeof(short), typeof(long) }
     }
   };
@@ -148,33 +148,33 @@ public class ValueTypeConverter : BaseTypeConverter
     //{ typeof(Object), new ObjectTypeConverter() },
     { typeof(Array), new ArrayTypeConverter() },
     { typeof(bool), new BooleanTypeConverter() },
-    { typeof(byte), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedByte } },
+    { typeof(byte), new NumericTypeConverter { SimpleType = Xml.SimpleType.UnsignedByte } },
     { typeof(byte[]), new Base64TypeConverter() },
 #if NET6_0_OR_GREATER
-    { typeof(DateOnly), new DateTimeTypeConverter { XsdType = XsdSimpleType.Date, ExpectedType = typeof(DateOnly)} },
+    { typeof(DateOnly), new DateTimeTypeConverter { SimpleType = Xml.SimpleType.Date, ExpectedType = typeof(DateOnly)} },
 #endif
-    { typeof(DateTime), new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime } },
-    { typeof(DateTimeOffset), new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime, ExpectedType = typeof(DateTimeOffset) } },
-    { typeof(decimal), new NumericTypeConverter { XsdType = XsdSimpleType.Decimal } },
-    { typeof(double), new NumericTypeConverter { XsdType = XsdSimpleType.Double } },
-    { typeof(float), new NumericTypeConverter { XsdType = XsdSimpleType.Float } },
+    { typeof(DateTime), new DateTimeTypeConverter { SimpleType = Xml.SimpleType.DateTime } },
+    { typeof(DateTimeOffset), new DateTimeTypeConverter { SimpleType = Xml.SimpleType.DateTime, ExpectedType = typeof(DateTimeOffset) } },
+    { typeof(decimal), new NumericTypeConverter { SimpleType = Xml.SimpleType.Decimal } },
+    { typeof(double), new NumericTypeConverter { SimpleType = Xml.SimpleType.Double } },
+    { typeof(float), new NumericTypeConverter { SimpleType = Xml.SimpleType.Float } },
     { typeof(GDate), new GDateTypeConverter() },
     { typeof(Guid), new GuidConverter() },
-    { typeof(int), new NumericTypeConverter { XsdType = XsdSimpleType.Int } },
-    { typeof(long), new NumericTypeConverter { XsdType = XsdSimpleType.Long } },
-    { typeof(sbyte), new NumericTypeConverter { XsdType = XsdSimpleType.Byte } },
-    { typeof(short), new NumericTypeConverter { XsdType = XsdSimpleType.Short } },
+    { typeof(int), new NumericTypeConverter { SimpleType = Xml.SimpleType.Int } },
+    { typeof(long), new NumericTypeConverter { SimpleType = Xml.SimpleType.Long } },
+    { typeof(sbyte), new NumericTypeConverter { SimpleType = Xml.SimpleType.Byte } },
+    { typeof(short), new NumericTypeConverter { SimpleType = Xml.SimpleType.Short } },
     { typeof(char), new StringTypeConverter{ ExpectedType = typeof(char) } },
     { typeof(string), new StringTypeConverter() },
     { typeof(string[]), new ArrayTypeConverter() },
 #if NET6_0_OR_GREATER
-    { typeof(TimeOnly), new DateTimeTypeConverter { XsdType = XsdSimpleType.Time, ExpectedType = typeof(DateOnly) } },
+    { typeof(TimeOnly), new DateTimeTypeConverter { SimpleType = Xml.SimpleType.Time, ExpectedType = typeof(DateOnly) } },
 #endif
     { typeof(TimeSpan), new TimeSpanTypeConverter() },
-    { typeof(uint), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedInt } },
-    { typeof(ulong), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedLong } },
+    { typeof(uint), new NumericTypeConverter { SimpleType = Xml.SimpleType.UnsignedInt } },
+    { typeof(ulong), new NumericTypeConverter { SimpleType = Xml.SimpleType.UnsignedLong } },
     { typeof(Uri), new UriTypeConverter() },
-    { typeof(ushort), new NumericTypeConverter { XsdType = XsdSimpleType.UnsignedShort } },
+    { typeof(ushort), new NumericTypeConverter { SimpleType = Xml.SimpleType.UnsignedShort } },
     { typeof(XmlQualifiedName), new XmlQualifiedNameTypeConverter() },
     { typeof(DBNull), new DbNullTypeXmlConverter() },
   };
@@ -192,17 +192,17 @@ public class ValueTypeConverter : BaseTypeConverter
   /// <param name="expectedType"></param>
   /// <param name="knownTypes"></param>
   /// <param name="knownNamespaces"></param>
-  /// <param name="xsdType"></param>
+  /// <param name="simpleType"></param>
   /// <param name="format"></param>
   /// <param name="culture"></param>
   /// <param name="options"></param>
-  public ValueTypeConverter(Type? expectedType, IEnumerable<Type>? knownTypes = null, Dictionary<string, string>? knownNamespaces = null, XsdSimpleType? xsdType = null, string? format = null, CultureInfo? culture = null,
+  public ValueTypeConverter(Type? expectedType, IEnumerable<Type>? knownTypes = null, Dictionary<string, string>? knownNamespaces = null, SimpleType? simpleType = null, string? format = null, CultureInfo? culture = null,
     ConversionOptions? options = null)
   {
     if (knownTypes != null)
       KnownTypes = knownTypes.ToDictionary(type => type.FullName ?? "");
     KnownNamespaces = knownNamespaces;
-    Init(expectedType, KnownTypes, KnownNamespaces, xsdType, format, culture, options);
+    Init(expectedType, KnownTypes, KnownNamespaces, simpleType, format, culture, options);
   }
 
   /// <summary>
@@ -220,41 +220,41 @@ public class ValueTypeConverter : BaseTypeConverter
   /// </summary>
   public void Init()
   {
-    Init(ExpectedType, KnownTypes, KnownNamespaces, XsdType, Format, Culture, Options);
+    Init(ExpectedType, KnownTypes, KnownNamespaces, SimpleType, Format, Culture, Options);
   }
 
     /// <summary>
   /// Initializing method with parameters.
   /// </summary>
-  public void Init(Type? expectedType, Dictionary<string, Type>? knownTypes, Dictionary<string, string>? knownNamespaces, XsdSimpleType? xsdType, string? format, CultureInfo? culture = null, ConversionOptions? options = null)
+  public void Init(Type? expectedType, Dictionary<string, Type>? knownTypes, Dictionary<string, string>? knownNamespaces, SimpleType? simpleType, string? format, CultureInfo? culture = null, ConversionOptions? options = null)
   {
     Options = options;
     if (expectedType?.IsNullable(out var baseType) == true)
       expectedType = baseType;
     ExpectedType = expectedType;
 
-    XsdType = xsdType;
+    SimpleType = simpleType;
     Format = format;
-    if (XsdType != null && XsdType != 0)
+    if (SimpleType != null && SimpleType != 0)
     {
-      if (!XsdSimpleTypeAcceptedTypes.TryGetValue((XsdSimpleType)XsdType, out var allowedTypes))
-        throw new InvalidOperationException($"Unrecognized XmlDataType \"{XsdType}\"");
+      if (!XsdSimpleTypeAcceptedTypes.TryGetValue((SimpleType)SimpleType, out var allowedTypes))
+        throw new InvalidOperationException($"Unrecognized XmlDataType \"{SimpleType}\"");
       if (expectedType == null)
         expectedType = allowedTypes.First();
       ExpectedType = expectedType;
-      switch (XsdType)
+      switch (SimpleType)
       {
-        case XsdSimpleType.DateTime:
-        case XsdSimpleType.Date:
-        case XsdSimpleType.Time:
-          InternalTypeConverter = CreateDateTimeTypeConverter((XsdSimpleType)XsdType, format, culture, options);
+        case Xml.SimpleType.DateTime:
+        case Xml.SimpleType.Date:
+        case Xml.SimpleType.Time:
+          InternalTypeConverter = CreateDateTimeTypeConverter((SimpleType)SimpleType, format, culture, options);
           return;
-        case XsdSimpleType.Boolean:
-          InternalTypeConverter = CreateBooleanTypeConverter(ExpectedType, XsdType, format, culture, options);
+        case Xml.SimpleType.Boolean:
+          InternalTypeConverter = CreateBooleanTypeConverter(ExpectedType, SimpleType, format, culture, options);
           if (expectedType != typeof(bool))
             InternalTypeConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
           return;
-        case XsdSimpleType.String:
+        case Xml.SimpleType.String:
           if (Options != null)
             InternalTypeConverter = new StringTypeConverter
             {
@@ -264,43 +264,43 @@ public class ValueTypeConverter : BaseTypeConverter
           else
             InternalTypeConverter = new StringTypeConverter();
           return;
-        case XsdSimpleType.Integer:
-        case XsdSimpleType.NegativeInteger:
-        case XsdSimpleType.NonNegativeInteger:
-        case XsdSimpleType.NonPositiveInteger:
-        case XsdSimpleType.PositiveInteger:
+        case Xml.SimpleType.Integer:
+        case Xml.SimpleType.NegativeInteger:
+        case Xml.SimpleType.NonNegativeInteger:
+        case Xml.SimpleType.NonPositiveInteger:
+        case Xml.SimpleType.PositiveInteger:
           InternalTypeConverter = new NumericTypeConverter { ExpectedType = expectedType };
-          if (expectedType == typeof(bool)) InternalTypeConverter = CreateBooleanTypeConverter(ExpectedType, XsdType, format, culture, options);
+          if (expectedType == typeof(bool)) InternalTypeConverter = CreateBooleanTypeConverter(ExpectedType, SimpleType, format, culture, options);
           return;
 
-        case XsdSimpleType.Int:
-        case XsdSimpleType.Byte:
-        case XsdSimpleType.UnsignedInt:
-        case XsdSimpleType.UnsignedByte:
-        case XsdSimpleType.Short:
-        case XsdSimpleType.UnsignedShort:
-        case XsdSimpleType.Long:
-        case XsdSimpleType.UnsignedLong:
+        case Xml.SimpleType.Int:
+        case Xml.SimpleType.Byte:
+        case Xml.SimpleType.UnsignedInt:
+        case Xml.SimpleType.UnsignedByte:
+        case Xml.SimpleType.Short:
+        case Xml.SimpleType.UnsignedShort:
+        case Xml.SimpleType.Long:
+        case Xml.SimpleType.UnsignedLong:
           InternalTypeConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
           if (expectedType == typeof(bool))
-            InternalTypeConverter = CreateBooleanTypeConverter(expectedType, XsdType, format, culture, options);
+            InternalTypeConverter = CreateBooleanTypeConverter(expectedType, SimpleType, format, culture, options);
           ExpectedType = expectedType;
           return;
-        case XsdSimpleType.Decimal:
+        case Xml.SimpleType.Decimal:
           InternalTypeConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
           if (expectedType == typeof(bool))
-            InternalTypeConverter = CreateBooleanTypeConverter(expectedType, XsdType, format, culture, options);
+            InternalTypeConverter = CreateBooleanTypeConverter(expectedType, SimpleType, format, culture, options);
           return;
-        case XsdSimpleType.Float:
-        case XsdSimpleType.Double:
+        case Xml.SimpleType.Float:
+        case Xml.SimpleType.Double:
           InternalTypeConverter = new NumericTypeConverter { ExpectedType = expectedType, Format = format };
           return;
-        case XsdSimpleType.GYear:
-        case XsdSimpleType.GYearMonth:
-        case XsdSimpleType.GMonth:
-        case XsdSimpleType.GMonthDay:
-        case XsdSimpleType.GDay:
-          InternalTypeConverter = new GDateTypeConverter { XsdType = xsdType };
+        case Xml.SimpleType.GYear:
+        case Xml.SimpleType.GYearMonth:
+        case Xml.SimpleType.GMonth:
+        case Xml.SimpleType.GMonthDay:
+        case Xml.SimpleType.GDay:
+          InternalTypeConverter = new GDateTypeConverter { SimpleType = simpleType };
           return;
       }
     }
@@ -333,13 +333,13 @@ public class ValueTypeConverter : BaseTypeConverter
 
         //var converterType = converter.GetType();
         //InternalTypeConverter = (TypeConverter?)converterType.GetConstructor(new Type[0])?.Invoke(new object[0]);
-        //if (converter is ITypeConverter iTypeConverter0 && iTypeConverter0.XsdType != null && xsdType == null)
-        //  xsdType = iTypeConverter0.XsdType;
+        //if (converter is ITypeConverter iTypeConverter0 && iTypeConverter0.XsdType != null && simpleType == null)
+        //  simpleType = iTypeConverter0.XsdType;
 
         if (InternalTypeConverter is ITypeConverter iTypeConverter)
         {
           iTypeConverter.ExpectedType = expectedType;
-          iTypeConverter.XsdType = xsdType;
+          iTypeConverter.SimpleType = simpleType;
           iTypeConverter.Format = format;
         }
       }
@@ -364,8 +364,8 @@ public class ValueTypeConverter : BaseTypeConverter
         }
         //throw new InvalidOperationException($"TypeConverter for {expectedType?.Name} type not found");
       }
-      if (xsdType != null)
-        throw new InvalidOperationException($"TypeConverter for xsdType={xsdType} not found");
+      if (simpleType != null)
+        throw new InvalidOperationException($"TypeConverter for simpleType={simpleType} not found");
       //InternalTypeConverter = new StringTypeConverter();
     }
   }
@@ -400,19 +400,19 @@ public class ValueTypeConverter : BaseTypeConverter
     { typeof(DBNull), new DbNullTypeXmlConverter() },
   };
 
-  private StringTypeConverter CreateStringTypeConverter(XsdSimpleType? xsdType, string? format, CultureInfo? culture,
+  private StringTypeConverter CreateStringTypeConverter(SimpleType? simpleType, string? format, CultureInfo? culture,
     ConversionOptions? options)
   {
-    var result = new StringTypeConverter { XsdType = xsdType, Format = format };
+    var result = new StringTypeConverter { SimpleType = simpleType, Format = format };
     return result;
   }
 
-  private DateTimeTypeConverter CreateDateTimeTypeConverter(XsdSimpleType xsdType, string? format, CultureInfo? culture,
+  private DateTimeTypeConverter CreateDateTimeTypeConverter(SimpleType simpleType, string? format, CultureInfo? culture,
     ConversionOptions? options)
   {
     var result = new DateTimeTypeConverter
     {
-      XsdType = xsdType,
+      SimpleType = simpleType,
       Format = format
       //Culture = culture,
     };
@@ -425,10 +425,10 @@ public class ValueTypeConverter : BaseTypeConverter
     return result;
   }
 
-  private TypeConverter CreateBooleanTypeConverter(Type? expectedType, XsdSimpleType? xsdType, string? format, CultureInfo? culture,
+  private TypeConverter CreateBooleanTypeConverter(Type? expectedType, SimpleType? simpleType, string? format, CultureInfo? culture,
     ConversionOptions? options = null)
   {
-    var result = new BooleanTypeConverter { ExpectedType = expectedType, XsdType = xsdType };
+    var result = new BooleanTypeConverter { ExpectedType = expectedType, SimpleType = simpleType };
     if (options?.BooleanStrings != null)
       result.BooleanStrings = options.BooleanStrings;
     return result;
@@ -457,7 +457,7 @@ public class ValueTypeConverter : BaseTypeConverter
   {
 
     if (InternalTypeConverter == null)
-      Init(ExpectedType, KnownTypes, KnownNamespaces, XsdType, Format, Culture);
+      Init(ExpectedType, KnownTypes, KnownNamespaces, SimpleType, Format, Culture);
     if (InternalTypeConverter != null)
       return InternalTypeConverter.ConvertTo(context, Culture, value, destinationType);
     return null;
@@ -467,7 +467,7 @@ public class ValueTypeConverter : BaseTypeConverter
   public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
   {
     if (InternalTypeConverter == null)
-      Init(ExpectedType, KnownTypes, KnownNamespaces, XsdType, Format, Culture);
+      Init(ExpectedType, KnownTypes, KnownNamespaces, SimpleType, Format, Culture);
     if (InternalTypeConverter != null)
       return InternalTypeConverter.ConvertFrom(context, Culture, value);
     return value;

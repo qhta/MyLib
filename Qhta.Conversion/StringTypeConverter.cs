@@ -1,4 +1,6 @@
-﻿namespace Qhta.Conversion;
+﻿using Qhta.Collections;
+
+namespace Qhta.Conversion;
 
 /// <summary>
 /// Converts a Unicode string to its serializable equivalent string (and vice versa). 
@@ -100,47 +102,47 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
   /// <summary>
   /// Specifies an XsdType with filling Patterns and MinLength.
   /// </summary>
-  public override XsdSimpleType? XsdType
+  public override SimpleType? SimpleType
   {
     get => _XsdType;
     set
     {
       switch (value)
       {
-        case XsdSimpleType.String:
+        case Xml.SimpleType.String:
           Whitespaces = WhitespaceBehavior.Preserve;
           break;
-        case XsdSimpleType.NormalizedString:
+        case Xml.SimpleType.NormalizedString:
           Whitespaces = WhitespaceBehavior.Replace;
           break;
-        case XsdSimpleType.Token:
+        case Xml.SimpleType.Token:
           Whitespaces = WhitespaceBehavior.Collapse;
           MinLength = 1;
           break;
-        case XsdSimpleType.NmToken:
+        case Xml.SimpleType.NmToken:
           Whitespaces = WhitespaceBehavior.Collapse;
           MinLength = 1;
           Patterns = new[] { @"(\p{L}|\p{N}|\p{M}|[-.:])+" };
           break;
-        case XsdSimpleType.Name:
+        case Xml.SimpleType.Name:
           Whitespaces = WhitespaceBehavior.Collapse;
           MinLength = 1;
           Patterns = new[] { @"(\p{L}|\p{M}|[:_])(\p{L}|\p{N}|\p{M}|[-.:_])*" };
           break;
-        case XsdSimpleType.NcName:
-        case XsdSimpleType.Id:
-        case XsdSimpleType.IdRef:
-        case XsdSimpleType.Entity:
+        case Xml.SimpleType.NcName:
+        case Xml.SimpleType.Id:
+        case Xml.SimpleType.IdRef:
+        case Xml.SimpleType.Entity:
           Whitespaces = WhitespaceBehavior.Collapse;
           MinLength = 1;
           Patterns = new[] { @"(\p{L}|\p{M}|[_])(\p{L}|\p{N}|\p{M}|[-._])*" };
           break;
-        case XsdSimpleType.Language:
+        case Xml.SimpleType.Language:
           Whitespaces = WhitespaceBehavior.Collapse;
           MinLength = 1;
           Patterns = new[] { @"([a-zA-Z]{2}|[a-zA-Z]{3}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*" };
           break;
-        case XsdSimpleType.Notation:
+        case Xml.SimpleType.Notation:
           Whitespaces = WhitespaceBehavior.Collapse;
           WhitespacesFixed = true;
           break;
@@ -153,7 +155,7 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
   /// <summary>
   /// Protected XsdType.
   /// </summary>
-  protected XsdSimpleType? _XsdType;
+  protected SimpleType? _XsdType;
 
 
   /// <summary>
@@ -485,8 +487,8 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     if (!ok)
     {
       var msg = $"Invalid string \"{str}\" in StringTypeConverter";
-      if (XsdType != null)
-        msg += $" with XsdType={XsdType}";
+      if (SimpleType != null)
+        msg += $" with XsdType={SimpleType}";
       throw new InvalidOperationException(msg);
     }
   }
@@ -524,8 +526,8 @@ public class StringTypeConverter : BaseTypeConverter, ILengthRestrictions, IText
     if (!ok)
     {
       var msg = $"No enumeration encompassed for \"{str}\" in StringTypeConverter";
-      if (XsdType != null)
-        msg += $" with XsdType={XsdType}";
+      if (SimpleType != null)
+        msg += $" with XsdType={SimpleType}";
       throw new InvalidOperationException(msg);
     }
   }

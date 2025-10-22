@@ -70,7 +70,7 @@
         </member>
         <member name="M:Qhta.Conversion.ArrayTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
             <summary>
-            Byte array can be converted to Base64Binary or HexString (depending of XsdType property).
+            Byte array can be converted to Base64Binary or HexString (depending on SimpleType property).
             Other arrays are converted to a string of values separated by spaces.
             </summary>
             <param name="context"></param>
@@ -81,7 +81,7 @@
         </member>
         <member name="M:Qhta.Conversion.ArrayTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
             <summary>
-            Byte array can be converted form Base64Binary or HexString (depending of XsdType property).
+            Byte array can be converted form Base64Binary or HexString (depending on SimpleType property).
             Other arrays are converted from a string of values separated by spaces.
             </summary>
             <param name="context"></param>
@@ -142,9 +142,9 @@
               Known namespace prefixes
             </summary>
         </member>
-        <member name="P:Qhta.Conversion.BaseTypeConverter.XsdType">
+        <member name="P:Qhta.Conversion.BaseTypeConverter.SimpleType">
             <summary>
-              XsdSimpleType to use when converting to string in ConvertTo
+              SimpleType to use when converting to string in ConvertTo
             </summary>
         </member>
         <member name="P:Qhta.Conversion.BaseTypeConverter.Format">
@@ -317,19 +317,19 @@
             <inheritdoc/>
         </member>
         <member name="P:Qhta.Conversion.DbNullTypeXmlConverter.CanRead">
-            <inheritdoc/>
+            <summary>
+            CanRead is always true.
+            </summary>
         </member>
         <member name="P:Qhta.Conversion.DbNullTypeXmlConverter.CanWrite">
-            <inheritdoc/>
-        </member>
-        <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.WriteXml(System.Object,Qhta.Xml.IXmlWriter,System.Object,Qhta.Xml.IXmlSerializer)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.ReadXml(System.Object,Qhta.Xml.IXmlReader,System.Type,System.Object,Qhta.Xml.IXmlSerializer)">
-            <inheritdoc/>
+            <summary>
+            CanWrite is always false.
+            </summary>
         </member>
         <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.CanConvert(System.Type)">
-            <inheritdoc/>
+            <summary>
+            Can convert only DBNull type.
+            </summary>
         </member>
         <member name="T:Qhta.Conversion.DoubleTypeConverter">
             <summary>
@@ -513,9 +513,9 @@
             Known types for convert-back methods.
             </summary>
         </member>
-        <member name="P:Qhta.Conversion.ITypeConverter.XsdType">
+        <member name="P:Qhta.Conversion.ITypeConverter.SimpleType">
             <summary>
-            XsdType for convert-forth methods.
+            Simple for convert-forth methods.
             </summary>
         </member>
         <member name="P:Qhta.Conversion.ITypeConverter.Format">
@@ -606,7 +606,7 @@
             Specifies maximum (double) value inside an accepted range.
             </summary>
         </member>
-        <member name="P:Qhta.Conversion.NumericTypeConverter.XsdType">
+        <member name="P:Qhta.Conversion.NumericTypeConverter.SimpleType">
             <summary>
             Overrides the base XsdType property such that setting a XsdType also sets ExpectedType.
             </summary>
@@ -787,7 +787,7 @@
             when checking Patterns or Enumerations.
             </summary>
         </member>
-        <member name="P:Qhta.Conversion.StringTypeConverter.XsdType">
+        <member name="P:Qhta.Conversion.StringTypeConverter.SimpleType">
             <summary>
             Specifies an XsdType with filling Patterns and MinLength.
             </summary>
@@ -1036,14 +1036,14 @@
             Default constructor
             </summary>
         </member>
-        <member name="M:Qhta.Conversion.ValueTypeConverter.#ctor(System.Type,System.Collections.Generic.IEnumerable{System.Type},System.Collections.Generic.Dictionary{System.String,System.String},System.Nullable{Qhta.Xml.XsdSimpleType},System.String,System.Globalization.CultureInfo,Qhta.Conversion.ConversionOptions)">
+        <member name="M:Qhta.Conversion.ValueTypeConverter.#ctor(System.Type,System.Collections.Generic.IEnumerable{System.Type},System.Collections.Generic.Dictionary{System.String,System.String},System.Nullable{Qhta.Xml.SimpleType},System.String,System.Globalization.CultureInfo,Qhta.Conversion.ConversionOptions)">
             <summary>
             Constructor with parameters.
             </summary>
             <param name="expectedType"></param>
             <param name="knownTypes"></param>
             <param name="knownNamespaces"></param>
-            <param name="xsdType"></param>
+            <param name="simpleType"></param>
             <param name="format"></param>
             <param name="culture"></param>
             <param name="options"></param>
@@ -1063,7 +1063,7 @@
             Initializing method using previously declared properties.
             </summary>
         </member>
-        <member name="M:Qhta.Conversion.ValueTypeConverter.Init(System.Type,System.Collections.Generic.Dictionary{System.String,System.Type},System.Collections.Generic.Dictionary{System.String,System.String},System.Nullable{Qhta.Xml.XsdSimpleType},System.String,System.Globalization.CultureInfo,Qhta.Conversion.ConversionOptions)">
+        <member name="M:Qhta.Conversion.ValueTypeConverter.Init(System.Type,System.Collections.Generic.Dictionary{System.String,System.Type},System.Collections.Generic.Dictionary{System.String,System.String},System.Nullable{Qhta.Xml.SimpleType},System.String,System.Globalization.CultureInfo,Qhta.Conversion.ConversionOptions)">
             <summary>
             Initializing method with parameters.
             </summary>
@@ -1080,29 +1080,38 @@
         <member name="M:Qhta.Conversion.ValueTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
             <inheritdoc/>
         </member>
-        <member name="T:Qhta.Conversion.XmlQualifiedNameTypeConverter">
+        <member name="T:Qhta.Xml.SimpleType">
+            <summary>
+            Defines Xsd simple types (with their XML tags).
+            </summary>
+        </member>
+        <member name="T:Qhta.Xml.XmlQualifiedNameTypeConverter">
             <summary>
             Converts an XmlQualifiedName (defined in System.Xml) value to string and backward.
             </summary>
         </member>
-        <member name="M:Qhta.Conversion.XmlQualifiedNameTypeConverter.#ctor">
+        <member name="M:Qhta.Xml.XmlQualifiedNameTypeConverter.#ctor">
             <summary>
             Sets ExpectedType to XmlQualifiedName and XsdType to QName.
             </summary>
         </member>
-        <member name="M:Qhta.Conversion.XmlQualifiedNameTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+        <member name="M:Qhta.Xml.XmlQualifiedNameTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
             <inheritdoc/>
         </member>
-        <member name="M:Qhta.Conversion.XmlQualifiedNameTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+        <member name="M:Qhta.Xml.XmlQualifiedNameTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
             <inheritdoc/>
         </member>
-        <member name="M:Qhta.Conversion.XmlQualifiedNameTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+        <member name="M:Qhta.Xml.XmlQualifiedNameTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
             <inheritdoc/>
         </member>
-        <member name="M:Qhta.Conversion.XmlQualifiedNameTypeConverter.ConvertFrom(System.Object)">
-            <inheritdoc/>
+        <member name="M:Qhta.Xml.XmlQualifiedNameTypeConverter.ConvertFrom(System.Object)">
+            <summary>
+            Converts from object to XmlQualifiedName using null context and culture.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
         </member>
-        <member name="M:Qhta.Conversion.XmlQualifiedNameTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+        <member name="M:Qhta.Xml.XmlQualifiedNameTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
             <inheritdoc/>
         </member>
     </members>

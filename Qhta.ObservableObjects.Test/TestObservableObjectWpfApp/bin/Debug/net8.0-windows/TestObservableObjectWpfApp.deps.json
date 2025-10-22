@@ -8,28 +8,28 @@
     ".NETCoreApp,Version=v8.0": {
       "TestObservableObjectWpfApp/1.0.0": {
         "dependencies": {
-          "Qhta.ObservableObjects": "4.2.0",
+          "Qhta.ObservableObjects": "4.3.0",
           "Qhta.WPF.Behaviors": "1.4.0"
         },
         "runtime": {
           "TestObservableObjectWpfApp.dll": {}
         }
       },
-      "Qhta.MVVM/3.3.0": {
+      "Qhta.MVVM/4.1.0": {
         "dependencies": {
-          "Qhta.ObservableObjects": "4.2.0"
+          "Qhta.ObservableObjects": "4.3.0"
         },
         "runtime": {
-          "lib/netstandard2.0/Qhta.MVVM.dll": {
-            "assemblyVersion": "3.3.0.0",
-            "fileVersion": "3.3.0.0"
+          "lib/net6.0-windows7.0/Qhta.MVVM.dll": {
+            "assemblyVersion": "4.1.0.0",
+            "fileVersion": "4.1.0.0"
           }
         }
       },
       "Qhta.WPF.Behaviors/1.4.0": {
         "dependencies": {
-          "Qhta.MVVM": "3.3.0",
-          "Qhta.ObservableObjects": "4.2.0"
+          "Qhta.MVVM": "4.1.0",
+          "Qhta.ObservableObjects": "4.3.0"
         },
         "runtime": {
           "lib/net6.0-windows7.0/Qhta.WPF.Behaviors.dll": {
@@ -46,7 +46,7 @@
           }
         }
       },
-      "Qhta.ObservableObjects/4.2.0": {
+      "Qhta.ObservableObjects/4.3.0": {
         "dependencies": {
           "System.Collections.Immutable": "9.0.7"
         },
@@ -65,12 +65,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Qhta.MVVM/3.3.0": {
+    "Qhta.MVVM/4.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-CWYpmlS9gWxsPV/Z8LA/Bo7+9cae9Qu+zzEwH0U/JjH2llPEqP4Yraa6gNKfaDXp2fKEe/k8z4vO1KWZU5eAIQ==",
-      "path": "qhta.mvvm/3.3.0",
-      "hashPath": "qhta.mvvm.3.3.0.nupkg.sha512"
+      "sha512": "sha512-zrVguxdl1ksGE3HSXIlziuWSgf2vjfVAiVsi+ibKjtp4UgJHCTGXGjiYpX8M6VhjBv/X2FUuE0A43DWwrJ/WyQ==",
+      "path": "qhta.mvvm/4.1.0",
+      "hashPath": "qhta.mvvm.4.1.0.nupkg.sha512"
     },
     "Qhta.WPF.Behaviors/1.4.0": {
       "type": "package",
@@ -86,7 +86,7 @@
       "path": "system.collections.immutable/9.0.7",
       "hashPath": "system.collections.immutable.9.0.7.nupkg.sha512"
     },
-    "Qhta.ObservableObjects/4.2.0": {
+    "Qhta.ObservableObjects/4.3.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

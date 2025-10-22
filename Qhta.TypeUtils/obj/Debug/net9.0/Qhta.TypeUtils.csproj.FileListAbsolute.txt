@@ -13,3 +13,7 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net9.0\refint\Qhta.TypeUt
 D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net9.0\Qhta.TypeUtils.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net9.0\Qhta.TypeUtils.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\obj\Debug\net9.0\ref\Qhta.TypeUtils.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.TypeUtils.deps.json
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.TypeUtils.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.TypeUtils.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.TypeUtils.xml

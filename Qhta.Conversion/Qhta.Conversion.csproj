@@ -26,26 +26,12 @@
     <EmbeddedResource Remove="ConversionTest\**" />
     <None Remove="ConversionTest\**" />
   </ItemGroup>
-
+  
+  
   <ItemGroup>
-    <Compile Remove="XsdSimpleType.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Qhta.Xml" Version="3.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Qhta.Xml\Qhta.Xml.csproj" />
-  </ItemGroup>
-
-  <!--<ItemGroup>
     <PackageReference Include="Qhta.Collections" Version="5.2.0" />
-    <PackageReference Include="Qhta.TextUtils" Version="3.8.0" />
-    <PackageReference Include="Qhta.TypeUtils" Version="1.4.0" />
-    <PackageReference Include="Qhta.Xml" Version="3.1.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.10" />
-  </ItemGroup>-->
+    <PackageReference Include="Qhta.TypeUtils" Version="1.5.0" />
+  </ItemGroup>
 
 
 </Project>

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Types needed to supplement System.Reflection for Xml serialization")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("3.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.0+0062127d033d8f79679681d00c51160520ac19f0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.0+56fd72dd300e068762eaa51c113f9ef6356fa83b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.Xml.Reflection")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.Xml.Reflection")]
 [assembly: System.Reflection.AssemblyVersionAttribute("3.0.0.0")]

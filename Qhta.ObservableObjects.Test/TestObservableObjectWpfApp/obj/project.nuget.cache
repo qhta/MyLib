@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "8Ckn6xygRmk=",
+  "dgSpecHash": "ryvU1xR+H8g=",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects.Test\\TestObservableObjectWpfApp\\TestObservableObjectWpfApp.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.mvvm\\3.3.0\\qhta.mvvm.3.3.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.wpf.behaviors\\1.4.0\\qhta.wpf.behaviors.1.4.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\9.0.7\\system.collections.immutable.9.0.7.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\9.0.7\\system.collections.immutable.9.0.7.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\4.3.0\\qhta.observableobjects.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

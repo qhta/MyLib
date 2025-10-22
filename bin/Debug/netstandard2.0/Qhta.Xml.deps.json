@@ -11,8 +11,7 @@
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "Qhta.Collections": "5.2.0",
-          "Qhta.TextUtils": "3.8.0",
-          "Qhta.TypeUtils": "1.4.0"
+          "Qhta.TextUtils": "3.8.0"
         },
         "runtime": {
           "Qhta.Xml.dll": {}
@@ -40,17 +39,6 @@
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
             "assemblyVersion": "3.8.0.0",
             "fileVersion": "3.8.0.0"
-          }
-        }
-      },
-      "Qhta.TypeUtils/1.4.0": {
-        "dependencies": {
-          "Qhta.Collections": "5.2.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Qhta.TypeUtils.dll": {
-            "assemblyVersion": "1.4.0.0",
-            "fileVersion": "1.4.0.0"
           }
         }
       }
@@ -89,13 +77,6 @@
       "sha512": "sha512-BW8TkXbdrXOV5XtkFmMs3pzpEhzRHrEIsKGNWXUFqD/vY4yjxjsthUIK2Ls4GW66bjUwl0PbdxIO9v4l90Lrrw==",
       "path": "qhta.textutils/3.8.0",
       "hashPath": "qhta.textutils.3.8.0.nupkg.sha512"
-    },
-    "Qhta.TypeUtils/1.4.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-5bRrb24q9Olnb4nOz/rtl0f7cNIiVd7jmoCYbNW5veCE3Qw1iihzuagVQYi2UOLALh4S3LZqzt+zjV8TOuB5XQ==",
-      "path": "qhta.typeutils/1.4.0",
-      "hashPath": "qhta.typeutils.1.4.0.nupkg.sha512"
     }
   }
 }

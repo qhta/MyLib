@@ -77,6 +77,21 @@
             <param name="callback">A delegate to invoke through the dispatcher.</param>
             <returns>The value returned by callback.</returns>
         </member>
+        <member name="T:Qhta.ObservableObjects.ILoadable">
+            <summary>
+            Interface for observable objects that can be loaded.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ILoadable.IsLoaded">
+            <summary>
+            Determines whether the object is loaded.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ILoadable.Loaded">
+            <summary>
+            Event that is raised when the object is fully loaded.
+            </summary>
+        </member>
         <member name="T:Qhta.ObservableObjects.ObservableCollectionObject">
             <summary>
             Base class for all observable collection classes.
@@ -1267,6 +1282,16 @@
         <member name="P:Qhta.ObservableObjects.ObservableObject.SyncRoot">
             <summary>
             Object used to synchronize in multi-thread environment.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableObject.IsLoaded">
+            <summary>
+            Determines whether the object is loaded.
+            </summary>
+        </member>
+        <member name="P:Qhta.ObservableObjects.ObservableObject.Loaded">
+            <summary>
+            Gets or sets the event handler that is invoked when the component is fully loaded.
             </summary>
         </member>
         <member name="T:Qhta.ObservableObjects.PropertyChanged2EventArgs">

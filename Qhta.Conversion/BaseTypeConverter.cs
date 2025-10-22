@@ -21,9 +21,9 @@ public class BaseTypeConverter: TypeConverter
   public virtual Dictionary<string, string>? KnownNamespaces { get; set; }
 
   /// <summary>
-  ///   XsdSimpleType to use when converting to string in ConvertTo
+  ///   SimpleType to use when converting to string in ConvertTo
   /// </summary>
-  public virtual XsdSimpleType? XsdType { get; set; }
+  public virtual SimpleType? SimpleType { get; set; }
 
   /// <summary>
   ///   Format to use when converting to/from string in ConvertTo/ConvertFrom

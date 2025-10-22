@@ -43,7 +43,7 @@ public class ArrayTypeConverter : BaseTypeConverter, ILengthRestrictions
   }
 
   /// <summary>
-  /// Byte array can be converted to Base64Binary or HexString (depending of XsdType property).
+  /// Byte array can be converted to Base64Binary or HexString (depending on SimpleType property).
   /// Other arrays are converted to a string of values separated by spaces.
   /// </summary>
   /// <param name="context"></param>
@@ -57,9 +57,9 @@ public class ArrayTypeConverter : BaseTypeConverter, ILengthRestrictions
       return null;
     if (value is byte[] bytes)
     {
-      if (XsdType == XsdSimpleType.Base64Binary)
+      if (SimpleType == Xml.SimpleType.Base64Binary)
         return Convert.ToBase64String(bytes);
-      if (XsdType == XsdSimpleType.HexBinary)
+      if (SimpleType == Xml.SimpleType.HexBinary)
 #if NET6_0_OR_GREATER
         return Convert.ToHexString(bytes);
 #else
@@ -69,29 +69,29 @@ public class ArrayTypeConverter : BaseTypeConverter, ILengthRestrictions
 #endif
     }
 
-    var xsdType = XsdType;
-    if (xsdType == XsdSimpleType.NmTokens)
-      xsdType = XsdSimpleType.NmToken;
-    if (xsdType == XsdSimpleType.IdRefs)
-      xsdType = XsdSimpleType.IdRef;
-    if (xsdType == XsdSimpleType.Entities)
-      xsdType = XsdSimpleType.Entity;
+    var simpleType = SimpleType;
+    if (simpleType == Xml.SimpleType.NmTokens)
+      simpleType = Xml.SimpleType.NmToken;
+    if (simpleType == Xml.SimpleType.IdRefs)
+      simpleType = Xml.SimpleType.IdRef;
+    if (simpleType == Xml.SimpleType.Entities)
+      simpleType = Xml.SimpleType.Entity;
 
-    ItemConverter.Init(null, KnownTypes, KnownNamespaces, xsdType, Format, culture);
+    ItemConverter.Init(null, KnownTypes, KnownNamespaces, simpleType, Format, culture);
     if (ItemConverter.InternalTypeConverter == null)
       return null;
     var list = new List<string?>();
     if (value is Array array)
       foreach (var item in array)
       {
-        ItemConverter.XsdType = xsdType;
+        ItemConverter.SimpleType = simpleType;
         list.Add((string?)ItemConverter.ConvertTo(context, culture, item, typeof(string)));
       }
     return String.Join(" ", list);
   }
 
   /// <summary>
-  /// Byte array can be converted form Base64Binary or HexString (depending of XsdType property).
+  /// Byte array can be converted form Base64Binary or HexString (depending on SimpleType property).
   /// Other arrays are converted from a string of values separated by spaces.
   /// </summary>
   /// <param name="context"></param>
@@ -99,18 +99,18 @@ public class ArrayTypeConverter : BaseTypeConverter, ILengthRestrictions
   /// <param name="value"></param>
   /// <returns></returns>
   /// <exception cref="InvalidOperationException"></exception>
-  public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+  public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object? value)
   {
-    byte[] bytes;
     if (value is string str)
     {
-      if (XsdType == XsdSimpleType.Base64Binary)
+    byte[] bytes;
+      if (SimpleType == Xml.SimpleType.Base64Binary)
       {
         bytes = Convert.FromBase64String(str);
         ValidateLength(bytes, MinLength, MaxLength);
         return bytes;
       }
-      if (XsdType == XsdSimpleType.HexBinary)
+      if (SimpleType == Xml.SimpleType.HexBinary)
       {
 #if NET6_0_OR_GREATER
         bytes = Convert.FromHexString(str);
@@ -121,19 +121,19 @@ public class ArrayTypeConverter : BaseTypeConverter, ILengthRestrictions
         return bytes;
       }
 
-      var xsdType = XsdType;
-      if (xsdType == XsdSimpleType.NmTokens)
-        xsdType = XsdSimpleType.NmToken;
-      if (xsdType == XsdSimpleType.IdRefs)
-        xsdType = XsdSimpleType.IdRef;
-      if (xsdType == XsdSimpleType.Entities)
-        xsdType = XsdSimpleType.Entity;
+      var simpleType = SimpleType;
+      if (simpleType == Xml.SimpleType.NmTokens)
+        simpleType = Xml.SimpleType.NmToken;
+      if (simpleType == Xml.SimpleType.IdRefs)
+        simpleType = Xml.SimpleType.IdRef;
+      if (simpleType == Xml.SimpleType.Entities)
+        simpleType = Xml.SimpleType.Entity;
 
       var expectedType = ExpectedType;
       if (ExpectedType != null && ExpectedType.IsArray(out var itemType))
         expectedType = itemType;
 
-      ItemConverter.Init(expectedType, KnownTypes, KnownNamespaces, xsdType, Format, culture);
+      ItemConverter.Init(expectedType, KnownTypes, KnownNamespaces, simpleType, Format, culture);
 
       if (expectedType == null)
         expectedType = ItemConverter.ExpectedType;

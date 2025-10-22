@@ -399,11 +399,11 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteAttributeString(string attrName, string? str)
   {
-    BaseXmlWriter.WriteAttributeString(attrName, str);
+    BaseXmlWriter.WriteAttributeString(attrName, str!);
   }
 
   /// <summary>
-  /// Writes the specified namespace definition usint xmlns prefix.
+  /// Writes the specified namespace definition using xmlns prefix.
   /// </summary>
   public void WriteNamespaceDef(string prefix, string ns)
   {
@@ -415,7 +415,8 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteTypeAttribute(XmlQualifiedTagName tag)
   {
-    BaseXmlWriter.WriteAttributeString(null, "type", QXmlSerializationHelper.xsiNamespace, tag.ToPrefixedString());
+
+    BaseXmlWriter.WriteAttributeString(null!, "type", MappingHelper.xsiNamespace, tag.ToPrefixedString());
     XsiNamespaceUsed = true;
   }
 
@@ -424,7 +425,7 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   /// </summary>
   public void WriteNilAttribute()
   {
-    BaseXmlWriter.WriteAttributeString(null, "nil", QXmlSerializationHelper.xsiNamespace, "true");
+    BaseXmlWriter.WriteAttributeString(null!, "nil", MappingHelper.xsiNamespace, "true");
     XsiNamespaceUsed = true;
   }
 

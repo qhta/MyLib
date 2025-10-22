@@ -153,10 +153,10 @@ public partial class QXmlSerializer
       if (!namespacesWritten && Options.EmitNamespaces && context == null)
       {
         if (Options.UseNilValue || Options.UseXsiType)
-          Writer.WriteNamespaceDef("xsi", QXmlSerializationHelper.xsiNamespace);
+          Writer.WriteNamespaceDef("xsi", MappingHelper.xsiNamespace);
 
         if (Options.UseXsdScheme)
-          Writer.WriteNamespaceDef("xsd", QXmlSerializationHelper.xsdNamespace);
+          Writer.WriteNamespaceDef("xsd", MappingHelper.xsdNamespace);
 
         if (Options.AutoSetPrefixes)
           foreach (var item in KnownNamespaces)

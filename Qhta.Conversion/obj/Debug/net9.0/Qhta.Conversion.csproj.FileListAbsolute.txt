@@ -17,4 +17,3 @@ D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.Conversion.deps.json
 D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.Conversion.dll
 D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.Conversion.pdb
 D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.Conversion.xml
-D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\obj\Debug\net9.0\Qhta.Con.7A54A875.Up2Date

@@ -9,6 +9,5 @@ global using System.Text;
 global using System.Text.RegularExpressions;
 global using System.Xml;
 
-global using Qhta.Collections;
-global using Qhta.TypeUtils;
 global using Qhta.Xml;
+global using Qhta.TypeUtils;

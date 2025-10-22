@@ -14,7 +14,6 @@
           "Qhta.Collections": "5.2.0",
           "Qhta.Conversion": "2.2.0",
           "Qhta.TextUtils": "3.8.0",
-          "Qhta.TypeUtils": "1.4.0",
           "Qhta.Xml": "3.2.0",
           "System.ComponentModel.Annotations": "5.0.0"
         },
@@ -47,6 +46,18 @@
           }
         }
       },
+      "Qhta.Conversion/2.2.0": {
+        "dependencies": {
+          "Qhta.Collections": "5.2.0",
+          "Qhta.TypeUtils": "1.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.Conversion.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.0"
+          }
+        }
+      },
       "Qhta.TextUtils/3.8.0": {
         "runtime": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
@@ -55,14 +66,15 @@
           }
         }
       },
-      "Qhta.TypeUtils/1.4.0": {
+      "Qhta.TypeUtils/1.5.0": {
         "dependencies": {
+          "NullableAttributes": "1.0.0",
           "Qhta.Collections": "5.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Qhta.TypeUtils.dll": {
-            "assemblyVersion": "1.4.0.0",
-            "fileVersion": "1.4.0.0"
+            "assemblyVersion": "1.5.0.0",
+            "fileVersion": "1.5.0.0"
           }
         }
       },
@@ -74,22 +86,10 @@
           }
         }
       },
-      "Qhta.Conversion/2.2.0": {
-        "dependencies": {
-          "Qhta.Xml": "3.2.0"
-        },
-        "runtime": {
-          "Qhta.Conversion.dll": {
-            "assemblyVersion": "2.2.0.0",
-            "fileVersion": "2.2.0.0"
-          }
-        }
-      },
       "Qhta.Xml/3.2.0": {
         "dependencies": {
           "Qhta.Collections": "5.2.0",
-          "Qhta.TextUtils": "3.8.0",
-          "Qhta.TypeUtils": "1.4.0"
+          "Qhta.TextUtils": "3.8.0"
         },
         "runtime": {
           "Qhta.Xml.dll": {
@@ -134,6 +134,13 @@
       "path": "qhta.collections/5.2.0",
       "hashPath": "qhta.collections.5.2.0.nupkg.sha512"
     },
+    "Qhta.Conversion/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HcvHX47zT6qFSDCKyiOtbzcOkciYZaeKrjhUIy9bEzPWSMVKP69lpbMk55e7NiD/WKjBA5GhKLSQyjOP4nmUsQ==",
+      "path": "qhta.conversion/2.2.0",
+      "hashPath": "qhta.conversion.2.2.0.nupkg.sha512"
+    },
     "Qhta.TextUtils/3.8.0": {
       "type": "package",
       "serviceable": true,
@@ -141,12 +148,12 @@
       "path": "qhta.textutils/3.8.0",
       "hashPath": "qhta.textutils.3.8.0.nupkg.sha512"
     },
-    "Qhta.TypeUtils/1.4.0": {
+    "Qhta.TypeUtils/1.5.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-5bRrb24q9Olnb4nOz/rtl0f7cNIiVd7jmoCYbNW5veCE3Qw1iihzuagVQYi2UOLALh4S3LZqzt+zjV8TOuB5XQ==",
-      "path": "qhta.typeutils/1.4.0",
-      "hashPath": "qhta.typeutils.1.4.0.nupkg.sha512"
+      "sha512": "sha512-ETr1BWM1EJGDx8v+fLriEIJT2pSRDGDU0sEF1ZU9bph7rS2ipx+SNrwwB9hDzU+9wP8JzyXY5vS1cKhgFjjCrQ==",
+      "path": "qhta.typeutils/1.5.0",
+      "hashPath": "qhta.typeutils.1.5.0.nupkg.sha512"
     },
     "System.ComponentModel.Annotations/5.0.0": {
       "type": "package",
@@ -154,11 +161,6 @@
       "sha512": "sha512-dMkqfy2el8A8/I76n2Hi1oBFEbG1SfxD2l5nhwXV3XjlnOmwxJlQbYpJH4W51odnU9sARCSAgv7S3CyAFMkpYg==",
       "path": "system.componentmodel.annotations/5.0.0",
       "hashPath": "system.componentmodel.annotations.5.0.0.nupkg.sha512"
-    },
-    "Qhta.Conversion/2.2.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     },
     "Qhta.Xml/3.2.0": {
       "type": "project",

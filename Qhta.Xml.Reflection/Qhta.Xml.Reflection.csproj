@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Compile Remove="FilteredMembersCollection.cs" />
-    <Compile Remove="XmlSerializationInfoMapper.cs" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
@@ -32,13 +31,12 @@
 
   <ItemGroup>
     <PackageReference Include="Qhta.Collections" Version="5.2.0" />
+    <PackageReference Include="Qhta.Conversion" Version="2.2.0" />
     <PackageReference Include="Qhta.TextUtils" Version="3.8.0" />
-    <PackageReference Include="Qhta.TypeUtils" Version="1.4.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Qhta.Conversion\Qhta.Conversion.csproj" />
     <ProjectReference Include="..\Qhta.Xml\Qhta.Xml.csproj" />
   </ItemGroup>
 

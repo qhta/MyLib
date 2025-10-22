@@ -6,47 +6,29 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "Qhta.ObservableObjects/3.0": {
+      "Qhta.ObservableObjects/4.5": {
         "dependencies": {
-          "System.Collections.Immutable": "8.0.0"
+          "System.Collections.Immutable": "1.1.36"
         },
         "runtime": {
           "Qhta.ObservableObjects.dll": {}
         }
       },
-      "System.Collections.Immutable/8.0.0": {
-        "dependencies": {
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
-        },
-        "runtime": {
-          "lib/net6.0/System.Collections.Immutable.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.23.53103"
-          }
-        }
-      },
-      "System.Runtime.CompilerServices.Unsafe/6.0.0": {}
+      "System.Collections.Immutable/1.1.36": {}
     }
   },
   "libraries": {
-    "Qhta.ObservableObjects/3.0": {
+    "Qhta.ObservableObjects/4.5": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "System.Collections.Immutable/8.0.0": {
+    "System.Collections.Immutable/1.1.36": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-AurL6Y5BA1WotzlEvVaIDpqzpIPvYnnldxru8oXJU2yFxFUy3+pNXjXd1ymO+RA0rq0+590Q8gaz2l3Sr7fmqg==",
-      "path": "system.collections.immutable/8.0.0",
-      "hashPath": "system.collections.immutable.8.0.0.nupkg.sha512"
-    },
-    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
-      "path": "system.runtime.compilerservices.unsafe/6.0.0",
-      "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+      "sha512": "sha512-MOlivTIeAIQPPMUPWIIoMCvZczjFRLYUWSYwqi1szu8QPyeIbsaPeI+hpXe1DzTxNwnRnmfYaoToi6kXIfSPNg==",
+      "path": "system.collections.immutable/1.1.36",
+      "hashPath": "system.collections.immutable.1.1.36.nupkg.sha512"
     }
   }
 }

@@ -3,14 +3,8 @@
 /// <summary>
 /// Represents information on content of the dictionary type.
 /// </summary>
-public class DictionaryContentInfo : ContentInfo
+public class DictionaryContentInfo : CollectionContentInfo
 {
-  /// <summary>
-  /// The value type information.
-  /// </summary>
-  [XmlAttribute]
-  [XmlReference]
-  public SerializationTypeInfo? ValueTypeInfo { get; set; }
 
   /// <summary>
   /// The key type information.
@@ -34,7 +28,6 @@ public class DictionaryContentInfo : ContentInfo
   {
     return other is DictionaryContentInfo dictionaryContentInfo &&
            base.Equals(other) &&
-           object.Equals(ValueTypeInfo, dictionaryContentInfo.ValueTypeInfo) &&
            object.Equals(KeyTypeInfo, dictionaryContentInfo.KeyTypeInfo) &&
            KeyName == dictionaryContentInfo.KeyName;
   }

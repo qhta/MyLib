@@ -1,18 +1,19 @@
-﻿namespace Qhta.Conversion;
+﻿using Qhta.Conversion;
+
+namespace Qhta.Xml;
 
 /// <summary>
 /// Converts an XmlQualifiedName (defined in System.Xml) value to string and backward.
 /// </summary>
-public class XmlQualifiedNameTypeConverter : BaseTypeConverter
+public sealed class XmlQualifiedNameTypeConverter : BaseTypeConverter
 {
   /// <summary>
   /// Sets ExpectedType to XmlQualifiedName and XsdType to QName.
   /// </summary>
   public XmlQualifiedNameTypeConverter()
   {
-
     ExpectedType = typeof(XmlQualifiedName);
-    XsdType = XsdSimpleType.QName;
+    SimpleType = Xml.SimpleType.QName;
   }
 
   /// <inheritdoc/>
@@ -38,14 +39,18 @@ public class XmlQualifiedNameTypeConverter : BaseTypeConverter
     return sourceType == typeof(string);
   }
 
-  /// <inheritdoc/>
+  /// <summary>
+  /// Converts from object to XmlQualifiedName using null context and culture.
+  /// </summary>
+  /// <param name="value"></param>
+  /// <returns></returns>
   public new object? ConvertFrom(object value)
   {
     return ConvertFrom(null, null, value);
   }
 
   /// <inheritdoc/>
-  public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+  public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object? value)
   {
     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
     if (value == null)
@@ -63,6 +68,6 @@ public class XmlQualifiedNameTypeConverter : BaseTypeConverter
         return new XmlQualifiedName(str);
       }
     }
-    return base.ConvertFrom(context, culture, value);
+    return base.ConvertFrom(context!, culture!, value);
   }
 }

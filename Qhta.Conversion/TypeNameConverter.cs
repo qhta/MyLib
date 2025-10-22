@@ -1,4 +1,6 @@
-﻿namespace Qhta.Conversion;
+﻿using Qhta.TypeUtils;
+
+namespace Qhta.Conversion;
 
 /// <summary>
 /// Converts type name to the specific type using known types, known namespaces and namespace prefixes.

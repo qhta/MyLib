@@ -18,7 +18,7 @@ public class EnumTypeConverter : BaseTypeConverter
   {
     Base = new EnumConverter(enumType);
     ExpectedType = typeof(Enum);
-    XsdType = XsdSimpleType.String;
+    SimpleType = Xml.SimpleType.String;
   }
 
   /// <inheritdoc/>

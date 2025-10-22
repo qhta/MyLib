@@ -13,7 +13,7 @@ public class GuidTypeConverter : BaseTypeConverter
   public GuidTypeConverter()
   {
     ExpectedType = typeof(Guid);
-    XsdType = XsdSimpleType.String;
+    SimpleType = Xml.SimpleType.String;
   }
 
   /// <inheritdoc/>

@@ -643,7 +643,7 @@ public partial class QXmlSerializer
     var propertyTag = Reader.Name;
     if (Reader.HasAttributes)
     {
-      var typeName = Reader.GetAttribute(new XmlQualifiedTagName("type", QXmlSerializationHelper.xsiNamespace));
+      var typeName = Reader.GetAttribute(new XmlQualifiedTagName("type", MappingHelper.xsiNamespace));
       if (typeName != null)
       {
         Debug.Assert(false);

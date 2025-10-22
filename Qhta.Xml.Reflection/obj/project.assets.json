@@ -55,6 +55,23 @@
           }
         }
       },
+      "Qhta.Conversion/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "5.2.0",
+          "Qhta.TypeUtils": "1.5.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Qhta.Conversion.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.Conversion.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Qhta.TextUtils/3.8.0": {
         "type": "package",
         "compile": {
@@ -68,9 +85,10 @@
           }
         }
       },
-      "Qhta.TypeUtils/1.4.0": {
+      "Qhta.TypeUtils/1.5.0": {
         "type": "package",
         "dependencies": {
+          "NullableAttributes": "1.0.0",
           "Qhta.Collections": "2.0.0"
         },
         "compile": {
@@ -95,26 +113,12 @@
           "lib/netstandard2.0/System.ComponentModel.Annotations.dll": {}
         }
       },
-      "Qhta.Conversion/2.2.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Qhta.Xml": "3.2.0"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.Conversion.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.Conversion.dll": {}
-        }
-      },
       "Qhta.Xml/3.2.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Qhta.Collections": "5.2.0",
-          "Qhta.TextUtils": "3.8.0",
-          "Qhta.TypeUtils": "1.4.0"
+          "Qhta.TextUtils": "3.8.0"
         },
         "compile": {
           "bin/placeholder/Qhta.Xml.dll": {}
@@ -141,6 +145,23 @@
           }
         }
       },
+      "Qhta.Conversion/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "5.2.0",
+          "Qhta.TypeUtils": "1.5.0"
+        },
+        "compile": {
+          "lib/net6.0/Qhta.Conversion.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.Conversion.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Qhta.TextUtils/3.8.0": {
         "type": "package",
         "compile": {
@@ -154,7 +175,7 @@
           }
         }
       },
-      "Qhta.TypeUtils/1.4.0": {
+      "Qhta.TypeUtils/1.5.0": {
         "type": "package",
         "dependencies": {
           "Qhta.Collections": "2.0.0"
@@ -183,26 +204,12 @@
           }
         }
       },
-      "Qhta.Conversion/2.2.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Qhta.Xml": "3.2.0"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.Conversion.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.Conversion.dll": {}
-        }
-      },
       "Qhta.Xml/3.2.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "Qhta.Collections": "5.2.0",
-          "Qhta.TextUtils": "3.8.0",
-          "Qhta.TypeUtils": "1.4.0"
+          "Qhta.TextUtils": "3.8.0"
         },
         "compile": {
           "bin/placeholder/Qhta.Xml.dll": {}
@@ -229,6 +236,23 @@
           }
         }
       },
+      "Qhta.Conversion/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "5.2.0",
+          "Qhta.TypeUtils": "1.5.0"
+        },
+        "compile": {
+          "lib/net6.0/Qhta.Conversion.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Qhta.Conversion.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Qhta.TextUtils/3.8.0": {
         "type": "package",
         "compile": {
@@ -242,7 +266,7 @@
           }
         }
       },
-      "Qhta.TypeUtils/1.4.0": {
+      "Qhta.TypeUtils/1.5.0": {
         "type": "package",
         "dependencies": {
           "Qhta.Collections": "2.0.0"
@@ -271,26 +295,12 @@
           }
         }
       },
-      "Qhta.Conversion/2.2.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Qhta.Xml": "3.2.0"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.Conversion.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.Conversion.dll": {}
-        }
-      },
       "Qhta.Xml/3.2.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Qhta.Collections": "5.2.0",
-          "Qhta.TextUtils": "3.8.0",
-          "Qhta.TypeUtils": "1.4.0"
+          "Qhta.TextUtils": "3.8.0"
         },
         "compile": {
           "bin/placeholder/Qhta.Xml.dll": {}
@@ -317,6 +327,23 @@
           }
         }
       },
+      "Qhta.Conversion/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "5.2.0",
+          "Qhta.TypeUtils": "1.5.0"
+        },
+        "compile": {
+          "lib/net8.0/Qhta.Conversion.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Qhta.Conversion.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Qhta.TextUtils/3.8.0": {
         "type": "package",
         "compile": {
@@ -330,7 +357,7 @@
           }
         }
       },
-      "Qhta.TypeUtils/1.4.0": {
+      "Qhta.TypeUtils/1.5.0": {
         "type": "package",
         "dependencies": {
           "Qhta.Collections": "2.0.0"
@@ -359,26 +386,12 @@
           }
         }
       },
-      "Qhta.Conversion/2.2.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "Qhta.Xml": "3.2.0"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.Conversion.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.Conversion.dll": {}
-        }
-      },
       "Qhta.Xml/3.2.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Qhta.Collections": "5.2.0",
-          "Qhta.TextUtils": "3.8.0",
-          "Qhta.TypeUtils": "1.4.0"
+          "Qhta.TextUtils": "3.8.0"
         },
         "compile": {
           "bin/placeholder/Qhta.Xml.dll": {}
@@ -570,6 +583,25 @@
         "readme.md"
       ]
     },
+    "Qhta.Conversion/2.2.0": {
+      "sha512": "HcvHX47zT6qFSDCKyiOtbzcOkciYZaeKrjhUIy9bEzPWSMVKP69lpbMk55e7NiD/WKjBA5GhKLSQyjOP4nmUsQ==",
+      "type": "package",
+      "path": "qhta.conversion/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net6.0/Qhta.Conversion.dll",
+        "lib/net6.0/Qhta.Conversion.xml",
+        "lib/net8.0/Qhta.Conversion.dll",
+        "lib/net8.0/Qhta.Conversion.xml",
+        "lib/net9.0/Qhta.Conversion.dll",
+        "lib/net9.0/Qhta.Conversion.xml",
+        "lib/netstandard2.0/Qhta.Conversion.dll",
+        "lib/netstandard2.0/Qhta.Conversion.xml",
+        "qhta.conversion.2.2.0.nupkg.sha512",
+        "qhta.conversion.nuspec",
+        "readme.md"
+      ]
+    },
     "Qhta.TextUtils/3.8.0": {
       "sha512": "BW8TkXbdrXOV5XtkFmMs3pzpEhzRHrEIsKGNWXUFqD/vY4yjxjsthUIK2Ls4GW66bjUwl0PbdxIO9v4l90Lrrw==",
       "type": "package",
@@ -589,10 +621,10 @@
         "readme.md"
       ]
     },
-    "Qhta.TypeUtils/1.4.0": {
-      "sha512": "5bRrb24q9Olnb4nOz/rtl0f7cNIiVd7jmoCYbNW5veCE3Qw1iihzuagVQYi2UOLALh4S3LZqzt+zjV8TOuB5XQ==",
+    "Qhta.TypeUtils/1.5.0": {
+      "sha512": "ETr1BWM1EJGDx8v+fLriEIJT2pSRDGDU0sEF1ZU9bph7rS2ipx+SNrwwB9hDzU+9wP8JzyXY5vS1cKhgFjjCrQ==",
       "type": "package",
-      "path": "qhta.typeutils/1.4.0",
+      "path": "qhta.typeutils/1.5.0",
       "files": [
         ".nupkg.metadata",
         "lib/net6.0/Qhta.TypeUtils.dll",
@@ -601,9 +633,11 @@
         "lib/net7.0/Qhta.TypeUtils.xml",
         "lib/net8.0/Qhta.TypeUtils.dll",
         "lib/net8.0/Qhta.TypeUtils.xml",
+        "lib/net9.0/Qhta.TypeUtils.dll",
+        "lib/net9.0/Qhta.TypeUtils.xml",
         "lib/netstandard2.0/Qhta.TypeUtils.dll",
         "lib/netstandard2.0/Qhta.TypeUtils.xml",
-        "qhta.typeutils.1.4.0.nupkg.sha512",
+        "qhta.typeutils.1.5.0.nupkg.sha512",
         "qhta.typeutils.nuspec",
         "readme.md"
       ]
@@ -698,11 +732,6 @@
         "version.txt"
       ]
     },
-    "Qhta.Conversion/2.2.0": {
-      "type": "project",
-      "path": "../Qhta.Conversion/Qhta.Conversion.csproj",
-      "msbuildProject": "../Qhta.Conversion/Qhta.Conversion.csproj"
-    },
     "Qhta.Xml/3.2.0": {
       "type": "project",
       "path": "../Qhta.Xml/Qhta.Xml.csproj",
@@ -716,7 +745,6 @@
       "Qhta.Collections >= 5.2.0",
       "Qhta.Conversion >= 2.2.0",
       "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.4.0",
       "Qhta.Xml >= 3.2.0",
       "System.ComponentModel.Annotations >= 5.0.0"
     ],
@@ -724,7 +752,6 @@
       "Qhta.Collections >= 5.2.0",
       "Qhta.Conversion >= 2.2.0",
       "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.4.0",
       "Qhta.Xml >= 3.2.0",
       "System.ComponentModel.Annotations >= 5.0.0"
     ],
@@ -732,7 +759,6 @@
       "Qhta.Collections >= 5.2.0",
       "Qhta.Conversion >= 2.2.0",
       "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.4.0",
       "Qhta.Xml >= 3.2.0",
       "System.ComponentModel.Annotations >= 5.0.0"
     ],
@@ -740,7 +766,6 @@
       "Qhta.Collections >= 5.2.0",
       "Qhta.Conversion >= 2.2.0",
       "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.4.0",
       "Qhta.Xml >= 3.2.0",
       "System.ComponentModel.Annotations >= 5.0.0"
     ]
@@ -787,9 +812,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj": {
-              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj"
-            },
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj"
             }
@@ -798,9 +820,6 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj": {
-              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj"
-            },
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj"
             }
@@ -809,9 +828,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj": {
-              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj"
-            },
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj"
             }
@@ -820,9 +836,6 @@
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
           "projectReferences": {
-            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj": {
-              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj"
-            },
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml\\Qhta.Xml.csproj"
             }
@@ -849,13 +862,13 @@
             "target": "Package",
             "version": "[5.2.0, )"
           },
+          "Qhta.Conversion": {
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.8.0, )"
-          },
-          "Qhta.TypeUtils": {
-            "target": "Package",
-            "version": "[1.4.0, )"
           },
           "System.ComponentModel.Annotations": {
             "target": "Package",
@@ -887,13 +900,13 @@
             "target": "Package",
             "version": "[5.2.0, )"
           },
+          "Qhta.Conversion": {
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.8.0, )"
-          },
-          "Qhta.TypeUtils": {
-            "target": "Package",
-            "version": "[1.4.0, )"
           },
           "System.ComponentModel.Annotations": {
             "target": "Package",
@@ -925,13 +938,13 @@
             "target": "Package",
             "version": "[5.2.0, )"
           },
+          "Qhta.Conversion": {
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.8.0, )"
-          },
-          "Qhta.TypeUtils": {
-            "target": "Package",
-            "version": "[1.4.0, )"
           },
           "System.ComponentModel.Annotations": {
             "target": "Package",
@@ -973,13 +986,13 @@
             "target": "Package",
             "version": "[5.2.0, )"
           },
+          "Qhta.Conversion": {
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.8.0, )"
-          },
-          "Qhta.TypeUtils": {
-            "target": "Package",
-            "version": "[1.4.0, )"
           },
           "System.ComponentModel.Annotations": {
             "target": "Package",
