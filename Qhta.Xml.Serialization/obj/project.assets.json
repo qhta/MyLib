@@ -35,6 +35,19 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "NullableAttributes/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NullableAttributes.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/NullableAttributes.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Qhta.Collections/5.2.0": {
         "type": "package",
         "dependencies": {
@@ -73,22 +86,6 @@
         },
         "runtime": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Qhta.TypeUtils/1.4.0": {
-        "type": "package",
-        "dependencies": {
-          "Qhta.Collections": "2.0.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/Qhta.TypeUtils.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/Qhta.TypeUtils.dll": {
             "related": ".xml"
           }
         }
@@ -431,6 +428,20 @@
           "bin/placeholder/Qhta.Conversion.dll": {}
         }
       },
+      "Qhta.TypeUtils/1.5.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "NullableAttributes": "1.0.0",
+          "Qhta.Collections": "2.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Qhta.TypeUtils.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.TypeUtils.dll": {}
+        }
+      },
       "Qhta.Xml/3.2.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -450,7 +461,9 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "NullableAttributes": "1.0.0",
           "Qhta.Collections": "5.2.0",
+          "Qhta.Conversion": "2.2.0",
           "Qhta.TextUtils": "3.8.0",
           "Qhta.TypeUtils": "1.4.0",
           "Qhta.Xml": "3.2.0",
@@ -521,22 +534,6 @@
         },
         "runtime": {
           "lib/net6.0/Qhta.TextUtils.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Qhta.TypeUtils/1.4.0": {
-        "type": "package",
-        "dependencies": {
-          "Qhta.Collections": "2.0.0"
-        },
-        "compile": {
-          "lib/net6.0/Qhta.TypeUtils.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Qhta.TypeUtils.dll": {
             "related": ".xml"
           }
         }
@@ -863,6 +860,19 @@
           "bin/placeholder/Qhta.Conversion.dll": {}
         }
       },
+      "Qhta.TypeUtils/1.5.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Qhta.Collections": "2.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Qhta.TypeUtils.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.TypeUtils.dll": {}
+        }
+      },
       "Qhta.Xml/3.2.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -883,6 +893,7 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "Qhta.Collections": "5.2.0",
+          "Qhta.Conversion": "2.2.0",
           "Qhta.TextUtils": "3.8.0",
           "Qhta.TypeUtils": "1.4.0",
           "Qhta.Xml": "3.2.0",
@@ -953,22 +964,6 @@
         },
         "runtime": {
           "lib/net7.0/Qhta.TextUtils.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Qhta.TypeUtils/1.4.0": {
-        "type": "package",
-        "dependencies": {
-          "Qhta.Collections": "2.0.0"
-        },
-        "compile": {
-          "lib/net7.0/Qhta.TypeUtils.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net7.0/Qhta.TypeUtils.dll": {
             "related": ".xml"
           }
         }
@@ -1295,6 +1290,19 @@
           "bin/placeholder/Qhta.Conversion.dll": {}
         }
       },
+      "Qhta.TypeUtils/1.5.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Qhta.Collections": "2.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Qhta.TypeUtils.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.TypeUtils.dll": {}
+        }
+      },
       "Qhta.Xml/3.2.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -1315,6 +1323,7 @@
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Qhta.Collections": "5.2.0",
+          "Qhta.Conversion": "2.2.0",
           "Qhta.TextUtils": "3.8.0",
           "Qhta.TypeUtils": "1.4.0",
           "Qhta.Xml": "3.2.0",
@@ -1398,22 +1407,6 @@
         },
         "runtime": {
           "lib/net8.0/Qhta.TextUtils.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Qhta.TypeUtils/1.4.0": {
-        "type": "package",
-        "dependencies": {
-          "Qhta.Collections": "2.0.0"
-        },
-        "compile": {
-          "lib/net8.0/Qhta.TypeUtils.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Qhta.TypeUtils.dll": {
             "related": ".xml"
           }
         }
@@ -1740,6 +1733,19 @@
           "bin/placeholder/Qhta.Conversion.dll": {}
         }
       },
+      "Qhta.TypeUtils/1.5.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Qhta.Collections": "2.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Qhta.TypeUtils.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Qhta.TypeUtils.dll": {}
+        }
+      },
       "Qhta.Xml/3.2.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -1760,6 +1766,7 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Qhta.Collections": "5.2.0",
+          "Qhta.Conversion": "2.2.0",
           "Qhta.TextUtils": "3.8.0",
           "Qhta.TypeUtils": "1.4.0",
           "Qhta.Xml": "3.2.0",
@@ -1949,6 +1956,19 @@
         "netstandard.library.nuspec"
       ]
     },
+    "NullableAttributes/1.0.0": {
+      "sha512": "9PimadS9SAiqojkGRK57tleoC4dkHjPB8/2nA6dwHl+e5beUkLcTRx6f/8qMBm81Qvsna9a5EEa9lVGBdKh19Q==",
+      "type": "package",
+      "path": "nullableattributes/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/netstandard2.0/NullableAttributes.dll",
+        "lib/netstandard2.0/NullableAttributes.xml",
+        "nullableattributes.1.0.0.nupkg.sha512",
+        "nullableattributes.nuspec",
+        "readme.md"
+      ]
+    },
     "Qhta.Collections/5.2.0": {
       "sha512": "UYqc2SH4wbEtdbORbQ/TZ1hnVqIzF2Qej8tb/elgG8XeEPR8++polX/o0LLeBrVU75znLfNQoM1rYthvMt9sJQ==",
       "type": "package",
@@ -2005,25 +2025,6 @@
         "lib/netstandard2.0/Qhta.TextUtils.xml",
         "qhta.textutils.3.8.0.nupkg.sha512",
         "qhta.textutils.nuspec",
-        "readme.md"
-      ]
-    },
-    "Qhta.TypeUtils/1.4.0": {
-      "sha512": "5bRrb24q9Olnb4nOz/rtl0f7cNIiVd7jmoCYbNW5veCE3Qw1iihzuagVQYi2UOLALh4S3LZqzt+zjV8TOuB5XQ==",
-      "type": "package",
-      "path": "qhta.typeutils/1.4.0",
-      "files": [
-        ".nupkg.metadata",
-        "lib/net6.0/Qhta.TypeUtils.dll",
-        "lib/net6.0/Qhta.TypeUtils.xml",
-        "lib/net7.0/Qhta.TypeUtils.dll",
-        "lib/net7.0/Qhta.TypeUtils.xml",
-        "lib/net8.0/Qhta.TypeUtils.dll",
-        "lib/net8.0/Qhta.TypeUtils.xml",
-        "lib/netstandard2.0/Qhta.TypeUtils.dll",
-        "lib/netstandard2.0/Qhta.TypeUtils.xml",
-        "qhta.typeutils.1.4.0.nupkg.sha512",
-        "qhta.typeutils.nuspec",
         "readme.md"
       ]
     },
@@ -3333,6 +3334,11 @@
       "path": "../Qhta.Conversion/Qhta.Conversion.csproj",
       "msbuildProject": "../Qhta.Conversion/Qhta.Conversion.csproj"
     },
+    "Qhta.TypeUtils/1.5.0": {
+      "type": "project",
+      "path": "../Qhta.TypeUtils/Qhta.TypeUtils.csproj",
+      "msbuildProject": "../Qhta.TypeUtils/Qhta.TypeUtils.csproj"
+    },
     "Qhta.Xml/3.2.0": {
       "type": "project",
       "path": "../Qhta.Xml/Qhta.Xml.csproj",
@@ -3347,10 +3353,11 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
+      "NullableAttributes >= 1.0.0",
       "Qhta.Conversion >= 2.2.0",
       "Qhta.TestHelper >= 3.0.0",
       "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.4.0",
+      "Qhta.TypeUtils >= 1.5.0",
       "Qhta.Xml >= 3.2.0",
       "Qhta.Xml.Reflection >= 3.0.0",
       "System.CodeDom >= 8.0.0",
@@ -3361,7 +3368,7 @@
       "Qhta.Conversion >= 2.2.0",
       "Qhta.TestHelper >= 3.0.0",
       "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.4.0",
+      "Qhta.TypeUtils >= 1.5.0",
       "Qhta.Xml >= 3.2.0",
       "Qhta.Xml.Reflection >= 3.0.0",
       "System.CodeDom >= 8.0.0",
@@ -3372,7 +3379,7 @@
       "Qhta.Conversion >= 2.2.0",
       "Qhta.TestHelper >= 3.0.0",
       "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.4.0",
+      "Qhta.TypeUtils >= 1.5.0",
       "Qhta.Xml >= 3.2.0",
       "Qhta.Xml.Reflection >= 3.0.0",
       "System.CodeDom >= 8.0.0",
@@ -3384,7 +3391,7 @@
       "Qhta.Conversion >= 2.2.0",
       "Qhta.TestHelper >= 3.0.0",
       "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.4.0",
+      "Qhta.TypeUtils >= 1.5.0",
       "Qhta.Xml >= 3.2.0",
       "Qhta.Xml.Reflection >= 3.0.0",
       "System.CodeDom >= 8.0.0",
@@ -3437,6 +3444,9 @@
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj"
             },
+            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj": {
+              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj"
+            },
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj"
             },
@@ -3450,6 +3460,9 @@
           "projectReferences": {
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj"
+            },
+            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj": {
+              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj"
             },
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj"
@@ -3465,6 +3478,9 @@
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj"
             },
+            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj": {
+              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj"
+            },
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj"
             },
@@ -3478,6 +3494,9 @@
           "projectReferences": {
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj"
+            },
+            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj": {
+              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TypeUtils\\Qhta.TypeUtils.csproj"
             },
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj": {
               "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Reflection\\Qhta.Xml.Reflection.csproj"
@@ -3511,10 +3530,6 @@
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.8.0, )"
-          },
-          "Qhta.TypeUtils": {
-            "target": "Package",
-            "version": "[1.4.0, )"
           },
           "System.CodeDom": {
             "target": "Package",
@@ -3557,10 +3572,6 @@
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.8.0, )"
-          },
-          "Qhta.TypeUtils": {
-            "target": "Package",
-            "version": "[1.4.0, )"
           },
           "System.CodeDom": {
             "target": "Package",
@@ -3608,10 +3619,6 @@
             "target": "Package",
             "version": "[3.8.0, )"
           },
-          "Qhta.TypeUtils": {
-            "target": "Package",
-            "version": "[1.4.0, )"
-          },
           "System.CodeDom": {
             "target": "Package",
             "version": "[8.0.0, )"
@@ -3652,6 +3659,10 @@
             "version": "[2.0.3, )",
             "autoReferenced": true
           },
+          "NullableAttributes": {
+            "target": "Package",
+            "version": "[1.0.0, )"
+          },
           "Qhta.TestHelper": {
             "target": "Package",
             "version": "[3.0.0, )"
@@ -3659,10 +3670,6 @@
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[3.8.0, )"
-          },
-          "Qhta.TypeUtils": {
-            "target": "Package",
-            "version": "[1.4.0, )"
           },
           "System.CodeDom": {
             "target": "Package",

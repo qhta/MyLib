@@ -521,6 +521,143 @@
             Specifies whether the writer should trace element stack building.
             </summary>
         </member>
+        <member name="T:Qhta.Xml.QualifiedName">
+            <summary>
+            Qualified name that contains a name and namespace
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.QualifiedName.Namespace">
+            <summary>
+            Gets or sets the namespace.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.QualifiedName.LocalName">
+            <summary>
+            Gets or sets the local name.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.QualifiedName.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.QualifiedName"/> struct.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.QualifiedName.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.QualifiedName"/> struct
+            using compound name.
+            </summary>
+            <param name="compoundLocalName">The string thas consists of namespace, colon and name.</param>
+        </member>
+        <member name="M:Qhta.Xml.QualifiedName.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Qhta.Xml.QualifiedName"/> struct.
+            </summary>
+            <param name="localName">The name to init</param>
+            <param name="nspace">The namespace to init</param>
+        </member>
+        <member name="M:Qhta.Xml.QualifiedName.IsEmpty">
+            <summary>
+            Determines whether the name is an empty string.
+            </summary>
+            <returns>
+              <c>true</c> if this instance is empty; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:Qhta.Xml.QualifiedName.Empty">
+            <summary>
+            Gets the empty instance (with empty name).
+            </summary>
+            <value>
+            The empty.
+            </value>
+        </member>
+        <member name="M:Qhta.Xml.QualifiedName.CompareTo(Qhta.Xml.QualifiedName)">
+            <summary>
+            Compares namespace first, then name.
+            </summary>
+            <param name="other">An object to compare with this instance.</param>
+            <returns>
+            A value that indicates the relative order of the objects being compared. The return value has these meanings:
+            <list type="table"><listheader><term> Value</term><description> Meaning</description></listheader><item><term> Less than zero</term><description> This instance precedes <paramref name="other" /> in the sort order.</description></item><item><term> Zero</term><description> This instance occurs in the same position in the sort order as <paramref name="other" />.</description></item><item><term> Greater than zero</term><description> This instance follows <paramref name="other" /> in the sort order.</description></item></list>
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.QualifiedName.ToString">
+            <summary>
+            Converts to string that consists of namespace, colon and name.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.QualifiedName.op_Implicit(Qhta.Xml.QualifiedName)~System.String">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Qhta.Xml.QualifiedName"/> to <see cref="T:System.String"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.QualifiedName.op_Implicit(System.String)~Qhta.Xml.QualifiedName">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.String"/> to <see cref="T:Qhta.Xml.QualifiedName"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="T:Qhta.Xml.QualifiedNameTypeConverter">
+            <summary>
+            Converter needed for qualified name serialization
+            </summary>
+            <seealso cref="T:System.ComponentModel.TypeConverter" />
+        </member>
+        <member name="M:Qhta.Xml.QualifiedNameTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            Returns whether this converter can convert an object of the given type to the type of this converter, using the specified context.
+            </summary>
+            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+            <param name="sourceType">A <see cref="T:System.Type" /> that represents the type you want to convert from.</param>
+            <returns>
+              <see langword="true" /> if this converter can perform the conversion; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.QualifiedNameTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            Converts the given object to the type of this converter, using the specified context and culture information.
+            </summary>
+            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+            <param name="culture">The <see cref="T:System.Globalization.CultureInfo" /> to use as the current culture.</param>
+            <param name="value">The <see cref="T:System.Object" /> to convert.</param>
+            <returns>
+            An <see cref="T:System.Object" /> that represents the converted value.
+            </returns>
+            <exception cref="T:System.NotSupportedException">Cannot convert {nameof(XmlQualifiedTagName)} from {value.GetType().Name}</exception>
+        </member>
+        <member name="M:Qhta.Xml.QualifiedNameTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            Returns whether this converter can convert the object to the specified type, using the specified context.
+            </summary>
+            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+            <param name="destinationType">A <see cref="T:System.Type" /> that represents the type you want to convert to.</param>
+            <returns>
+              <see langword="true" /> if this converter can perform the conversion; otherwise, <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:Qhta.Xml.QualifiedNameTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <summary>
+            Converts the given value object to the specified type, using the specified context and culture information.
+            </summary>
+            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+            <param name="culture">A <see cref="T:System.Globalization.CultureInfo" />. If <see langword="null" /> is passed, the current culture is assumed.</param>
+            <param name="value">The <see cref="T:System.Object" /> to convert.</param>
+            <param name="destinationType">The <see cref="T:System.Type" /> to convert the <paramref name="value" /> parameter to.</param>
+            <returns>
+            An <see cref="T:System.Object" /> that represents the converted value.
+            </returns>
+            <exception cref="T:System.NotSupportedException">Cannot convert {nameof(XmlQualifiedTagName)} to {destinationType.Name}</exception>
+        </member>
         <member name="T:Qhta.Xml.SerializationOrderAttribute">
             <summary>
             Defines an attribute which can specify missing order number.
@@ -827,12 +964,17 @@
         </member>
         <member name="T:Qhta.Xml.XmlQualifiedTagName">
             <summary>
-            Declares an Xml Qualified Tag Name. Replaces <see cref="T:System.Xml.XmlQualifiedName"/>.
+            Declares Xml Qualified Tag Name. Replaces <see cref="T:System.Xml.XmlQualifiedName"/>.
             </summary>
         </member>
-        <member name="P:Qhta.Xml.XmlQualifiedTagName.Name">
+        <member name="P:Qhta.Xml.XmlQualifiedTagName.QualifiedName">
             <summary>
             Local name of the tag.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.XmlQualifiedTagName.LocalName">
+            <summary>
+            Full namespace of the tag.
             </summary>
         </member>
         <member name="P:Qhta.Xml.XmlQualifiedTagName.Namespace">
@@ -898,7 +1040,7 @@
         </member>
         <member name="M:Qhta.Xml.XmlQualifiedTagName.GetHashCode">
             <summary>
-            Returs a hash code using name and namespace.
+            Returns a hash code using name and namespace.
             </summary>
             <returns></returns>
         </member>

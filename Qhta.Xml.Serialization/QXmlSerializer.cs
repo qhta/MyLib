@@ -1,4 +1,5 @@
 ﻿namespace Qhta.Xml.Serialization;
+using Qhta.Xml.Reflection;
 
 /// <summary>
 /// Flexible Xml serializer.
@@ -129,7 +130,7 @@ public partial class QXmlSerializer : IXmlSerializer
   /// <param name="typeName">Name of type to find.</param>
   /// <param name="type">Found type (or null if not found).</param>
   /// <returns>True if type found, false otherwise.</returns>
-  public bool TryGetKnownType(string typeName, [NotNullWhen(true)] out Type type)
+  public bool TryGetKnownType(string typeName, [NotNullWhen(true)] out Type? type)
   {
     var qualifiedTypeName = Mapper.ToQualifiedName(typeName);
     if (Mapper.KnownTypes.TryGetValue(qualifiedTypeName, out var serializationTypeInfo))
@@ -137,7 +138,7 @@ public partial class QXmlSerializer : IXmlSerializer
       type = serializationTypeInfo.Type;
       return true;
     }
-    type = null!;
+    type = null;
     return false;
   }
 

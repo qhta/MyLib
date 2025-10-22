@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 /// <summary>
 /// Wrapper for system XmlReader used by QXmlSerializer.
@@ -522,11 +520,11 @@ public partial class QXDocReader : IXmlReader, IDisposable
   {
     if (CurrentNode is XElement xElement)
     {
-      return xElement.Attributes().FirstOrDefault(item => item.Name == fullName.Name && item.BaseUri == fullName.Namespace)?.Value;
+      return xElement.Attributes().FirstOrDefault(item => item.Name == fullName.LocalName && item.BaseUri == fullName.Namespace)?.Value;
     }
     if (CurrentNode is XAttribute xAttribute)
     {
-      if (xAttribute.Name == fullName.Name && xAttribute.BaseUri == fullName.Namespace)
+      if (xAttribute.Name == fullName.LocalName && xAttribute.BaseUri == fullName.Namespace)
         return xAttribute.Value;
       CurrentNode = xAttribute.Parent;
       return GetAttribute(fullName);
@@ -932,7 +930,7 @@ public partial class QXDocReader : IXmlReader, IDisposable
   public bool IsStartElement(XmlQualifiedTagName tag)
   {
     return CurrentNode is XElement xElement && xElement.NodeType == XmlNodeType.Element
-      && xElement.Name.LocalName == tag.Name && xElement.BaseUri == tag.Namespace;
+      && xElement.Name.LocalName == tag.LocalName && xElement.BaseUri == tag.Namespace;
   }
 
   /// <summary>
@@ -985,7 +983,7 @@ public partial class QXDocReader : IXmlReader, IDisposable
   {
     if (CurrentNode is XElement xElement && xElement.NodeType == XmlNodeType.Element)
     {
-      if (xElement.Name.LocalName == tag.Name && (xElement.BaseUri == tag.Namespace || xElement.BaseUri == ""))
+      if (xElement.Name.LocalName == tag.LocalName && (xElement.BaseUri == tag.Namespace || xElement.BaseUri == ""))
       {
         var aNode = xElement.DescendantNodes().FirstOrDefault();
         if (aNode != null)
@@ -1025,7 +1023,7 @@ public partial class QXDocReader : IXmlReader, IDisposable
   public bool IsEndElement(XmlQualifiedTagName tag)
   {
     return CurrentNode is XEndElement xElement
-      && xElement.Name.LocalName == tag.Name && xElement.BaseUri == tag.Namespace;
+      && xElement.Name.LocalName == tag.LocalName && xElement.BaseUri == tag.Namespace;
   }
 
   /// <summary>
@@ -1069,7 +1067,7 @@ public partial class QXDocReader : IXmlReader, IDisposable
   {
     if (CurrentNode is XEndElement xElement)
     {
-      if (xElement.Name.LocalName == tag.Name && GetNamespace(xElement) == tag.Namespace)
+      if (xElement.Name.LocalName == tag.LocalName && GetNamespace(xElement) == tag.Namespace)
         CurrentNode = NextNode(xElement);
       else
         throw new XmlInvalidOperationException($"EndElement of \"{tag}\" expected but {xElement.Name} found", this);

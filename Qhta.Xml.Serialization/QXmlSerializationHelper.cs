@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 /// <summary>
 /// Helper class with methods used in QXml serializer

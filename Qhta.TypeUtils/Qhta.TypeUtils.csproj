@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
     <RootNamespace>Qhta.TypeUtils</RootNamespace>
     <Description>A package of functions to supplement System.Reflections.</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>1.4</Version>
+    <Version>1.5</Version>
     <UserSecretsId>558079df-d598-477b-bc2c-aeb3fda405dc</UserSecretsId>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
@@ -24,8 +24,13 @@
     <None Include="docs\readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="NullableAttributes" Version="1.0.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Qhta.Collections" Version="2.0.0" />
   </ItemGroup>
+
 
 </Project>

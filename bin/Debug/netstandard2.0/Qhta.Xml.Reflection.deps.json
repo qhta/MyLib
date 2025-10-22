@@ -10,7 +10,9 @@
       "Qhta.Xml.Reflection/3.0": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
+          "NullableAttributes": "1.0.0",
           "Qhta.Collections": "5.2.0",
+          "Qhta.Conversion": "2.2.0",
           "Qhta.TextUtils": "3.8.0",
           "Qhta.TypeUtils": "1.4.0",
           "Qhta.Xml": "3.2.0",
@@ -24,6 +26,14 @@
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
+      "NullableAttributes/1.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/NullableAttributes.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Qhta.Collections/5.2.0": {
@@ -64,6 +74,17 @@
           }
         }
       },
+      "Qhta.Conversion/2.2.0": {
+        "dependencies": {
+          "Qhta.Xml": "3.2.0"
+        },
+        "runtime": {
+          "Qhta.Conversion.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.0"
+          }
+        }
+      },
       "Qhta.Xml/3.2.0": {
         "dependencies": {
           "Qhta.Collections": "5.2.0",
@@ -99,6 +120,13 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
+    "NullableAttributes/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9PimadS9SAiqojkGRK57tleoC4dkHjPB8/2nA6dwHl+e5beUkLcTRx6f/8qMBm81Qvsna9a5EEa9lVGBdKh19Q==",
+      "path": "nullableattributes/1.0.0",
+      "hashPath": "nullableattributes.1.0.0.nupkg.sha512"
+    },
     "Qhta.Collections/5.2.0": {
       "type": "package",
       "serviceable": true,
@@ -126,6 +154,11 @@
       "sha512": "sha512-dMkqfy2el8A8/I76n2Hi1oBFEbG1SfxD2l5nhwXV3XjlnOmwxJlQbYpJH4W51odnU9sARCSAgv7S3CyAFMkpYg==",
       "path": "system.componentmodel.annotations/5.0.0",
       "hashPath": "system.componentmodel.annotations.5.0.0.nupkg.sha512"
+    },
+    "Qhta.Conversion/2.2.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Qhta.Xml/3.2.0": {
       "type": "project",

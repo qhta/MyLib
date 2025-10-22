@@ -215,13 +215,13 @@ public partial class QXmlSerializer
       WriteContentProperty(obj, serializationTypeInfo.TextProperty);
     }
     else
-    if (serializationTypeInfo.IsCollection && serializationTypeInfo.ContentInfo is ContentItemInfo contentItemInfo && obj is IEnumerable collection)
+    if (serializationTypeInfo.IsCollection && serializationTypeInfo.ContentInfo is CollectionContentInfo contentItemInfo && obj is IEnumerable collection)
     {
       WritePropertiesAsElements(context, obj, serializationTypeInfo, rejectedList);
       WriteCollectionElement(context, collection, null, contentItemInfo);
     }
     else
-    if (serializationTypeInfo.IsDictionary && serializationTypeInfo.ContentInfo is DictionaryInfo dictionaryInfo && obj is IDictionary dictionary)
+    if (serializationTypeInfo.IsDictionary && serializationTypeInfo.ContentInfo is DictionaryContentInfo dictionaryInfo && obj is IDictionary dictionary)
     {
       WritePropertiesAsElements(context, obj, serializationTypeInfo, rejectedList);
       WriteDictionaryElement(context, dictionary, null, dictionaryInfo);
@@ -306,7 +306,7 @@ public partial class QXmlSerializer
     ITypeDescriptorContext? typeDescriptorContext = new TypeDescriptorContext(obj);
     foreach (var memberInfo in props)
     {
-      if (memberInfo.QualifiedName.Name == "Children")
+      if (memberInfo.QualifiedName.LocalName == "Children")
         if (typeInfo.ContentProperty == memberInfo)
           continue;
       if (memberInfo.CheckMethod != null)
@@ -478,7 +478,7 @@ public partial class QXmlSerializer
   /// <param name="collectionInfo">Serialization info of collection items.</param>
   /// <returns>Number of items written</returns>
   /// <remarks>Uses <see cref="WriteCollectionItems"/></remarks>
-  public int WriteCollectionElement(object? context, IEnumerable collection, XmlQualifiedTagName? elementTag, ContentItemInfo collectionInfo)
+  public int WriteCollectionElement(object? context, IEnumerable collection, XmlQualifiedTagName? elementTag, CollectionContentInfo collectionInfo)
   {
     if (elementTag != null)
       Writer.WriteStartElement(elementTag);
@@ -495,7 +495,7 @@ public partial class QXmlSerializer
   /// <param name="collection">Collection of the items to write</param>
   /// <param name="collectionInfo">Serialization info of collection items.</param>
   /// <returns>Number of items written</returns>
-  public int WriteCollectionItems(object? context, IEnumerable collection, ContentItemInfo? collectionInfo)
+  public int WriteCollectionItems(object? context, IEnumerable collection, ContentInfo? collectionInfo)
   {
     int itemsWritten = 0;
     var itemTypes = collectionInfo?.KnownItemTypes;
@@ -599,7 +599,7 @@ public partial class QXmlSerializer
   /// <param name="dictionaryInfo">Serialization info of dictionary items.</param>
   /// <returns>Number of items written</returns>
   /// <remarks>Uses <see cref="WriteDictionaryItems"/></remarks>
-  public int WriteDictionaryElement(object? context, IDictionary dictionary, XmlQualifiedTagName? elementTag, DictionaryInfo dictionaryInfo)
+  public int WriteDictionaryElement(object? context, IDictionary dictionary, XmlQualifiedTagName? elementTag, DictionaryContentInfo dictionaryInfo)
   {
     if (elementTag != null)
       Writer.WriteStartElement(elementTag);
@@ -616,7 +616,7 @@ public partial class QXmlSerializer
   /// <param name="dictionary">Collection of dictionary items to write</param>
   /// <param name="dictionaryInfo">Serialization info of dictionary items.</param>
   /// <returns>Number of items written</returns>
-  public int WriteDictionaryItems(object? context, IDictionary dictionary, DictionaryInfo dictionaryInfo)
+  public int WriteDictionaryItems(object? context, IDictionary dictionary, DictionaryContentInfo dictionaryInfo)
   {
     var keyTypeInfo = dictionaryInfo.KeyTypeInfo;
     var valueTypeInfo = dictionaryInfo.ValueTypeInfo;
@@ -940,7 +940,7 @@ public partial class QXmlSerializer
   /// <returns>Tag string</returns>
   /// <remarks>
   /// If a member is a content element, then the method return null.
-  /// Otherwise uses <see cref="Mapper"/> to get XML tag.
+  /// Otherwise, uses <see cref="Mapper"/> to get XML tag.
   /// Namespace of the result tag is set to an empty string.
   /// </remarks>
   protected XmlQualifiedTagName? CreateElementTag(SerializationMemberInfo memberInfo, Type? type)
@@ -949,7 +949,6 @@ public partial class QXmlSerializer
     if (memberInfo.IsContentElement)
       return null;
     var result = Mapper.GetXmlTag(memberInfo);
-    result.Namespace = "";
     return result;
   }
 
@@ -961,7 +960,7 @@ public partial class QXmlSerializer
   /// <returns>Tag string</returns>
   /// <remarks>
   /// If a type is not null, then <see cref="CreateElementTag(Type)"/> is used.
-  /// Otherwise uses <see cref="Mapper"/> to get XML tag.
+  /// Otherwise, uses <see cref="Mapper"/> to get XML tag.
   /// </remarks>
   protected XmlQualifiedTagName CreateElementTag(SerializationItemInfo itemInfo, Type? type)
   {
@@ -970,12 +969,9 @@ public partial class QXmlSerializer
     if (itemInfo.XmlNamespace != null)
     {
       KnownNamespaces[itemInfo.XmlNamespace].IsUsed = true;
-      if (itemInfo.Type != null)
-      {
-        var typeName = TypeNaming.GetTypeName(itemInfo.Type);
-        if (!typeName.Contains('.'))
-          return new XmlQualifiedTagName(typeName);
-      }
+      var typeName = itemInfo.Type.GetTypeName();
+      if (!typeName.Contains('.'))
+        return new XmlQualifiedTagName(typeName);
     }
     var result = Mapper.GetXmlTag(itemInfo);
     if (itemInfo.XmlNamespace != null)
@@ -1000,7 +996,7 @@ public partial class QXmlSerializer
       KnownNamespaces[memberInfo.XmlNamespace].IsUsed = true;
       if (memberInfo.MemberType != null)
       {
-        var typeName = TypeNaming.GetTypeName(memberInfo.MemberType);
+        var typeName = memberInfo.MemberType.GetTypeName();
         if (!typeName.Contains('.'))
           return new XmlQualifiedTagName(typeName);
       }

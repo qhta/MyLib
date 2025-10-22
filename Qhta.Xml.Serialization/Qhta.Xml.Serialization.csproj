@@ -27,12 +27,13 @@
     <None Remove="SerializationTest\**" />
   </ItemGroup>
 
-
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="NullableAttributes" Version="1.0.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Qhta.TestHelper" Version="3.0.0" />
     <PackageReference Include="Qhta.TextUtils" Version="3.8.0" />
-    <PackageReference Include="Qhta.TypeUtils" Version="1.4.0" />
     <PackageReference Include="System.CodeDom" Version="8.0.0" />
     <PackageReference Include="System.Collections.Specialized" Version="4.3.0" />
     <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
@@ -44,6 +45,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Qhta.Conversion\Qhta.Conversion.csproj" />
+    <ProjectReference Include="..\Qhta.TypeUtils\Qhta.TypeUtils.csproj" />
     <ProjectReference Include="..\Qhta.Xml.Reflection\Qhta.Xml.Reflection.csproj" />
     <ProjectReference Include="..\Qhta.Xml\Qhta.Xml.csproj" />
   </ItemGroup>

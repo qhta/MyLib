@@ -9,6 +9,7 @@ namespace Qhta.TypeUtils;
 /// <summary>
 ///   Specific categories of types
 /// </summary>
+[Flags]
 public enum TypeCategory
 {
   /// <summary>
@@ -109,8 +110,7 @@ public static class TypeCategorization
   /// <returns>a <see cref="TypeCategory" /> of a type or 0 if not known</returns>
   public static TypeCategory GetCategory(this Type aType)
   {
-    TypeCategory category;
-    if (typeCategories.TryGetValue(aType, out category))
+    if (typeCategories.TryGetValue(aType, out var category))
       return category;
     if (aType.IsEnum)
       return TypeCategory.Simple | TypeCategory.Enumerable;
@@ -215,18 +215,14 @@ public static class TypeCategorization
   /// <param name="aType">checked type</param>
   /// <param name="baseType">based type of the nullable type</param>
   /// <returns>true if a type is a nullable type</returns>
-#if NET6_0_OR_GREATER
-  public static bool IsNullable(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? baseType)
-#else
-  public static bool IsNullable(this Type aType, out Type? baseType)
-#endif
+  public static bool IsNullable(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type baseType)
   {
     if (aType.Name.StartsWith("Nullable`1"))
     {
       baseType = aType.GenericTypeArguments[0];
       return true;
     }
-    baseType = null;
+    baseType = typeof(object);
     return false;
   }
 
@@ -527,12 +523,12 @@ public static class TypeCategorization
   /// <param name="keyType">returned key type if a type is a dictionary</param>
   /// <param name="valueType">returned value type if a type is a dictionary</param>
   /// <returns>true if a type is a dictionary type</returns>
-#if NET6_0_OR_GREATER
+//#if NET6_0_OR_GREATER
   public static bool IsDictionary(this Type aType, [NotNullWhen(true)][MaybeNullWhen(false)] out Type? keyType,
     [NotNullWhen(true)][MaybeNullWhen(false)] out Type? valueType)
-#else
-  public static bool IsDictionary(this Type aType, out Type? keyType, out Type? valueType)
-#endif
+//#else
+//  public static bool IsDictionary(this Type aType, out Type? keyType, out Type? valueType)
+//#endif
   {
     if (aType.Name.StartsWith("Dictionary`2"))
     {

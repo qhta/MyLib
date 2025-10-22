@@ -4,53 +4,73 @@
         <name>Qhta.Xml.Reflection</name>
     </assembly>
     <members>
-        <member name="T:Qhta.Xml.Reflection.ContentItemInfo">
+        <member name="T:Qhta.Xml.Reflection.ArrayContentInfo">
             <summary>
-            Information on class item that represents object content
+            Information on item type for array types
             </summary>
         </member>
-        <member name="P:Qhta.Xml.Reflection.ContentItemInfo.StoresReferences">
+        <member name="P:Qhta.Xml.Reflection.ArrayContentInfo.ValueTypeInfo">
             <summary>
-              If a collection of objects stores references only.
+            The value type information.
             </summary>
         </member>
-        <member name="P:Qhta.Xml.Reflection.ContentItemInfo.KnownItemTypes">
+        <member name="M:Qhta.Xml.Reflection.ArrayContentInfo.Equals(Qhta.Xml.Reflection.ContentInfo)">
+            <summary>
+            Determines whether the specified <see cref="T:Qhta.Xml.Reflection.ContentInfo"/> is equal to the current <see cref="T:Qhta.Xml.Reflection.ContentInfo"/>.
+            </summary>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.CollectionContentInfo">
+            <summary>
+            Information on item type for collection types
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.CollectionContentInfo.ValueTypeInfo">
+            <summary>
+            The value type information.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.CollectionContentInfo.Equals(Qhta.Xml.Reflection.ContentInfo)">
+            <summary>
+            Determines whether the specified <see cref="T:Qhta.Xml.Reflection.ContentInfo"/> is equal to the current <see cref="T:Qhta.Xml.Reflection.ContentInfo"/>.
+            </summary>
+        </member>
+        <member name="T:Qhta.Xml.Reflection.ContentInfo">
+            <summary>
+            Information on type content. It can be an array, collection or dictionary.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.ContentInfo.StoresReferences">
+            <summary>
+             If a collection of objects stores references only.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.ContentInfo.KnownItemTypes">
             <summary>
               Known types for collection items.
             </summary>
         </member>
-        <member name="M:Qhta.Xml.Reflection.ContentItemInfo.Equals(Qhta.Xml.Reflection.ContentItemInfo)">
+        <member name="M:Qhta.Xml.Reflection.ContentInfo.Equals(Qhta.Xml.Reflection.ContentInfo)">
             <summary>
-            Indicates whether the current object is equal to another object of the same type.
+            Indicates whether the content info object is equal to another object of the same type.
+            Checks StoresReferences and KnownItemTypes for equality.
             </summary>
-            <param name="other">An object to compare with this object.</param>
-            <returns>
-              <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
-            </returns>
         </member>
-        <member name="T:Qhta.Xml.Reflection.DictionaryInfo">
+        <member name="T:Qhta.Xml.Reflection.DictionaryContentInfo">
             <summary>
-            Represents information on content item that is a dictionary
+            Represents information on content of the dictionary type.
             </summary>
-            <seealso cref="T:Qhta.Xml.Reflection.ContentItemInfo" />
         </member>
-        <member name="P:Qhta.Xml.Reflection.DictionaryInfo.KeyTypeInfo">
+        <member name="P:Qhta.Xml.Reflection.DictionaryContentInfo.ValueTypeInfo">
             <summary>
-            Gets or sets the key type information.
-            </summary>
-            <value>
-            The key type information.
-            </value>
-        </member>
-        <member name="P:Qhta.Xml.Reflection.DictionaryInfo.ValueTypeInfo">
-            <summary>
-            Gets or sets the value type information.
-            </summary>
-            <value>
             The value type information.
-            </value>
+            </summary>
         </member>
-        <member name="P:Qhta.Xml.Reflection.DictionaryInfo.KeyName">
+        <member name="P:Qhta.Xml.Reflection.DictionaryContentInfo.KeyTypeInfo">
+            <summary>
+            The key type information.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.DictionaryContentInfo.KeyName">
             <summary>
             Gets or sets the name of the key.
             </summary>
@@ -58,34 +78,31 @@
             The name of the key.
             </value>
         </member>
-        <member name="P:Qhta.Xml.Reflection.DictionaryInfo.KeyProperty">
+        <member name="M:Qhta.Xml.Reflection.DictionaryContentInfo.Equals(Qhta.Xml.Reflection.ContentInfo)">
             <summary>
-            Gets or sets the key property.
+            Determines whether the specified <see cref="T:Qhta.Xml.Reflection.ContentInfo"/> is equal to the current <see cref="T:Qhta.Xml.Reflection.ContentInfo"/>.
             </summary>
-            <value>
-            The key property.
-            </value>
         </member>
         <member name="T:Qhta.Xml.Reflection.IMembersDictionary">
             <summary>
             Interface for KnownMembersCollection to be used as a dictionary
             </summary>
         </member>
-        <member name="M:Qhta.Xml.Reflection.IMembersDictionary.ContainsKey(Qhta.Xml.Reflection.QualifiedName)">
+        <member name="M:Qhta.Xml.Reflection.IMembersDictionary.ContainsKey(Qhta.Xml.QualifiedName)">
             <summary>
-            Checkes if it contains a qualified name (name with namespace) as an item key.
+            Checks if it contains a qualified name (name with namespace) as an item key.
             </summary>
             <param name="qualifiedName">QualifiedName to search</param>
             <returns><c>true</c> if name found, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:Qhta.Xml.Reflection.IMembersDictionary.ContainsKey(System.String)">
             <summary>
-            Checkes if it contains a simple name (without namespace) as an item key.
+            Checks if it contains a simple name (without namespace) as an item key.
             </summary>
             <param name="name">Simple name to search</param>
             <returns><c>true</c> if name found, <c>false</c> otherwise.</returns>
         </member>
-        <member name="M:Qhta.Xml.Reflection.IMembersDictionary.TryGetValue(Qhta.Xml.Reflection.QualifiedName,Qhta.Xml.Reflection.SerializationMemberInfo@)">
+        <member name="M:Qhta.Xml.Reflection.IMembersDictionary.TryGetValue(Qhta.Xml.QualifiedName,Qhta.Xml.Reflection.SerializationMemberInfo@)">
             <summary>
             Tries to get an item searching its qualified name (name with namespace).
             </summary>
@@ -123,7 +140,7 @@
         </member>
         <member name="P:Qhta.Xml.Reflection.INamedElement.QualifiedName">
             <summary>
-            Gets the the qualified name (XmlName, XmlNamespace) of the element
+            Gets the qualified name (XmlName, XmlNamespace) of the element
             </summary>
         </member>
         <member name="T:Qhta.Xml.Reflection.ITypeNameInfo">
@@ -141,6 +158,12 @@
             <summary>
             Named collection of serialization item info. Needed for serialization.
             </summary>
+        </member>
+        <member name="M:Qhta.Xml.Reflection.KnownItemTypesCollection.Add(Qhta.Xml.Reflection.SerializationItemInfo)">
+            <summary>
+            Adds an item to collection.
+            </summary>
+            <param name="item">The object to add. />.</param>
         </member>
         <member name="T:Qhta.Xml.Reflection.KnownMembersCollection">
             <summary>
@@ -227,149 +250,6 @@
             </item><item><term> Greater than zero</term><description><paramref name="x" /> is greater than <paramref name="y" />.</description>
             </item></list>
             </returns>
-        </member>
-        <member name="T:Qhta.Xml.Reflection.QualifiedName">
-            <summary>
-            Qualified name that contains a name and namespace
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.Reflection.QualifiedName.Namespace">
-            <summary>
-            Gets or sets the namespace.
-            </summary>
-            <value>
-            The namespace.
-            </value>
-        </member>
-        <member name="P:Qhta.Xml.Reflection.QualifiedName.Name">
-            <summary>
-            Gets or sets the name.
-            </summary>
-            <value>
-            The name.
-            </value>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.QualifiedName.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.QualifiedName"/> struct.
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.QualifiedName.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.QualifiedName"/> struct
-            using compound name.
-            </summary>
-            <param name="compoundName">The string thas consists of namespace, colon and name.</param>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.QualifiedName.#ctor(System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Qhta.Xml.Reflection.QualifiedName"/> struct.
-            </summary>
-            <param name="name">The name to init</param>
-            <param name="nspace">The namespace to init</param>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.QualifiedName.IsEmpty">
-            <summary>
-            Determines whether the name is an empty string.
-            </summary>
-            <returns>
-              <c>true</c> if this instance is empty; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="P:Qhta.Xml.Reflection.QualifiedName.Empty">
-            <summary>
-            Gets the empty instance (with empty name).
-            </summary>
-            <value>
-            The empty.
-            </value>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.QualifiedName.CompareTo(Qhta.Xml.Reflection.QualifiedName)">
-            <summary>
-            Compares namespace first, then name.
-            </summary>
-            <param name="other">An object to compare with this instance.</param>
-            <returns>
-            A value that indicates the relative order of the objects being compared. The return value has these meanings:
-            <list type="table"><listheader><term> Value</term><description> Meaning</description></listheader><item><term> Less than zero</term><description> This instance precedes <paramref name="other" /> in the sort order.</description></item><item><term> Zero</term><description> This instance occurs in the same position in the sort order as <paramref name="other" />.</description></item><item><term> Greater than zero</term><description> This instance follows <paramref name="other" /> in the sort order.</description></item></list>
-            </returns>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.QualifiedName.ToString">
-            <summary>
-            Converts to string that consists of namespace, colon and name.
-            </summary>
-            <returns>
-            A <see cref="T:System.String" /> that represents this instance.
-            </returns>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.QualifiedName.op_Implicit(Qhta.Xml.Reflection.QualifiedName)~System.String">
-            <summary>
-            Performs an implicit conversion from <see cref="T:Qhta.Xml.Reflection.QualifiedName"/> to <see cref="T:System.String"/>.
-            </summary>
-            <param name="value">The value.</param>
-            <returns>
-            The result of the conversion.
-            </returns>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.QualifiedName.op_Implicit(System.String)~Qhta.Xml.Reflection.QualifiedName">
-            <summary>
-            Performs an implicit conversion from <see cref="T:System.String"/> to <see cref="T:Qhta.Xml.Reflection.QualifiedName"/>.
-            </summary>
-            <param name="value">The value.</param>
-            <returns>
-            The result of the conversion.
-            </returns>
-        </member>
-        <member name="T:Qhta.Xml.Reflection.QualifiedNameTypeConverter">
-            <summary>
-            Converter needed for qualified name serialization
-            </summary>
-            <seealso cref="T:System.ComponentModel.TypeConverter" />
-        </member>
-        <member name="M:Qhta.Xml.Reflection.QualifiedNameTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
-            <summary>
-            Returns whether this converter can convert an object of the given type to the type of this converter, using the specified context.
-            </summary>
-            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
-            <param name="sourceType">A <see cref="T:System.Type" /> that represents the type you want to convert from.</param>
-            <returns>
-              <see langword="true" /> if this converter can perform the conversion; otherwise, <see langword="false" />.
-            </returns>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.QualifiedNameTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
-            <summary>
-            Converts the given object to the type of this converter, using the specified context and culture information.
-            </summary>
-            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
-            <param name="culture">The <see cref="T:System.Globalization.CultureInfo" /> to use as the current culture.</param>
-            <param name="value">The <see cref="T:System.Object" /> to convert.</param>
-            <returns>
-            An <see cref="T:System.Object" /> that represents the converted value.
-            </returns>
-            <exception cref="T:System.NotSupportedException">Cannot convert {nameof(XmlQualifiedTagName)} from {value.GetType().Name}</exception>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.QualifiedNameTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
-            <summary>
-            Returns whether this converter can convert the object to the specified type, using the specified context.
-            </summary>
-            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
-            <param name="destinationType">A <see cref="T:System.Type" /> that represents the type you want to convert to.</param>
-            <returns>
-              <see langword="true" /> if this converter can perform the conversion; otherwise, <see langword="false" />.
-            </returns>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.QualifiedNameTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
-            <summary>
-            Converts the given value object to the specified type, using the specified context and culture information.
-            </summary>
-            <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
-            <param name="culture">A <see cref="T:System.Globalization.CultureInfo" />. If <see langword="null" /> is passed, the current culture is assumed.</param>
-            <param name="value">The <see cref="T:System.Object" /> to convert.</param>
-            <param name="destinationType">The <see cref="T:System.Type" /> to convert the <paramref name="value" /> parameter to.</param>
-            <returns>
-            An <see cref="T:System.Object" /> that represents the converted value.
-            </returns>
-            <exception cref="T:System.NotSupportedException">Cannot convert {nameof(XmlQualifiedTagName)} to {destinationType.Name}</exception>
         </member>
         <member name="T:Qhta.Xml.Reflection.SerializationItemInfo">
             <summary>
@@ -470,7 +350,7 @@
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationItemInfo.QualifiedName">
             <summary>
-            Gets the the qualified name (XmlName, XmlNamespace) of the element
+            Gets the qualified name (XmlName, XmlNamespace) of the element
             </summary>
         </member>
         <member name="T:Qhta.Xml.Reflection.SerializationMemberInfo">
@@ -487,7 +367,7 @@
             <param name="memberInfo">Applied member info. It can be either PropertyInfo or FieldInfo</param>
             <param name="order">Needed to sort the order for serialization</param>
         </member>
-        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.#ctor(Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.QualifiedName,System.Reflection.MemberInfo,System.Int32)">
+        <member name="M:Qhta.Xml.Reflection.SerializationMemberInfo.#ctor(Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.QualifiedName,System.Reflection.MemberInfo,System.Int32)">
             <summary>
               Constructor with parameters.
             </summary>
@@ -737,6 +617,11 @@
             </summary>
             <param name="aType">a type.</param>
         </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsFullyResolved">
+            <summary>
+            Specifies whether all information on type are resolved.
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.HasKnownConstructor">
             <summary>
             Gets a value indicating whether this instance has known constructor.
@@ -790,14 +675,19 @@
               If a class can be substituted by subclasses then these classes are listed here.
             </summary>
         </member>
+        <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsArray">
+            <summary>
+              Specifies whether the type is serialized as an array.
+            </summary>
+        </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsCollection">
             <summary>
-              Specifies whether the type is serialized as a collection but not as a dictionary.
+              Specifies whether the type is serialized as a collection.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.IsDictionary">
             <summary>
-              Specifies whether the type is serialized as a dictionary but not as a collection.
+              Specifies whether the type is serialized as a dictionary.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.ContentProperty">
@@ -817,7 +707,7 @@
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.ContentInfo">
             <summary>
-              Optional collection info filled if a property is an array, collection or dictionary
+              Optional filled for array, collection or dictionary types.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.SerializationTypeInfo.XmlName">
@@ -923,19 +813,6 @@
             Removes all items from the collection.
             </summary>
         </member>
-        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Contains(`0)">
-            <summary>
-            Determines whether the collection contains the object.
-            </summary>
-            <param name="item">The object to locate.</param>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.CopyTo(`0[],System.Int32)">
-            <summary>
-            Copies the elements of the collection to an array.
-            </summary>
-            <param name="array">The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from collection. The <see cref="T:System.Array" /> must have zero-based indexing.</param>
-            <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
-        </member>
         <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Remove(`0)">
             <summary>
             Removes the  occurrence of a specific object from the collection />.
@@ -946,23 +823,10 @@
               This method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original collection.
             </returns>
         </member>
-        <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.Count">
-            <summary>
-            Gets the number of elements contained in the collection.
-            </summary>
-        </member>
         <member name="P:Qhta.Xml.Reflection.TypeInfoCollection`1.IsReadOnly">
             <summary>
             Gets a value indicating whether the collection is read-only.
             </summary>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.GetEnumerator">
-            <summary>
-            Returns an enumerator that iterates through the collection.
-            </summary>
-            <returns>
-            An enumerator that can be used to iterate through the collection.
-            </returns>
         </member>
         <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.Equals(Qhta.Xml.Reflection.TypeInfoCollection{`0})">
             <summary>
@@ -984,7 +848,7 @@
               <see langword="true" /> if the element is found; otherwise, <see langword="false" />.
             </returns>
         </member>
-        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.TryGetValue(Qhta.Xml.Reflection.QualifiedName,`0@)">
+        <member name="M:Qhta.Xml.Reflection.TypeInfoCollection`1.TryGetValue(Qhta.Xml.QualifiedName,`0@)">
             <summary>
             Tries to get the element from the collection indexed by full name.
             </summary>

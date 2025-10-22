@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Xml.Serialization;
 
 namespace Qhta.TypeUtils;
 
@@ -16,6 +17,7 @@ public static partial class TypeUtils
   ///   Replacement for a <c>Type.GetMembers</c> method.
   ///   The members are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
+  ///   You can use <see cref="HideInheritedMembersAttribute"/> to hide inherited members at any level of inheritance.
   /// </summary>
   /// <param name="aType">Type to get fields from</param>
   /// <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
@@ -29,6 +31,7 @@ public static partial class TypeUtils
   ///   when a <paramref name="flags" /> parameter does not have option
   ///   <c>BindingFlags.DeclaredOnly</c>. Then members are taken also from superclasses,
   ///   but are also ordered with inheritance order (from top superclass first).
+  ///   You can use <see cref="HideInheritedMembersAttribute"/> to hide inherited members at any level of inheritance.
   /// </summary>
   /// <param name="aType">Type to get fields from</param>
   /// <param name="flags">Binding flags to filter the properties</param>
@@ -37,7 +40,8 @@ public static partial class TypeUtils
   {
     if ((flags & BindingFlags.DeclaredOnly) != 0)
       return aType.GetMembers(flags);
-
+    if (aType.GetCustomAttribute<HideInheritedMembersAttribute>(false) != null)
+      return aType.GetMembers(flags | BindingFlags.DeclaredOnly);
     var bType = aType.BaseType;
     if (bType != null && bType!=untilType)
     {

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Net;
 
 namespace Qhta.Xml.Reflection;
 
@@ -6,7 +7,7 @@ namespace Qhta.Xml.Reflection;
 /// Collection of type name info, which is indexed by type, long name and by short name.
 /// </summary>
 /// <typeparam name="TypeNameInfo">The type of the ype name information.</typeparam>
-public class TypeInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEquatable<TypeInfoCollection<TypeNameInfo>>
+public class TypeInfoCollection<TypeNameInfo> : Collection<TypeNameInfo>, IEquatable<TypeInfoCollection<TypeNameInfo>>
   where TypeNameInfo : class, ITypeNameInfo
 {
 
@@ -49,44 +50,51 @@ public class TypeInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqua
   /// Adds an item to collection.
   /// </summary>
   /// <param name="item">The object to add. />.</param>
-  public void Add(TypeNameInfo item)
+  public new void Add(TypeNameInfo item)
   {
-    TypeIndexedItems.Add(item.Type, item);
-    FullNameIndexedItems.Add(new QualifiedName(item.XmlName, item.XmlNamespace), item);
+    if (Contains(item))
+      return;
+    base.Add(item);
+    if (!TypeIndexedItems.ContainsKey(item.Type))
+      TypeIndexedItems.Add(item.Type, item);
+    var qualifiedName = new QualifiedName(item.XmlName, item.XmlNamespace);
+    if (!FullNameIndexedItems.ContainsKey(qualifiedName))
+      FullNameIndexedItems.Add(qualifiedName, item);
     if (!ShortNameIndexedItems.ContainsKey(item.XmlName))
       ShortNameIndexedItems.Add(item.XmlName, item);
     else
       DuplicatedShortNames.Add(item.XmlName);
-
   }
 
   /// <summary>
   /// Removes all items from the collection.
   /// </summary>
-  public void Clear()
+  public new void Clear()
   {
+    base.Clear();
     TypeIndexedItems.Clear();
     FullNameIndexedItems.Clear();
+    ShortNameIndexedItems.Clear();
   }
 
-  /// <summary>
-  /// Determines whether the collection contains the object.
-  /// </summary>
-  /// <param name="item">The object to locate.</param>
-  public bool Contains(TypeNameInfo item)
-  {
-    return TypeIndexedItems.Values.Contains(item);
-  }
+  ///// <summary>
+  ///// Determines whether the collection contains the object.
+  ///// </summary>
+  ///// <param name="item">The object to locate.</param>
+  //public bool Contains(TypeNameInfo item)
+  //{
+  //  return TypeIndexedItems.Values.Contains(item);
+  //}
 
-  /// <summary>
-  /// Copies the elements of the collection to an array.
-  /// </summary>
-  /// <param name="array">The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from collection. The <see cref="T:System.Array" /> must have zero-based indexing.</param>
-  /// <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
-  public void CopyTo(TypeNameInfo[] array, int arrayIndex)
-  {
-    TypeIndexedItems.Values.CopyTo(array, arrayIndex);
-  }
+  ///// <summary>
+  ///// Copies the elements of the collection to an array.
+  ///// </summary>
+  ///// <param name="array">The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from collection. The <see cref="T:System.Array" /> must have zero-based indexing.</param>
+  ///// <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
+  //public void CopyTo(TypeNameInfo[] array, int arrayIndex)
+  //{
+  //  TypeIndexedItems.Values.CopyTo(array, arrayIndex);
+  //}
 
   /// <summary>
   /// Removes the  occurrence of a specific object from the collection />.
@@ -96,39 +104,40 @@ public class TypeInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqua
   ///   <see langword="true" /> if <paramref name="item" /> was successfully removed from the collection; otherwise, <see langword="false" />. 
   ///   This method also returns <see langword="false" /> if <paramref name="item" /> is not found in the original collection.
   /// </returns>
-  public bool Remove(TypeNameInfo item)
+  public new bool Remove(TypeNameInfo item)
   {
+    var ok = base.Remove(item);
     var ok1 = TypeIndexedItems.Remove(item.Type);
     var ok2 = FullNameIndexedItems.Remove(new QualifiedName(item.XmlName, item.ClrNamespace));
-    return ok1 || ok2;
+    return ok || ok1 || ok2;
   }
 
-  /// <summary>
-  /// Gets the number of elements contained in the collection.
-  /// </summary>
-  public int Count => TypeIndexedItems.Count;
+  ///// <summary>
+  ///// Gets the number of elements contained in the collection.
+  ///// </summary>
+  //public int Count => TypeIndexedItems.Count;
 
   /// <summary>
   /// Gets a value indicating whether the collection is read-only.
   /// </summary>
   public bool IsReadOnly => false;
 
-  /// <summary>
-  /// Returns an enumerator that iterates through the collection.
-  /// </summary>
-  /// <returns>
-  /// An enumerator that can be used to iterate through the collection.
-  /// </returns>
-  public IEnumerator<TypeNameInfo> GetEnumerator()
-  {
-    foreach (var item in FullNameIndexedItems.Values)
-      yield return item;
-  }
+  ///// <summary>
+  ///// Returns an enumerator that iterates through the collection.
+  ///// </summary>
+  ///// <returns>
+  ///// An enumerator that can be used to iterate through the collection.
+  ///// </returns>
+  //public IEnumerator<TypeNameInfo> GetEnumerator()
+  //{
+  //  foreach (var item in FullNameIndexedItems.Values)
+  //    yield return item;
+  //}
 
-  IEnumerator IEnumerable.GetEnumerator()
-  {
-    return GetEnumerator();
-  }
+  //IEnumerator IEnumerable.GetEnumerator()
+  //{
+  //  return GetEnumerator();
+  //}
 
   /// <summary>
   /// Indicates whether the current object is equal to another object of the same type.
@@ -184,13 +193,13 @@ public class TypeInfoCollection<TypeNameInfo> : ICollection<TypeNameInfo>, IEqua
   public bool TryGetValue(XmlQualifiedTagName tag, [NotNullWhen(true)][MaybeNullWhen(false)] out TypeNameInfo typeInfo)
   {
     QualifiedName qualifiedName;
-    if (String.IsNullOrEmpty(tag.Namespace) && tag.Name.Contains('.'))
-      qualifiedName = new QualifiedName(tag.Name);
+    if (String.IsNullOrEmpty(tag.Namespace) && tag.Namespace!="")
+      qualifiedName = new QualifiedName(tag.LocalName);
     else
-      qualifiedName = new QualifiedName(tag.Name, tag.Namespace);
+      qualifiedName = new QualifiedName(tag.LocalName, tag.Namespace);
     var result = FullNameIndexedItems.TryGetValue(qualifiedName, out typeInfo);
     if (result == false)
-      result =  ShortNameIndexedItems.TryGetValue(qualifiedName.Name, out typeInfo);
+      result =  ShortNameIndexedItems.TryGetValue(qualifiedName.LocalName, out typeInfo);
     return result;
   }
 

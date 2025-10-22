@@ -1,0 +1,13 @@
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\NullableAttributes.deps.json
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\NullableAttributes.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\NullableAttributes.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\NullableAttributes.xml
+D:\OneDrive\VS\Projects\MyLib\NullableAttributes\obj\Debug\netstandard2.0\NullableAttributes.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\NullableAttributes\obj\Debug\netstandard2.0\NullableAttributes.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\NullableAttributes\obj\Debug\netstandard2.0\NullableAttributes.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\NullableAttributes\obj\Debug\netstandard2.0\NullableAttributes.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\NullableAttributes\obj\Debug\netstandard2.0\NullableAttributes.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\NullableAttributes\obj\Debug\netstandard2.0\NullableAttributes.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\NullableAttributes\obj\Debug\netstandard2.0\NullableAttributes.dll
+D:\OneDrive\VS\Projects\MyLib\NullableAttributes\obj\Debug\netstandard2.0\NullableAttributes.xml
+D:\OneDrive\VS\Projects\MyLib\NullableAttributes\obj\Debug\netstandard2.0\NullableAttributes.pdb

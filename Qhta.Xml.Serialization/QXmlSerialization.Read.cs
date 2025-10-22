@@ -1,11 +1,6 @@
 ﻿//#define TraceReader
 
-using System.Collections.ObjectModel;
-
-using Microsoft.VisualBasic;
-
-using Qhta.TypeUtils;
-
+// ReSharper disable All
 namespace Qhta.Xml.Serialization;
 
 /// <summary>
@@ -209,7 +204,7 @@ public partial class QXmlSerializer
     Trace.WriteLine($"<ReadObjectWithKnownTypeInfo instance=\"{context}\" ReaderName=\"{Reader.Name}\">");
     Trace.IndentLevel++;
 #endif
-    if (typeInfo.Type.Name == "QualityMetrics")
+    if (typeInfo.Type.Name == "DocumentQualityCollection")
       Debug.Assert(true);
     object? result = null;
     if (typeInfo.XmlConverter?.CanRead == true)
@@ -283,6 +278,8 @@ public partial class QXmlSerializer
 #endif
     if (instanceTypeInfo.Type.Name == "QualityMetrics")
       Debug.Assert(true);
+    if (instanceTypeInfo.Type.Name == "QualityMeasure")
+      Debug.Assert(true);
     object? result = null;
     if (Reader.NodeType == XmlNodeType.Element)
     {
@@ -318,7 +315,7 @@ public partial class QXmlSerializer
         SkipWhitespaces();
       }
     }
-    if (instanceTypeInfo.IdProperty!=null)
+    if (instanceTypeInfo.IdProperty != null)
     {
       var idString = ReferencedObjectHelper.GetReferenceString(instance, instanceTypeInfo.IdProperty);
       if (idString != null)
@@ -368,7 +365,7 @@ public partial class QXmlSerializer
     {
       string attrPrefix = Reader.Prefix;
       string attrName = Reader.LocalName;
-      if (instance.GetType().Name=="QualityMetrics" && attrName == "Value")
+      if (instance.GetType().Name == "QualityMetrics" && attrName == "Value")
         Debug.Assert(true);
       if (attrName == "xmlns" && attrPrefix == "")
       {
@@ -421,7 +418,7 @@ public partial class QXmlSerializer
             try
             {
               var referencedObject = ReferencedObjects.GetReference(propertyToRead.ValueType.Type, referenceValue);
-              if (referencedObject!=null)
+              if (referencedObject != null)
                 propertyToRead.SetValue(instance, referencedObject);
             }
             catch (Exception ex)
@@ -440,7 +437,8 @@ public partial class QXmlSerializer
             try
             {
               propertyToRead.SetValue(instance, propValue);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
               throw new XmlInvalidOperationException($"Could not set value for property {propertyToRead.Member} in type {instance.GetType().Name}", Reader, ex);
             }
@@ -505,33 +503,43 @@ public partial class QXmlSerializer
         //  Debug.Assert(true);
         //if (startTag.Name == "VmlShapeLayout")
         //  Debug.Assert(true);
-        memberInfo = members.FirstOrDefault(item => item.XmlName == startTag.Name);
+        memberInfo = members.FirstOrDefault(item => item.XmlName == startTag.LocalName);
         if (memberInfo != null)
         {
 
           var value = ReadElementAsProperty(instance, instanceTypeInfo, memberInfo);
-          if (value != null && memberInfo.CanWrite)
-            SetValue(instance, memberInfo, value);
+          if (value != null)
+          {
+            if (memberInfo.CanWrite && value.GetType().IsAssignableFrom(memberInfo.ValueType.Type))
+              SetValue(instance, memberInfo, value);
+            else
+            {
+              if (memberInfo.IsCollection)
+                AddValue(instance, memberInfo, value);
+              else
+                throw new InvalidOperationException($"Cannot set value for property {memberInfo.Member} in type {aType.FullName}");
+            }
+          }
           result++;
           continue;
-
-          //if (memberInfo.ValueType.IsCollection)
-          //{
-
-          //  var value = ReadElementAsContentProperty(instance, memberInfo);
-          //  if (value != null)
-          //    SetValue(instance, memberInfo, value);
-          //  result++;
-          //  continue;
-          //}
-          //else
-          //{
-
-          //}
         }
+
+        //if (memberInfo.ValueType.IsCollection)
+        //{
+
+        //  var value = ReadElementAsContentProperty(instance, memberInfo);
+        //  if (value != null)
+        //    SetValue(instance, memberInfo, value);
+        //  result++;
+        //  continue;
+        //}
+        //else
+        //{
+
+        //}
       }
       {
-        memberInfo = members.FirstOrDefault(item => item.ValueType.XmlName == startTag.Name
+        memberInfo = members.FirstOrDefault(item => item.ValueType.XmlName == startTag.LocalName
         && item.ValueType.XmlNamespace == startTag.Namespace);
         if (memberInfo == null)
         {
@@ -571,14 +579,14 @@ public partial class QXmlSerializer
         }
         else
         {
-          if (instanceTypeInfo.IsCollection && instanceTypeInfo.ContentInfo is ContentItemInfo contentItemInfo &&
+          if (instanceTypeInfo.IsCollection && instanceTypeInfo.ContentInfo is CollectionContentInfo contentItemInfo &&
              ReadElementAsCollectionItem(instance, instanceTypeInfo, contentItemInfo) != null)
           {
             // Returned content can't be set to any member, but is is added to collection inside the called method.
             result++;
           }
           else
-          if (instanceTypeInfo.IsDictionary && instanceTypeInfo.ContentInfo is DictionaryInfo dictionaryInfo &&
+          if (instanceTypeInfo.IsDictionary && instanceTypeInfo.ContentInfo is DictionaryContentInfo dictionaryInfo &&
              ReadElementAsDictionaryItem(instance, instanceTypeInfo, dictionaryInfo) != null)
           {
             // Returned content can't be set to any member, but is is added to collection inside the called method.
@@ -701,14 +709,14 @@ public partial class QXmlSerializer
             throw new InvalidOperationException($"Could not find Add method of {collectionType}");
           foreach (var knownItem in collectionInfo.KnownItemTypes)
             knownItem.AddMethod = addMethod;
-          
+
           ReadElementsAsPropertiesOrMembers(collection, memberInfo.ValueType, collectionInfo);
           var collectionAsList = (System.Collections.ICollection)collection;
           Array array = Array.CreateInstance(itemType, collectionAsList.Count);
 
           // Copy items from the collection to the array
           collectionAsList.CopyTo(array, 0);
-          memberInfo.SetValue(instance,array);
+          memberInfo.SetValue(instance, array);
         }
         else
         {
@@ -743,22 +751,26 @@ public partial class QXmlSerializer
   /// <param name="contentInfo"></param>
   /// <exception cref="InvalidOperationException"></exception>
   public object? ReadElementsAsPropertiesOrMembers(object instance, SerializationTypeInfo instanceTypeInfo,
-   ContentItemInfo? contentInfo)
+   ContentInfo? contentInfo)
   {
+    if (instance.GetType().Name == "QualityNodeCollection")
+      Debug.Assert(true);
     object? result = instance;
     while (Reader.NodeType == XmlNodeType.Element)
     {
       var innerTag = Reader.Name;
-      if (contentInfo != null && contentInfo.KnownItemTypes.TryGetValue(innerTag, out var itemTypeInfo))
+      if (innerTag.LocalName == "QualityMeasure")
+        Debug.Assert(true);
+      if (contentInfo != null && FindItemTypeInfo(contentInfo, innerTag, out var itemTypeInfo, out var typeInfo))
       {
         if (itemTypeInfo.AddMethod == null)
           throw new InvalidOperationException($"{instanceTypeInfo} has no add method for {itemTypeInfo} values");
-        var item = ReadElementWithKnownItemInfo(instance, itemTypeInfo);
+        var item = ReadElementWithKnownItemInfo(instance, itemTypeInfo, typeInfo);
         if (item != null)
           itemTypeInfo.AddMethod.Invoke(instance, [item]);
       }
       else
-      if (instanceTypeInfo.KnownMembers.TryGetValue(innerTag.Name, out var innerMemberInfo))
+      if (instanceTypeInfo.KnownMembers.TryGetValue(innerTag.LocalName, out var innerMemberInfo))
       {
         var memberValue = ReadElementAsProperty(instance, instanceTypeInfo, innerMemberInfo);
         if (memberValue != null && innerMemberInfo.CanWrite)
@@ -768,8 +780,8 @@ public partial class QXmlSerializer
       {
         if (!KnownTypes.TryGetValue(innerTag, out var innerTypeInfo))
           throw new InvalidOperationException($"Type {innerTag} not registered");
-        if (!innerTypeInfo.Type.IsEqualOrSubclassOf(instanceTypeInfo.Type))
-          throw new InvalidOperationException($"Type {innerTypeInfo.Type} is not compatible with {instanceTypeInfo.Type}");
+        //if (!innerTypeInfo.Type.IsEqualOrSubclassOf(instanceTypeInfo.Type))
+        //  throw new InvalidOperationException($"Type {innerTypeInfo.Type} is not compatible with {instanceTypeInfo.Type}");
         var memberValue = ReadObjectWithKnownTypeInfo(instance, innerTypeInfo);
         if (memberValue != null)
         {
@@ -780,7 +792,7 @@ public partial class QXmlSerializer
             itemTypeInfo2.AddMethod.Invoke(instance, [memberValue]);
           }
           else
-           result = memberValue;
+            result = memberValue;
         }
       }
     }
@@ -815,8 +827,30 @@ public partial class QXmlSerializer
     return result;
   }
 
+  private bool FindItemTypeInfo(ContentInfo contentInfo, XmlQualifiedTagName innerTag, 
+    [NotNullWhen(true)] out SerializationItemInfo? itemTypeInfo, [NotNullWhen(true)] out SerializationTypeInfo? typeInfo)
+  {
+    foreach (var itemType in contentInfo.KnownItemTypes)
+    {
+      if (itemType.TypeInfo.KnownSubtypes != null)
+        foreach (var subType in itemType.TypeInfo.KnownSubtypes)
+        {
+          var tagName = innerTag.QualifiedName;
+          var subTypeName = subType.QualifiedName;
+          if (subTypeName.Equals(tagName))
+          {
+            itemTypeInfo = itemType;
+            typeInfo = subType;
+            return true;
+          }
+        }
+    }
+    itemTypeInfo = null;
+    typeInfo = null;
+    return false;
+  }
   /// <summary>
-  /// Reads an Xml element as known member of the instance.
+  /// Reads Xml element as known member of the instance.
   /// </summary>
   /// <param name="instance">Instance which member is to be read</param>
   /// <param name="memberInfo">Member info of the member</param>
@@ -849,8 +883,8 @@ public partial class QXmlSerializer
     else
     {
       SerializationTypeInfo instanceTypeInfo = memberInfo.ParentType;
-      if (!memberInfo.IsObject && (memberInfo.IsCollection || memberInfo.IsDictionary) 
-                               && (memberInfo.ContentInfo ?? memberInfo.ValueType.ContentInfo ?? instanceTypeInfo.ContentInfo) is ContentItemInfo contentInfo)
+      if (!memberInfo.IsObject && (memberInfo.IsCollection || memberInfo.IsDictionary)
+                               && (memberInfo.ContentInfo ?? memberInfo.ValueType.ContentInfo ?? instanceTypeInfo.ContentInfo) is CollectionContentInfo contentInfo)
         result = ReadElementAsMemberCollection(instance, memberInfo, contentInfo);
       else
         result = ReadElementAsMemberObject(instance, memberInfo, currentMemberTypeInfo);
@@ -935,7 +969,7 @@ public partial class QXmlSerializer
   /// At the end the item (or key-item pair) is added to the instance with an Add method.
   /// The Add method can be declared in knownItemTypeInfo or localized in the type of instance using type reflection.
   /// </remarks>
-  public object? ReadElementAsCollectionItem(object instance, SerializationTypeInfo instanceTypeInfo, ContentItemInfo contentItemInfo)
+  public object? ReadElementAsCollectionItem(object instance, SerializationTypeInfo instanceTypeInfo, CollectionContentInfo contentItemInfo)
   {
 #if TraceReader
     Trace.WriteLine($"<ReadElementAsCollectionItem instance=\"{instance}\" ReaderName=\"{Reader.Name}\">");
@@ -945,21 +979,23 @@ public partial class QXmlSerializer
 
     #region serialization item info is searched
     var startTagName = Reader.Name;
-    if (!contentItemInfo.KnownItemTypes.TryGetValue(startTagName.Name, out var knownItemTypeInfo))
+    if (!FindItemTypeInfo(contentItemInfo, startTagName.LocalName, out var knownItemTypeInfo, out var typeInfo))
     {
       if (TryGetTypeInfo(startTagName, out var itemTypeInfo))
-        knownItemTypeInfo = new SerializationItemInfo(startTagName.Name, itemTypeInfo);
+        knownItemTypeInfo = new SerializationItemInfo(startTagName.LocalName, itemTypeInfo);
     }
     #endregion
 
     if (knownItemTypeInfo != null)
     {
+      if (typeInfo==null)
+        typeInfo = knownItemTypeInfo.TypeInfo;
       #region item (or key-item pair) is read
-      object? key = startTagName.Name;
+      object? key = startTagName.LocalName;
       if (knownItemTypeInfo.DictionaryInfo != null)
       {
         var collectionInfo = instanceTypeInfo.ContentInfo;
-        if (collectionInfo is DictionaryInfo dictionaryInfo)
+        if (collectionInfo is DictionaryContentInfo dictionaryInfo)
         {
           (key, item) = ReadElementAsKVPair(instance, null, null, dictionaryInfo);
         }
@@ -967,7 +1003,7 @@ public partial class QXmlSerializer
           throw new InvalidOperationException($"TypeInfo({instanceTypeInfo.Type}).CollectionInfo must be a DictionaryInfo");
       }
       else
-        item = ReadElementWithKnownItemInfo(instance, knownItemTypeInfo);
+        item = ReadElementWithKnownItemInfo(instance, knownItemTypeInfo, typeInfo);
       if (item == null)
         throw new XmlInvalidOperationException($"Item of type {knownItemTypeInfo.Type} could not be read at \"{startTagName}\"", Reader);
       if (item.GetType() == typeof(object))
@@ -980,9 +1016,9 @@ public partial class QXmlSerializer
       if (knownItemTypeInfo.AddMethod != null)
       {
         if (instance is IDictionary dictionaryObj)
-          knownItemTypeInfo.AddMethod.Invoke(instance, new object?[] { key, item });
+          knownItemTypeInfo.AddMethod.Invoke(instance, [key, item]);
         else
-          knownItemTypeInfo.AddMethod.Invoke(instance, new object?[] { item });
+          knownItemTypeInfo.AddMethod.Invoke(instance, [item]);
       }
       else
       {
@@ -991,11 +1027,11 @@ public partial class QXmlSerializer
         else
         {
           var collectionType = instance.GetType();
-          var adddMethod = collectionType.GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
-          if (adddMethod == null)
-            adddMethod = collectionType.GetMethod("Add");
-          if (adddMethod != null)
-            adddMethod.Invoke(instance, new object?[] { item });
+          var addMethod = collectionType.GetMethod("Add", [knownItemTypeInfo.Type]);
+          if (addMethod == null)
+            addMethod = collectionType.GetMethod("Add");
+          if (addMethod != null)
+            addMethod.Invoke(instance, [item]);
           else if (instance is ICollection collectionObj)
             throw new XmlInvalidOperationException($"Add method for {knownItemTypeInfo.Type} value not found in {instanceTypeInfo.Type?.FullName}", Reader);
         }
@@ -1033,7 +1069,7 @@ public partial class QXmlSerializer
   /// At the end the item (or key-item pair) is added to the instance with an Add method.
   /// The Add method can be declared in knownItemTypeInfo or localized in the type of instance using type reflection.
   /// </remarks>
-  public object? ReadElementAsDictionaryItem(object instance, SerializationTypeInfo instanceTypeInfo, DictionaryInfo dictionaryInfo)
+  public object? ReadElementAsDictionaryItem(object instance, SerializationTypeInfo instanceTypeInfo, DictionaryContentInfo dictionaryInfo)
   {
 #if TraceReader
     Trace.WriteLine($"<ReadElementAsDictionaryItem instance=\"{instance}\" ReaderName=\"{Reader.Name}\">");
@@ -1058,11 +1094,11 @@ public partial class QXmlSerializer
     //else
     //{
     //  var collectionType = instance.GetType();
-    //  var adddMethod = collectionType.GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
-    //  if (adddMethod == null)
-    //    adddMethod = collectionType.GetMethod("Add");
-    //  if (adddMethod != null)
-    //    adddMethod.Invoke(instance, new object?[] { value });
+    //  var addMethod = collectionType.GetMethod("Add", new Type[] { knownItemTypeInfo.Type });
+    //  if (addMethod == null)
+    //    addMethod = collectionType.GetMethod("Add");
+    //  if (addMethod != null)
+    //    addMethod.Invoke(instance, new object?[] { value });
     //  else if (instance is ICollection collectionObj)
     //    throw new XmlInvalidOperationException($"Add method for {knownItemTypeInfo.Type} value not found in {instanceTypeInfo.Type?.FullName}", Reader);
     //}
@@ -1174,7 +1210,7 @@ public partial class QXmlSerializer
     Trace.WriteLine($"<ReadMemberObjectWithKnownType instance=\"{instance}\" ReaderName=\"{Reader.Name}\">");
     Trace.IndentLevel++;
 #endif
-    if (valueTypeInfo.Type.Name=="QualityMetrics")
+    if (valueTypeInfo.Type.Name == "QualityMetrics")
       Debug.Assert(true);
     object? result = null;
     if (valueTypeInfo.XmlConverter?.CanRead == true)
@@ -1327,6 +1363,7 @@ public partial class QXmlSerializer
   /// </summary>
   /// <param name="context">Context object, instance which member is to be read.</param>
   /// <param name="itemInfo">Serialization item info that holds expected type info</param>
+  /// <param name="typeInfo">Serialization type info for the expected item</param>
   /// <returns>Read object (can be null)</returns>
   /// <exception cref="XmlInvalidOperationException">Thrown on errors</exception>
   /// <remarks>
@@ -1338,14 +1375,13 @@ public partial class QXmlSerializer
   /// <exitstate>
   /// On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
   /// </exitstate>
-  protected object? ReadElementWithKnownItemInfo(object context, SerializationItemInfo itemInfo)
+  protected object? ReadElementWithKnownItemInfo(object context, SerializationItemInfo itemInfo, SerializationTypeInfo typeInfo)
   {
 #if TraceReader
     Trace.WriteLine($"<ReadElementWithKnownItemInfo instance=\"{context}\" ReaderName=\"{Reader.Name}\">");
     Trace.IndentLevel++;
 #endif
     object? result = null;
-    var typeInfo = itemInfo.TypeInfo;
     if (typeInfo.XmlConverter?.CanRead == true)
       return typeInfo.XmlConverter.ReadXml(context, Reader, typeInfo.Type, null, null);
     if (typeInfo.KnownConstructor == null)
@@ -1405,7 +1441,7 @@ public partial class QXmlSerializer
   /// <param name="expectedKeyType">Expected key type to validate. If null, then any key type is allowed.</param>
   /// <param name="expectedValueType">Expected value type to validate. If null, then any value type is allowed.</param>
   /// <param name="dictionaryInfo">Dictionary info to recognize an element that represents a key.</param>
-  /// <returns>Read pair of key-value, both of object type.</returns>
+  /// <returns>Read a pair of key-value, both of object type.</returns>
   /// <exception cref="XmlInvalidOperationException">Thrown on errors.</exception>
   /// <entrystate>
   /// On entry, the Reader is located at the XML start element (or empty element) that represents the object.
@@ -1414,7 +1450,7 @@ public partial class QXmlSerializer
   /// On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
   /// </exitstate>
   protected (object? key, object? value) ReadElementAsKVPair(object context, Type? expectedKeyType, Type? expectedValueType,
-    DictionaryInfo dictionaryInfo)
+    DictionaryContentInfo dictionaryInfo)
   {
     if (Reader.NodeType != XmlNodeType.Element)
       throw new XmlInvalidOperationException($"XmlReader must be at XmlElement on deserialize object", Reader);
@@ -1507,7 +1543,7 @@ public partial class QXmlSerializer
   /// In the final stage, either a temporary list is assigned to the result, or items from the temporary list are added to the existing collection.
   /// In both cases, the kind of collection type causes different set/add methods.
   /// </remarks>
-  protected object? ReadElementAsMemberCollection(object instance, SerializationMemberInfo memberInfo, ContentItemInfo contentInfo)
+  protected object? ReadElementAsMemberCollection(object instance, SerializationMemberInfo memberInfo, CollectionContentInfo contentInfo)
   {
 #if TraceReader
     Trace.WriteLine($"<ReadElementAsMemberCollection instance=\"{instance}\" ReaderName=\"{Reader.Name}\">");
@@ -1577,7 +1613,7 @@ public partial class QXmlSerializer
 
     if (collectionTypeKind == CollectionTypeKind.Dictionary)
     {
-      var dictionaryInfo = memberInfo.ContentInfo as DictionaryInfo;
+      var dictionaryInfo = memberInfo.ContentInfo as DictionaryContentInfo;
       if (dictionaryInfo == null)
         throw new XmlInvalidOperationException($"Collection of type {collectionType} must be marked with {nameof(XmlDictionaryAttribute)} attribute", Reader);
       if (Reader.IsStartElement(memberInfo.XmlName) && !Reader.IsEmptyElement)
@@ -1684,10 +1720,10 @@ public partial class QXmlSerializer
           }
           else
           {
-            var constructor = collectionType.GetConstructor(new Type[0]);
+            var constructor = collectionType.GetConstructor([]);
             if (constructor == null)
               throw new XmlInvalidOperationException($"Collection type {collectionType} must have a parameterless public constructor", Reader);
-            newDictionaryObject = constructor.Invoke(new object[0]) as IDictionary;
+            newDictionaryObject = constructor.Invoke([]) as IDictionary;
           }
           if (newDictionaryObject == null)
             throw new XmlInvalidOperationException($"Could not create a new instance of {collectionType} value", Reader);
@@ -1805,7 +1841,7 @@ public partial class QXmlSerializer
   /// After checking expected type, the collection object is read. It is realized by using <see cref="XmlConverter"/>
   /// or by invoking <see cref="ReadXmlAttributes"/> and <see cref="ReadCollectionItems"/>.
   /// </remarks>
-  protected object? ReadMemberCollectionObject(object instance, SerializationMemberInfo memberInfo, ContentItemInfo contentInfo)
+  protected object? ReadMemberCollectionObject(object instance, SerializationMemberInfo memberInfo, CollectionContentInfo contentInfo)
   {
 #if TraceReader
     Trace.WriteLine($"<ReadMemberCollectionObject instance=\"{instance}\" ReaderName=\"{Reader.Name}\">");
@@ -1851,7 +1887,7 @@ public partial class QXmlSerializer
       }
       else
       {
-        result = typeInfo.KnownConstructor.Invoke(new object[0]);
+        result = typeInfo.KnownConstructor.Invoke([]);
         if (result is IXmlSerializable xmlSerializable && Reader.BaseXmlReader != null)
           xmlSerializable.ReadXml(Reader.BaseXmlReader);
         else
@@ -1885,7 +1921,7 @@ public partial class QXmlSerializer
   /// Add method is get from collection instance. Items are read using <see cref="ReadElementAsItem"/>
   /// and added with the reflected add method.
   /// </remarks>
-  public int ReadCollectionItems(object context, Type itemType, ContentItemInfo contentInfo)
+  public int ReadCollectionItems(object context, Type itemType, CollectionContentInfo contentInfo)
   {
     int itemsRead = 0;
     while (Reader.NodeType == XmlNodeType.Whitespace)
@@ -1915,7 +1951,7 @@ public partial class QXmlSerializer
   /// <remarks>
   /// After item type validation, <see cref="ReadObjectWithKnownTypeInfo"/> is called.
   /// </remarks>
-  public object? ReadElementAsItem(object context, Type? itemType, ContentItemInfo contentInfo)
+  public object? ReadElementAsItem(object context, Type? itemType, CollectionContentInfo contentInfo)
   {
 #if TraceReader
     Trace.WriteLine($"<ReadElementAsItem instance=\"{context}\" ReaderName=\"{Reader.Name}\">");
@@ -1960,7 +1996,7 @@ public partial class QXmlSerializer
   /// To read a single key-value pair, <see cref="ReadElementAsKVPair"/> is used.
   /// </remarks>
   public int ReadDictionaryItems(object context, ICollection<object> collection, Type expectedKeyType, Type expectedValueType,
-    DictionaryInfo dictionaryInfo)
+    DictionaryContentInfo dictionaryInfo)
   {
     int itemsRead = 0;
     while (Reader.NodeType == XmlNodeType.Element)
@@ -2248,7 +2284,7 @@ public partial class QXmlSerializer
   /// <param name="type">Searched type.</param>
   /// <param name="typeInfo">Found typeInfo (or null when not found).</param>
   /// <returns>True when typeInfo found, false otherwise.</returns>
-  public bool TryGetTypeInfo(Type type, [NotNullWhen(true)][MaybeNullWhen(false)] out SerializationTypeInfo? typeInfo)
+  public bool TryGetTypeInfo(Type type, [NotNullWhen(true)] out SerializationTypeInfo? typeInfo)
   {
     return Mapper.KnownTypes.TryGetValue(type, out typeInfo);
   }
@@ -2260,11 +2296,11 @@ public partial class QXmlSerializer
   /// <param name="tag">Searched XML tag.</param>
   /// <param name="typeInfo">Found typeInfo (or null when not found).</param>
   /// <returns>True when typeInfo found, false otherwise.</returns>
-  public bool TryGetTypeInfo(XmlQualifiedTagName tag, [NotNullWhen(true)][MaybeNullWhen(false)] out SerializationTypeInfo? typeInfo)
+  public bool TryGetTypeInfo(XmlQualifiedTagName tag, [NotNullWhen(true)] out SerializationTypeInfo? typeInfo)
   {
     if (String.IsNullOrEmpty(tag.Namespace))
     {
-      var aType = TypeNaming.GetType(tag.Name);
+      var aType = TypeNaming.GetType(tag.LocalName);
       if (aType != null)
       {
         if (Mapper.KnownTypes.TryGetValue(aType, out typeInfo))
@@ -2280,17 +2316,17 @@ public partial class QXmlSerializer
       var k = ns.LastIndexOf('.');
       if (k <= 0) break;
       ns = ns.Substring(0, k);
-      clrName.Namespace = ns;
+      clrName = new QualifiedName(clrName.LocalName, ns);
       if (Mapper.KnownTypes.TryGetValue(clrName, out typeInfo))
         return true;
     }
     if (String.IsNullOrEmpty(tag.Prefix))
     {
-      clrName.Namespace = "System";
+      clrName = new QualifiedName(clrName.LocalName, "System");
       if (Mapper.KnownTypes.TryGetValue(clrName, out typeInfo))
         return true;
     }
-    if (Mapper.KnownTypes.TryGetValue(clrName.Name, out typeInfo))
+    if (Mapper.KnownTypes.TryGetValue(clrName.LocalName, out typeInfo))
       return true;
     return false;
   }
@@ -2323,7 +2359,7 @@ public partial class QXmlSerializer
     var result = new XmlQualifiedTagName(Reader.LocalName, Reader.Prefix);
     if (string.IsNullOrEmpty(result.Namespace))
     {
-      var type = TypeNaming.GetType(result.Name);
+      var type = TypeNaming.GetType(result.LocalName);
       if (type != null)
         result = new XmlQualifiedTagName(type.FullName ?? "");
     }
@@ -2362,6 +2398,83 @@ public partial class QXmlSerializer
       }
     }
     memberInfo.SetValue(instance, value);
+  }
+
+  /// <summary>
+  /// Helper method to set a value to the object instance using member info.
+  /// If a member has type converter, the value is translated (when it is possible).
+  /// </summary>
+  /// <param name="instance">The object instance to which the value is to be assigned.</param>
+  /// <param name="memberInfo">Serialization member info of the value.</param>
+  /// <param name="value">The value to set (can't be null).</param>
+  public bool AddValue(object instance, SerializationMemberInfo memberInfo, object value)
+  {
+    var contentInfo = memberInfo.ContentInfo;
+    if (contentInfo != null)
+    {
+      foreach (var knownItem in contentInfo.KnownItemTypes)
+      {
+        var expectedType = knownItem.TypeInfo.Type;
+        var valueType = value.GetType();
+        if (valueType != expectedType)
+        {
+          var typeConverter = memberInfo.TypeConverter;
+          if (typeConverter == null && expectedType.IsSimple())
+            typeConverter = new ValueTypeConverter(expectedType, KnownTypes.Keys);
+          var typeDescriptor = new TypeDescriptorContext(instance);
+          if (typeConverter?.CanConvertFrom(typeDescriptor, valueType) == true)
+          {
+            value = typeConverter.ConvertFrom(typeDescriptor, null!, value)!;
+          }
+        }
+        var collection = memberInfo.GetValue(instance);
+        if (collection != null)
+        {
+          var addMethods = collection.GetType().GetMethods().Where(method => method.Name == "Add").ToArray();
+          if (AddWithMethods(collection, addMethods, value))
+          {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  private bool AddWithMethods(object collection, MethodInfo[] addMethods, object value)
+  {
+    foreach (var addMethod in addMethods)
+    {
+      var parameters = addMethod.GetParameters();
+      if (parameters.Length == 1)
+      {
+        var paramType = parameters[0].ParameterType;
+        if (paramType.IsAssignableFrom(value.GetType()))
+        {
+          addMethod.Invoke(collection, [value]);
+          return true;
+        }
+      }
+      else if (parameters.Length > 1 && value is object[] valueArray && parameters.Length == valueArray.Length)
+      {
+        bool match = true;
+        for (int i = 0; i < parameters.Length; i++)
+        {
+          var paramType = parameters[i].ParameterType;
+          if (!paramType.IsAssignableFrom(valueArray[i].GetType()))
+          {
+            match = false;
+            break;
+          }
+        }
+        if (match)
+        {
+          addMethod.Invoke(collection, valueArray);
+          return true;
+        }
+      }
+    }
+    return false;
   }
   #endregion
 }

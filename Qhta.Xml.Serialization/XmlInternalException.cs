@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Qhta.Xml.Serialization;
+﻿namespace Qhta.Xml.Serialization;
 
 /// <summary>
 ///   Class extending <see cref="Exception" /> to hold

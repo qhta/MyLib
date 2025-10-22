@@ -28,6 +28,11 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   }
 
   /// <summary>
+  /// Specifies whether all information on type are resolved.
+  /// </summary>
+  public bool IsFullyResolved { get; set; }
+
+  /// <summary>
   /// Gets a value indicating whether this instance has known constructor.
   /// </summary>
   /// <value>
@@ -85,18 +90,25 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   public KnownTypesCollection? KnownSubtypes { [DebuggerStepThrough] get; set; }
 
   /// <summary>
-  ///   Specifies whether the type is serialized as a collection but not as a dictionary.
+  ///   Specifies whether the type is serialized as an array.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsCollection => ContentInfo != null && !IsDictionary;
+  public bool IsArray => ContentInfo is ArrayContentInfo;
 
   /// <summary>
-  ///   Specifies whether the type is serialized as a dictionary but not as a collection.
+  ///   Specifies whether the type is serialized as a collection.
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsDictionary => ContentInfo is DictionaryInfo;
+  public bool IsCollection => ContentInfo is CollectionContentInfo;
+
+  /// <summary>
+  ///   Specifies whether the type is serialized as a dictionary.
+  /// </summary>
+  [XmlAttribute]
+  [DefaultValue(false)]
+  public bool IsDictionary => ContentInfo is DictionaryContentInfo;
 
   /// <summary>
   ///   Known property to accept content of XmlElement.
@@ -116,10 +128,10 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   public bool IsObject { [DebuggerStepThrough] get; set; }
 
   /// <summary>
-  ///   Optional collection info filled if a property is an array, collection or dictionary
+  ///   Optional filled for array, collection or dictionary types.
   /// </summary>
   [XmlElement]
-  public ContentItemInfo? ContentInfo { [DebuggerStepThrough] get; set; }
+  public ContentInfo? ContentInfo { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   ///   Name of the Xml element

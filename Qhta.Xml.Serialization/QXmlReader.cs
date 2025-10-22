@@ -241,7 +241,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// Gets the value of the attribute with the specified LocalName and NamespaceURI.
   /// </summary>
   public string? this[XmlQualifiedTagName fullName]
-    => BaseXmlReader[fullName.Name, fullName.Namespace];
+    => BaseXmlReader[fullName.LocalName, fullName.Namespace];
 
 
   /// <summary>
@@ -259,7 +259,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public string? GetAttribute(XmlQualifiedTagName fullName)
   {
-    return BaseXmlReader.GetAttribute(fullName.Name, fullName.Namespace);
+    return BaseXmlReader.GetAttribute(fullName.LocalName, fullName.Namespace);
   }
 
   /// <summary>
@@ -326,7 +326,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public string ReadElementContentAsString(XmlQualifiedTagName fullName)
   {
-    return BaseXmlReader.ReadElementContentAsString(fullName.Name, fullName.Namespace);
+    return BaseXmlReader.ReadElementContentAsString(fullName.LocalName, fullName.Namespace);
   }
   #endregion
 
@@ -357,7 +357,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public string ReadElementString(XmlQualifiedTagName fullName)
   {
-    return BaseXmlReader.ReadElementString(fullName.Name, fullName.Namespace);
+    return BaseXmlReader.ReadElementString(fullName.LocalName, fullName.Namespace);
   }
   #endregion
 
@@ -377,7 +377,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool MoveToAttribute(XmlQualifiedTagName fullName)
   {
-    return BaseXmlReader.MoveToAttribute(fullName.Name, fullName.Namespace);
+    return BaseXmlReader.MoveToAttribute(fullName.LocalName, fullName.Namespace);
   }
 
   /// <summary>
@@ -487,7 +487,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool IsStartElement(XmlQualifiedTagName tag)
   {
-    return BaseXmlReader.IsStartElement(tag.Name, tag.Namespace);
+    return BaseXmlReader.IsStartElement(tag.LocalName, tag.Namespace);
   }
 
   /// <summary>
@@ -515,7 +515,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public void ReadStartElement(XmlQualifiedTagName tag)
   {
-    BaseXmlReader.ReadStartElement(tag.Name, tag.Namespace);
+    BaseXmlReader.ReadStartElement(tag.LocalName, tag.Namespace);
   }
   #endregion
 
@@ -541,7 +541,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// </summary>
   public bool IsEndElement(XmlQualifiedTagName tag)
   {
-    return BaseXmlReader.NodeType == XmlNodeType.EndElement && BaseXmlReader.LocalName == tag.Name && BaseXmlReader.NamespaceURI == tag.Namespace;
+    return BaseXmlReader.NodeType == XmlNodeType.EndElement && BaseXmlReader.LocalName == tag.LocalName && BaseXmlReader.NamespaceURI == tag.Namespace;
   }
 
   /// <summary>
@@ -573,7 +573,7 @@ public partial class QXmlReader : IXmlReader, IDisposable
   /// <exception cref="XmlInvalidOperationException">Thrown if node is not end element or name and namespaceURI does not match</exception>
   public void ReadEndElement(XmlQualifiedTagName tag)
   {
-    var ok = BaseXmlReader.NodeType == XmlNodeType.EndElement && BaseXmlReader.LocalName == tag.Name && BaseXmlReader.NamespaceURI == tag.Namespace;
+    var ok = BaseXmlReader.NodeType == XmlNodeType.EndElement && BaseXmlReader.LocalName == tag.LocalName && BaseXmlReader.NamespaceURI == tag.Namespace;
     if (!ok)
       throw new XmlInvalidOperationException($"End element \"{tag}\" expected but {BaseXmlReader.NodeType} \"{BaseXmlReader.Name}\" found", this);
     BaseXmlReader.ReadEndElement();

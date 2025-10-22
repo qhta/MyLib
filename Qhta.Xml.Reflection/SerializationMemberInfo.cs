@@ -30,7 +30,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   public SerializationMemberInfo(SerializationTypeInfo parentType, QualifiedName name, MemberInfo memberInfo, int order = int.MaxValue)
   {
     this.ParentType = parentType;
-    XmlName = name.Name;
+    XmlName = name.LocalName;
     ClrNamespace = name.Namespace;
     Member = memberInfo;
     IsNullable = Member.GetCustomAttribute<XmlElementAttribute>()?.IsNullable ?? false;
@@ -215,7 +215,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsDictionary => GetCollectionInfo() is DictionaryInfo;
+  public bool IsDictionary => GetCollectionInfo() is DictionaryContentInfo;
 
   /// <summary>
   ///   Specifies whether the type instance must be serialized as an object, not a simple collection.
@@ -233,7 +233,7 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   ///   Optional collection info filled if a member is an array, collection or dictionary.
   /// </summary>
   [XmlElement]
-  public ContentItemInfo? ContentInfo { [DebuggerStepThrough] get; set; }
+  public ContentInfo? ContentInfo { [DebuggerStepThrough] get; set; }
 
   /// <summary>
   /// Compares the order of two instances. Allows two items of the same order to occur in dictionary.
@@ -318,11 +318,11 @@ public class SerializationMemberInfo : INamedElement, IComparable<SerializationM
   ///   Gets CollectionInfo as saved or from ValueType.
   /// </summary>
   /// <returns></returns>
-  public ContentItemInfo? GetCollectionInfo()
+  public ContentInfo? GetCollectionInfo()
   {
-    if (ContentInfo is ContentItemInfo collectionInfo)
+    if (ContentInfo is CollectionContentInfo collectionInfo)
       return collectionInfo;
-    return ValueType?.ContentInfo as ContentItemInfo;
+    return ValueType?.ContentInfo as CollectionContentInfo;
   }
 
   /// <summary>

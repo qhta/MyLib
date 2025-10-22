@@ -153,13 +153,13 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
     if (tag.Namespace != "" && EmitNamespaces)
     {
       if (!String.IsNullOrEmpty(tag.Prefix))
-        BaseXmlWriter.WriteStartElement(tag.Prefix, tag.Name, tag.Namespace);
+        BaseXmlWriter.WriteStartElement(tag.Prefix!, tag.LocalName, tag.Namespace);
       else
-        BaseXmlWriter.WriteStartElement(tag.Name, tag.Namespace);
+        BaseXmlWriter.WriteStartElement(tag.LocalName, tag.Namespace);
       NamespacesUsed.Add(tag.Namespace);
     }
     else
-      BaseXmlWriter.WriteStartElement(tag.Name);
+      BaseXmlWriter.WriteStartElement(tag.LocalName);
   }
 
   /// <summary>
@@ -259,12 +259,12 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
       AttributeStack.Push(fullName);
     if (fullName.Namespace != "" && EmitNamespaces)
     {
-      BaseXmlWriter.WriteStartAttribute(fullName.Name, fullName.Namespace);
+      BaseXmlWriter.WriteStartAttribute(fullName.LocalName, fullName.Namespace);
       if (!NamespacesUsed.Contains(fullName.Namespace))
         NamespacesUsed.Add(fullName.Namespace);
     }
     else
-      BaseXmlWriter.WriteStartAttribute(fullName.Name, fullName.Namespace);
+      BaseXmlWriter.WriteStartAttribute(fullName.LocalName, fullName.Namespace);
   }
 
   /// <summary>
@@ -388,9 +388,9 @@ public partial class QXmlWriter : IXmlWriter, IDisposable
   public void WriteAttributeString(XmlQualifiedTagName fullName, string? str)
   {
     if (fullName.Namespace != "" && EmitNamespaces)
-      BaseXmlWriter.WriteAttributeString(fullName.Name, fullName.Namespace, str);
+      BaseXmlWriter.WriteAttributeString(fullName.LocalName, fullName.Namespace, str);
     else
-      BaseXmlWriter.WriteAttributeString(fullName.Name, str);
+      BaseXmlWriter.WriteAttributeString(fullName.LocalName, str);
   }
 
   /// <summary>

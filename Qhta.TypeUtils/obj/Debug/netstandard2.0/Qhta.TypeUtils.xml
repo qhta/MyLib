@@ -811,6 +811,7 @@
               Replacement for a <c>Type.GetMembers</c> method.
               The members are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
+              You can use <see cref="T:HideInheritedMembersAttribute"/> to hide inherited members at any level of inheritance.
             </summary>
             <param name="aType">Type to get fields from</param>
             <param name="untilType">The deepest type in inheritance hierarchy to search in</param>  
@@ -821,6 +822,7 @@
               when a <paramref name="flags" /> parameter does not have option
               <c>BindingFlags.DeclaredOnly</c>. Then members are taken also from superclasses,
               but are also ordered with inheritance order (from top superclass first).
+              You can use <see cref="T:HideInheritedMembersAttribute"/> to hide inherited members at any level of inheritance.
             </summary>
             <param name="aType">Type to get fields from</param>
             <param name="flags">Binding flags to filter the properties</param>
@@ -1329,6 +1331,14 @@
             <summary>
               A type of target items
             </summary>
+        </member>
+        <member name="T:HideInheritedMembersAttribute">
+            <summary>
+            Specifies that class members inherited from base classes should be hidden during GetMembersByInheritance operations.
+            </summary>
+            <remarks>This attribute can be applied to a class to indicate that only the members defined directly within
+            the class should be considered during XML serialization. Inherited members from base classes will be
+            excluded.</remarks>
         </member>
     </members>
 </doc>

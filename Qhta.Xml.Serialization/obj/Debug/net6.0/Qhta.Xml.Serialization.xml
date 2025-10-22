@@ -826,7 +826,7 @@
             </exitstate>
             <remarks>
             Internal method for <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObject(System.Object)"/>. 
-            Also used in <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsItem(System.Object,System.Type,Qhta.Xml.Reflection.ContentItemInfo)"/>.
+            Also used in <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsItem(System.Object,System.Type,Qhta.Xml.Reflection.CollectionContentInfo)"/>.
             </remarks>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectInstance(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)">
@@ -889,7 +889,7 @@
             Otherwise, the Xml element should represent direct instance content.
             There are two cases for a direct instance content. 
             One is when the instance has known ContentProperty. In this case <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsContentProperty(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)"/> is invoked.
-            The second case is when the instance is a collection. In this case <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)"/> is called.
+            The second case is when the instance is a collection. In this case <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.CollectionContentInfo)"/> is called.
             </remarks>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsProperty(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.SerializationMemberInfo)">
@@ -901,7 +901,7 @@
             <param name="memberInfo"></param>
             <returns>Object read (or null)</returns>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementsAsPropertiesOrMembers(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementsAsPropertiesOrMembers(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentInfo)">
             <summary>
             Method invoked for a sequence of child elements of an instance. These child elements can be item elements or properties.
             </summary>
@@ -912,7 +912,7 @@
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsInstanceMember(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>
-            Reads an Xml element as known member of the instance.
+            Reads Xml element as known member of the instance.
             </summary>
             <param name="instance">Instance which member is to be read</param>
             <param name="memberInfo">Member info of the member</param>
@@ -926,7 +926,7 @@
             </exitstate>
             <remarks>
             If a member has an XmlConverter assigner, then it is used to read the value.
-            Otherwise, a member can be read as a collection (or dictionary) by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberCollection(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)"/>,
+            Otherwise, a member can be read as a collection (or dictionary) by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberCollection(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.CollectionContentInfo)"/>,
             however a collection may have its own properties, and then should read as a "normal" object.
             Other, "normal" object are read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)"/>.
             </remarks>
@@ -949,7 +949,7 @@
             After validation of types, simply <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberObjectWithKnownType(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.SerializationTypeInfo)"/>
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.CollectionContentInfo)">
             <summary>
             Reads an XML element as an object which is added to the instance as a collection (or dictionary).
             </summary>
@@ -968,13 +968,13 @@
             First, serialization item info is searched for the Xml element name. 
             If it is not found, then it can be created temporarily basing on start tag name.
             Next an item element is read. 
-            If the collection is dictionary, then a pair of key-item is read using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)"/> method.
-            Otherwise, an item is read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo)"/>.
+            If the collection is dictionary, then a pair of key-item is read using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryContentInfo)"/> method.
+            Otherwise, an item is read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo,Qhta.Xml.Reflection.SerializationTypeInfo)"/>.
             At the end the item (or key-item pair) is added to the instance with an Add method.
             The Add method can be declared in knownItemTypeInfo or localized in the type of instance using type reflection.
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsDictionaryItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.DictionaryInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsDictionaryItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.DictionaryContentInfo)">
             <summary>
             Reads an XML element as an object which is added to the instance as a collection (or dictionary).
             </summary>
@@ -993,8 +993,8 @@
             First, serialization item info is searched for the Xml element name. 
             If it is not found, then it can be created temporarily basing on start tag name.
             Next an item element is read. 
-            If the collection is dictionary, then a pair of key-item is read using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)"/> method.
-            Otherwise, an item is read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo)"/>.
+            If the collection is dictionary, then a pair of key-item is read using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryContentInfo)"/> method.
+            Otherwise, an item is read by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo,Qhta.Xml.Reflection.SerializationTypeInfo)"/>.
             At the end the item (or key-item pair) is added to the instance with an Add method.
             The Add method can be declared in knownItemTypeInfo or localized in the type of instance using type reflection.
             </remarks>
@@ -1067,7 +1067,7 @@
             <param name="str">Value string to be converted</param>
             <returns>Converted object (or entry string if conversion is impossible)</returns>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementWithKnownItemInfo(System.Object,Qhta.Xml.Reflection.SerializationItemInfo,Qhta.Xml.Reflection.SerializationTypeInfo)">
             <summary>
             Reads an element of collection when a serialization item is known.
             Item info is used to get type info of the expected object.
@@ -1077,10 +1077,11 @@
             </summary>
             <param name="context">Context object, instance which member is to be read.</param>
             <param name="itemInfo">Serialization item info that holds expected type info</param>
+            <param name="typeInfo">Serialization type info for the expected item</param>
             <returns>Read object (can be null)</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on errors</exception>
             <remarks>
-            Internal method for <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.ContentItemInfo)"/>. 
+            Internal method for <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsCollectionItem(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.CollectionContentInfo)"/>. 
             </remarks>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the object.
@@ -1089,7 +1090,7 @@
             On exit, the Reader is located after the corresponding XML ending element (or after the entry empty element).
             </exitstate>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryContentInfo)">
             <summary>
             Reads an element of a dictionary. Element is a key-value pair.
             First a reader local name is checked if id 
@@ -1098,7 +1099,7 @@
             <param name="expectedKeyType">Expected key type to validate. If null, then any key type is allowed.</param>
             <param name="expectedValueType">Expected value type to validate. If null, then any value type is allowed.</param>
             <param name="dictionaryInfo">Dictionary info to recognize an element that represents a key.</param>
-            <returns>Read pair of key-value, both of object type.</returns>
+            <returns>Read a pair of key-value, both of object type.</returns>
             <exception cref="T:Qhta.Xml.Serialization.XmlInvalidOperationException">Thrown on errors.</exception>
             <entrystate>
             On entry, the Reader is located at the XML start element (or empty element) that represents the object.
@@ -1112,7 +1113,7 @@
             Internal type kind of collection
             </summary>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberCollection(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsMemberCollection(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.CollectionContentInfo)">
             <summary>
             Reads an XML element, which represents a member of the instance and is recognized as a collection (or dictionary).
             </summary>
@@ -1131,15 +1132,15 @@
             <remarks>
             First the kind of collection type is determined and collection attributes are validated.
             In the next stage collection items are read to a temporary list. 
-            If the collection is a dictionary, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadDictionaryItems(System.Object,System.Collections.Generic.ICollection{System.Object},System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)"/> method is used.
+            If the collection is a dictionary, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadDictionaryItems(System.Object,System.Collections.Generic.ICollection{System.Object},System.Type,System.Type,Qhta.Xml.Reflection.DictionaryContentInfo)"/> method is used.
             Otherwise, 
-              if the XML element represents the instance of collection, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberCollectionObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)"/> is invoked,
-              else <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadCollectionItems(System.Object,System.Type,Qhta.Xml.Reflection.ContentItemInfo)"/> is used.
+              if the XML element represents the instance of collection, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberCollectionObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.CollectionContentInfo)"/> is invoked,
+              else <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadCollectionItems(System.Object,System.Type,Qhta.Xml.Reflection.CollectionContentInfo)"/> is used.
             In the final stage, either a temporary list is assigned to the result, or items from the temporary list are added to the existing collection.
             In both cases, the kind of collection type causes different set/add methods.
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberCollectionObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.ContentItemInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadMemberCollectionObject(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,Qhta.Xml.Reflection.CollectionContentInfo)">
             <summary>
             Reads an XML element, which represents a member of the instance that is a collection serialized as the whole object
             (with class element). 
@@ -1158,10 +1159,10 @@
             </exitstate>
             <remarks>
             After checking expected type, the collection object is read. It is realized by using <see cref="T:Qhta.Xml.Serialization.XmlConverter"/>
-            or by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlAttributes(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> and <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadCollectionItems(System.Object,System.Type,Qhta.Xml.Reflection.ContentItemInfo)"/>.
+            or by invoking <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlAttributes(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> and <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadCollectionItems(System.Object,System.Type,Qhta.Xml.Reflection.CollectionContentInfo)"/>.
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadCollectionItems(System.Object,System.Type,Qhta.Xml.Reflection.ContentItemInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadCollectionItems(System.Object,System.Type,Qhta.Xml.Reflection.CollectionContentInfo)">
             <summary>
             Reads collection items.
             </summary>
@@ -1171,11 +1172,11 @@
             <returns>Number of read items</returns>
             <exception cref="T:System.InvalidOperationException">Thrown on errors.</exception>
             <remarks>
-            Add method is get from collection instance. Items are read using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsItem(System.Object,System.Type,Qhta.Xml.Reflection.ContentItemInfo)"/>
+            Add method is get from collection instance. Items are read using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsItem(System.Object,System.Type,Qhta.Xml.Reflection.CollectionContentInfo)"/>
             and added with the reflected add method.
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsItem(System.Object,System.Type,Qhta.Xml.Reflection.ContentItemInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsItem(System.Object,System.Type,Qhta.Xml.Reflection.CollectionContentInfo)">
             <summary>
             Reads a single collection item.
             </summary>
@@ -1188,7 +1189,7 @@
             After item type validation, <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadObjectWithKnownTypeInfo(System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/> is called.
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadDictionaryItems(System.Object,System.Collections.Generic.ICollection{System.Object},System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadDictionaryItems(System.Object,System.Collections.Generic.ICollection{System.Object},System.Type,System.Type,Qhta.Xml.Reflection.DictionaryContentInfo)">
             <summary>
             Reads collection of dictionary items.
             </summary>
@@ -1199,7 +1200,7 @@
             <param name="dictionaryInfo">Original dictionary info</param>
             <returns>Number of read key-value pairs.</returns>
             <remarks>
-            To read a single key-value pair, <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryInfo)"/> is used.
+            To read a single key-value pair, <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.ReadElementAsKVPair(System.Object,System.Type,System.Type,Qhta.Xml.Reflection.DictionaryContentInfo)"/> is used.
             </remarks>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.ReadXmlTextElement(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo)">
@@ -1291,6 +1292,15 @@
             <param name="instance">The object instance to which the value is to be assigned.</param>
             <param name="memberInfo">Serialization member info of the value.</param>
             <param name="value">The value to set (can be null).</param>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.AddValue(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,System.Object)">
+            <summary>
+            Helper method to set a value to the object instance using member info.
+            If a member has type converter, the value is translated (when it is possible).
+            </summary>
+            <param name="instance">The object instance to which the value is to be assigned.</param>
+            <param name="memberInfo">Serialization member info of the value.</param>
+            <param name="value">The value to set (can't be null).</param>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.SerializeObject(System.IO.Stream,System.Object)">
             <summary>
@@ -1405,7 +1415,7 @@
             Simple value is written by using <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.WriteValue(System.Object)"/>, not simple by <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.WriteObjectInterior(System.Object,System.Object,Qhta.Xml.Reflection.SerializationTypeInfo)"/>.
             </remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteCollectionElement(System.Object,System.Collections.IEnumerable,Qhta.Xml.XmlQualifiedTagName,Qhta.Xml.Reflection.ContentItemInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteCollectionElement(System.Object,System.Collections.IEnumerable,Qhta.Xml.XmlQualifiedTagName,Qhta.Xml.Reflection.CollectionContentInfo)">
             <summary>
             Writes a collection property of the object.
             </summary>
@@ -1414,9 +1424,9 @@
             <param name="elementTag">Name of the opening element that encapsulates items elements.</param>
             <param name="collectionInfo">Serialization info of collection items.</param>
             <returns>Number of items written</returns>
-            <remarks>Uses <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.WriteCollectionItems(System.Object,System.Collections.IEnumerable,Qhta.Xml.Reflection.ContentItemInfo)"/></remarks>
+            <remarks>Uses <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.WriteCollectionItems(System.Object,System.Collections.IEnumerable,Qhta.Xml.Reflection.ContentInfo)"/></remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteCollectionItems(System.Object,System.Collections.IEnumerable,Qhta.Xml.Reflection.ContentItemInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteCollectionItems(System.Object,System.Collections.IEnumerable,Qhta.Xml.Reflection.ContentInfo)">
             <summary>
             Writes collection items.
             </summary>
@@ -1425,7 +1435,7 @@
             <param name="collectionInfo">Serialization info of collection items.</param>
             <returns>Number of items written</returns>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteDictionaryElement(System.Object,System.Collections.IDictionary,Qhta.Xml.XmlQualifiedTagName,Qhta.Xml.Reflection.DictionaryInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteDictionaryElement(System.Object,System.Collections.IDictionary,Qhta.Xml.XmlQualifiedTagName,Qhta.Xml.Reflection.DictionaryContentInfo)">
             <summary>
             Writes a dictionary property of the object.
             </summary>
@@ -1434,9 +1444,9 @@
             <param name="elementTag">Name of the opening element that encapsulates items elements.</param>
             <param name="dictionaryInfo">Serialization info of dictionary items.</param>
             <returns>Number of items written</returns>
-            <remarks>Uses <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.WriteDictionaryItems(System.Object,System.Collections.IDictionary,Qhta.Xml.Reflection.DictionaryInfo)"/></remarks>
+            <remarks>Uses <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.WriteDictionaryItems(System.Object,System.Collections.IDictionary,Qhta.Xml.Reflection.DictionaryContentInfo)"/></remarks>
         </member>
-        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteDictionaryItems(System.Object,System.Collections.IDictionary,Qhta.Xml.Reflection.DictionaryInfo)">
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.WriteDictionaryItems(System.Object,System.Collections.IDictionary,Qhta.Xml.Reflection.DictionaryContentInfo)">
             <summary>
             Writes dictionary items.
             </summary>
@@ -1541,7 +1551,7 @@
             <returns>Tag string</returns>
             <remarks>
             If a member is a content element, then the method return null.
-            Otherwise uses <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> to get XML tag.
+            Otherwise, uses <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> to get XML tag.
             Namespace of the result tag is set to an empty string.
             </remarks>
         </member>
@@ -1554,7 +1564,7 @@
             <returns>Tag string</returns>
             <remarks>
             If a type is not null, then <see cref="M:Qhta.Xml.Serialization.QXmlSerializer.CreateElementTag(System.Type)"/> is used.
-            Otherwise uses <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> to get XML tag.
+            Otherwise, uses <see cref="P:Qhta.Xml.Serialization.QXmlSerializer.Mapper"/> to get XML tag.
             </remarks>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.CreateAttributeTag(Qhta.Xml.Reflection.SerializationMemberInfo,System.Type)">
@@ -2543,7 +2553,7 @@
         </member>
         <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.TryAddMemberAsDictionary(Qhta.Xml.Reflection.SerializationTypeInfo,System.Reflection.MemberInfo,Qhta.Xml.XmlDictionaryAttribute,System.Int32)">
             <summary>
-              Adds property/field to <see cref="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsElements" /> with <see cref="T:Qhta.Xml.Reflection.DictionaryInfo" />
+              Adds property/field to <see cref="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsElements" /> with <see cref="T:Qhta.Xml.Reflection.DictionaryContentInfo" />
             </summary>
             <param name="typeInfo">Object to add to</param>
             <param name="memberInfo">Selected property/field</param>
@@ -2552,14 +2562,14 @@
         </member>
         <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.TryAddMemberAsCollection(Qhta.Xml.Reflection.SerializationTypeInfo,System.Reflection.MemberInfo,System.Xml.Serialization.XmlArrayAttribute,System.Int32)">
             <summary>
-              Adds property/field to <see cref="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsElements" /> with <see cref="T:Qhta.Xml.Reflection.ContentItemInfo" />
+              Adds property/field to <see cref="P:Qhta.Xml.Reflection.SerializationTypeInfo.MembersAsElements" /> with <see cref="T:Qhta.Xml.Reflection.CollectionContentInfo" />
             </summary>
             <param name="typeInfo">Object to add to</param>
             <param name="memberInfo">Selected property/field</param>
             <param name="attribute">Found XmlCollectionAttribute</param>
             <param name="defaultOrder">default order</param>
         </member>
-        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.CreateSerializationMemberInfo(Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.Reflection.QualifiedName,System.Reflection.MemberInfo,System.Int32)">
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.CreateSerializationMemberInfo(Qhta.Xml.Reflection.SerializationTypeInfo,Qhta.Xml.QualifiedName,System.Reflection.MemberInfo,System.Int32)">
             <summary>
             Creates serialization member info for a member info.
             </summary>
@@ -2683,24 +2693,30 @@
             Converts a qualified xml tag name to a qualified name.
             </summary>
         </member>
-        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.CreateCollectionInfo(System.Type)">
-            <summary>
-            Helper method that creates a content member info for a type.
-            </summary>
-        </member>
         <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.CreateContentInfo(System.Reflection.MemberInfo)">
             <summary>
             Helper method that creates a content member info for a member.
             </summary>
         </member>
-        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.CreateCollectionInfo(System.Reflection.MemberInfo)">
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetCollectionInfo(System.Type)">
             <summary>
-            Helper method that creates a collection info info for a member.
+            Helper method that creates a content member info for a type.
             </summary>
         </member>
-        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.CreateCollectionInfo(System.Type,System.Collections.Generic.IEnumerable{System.Xml.Serialization.XmlArrayItemAttribute})">
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.GetCollectionInfo(System.Reflection.MemberInfo)">
             <summary>
-            Helper method that creates a collection info info for a type with specific array item attibutes.
+            Helper method that creates a collection info for a member.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.RegisterCollectionTypeContentItemInfo(System.Type)">
+            <summary>
+            Helper method that creates and registers a content item info for a collection type.
+            </summary>
+        </member>
+        <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.CreateCollectionTypeInfo(System.Type,System.Xml.Serialization.XmlArrayItemAttribute[])">
+            <summary>
+            Helper method that creates a collection info for a collection type with specified XmlArrayItem attributes.
+            Remember that XmlArrayItem attributes can be used for type members but not for types.
             </summary>
         </member>
         <member name="M:Qhta.Xml.Serialization.XmlSerializationInfoMapper.CreateDictionaryInfo(System.Type)">

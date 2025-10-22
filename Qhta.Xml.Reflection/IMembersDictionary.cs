@@ -6,14 +6,14 @@
 public interface IMembersDictionary : IEnumerable<SerializationMemberInfo>
 {
   /// <summary>
-  /// Checkes if it contains a qualified name (name with namespace) as an item key.
+  /// Checks if it contains a qualified name (name with namespace) as an item key.
   /// </summary>
   /// <param name="qualifiedName">QualifiedName to search</param>
   /// <returns><c>true</c> if name found, <c>false</c> otherwise.</returns>
   public bool ContainsKey(QualifiedName qualifiedName);
 
   /// <summary>
-  /// Checkes if it contains a simple name (without namespace) as an item key.
+  /// Checks if it contains a simple name (without namespace) as an item key.
   /// </summary>
   /// <param name="name">Simple name to search</param>
   /// <returns><c>true</c> if name found, <c>false</c> otherwise.</returns>

@@ -23,6 +23,11 @@
 
   <ItemGroup>
     <Compile Remove="FilteredMembersCollection.cs" />
+    <Compile Remove="XmlSerializationInfoMapper.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="NullableAttributes" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Qhta.Conversion\Qhta.Conversion.csproj" />
     <ProjectReference Include="..\Qhta.Xml\Qhta.Xml.csproj" />
   </ItemGroup>
 

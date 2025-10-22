@@ -65,7 +65,7 @@ public class SerializationItemInfo : ITypeNameInfo, INamedElement
   /// <summary>
   ///   Used when this info is a dictionary item info
   /// </summary>
-  public DictionaryInfo? DictionaryInfo { get; set; }
+  public DictionaryContentInfo? DictionaryInfo { get; set; }
 
   /// <summary>
   ///   Used when this info is a dictionary item info
@@ -76,7 +76,7 @@ public class SerializationItemInfo : ITypeNameInfo, INamedElement
     set
     {
       if (DictionaryInfo == null)
-        DictionaryInfo = new DictionaryInfo();
+        DictionaryInfo = new DictionaryContentInfo();
       DictionaryInfo.KeyName = value;
     }
   }
@@ -91,7 +91,7 @@ public class SerializationItemInfo : ITypeNameInfo, INamedElement
     set
     {
       if (DictionaryInfo == null)
-        DictionaryInfo = new DictionaryInfo();
+        DictionaryInfo = new DictionaryContentInfo();
       DictionaryInfo.KeyTypeInfo = value;
     }
   }
@@ -106,7 +106,7 @@ public class SerializationItemInfo : ITypeNameInfo, INamedElement
     set
     {
       if (DictionaryInfo == null)
-        DictionaryInfo = new DictionaryInfo();
+        DictionaryInfo = new DictionaryContentInfo();
       DictionaryInfo.ValueTypeInfo = value;
     }
   }
@@ -168,7 +168,7 @@ public class SerializationItemInfo : ITypeNameInfo, INamedElement
   }
 
   /// <summary>
-  /// Gets the the qualified name (XmlName, XmlNamespace) of the element
+  /// Gets the qualified name (XmlName, XmlNamespace) of the element
   /// </summary>
   public QualifiedName QualifiedName => new(XmlName, XmlNamespace);
 }

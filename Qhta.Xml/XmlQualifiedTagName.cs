@@ -1,19 +1,24 @@
 ﻿namespace Qhta.Xml;
 
 /// <summary>
-/// Declares an Xml Qualified Tag Name. Replaces <see cref="System.Xml.XmlQualifiedName"/>.
+/// Declares Xml Qualified Tag Name. Replaces <see cref="System.Xml.XmlQualifiedName"/>.
 /// </summary>
 public record XmlQualifiedTagName: IEquatable<XmlQualifiedName>
 {
   /// <summary>
   /// Local name of the tag.
   /// </summary>
-  [XmlAttribute] public string Name { get; set; }
+  [XmlAttribute] public QualifiedName QualifiedName { get; private set; }
 
   /// <summary>
   /// Full namespace of the tag.
   /// </summary>
-  [XmlAttribute] public string Namespace { get; set; }
+  public string LocalName => QualifiedName.LocalName;
+
+  /// <summary>
+  /// Full namespace of the tag.
+  /// </summary>
+  public string Namespace => QualifiedName.Namespace;
 
   /// <summary>
   /// Prefix representing a namespace of the tag.
@@ -25,8 +30,7 @@ public record XmlQualifiedTagName: IEquatable<XmlQualifiedName>
   /// </summary>
   public XmlQualifiedTagName()
   {
-    Name = "";
-    Namespace = "";
+    QualifiedName = new QualifiedName();
   }
 
   /// <summary>
@@ -37,14 +41,11 @@ public record XmlQualifiedTagName: IEquatable<XmlQualifiedName>
   {
     var ss = str.Split(':');
     if (ss.Length == 2)
-    {
-      Namespace = ss[0];
-      Name = ss[1];
+    { QualifiedName = new QualifiedName(ss[1], ss[0]);
     }
     else
     {
-      Namespace = "";
-      Name = str;
+      QualifiedName = new QualifiedName(str);
     }
   }
 
@@ -55,8 +56,7 @@ public record XmlQualifiedTagName: IEquatable<XmlQualifiedName>
   /// <param name="nspace"></param>
   public XmlQualifiedTagName(string name, string? nspace)
   {
-    Namespace = nspace ?? "";
-    Name = name;
+    QualifiedName = new QualifiedName(name, nspace);
   }
 
   /// <summary>
@@ -65,7 +65,7 @@ public record XmlQualifiedTagName: IEquatable<XmlQualifiedName>
   /// <returns></returns>
   public bool IsEmpty()
   {
-    return Name == "";
+    return QualifiedName.IsEmpty();
   }
 
   /// <summary>
@@ -75,11 +75,11 @@ public record XmlQualifiedTagName: IEquatable<XmlQualifiedName>
   /// <returns></returns>
   public override string ToString()
   {
-    if (!String.IsNullOrEmpty(Namespace))
-      return Namespace + ":" + Name;
+    if (!String.IsNullOrEmpty(QualifiedName.Namespace))
+      return QualifiedName.Namespace + ":" + LocalName;
     if (!String.IsNullOrEmpty(Prefix))
-      return Prefix + ":" + Name;
-    return Name;
+      return Prefix + ":" + LocalName;
+    return LocalName;
   }
 
   /// <summary>
@@ -90,10 +90,10 @@ public record XmlQualifiedTagName: IEquatable<XmlQualifiedName>
   public string ToPrefixedString()
   {
     if (!String.IsNullOrEmpty(Prefix))
-      return Prefix + ":" + Name;
-    if (!String.IsNullOrEmpty(Namespace))
-      return Namespace + ":" + Name;
-    return Name;
+      return Prefix + ":" + LocalName;
+    if (!String.IsNullOrEmpty(QualifiedName.Namespace))
+      return QualifiedName.Namespace + ":" + LocalName;
+    return LocalName;
   }
 
   /// <summary>
@@ -112,17 +112,17 @@ public record XmlQualifiedTagName: IEquatable<XmlQualifiedName>
   /// <returns></returns>
   public bool Equals(XmlQualifiedName? other)
   {
-    return Name == other?.Name && Namespace == other?.Namespace;
+    return QualifiedName.Equals(other);
   }
 
 
   /// <summary>
-  /// Returs a hash code using name and namespace.
+  /// Returns a hash code using name and namespace.
   /// </summary>
   /// <returns></returns>
   public override int GetHashCode()
   {
-    return new { Name, Namespace }.GetHashCode();
+    return LocalName.GetHashCode();
   }
 
   //public static bool operator ==(QualifiedName @this, QualifiedName other) => @this.Equals(other);
@@ -139,6 +139,6 @@ public record XmlQualifiedTagName: IEquatable<XmlQualifiedName>
   /// <returns></returns>
   public static XmlQualifiedTagName operator +(XmlQualifiedTagName value, string str)
   {
-    return new XmlQualifiedTagName{ Name = value.Name + str, Namespace = value.Namespace, Prefix = value.Prefix };
+    return new XmlQualifiedTagName (value) {Prefix = value.Prefix };
   }
 }

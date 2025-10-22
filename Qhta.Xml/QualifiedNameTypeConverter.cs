@@ -1,4 +1,6 @@
-﻿namespace Qhta.Xml.Reflection;
+﻿using System.ComponentModel;
+
+namespace Qhta.Xml;
 
 /// <summary>
 /// Converter needed for qualified name serialization
