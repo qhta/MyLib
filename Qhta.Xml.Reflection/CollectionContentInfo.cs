@@ -3,7 +3,7 @@
 /// <summary>
 /// Information on item type for collection types
 /// </summary>
-public class CollectionContentInfo : ArrayContentInfo
+public class CollectionContentInfo : ContentInfo
 {
   ///// <summary>
   ///// Determines whether the specified <see cref="ContentInfo"/> is equal to the current <see cref="ContentInfo"/>.

@@ -94,7 +94,7 @@ public class SerializationTypeInfo : ITypeNameInfo, INamedElement
   /// </summary>
   [XmlAttribute]
   [DefaultValue(false)]
-  public bool IsArray => ContentInfo?.GetType() == typeof(ArrayContentInfo);
+  public bool IsArray => Type.IsArray;
 
   /// <summary>
   ///   Specifies whether the type is serialized as a collection.

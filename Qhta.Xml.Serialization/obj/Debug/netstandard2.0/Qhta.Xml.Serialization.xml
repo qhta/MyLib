@@ -1302,6 +1302,15 @@
             <param name="memberInfo">Serialization member info of the value.</param>
             <param name="value">The value to set (can't be null).</param>
         </member>
+        <member name="M:Qhta.Xml.Serialization.QXmlSerializer.AddItem(System.Object,Qhta.Xml.Reflection.SerializationMemberInfo,System.Object)">
+            <summary>
+            Helper method to add item to the object instance using content property info.
+            If a member has type converter, the value is translated (when it is possible).
+            </summary>
+            <param name="instance">The object instance to which the value is to be assigned.</param>
+            <param name="contentPropertyInfo">Serialization member info of the value.</param>
+            <param name="value">The value to set (can't be null).</param>
+        </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.SerializeObject(System.IO.Stream,System.Object)">
             <summary>
               Main serialization entry for System.Xml.XmlWriter.

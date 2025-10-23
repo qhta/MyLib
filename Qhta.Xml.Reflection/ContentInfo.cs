@@ -15,6 +15,13 @@ public class ContentInfo : IEquatable<ContentInfo>
   public bool StoresReferences { get; set; }
 
   /// <summary>
+  /// The value type information.
+  /// </summary>
+  [XmlAttribute]
+  [XmlReference]
+  public SerializationTypeInfo? ValueTypeInfo { get; set; }
+
+  /// <summary>
   ///   Known types for collection items.
   /// </summary>
   [XmlReferences]
@@ -29,8 +36,9 @@ public class ContentInfo : IEquatable<ContentInfo>
   {
     if (ReferenceEquals(null, other)) return false;
     if (ReferenceEquals(this, other)) return true;
-    return this.GetType() == other.GetType() &&
-      StoresReferences == other.StoresReferences 
+    return this.GetType() == other.GetType() 
+       && object.Equals(ValueTypeInfo, other.ValueTypeInfo)
+      && StoresReferences == other.StoresReferences 
       && KnownItemTypes.Equals(other.KnownItemTypes);
   }
 }

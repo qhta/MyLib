@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>Types needed to supplement System.Reflection for Xml serialization</description>
-    <repository type="git" commit="56fd72dd300e068762eaa51c113f9ef6356fa83b" />
+    <repository type="git" commit="e578131da0db6965ae8c3fa0eb81c76fe2ee7b60" />
     <dependencies>
       <group targetFramework="net6.0">
         <dependency id="Qhta.Xml" version="3.2.0" exclude="Build,Analyzers" />

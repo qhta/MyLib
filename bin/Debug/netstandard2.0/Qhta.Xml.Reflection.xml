@@ -4,21 +4,6 @@
         <name>Qhta.Xml.Reflection</name>
     </assembly>
     <members>
-        <member name="T:Qhta.Xml.Reflection.ArrayContentInfo">
-            <summary>
-            Information on item type for array types
-            </summary>
-        </member>
-        <member name="P:Qhta.Xml.Reflection.ArrayContentInfo.ValueTypeInfo">
-            <summary>
-            The value type information.
-            </summary>
-        </member>
-        <member name="M:Qhta.Xml.Reflection.ArrayContentInfo.Equals(Qhta.Xml.Reflection.ContentInfo)">
-            <summary>
-            Determines whether the specified <see cref="T:Qhta.Xml.Reflection.ContentInfo"/> is equal to the current <see cref="T:Qhta.Xml.Reflection.ContentInfo"/>.
-            </summary>
-        </member>
         <member name="T:Qhta.Xml.Reflection.CollectionContentInfo">
             <summary>
             Information on item type for collection types
@@ -32,6 +17,11 @@
         <member name="P:Qhta.Xml.Reflection.ContentInfo.StoresReferences">
             <summary>
              If a collection of objects stores references only.
+            </summary>
+        </member>
+        <member name="P:Qhta.Xml.Reflection.ContentInfo.ValueTypeInfo">
+            <summary>
+            The value type information.
             </summary>
         </member>
         <member name="P:Qhta.Xml.Reflection.ContentInfo.KnownItemTypes">

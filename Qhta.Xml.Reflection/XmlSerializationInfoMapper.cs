@@ -66,8 +66,8 @@ public class XmlSerializationInfoMapper
     if (aType.IsNullable(out var baseType))
       aType = baseType;
 
-    if (aType.Name == "QualityNode")
-      System.Diagnostics.Debug.Assert(true);
+    //if (aType.Name == "QualityFactor")
+    //  System.Diagnostics.Debug.Assert(true);
     //#region Checking if a type was already registered
 
     //if (KnownTypes.TryGetValue(aType, out var knownTypeInfo))
@@ -82,7 +82,7 @@ public class XmlSerializationInfoMapper
     DefaultNamespace = aType.Namespace;
     if (!KnownTypes.TryGetValue(aType, out var knownTypeInfo))
     {
-      Debug.WriteLine($"Register type {aType.Name}");
+/*      Debug.WriteLine($"Register type {aType.Name}")*/;
       knownTypeInfo = CreateTypeInfo(aType);
       KnownTypes.Add(knownTypeInfo);
       if (knownTypeInfo.XmlNamespace != null && knownTypeInfo.ClrNamespace != null)
@@ -92,7 +92,7 @@ public class XmlSerializationInfoMapper
 
     if (!knownTypeInfo.IsFullyResolved)
     {
-      Debug.WriteLine($"Resolve type {aType.Name}");
+      //Debug.WriteLine($"Resolve type {aType.Name}");
       knownTypeInfo.IsFullyResolved = true;
       if (!aType.IsInterface)
       {
@@ -116,8 +116,8 @@ public class XmlSerializationInfoMapper
 
         #region Registering subtypes
 
-        if (aType.Name == "QualityNode")
-          System.Diagnostics.Debug.Assert(true);
+        //if (aType.Name == "QualityNode")
+        //  System.Diagnostics.Debug.Assert(true);
         if (knownTypeInfo.KnownSubtypes == null)
           knownTypeInfo.KnownSubtypes = GetKnownTypes(aType);
         if (knownTypeInfo.KnownSubtypes != null)
@@ -195,8 +195,8 @@ public class XmlSerializationInfoMapper
   /// </exception>
   protected void FillTypeInfo(SerializationTypeInfo typeInfo)
   {
-    if (typeInfo.Type.Name == "QualityFactor")
-      System.Diagnostics.Debug.Assert(true);
+    //if (typeInfo.Type.Name == "QualityFactor")
+    //  System.Diagnostics.Debug.Assert(true);
     var aType = typeInfo.Type;
     typeInfo.IsSealed = aType.IsSealed || aType.IsValueType;
     if (aType.IsDictionary())
@@ -547,7 +547,7 @@ public class XmlSerializationInfoMapper
   /// <returns>Created serialization member info</returns>
   protected SerializationMemberInfo CreateSerializationMemberInfo(SerializationTypeInfo typeInfo, QualifiedName name, MemberInfo memberInfo, int order)
   {
-    Debug.WriteLine($"CreateSerializationMemberInfo({typeInfo.QualifiedName},{name},{memberInfo.Name})");
+    //Debug.WriteLine($"CreateSerializationMemberInfo({typeInfo.QualifiedName},{name},{memberInfo.Name})");
     var serializationMemberInfo = new SerializationMemberInfo(typeInfo, name, memberInfo, order);
     if (memberInfo is PropertyInfo propInfo)
       serializationMemberInfo.ValueType = RegisterType(propInfo.PropertyType);
@@ -690,6 +690,8 @@ public class XmlSerializationInfoMapper
   public virtual SerializationMemberInfo? GetContentProperty(SerializationTypeInfo typeInfo)
   {
     var type = typeInfo.Type;
+    //if (type.Name=="QualityFactor")
+    //  System.Diagnostics.Debug.Assert(true);
     var contentPropertyAttrib = type.GetCustomAttribute<XmlContentPropertyAttribute>(true);
     if (contentPropertyAttrib != null)
     {
@@ -785,6 +787,8 @@ public class XmlSerializationInfoMapper
     {
       if (type.IsClass && !type.IsAbstract && aType.IsAssignableFrom(type) && type != aType)
       {
+        //if (type.Name=="QualityFactor")
+        //  System.Diagnostics.Debug.Assert(true);
         var knownTypeInfo = RegisterType(type);
         knownTypes.Add(knownTypeInfo);
       }
@@ -1063,7 +1067,7 @@ public class XmlSerializationInfoMapper
       var collectionTypeInfo = itemTypeInfo.ContentInfo;
       if (collectionTypeInfo == null)
       {
-        Debug.WriteLine($"RegisterCollectionItemInfo({aType.Name})");
+        //Debug.WriteLine($"RegisterCollectionItemInfo({aType.Name})");
         collectionTypeInfo = new CollectionContentInfo();
         itemTypeInfo.ContentInfo = collectionTypeInfo;
 
@@ -1091,7 +1095,7 @@ public class XmlSerializationInfoMapper
   /// </summary>
   protected CollectionContentInfo? CreateCollectionTypeInfo(Type aType, XmlArrayItemAttribute[] arrayItemAttributes)
   {
-    Debug.WriteLine($"CreateCollectionInfo({aType.Name}, {string.Join(", ", arrayItemAttributes.Select(attr => attr.ElementName))})");
+    //Debug.WriteLine($"CreateCollectionInfo({aType.Name}, {string.Join(", ", arrayItemAttributes.Select(attr => attr.ElementName))})");
 
     var collectionTypeInfo = new CollectionContentInfo();
     foreach (var arrayItemAttribute in arrayItemAttributes)

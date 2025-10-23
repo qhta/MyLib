@@ -724,7 +724,7 @@ public partial class QXDocReader : IXmlReader, IDisposable
     var aNode = xText.NextNode;
     if (aNode != null)
       return aNode;
-    var xElement = xText.Parent!;
+    var xElement = xText.Parent;
     if (xElement != null)
     {
       if (xElement.IsEmpty)
@@ -736,12 +736,12 @@ public partial class QXDocReader : IXmlReader, IDisposable
 
   private static object? NextNode(XEndElement xEndElement)
   {
-    if (xEndElement.Name.LocalName == "CompatibilitySettings")
-      Debug.Assert(true);
+    //if (xEndElement.Name.LocalName == "CompatibilitySettings")
+    //  Debug.Assert(true);
     var aNode = xEndElement.NextNode;
     if (aNode != null)
       return aNode;
-    var xElement = xEndElement.Parent!;
+    var xElement = xEndElement.Parent;
     if (xElement != null)
     {
       if (xElement.IsEmpty)
