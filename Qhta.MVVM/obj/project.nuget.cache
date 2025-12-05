@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "eGm32P5/dGo=",
+  "dgSpecHash": "Rt8Oki4XuYI=",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\9.0.7\\system.collections.immutable.9.0.7.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.collections.immutable\\9.0.10\\system.collections.immutable.9.0.10.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.observableobjects\\4.6.0\\qhta.observableobjects.4.6.0.nupkg.sha512"
   ],
   "logs": []
 }

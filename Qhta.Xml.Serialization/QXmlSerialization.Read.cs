@@ -1,7 +1,8 @@
 ﻿//#define TraceReader
 
 // ReSharper disable All
-using System;
+
+using System.Xml.Serialization;
 
 namespace Qhta.Xml.Serialization;
 
@@ -749,6 +750,7 @@ public partial class QXmlSerializer
             var contentInfo = memberInfo.ContentInfo;
             memberValue = ReadElementsAsPropertiesOrMembers(memberValue, memberInfo.ValueType, contentInfo);
           }
+          memberInfo.SetValue(instance, memberValue);
         }
       }
       Reader.ReadEndElement(propertyTag);

@@ -285,9 +285,9 @@ public partial class QXmlSerializer : IXmlSerializer
   /// Deserialized and object from the stream.
   /// </summary>
   /// <param name="stream">Source of serialized data.</param>
-  /// <param name="instance">Optional existing object instance</param>
+  /// <param name="instance">Existing object instance</param>
   /// <returns>Deserialized object.</returns>
-  public object? Deserialize(Stream stream, object? instance=null)
+  public object? Deserialize(Stream stream, object? instance)
   {
     var xmlReader = XmlReader.Create(stream, XmlReaderSettings);
     return Deserialize(xmlReader, instance);

@@ -18,7 +18,6 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net8.0\Qhta.Xml.Refl
 D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net8.0\Qhta.Xml.Reflection.AssemblyInfo.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net8.0\Qhta.Xml.Reflection.csproj.CoreCompileInputs.cache
 D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net8.0\Qhta.Xml.Reflection.sourcelink.json
-D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net8.0\Qhta.Xml.AEBF5913.Up2Date
 D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net8.0\Qhta.Xml.Reflection.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net8.0\refint\Qhta.Xml.Reflection.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net8.0\Qhta.Xml.Reflection.xml

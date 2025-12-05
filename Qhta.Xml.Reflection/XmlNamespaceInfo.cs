@@ -1,7 +1,7 @@
 ﻿namespace Qhta.Xml.Reflection;
 
 /// <summary>
-/// Compounf information for xml namespace. 
+/// Compound information for xml namespace. 
 /// Contains the xml namespace (uri), C# namespace, xml prefix.
 /// </summary>
 public class XmlNamespaceInfo

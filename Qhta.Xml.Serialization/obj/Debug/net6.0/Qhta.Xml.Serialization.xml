@@ -1758,7 +1758,7 @@
             Deserialized and object from the stream.
             </summary>
             <param name="stream">Source of serialized data.</param>
-            <param name="instance">Optional existing object instance</param>
+            <param name="instance">Existing object instance</param>
             <returns>Deserialized object.</returns>
         </member>
         <member name="M:Qhta.Xml.Serialization.QXmlSerializer.Deserialize(System.IO.TextReader)">

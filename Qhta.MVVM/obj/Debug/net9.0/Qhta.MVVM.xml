@@ -469,6 +469,16 @@
             Listener for CanExecuteChanged event.
             </summary>
         </member>
+        <member name="T:Qhta.MVVM.IChangeable">
+            <summary>
+            Interface for changeable objects.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.IChangeable.IsChanged">
+            <summary>
+            Specifies if the object has been changed.
+            </summary>
+        </member>
         <member name="T:Qhta.MVVM.IExpandable">
             <summary>
             Interface for object that defines HasRowDetails and IsExpanded properties.
@@ -1178,6 +1188,11 @@
         <member name="P:Qhta.MVVM.ViewModel.IsValid">
             <summary>
             Specifies if the data of view model is valid.
+            </summary>
+        </member>
+        <member name="P:Qhta.MVVM.ViewModel.IsChanged">
+            <summary>
+            Specifies if the data of view model has changed.
             </summary>
         </member>
         <member name="T:Qhta.MVVM.ViewModel`1">

@@ -1,28 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <BaseOutputPath>..\..\MyLib\bin</BaseOutputPath>
+    <BaseOutputPath>d:\OneDrive\VS\Projects\MyLib\bin\</BaseOutputPath>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <RootNamespace>Qhta.Xml</RootNamespace>
+    <RootNamespace>Qhta.Xml.Reflection</RootNamespace>
     <Description>Types needed to supplement System.Reflection for Xml serialization</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>3.0</Version>
+    <Version>4.0</Version>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="docs\readme.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="FilteredMembersCollection.cs" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
@@ -33,11 +29,8 @@
     <PackageReference Include="Qhta.Collections" Version="5.2.0" />
     <PackageReference Include="Qhta.Conversion" Version="2.2.0" />
     <PackageReference Include="Qhta.TextUtils" Version="3.8.0" />
+    <PackageReference Include="Qhta.Xml" Version="3.2.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Qhta.Xml\Qhta.Xml.csproj" />
   </ItemGroup>
 
   <ItemGroup>

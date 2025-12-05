@@ -7,37 +7,16 @@
       "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:qhta.mvvm.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\command.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:command.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\ichangeable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:ichangeable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\relaycommand\u00601.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:relaycommand\u00601.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\ilazyload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:ilazyload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\listviewmodel\u00601.ilistviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:listviewmodel\u00601.ilistviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\lazyloadviewmodel\u00601.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:lazyloadviewmodel\u00601.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0858F445-D0B0-4950-B52D-99D82E49A231}|..\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\qhta.observableobjects.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0858F445-D0B0-4950-B52D-99D82E49A231}|..\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\observableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0858F445-D0B0-4950-B52D-99D82E49A231}|..\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.observableobjects\\propertychanged2eventargs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.mvvm\\ivalidated.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3987808D-8D84-40B9-9AA9-9FE940C35A46}|Qhta.MVVM.csproj|solutionrelative:ivalidated.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,125 +53,59 @@
               "Name": "ST:0:0:{605322a2-17ae-43f4-b60f-766556e46c87}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Command.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Command.cs",
-              "RelativeDocumentMoniker": "Command.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Command.cs",
-              "RelativeToolTip": "Command.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAC8AAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-01T12:24:18.755Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RelayCommand.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\RelayCommand.cs",
-              "RelativeDocumentMoniker": "RelayCommand.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\RelayCommand.cs",
-              "RelativeToolTip": "RelayCommand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T10:04:47.314Z"
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "RelayCommand\u00601.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\RelayCommand\u00601.cs",
-              "RelativeDocumentMoniker": "RelayCommand\u00601.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\RelayCommand\u00601.cs",
-              "RelativeToolTip": "RelayCommand\u00601.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAUAAAAJAAAAAAAAAA==",
+              "Title": "IValidated.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\IValidated.cs",
+              "RelativeDocumentMoniker": "IValidated.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\IValidated.cs",
+              "RelativeToolTip": "IValidated.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T10:04:34.378Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ILazyLoad.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ILazyLoad.cs",
-              "RelativeDocumentMoniker": "ILazyLoad.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ILazyLoad.cs",
-              "RelativeToolTip": "ILazyLoad.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T14:51:10.101Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Qhta.MVVM.csproj",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
-              "RelativeDocumentMoniker": "Qhta.MVVM.csproj",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
-              "RelativeToolTip": "Qhta.MVVM.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-12T13:29:57.081Z",
+              "WhenOpened": "2025-11-01T12:49:18.966Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ListViewModel\u00601.IListViewModel.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ListViewModel\u00601.IListViewModel.cs",
-              "RelativeDocumentMoniker": "ListViewModel\u00601.IListViewModel.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ListViewModel\u00601.IListViewModel.cs",
-              "RelativeToolTip": "ListViewModel\u00601.IListViewModel.cs",
-              "ViewState": "AgIAAA0BAAAAAAAAAAAAADsBAAAdAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "IChangeable.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\IChangeable.cs",
+              "RelativeDocumentMoniker": "IChangeable.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\IChangeable.cs",
+              "RelativeToolTip": "IChangeable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T13:23:59.629Z"
+              "WhenOpened": "2025-11-01T12:46:59.308Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "LazyLoadViewModel\u00601.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\LazyLoadViewModel\u00601.cs",
-              "RelativeDocumentMoniker": "LazyLoadViewModel\u00601.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\LazyLoadViewModel\u00601.cs",
-              "RelativeToolTip": "LazyLoadViewModel\u00601.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAAAGAAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "ViewModel.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\ViewModel.cs",
+              "RelativeToolTip": "ViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T13:23:23.724Z"
+              "WhenOpened": "2025-11-01T12:45:53.534Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "PropertyChanged2EventArgs.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\PropertyChanged2EventArgs.cs",
-              "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects\\PropertyChanged2EventArgs.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\PropertyChanged2EventArgs.cs",
-              "RelativeToolTip": "..\\Qhta.ObservableObjects\\PropertyChanged2EventArgs.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-01T10:51:30.496Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ObservableObject.cs",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableObject.cs",
-              "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects\\ObservableObject.cs",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\ObservableObject.cs",
-              "RelativeToolTip": "..\\Qhta.ObservableObjects\\ObservableObject.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAIwEkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-01T10:50:19.435Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Qhta.ObservableObjects.csproj",
-              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
-              "RelativeDocumentMoniker": "..\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
-              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
-              "RelativeToolTip": "..\\Qhta.ObservableObjects\\Qhta.ObservableObjects.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABUAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Qhta.MVVM",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
+              "RelativeDocumentMoniker": "Qhta.MVVM.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.MVVM\\Qhta.MVVM.csproj",
+              "RelativeToolTip": "Qhta.MVVM.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-01T10:49:54.595Z",
+              "WhenOpened": "2025-11-01T12:45:12.59Z",
               "EditorCaption": ""
             }
           ]

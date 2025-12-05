@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Qhta.UnicodeBuild")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b2fbfbd21470b6e27cf62787c75cd4c105b7810b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3219abd2f7c10652e7bfff43498d1d5aa15302aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.UnicodeBuild")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.UnicodeBuild")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

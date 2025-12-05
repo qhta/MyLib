@@ -1025,7 +1025,7 @@
         </member>
         <member name="T:Qhta.Xml.Reflection.XmlNamespaceInfo">
             <summary>
-            Compounf information for xml namespace. 
+            Compound information for xml namespace. 
             Contains the xml namespace (uri), C# namespace, xml prefix.
             </summary>
         </member>
