@@ -12,3 +12,14 @@ D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\refint\Qhta.Tes
 D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.xml
 D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.pdb
 D:\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\ref\Qhta.TestUtilities.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\refint\Qhta.TestUtilities.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\Qhta.TestUtilities.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.TestUtilities\obj\Debug\netstandard2.0\ref\Qhta.TestUtilities.dll

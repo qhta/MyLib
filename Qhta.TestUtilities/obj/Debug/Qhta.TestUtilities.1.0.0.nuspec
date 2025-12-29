@@ -8,13 +8,13 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>A package of utility functions to help debugging and testing</description>
-    <repository type="git" commit="b354c01dd5dea364b1b6979d1d4e1e7d7cb71923" />
+    <repository type="git" commit="3c9b10c20c35cfb6133a998199aba836f9fe6cd8" />
     <dependencies>
       <group targetFramework="net6.0">
-        <dependency id="Qhta.TypeUtils" version="1.3.10.1" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.5.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Qhta.TypeUtils" version="1.3.10.1" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.5.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
@@ -23,6 +23,6 @@
     <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TestUtilities.xml" target="lib\net6.0\Qhta.TestUtilities.xml" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TestUtilities.dll" target="lib\netstandard2.0\Qhta.TestUtilities.dll" />
     <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TestUtilities.xml" target="lib\netstandard2.0\Qhta.TestUtilities.xml" />
-    <file src="D:\VS\Projects\MyLib\Qhta.TestUtilities\docs\readme.md" target="\readme.md" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\Qhta.TestUtilities\docs\readme.md" target="\readme.md" />
   </files>
 </package>

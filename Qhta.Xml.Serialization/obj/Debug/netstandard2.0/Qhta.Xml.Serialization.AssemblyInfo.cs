@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Flexible implementation of XmlSerializer")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("4.1.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("4.1+3219abd2f7c10652e7bfff43498d1d5aa15302aa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("4.1+3c9b10c20c35cfb6133a998199aba836f9fe6cd8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.Xml.Serialization")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.Xml.Serialization")]
 [assembly: System.Reflection.AssemblyVersionAttribute("4.1.0.0")]
