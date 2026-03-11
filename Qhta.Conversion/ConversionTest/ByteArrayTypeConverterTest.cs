@@ -18,7 +18,7 @@ public class ByteArrayTypeConverterTest
   [Test]
   public void TestNullArrayTypeConverter()
   {
-    var converter = new ArrayTypeConverter { XsdType = XsdSimpleType.UnsignedByte };
+    var converter = new ArrayTypeConverter { SimpleType = SimpleType.UnsignedByte };
     byte[]? bytes1 = null;
     var str = converter.ConvertTo(bytes1, typeof(string));
     Assert.That(str, Is.Null);
@@ -29,7 +29,7 @@ public class ByteArrayTypeConverterTest
   [Test]
   public void TestEmptyArrayTypeConverter()
   {
-    var converter = new ArrayTypeConverter { XsdType = XsdSimpleType.UnsignedByte };
+    var converter = new ArrayTypeConverter { SimpleType = SimpleType.UnsignedByte };
     byte[]? bytes1 = new byte[0];
     var str = converter.ConvertTo(bytes1, typeof(string));
     Assert.That(str, Is.EqualTo(""));
@@ -43,7 +43,7 @@ public class ByteArrayTypeConverterTest
   [Test]
   public void TestShortArrayTypeConverter()
   {
-    var converter = new ArrayTypeConverter { XsdType = XsdSimpleType.UnsignedByte };
+    var converter = new ArrayTypeConverter { SimpleType = SimpleType.UnsignedByte };
     byte[]? bytes1 = new byte[256];
     var strs = new string[256];
     for (int i = 0; i < 256; i++)
@@ -66,7 +66,7 @@ public class ByteArrayTypeConverterTest
   {
     Assert.Throws(typeof(InvalidDataException), () =>
     {
-      var converter = new ArrayTypeConverter { XsdType = XsdSimpleType.UnsignedByte, MaxLength = 255 };
+      var converter = new ArrayTypeConverter { SimpleType = SimpleType.UnsignedByte, MaxLength = 255 };
       byte[]? bytes1 = new byte[256];
       var strs = new string[256];
       for (int i = 0; i < 256; i++)
@@ -90,7 +90,7 @@ public class ByteArrayTypeConverterTest
   {
     Assert.Throws(typeof(InvalidDataException), () =>
     {
-      var converter = new ArrayTypeConverter { XsdType = XsdSimpleType.UnsignedByte, MinLength = 257 };
+      var converter = new ArrayTypeConverter { SimpleType = SimpleType.UnsignedByte, MinLength = 257 };
       byte[]? bytes1 = new byte[256];
       var strs = new string[256];
       for (int i = 0; i < 256; i++)
@@ -112,7 +112,7 @@ public class ByteArrayTypeConverterTest
   [Test]
   public void TestFormattedArrayTypeConverter()
   {
-    var converter = new ArrayTypeConverter { XsdType = XsdSimpleType.UnsignedByte, Format = "X2" };
+    var converter = new ArrayTypeConverter { SimpleType = SimpleType.UnsignedByte, Format = "X2" };
     byte[]? bytes1 = new byte[256];
     var strs = new string[256];
     for (int i = 0; i < 256; i++)
@@ -157,7 +157,7 @@ public class ByteArrayTypeConverterTest
 
   public void TestLongByteArrayTypeConverter(int length)
   {
-    var converter = new ArrayTypeConverter { XsdType = XsdSimpleType.UnsignedByte };
+    var converter = new ArrayTypeConverter { SimpleType = SimpleType.UnsignedByte };
     byte[] bytes1 = new byte[length];
     var str = converter.ConvertTo(bytes1, typeof(string));
     if (str != null)

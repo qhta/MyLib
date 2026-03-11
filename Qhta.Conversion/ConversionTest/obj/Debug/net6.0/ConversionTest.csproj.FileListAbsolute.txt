@@ -115,12 +115,6 @@ D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\Qhta.TextUt
 D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\Qhta.Xml.dll
 D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\Qhta.Conversion.xml
 D:\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\obj\Debug\net6.0\Conversi.45CA2323.Up2Date
-D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\NUnit3.TestAdapter.dll
-D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\NUnit3.TestAdapter.pdb
-D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\nunit.engine.dll
-D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\nunit.engine.api.dll
-D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\nunit.engine.core.dll
-D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\testcentric.engine.metadata.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\ConversionTest.deps.json
 D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\ConversionTest.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\ConversionTest.pdb
@@ -140,5 +134,3 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\obj\Debug\net6.0\Co
 D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\obj\Debug\net6.0\ref\ConversionTest.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\.msCoverageSourceRootsMapping_ConversionTest
 D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\bin\Debug\net6.0\CoverletSourceRootsMapping_ConversionTest
-D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\obj\Debug\net6.0\ConversionTest.gentestingplatformentrypointinputcache.cache
-D:\OneDrive\VS\Projects\MyLib\Qhta.Conversion\ConversionTest\obj\Debug\net6.0\ConversionTest.genautoregisteredextensionsinputcache.cache

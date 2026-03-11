@@ -10,7 +10,7 @@ These common properties are:
 * ExpectedType - Type expected in ConvertFrom method
 * KnownTypes - Types known in ConvertFrom method
 * KnownNamespaces - Known namespace prefixes
-* XsdType - XsdSimpleType to use when converting to string in ConvertTo
+* XsdType - SimpleType to use when converting to string in ConvertTo
 * Format - Format to use when converting to/from string in ConvertTo/ConvertFrom
 * Culture - CultureInfo to use when converting to/from string in ConvertTo/ConvertFrom
 

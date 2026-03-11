@@ -6,11 +6,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>D:\OneDrive\VS\Projects\MyLib\Qhta.SF.WPF.Tools\docs\Qhta.SF.WPF.Tools.xml</DocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <BaseOutputPath>..\bin</BaseOutputPath>
     <Title>Syncfusion WPF Tools classes</Title>
     <Authors>qhta</Authors>
-    <Version>1.2</Version>
+    <Version>1.3</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <BaseOutputPath>..\bin</BaseOutputPath>
   </PropertyGroup>

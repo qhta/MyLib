@@ -77,7 +77,7 @@ namespace SerializationTest
       {
         using (var xmlWriter = XmlWriter.Create(txtWriter, new XmlWriterSettings { Indent = true }))
         {
-          serializer.Serialize(xmlWriter, testInstance, namespaces);
+          serializer.Serialize(xmlWriter, testInstance);
         }
       }
     }

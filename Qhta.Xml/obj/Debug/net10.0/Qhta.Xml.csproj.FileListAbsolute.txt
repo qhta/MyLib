@@ -1,0 +1,15 @@
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net10.0\Qhta.Xml.deps.json
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net10.0\Qhta.Xml.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net10.0\Qhta.Xml.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net10.0\Qhta.Xml.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net10.0\Qhta.Xml.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net10.0\Qhta.Xml.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net10.0\Qhta.Xml.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net10.0\Qhta.Xml.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net10.0\Qhta.Xml.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net10.0\Qhta.Xml.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net10.0\Qhta.Xml.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net10.0\refint\Qhta.Xml.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net10.0\Qhta.Xml.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net10.0\Qhta.Xml.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml\obj\Debug\net10.0\ref\Qhta.Xml.dll

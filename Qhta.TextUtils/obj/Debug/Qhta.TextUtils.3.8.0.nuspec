@@ -8,23 +8,26 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>A package of functions to supplement System.Text.</description>
-    <repository type="git" commit="37825c3504b851215b1bc75e2f7b701678957399" />
+    <repository type="git" commit="62cf5435ce97e22fb73fe9228dfed1aa2738aec3" />
     <dependencies>
       <group targetFramework="net6.0" />
-      <group targetFramework="net7.0" />
       <group targetFramework="net8.0" />
+      <group targetFramework="net9.0" />
+      <group targetFramework="net10.0" />
       <group targetFramework=".NETStandard2.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TextUtils.dll" target="lib\net6.0\Qhta.TextUtils.dll" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TextUtils.xml" target="lib\net6.0\Qhta.TextUtils.xml" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net7.0\Qhta.TextUtils.dll" target="lib\net7.0\Qhta.TextUtils.dll" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net7.0\Qhta.TextUtils.xml" target="lib\net7.0\Qhta.TextUtils.xml" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.TextUtils.dll" target="lib\net8.0\Qhta.TextUtils.dll" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.TextUtils.xml" target="lib\net8.0\Qhta.TextUtils.xml" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TextUtils.dll" target="lib\netstandard2.0\Qhta.TextUtils.dll" />
-    <file src="D:\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TextUtils.xml" target="lib\netstandard2.0\Qhta.TextUtils.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net10.0\Qhta.TextUtils.dll" target="lib\net10.0\Qhta.TextUtils.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net10.0\Qhta.TextUtils.xml" target="lib\net10.0\Qhta.TextUtils.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TextUtils.dll" target="lib\net6.0\Qhta.TextUtils.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net6.0\Qhta.TextUtils.xml" target="lib\net6.0\Qhta.TextUtils.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.TextUtils.dll" target="lib\net8.0\Qhta.TextUtils.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.TextUtils.xml" target="lib\net8.0\Qhta.TextUtils.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.TextUtils.dll" target="lib\net9.0\Qhta.TextUtils.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.TextUtils.xml" target="lib\net9.0\Qhta.TextUtils.xml" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TextUtils.dll" target="lib\netstandard2.0\Qhta.TextUtils.dll" />
+    <file src="D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.TextUtils.xml" target="lib\netstandard2.0\Qhta.TextUtils.xml" />
     <file src="D:\OneDrive\VS\Projects\MyLib\Qhta.TextUtils\docs\readme.md" target="\readme.md" />
   </files>
 </package>

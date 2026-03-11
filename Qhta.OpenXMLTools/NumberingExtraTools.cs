@@ -291,6 +291,10 @@ public static class NumberingExtraTools
     {
       numberingDefinitionsPart = mainDocumentPart.AddNewPart<DXPack.NumberingDefinitionsPart>();
     }
+    if (numberingDefinitionsPart.Numbering == null)
+    {
+      numberingDefinitionsPart.Numbering = new DXW.Numbering();
+    }
     return numberingDefinitionsPart.Numbering;
   }
 

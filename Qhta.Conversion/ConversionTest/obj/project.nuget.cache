@@ -1,28 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "UF9TMBZ2x0U=",
+  "dgSpecHash": "u+STsiBNb7I=",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ConversionTest\\ConversionTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\coverlet.collector\\6.0.4\\coverlet.collector.6.0.4.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.applicationinsights\\2.23.0\\microsoft.applicationinsights.2.23.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.codecoverage\\18.0.0\\microsoft.codecoverage.18.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.net.test.sdk\\18.0.0\\microsoft.net.test.sdk.18.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.testing.extensions.telemetry\\1.9.0\\microsoft.testing.extensions.telemetry.1.9.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.testing.extensions.trxreport.abstractions\\1.9.0\\microsoft.testing.extensions.trxreport.abstractions.1.9.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.testing.extensions.vstestbridge\\1.9.0\\microsoft.testing.extensions.vstestbridge.1.9.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.testing.platform\\1.9.0\\microsoft.testing.platform.1.9.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.testing.platform.msbuild\\1.9.0\\microsoft.testing.platform.msbuild.1.9.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.testplatform.adapterutilities\\17.13.0\\microsoft.testplatform.adapterutilities.17.13.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.testplatform.objectmodel\\17.13.0\\microsoft.testplatform.objectmodel.17.13.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.codecoverage\\18.0.1\\microsoft.codecoverage.18.0.1.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.net.test.sdk\\18.0.1\\microsoft.net.test.sdk.18.0.1.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\nunit\\4.4.0\\nunit.4.4.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\nunit.analyzers\\4.10.0\\nunit.analyzers.4.10.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\nunit3testadapter\\5.2.0\\nunit3testadapter.5.2.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\nunit.analyzers\\4.11.2\\nunit.analyzers.4.11.2.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\5.2.0\\qhta.collections.5.2.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.8.0\\qhta.textutils.3.8.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.4.0\\qhta.typeutils.1.4.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.0\\system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.5.0\\qhta.typeutils.1.5.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.xml\\3.2.0\\qhta.xml.3.2.0.nupkg.sha512"
   ],
   "logs": []
 }

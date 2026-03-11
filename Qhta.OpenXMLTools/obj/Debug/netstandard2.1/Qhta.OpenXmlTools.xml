@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Qhta.OpenXMLTools</name>
+        <name>Qhta.OpenXmlTools</name>
     </assembly>
     <members>
         <member name="T:Qhta.OpenXmlTools.AbstractNumTools">
@@ -141,13 +141,6 @@
             </summary>
             <param name="body"></param>
             <param name="create">Option to create a <c>SectionProperties</c>, if it does not exist.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.BodyTools.GetSectionProperties(DocumentFormat.OpenXml.Wordprocessing.Body)">
-            <summary>
-            Gets the section properties of the body.
-            </summary>
-            <param name="body"></param>
             <returns></returns>
         </member>
         <member name="M:Qhta.OpenXmlTools.BodyTools.GetSections(DocumentFormat.OpenXml.Wordprocessing.Body)">
@@ -3216,6 +3209,55 @@
             </summary>
             <param name="other"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.OnOffTypeTools">
+            <summary>
+            Provides static utility methods for working with <c>OnOffType</c> elements, enabling convenient retrieval of boolean
+            values with support for default options.
+            </summary>
+            <remarks>This class is intended to simplify the handling of <c>OnOffType</c> elements, particularly in
+            scenarios where the element may be null or its value is not explicitly set. The methods in this class help ensure
+            consistent and predictable behavior when interpreting optional or missing values in Open XML documents.</remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OnOffTypeTools.GetValueOrDefault(DocumentFormat.OpenXml.Wordprocessing.OnOffType,System.Boolean)">
+            <summary>
+            Gets the boolean value of an <c>OnOffType</c> element, or a default value if the element is null or does not have a value.
+            </summary>
+            <param name="onOff">The element to get the value from.</param>
+            <param name="defaultValue">The default value to return if the element is null or does not have a value.</param>
+            <returns>The boolean value of the element, or the default value.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OnOffTypeTools.GetValueOrDefault(DocumentFormat.OpenXml.Math.OnOffType,System.Boolean)">
+            <summary>
+            Gets the boolean value of an <c>OnOffType</c> element, or a default value if the element is null or does not have a value.
+            </summary>
+            <param name="onOff">The element to get the value from.</param>
+            <param name="defaultValue">The default value to return if the element is null or does not have a value.</param>
+            <returns>The boolean value of the element, or the default value.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OnOffTypeTools.GetValueOrDefault(DocumentFormat.OpenXml.Office2010.Word.OnOffType,System.Boolean)">
+            <summary>
+            Gets the boolean value of an <c>OnOffType</c> element, or a default value if the element is null or does not have a value.
+            </summary>
+            <param name="onOff">The element to get the value from.</param>
+            <param name="defaultValue">The default value to return if the element is null or does not have a value.</param>
+            <returns>The boolean value of the element, or the default value.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OnOffTypeTools.GetValueOrDefault(DocumentFormat.OpenXml.Office2013.Word.OnOffType,System.Boolean)">
+            <summary>
+            Gets the boolean value of an <c>OnOffType</c> element, or a default value if the element is null or does not have a value.
+            </summary>
+            <param name="onOff">The element to get the value from.</param>
+            <param name="defaultValue">The default value to return if the element is null or does not have a value.</param>
+            <returns>The boolean value of the element, or the default value.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OnOffTypeTools.GetValueOrDefault(DocumentFormat.OpenXml.Wordprocessing.OnOffOnlyType,System.Boolean)">
+            <summary>
+            Gets the boolean value of an <c>OnOffType</c> element, or a default value if the element is null or does not have a value.
+            </summary>
+            <param name="onOff">The element to get the value from.</param>
+            <param name="defaultValue">The default value to return if the element is null or does not have a value.</param>
+            <returns>The boolean value of the element, or the default value.</returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.OpenXmlCompositeElementTools">
             <summary>
             Contains tools for working with OpenXml composite elements.
@@ -5287,6 +5329,11 @@
         <member name="M:Qhta.OpenXmlTools.Range.GetMembers">
             <summary>
             Gets all the member elements in the range.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Range.GetElements">
+            <summary>
+            Gets elements of the specified type in the range.
             </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.Range.GetElements``1">

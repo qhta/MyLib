@@ -76,7 +76,7 @@ public static class BordersTools
     {
       if (value is not T)
       {
-        var newValue = (T)Activator.CreateInstance(typeof(T));
+        T newValue = (T)Activator.CreateInstance(typeof(T))!;
         value.CopyProperties(newValue);
         value = newValue;
       }

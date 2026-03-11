@@ -502,14 +502,9 @@ public partial class QXmlSerializer
       SerializationMemberInfo? memberInfo;
       SerializationTypeInfo? currentMemberTypeInfo = null;
       {
-        //if (startTag.Name == "ShapeDefaults")
-        //  Debug.Assert(true);
-        //if (startTag.Name == "VmlShapeLayout")
-        //  Debug.Assert(true);
         memberInfo = members.FirstOrDefault(item => item.XmlName == startTag.LocalName);
         if (memberInfo != null)
         {
-
           var value = ReadElementAsProperty(instance, instanceTypeInfo, memberInfo);
           if (value != null)
           {

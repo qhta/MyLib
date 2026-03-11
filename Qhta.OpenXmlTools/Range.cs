@@ -40,6 +40,23 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
   /// <summary>
   /// Gets elements of the specified type in the range.
   /// </summary>
+  public DX.OpenXmlElement[] GetElements() 
+  {
+    List<DX.OpenXmlElement> result = new();
+    var element = Start;
+    while (element != null)
+    {
+      if (element is DX.OpenXmlElement acceptedElement)
+        result.Add(acceptedElement);
+      if (element == End)
+        break;
+      element = element.NextSibling();
+    }
+    return result.ToArray();
+  }
+  /// <summary>
+  /// Gets elements of the specified type in the range.
+  /// </summary>
   public ElementType[] GetElements<ElementType>() where ElementType : DX.OpenXmlElement
   {
     List<ElementType> result = new();
@@ -59,7 +76,7 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
   /// <summary>
   /// Gets paragraphs in the range.
   /// </summary>
-  public IEnumerable<DXW.Paragraph> GetParagraphs(bool getDescendant)
+  public IEnumerable<DXW.Paragraph> GetParagraphs(bool getDescendant = true)
   {
     var element = Start;
     while (element != null)
@@ -80,7 +97,7 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
   /// <summary>
   /// Gets all tables in the range.
   /// </summary>
-  public IEnumerable<DXW.Table> GetTables(bool getDescendant)
+  public IEnumerable<DXW.Table> GetTables(bool getDescendant = true)
   {
     var element = Start;
     while (element != null)
@@ -103,9 +120,9 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
   /// </summary>
   /// <param name="options"></param>
   /// <returns></returns>
-  public string GetText(TextOptions options)
+  public string GetText(TextOptions? options = null)
   {
-    
+    options ??= TextOptions.PlainText;
     List<string> sl = new();
     var element = Start;
     while (element != null)

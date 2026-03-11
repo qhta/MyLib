@@ -57,6 +57,10 @@ public static class SubdocumentTools
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public static IEnumerable<SubDocumentReference> GetSubDocumentReferences(MainDocumentPart mainDocumentPart)
   {
+    if (mainDocumentPart.Document == null)
+    {
+      return Enumerable.Empty<SubDocumentReference>();
+    }
     return mainDocumentPart.Document.Descendants<SubDocumentReference>();
   }
 

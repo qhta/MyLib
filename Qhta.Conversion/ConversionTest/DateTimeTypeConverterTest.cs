@@ -55,7 +55,7 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestDateTimeModeDateTimeTypeConverter()
   {
-    var converter = new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime };
+    var converter = new DateTimeTypeConverter { SimpleType = SimpleType.DateTime };
     var now = DateTime.Now;
     var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
     var str = converter.ConvertTo(value, typeof(string));
@@ -87,7 +87,7 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestDateTimeModeTimeZeroDateTimeTypeConverter()
   {
-    var converter = new DateTimeTypeConverter { XsdType = XsdSimpleType.DateTime };
+    var converter = new DateTimeTypeConverter { SimpleType = SimpleType.DateTime };
     var now = DateTime.Now;
     var value = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
     var str = converter.ConvertTo(value, typeof(string));
@@ -102,7 +102,7 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestDateOnlyModeDateTimeTypeConverter()
   {
-    var converter = new DateTimeTypeConverter { XsdType = XsdSimpleType.Date };
+    var converter = new DateTimeTypeConverter { SimpleType = SimpleType.Date };
     var now = DateTime.Now;
     var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
     var str = converter.ConvertTo(value, typeof(string));
@@ -118,7 +118,7 @@ public class DateTimeTypeConverterTest
   [Test]
   public void TestTimeOnlyModeDateTimeTypeConverter()
   {
-    var converter = new DateTimeTypeConverter { XsdType = XsdSimpleType.Time };
+    var converter = new DateTimeTypeConverter { SimpleType = SimpleType.Time };
     var now = DateTime.Now;
     var value = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second);
     var str = converter.ConvertTo(value, typeof(string));

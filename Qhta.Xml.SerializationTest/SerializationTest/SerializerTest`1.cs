@@ -25,7 +25,7 @@ public abstract class SerializerTest<ObjectType>
   ///  It will be used to monitor serialization and deserialization errors,
   ///  comparing errors and comparison differences on console and in the Output Window.
   /// </summary>
-  protected readonly TraceTextWriter TraceWriter = new TraceTextWriter(true, true);
+  protected readonly TraceTextWriter TraceWriter = new TraceTextWriter(true, true, true);
 
   /// <summary>
   /// Change this property to true to choose standard XmlSerializer test.
@@ -259,16 +259,18 @@ public abstract class SerializerTest<ObjectType>
   protected virtual object? DeserializeObjectWithNewSerializer(string filename)
   {
     var serializer = new QXmlSerializer(typeof(ObjectType));
-    serializer.UnknownNode += Serializer_UnknownNode;
-    serializer.UnknownAttribute += Serializer_UnknownAttribute;
-    serializer.UnknownElement += Serializer_UnknownElement;
-    serializer.UnreferencedObject += Serializer_UnreferencedObject;
+        serializer.OnUnknownMember += Serializer_OnUnknownMember;
 
     FileStream fs = new FileStream(filename, FileMode.Open);
     return serializer.Deserialize(fs);
   }
 
-  protected virtual void Serializer_UnknownNode(object? sender, XmlNodeEventArgs e)
+    private void Serializer_OnUnknownMember(object readObject, string elementName)
+    {
+      TraceWriter.WriteLine($"Unknown member: {elementName} in object of type {readObject.GetType().FullName}");
+  }
+
+    protected virtual void Serializer_UnknownNode(object? sender, XmlNodeEventArgs e)
   {
     TraceWriter.WriteLine($"Unknown Node: {e.Name} in line {e.LineNumber} at pos {e.LinePosition}");
     TraceWriter.WriteLine($"  {e.Text}");

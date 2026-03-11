@@ -1,0 +1,199 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.SerializationTest\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C4A0AAB3-A95C-17A5-D086-8B1EC6F29F84}|..\\Qhta.Xml.Serialization\\Qhta.Xml.Serialization.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.xml.serialization\\qxmlserialization.read.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{96099EFD-0F25-567A-80B5-BC5CD4C65DE3}|..\\Qhta.Conversion\\Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\qhta.conversion.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{96099EFD-0F25-567A-80B5-BC5CD4C65DE3}|..\\Qhta.Conversion\\Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\datetimetypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{96099EFD-0F25-567A-80B5-BC5CD4C65DE3}|..\\Qhta.Conversion\\Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\valuetypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{96099EFD-0F25-567A-80B5-BC5CD4C65DE3}|..\\Qhta.Conversion\\Qhta.Conversion.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.conversion\\basetypeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4A0AAB3-A95C-17A5-D086-8B1EC6F29F84}|..\\Qhta.Xml.Serialization\\Qhta.Xml.Serialization.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.xml.serialization\\qhta.xml.serialization.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E36324A9-D1CF-4E8E-B514-E3150949913D}|SerializationTest\\SerializationTest.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.xml.serializationtest\\serializationtest\\serializationtest.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{E36324A9-D1CF-4E8E-B514-E3150949913D}|SerializationTest\\SerializationTest.csproj|solutionrelative:serializationtest\\serializationtest.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E36324A9-D1CF-4E8E-B514-E3150949913D}|SerializationTest\\SerializationTest.csproj|d:\\onedrive\\vs\\projects\\mylib\\qhta.xml.serializationtest\\serializationtest\\serializertest\u00601.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E36324A9-D1CF-4E8E-B514-E3150949913D}|SerializationTest\\SerializationTest.csproj|solutionrelative:serializationtest\\serializertest\u00601.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 12,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{be4d7042-ba3f-11d2-840e-00c04f9902c1}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{605322a2-17ae-43f4-b60f-766556e46c87}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d84ee353-0bef-5a41-a649-8f89aca5d84d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ValueTypeConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ValueTypeConverter.cs",
+              "RelativeDocumentMoniker": "..\\Qhta.Conversion\\ValueTypeConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\ValueTypeConverter.cs",
+              "RelativeToolTip": "..\\Qhta.Conversion\\ValueTypeConverter.cs",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAEwKoAAABwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-29T10:07:21.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DateTimeTypeConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\DateTimeTypeConverter.cs",
+              "RelativeDocumentMoniker": "..\\Qhta.Conversion\\DateTimeTypeConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\DateTimeTypeConverter.cs",
+              "RelativeToolTip": "..\\Qhta.Conversion\\DateTimeTypeConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-29T10:06:39.734Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "QXmlSerialization.Read.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Serialization\\QXmlSerialization.Read.cs",
+              "RelativeDocumentMoniker": "..\\Qhta.Xml.Serialization\\QXmlSerialization.Read.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Serialization\\QXmlSerialization.Read.cs*",
+              "RelativeToolTip": "..\\Qhta.Xml.Serialization\\QXmlSerialization.Read.cs*",
+              "ViewState": "AgIAAOsBAAAAAAAAAAAUwAECAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-29T09:58:56.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BaseTypeConverter.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\BaseTypeConverter.cs",
+              "RelativeDocumentMoniker": "..\\Qhta.Conversion\\BaseTypeConverter.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\BaseTypeConverter.cs",
+              "RelativeToolTip": "..\\Qhta.Conversion\\BaseTypeConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-29T09:58:41.37Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 145,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Qhta.Xml.Serialization.csproj",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Serialization\\Qhta.Xml.Serialization.csproj",
+              "RelativeDocumentMoniker": "..\\Qhta.Xml.Serialization\\Qhta.Xml.Serialization.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.Serialization\\Qhta.Xml.Serialization.csproj",
+              "RelativeToolTip": "..\\Qhta.Xml.Serialization\\Qhta.Xml.Serialization.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-29T09:53:25.853Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Qhta.Conversion.csproj",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj",
+              "RelativeDocumentMoniker": "..\\Qhta.Conversion\\Qhta.Conversion.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Conversion\\Qhta.Conversion.csproj",
+              "RelativeToolTip": "..\\Qhta.Conversion\\Qhta.Conversion.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-29T09:53:11.941Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SerializationTest.csproj",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.SerializationTest\\SerializationTest\\SerializationTest.csproj",
+              "RelativeDocumentMoniker": "SerializationTest\\SerializationTest.csproj",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.SerializationTest\\SerializationTest\\SerializationTest.csproj",
+              "RelativeToolTip": "SerializationTest\\SerializationTest.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-29T09:52:00.3Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SerializerTest\u00601.cs",
+              "DocumentMoniker": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.SerializationTest\\SerializationTest\\SerializerTest\u00601.cs",
+              "RelativeDocumentMoniker": "SerializationTest\\SerializerTest\u00601.cs",
+              "ToolTip": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Xml.SerializationTest\\SerializationTest\\SerializerTest\u00601.cs",
+              "RelativeToolTip": "SerializationTest\\SerializerTest\u00601.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAiwBwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-29T08:37:11.838Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

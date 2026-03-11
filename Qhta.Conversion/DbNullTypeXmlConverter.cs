@@ -9,7 +9,7 @@
 public class DbNullTypeXmlConverter : BaseTypeConverter
 {
   /// <summary>
-  /// Sets ExpectedType to DBNull and XsdType to XsdSimpleType.String.
+  /// Sets ExpectedType to DBNull and XsdType to SimpleType.String.
   /// </summary>
   public DbNullTypeXmlConverter()
   {

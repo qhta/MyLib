@@ -398,7 +398,7 @@ public static class TypeTools
   public static bool UpdateFromSystemValue(this DX.OpenXmlElement openXmlElement, object? systemValue)
   {
     var openXmlType = openXmlElement.GetType();
-    if (OpenXmlTypesToSystemTypes2.TryGetValue(openXmlType.BaseType, out var info2))
+    if (OpenXmlTypesToSystemTypes2.TryGetValue(openXmlType.BaseType ?? typeof(object), out var info2))
     {
       info2.updateValueMethod(openXmlElement, systemValue);
       return true;
@@ -446,7 +446,7 @@ public static class TypeTools
       var targetValue = info.toOpenXmlValueMethod(systemValue);
       return targetValue;
     }
-    if (OpenXmlTypesToSystemTypes2.TryGetValue(openXmlType.BaseType, out var info2))
+    if (OpenXmlTypesToSystemTypes2.TryGetValue(openXmlType.BaseType ?? typeof(object), out var info2))
     {
       var targetValue = info2.toOpenXmlValueMethod(openXmlType, systemValue);
       return targetValue;

@@ -136,7 +136,7 @@ public static class TestTools
       foreach (var enumValue1 in enumValues)
       {
         if ((Convert.ToInt32(value) & Convert.ToInt32(enumValue1)) != 0)
-          selectedValues.Add(enumValue1.ToString());
+          selectedValues.Add(enumValue1.ToString()!);
       }
       return string.Join("+", selectedValues);
     }
@@ -278,7 +278,7 @@ public static class TestTools
 
     if (targetType.ImplementsInterfaces(typeof(DX.OpenXmlLeafElement)))
     {
-      var leafElement = (DX.OpenXmlLeafElement)Activator.CreateInstance(targetType);
+      var leafElement = (DX.OpenXmlLeafElement)Activator.CreateInstance(targetType)!;
       var valProperty = targetType.GetProperty("Val");
       if (valProperty != null)
         valProperty.SetValue(leafElement, value.FromString(valProperty.PropertyType));

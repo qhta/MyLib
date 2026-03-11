@@ -1,13 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "mOl/Qyycqz0=",
+  "dgSpecHash": "hIFGfHy6zEk=",
   "success": true,
-  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\Qhta.OpenXmlToolsTest.csproj",
+  "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXmlToolsTest\\Qhta.OpenXmlToolsTest.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\qhta1\\.nuget\\packages\\documentformat.openxml\\3.1.0\\documentformat.openxml.3.1.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\documentformat.openxml.framework\\3.1.0\\documentformat.openxml.framework.3.1.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.3.0\\qhta.textutils.3.3.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.io.packaging\\8.0.0\\system.io.packaging.8.0.0.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\documentformat.openxml\\3.4.1\\documentformat.openxml.3.4.1.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\documentformat.openxml.framework\\3.4.1\\documentformat.openxml.framework.3.4.1.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\5.1.0\\qhta.collections.5.1.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.8.0\\qhta.textutils.3.8.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.5.0\\qhta.typeutils.1.5.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.io.packaging\\8.0.1\\system.io.packaging.8.0.1.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.unicode\\1.2.1\\qhta.unicode.1.2.1.nupkg.sha512"
   ],
   "logs": []
 }

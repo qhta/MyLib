@@ -36,3 +36,11 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Col
 D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.Collections\obj\Debug\netstandard2.0\Qhta.Collections.pdb
+D:\OneDrive\VS\Projects\MyLib\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.deps.json
+D:\OneDrive\VS\Projects\MyLib\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.dll
+D:\OneDrive\VS\Projects\MyLib\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.pdb
+D:\OneDrive\VS\Projects\MyLib\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.xml
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.deps.json
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Collections.xml

@@ -7,57 +7,36 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.Collections/4.7": {
+      "Qhta.Collections/5.4": {
         "dependencies": {
-          "NETStandard.Library": "2.0.3",
-          "Qhta.TextUtils": "3.2.0"
+          "Qhta.TextUtils": "3.6.0"
         },
         "runtime": {
           "Qhta.Collections.dll": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {},
-      "NETStandard.Library/2.0.3": {
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0"
-        }
-      },
-      "Qhta.TextUtils/3.2.0": {
+      "Qhta.TextUtils/3.6.0": {
         "runtime": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
-            "assemblyVersion": "3.2.0.0",
-            "fileVersion": "3.2.0.0"
+            "assemblyVersion": "3.6.0.0",
+            "fileVersion": "3.6.0.0"
           }
         }
       }
     }
   },
   "libraries": {
-    "Qhta.Collections/4.7": {
+    "Qhta.Collections/5.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.NETCore.Platforms/1.1.0": {
+    "Qhta.TextUtils/3.6.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
-      "path": "microsoft.netcore.platforms/1.1.0",
-      "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
-    },
-    "NETStandard.Library/2.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
-      "path": "netstandard.library/2.0.3",
-      "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
-    },
-    "Qhta.TextUtils/3.2.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-AWGMF4cQSeFDbNwT77+5Pcd9y8z+DHY+lKN7W/OHqYN+fSxMpId9f4i7d4ekblICMqEICYT469jyNO0i1c/a+w==",
-      "path": "qhta.textutils/3.2.0",
-      "hashPath": "qhta.textutils.3.2.0.nupkg.sha512"
+      "sha512": "sha512-daPAXKOGjo+elnVoNALW/0oZsJTZDiDNKnF7gveABX7+PJApzVUYy20kvDobYFA0FMBlZ0xkKWlD88Q94Jl9rQ==",
+      "path": "qhta.textutils/3.6.0",
+      "hashPath": "qhta.textutils.3.6.0.nupkg.sha512"
     }
   }
 }

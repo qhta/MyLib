@@ -4,7 +4,7 @@
 /// Represents the statistics of object of a specific type.
 /// Each entry in the dictionary represents an object and the number of times it is used.
 /// </summary>
-public class ObjectStatistics<T>: Dictionary<T, ulong>
+public class ObjectStatistics<T>: Dictionary<T, ulong> where T: notnull
 {
   /// <summary>
   /// Adds an object count to the statistics.

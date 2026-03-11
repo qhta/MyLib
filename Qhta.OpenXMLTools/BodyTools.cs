@@ -26,15 +26,15 @@ public static class BodyTools
     return sectionProperties;
   }
 
-  /// <summary>
-  /// Gets the section properties of the body.
-  /// </summary>
-  /// <param name="body"></param>
-  /// <returns></returns>
-  public static SectionProperties? GetSectionProperties(this Body body)
-  {
-    return body.Descendants<SectionProperties>().FirstOrDefault();
-  }
+  ///// <summary>
+  ///// Gets the section properties of the body.
+  ///// </summary>
+  ///// <param name="body"></param>
+  ///// <returns></returns>
+  //public static SectionProperties? GetSectionProperties(this Body body)
+  //{
+  //  return body.Descendants<SectionProperties>().FirstOrDefault();
+  //}
 
   /// <summary>
   /// Gets all the sections
