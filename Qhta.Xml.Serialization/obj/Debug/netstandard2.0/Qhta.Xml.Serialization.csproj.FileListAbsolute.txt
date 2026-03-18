@@ -11,3 +11,4 @@ D:\OneDrive\VS\Projects\MyLib\bin\Debug\netstandard2.0\Qhta.Xml.Serialization.xm
 D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.Serialization.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Serialization\obj\Debug\netstandard2.0\Qhta.Xml.DC881BC4.Up2Date

@@ -454,6 +454,42 @@
             <returns>An array of objects containing the converted values. Returns <see langword="null"/> if <paramref name="value"/> is
             <see langword="null"/> or if <paramref name="targetTypes"/> contains fewer than two elements.</returns>
         </member>
+        <member name="T:Qhta.SF.WPF.Tools.MDIViewModel">
+            <summary>
+            ViewModel for Multi Document Interface
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.MDIViewModel.SwitchMode">
+            <summary>
+            This property enables you to control how tabs behave, with different SwitchMode values like Immediate, List, None, Quick Tabs, VS2005, and VistaFlip to provide different switching experiences. 
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.MDIViewModel.MDILayoutChangedCommand">
+            <summary>
+            Command to change MDI layout (Cascade, Horizontal, Vertical)
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.MDIViewModel.#ctor">
+            <summary>
+            Initializing constructor,
+            </summary>
+        </member>
+        <member name="M:Qhta.SF.WPF.Tools.MDIViewModel.ActiveViewChangedOn(Syncfusion.Windows.Tools.Controls.DockingManager)">
+            <summary>
+            Observe active view changes on the docking manager.
+            </summary>
+            <param name="dockingManager"></param>
+        </member>
+        <member name="E:Qhta.SF.WPF.Tools.MDIViewModel.ActiveViewChanged">
+            <summary>
+            Bridge event to notify when the active view has changed in the docking manager.
+            </summary>
+        </member>
+        <member name="P:Qhta.SF.WPF.Tools.MDIViewModel.DockCollections">
+            <summary>
+            Collection of DockItems for managing dockable panels in the UI.
+            </summary>
+        </member>
         <member name="T:Qhta.SF.WPF.Tools.NonEmptyValue">
             <summary>
             Singleton class representing a non-empty value in the application.
@@ -1753,6 +1789,36 @@
         <member name="M:Qhta.SF.WPF.Tools.Views.SpecificValueWindow.InitializeComponent">
             <summary>
             InitializeComponent
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
             </summary>
         </member>
     </members>

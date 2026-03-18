@@ -1,0 +1,15 @@
+d:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.Xml.Reflection.deps.json
+d:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.Xml.Reflection.dll
+d:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.Xml.Reflection.pdb
+d:\OneDrive\VS\Projects\MyLib\bin\Debug\net9.0\Qhta.Xml.Reflection.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net9.0\Qhta.Xml.Reflection.csproj.AssemblyReference.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net9.0\Qhta.Xml.Reflection.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net9.0\Qhta.Xml.Reflection.AssemblyInfoInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net9.0\Qhta.Xml.Reflection.AssemblyInfo.cs
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net9.0\Qhta.Xml.Reflection.csproj.CoreCompileInputs.cache
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net9.0\Qhta.Xml.Reflection.sourcelink.json
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net9.0\Qhta.Xml.Reflection.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net9.0\refint\Qhta.Xml.Reflection.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net9.0\Qhta.Xml.Reflection.xml
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net9.0\Qhta.Xml.Reflection.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.Xml.Reflection\obj\Debug\net9.0\ref\Qhta.Xml.Reflection.dll

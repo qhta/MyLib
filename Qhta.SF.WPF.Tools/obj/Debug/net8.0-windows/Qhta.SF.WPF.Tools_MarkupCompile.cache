@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 
-7-500724096
+81067199080
 
-41-1214699492
-232-2055314788
-RecordNavigationBar.xaml;Resources\SfDataGridTools.xaml;SfDataGridRowHeaderCell.xaml;Views\ColumnManagementWindow.xaml;Views\SpecificValueEdit.xaml;Views\SpecificValueSelector.xaml;Views\SpecificValueWindow.xaml;
+42643262128
+232-1726682684
+RecordNavigationBar.xaml;Resources\SfDataGridTools.xaml;Resources\SfTreeGridTools.xaml;SfDataGridRowHeaderCell.xaml;Views\ColumnManagementWindow.xaml;Views\SpecificValueEdit.xaml;Views\SpecificValueSelector.xaml;Views\SpecificValueWindow.xaml;
 
 False
 

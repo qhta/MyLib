@@ -8,8 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Qhta.TestHelper\Qhta.TestHelper.csproj" />
-    <ProjectReference Include="..\..\Qhta.Xml.Serialization.csproj" />
+    <PackageReference Include="Qhta.TestHelper" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Qhta.Xml.Serialization\Qhta.Xml.Serialization.csproj" />
   </ItemGroup>
 
 </Project>

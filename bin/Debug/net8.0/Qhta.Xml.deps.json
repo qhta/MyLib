@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "Qhta.Xml/3.2": {
+      "Qhta.Xml/3.3": {
         "dependencies": {
           "Qhta.Collections": "5.2.0",
           "Qhta.TextUtils": "3.8.0"
@@ -37,7 +37,7 @@
     }
   },
   "libraries": {
-    "Qhta.Xml/3.2": {
+    "Qhta.Xml/3.3": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -52,7 +52,7 @@
     "Qhta.TextUtils/3.8.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BW8TkXbdrXOV5XtkFmMs3pzpEhzRHrEIsKGNWXUFqD/vY4yjxjsthUIK2Ls4GW66bjUwl0PbdxIO9v4l90Lrrw==",
+      "sha512": "sha512-JovVSjHNgredLwrvsqVyhu1s3KGqlkuq3+v3lPN6ghnjZ7tiRT6jGMNKytuHj8AqIQWzgnekp/lZQv4rI6sntg==",
       "path": "qhta.textutils/3.8.0",
       "hashPath": "qhta.textutils.3.8.0.nupkg.sha512"
     }

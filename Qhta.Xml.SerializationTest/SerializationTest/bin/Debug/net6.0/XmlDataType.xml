@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AttributedData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<td:AttributedData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:td="TestData" xmlns:sys="System">
   <StringAsInteger>123456789012345678901234567890</StringAsInteger>
   <IntAsInteger>1234567890</IntAsInteger>
   <IntAsBool>1</IntAsBool>
@@ -18,4 +18,4 @@
   <Float>1.1234568</Float>
   <Double>1.1234567890123457E+19</Double>
   <Decimal>12345.67890</Decimal>
-</AttributedData>
+</td:AttributedData>

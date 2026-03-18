@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
     <Authors>Yarreck Qhta</Authors>
     <Version>2.0</Version>
     <Description>OpenXmlTools is a library for working with OpenXml documents.</Description>
@@ -34,9 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DocumentFormat.OpenXml" Version="3.3.0" />
-    <PackageReference Include="Qhta.TextUtils" Version="3.6.0" />
-    <PackageReference Include="Qhta.TypeUtils" Version="1.4.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.4.1" />
+    <PackageReference Include="DocumentFormat.OpenXml.Framework" Version="3.4.1" />
+    <PackageReference Include="Qhta.TextUtils" Version="3.8.0" />
+    <PackageReference Include="Qhta.TypeUtils" Version="1.5.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 

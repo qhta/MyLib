@@ -206,7 +206,7 @@ namespace ConversionTest
     [Test]
     public void TestNormalizedStringStringTypeConverter()
     {
-      var converter = new StringTypeConverter { XsdType = XsdSimpleType.NormalizedString };
+      var converter = new StringTypeConverter { SimpleType = SimpleType.NormalizedString };
       string? str1 = " a b \t c \r\n d \xA0 e ";
       var str0 = " a b   c    d   e ";
       var str2 = converter.ConvertTo(str1, typeof(string)) as string;
@@ -222,7 +222,7 @@ namespace ConversionTest
     [Test]
     public void TestTokenStringTypeConverter()
     {
-      var converter = new StringTypeConverter { XsdType = XsdSimpleType.Token };
+      var converter = new StringTypeConverter { SimpleType = SimpleType.Token };
       string? str1 = "  Being a Dog Is \r\n  a Full-Time Job";
       var str0 = "Being a Dog Is a Full-Time Job";
       var str2 = converter.ConvertTo(str1, typeof(string)) as string;
@@ -237,7 +237,7 @@ namespace ConversionTest
     [Test]
     public void TestNotationStringTypeConverter()
     {
-      var converter = new StringTypeConverter { XsdType = XsdSimpleType.Notation };
+      var converter = new StringTypeConverter { SimpleType = SimpleType.Notation };
       string? str1 = " a b \t c \r\n d \xA0 e ";
       var str0 = "a b c d e";
       var str2 = converter.ConvertTo(str1, typeof(string)) as string;
@@ -252,7 +252,7 @@ namespace ConversionTest
     [Test]
     public void TestNmTokenStringTypeConverter()
     {
-      var converter = new StringTypeConverter { XsdType = XsdSimpleType.NmToken };
+      var converter = new StringTypeConverter { SimpleType = SimpleType.NmToken };
       var validStrings = new string[]
       {
         "ABC", "Abc", "A12", "123", "1950-10-04",
@@ -270,7 +270,7 @@ namespace ConversionTest
     [Test]
     public void TestNameStringTypeConverter()
     {
-      var converter = new StringTypeConverter { XsdType = XsdSimpleType.Name };
+      var converter = new StringTypeConverter { SimpleType = SimpleType.Name };
       var validStrings = new string[]
       {
         "ABC", "Abc", "A12", "A_B", "_12", "A.B", "A-B", "A:B", ":AB"
@@ -288,7 +288,7 @@ namespace ConversionTest
     [Test]
     public void TestNCNameStringTypeConverter()
     {
-      var converter = new StringTypeConverter { XsdType = XsdSimpleType.NcName };
+      var converter = new StringTypeConverter { SimpleType = SimpleType.NcName };
       var validStrings = new string[]
       {
         "ABC", "Abc", "A12", "A_B", "_12", "A.B", "A-B"
@@ -307,7 +307,7 @@ namespace ConversionTest
     [Test]
     public void TestLanguageStringTypeConverter()
     {
-      var converter = new StringTypeConverter { XsdType = XsdSimpleType.Language };
+      var converter = new StringTypeConverter { SimpleType = SimpleType.Language };
       var validStrings = new string[]
       {
         "en", "en-US", "fr", "fr-FR"

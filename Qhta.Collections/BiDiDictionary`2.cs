@@ -9,32 +9,33 @@ namespace Qhta.Collections;
 /// <summary>
 /// Bidirectional dictionary. Converts from Type1 to Type2.
 /// </summary>
-public class BiDiDictionary<Type1, Type2> : ICollection<KeyValuePair<Type1, Type2>>, IDictionary<Type1, Type2> where Type1 : notnull where Type2 : notnull
+public class BiDiDictionary<Type1, Type2> : IDictionary<Type1, Type2> where Type1 : notnull where Type2 : notnull
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public BiDiDictionary()
   {
     Index1 = new Dictionary<Type1, Type2>();
-    Index2 = new SortedDictionary<Type2, Type1>();
+    Index2 = new Dictionary<Type2, Type1>();
   }
 
   /// <summary>
   /// Initializes a new instance of the <see cref="BiDiDictionary{Type1, Type2}"/> class.
   /// </summary>
-  /// <param name="comparer1">The comparer1.</param>
-  /// <param name="comparer2">The comparer2.</param>
-  public BiDiDictionary(IEqualityComparer<Type1> comparer1, IEqualityComparer<Type2> comparer2)
+  /// <param name="equalityComparer1">The comparer1.</param>
+  /// <param name="equalityComparer2">The comparer2.</param>
+  public BiDiDictionary(IEqualityComparer<Type1> equalityComparer1, IEqualityComparer<Type2> equalityComparer2)
   {
-    Comparer1 = comparer1;
-    Comparer2 = comparer2;
-    Index1 = new Dictionary<Type1, Type2>(comparer1);
-    Index2 = new Dictionary<Type2, Type1>(comparer2);
+    EqualityComparer1 = equalityComparer1;
+    EqualityComparer2 = equalityComparer2;
+    Index1 = new Dictionary<Type1, Type2>(equalityComparer1);
+    Index2 = new Dictionary<Type2, Type1>(equalityComparer2);
   }
 
-  IEqualityComparer<Type1>? Comparer1;
-  IEqualityComparer<Type2>? Comparer2;
+
+  IEqualityComparer<Type1>? EqualityComparer1;
+  IEqualityComparer<Type2>? EqualityComparer2;
   protected Dictionary<Type1, Type2> Index1;
-  protected IDictionary<Type2, Type1> Index2;
+  protected Dictionary<Type2, Type1> Index2;
 
   public void Clear()
   {

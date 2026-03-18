@@ -11,7 +11,7 @@ public class EnumTypeConverter : BaseTypeConverter
 
   /// <summary>
   /// Creates an instance of standard EnumConverter for specified enumType.
-  /// Sets ExpectedType to Enum and XsdType to XsdSimpleType.String.
+  /// Sets ExpectedType to Enum and XsdType to SimpleType.String.
   /// </summary>
   /// <param name="enumType"></param>
   public EnumTypeConverter(Type enumType)

@@ -8,7 +8,7 @@
 public class DateTimeTypeConverter : BaseTypeConverter
 {
   /// <summary>
-  /// Sets ExpectedType to DateTime and XsdType to XsdSimpleType.DateTime.
+  /// Sets ExpectedType to DateTime and XsdType to SimpleType.DateTime.
   /// </summary>
   public DateTimeTypeConverter()
   {
@@ -148,7 +148,11 @@ public class DateTimeTypeConverter : BaseTypeConverter
     return sourceType == typeof(string);
   }
 
-  /// <inheritdoc/>
+  /// <summary>
+  /// Converts from string to DateTime, DateTimeOffset, DateOnly or TimeOnly.
+  /// </summary>
+  /// <param name="value"></param>
+  /// <returns></returns>
   public new object? ConvertFrom(object value)
   {
     return ConvertFrom(null, null, value);
@@ -183,7 +187,7 @@ public class DateTimeTypeConverter : BaseTypeConverter
       if (ExpectedType == typeof(DateTime))
         return result.DateTime;
 
-      //if (XsdType == XsdSimpleType.Time)
+      //if (XsdType == SimpleType.Time)
       //{
       //  var timeOnly = TimeOnly.FromDateTime(result.DateTime);
       //  var dateOnly = new DateOnly(1, 1, 1);

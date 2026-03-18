@@ -27,7 +27,7 @@ public class ValueTypeConverter : BaseTypeConverter
   private Type? _ExpectedType;
 
   /// <summary>
-  /// Declares XsdSimpleType to Type conversion.
+  /// Declares SimpleType to Type conversion.
   /// </summary>
   public static readonly Dictionary<SimpleType, Type[]> XsdSimpleTypeAcceptedTypes = new()
   {
@@ -168,7 +168,7 @@ public class ValueTypeConverter : BaseTypeConverter
     { typeof(string), new StringTypeConverter() },
     { typeof(string[]), new ArrayTypeConverter() },
 #if NET6_0_OR_GREATER
-    { typeof(TimeOnly), new DateTimeTypeConverter { SimpleType = Xml.SimpleType.Time, ExpectedType = typeof(DateOnly) } },
+    { typeof(TimeOnly), new DateTimeTypeConverter { SimpleType = Xml.SimpleType.Time, ExpectedType = typeof(TimeOnly) } },
 #endif
     { typeof(TimeSpan), new TimeSpanTypeConverter() },
     { typeof(uint), new NumericTypeConverter { SimpleType = Xml.SimpleType.UnsignedInt } },

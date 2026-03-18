@@ -17,7 +17,7 @@ public class Base64TypeConverterTest
   [Test]
   public void TestNullBase64BinaryTypeConverter()
   {
-    var converter = new ArrayTypeConverter { XsdType = XsdSimpleType.Base64Binary };
+    var converter = new ArrayTypeConverter { SimpleType = SimpleType.Base64Binary };
     byte[]? bytes1 = null;
     var str = converter.ConvertTo(bytes1, typeof(string));
     Assert.That(str, Is.Null);
@@ -28,7 +28,7 @@ public class Base64TypeConverterTest
   [Test]
   public void TestEmptyBase64BinaryTypeConverter()
   {
-    var converter = new ArrayTypeConverter { XsdType = XsdSimpleType.Base64Binary };
+    var converter = new ArrayTypeConverter { SimpleType = SimpleType.Base64Binary };
     byte[]? bytes1 = new byte[0];
     var str = converter.ConvertTo(bytes1, typeof(string));
     Assert.That(str, Is.EqualTo(""));
@@ -42,7 +42,7 @@ public class Base64TypeConverterTest
   [Test]
   public void TestShortBase64BinaryTypeConverter()
   {
-    var converter = new ArrayTypeConverter { XsdType = XsdSimpleType.Base64Binary };
+    var converter = new ArrayTypeConverter { SimpleType = SimpleType.Base64Binary };
     byte[]? bytes1 = new byte[256];
     for (int i = 0; i < 256; i++)
       bytes1[i] = (byte)i;
@@ -60,7 +60,7 @@ public class Base64TypeConverterTest
   public void TestLongBase64BinaryTypeConverter()
   {
     int length = 100_000_000;
-    var converter = new ArrayTypeConverter { XsdType = XsdSimpleType.Base64Binary };
+    var converter = new ArrayTypeConverter { SimpleType = SimpleType.Base64Binary };
     byte[]? bytes1 = new byte[length];
     for (int i = 0; i < length; i++)
       bytes1[i] = (byte)i;
@@ -99,7 +99,7 @@ public class Base64TypeConverterTest
 
   public void TestLongBase64BinaryTypeConverter(int length)
   {
-    var converter = new ArrayTypeConverter { XsdType = XsdSimpleType.Base64Binary };
+    var converter = new ArrayTypeConverter { SimpleType = SimpleType.Base64Binary };
     byte[]? bytes1 = new byte[length];
     var str = converter.ConvertTo(bytes1, typeof(string));
     if (str != null)

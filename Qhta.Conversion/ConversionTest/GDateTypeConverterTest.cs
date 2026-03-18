@@ -272,7 +272,7 @@ public class GDateTypeConverterTest
   [Test]
   public void TestGYearOnlyGDateTypeConverter()
   {
-    var converter = new GDateTypeConverter { XsdType = XsdSimpleType.GYear };
+    var converter = new GDateTypeConverter { SimpleType = SimpleType.GYear };
     var now = DateTime.Now;
     var value = new GDate(now.Year, now.Month, now.Day);
     var str = converter.ConvertTo(value, typeof(string));
@@ -288,7 +288,7 @@ public class GDateTypeConverterTest
   [Test]
   public void TestGYearMonthGDateTypeConverter()
   {
-    var converter = new GDateTypeConverter { XsdType = XsdSimpleType.GYearMonth };
+    var converter = new GDateTypeConverter { SimpleType = SimpleType.GYearMonth };
     var now = DateTime.Now;
     var value = new GDate(now.Year, now.Month, now.Day);
     var str = converter.ConvertTo(value, typeof(string));
@@ -304,7 +304,7 @@ public class GDateTypeConverterTest
   [Test]
   public void TestGMonthGDateTypeConverter()
   {
-    var converter = new GDateTypeConverter { XsdType = XsdSimpleType.GMonth };
+    var converter = new GDateTypeConverter { SimpleType = SimpleType.GMonth };
     var now = DateTime.Now;
     var value = new GDate(now.Year, now.Month, now.Day);
     ;
@@ -321,7 +321,7 @@ public class GDateTypeConverterTest
   [Test]
   public void TestGMonthDayGDateTypeConverter()
   {
-    var converter = new GDateTypeConverter { XsdType = XsdSimpleType.GMonthDay };
+    var converter = new GDateTypeConverter { SimpleType = SimpleType.GMonthDay };
     var now = DateTime.Now;
     var value = new GDate(now.Year, now.Month, now.Day);
     var str = converter.ConvertTo(value, typeof(string));
@@ -338,7 +338,7 @@ public class GDateTypeConverterTest
   public void TestGMonthDayZoneGDateTypeConverter()
   {
     var zone = 2;
-    var converter = new GDateTypeConverter { XsdType = XsdSimpleType.GMonthDay, ShowTimeZone = true };
+    var converter = new GDateTypeConverter { SimpleType = SimpleType.GMonthDay, ShowTimeZone = true };
     var now = DateTime.Now;
     var value = new GDate(now.Year, now.Month, now.Day, zone);
     var str = converter.ConvertTo(value, typeof(string));
@@ -355,7 +355,7 @@ public class GDateTypeConverterTest
   public void TestGMonthDayNegZoneGDateTypeConverter()
   {
     var zone = 2;
-    var converter = new GDateTypeConverter { XsdType = XsdSimpleType.GMonthDay, ShowTimeZone = true };
+    var converter = new GDateTypeConverter { SimpleType = SimpleType.GMonthDay, ShowTimeZone = true };
     var now = DateTime.Now;
     var value = new GDate(now.Year, now.Month, now.Day, -zone);
     var str = converter.ConvertTo(value, typeof(string));
@@ -371,7 +371,7 @@ public class GDateTypeConverterTest
   [Test]
   public void TestGMonthDayZuluGDateTypeConverter()
   {
-    var converter = new GDateTypeConverter { XsdType = XsdSimpleType.GMonthDay, ShowTimeZone = true };
+    var converter = new GDateTypeConverter { SimpleType = SimpleType.GMonthDay, ShowTimeZone = true };
     var now = DateTime.Now;
     var value = new GDate(now.Year, now.Month, now.Day, 0);
     var str = converter.ConvertTo(value, typeof(string));
@@ -387,7 +387,7 @@ public class GDateTypeConverterTest
   [Test]
   public void TestGDayGDateTypeConverter()
   {
-    var converter = new GDateTypeConverter { XsdType = XsdSimpleType.GDay };
+    var converter = new GDateTypeConverter { SimpleType = SimpleType.GDay };
     var now = DateTime.Now;
     var value = new GDate(now.Year, now.Month, now.Day); 
     var str = converter.ConvertTo(value, typeof(string));
@@ -404,7 +404,7 @@ public class GDateTypeConverterTest
   public void TestGDayZoneGDateTypeConverter()
   {
     var zone = 2;
-    var converter = new GDateTypeConverter { XsdType = XsdSimpleType.GDay, ShowTimeZone = true };
+    var converter = new GDateTypeConverter { SimpleType = SimpleType.GDay, ShowTimeZone = true };
     var now = DateTime.Now;
     var value = new GDate(now.Year, now.Month, now.Day, zone);
     var str = converter.ConvertTo(value, typeof(string));
@@ -421,7 +421,7 @@ public class GDateTypeConverterTest
   public void TesGtDayNegZoneGDateTypeConverter()
   {
     var zone = 2;
-    var converter = new GDateTypeConverter { XsdType = XsdSimpleType.GDay, ShowTimeZone = true };
+    var converter = new GDateTypeConverter { SimpleType = SimpleType.GDay, ShowTimeZone = true };
     var now = DateTime.Now;
     var value = new GDate(now.Year, now.Month, now.Day, -zone);
     var str = converter.ConvertTo(value, typeof(string));
@@ -437,7 +437,7 @@ public class GDateTypeConverterTest
   [Test]
   public void TestGDayZuluGDateTypeConverter()
   {
-    var converter = new GDateTypeConverter { XsdType = XsdSimpleType.GDay, ShowTimeZone = true };
+    var converter = new GDateTypeConverter { SimpleType = SimpleType.GDay, ShowTimeZone = true };
     var now = DateTime.Now;
     var value = new GDate(now.Year, now.Month, now.Day, 0);
     var str = converter.ConvertTo(value, typeof(string));

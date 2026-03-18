@@ -8,7 +8,7 @@ public class GuidTypeConverter : BaseTypeConverter
   private GuidConverter Base = new GuidConverter();
 
   /// <summary>
-  /// Sets ExpectedType to Guid and XsdType to XsdSimpleType.String.
+  /// Sets ExpectedType to Guid and XsdType to SimpleType.String.
   /// </summary>
   public GuidTypeConverter()
   {

@@ -1,0 +1,201 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Qhta.WPF.Utils/3.5": {
+        "dependencies": {
+          "Qhta.HtmlUtils": "2.1.0",
+          "Qhta.MVVM": "4.2.0",
+          "Qhta.OrdNumbers": "2.3.0",
+          "Qhta.TypeUtils": "1.4.0",
+          "Qhta.WPF.Converters": "1.3.2"
+        },
+        "runtime": {
+          "Qhta.WPF.Utils.dll": {}
+        },
+        "resources": {
+          "pl/Qhta.WPF.Utils.resources.dll": {
+            "locale": "pl"
+          }
+        }
+      },
+      "HtmlAgilityPack/1.8.9": {
+        "dependencies": {
+          "System.Xml.XPath.XmlDocument": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {
+            "assemblyVersion": "1.8.9.0",
+            "fileVersion": "1.8.9.0"
+          }
+        }
+      },
+      "Qhta.Collections/2.0.0": {
+        "runtime": {
+          "lib/net7.0/Qhta.Collections.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "Qhta.HtmlUtils/2.1.0": {
+        "dependencies": {
+          "HtmlAgilityPack": "1.8.9"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.HtmlUtils.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      },
+      "Qhta.MVVM/4.2.0": {
+        "dependencies": {
+          "Qhta.ObservableObjects": "3.0.0"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Qhta.MVVM.dll": {
+            "assemblyVersion": "4.2.0.0",
+            "fileVersion": "4.2.0.0"
+          }
+        }
+      },
+      "Qhta.ObservableObjects/3.0.0": {
+        "runtime": {
+          "lib/net7.0-windows7.0/Qhta.ObservableObjects.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Qhta.OrdNumbers/2.3.0": {
+        "runtime": {
+          "lib/netstandard2.0/Qhta.OrdNumbers.dll": {
+            "assemblyVersion": "2.3.0.0",
+            "fileVersion": "2.3.0.0"
+          }
+        }
+      },
+      "Qhta.TextUtils/3.1.1": {
+        "runtime": {
+          "lib/net6.0/Qhta.TextUtils.dll": {
+            "assemblyVersion": "3.1.1.0",
+            "fileVersion": "3.1.1.0"
+          }
+        }
+      },
+      "Qhta.TypeUtils/1.4.0": {
+        "dependencies": {
+          "Qhta.Collections": "2.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Qhta.TypeUtils.dll": {
+            "assemblyVersion": "1.4.0.0",
+            "fileVersion": "1.4.0.0"
+          }
+        }
+      },
+      "Qhta.WPF.Converters/1.3.2": {
+        "dependencies": {
+          "Qhta.TextUtils": "3.1.1",
+          "Qhta.TypeUtils": "1.4.0"
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Qhta.WPF.Converters.dll": {
+            "assemblyVersion": "1.3.2.0",
+            "fileVersion": "1.3.2.0"
+          }
+        }
+      },
+      "System.Xml.XPath.XmlDocument/4.3.0": {
+        "runtime": {
+          "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.6.24705.1"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Qhta.WPF.Utils/3.5": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HtmlAgilityPack/1.8.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qrgNgaJIuOSNxUGEHwRjDgR2yOdJ7UIU/C9mLg3y10IiCgXXFWacbC0+DBT5Je9NF4AdvuSRwFY5SLmhm3vUEQ==",
+      "path": "htmlagilitypack/1.8.9",
+      "hashPath": "htmlagilitypack.1.8.9.nupkg.sha512"
+    },
+    "Qhta.Collections/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VMddBExgPXLQ6XEoSZu2uQzs/T0RyycOx8R9qOJeq+2DjphmRFbQJMU+8EyIu0a9iOmJJ3XZBXXSxSROxng3cw==",
+      "path": "qhta.collections/2.0.0",
+      "hashPath": "qhta.collections.2.0.0.nupkg.sha512"
+    },
+    "Qhta.HtmlUtils/2.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jN/EcMPo0Hut3Kh4K6pLkozSoTTy6P5Cdgb9nbAp8CUk20tipykCfQUbmtvNteUpGOk0ClE+iuCv39pwooO6Lg==",
+      "path": "qhta.htmlutils/2.1.0",
+      "hashPath": "qhta.htmlutils.2.1.0.nupkg.sha512"
+    },
+    "Qhta.MVVM/4.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+aXRiVZNyQ4OOuZc6MXnYr95WjaP1hw4wxYZP2sdWf6iQ5Pn/6jGmxz989zU4y6LUk32mZeQu/tcpqkzbUSeaA==",
+      "path": "qhta.mvvm/4.2.0",
+      "hashPath": "qhta.mvvm.4.2.0.nupkg.sha512"
+    },
+    "Qhta.ObservableObjects/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4Tn8n4Dp8I8q7e9oFM11WDIizg1TUosw+cwmcNGz9NTmpnfFEh7hez2uEZZQ7g/F5Gl7aiyGsjt23GcE35x5tA==",
+      "path": "qhta.observableobjects/3.0.0",
+      "hashPath": "qhta.observableobjects.3.0.0.nupkg.sha512"
+    },
+    "Qhta.OrdNumbers/2.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BSCWAelC/Edef+EUfphFgFWI7pHaPJYZWsCtbVRdZxSBgRqsn7z3oDbdGe3JjOS0qZsl3O54dZ6jeSmrti+kDg==",
+      "path": "qhta.ordnumbers/2.3.0",
+      "hashPath": "qhta.ordnumbers.2.3.0.nupkg.sha512"
+    },
+    "Qhta.TextUtils/3.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eeLbjNYAJbyJb+N3zDFNSkiGyoAUxRV0L2yIBbe+HqWw1OkoINYKFDCg3QQWRlg5IVKUQXV7KHFOXA1NkjnYzQ==",
+      "path": "qhta.textutils/3.1.1",
+      "hashPath": "qhta.textutils.3.1.1.nupkg.sha512"
+    },
+    "Qhta.TypeUtils/1.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5bRrb24q9Olnb4nOz/rtl0f7cNIiVd7jmoCYbNW5veCE3Qw1iihzuagVQYi2UOLALh4S3LZqzt+zjV8TOuB5XQ==",
+      "path": "qhta.typeutils/1.4.0",
+      "hashPath": "qhta.typeutils.1.4.0.nupkg.sha512"
+    },
+    "Qhta.WPF.Converters/1.3.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WnudbFURv/Pa8yJOU9AijovPpabIFfmAq7B9CuFiWzSkJsM9O0X1LEqMrQkns04mDtj2g/ks+JHhWyB7mB/+Pw==",
+      "path": "qhta.wpf.converters/1.3.2",
+      "hashPath": "qhta.wpf.converters.1.3.2.nupkg.sha512"
+    },
+    "System.Xml.XPath.XmlDocument/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
+      "path": "system.xml.xpath.xmldocument/4.3.0",
+      "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj": {}
+    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj": {}
   },
   "projects": {
     "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Collections\\Qhta.Collections.csproj": {
@@ -15,8 +15,7 @@
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\27.1.48\\ToolboxNuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "D:\\OneDrive\\VS\\Projects\\NuGet.Config",
@@ -250,35 +249,46 @@
         }
       }
     },
-    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj": {
+    "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj": {
       "version": "2.0.0",
       "restore": {
-        "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj",
-        "projectName": "Qhta.OpenXMLTools",
-        "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXMLTools.csproj",
+        "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj",
+        "projectName": "Qhta.OpenXmlTools",
+        "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\Qhta.OpenXmlTools.csproj",
         "packagesPath": "C:\\Users\\qhta1\\.nuget\\packages\\",
         "outputPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.OpenXMLTools\\obj\\",
         "projectStyle": "PackageReference",
+        "crossTargeting": true,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\27.1.48\\ToolboxNuGetPackages"
+          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\DOCX Editor SDK\\31.2.12\\ToolboxNuGetPackages"
         ],
         "configFilePaths": [
           "D:\\OneDrive\\VS\\Projects\\NuGet.Config",
           "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Syncfusion Toolbox for WPF.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Syncfusion Toolbox for DOCX Editor SDK.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Syncfusion Toolbox for Spreadsheet Editor SDK.config"
         ],
         "originalTargetFrameworks": [
+          "net8.0",
           "netstandard2.1"
         ],
         "sources": {
-          "D:\\OneDrive\\VS\\Projects\\MyLib\\bin": {},
-          "file://d:\\\\VS\\\\Projects\\\\mylib\\\\bin": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "D:\\OneDrive\\VS\\Projects\\MyLib\\bin\\Debug": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj": {
+                "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj"
+              }
+            }
+          },
           "netstandard2.1": {
             "targetAlias": "netstandard2.1",
             "projectReferences": {
@@ -298,23 +308,69 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "DocumentFormat.OpenXml": {
+              "target": "Package",
+              "version": "[3.4.1, )"
+            },
+            "DocumentFormat.OpenXml.Framework": {
+              "target": "Package",
+              "version": "[3.4.1, )"
+            },
+            "Qhta.TextUtils": {
+              "target": "Package",
+              "version": "[3.8.0, )"
+            },
+            "Qhta.TypeUtils": {
+              "target": "Package",
+              "version": "[1.5.0, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
+        },
         "netstandard2.1": {
           "targetAlias": "netstandard2.1",
           "dependencies": {
             "DocumentFormat.OpenXml": {
               "target": "Package",
-              "version": "[3.3.0, )"
+              "version": "[3.4.1, )"
+            },
+            "DocumentFormat.OpenXml.Framework": {
+              "target": "Package",
+              "version": "[3.4.1, )"
             },
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.6.0, )"
+              "version": "[3.8.0, )"
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.4.0, )"
+              "version": "[1.5.0, )"
             },
             "System.ComponentModel.Annotations": {
               "target": "Package",
@@ -337,7 +393,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -352,8 +408,7 @@
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\27.1.48\\ToolboxNuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "D:\\OneDrive\\VS\\Projects\\NuGet.Config",

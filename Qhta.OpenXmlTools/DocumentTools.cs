@@ -77,6 +77,9 @@ public static partial class DocumentTools
     if (mainDocumentPart == null)
     {
       mainDocumentPart = wordDoc.AddMainDocumentPart();
+    }
+    if (mainDocumentPart.Document == null)
+    {
       mainDocumentPart.Document = new DXW.Document();
     }
     var body = mainDocumentPart.Document.Body;
@@ -99,9 +102,8 @@ public static partial class DocumentTools
     if (mainDocumentPart == null)
     {
       mainDocumentPart = wordDoc.AddMainDocumentPart();
-      mainDocumentPart.Document = new DXW.Document();
     }
-    var headers = mainDocumentPart.HeaderParts.Select(part => part.Header);
+    var headers = mainDocumentPart.HeaderParts.Where(part => part.Header is not null).Select(part => part.Header!);
     return headers;
   }
 
@@ -119,7 +121,7 @@ public static partial class DocumentTools
       mainDocumentPart = wordDoc.AddMainDocumentPart();
       mainDocumentPart.Document = new DXW.Document();
     }
-    var footers = mainDocumentPart.FooterParts.Select(part => part.Footer);
+    var footers = mainDocumentPart.FooterParts.Where(part => part.Footer is not null).Select(part => part.Footer!);
     return footers;
   }
 

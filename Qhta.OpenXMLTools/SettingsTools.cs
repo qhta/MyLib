@@ -39,6 +39,9 @@ public static class SettingsTools
     if (documentSettingsPart == null)
     {
       documentSettingsPart = mainDocumentPart.AddNewPart<DXPack.DocumentSettingsPart>();
+    }
+    if (documentSettingsPart.Settings == null)
+    {
       documentSettingsPart.Settings = new Settings();
     }
     return documentSettingsPart.Settings;

@@ -1,17 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32825.248
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11312.151
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerializationTest", "SerializationTest\SerializationTest.csproj", "{E36324A9-D1CF-4E8E-B514-E3150949913D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.Xml.Serialization", "..\Qhta.Xml.Serialization.csproj", "{230994D4-B6D7-4252-9A71-2D9D800F853A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.Xml.Serialization", "..\Qhta.Xml.Serialization\Qhta.Xml.Serialization.csproj", "{C4A0AAB3-A95C-17A5-D086-8B1EC6F29F84}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.TypeUtils", "..\..\Qhta.TypeUtils\Qhta.TypeUtils.csproj", "{48E02D8A-1802-4BF3-B5CE-4A528A1B9041}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qhta.TestHelper", "..\..\Qhta.TestHelper\Qhta.TestHelper.csproj", "{416BCC29-226B-4F8A-BC79-8845650E501C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.Conversion", "..\..\Qhta.Conversion\Qhta.Conversion.csproj", "{9DFDCFC2-6D06-4171-BA38-0B362E534B9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qhta.Conversion", "..\Qhta.Conversion\Qhta.Conversion.csproj", "{96099EFD-0F25-567A-80B5-BC5CD4C65DE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,22 +19,14 @@ Global
 		{E36324A9-D1CF-4E8E-B514-E3150949913D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E36324A9-D1CF-4E8E-B514-E3150949913D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E36324A9-D1CF-4E8E-B514-E3150949913D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{230994D4-B6D7-4252-9A71-2D9D800F853A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{230994D4-B6D7-4252-9A71-2D9D800F853A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{230994D4-B6D7-4252-9A71-2D9D800F853A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{230994D4-B6D7-4252-9A71-2D9D800F853A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{48E02D8A-1802-4BF3-B5CE-4A528A1B9041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48E02D8A-1802-4BF3-B5CE-4A528A1B9041}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48E02D8A-1802-4BF3-B5CE-4A528A1B9041}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48E02D8A-1802-4BF3-B5CE-4A528A1B9041}.Release|Any CPU.Build.0 = Release|Any CPU
-		{416BCC29-226B-4F8A-BC79-8845650E501C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{416BCC29-226B-4F8A-BC79-8845650E501C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{416BCC29-226B-4F8A-BC79-8845650E501C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{416BCC29-226B-4F8A-BC79-8845650E501C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9DFDCFC2-6D06-4171-BA38-0B362E534B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DFDCFC2-6D06-4171-BA38-0B362E534B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DFDCFC2-6D06-4171-BA38-0B362E534B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DFDCFC2-6D06-4171-BA38-0B362E534B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4A0AAB3-A95C-17A5-D086-8B1EC6F29F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4A0AAB3-A95C-17A5-D086-8B1EC6F29F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4A0AAB3-A95C-17A5-D086-8B1EC6F29F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4A0AAB3-A95C-17A5-D086-8B1EC6F29F84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96099EFD-0F25-567A-80B5-BC5CD4C65DE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96099EFD-0F25-567A-80B5-BC5CD4C65DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96099EFD-0F25-567A-80B5-BC5CD4C65DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96099EFD-0F25-567A-80B5-BC5CD4C65DE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

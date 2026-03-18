@@ -248,7 +248,7 @@
         </member>
         <member name="M:Qhta.Conversion.DateTimeTypeConverter.#ctor">
             <summary>
-            Sets ExpectedType to DateTime and XsdType to XsdSimpleType.DateTime.
+            Sets ExpectedType to DateTime and XsdType to SimpleType.DateTime.
             </summary>
         </member>
         <member name="P:Qhta.Conversion.DateTimeTypeConverter.DateTimeSeparator">
@@ -286,7 +286,11 @@
             <inheritdoc/>
         </member>
         <member name="M:Qhta.Conversion.DateTimeTypeConverter.ConvertFrom(System.Object)">
-            <inheritdoc/>
+            <summary>
+            Converts from string to DateTime, DateTimeOffset, DateOnly or TimeOnly.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.Conversion.DateTimeTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
             <inheritdoc/>
@@ -301,7 +305,7 @@
         </member>
         <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.#ctor">
             <summary>
-            Sets ExpectedType to DBNull and XsdType to XsdSimpleType.String.
+            Sets ExpectedType to DBNull and XsdType to SimpleType.String.
             </summary>
         </member>
         <member name="M:Qhta.Conversion.DbNullTypeXmlConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
@@ -353,7 +357,7 @@
         <member name="M:Qhta.Conversion.EnumTypeConverter.#ctor(System.Type)">
             <summary>
             Creates an instance of standard EnumConverter for specified enumType.
-            Sets ExpectedType to Enum and XsdType to XsdSimpleType.String.
+            Sets ExpectedType to Enum and XsdType to SimpleType.String.
             </summary>
             <param name="enumType"></param>
         </member>
@@ -413,7 +417,7 @@
         </member>
         <member name="M:Qhta.Conversion.GuidTypeConverter.#ctor">
             <summary>
-            Sets ExpectedType to Guid and XsdType to XsdSimpleType.String.
+            Sets ExpectedType to Guid and XsdType to SimpleType.String.
             </summary>
         </member>
         <member name="M:Qhta.Conversion.GuidTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
@@ -1023,7 +1027,7 @@
         </member>
         <member name="F:Qhta.Conversion.ValueTypeConverter.XsdSimpleTypeAcceptedTypes">
             <summary>
-            Declares XsdSimpleType to Type conversion.
+            Declares SimpleType to Type conversion.
             </summary>
         </member>
         <member name="F:Qhta.Conversion.ValueTypeConverter.KnownTypeConverters">

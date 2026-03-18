@@ -11,8 +11,7 @@
           "Qhta.Collections": "5.2.0",
           "Qhta.Conversion": "2.2.0",
           "Qhta.TextUtils": "3.8.0",
-          "Qhta.Xml": "3.2.0",
-          "System.ComponentModel.Annotations": "5.0.0"
+          "Qhta.Xml": "3.2.0"
         },
         "runtime": {
           "Qhta.Xml.Reflection.dll": {}
@@ -71,8 +70,7 @@
             "fileVersion": "3.2.0.0"
           }
         }
-      },
-      "System.ComponentModel.Annotations/5.0.0": {}
+      }
     }
   },
   "libraries": {
@@ -115,13 +113,6 @@
       "sha512": "sha512-8qGRd0d9dFYc/UyQEg3QGHpEqzdyA/mEUmFGMV9/HuA+RGLjPQUAg1Y3zg1Q5Y3mDhISEOGH3dtSWJSnTqEt5w==",
       "path": "qhta.xml/3.2.0",
       "hashPath": "qhta.xml.3.2.0.nupkg.sha512"
-    },
-    "System.ComponentModel.Annotations/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-dMkqfy2el8A8/I76n2Hi1oBFEbG1SfxD2l5nhwXV3XjlnOmwxJlQbYpJH4W51odnU9sARCSAgv7S3CyAFMkpYg==",
-      "path": "system.componentmodel.annotations/5.0.0",
-      "hashPath": "system.componentmodel.annotations.5.0.0.nupkg.sha512"
     }
   }
 }
