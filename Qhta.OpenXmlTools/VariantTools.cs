@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+// ReSharper disable InvokeAsExtensionMember
 
 namespace Qhta.OpenXmlTools;
 /// <summary>
@@ -263,6 +264,8 @@ public static class VariantTools
 
     // Get the element type of the array
     Type? elementType = arrayType.GetElementType();
+    if (elementType is null)
+      throw new InvalidDataException("Array element type is null");
     var baseType = TypeToArrayBaseType[elementType];
 
     var lBounds = new int[array.Rank];
@@ -620,33 +623,33 @@ public static class VariantTools
       case VariantType.VTLPWSTR:
         return new DXVT.VTLPWSTR(value?.ToString() ?? String.Empty);
       case VariantType.VTInt32:
-        return new DXVT.VTInt32(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString() : "0");
+        return new DXVT.VTInt32(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString()! : "0");
       case VariantType.VTUnsignedInt32:
-        return new DXVT.VTUnsignedInt32(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString() : "0");
+        return new DXVT.VTUnsignedInt32(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString()! : "0");
       case VariantType.VTInt64:
-        return new DXVT.VTInt64(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString() : "0");
+        return new DXVT.VTInt64(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString()! : "0");
       case VariantType.VTUnsignedInt64:
-        return new DXVT.VTUnsignedInt64(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString() : "0");
+        return new DXVT.VTUnsignedInt64(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString()! : "0");
       case VariantType.VTByte:
-        return new DXVT.VTByte(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString() : "0");
+        return new DXVT.VTByte(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString()! : "0");
       case VariantType.VTUnsignedByte:
-        return new DXVT.VTUnsignedByte(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString() : "0");
+        return new DXVT.VTUnsignedByte(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString()! : "0");
       case VariantType.VTShort:
-        return new DXVT.VTShort(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString() : "0");
+        return new DXVT.VTShort(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString()! : "0");
       case VariantType.VTUnsignedShort:
-        return new DXVT.VTUnsignedShort(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString() : "0");
+        return new DXVT.VTUnsignedShort(value != null ? IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString()! : "0");
       case VariantType.VTDate:
-        return new DXVT.VTDate(value != null ? DateTimeToString(value, format) ?? value.ToString() : "");
+        return new DXVT.VTDate(value != null ? DateTimeToString(value, format) ?? value.ToString()! : "");
       case VariantType.VTFileTime:
-        return new DXVT.VTFileTime(value != null ? DateTimeToString(value, format) ?? value.ToString() : "");
+        return new DXVT.VTFileTime(value != null ? DateTimeToString(value, format) ?? value.ToString()! : "");
       case VariantType.VTFloat:
-        return new DXVT.VTFloat(value != null ? FloatToString(value, format) ?? value.ToString() : "0");
+        return new DXVT.VTFloat(value != null ? FloatToString(value, format) ?? value.ToString()! : "0");
       case VariantType.VTDouble:
-        return new DXVT.VTDouble(value != null ? FloatToString(value, format) ?? value.ToString() : "0");
+        return new DXVT.VTDouble(value != null ? FloatToString(value, format) ?? value.ToString()! : "0");
       case VariantType.VTDecimal:
-        return new DXVT.VTDecimal(value != null ? DecimalToString(value, format) ?? value.ToString() : "0");
+        return new DXVT.VTDecimal(value != null ? DecimalToString(value, format) ?? value.ToString()! : "0");
       case VariantType.VTCurrency:
-        return new DXVT.VTCurrency(value != null ? DecimalToString(value, format) ?? value.ToString() : "0");
+        return new DXVT.VTCurrency(value != null ? DecimalToString(value, format) ?? value.ToString()! : "0");
 
       case VariantType.VTError:
         if (value is int errCode)
@@ -706,38 +709,40 @@ public static class VariantTools
   /// <exception cref="InvalidDataException"></exception>
   public static DX.OpenXmlElement CreateVariant(Type valueType, object? value, string? format = null)
   {
+    
     if (value == null)
       return new DXVT.VTNull();
+    object value1 = value!;
     switch (valueType.Name)
     {
       case nameof(Boolean):
-        return new DXVT.VTBool(value.ToString().ToLowerInvariant());
+        return new DXVT.VTBool(value1.ToString()!.ToLowerInvariant()!);
       case nameof(String):
-        return new DXVT.VTLPWSTR(value.ToString() ?? String.Empty);
+        return new DXVT.VTLPWSTR(value1.ToString() ?? String.Empty);
       case nameof(Int32):
-        return new DXVT.VTInt32(IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString());
+        return new DXVT.VTInt32(IntegerToString(value1, format) ?? FloatToString(value1, format) ?? value1.ToString()!);
       case nameof(UInt32):
-        return new DXVT.VTUnsignedInt32(IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString());
+        return new DXVT.VTUnsignedInt32(IntegerToString(value1, format) ?? FloatToString(value1, format) ?? value1.ToString()!);
       case nameof(Int64):
-        return new DXVT.VTInt64(IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString());
+        return new DXVT.VTInt64(IntegerToString(value1, format) ?? FloatToString(value1, format) ?? value1.ToString()!);
       case nameof(UInt64):
-        return new DXVT.VTUnsignedInt64(IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString());
+        return new DXVT.VTUnsignedInt64(IntegerToString(value1, format) ?? FloatToString(value1, format) ?? value1.ToString()!);
       case nameof(SByte):
-        return new DXVT.VTByte(IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString());
+        return new DXVT.VTByte(IntegerToString(value1, format) ?? FloatToString(value1, format) ?? value1.ToString()!);
       case nameof(Byte):
-        return new DXVT.VTUnsignedByte(IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString());
+        return new DXVT.VTUnsignedByte(IntegerToString(value1, format) ?? FloatToString(value1, format) ?? value1.ToString()!);
       case nameof(Int16):
-        return new DXVT.VTShort(IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString());
+        return new DXVT.VTShort(IntegerToString(value1, format) ?? FloatToString(value1, format) ?? value1.ToString()!);
       case nameof(UInt16):
-        return new DXVT.VTUnsignedShort(IntegerToString(value, format) ?? FloatToString(value, format) ?? value.ToString());
+        return new DXVT.VTUnsignedShort(IntegerToString(value1, format) ?? FloatToString(value1, format) ?? value1.ToString()!);
       case nameof(DateTime):
-        return new DXVT.VTDate(DateTimeToString(value, format) ?? value.ToString());
+        return new DXVT.VTDate(DateTimeToString(value1, format) ?? value1.ToString()!);
       case nameof(Single):
-        return new DXVT.VTFloat(FloatToString(value, format) ?? value.ToString());
+        return new DXVT.VTFloat(FloatToString(value1, format) ?? value1.ToString()!);
       case nameof(Double):
-        return new DXVT.VTDouble(FloatToString(value, format) ?? value.ToString());
+        return new DXVT.VTDouble(FloatToString(value1, format) ?? value1.ToString()!);
       case nameof(Decimal):
-        return new DXVT.VTDecimal(DecimalToString(value, format) ?? value.ToString());
+        return new DXVT.VTDecimal(DecimalToString(value1, format) ?? value1.ToString()!);
        case nameof(Guid):
         if (value is Guid guidVal)
           return new DXVT.VTClassId(guidVal.ToString(format));

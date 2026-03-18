@@ -10,6 +10,7 @@ public class BodyTest
 {
   public void BodyReadTest(string filename)
   {
+    Console.OutputEncoding = System.Text.Encoding.UTF8;
     using (var wordDoc = DXPack.WordprocessingDocument.Open(filename, false))
     {
       //BodyRangeReadTest(wordDoc);
@@ -56,7 +57,7 @@ public class BodyTest
     Console.WriteLine("Body range paragraphs read test:");
 
     var docRange = wordDoc.GetBody().GetRange();
-    var elements = docRange.GetParagraphs();
+    var elements = docRange.GetParagraphs().ToArray();
     var count = elements.Count();
     Console.WriteLine($"Body range paragraphs count = {count}");
     foreach (var element in elements)
@@ -71,7 +72,7 @@ public class BodyTest
     Console.WriteLine("Body range tables read test:");
 
     var docRange = wordDoc.GetBody().GetRange();
-    var elements = docRange.GetTables();
+    var elements = docRange.GetTables().ToArray();
     var count = elements.Count();
     Console.WriteLine($"Body range tables count = {count}");
     foreach (var element in elements)

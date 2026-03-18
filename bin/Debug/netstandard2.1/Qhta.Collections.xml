@@ -13,8 +13,8 @@
             <summary>
             Initializes a new instance of the <see cref="T:Qhta.Collections.BiDiDictionary`2"/> class.
             </summary>
-            <param name="comparer1">The comparer1.</param>
-            <param name="comparer2">The comparer2.</param>
+            <param name="equalityComparer1">The comparer1.</param>
+            <param name="equalityComparer2">The comparer2.</param>
         </member>
         <member name="T:Qhta.Collections.WildcardSortedStringDictionary">
             <summary>

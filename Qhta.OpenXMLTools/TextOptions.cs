@@ -87,109 +87,107 @@ public record TextOptions
     /// <summary>
     /// Represents a tab element.
     /// </summary>
-    public string TabTag = null!;
+    public string TabTag = "<t>";
     /// <summary>
     /// Represents a line break element.
     /// </summary>
-    public string BreakLineTag = null!;
+    public string BreakLineTag = "<br>";
     /// <summary>
     /// Represents a column break element.
     /// </summary>
-    public string BreakColumnTag = null!;
+    public string BreakColumnTag = "<cb>";
     /// <summary>
     /// Represents a page break element.
     /// </summary>
-    public string BreakPageTag = null!;
+    public string BreakPageTag = "<pb>";
     /// <summary>
     /// Represents a carriage return element.
     /// </summary>
-    public string CarriageReturnTag = null!;
+    public string CarriageReturnTag = "<cr>";
     /// <summary>
     /// Represents a soft hyphen element.
     /// </summary>
-    public string SoftHyphenTag = null!;
+    public string SoftHyphenTag = "<sh>";
     /// <summary>
     /// Represents a non-break hyphen element.
     /// </summary>
-    public string NoBreakHyphenTag = null!;
+    public string NoBreakHyphenTag = "<nbh>";
     /// <summary>
     /// Represents a positional tab element.
     /// </summary>
-    public string PositionalTabTag = null!;
+    public string PositionalTabTag = "<pt>";
     /// <summary>
     /// Represents an annotation reference mark element.
     /// </summary>
-    public string AnnotationReferenceMarkTag = null!;
+    public string AnnotationReferenceMarkTag = "<arm>";
     /// <summary>
     /// Represents a footnote reference mark element.
     /// </summary>
-    public string FootnoteReferenceMarkTag = null!;
+    public string FootnoteReferenceMarkTag = "<frm>";
     /// <summary>
     /// Represents an endnote reference mark element.
     /// </summary>
-    public string EndnoteReferenceMarkTag = null!;
+    public string EndnoteReferenceMarkTag = "<erm>";
     /// <summary>
     /// Represents a separator mark element.
     /// </summary>
-    public string SeparatorMarkTag = null!;
+    public string SeparatorMarkTag = "<sep>";
     /// <summary>
     ///  Represents a continuation separator mark element.
     /// </summary>
-    public string ContinuationSeparatorMarkTag = null!;
+    public string ContinuationSeparatorMarkTag = "<csep>";
     /// <summary>
     /// Represents a last rendered page break element.
     /// </summary>
-    public string LastRenderedPageBreakTag = null!;
+    public string LastRenderedPageBreakTag = "<lrpb>";
     /// <summary>
     /// Represents a page number element.
     /// </summary>
-    public string PageNumberTag = null!;
+    public string PageNumberTag = "<pn>";
     /// <summary>
     /// Represents a DayLong element.
     /// </summary>
-    public string DayLongTag = null!;
+    public string DayLongTag = "<dayLong>";
     /// <summary>
     /// Represents a DayShort element.
     /// </summary>
-    public string DayShortTag = null!;
+    public string DayShortTag = "<dayShort>";
     /// <summary>
     /// Represents a MonthLong element.
     /// </summary>
-    public string MonthLongTag = null!;
+    public string MonthLongTag = "<monthLong>";
     /// <summary>
     /// Represents a MonthShort element.
     /// </summary>
-    public string MonthShortTag = null!;
+    public string MonthShortTag = "<monthShort>";
     /// <summary>
     /// Represents a YearLong element.
     /// </summary>
-    public string YearLongTag = null!;
+    public string YearLongTag = "<yearLong>";
     /// <summary>
     /// Represents a YearShort element.
     /// </summary>
-    public string YearShortTag = null!;
+    public string YearShortTag = "<yearShort>";
     /// <summary>
     /// Represents a field char begin.
     /// </summary>
-    public string FieldCharBeginTag = null!;
+    public string FieldCharBeginTag = "<fb>";
     /// <summary>
     /// Represents a field char separate.
     /// </summary>
-    public string FieldCharSeparateTag = null!;
+    public string FieldCharSeparateTag = "<fs>";
     /// <summary>
     /// Represents a field char end.
     /// </summary>
-    public string FieldCharEndTag = null!;
-
+    public string FieldCharEndTag = "<fe>";
     /// <summary>
     /// Tag to insert between paragraphs.
     /// </summary>
-    public string ParagraphSeparator = null!;
-
+    public string ParagraphSeparator = "<p>";
     /// <summary>
     /// Tag to insert between runs.
     /// </summary>
-    public string RunSeparator = null!;
+    public string RunSeparator = "<r>";
   }
 
   /// <summary>
