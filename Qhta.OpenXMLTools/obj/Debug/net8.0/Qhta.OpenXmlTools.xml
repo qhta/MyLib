@@ -143,13 +143,6 @@
             <param name="create">Option to create a <c>SectionProperties</c>, if it does not exist.</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.BodyTools.GetSectionProperties(DocumentFormat.OpenXml.Wordprocessing.Body)">
-            <summary>
-            Gets the section properties of the body.
-            </summary>
-            <param name="body"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.BodyTools.GetSections(DocumentFormat.OpenXml.Wordprocessing.Body)">
             <summary>
             Gets all the sections
@@ -5328,6 +5321,11 @@
         <member name="M:Qhta.OpenXmlTools.Range.GetMembers">
             <summary>
             Gets all the member elements in the range.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Range.GetElements">
+            <summary>
+            Gets elements of the specified type in the range.
             </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.Range.GetElements``1">
