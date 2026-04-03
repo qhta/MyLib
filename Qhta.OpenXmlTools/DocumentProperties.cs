@@ -12,7 +12,7 @@ public class DocumentProperties
   /// Initializes a new instance of the DocumentProperties class.
   /// </summary>
   /// <param name="wordDoc"></param>
-  public DocumentProperties(DXPack.WordprocessingDocument wordDoc)
+  public DocumentProperties(DXPP.WordprocessingDocument wordDoc)
   {
     WordDoc = wordDoc;
   }
@@ -20,9 +20,9 @@ public class DocumentProperties
   /// <summary>
   /// Holds the WordprocessingDocument object.
   /// </summary>
-  public DXPack.WordprocessingDocument WordDoc { get; private set; }
+  public DXPP.WordprocessingDocument WordDoc { get; private set; }
 
-  DXPack.IPackageProperties CoreProperties => WordDoc.GetCoreProperties();
+  DXPP.IPackageProperties CoreProperties => WordDoc.GetCoreProperties();
   DXEP.Properties ExtendedProperties => WordDoc.GetExtendedFileProperties();
   DXCP.Properties CustomProperties => WordDoc.GetCustomFileProperties();
 

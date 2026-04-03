@@ -59,7 +59,7 @@ public static class PackageTools
         pkgStream.Write(buffer, 0, buffer.Length);
       }
     }
-    using (var docx = DXPack.WordprocessingDocument.Open(filePath, true))
+    using (var docx = DXPP.WordprocessingDocument.Open(filePath, true))
     {
       if (docx.MainDocumentPart?.Document is not null) docx.MainDocumentPart.Document.RecreateSubdocumentRelationships(relDirectoryRoot);
     }
@@ -70,9 +70,9 @@ public static class PackageTools
   /// </summary>
   public const string subdocumentRelType = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/subDocument";
 
-  private struct RelPar(DXPack.ExternalRelationship relationship, DXW.Paragraph paragraph)
+  private struct RelPar(DXPP.ExternalRelationship relationship, DXW.Paragraph paragraph)
   {
-    public readonly DXPack.ExternalRelationship Relationship = relationship;
+    public readonly DXPP.ExternalRelationship Relationship = relationship;
     public readonly DXW.Paragraph Paragraph = paragraph;
   }
 
@@ -135,5 +135,87 @@ public static class PackageTools
       pair.Paragraph.InsertBeforeSelf(new DXW.SubDocumentReference { Id = pair.Relationship.Id });
       pair.Paragraph.Remove();
     }
+  }
+
+  /// <summary>
+  /// Create a Flat OPC XML string from the package.
+  /// </summary>
+  /// <param name="package">The package to convert to Flat OPC XML.</param>
+  /// <returns>A string containing the Flat OPC XML representation of the package.</returns>
+  public static string CreateFlatOpcXml(DXPP.IPackage package)
+  {
+    System.Xml.Linq.XNamespace pkg = "http://schemas.microsoft.com/office/2006/xmlPackage";
+
+    var flatOpc = new System.Xml.Linq.XDocument(
+      new System.Xml.Linq.XDeclaration("1.0", "utf-8", "yes"),
+      new System.Xml.Linq.XElement(pkg + "package",
+        package.GetParts()
+          .OrderBy(part => part.Uri.ToString(), StringComparer.Ordinal)
+          .Select(part => CreateFlatOpcPart(part, pkg))));
+
+    return flatOpc.ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
+  }
+
+  /// <summary>
+  /// Creates an Open Packaging Conventions (OPC) part element in Flat OPC XML format from the specified package part.
+  /// </summary>
+  /// <remarks>If the part's content type is XML, the method attempts to parse and embed the XML content
+  /// directly. If parsing fails or the content type is not XML, the part's data is embedded as base64-encoded binary
+  /// data.</remarks>
+  /// <param name="part">The package part to convert to a Flat OPC XML element. Must provide access to the part's stream and content type.</param>
+  /// <param name="pkg">The XML namespace to use for Flat OPC elements.</param>
+  /// <returns>An <see cref="System.Xml.Linq.XElement"/> representing the Flat OPC XML element for the specified package part.
+  /// The element contains either the XML data or the base64-encoded binary data of the part.</returns>
+  public static System.Xml.Linq.XElement CreateFlatOpcPart(DXPP.IPackagePart part, System.Xml.Linq.XNamespace pkg)
+  {
+    var partElement = new System.Xml.Linq.XElement(pkg + "part",
+      new System.Xml.Linq.XAttribute(pkg + "name", part.Uri.ToString()),
+      new System.Xml.Linq.XAttribute(pkg + "contentType", part.ContentType));
+
+    using var partStream = part.GetStream(FileMode.Open, FileAccess.Read);
+    using var memoryStream = new MemoryStream();
+    partStream.CopyTo(memoryStream);
+    var partBytes = memoryStream.ToArray();
+
+    if (IsXmlContentType(part.ContentType))
+    {
+      try
+      {
+        var xmlText = GetXmlText(partBytes);
+        var xmlRoot = System.Xml.Linq.XElement.Parse(xmlText, System.Xml.Linq.LoadOptions.PreserveWhitespace);
+        partElement.Add(new System.Xml.Linq.XElement(pkg + "xmlData", xmlRoot));
+        return partElement;
+      }
+      catch
+      {
+      }
+    }
+
+    partElement.Add(new System.Xml.Linq.XElement(pkg + "binaryData", Convert.ToBase64String(partBytes)));
+    return partElement;
+  }
+
+  /// <summary>
+  /// Helper method to read XML text from a byte array, handling potential Byte Order Marks (BOM)
+  /// and ensuring correct encoding.
+  /// </summary>
+  /// <param name="bytes">The byte array containing the XML data.</param>
+  /// <returns>A string containing the XML text.</returns>
+  private static string GetXmlText(byte[] bytes)
+  {
+    using var stream = new MemoryStream(bytes);
+    using var reader = new StreamReader(stream, System.Text.Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
+    return reader.ReadToEnd();
+  }
+
+  /// <summary>
+  /// Helper method to determine if a content type is XML-based by checking if it ends with "/xml" or "+xml".
+  /// </summary>
+  /// <param name="contentType">The content type to check.</param>
+  /// <returns>True if the content type is XML-based; otherwise, false.</returns>
+  private static bool IsXmlContentType(string contentType)
+  {
+    return contentType.EndsWith("/xml", StringComparison.OrdinalIgnoreCase)
+      || contentType.EndsWith("+xml", StringComparison.OrdinalIgnoreCase);
   }
 }

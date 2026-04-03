@@ -16,13 +16,13 @@ public static partial class StylesTools
 
   private static void LoadBuiltinStyles(string buildInStylesFileName)
   {
-    using (var wordDoc = DXPack.WordprocessingDocument.Open(buildInStylesFileName, false))
+    using (var wordDoc = DXPP.WordprocessingDocument.Open(buildInStylesFileName, false))
     {
       LoadBuiltinStyles(wordDoc);
     }
   }
 
-  private static void LoadBuiltinStyles(this DXPack.WordprocessingDocument wordDoc)
+  private static void LoadBuiltinStyles(this DXPP.WordprocessingDocument wordDoc)
   {
     BuiltinStyles = new Dictionary<BuiltinStyles, Style>();
     foreach (var style in wordDoc.GetStyles().Elements<Style>())

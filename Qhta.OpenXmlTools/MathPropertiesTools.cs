@@ -13,7 +13,7 @@ public static class MathPropertiesTools
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument</param>
   /// <returns>True if the document has math properties</returns>
-  public static bool HasMathProperties(this DXPack.WordprocessingDocument wordDoc)
+  public static bool HasMathProperties(this DXPP.WordprocessingDocument wordDoc)
   {
     return wordDoc.MainDocumentPart?.DocumentSettingsPart?.Settings?
       .Elements<DXM.MathProperties>().FirstOrDefault() != null;
@@ -24,7 +24,7 @@ public static class MathPropertiesTools
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument</param>
   /// <returns>The instance of the math properties</returns>
-  public static DXM.MathProperties GetMathProperties(this DXPack.WordprocessingDocument wordDoc)
+  public static DXM.MathProperties GetMathProperties(this DXPP.WordprocessingDocument wordDoc)
   {
     var settings = wordDoc.GetSettings();
     var mathProperties = settings.GetFirstElement<DXM.MathProperties>();
@@ -81,9 +81,9 @@ public static class MathPropertiesTools
   /// </summary>
   /// <param name="properties"></param>
   /// <result>wordprocessing document</result>
-  public static DXPack.WordprocessingDocument? GetDocument(this DXM.MathProperties properties)
+  public static DXPP.WordprocessingDocument? GetDocument(this DXM.MathProperties properties)
   {
-    return (properties.Parent as DXW.Settings)?.DocumentSettingsPart?.OpenXmlPackage as DXPack.WordprocessingDocument;
+    return (properties.Parent as DXW.Settings)?.DocumentSettingsPart?.OpenXmlPackage as DXPP.WordprocessingDocument;
   }
 
   /// <summary>

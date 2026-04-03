@@ -12,7 +12,7 @@ public static class SectionsTools
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument</param>
   /// <returns>True if the document has more than one section properties defined</returns>
-  public static bool HasSectionProperties(this DXPack.WordprocessingDocument wordDoc)
+  public static bool HasSectionProperties(this DXPP.WordprocessingDocument wordDoc)
   {
     return wordDoc.MainDocumentPart?.Document?.Body?.Descendants<SectionProperties>().Any()==true;
   }
@@ -22,7 +22,7 @@ public static class SectionsTools
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument</param>
   /// <returns>Instance of the sections element</returns>
-  public static DXW.SectionProperties[] GetSectionProperties(this DXPack.WordprocessingDocument wordDoc)
+  public static DXW.SectionProperties[] GetSectionProperties(this DXPP.WordprocessingDocument wordDoc)
   {
     var body = wordDoc.GetBody();
     return body.Descendants<SectionProperties>().ToArray();

@@ -42,7 +42,7 @@ public static class HyperlinkTools
   /// </summary>
   /// <param name="hyperlink"></param>
   /// <returns></returns>
-  public static DXPack.ReferenceRelationship? GetRel(this DXW.Hyperlink hyperlink)
+  public static DXPP.ReferenceRelationship? GetRel(this DXW.Hyperlink hyperlink)
   {
     var relId = hyperlink.Id?.Value;
     if (relId != null)

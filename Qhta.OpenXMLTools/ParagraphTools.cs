@@ -29,7 +29,7 @@ public static class ParagraphTools
   /// <param name="document">document to browse</param>
   /// <param name="paraId">id of the paragraph</param>
   /// <returns>found paragraph or null</returns>
-  public static Paragraph? FindParagraph(DXPack.WordprocessingDocument document, string paraId)
+  public static Paragraph? FindParagraph(DXPP.WordprocessingDocument document, string paraId)
   {
     return document.MainDocumentPart?.Document?.Body?.Elements<Paragraph>()
       .FirstOrDefault(p => p.ParagraphId?.Value == paraId);

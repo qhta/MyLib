@@ -12,7 +12,7 @@ public static class CustomFileProperties
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static bool HasCustomFileProperties(this DXPack.WordprocessingDocument wordDoc)
+  public static bool HasCustomFileProperties(this DXPP.WordprocessingDocument wordDoc)
   {
     return wordDoc.CustomFilePropertiesPart?.Properties != null;
   }
@@ -23,7 +23,7 @@ public static class CustomFileProperties
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
   /// <returns></returns>
-  public static DXCP.Properties GetCustomFileProperties(this DXPack.WordprocessingDocument wordDoc)
+  public static DXCP.Properties GetCustomFileProperties(this DXPP.WordprocessingDocument wordDoc)
   {
     var part = wordDoc.CustomFilePropertiesPart;
     if (part == null)

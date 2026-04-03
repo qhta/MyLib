@@ -16,7 +16,7 @@ public static class CompatibilityTools
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument</param>
   /// <returns>True if the document has compatibility settings</returns>
-  public static bool HasCompatibilitySettings(this DXPack.WordprocessingDocument wordDoc)
+  public static bool HasCompatibilitySettings(this DXPP.WordprocessingDocument wordDoc)
   {
     return wordDoc.MainDocumentPart?.DocumentSettingsPart?.Settings?
       .Elements<DXW.Compatibility>().FirstOrDefault() != null;
@@ -27,7 +27,7 @@ public static class CompatibilityTools
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument</param>
   /// <returns>The instance of the compatibility settings</returns>
-  public static DXW.Compatibility GetCompatibilitySettings(this DXPack.WordprocessingDocument wordDoc)
+  public static DXW.Compatibility GetCompatibilitySettings(this DXPP.WordprocessingDocument wordDoc)
   {
     var settings = wordDoc.GetSettings();
     var Compatibility = settings.GetFirstElement<DXW.Compatibility>();
@@ -85,9 +85,9 @@ public static class CompatibilityTools
   /// </summary>
   /// <param name="properties"></param>
   /// <result>wordprocessing document</result>
-  public static DXPack.WordprocessingDocument? GetDocument(this DXW.Compatibility properties)
+  public static DXPP.WordprocessingDocument? GetDocument(this DXW.Compatibility properties)
   {
-    return (properties.Parent as DXW.Settings)?.DocumentSettingsPart?.OpenXmlPackage as DXPack.WordprocessingDocument;
+    return (properties.Parent as DXW.Settings)?.DocumentSettingsPart?.OpenXmlPackage as DXPP.WordprocessingDocument;
   }
 
   /// <summary>

@@ -37,7 +37,7 @@ public static class ExtendedFilePropertiesTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static bool HasExtendedFileProperties(this DXPack.WordprocessingDocument wordDoc)
+  public static bool HasExtendedFileProperties(this DXPP.WordprocessingDocument wordDoc)
   {
     return wordDoc.ExtendedFilePropertiesPart?.Properties != null;
   }
@@ -48,7 +48,7 @@ public static class ExtendedFilePropertiesTools
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
   /// <returns></returns>
-  public static DXEP.Properties GetExtendedFileProperties(this DXPack.WordprocessingDocument wordDoc)
+  public static DXEP.Properties GetExtendedFileProperties(this DXPP.WordprocessingDocument wordDoc)
   {
     var part = wordDoc.ExtendedFilePropertiesPart ?? wordDoc.AddExtendedFilePropertiesPart();
     var properties = part.Properties;

@@ -22,7 +22,7 @@ public static class SettingsTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static bool HasSettings(this DXPack.WordprocessingDocument wordDoc)
+  public static bool HasSettings(this DXPP.WordprocessingDocument wordDoc)
   {
     return wordDoc.MainDocumentPart?.DocumentSettingsPart?.Settings != null;
   }
@@ -32,13 +32,13 @@ public static class SettingsTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static Settings GetSettings(this DXPack.WordprocessingDocument wordDoc)
+  public static Settings GetSettings(this DXPP.WordprocessingDocument wordDoc)
   {
     var mainDocumentPart = wordDoc.GetMainDocumentPart();
     var documentSettingsPart = mainDocumentPart.DocumentSettingsPart;
     if (documentSettingsPart == null)
     {
-      documentSettingsPart = mainDocumentPart.AddNewPart<DXPack.DocumentSettingsPart>();
+      documentSettingsPart = mainDocumentPart.AddNewPart<DXPP.DocumentSettingsPart>();
     }
     if (documentSettingsPart.Settings == null)
     {
@@ -2521,10 +2521,10 @@ public static class SettingsTools
   /// </summary>
   /// <param name="settings"></param>
   /// <result>wordprocessing document</result>
-  public static DXPack.WordprocessingDocument? GetDocument(this Settings settings)
+  public static DXPP.WordprocessingDocument? GetDocument(this Settings settings)
   {
 
-    return settings.DocumentSettingsPart?.OpenXmlPackage as DXPack.WordprocessingDocument;
+    return settings.DocumentSettingsPart?.OpenXmlPackage as DXPP.WordprocessingDocument;
   }
 
   private static readonly Dictionary<string, (Type type, SettingCategory category)> PropDefs = new()

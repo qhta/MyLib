@@ -105,7 +105,7 @@ public static partial class StylesTools
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument</param>
   /// <returns>True if the document has styles defined</returns>
-  public static bool HasStyles(this DXPack.WordprocessingDocument wordDoc)
+  public static bool HasStyles(this DXPP.WordprocessingDocument wordDoc)
   {
     return wordDoc.MainDocumentPart?.StyleDefinitionsPart?.Styles != null;
   }
@@ -116,11 +116,11 @@ public static partial class StylesTools
   /// <param name="wordDoc">The WordprocessingDocument</param>
   /// <param name="buildInStylesFileName">Path to a docx with buildIn styles defined and used</param>
   /// <returns>Instance of the styles element</returns>
-  public static DXW.Styles GetStyles(this DXPack.WordprocessingDocument wordDoc, string? buildInStylesFileName = null)
+  public static DXW.Styles GetStyles(this DXPP.WordprocessingDocument wordDoc, string? buildInStylesFileName = null)
   {
     var mainDocumentPart = wordDoc.GetMainDocumentPart();
     var styleDefinitionsPart = mainDocumentPart.StyleDefinitionsPart ??
-                               mainDocumentPart.AddNewPart<DXPack.StyleDefinitionsPart>();
+                               mainDocumentPart.AddNewPart<DXPP.StyleDefinitionsPart>();
 
     styleDefinitionsPart.Styles ??= (styleDefinitionsPart.Styles = new DXW.Styles());
     if (buildInStylesFileName!=null)

@@ -22,7 +22,7 @@ public class DocumentFormatter
   /// <param name="fileName"></param>
   public void FormatDocument(string fileName)
   {
-    using var wordDoc = DXPack.WordprocessingDocument.Open(fileName, true);
+    using var wordDoc = DXPP.WordprocessingDocument.Open(fileName, true);
     FormatBodyParagraphs(wordDoc);
   }
 
@@ -30,7 +30,7 @@ public class DocumentFormatter
   /// Format body paragraphs.
   /// </summary>
   /// <param name="wordDoc"></param>
-  public void FormatBodyParagraphs(DXPack.WordprocessingDocument wordDoc)
+  public void FormatBodyParagraphs(DXPP.WordprocessingDocument wordDoc)
   {
     if (VerboseLevel > 0)
       Console.WriteLine("\nFormatting paragraphs");

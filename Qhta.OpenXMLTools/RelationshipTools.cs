@@ -15,7 +15,7 @@ public static class RelationshipTools
   /// <param name="thisRelationship"></param>
   /// <param name="otherRelationship"></param>
   /// <returns></returns>
-  public static bool IsEqual(this DXPack.ReferenceRelationship? thisRelationship, DXPack.ReferenceRelationship? otherRelationship)
+  public static bool IsEqual(this DXPP.ReferenceRelationship? thisRelationship, DXPP.ReferenceRelationship? otherRelationship)
   {
     if (thisRelationship == null && otherRelationship == null)
       return true;

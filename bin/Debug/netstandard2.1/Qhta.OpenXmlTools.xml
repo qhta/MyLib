@@ -4134,6 +4134,40 @@
             <param name="doc">document which contains relationships</param>
             <param name="docxPath">new path for subdocuments</param>
         </member>
+        <member name="M:Qhta.OpenXmlTools.PackageTools.CreateFlatOpcXml(DocumentFormat.OpenXml.Packaging.IPackage)">
+            <summary>
+            Create a Flat OPC XML string from the package.
+            </summary>
+            <param name="package">The package to convert to Flat OPC XML.</param>
+            <returns>A string containing the Flat OPC XML representation of the package.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PackageTools.CreateFlatOpcPart(DocumentFormat.OpenXml.Packaging.IPackagePart,System.Xml.Linq.XNamespace)">
+            <summary>
+            Creates an Open Packaging Conventions (OPC) part element in Flat OPC XML format from the specified package part.
+            </summary>
+            <remarks>If the part's content type is XML, the method attempts to parse and embed the XML content
+            directly. If parsing fails or the content type is not XML, the part's data is embedded as base64-encoded binary
+            data.</remarks>
+            <param name="part">The package part to convert to a Flat OPC XML element. Must provide access to the part's stream and content type.</param>
+            <param name="pkg">The XML namespace to use for Flat OPC elements.</param>
+            <returns>An <see cref="T:System.Xml.Linq.XElement"/> representing the Flat OPC XML element for the specified package part.
+            The element contains either the XML data or the base64-encoded binary data of the part.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PackageTools.GetXmlText(System.Byte[])">
+            <summary>
+            Helper method to read XML text from a byte array, handling potential Byte Order Marks (BOM)
+            and ensuring correct encoding.
+            </summary>
+            <param name="bytes">The byte array containing the XML data.</param>
+            <returns>A string containing the XML text.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PackageTools.IsXmlContentType(System.String)">
+            <summary>
+            Helper method to determine if a content type is XML-based by checking if it ends with "/xml" or "+xml".
+            </summary>
+            <param name="contentType">The content type to check.</param>
+            <returns>True if the content type is XML-based; otherwise, false.</returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.ParagraphPropertiesTools">
             <summary>
             Tools for working with OpenXml Wordprocessing ParagraphProperties element.

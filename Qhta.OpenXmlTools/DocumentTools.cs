@@ -12,7 +12,7 @@ public static partial class DocumentTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static int? GetDocumentId(this DXPack.WordprocessingDocument wordDoc)
+  public static int? GetDocumentId(this DXPP.WordprocessingDocument wordDoc)
   {
     var docSettings = wordDoc.GetSettings();
     return docSettings.GetDocumentId();
@@ -23,7 +23,7 @@ public static partial class DocumentTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static DocumentProperties GetDocumentProperties(this DXPack.WordprocessingDocument wordDoc)
+  public static DocumentProperties GetDocumentProperties(this DXPP.WordprocessingDocument wordDoc)
   {
     return new DocumentProperties (wordDoc);
   }
@@ -33,7 +33,7 @@ public static partial class DocumentTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static bool HasMainDocumentPart(this DXPack.WordprocessingDocument wordDoc)
+  public static bool HasMainDocumentPart(this DXPP.WordprocessingDocument wordDoc)
   {
     return wordDoc.MainDocumentPart != null;
   }
@@ -44,7 +44,7 @@ public static partial class DocumentTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static DXPack.MainDocumentPart GetMainDocumentPart(this DXPack.WordprocessingDocument wordDoc)
+  public static DXPP.MainDocumentPart GetMainDocumentPart(this DXPP.WordprocessingDocument wordDoc)
   {
     var mainDocumentPart = wordDoc.MainDocumentPart;
     if (mainDocumentPart == null)
@@ -60,7 +60,7 @@ public static partial class DocumentTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static bool HasBody(this DXPack.WordprocessingDocument wordDoc)
+  public static bool HasBody(this DXPP.WordprocessingDocument wordDoc)
   {
     return wordDoc.MainDocumentPart?.Document?.Body != null;
   }
@@ -71,7 +71,7 @@ public static partial class DocumentTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static DXW.Body GetBody(this DXPack.WordprocessingDocument wordDoc)
+  public static DXW.Body GetBody(this DXPP.WordprocessingDocument wordDoc)
   {
     var mainDocumentPart = wordDoc.MainDocumentPart;
     if (mainDocumentPart == null)
@@ -96,7 +96,7 @@ public static partial class DocumentTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static IEnumerable<DXW.Header> GetHeaders(this DXPack.WordprocessingDocument wordDoc)
+  public static IEnumerable<DXW.Header> GetHeaders(this DXPP.WordprocessingDocument wordDoc)
   {
     var mainDocumentPart = wordDoc.MainDocumentPart;
     if (mainDocumentPart == null)
@@ -113,7 +113,7 @@ public static partial class DocumentTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static IEnumerable<DXW.Footer> GetFooters(this DXPack.WordprocessingDocument wordDoc)
+  public static IEnumerable<DXW.Footer> GetFooters(this DXPP.WordprocessingDocument wordDoc)
   {
     var mainDocumentPart = wordDoc.MainDocumentPart;
     if (mainDocumentPart == null)
@@ -130,7 +130,7 @@ public static partial class DocumentTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static Range GetRange(this DXPack.WordprocessingDocument wordDoc)
+  public static Range GetRange(this DXPP.WordprocessingDocument wordDoc)
   {
     return wordDoc.GetBody().GetRange();
   }

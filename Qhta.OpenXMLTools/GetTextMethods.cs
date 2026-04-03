@@ -485,7 +485,7 @@ public static class GetTextMethods
   /// </summary>
   /// <param name="mainDocumentPart"></param>
   /// <returns></returns>
-  public static string GetSystemLongDay(DXPack.MainDocumentPart mainDocumentPart)
+  public static string GetSystemLongDay(DXPP.MainDocumentPart mainDocumentPart)
   {
     CultureInfo culture = CultureInfo.CurrentCulture;
     var languages = mainDocumentPart.StyleDefinitionsPart?.Styles?.Descendants<DXW.Languages>().FirstOrDefault();
@@ -521,7 +521,7 @@ public static class GetTextMethods
   /// </summary>
   /// <param name="mainDocumentPart"></param>
   /// <returns></returns>
-  public static string GetSystemShortDay(DXPack.MainDocumentPart mainDocumentPart)
+  public static string GetSystemShortDay(DXPP.MainDocumentPart mainDocumentPart)
   {
     CultureInfo culture = CultureInfo.CurrentCulture;
     var languages = mainDocumentPart.StyleDefinitionsPart?.Styles?.Descendants<DXW.Languages>().FirstOrDefault();
@@ -555,7 +555,7 @@ public static class GetTextMethods
   /// </summary>
   /// <param name="mainDocumentPart"></param>
   /// <returns></returns>
-  public static string GetSystemLongMonth(DXPack.MainDocumentPart mainDocumentPart)
+  public static string GetSystemLongMonth(DXPP.MainDocumentPart mainDocumentPart)
   {
     CultureInfo culture = CultureInfo.CurrentCulture;
     var languages = mainDocumentPart.StyleDefinitionsPart?.Styles?.Descendants<DXW.Languages>().FirstOrDefault();
@@ -589,7 +589,7 @@ public static class GetTextMethods
   /// </summary>
   /// <param name="mainDocumentPart"></param>
   /// <returns></returns>
-  public static string GetSystemShortMonth(DXPack.MainDocumentPart mainDocumentPart)
+  public static string GetSystemShortMonth(DXPP.MainDocumentPart mainDocumentPart)
   {
     CultureInfo culture = CultureInfo.CurrentCulture;
     var languages = mainDocumentPart.StyleDefinitionsPart?.Styles?.Descendants<DXW.Languages>().FirstOrDefault();
@@ -623,7 +623,7 @@ public static class GetTextMethods
   /// </summary>
   /// <param name="mainDocumentPart"></param>
   /// <returns></returns>
-  public static string GetSystemLongYear(DXPack.MainDocumentPart mainDocumentPart)
+  public static string GetSystemLongYear(DXPP.MainDocumentPart mainDocumentPart)
   {
     CultureInfo culture = CultureInfo.CurrentCulture;
     var languages = mainDocumentPart.StyleDefinitionsPart?.Styles?.Descendants<DXW.Languages>().FirstOrDefault();
@@ -659,7 +659,7 @@ public static class GetTextMethods
   /// </summary>
   /// <param name="mainDocumentPart"></param>
   /// <returns></returns>
-  public static string GetSystemShortYear(DXPack.MainDocumentPart mainDocumentPart)
+  public static string GetSystemShortYear(DXPP.MainDocumentPart mainDocumentPart)
   {
     CultureInfo culture = CultureInfo.CurrentCulture;
     var languages = mainDocumentPart.StyleDefinitionsPart?.Styles?.Descendants<DXW.Languages>().FirstOrDefault();

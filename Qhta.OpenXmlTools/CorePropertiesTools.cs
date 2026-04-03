@@ -12,7 +12,7 @@ public static class CorePropertiesTools
   /// </summary>
   /// <param name="wordDoc"></param>
   /// <returns></returns>
-  public static bool HasCoreProperties(this DXPack.WordprocessingDocument wordDoc)
+  public static bool HasCoreProperties(this DXPP.WordprocessingDocument wordDoc)
   {
     return wordDoc.CoreFilePropertiesPart != null;
   }
@@ -22,7 +22,7 @@ public static class CorePropertiesTools
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
   /// <returns></returns>
-  public static DXPack.IPackageProperties GetCoreProperties(this DXPack.WordprocessingDocument wordDoc)
+  public static DXPP.IPackageProperties GetCoreProperties(this DXPP.WordprocessingDocument wordDoc)
   {
     return wordDoc.PackageProperties;
   }
@@ -34,7 +34,7 @@ public static class CorePropertiesTools
   /// <param name="filter">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
 #pragma warning disable OOXML0001
-  public static int Count(this DXPack.IPackageProperties coreProperties, ItemFilter filter = ItemFilter.Defined)
+  public static int Count(this DXPP.IPackageProperties coreProperties, ItemFilter filter = ItemFilter.Defined)
 #pragma warning restore OOXML0001
   {
     if (filter == ItemFilter.All)
@@ -50,7 +50,7 @@ public static class CorePropertiesTools
   /// <param name="filter">specifies if all property names should be listed or non-empty ones</param>
   /// <returns></returns>
 #pragma warning disable OOXML0001
-  public static string[] GetNames(this DXPack.IPackageProperties coreProperties, ItemFilter filter = ItemFilter.Defined)
+  public static string[] GetNames(this DXPP.IPackageProperties coreProperties, ItemFilter filter = ItemFilter.Defined)
 #pragma warning restore OOXML0001
   {
     if (filter == ItemFilter.All)
@@ -65,7 +65,7 @@ public static class CorePropertiesTools
   /// <param name="propertyName"></param>
   /// <returns></returns>
 #pragma warning disable OOXML0001
-  public static Type GetType(this DXPack.IPackageProperties coreProperties, string propertyName)
+  public static Type GetType(this DXPP.IPackageProperties coreProperties, string propertyName)
 #pragma warning restore OOXML0001
   {
     if (PropTypes.TryGetValue(propertyName, out var type))
@@ -80,7 +80,7 @@ public static class CorePropertiesTools
   /// <param name="propertyName"></param>
   /// <returns></returns>
 #pragma warning disable OOXML0001
-  public static object? GetValue(this DXPack.IPackageProperties coreProperties, string propertyName)
+  public static object? GetValue(this DXPP.IPackageProperties coreProperties, string propertyName)
 #pragma warning restore OOXML0001
   {
     switch (propertyName)
@@ -129,7 +129,7 @@ public static class CorePropertiesTools
   /// <param name="propertyName"></param>
   /// <param name="value"></param>
 #pragma warning disable OOXML0001
-  public static void SetValue(this DXPack.IPackageProperties coreProperties, string propertyName, object? value)
+  public static void SetValue(this DXPP.IPackageProperties coreProperties, string propertyName, object? value)
 #pragma warning restore OOXML0001
   {
     switch (propertyName)

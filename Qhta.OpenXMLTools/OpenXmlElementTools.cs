@@ -187,7 +187,7 @@ public static class OpenXmlElementTools
   /// </summary>
   /// <param name="xmlElement">Checked source element</param>
   /// <returns>Returned document part or null</returns>
-  public static DXPack.OpenXmlPart? GetDocumentPart(this DX.OpenXmlElement? xmlElement)
+  public static DXPP.OpenXmlPart? GetDocumentPart(this DX.OpenXmlElement? xmlElement)
   {
     var rootElement = GetRootElement(xmlElement);
     if (rootElement != null)
@@ -202,10 +202,10 @@ public static class OpenXmlElementTools
   /// </summary>
   /// <param name="xmlElement">Checked source element</param>
   /// <returns>Returned document part or null</returns>
-  public static DXPack.WordprocessingDocument? GetWordprocessingDocument(this DX.OpenXmlElement? xmlElement)
+  public static DXPP.WordprocessingDocument? GetWordprocessingDocument(this DX.OpenXmlElement? xmlElement)
   {
     var part = GetDocumentPart(xmlElement);
-    return part?.OpenXmlPackage as DXPack.WordprocessingDocument;
+    return part?.OpenXmlPackage as DXPP.WordprocessingDocument;
   }
 
   /// <summary>
@@ -1444,7 +1444,7 @@ public static class OpenXmlElementTools
   /// <param name="rId"></param>
   public static string? GetRelationshipValue(this DX.OpenXmlPartRootElement rootElement, string relationshipType, string rId)
   {
-    DXPack.OpenXmlPart part = rootElement.OpenXmlPart!;
+    DXPP.OpenXmlPart part = rootElement.OpenXmlPart!;
     var externalRelationships = part.ExternalRelationships.ToList();
     var externalRelationship = externalRelationships
       .FirstOrDefault(r => r.RelationshipType == relationshipType && r.Id == rId);
@@ -1463,7 +1463,7 @@ public static class OpenXmlElementTools
   /// <param name="value"></param>
   public static void SetRelationshipValue(this DX.OpenXmlPartRootElement rootElement, string relationshipType, string? value)
   {
-    DXPack.OpenXmlPart part = rootElement.OpenXmlPart!;
+    DXPP.OpenXmlPart part = rootElement.OpenXmlPart!;
     if (value != null)
     {
       var uri = new Uri(value);
@@ -1666,7 +1666,7 @@ public static class OpenXmlElementTools
   /// </summary>
   /// <param name="element"></param>
   /// <returns></returns>
-  public static DXPack.MainDocumentPart? GetMainDocumentPart(this DX.OpenXmlElement element)
+  public static DXPP.MainDocumentPart? GetMainDocumentPart(this DX.OpenXmlElement element)
   {
     return element.Ancestors<DXW.Document>().FirstOrDefault()?.MainDocumentPart;
   }

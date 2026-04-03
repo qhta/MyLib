@@ -289,7 +289,7 @@ public static class NumberingExtraTools
     var numberingDefinitionsPart = mainDocumentPart.NumberingDefinitionsPart;
     if (numberingDefinitionsPart == null)
     {
-      numberingDefinitionsPart = mainDocumentPart.AddNewPart<DXPack.NumberingDefinitionsPart>();
+      numberingDefinitionsPart = mainDocumentPart.AddNewPart<DXPP.NumberingDefinitionsPart>();
     }
     if (numberingDefinitionsPart.Numbering == null)
     {
