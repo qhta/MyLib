@@ -13787,44 +13787,5 @@
             Class for writing OpenXml documents with Xml-tagged text.
             </summary>
         </member>
-        <member name="T:Qhta.OpenXMLTools.CoreFileProperties">
-            <summary>
-            Legacy implementation of Open XML package properties, designed to be used with DocumentModel and Open XML SDK.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXMLTools.CoreFileProperties.#ctor">
-            <summary>
-            Initializes a new instance of the CoreFileProperties class.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXMLTools.CoreFileProperties.#ctor(DocumentFormat.OpenXml.Packaging.CoreFilePropertiesPart)">
-            <summary>
-            Initializes a new instance of the CoreFileProperties class using the supplied OpenXmlPart.
-            </summary>
-            <param name="openXmlPart">The OpenXmlPart class.</param>
-        </member>
-        <member name="M:Qhta.OpenXMLTools.CoreFileProperties.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the CoreFileProperties class using the supplied outer XML.
-            </summary>
-            <param name="outerXml">The outer XML of the element.</param>
-        </member>
-        <member name="M:Qhta.OpenXMLTools.CoreFileProperties.#ctor(System.Collections.Generic.IEnumerable{DocumentFormat.OpenXml.OpenXmlElement})">
-            <summary>
-            Initializes a new instance of the CoreFileProperties class using the supplied list of child elements.
-            </summary>
-            <param name="childElements">All child elements.</param>
-        </member>
-        <member name="M:Qhta.OpenXMLTools.CoreFileProperties.#ctor(DocumentFormat.OpenXml.OpenXmlElement[])">
-            <summary>
-            Initializes a new instance of the CoreFileProperties class using the supplied array of child elements.
-            </summary>
-            <param name="childElements">All child elements</param>
-        </member>
-        <member name="P:Qhta.OpenXMLTools.CoreFileProperties.Title">
-            <summary>
-            Gets or sets the Title element of the core file properties. 
-            </summary>
-        </member>
     </members>
 </doc>
