@@ -22,7 +22,7 @@ global using Qhta.OpenXmlTools;
 
 global using DX = DocumentFormat.OpenXml;
 //global using DXAC = DocumentFormat.OpenXml.AdditionalCharacteristics;
-//global using DXB = DocumentFormat.OpenXml.Bibliography;
+global using DXB = DocumentFormat.OpenXml.Bibliography;
 global using DXCP = DocumentFormat.OpenXml.CustomProperties;
 global using DXCXDP = DocumentFormat.OpenXml.CustomXmlDataProperties;
 global using DXCXSR = DocumentFormat.OpenXml.CustomXmlSchemaReferences;
