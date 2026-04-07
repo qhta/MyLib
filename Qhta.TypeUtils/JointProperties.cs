@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -76,7 +77,7 @@ public class JointProperties
   /// <param name="property"></param>
   /// <param name="converter"></param>
   /// <returns></returns>
-  public static bool TryGetTypeConverter(PropertyInfo property, out TypeConverter? converter)
+  public static bool TryGetTypeConverter(PropertyInfo property, [NotNullWhen(true)] out TypeConverter? converter)
   {
     var typeConverterAttribute = property.PropertyType.GetCustomAttribute<TypeConverterAttribute>();
     if (typeConverterAttribute != null)

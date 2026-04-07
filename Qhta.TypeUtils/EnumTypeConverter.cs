@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -164,7 +165,7 @@ public static class EnumTypeConverter
   /// <returns></returns>
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   [DebuggerStepThrough]
-  public static bool TryDecode<EType>(string value, out EType? result) where EType : struct, IConvertible
+  public static bool TryDecode<EType>(string value, [NotNullWhen(true)] out EType? result) where EType : struct, IConvertible
   {
     return TryDecode(value, out result, out var invKey);
   }
@@ -178,7 +179,7 @@ public static class EnumTypeConverter
   /// <param name="invalidKey"></param>
   /// <returns></returns>
   [DebuggerStepThrough]
-  public static bool TryDecode<EType>(string value, out EType? result, out string? invalidKey) where EType : struct, IConvertible
+  public static bool TryDecode<EType>(string value, [NotNullWhen(true)] out EType? result, [NotNullWhen(false)] out string? invalidKey) where EType : struct, IConvertible
   {
     result = default(EType);
     invalidKey = null;

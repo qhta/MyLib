@@ -316,11 +316,11 @@
           "dependencies": {
             "DocumentFormat.OpenXml": {
               "target": "Package",
-              "version": "[3.4.1, )"
+              "version": "[3.5.1, )"
             },
             "DocumentFormat.OpenXml.Framework": {
               "target": "Package",
-              "version": "[3.4.1, )"
+              "version": "[3.5.1, )"
             },
             "Qhta.TextUtils": {
               "target": "Package",
@@ -328,7 +328,7 @@
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.5.0, )"
+              "version": "[1.6.0, )"
             },
             "System.ComponentModel.Annotations": {
               "target": "Package",
@@ -358,11 +358,11 @@
           "dependencies": {
             "DocumentFormat.OpenXml": {
               "target": "Package",
-              "version": "[3.4.1, )"
+              "version": "[3.5.1, )"
             },
             "DocumentFormat.OpenXml.Framework": {
               "target": "Package",
-              "version": "[3.4.1, )"
+              "version": "[3.5.1, )"
             },
             "Qhta.TextUtils": {
               "target": "Package",
@@ -370,7 +370,7 @@
             },
             "Qhta.TypeUtils": {
               "target": "Package",
-              "version": "[1.5.0, )"
+              "version": "[1.6.0, )"
             },
             "System.ComponentModel.Annotations": {
               "target": "Package",

@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Qhta.TypeUtils/1.5": {
+      "Qhta.TypeUtils/1.6": {
         "dependencies": {
           "NullableAttributes": "1.0.0",
           "Qhta.Collections": "2.0.0"
@@ -35,7 +35,7 @@
     }
   },
   "libraries": {
-    "Qhta.TypeUtils/1.5": {
+    "Qhta.TypeUtils/1.6": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -43,7 +43,7 @@
     "NullableAttributes/1.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-9PimadS9SAiqojkGRK57tleoC4dkHjPB8/2nA6dwHl+e5beUkLcTRx6f/8qMBm81Qvsna9a5EEa9lVGBdKh19Q==",
+      "sha512": "sha512-zM3KbbDMPKBMvc/454gobKtE+MGlquZ9uEsr2dH+cjikzRCn+0LtiZasbNYre+mwc5ftyuPzH+cH2Fj03dQ5lg==",
       "path": "nullableattributes/1.0.0",
       "hashPath": "nullableattributes.1.0.0.nupkg.sha512"
     },

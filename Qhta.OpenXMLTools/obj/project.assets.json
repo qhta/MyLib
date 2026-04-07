@@ -2,10 +2,10 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.1": {
-      "DocumentFormat.OpenXml/3.4.1": {
+      "DocumentFormat.OpenXml/3.5.1": {
         "type": "package",
         "dependencies": {
-          "DocumentFormat.OpenXml.Framework": "3.4.1"
+          "DocumentFormat.OpenXml.Framework": "3.5.1"
         },
         "compile": {
           "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {
@@ -18,7 +18,7 @@
           }
         }
       },
-      "DocumentFormat.OpenXml.Framework/3.4.1": {
+      "DocumentFormat.OpenXml.Framework/3.5.1": {
         "type": "package",
         "dependencies": {
           "System.IO.Packaging": "8.0.1"
@@ -60,7 +60,7 @@
           }
         }
       },
-      "Qhta.TypeUtils/1.5.0": {
+      "Qhta.TypeUtils/1.6.0": {
         "type": "package",
         "dependencies": {
           "NullableAttributes": "1.0.0",
@@ -192,10 +192,10 @@
       }
     },
     "net8.0": {
-      "DocumentFormat.OpenXml/3.4.1": {
+      "DocumentFormat.OpenXml/3.5.1": {
         "type": "package",
         "dependencies": {
-          "DocumentFormat.OpenXml.Framework": "3.4.1"
+          "DocumentFormat.OpenXml.Framework": "3.5.1"
         },
         "compile": {
           "lib/net8.0/DocumentFormat.OpenXml.dll": {
@@ -208,7 +208,7 @@
           }
         }
       },
-      "DocumentFormat.OpenXml.Framework/3.4.1": {
+      "DocumentFormat.OpenXml.Framework/3.5.1": {
         "type": "package",
         "dependencies": {
           "System.IO.Packaging": "8.0.1"
@@ -237,7 +237,7 @@
           }
         }
       },
-      "Qhta.TypeUtils/1.5.0": {
+      "Qhta.TypeUtils/1.6.0": {
         "type": "package",
         "dependencies": {
           "Qhta.Collections": "2.0.0"
@@ -312,15 +312,15 @@
     }
   },
   "libraries": {
-    "DocumentFormat.OpenXml/3.4.1": {
-      "sha512": "iM7k4Spo6ZxxudxLVGcvFLIcF6XJ65aOAsJ24o75CaKGBTuj33cL1O7qnGkQW0+ONOUFff+mWafpZYaa7rNBbg==",
+    "DocumentFormat.OpenXml/3.5.1": {
+      "sha512": "zxdOf5VVCe/uNklbRhj8dVBzQGj3DoqkUuqOp9cAZVuN8mNYDjof1lvSQA2OQNr8Ptc9d7pbA7Azq/ReaI3FpA==",
       "type": "package",
-      "path": "documentformat.openxml/3.4.1",
+      "path": "documentformat.openxml/3.5.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "documentformat.openxml.3.4.1.nupkg.sha512",
+        "documentformat.openxml.3.5.1.nupkg.sha512",
         "documentformat.openxml.nuspec",
         "icon.png",
         "lib/net10.0/DocumentFormat.OpenXml.dll",
@@ -337,15 +337,15 @@
         "lib/netstandard2.0/DocumentFormat.OpenXml.xml"
       ]
     },
-    "DocumentFormat.OpenXml.Framework/3.4.1": {
-      "sha512": "H7l8l84uRb+LTjijpe6PuVDlIDM28s7f//zxss6f1yK1qnaxAEZwRecPkjfE3vjFM7QZ7X4XGF4nicnIynJrBw==",
+    "DocumentFormat.OpenXml.Framework/3.5.1": {
+      "sha512": "U5txtc3ORno73xQx9Lf2gWzfaSZnZwKHfLkTAslhlew9lxe5XbUiCt0dY1fHeAf8yRqszUAe5i/+xLC9R/Xfsw==",
       "type": "package",
-      "path": "documentformat.openxml.framework/3.4.1",
+      "path": "documentformat.openxml.framework/3.5.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "documentformat.openxml.framework.3.4.1.nupkg.sha512",
+        "documentformat.openxml.framework.3.5.1.nupkg.sha512",
         "documentformat.openxml.framework.nuspec",
         "icon.png",
         "lib/net10.0/DocumentFormat.OpenXml.Framework.dll",
@@ -398,10 +398,10 @@
         "readme.md"
       ]
     },
-    "Qhta.TypeUtils/1.5.0": {
-      "sha512": "dtJIRBjpTivP9HnckEJOwo7MspfhHcJXudwoP3g7k89RAv74u4dcs32Q/fxNFykNKarNB5Y44TDSOE86Nw2PPg==",
+    "Qhta.TypeUtils/1.6.0": {
+      "sha512": "hfvaR7aw+pfDSFblFJVPoB0sYgTOw16CB5Z3Omnb6OwXd6iTkrTLB9rvdaTUMWjKOucMfcvPntA7rSEK9+QG7Q==",
       "type": "package",
-      "path": "qhta.typeutils/1.5.0",
+      "path": "qhta.typeutils/1.6.0",
       "files": [
         ".nupkg.metadata",
         "lib/net10.0/Qhta.TypeUtils.dll",
@@ -414,7 +414,7 @@
         "lib/net9.0/Qhta.TypeUtils.xml",
         "lib/netstandard2.0/Qhta.TypeUtils.dll",
         "lib/netstandard2.0/Qhta.TypeUtils.xml",
-        "qhta.typeutils.1.5.0.nupkg.sha512",
+        "qhta.typeutils.1.6.0.nupkg.sha512",
         "qhta.typeutils.nuspec",
         "readme.md"
       ]
@@ -677,18 +677,18 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.1": [
-      "DocumentFormat.OpenXml >= 3.4.1",
-      "DocumentFormat.OpenXml.Framework >= 3.4.1",
+      "DocumentFormat.OpenXml >= 3.5.1",
+      "DocumentFormat.OpenXml.Framework >= 3.5.1",
       "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.5.0",
+      "Qhta.TypeUtils >= 1.6.0",
       "Qhta.Unicode >= 1.2.1",
       "System.ComponentModel.Annotations >= 5.0.0"
     ],
     "net8.0": [
-      "DocumentFormat.OpenXml >= 3.4.1",
-      "DocumentFormat.OpenXml.Framework >= 3.4.1",
+      "DocumentFormat.OpenXml >= 3.5.1",
+      "DocumentFormat.OpenXml.Framework >= 3.5.1",
       "Qhta.TextUtils >= 3.8.0",
-      "Qhta.TypeUtils >= 1.5.0",
+      "Qhta.TypeUtils >= 1.6.0",
       "Qhta.Unicode >= 1.2.1",
       "System.ComponentModel.Annotations >= 5.0.0"
     ]
@@ -765,11 +765,11 @@
         "dependencies": {
           "DocumentFormat.OpenXml": {
             "target": "Package",
-            "version": "[3.4.1, )"
+            "version": "[3.5.1, )"
           },
           "DocumentFormat.OpenXml.Framework": {
             "target": "Package",
-            "version": "[3.4.1, )"
+            "version": "[3.5.1, )"
           },
           "Qhta.TextUtils": {
             "target": "Package",
@@ -777,7 +777,7 @@
           },
           "Qhta.TypeUtils": {
             "target": "Package",
-            "version": "[1.5.0, )"
+            "version": "[1.6.0, )"
           },
           "System.ComponentModel.Annotations": {
             "target": "Package",
@@ -807,11 +807,11 @@
         "dependencies": {
           "DocumentFormat.OpenXml": {
             "target": "Package",
-            "version": "[3.4.1, )"
+            "version": "[3.5.1, )"
           },
           "DocumentFormat.OpenXml.Framework": {
             "target": "Package",
-            "version": "[3.4.1, )"
+            "version": "[3.5.1, )"
           },
           "Qhta.TextUtils": {
             "target": "Package",
@@ -819,7 +819,7 @@
           },
           "Qhta.TypeUtils": {
             "target": "Package",
-            "version": "[1.5.0, )"
+            "version": "[1.6.0, )"
           },
           "System.ComponentModel.Annotations": {
             "target": "Package",

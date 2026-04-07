@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -106,7 +107,7 @@ public static partial class TypeUtils
   /// <param name="text">enum name to convert</param>
   /// <param name="value">enum value after conversion</param>
   /// <returns></returns>
-  public static bool TryGetEnumValue(this Type valueType, string text, out object? value)
+  public static bool TryGetEnumValue(this Type valueType, string text, [NotNullWhen(true)] out object? value)
   {
     var ok = false;
     value = null;
@@ -153,7 +154,7 @@ public static partial class TypeUtils
   /// <param name="valueType"></param>
   /// <param name="typeConverter"></param>
   /// <returns></returns>
-  public static bool TryGetConverter(this Type valueType, out TypeConverter? typeConverter)
+  public static bool TryGetConverter(this Type valueType, [NotNullWhen(true)] out TypeConverter? typeConverter)
   {
     typeConverter = null;
     var typeConverterAttribute = valueType.GetCustomAttribute<TypeConverterAttribute>();
@@ -219,11 +220,11 @@ public static partial class TypeUtils
   /// <param name="value">value to convert from</param>
   /// <param name="result">conversion result</param>
   /// <returns></returns>
-  public static bool TryConvertValue(this Type valueType, object value, out object? result)
+  public static bool TryConvertValue(this Type valueType, object value, [NotNullWhen(true)] out object? result)
   {
     var ok = false;
     result = null;
-    if (TryGetConverter(valueType, out var typeConverter) && typeConverter != null)
+    if (TryGetConverter(valueType, out var typeConverter))
     {
       result = typeConverter.ConvertFrom(value);
       ok = true;
@@ -239,7 +240,7 @@ public static partial class TypeUtils
   /// <param name="str">string to convert from</param>
   /// <param name="value">conversion result</param>
   /// <returns></returns>
-  public static bool TryParseEnum(this Type enumType, string str, out object? value)
+  public static bool TryParseEnum(this Type enumType, string str, [NotNullWhen(true)] out object? value)
   {
     var ok = false;
     value = null;

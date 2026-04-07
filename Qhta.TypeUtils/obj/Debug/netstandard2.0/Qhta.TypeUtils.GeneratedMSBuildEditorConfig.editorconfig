@@ -3,3 +3,6 @@ build_property.RootNamespace = Qhta.TypeUtils
 build_property.ProjectDir = D:\OneDrive\VS\Projects\MyLib\Qhta.TypeUtils\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 
