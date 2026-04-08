@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A package of functions to supplement System.Reflections.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.6.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.6+bc76f5bfef8f3c95b5c6c9e91dea317f3e42cf92")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.6+ceed4fd42cfe69eb9150978d5b5b2557ce1576c5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.TypeUtils")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.TypeUtils")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.6.0.0")]
