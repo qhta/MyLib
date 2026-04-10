@@ -55,6 +55,17 @@
           }
         }
       },
+      "Qhta.Collections/5.1.0": {
+        "dependencies": {
+          "Qhta.TextUtils": "3.8.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.Collections.dll": {
+            "assemblyVersion": "5.1.0.0",
+            "fileVersion": "5.1.0.0"
+          }
+        }
+      },
       "Qhta.TextUtils/3.8.0": {
         "runtime": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
@@ -131,17 +142,6 @@
           }
         }
       },
-      "Qhta.Collections/5.1.0": {
-        "dependencies": {
-          "Qhta.TextUtils": "3.8.0"
-        },
-        "runtime": {
-          "Qhta.Collections.dll": {
-            "assemblyVersion": "5.4.0.0",
-            "fileVersion": "5.4.0.0"
-          }
-        }
-      },
       "Qhta.Unicode/1.2.1": {
         "dependencies": {
           "Qhta.Collections": "5.1.0",
@@ -182,6 +182,13 @@
       "sha512": "sha512-zM3KbbDMPKBMvc/454gobKtE+MGlquZ9uEsr2dH+cjikzRCn+0LtiZasbNYre+mwc5ftyuPzH+cH2Fj03dQ5lg==",
       "path": "nullableattributes/1.0.0",
       "hashPath": "nullableattributes.1.0.0.nupkg.sha512"
+    },
+    "Qhta.Collections/5.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FiyRn/Ord8QULsENwf0WdPRnikoaXvnVdQll+f2dv/pQxLCEwxlC4eqL4iKIYxNsneWrJwlB52ZGaGXiixJ/IQ==",
+      "path": "qhta.collections/5.1.0",
+      "hashPath": "qhta.collections.5.1.0.nupkg.sha512"
     },
     "Qhta.TextUtils/3.8.0": {
       "type": "package",
@@ -238,11 +245,6 @@
       "sha512": "sha512-3TIsJhD1EiiT0w2CcDMN/iSSwnNnsrnbzeVHSKkaEgV85txMprmuO+Yq2AdSbeVGcg28pdNDTPK87tJhX7VFHw==",
       "path": "system.runtime.compilerservices.unsafe/4.5.3",
       "hashPath": "system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
-    },
-    "Qhta.Collections/5.1.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     },
     "Qhta.Unicode/1.2.1": {
       "type": "project",
