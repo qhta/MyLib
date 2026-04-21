@@ -33,10 +33,12 @@
         },
         "frameworks": {
           "net8.0": {
+            "framework": "net8.0",
             "targetAlias": "net8.0",
             "projectReferences": {}
           },
           "netstandard2.1": {
+            "framework": "netstandard2.1",
             "targetAlias": "netstandard2.1",
             "projectReferences": {}
           }
@@ -55,6 +57,7 @@
       },
       "frameworks": {
         "net8.0": {
+          "framework": "net8.0",
           "targetAlias": "net8.0",
           "dependencies": {
             "Qhta.Collections": {
@@ -85,6 +88,7 @@
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
         },
         "netstandard2.1": {
+          "framework": "netstandard2.1",
           "targetAlias": "netstandard2.1",
           "dependencies": {
             "Qhta.Collections": {

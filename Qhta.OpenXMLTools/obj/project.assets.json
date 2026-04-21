@@ -700,7 +700,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETStandard,Version=v2.1": [
+    "net8.0": [
       "DocumentFormat.OpenXml >= 3.5.1",
       "DocumentFormat.OpenXml.Framework >= 3.5.1",
       "Qhta.TextUtils >= 3.8.0",
@@ -708,7 +708,7 @@
       "Qhta.Unicode >= 1.2.1",
       "System.ComponentModel.Annotations >= 5.0.0"
     ],
-    "net8.0": [
+    ".NETStandard,Version=v2.1": [
       "DocumentFormat.OpenXml >= 3.5.1",
       "DocumentFormat.OpenXml.Framework >= 3.5.1",
       "Qhta.TextUtils >= 3.8.0",
@@ -755,6 +755,7 @@
       },
       "frameworks": {
         "net8.0": {
+          "framework": "net8.0",
           "targetAlias": "net8.0",
           "projectReferences": {
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj": {
@@ -763,6 +764,7 @@
           }
         },
         "netstandard2.1": {
+          "framework": "netstandard2.1",
           "targetAlias": "netstandard2.1",
           "projectReferences": {
             "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj": {
@@ -785,6 +787,7 @@
     },
     "frameworks": {
       "net8.0": {
+        "framework": "net8.0",
         "targetAlias": "net8.0",
         "dependencies": {
           "DocumentFormat.OpenXml": {
@@ -824,9 +827,10 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.202/PortableRuntimeIdentifierGraph.json"
       },
       "netstandard2.1": {
+        "framework": "netstandard2.1",
         "targetAlias": "netstandard2.1",
         "dependencies": {
           "DocumentFormat.OpenXml": {
@@ -866,7 +870,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
