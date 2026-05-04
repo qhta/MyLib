@@ -5,6 +5,8 @@ using System.Text;
 using DocumentFormat.OpenXml.Vml.Office;
 using DocumentFormat.OpenXml.Wordprocessing;
 
+using Qhta.TextUtils;
+
 namespace Qhta.OpenXmlTools;
 
 /// <summary>

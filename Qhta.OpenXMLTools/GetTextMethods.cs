@@ -81,7 +81,7 @@ public static class GetTextMethods
     if (element is DX.OpenXmlCompositeElement compositeElement && !options.IgnoreOtherMembersContent)
     {
       var sb = new StringBuilder();
-      var memberTag = element.GetType().Name.ToLowerFirst();
+      var memberTag = element.GetType().Name.ToLowerFirstLetter();
       var members1 = compositeElement.GetMembers().ToList();
       if (members1.Any())
       {
@@ -99,7 +99,7 @@ public static class GetTextMethods
     else
     if (options.IncludeOtherMembers)
     {
-      var memberTag = element.GetType().Name.ToLowerFirst();
+      var memberTag = element.GetType().Name.ToLowerFirstLetter();
       return $"<{memberTag}/>";
     }
     return "";

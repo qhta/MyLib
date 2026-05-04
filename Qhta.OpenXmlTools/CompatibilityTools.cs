@@ -265,7 +265,7 @@ public static class CompatibilityTools
   {
     if (PropDefs.TryGetValue(propName, out var propDef))
       return propDef.tag;
-    return propName.ToLowerFirst();
+    return propName.ToLowerFirstLetter();
   }
 
   private static string GetPropName(string elementName)
