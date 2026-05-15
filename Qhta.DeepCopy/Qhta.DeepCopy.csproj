@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net4.8;net6.0;net8.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <AutoRedirectBindings>true</AutoRedirectBindings>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <BaseOutputPath>D:\VS\Projects\MyLib\bin</BaseOutputPath>
+    <BaseOutputPath>..\..\bin</BaseOutputPath>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -14,7 +14,7 @@
     <RootNamespace>Qhta.DeepCopy</RootNamespace>
     <Description>Library to create a deep copy of the objects property by property</Description>
     <Authors>Yarreck Qhta</Authors>
-    <Version>1.5</Version>
+    <Version>1.6</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
@@ -49,6 +49,11 @@
     <Reference Include="Qhta.TypeUtils">
       <HintPath>..\bin\Debug\netstandard2.0\Qhta.TypeUtils.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Qhta.TextUtils" Version="3.8.0" />
+    <PackageReference Include="Qhta.TypeUtils" Version="1.6.0" />
   </ItemGroup>
 
 </Project>

@@ -32,7 +32,7 @@ public class GenerateCharNamesCommand : TimeConsumingCommand
     {
       throw new ArgumentException("Argument must be of type SfDataGrid.", nameof(parameter));
     }
-    if (!dataGrid.GetSelectedRowsAndColumns(out bool allColumnsSelected, out var selectedColumns, out bool allRowsSelected, out var selectedRows).Any()
+    if (!dataGrid.GetSelectedRowsAndColumns(out bool allColumnsSelected, out var selectedColumns, out bool allRowsSelected, out object[] selectedRows).Any()
         && !allRowsSelected && !selectedRows.Any())
       return false;
     var listOfPoints = selectedRows.OfType<UcdCodePointViewModel>().ToList();
@@ -50,7 +50,7 @@ public class GenerateCharNamesCommand : TimeConsumingCommand
     {
       throw new ArgumentException("Argument must be of type SfDataGrid.", nameof(parameter));
     }
-    if (!dataGrid.GetSelectedRowsAndColumns(out bool allColumnsSelected, out var selectedColumns, out bool allRowsSelected, out var selectedRows).Any()
+    if (!dataGrid.GetSelectedRowsAndColumns(out bool allColumnsSelected, out var selectedColumns, out bool allRowsSelected, out object[] selectedRows).Any()
         && !allRowsSelected && !selectedRows.Any())
     {
       MessageBox.Show(Resources.Strings.NoCodePointsSelected, Resources.Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);

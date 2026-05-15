@@ -42,3 +42,6 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstan
 D:\OneDrive\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstandard2.0\Qhta.Wor.AA05CF7B.Up2Date
 D:\OneDrive\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\obj\Debug\netstandard2.0\Qhta.WordInteropOpenXmlConverter.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\bin\Debug\netstandard2.0\Qhta.Unicode.dll
+D:\OneDrive\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\bin\Debug\netstandard2.0\Qhta.Unicode.pdb
+D:\OneDrive\VS\Projects\MyLib\Qhta.WordInteropOpenXmlConverter\bin\Debug\netstandard2.0\Qhta.Unicode.xml

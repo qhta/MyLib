@@ -156,7 +156,7 @@ public class Tokens : List<string>
     if (this.Count < strs.Length)
       return false;
     for (int i = 0; i < strs.Length; i++)
-        if (this[this.Count - 1 - i] != strs[^i].Trim())
+        if (this[this.Count - 1 - i] != strs[strs.Length - 1 - i].Trim())
           return false;
     return true;
   }

@@ -7,7 +7,7 @@
     <license type="expression">MIT</license>
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <description>Library to create a deep copy of the objects property by property</description>
-    <repository type="git" commit="a3407b621f5e0719e1ca0a9fa4a44548f6f4375b" />
+    <repository type="git" commit="8dff96d595a563e7fca84e96eecbaef7e66b7f09" />
     <dependencies>
       <group targetFramework="net6.0" />
       <group targetFramework=".NETStandard2.0" />

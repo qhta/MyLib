@@ -5466,9 +5466,19 @@
             characteristics. It includes systems such as alphabets, abjads, syllabaries, and more specialized forms like musical
             notation and stenography.</remarks>
         </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Abjad">
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Alphabet">
             <summary>
-            A writing system in which only consonants are represented, leaving the vowel sounds to be inferred by the reader.
+            A standard set of letters written to represent particular sounds in a spoken language, typically including both consonants and vowels.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.SemiSyllabary">
+            <summary>
+            A writing system that behaves partly as an alphabet and partly as a syllabary, where some characters represent syllables and others represent individual sounds.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Syllabary">
+            <summary>
+            A writing system that uses symbols to represent syllables, typically used in languages where syllables are the basic units of meaning, rather than individual sounds or words.
             </summary>
         </member>
         <member name="F:Qhta.Unicode.Models.WritingSystemKind.Abugida">
@@ -5476,54 +5486,9 @@
             A segmental writing system in which consonant–vowel sequences are written as units; each unit is based on a consonant letter, and vowel notation is secondary, similar to a diacritical mark.
             </summary>
         </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Alphabet">
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Abjad">
             <summary>
-            A standard set of letters written to represent particular sounds in a spoken language, typically including both consonants and vowels.
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Constructed">
-            <summary>
-            A language whose phonology, grammar, orthography, and vocabulary, instead of having developed naturally, are consciously devised for some purpose, which may include being devised for a work of fiction.
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Control">
-            <summary>
-            A set of characters that control the flow of text, such as line breaks, tabs, and other formatting characters that do not represent written language.
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Cuneiform">
-            <summary>
-            A logo-syllabic writing system that was used to write several languages of the Ancient Near East, named for the characteristic wedge-shaped impressions which form their signs.
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Encoding">
-            <summary>
-            A set of characters encoding other characters, often used to represent text in a specific format or encoding scheme.
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Form">
-            <summary>
-            A set of characters that are used to represent a specific form of writing, such as a script or a style of calligraphy, often with unique stylistic features.
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Graphical">
-            <summary>
-            A set of graphical shapes that can be used individually or combined to create grid-based drawings, often used in design and art.
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Hieroglyphic">
-            <summary>
-            An ancient writing system that uses pictorial symbols to represent sounds, words, or concepts, primarily associated with the ancient Egyptians.
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Ideographic">
-            <summary>
-            A writing system consisting of characters that represent ideas or concepts, rather than specific sounds or words, allowing for a more abstract representation of language.
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Invisible">
-            <summary>
-            A set of code points that have no visible presentations, often used for control characters or formatting purposes.
+            A writing system in which only consonants are represented, leaving the vowel sounds to be inferred by the reader.
             </summary>
         </member>
         <member name="F:Qhta.Unicode.Models.WritingSystemKind.Logographic">
@@ -5531,9 +5496,44 @@
             A set of written characters that represents a semantic component of a language, such as a word or morpheme.
             </summary>
         </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Ideographic">
+            <summary>
+            A writing system consisting of characters that represent ideas or concepts, rather than specific sounds or words, allowing for a more abstract representation of language.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Pictographic">
+            <summary>
+            A set of graphical symbols that convey meaning through their visual resemblance to physical objects, often used in signage or pictorial communication.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Pictophonetic">
+            <summary>
+            A writing system that combines ideographic and phonetic elements, often used to represent both the meaning and pronunciation of words in a language.
+            </summary>
+        </member>
         <member name="F:Qhta.Unicode.Models.WritingSystemKind.Mixed">
             <summary>
             Mixed writing systems that combine elements of different types, such as logographic, syllabary, and phonetic systems, to represent language.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Hieroglyphic">
+            <summary>
+            An ancient writing system that uses pictorial symbols to represent sounds, words, or concepts, primarily associated with the ancient Egyptians.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Cuneiform">
+            <summary>
+            A logo-syllabic writing system that was used to write several languages of the Ancient Near East, named for the characteristic wedge-shaped impressions which form their signs.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Other">
+            <summary>
+            Other kind of script not covered by the specific categories above.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Mathematical">
+            <summary>
+            Notation for math formulas and expressions.
             </summary>
         </member>
         <member name="F:Qhta.Unicode.Models.WritingSystemKind.Musical">
@@ -5552,24 +5552,39 @@
             to transcribe languages phonetically, allowing for the representation of pronunciation without regard to the standard orthography of the language.
             </summary>
         </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Pictographic">
-            <summary>
-            A set of graphical symbols that convey meaning through their visual resemblance to physical objects, often used in signage or pictorial communication.
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.SemiSyllabary">
-            <summary>
-            A writing system that behaves partly as an alphabet and partly as a syllabary, where some characters represent syllables and others represent individual sounds.
-            </summary>
-        </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Stenography">
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Stenographic">
             <summary>
             An abbreviated symbolic writing method that increases speed and brevity of writing as compared to longhand, a more common method of writing a language.
             </summary>
         </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Syllabary">
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Metrical">
             <summary>
-            A writing system that uses symbols to represent syllables, typically used in languages where syllables are the basic units of meaning, rather than individual sounds or words.
+            Notation for syllable length in poetry (especially latin and greek).
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Gestural">
+            <summary>
+            Gestural writing systems that use hand shapes, movements, and facial expressions to convey meaning, often used in sign languages.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Amblyophatic">
+            <summary>
+            Amblyophatic writing systems that use tactile symbols to represent language, allowing visually impaired individuals to read through touch.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Programming">
+            <summary>
+            Programming notation is a system of symbols and syntax used to write computer programs.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Control">
+            <summary>
+            A set of characters that control the flow of text, such as line breaks, tabs, and other formatting characters that do not represent written language.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Graphical">
+            <summary>
+            A set of graphical shapes that can be used individually or combined to create grid-based drawings, often used in design and art.
             </summary>
         </member>
         <member name="F:Qhta.Unicode.Models.WritingSystemKind.Symbolic">
@@ -5577,9 +5592,54 @@
             A writing system that uses a set of symbols to represent a specific domain or set of concepts, often used in specialized fields such as mathematics, chemistry, or computer science.
             </summary>
         </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Pictophonetic">
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Invisible">
             <summary>
-            A writing system that combines ideographic and phonetic elements, often used to represent both the meaning and pronunciation of words in a language.
+            A set of code points that have no visible presentations, often used for control characters or formatting purposes.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Encoding">
+            <summary>
+            A set of characters encoding other characters, often used to represent text in a specific format or encoding scheme.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Structural">
+            <summary>
+            a set of symbols that play a specific role in the writing system (e.g. vowels, consonants, syllables, ligatures).
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Form">
+            <summary>
+            A set of characters that are used to represent a specific form of writing, such as a script or a style of calligraphy, often with unique stylistic features.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Context">
+            <summary>
+            A special form of the sign depending on its context (whether it occurs at the beginning, middle or end of a word).
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Width">
+            <summary>
+            A special form of the sign with a specific width (e.g. narrow, wide).
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Size">
+            <summary>
+            A specific character size (e.g. small, big, large).
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Font">
+            <summary>
+            A font with specific characteristics, such as bold, italic.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Region">
+            <summary>
+            Describes the region in which the given characters are used (e.g. Western, Eastern).
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemKind.Style">
+            <summary>
+            A name for a particular visual appearance or design of a character (e.g. Mtavruli).
             </summary>
         </member>
         <member name="T:Qhta.Unicode.Models.WritingSystemKindEntity">
@@ -5618,14 +5678,9 @@
             A range of code points that are not defined individually
             </summary>
         </member>
-        <member name="F:Qhta.Unicode.Models.WritingSystemType.Group">
-            <summary>
-            A set of writing systems or scripts that share common characteristics
-            </summary>
-        </member>
         <member name="F:Qhta.Unicode.Models.WritingSystemType.Script">
             <summary>
-            A script is a set of symbols used to write a language, which may include letters, numbers, punctuation, and other characters.
+            A set of writing systems or scripts that share common characteristics
             </summary>
         </member>
         <member name="F:Qhta.Unicode.Models.WritingSystemType.Language">
@@ -5646,6 +5701,11 @@
         <member name="F:Qhta.Unicode.Models.WritingSystemType.Subset">
             <summary>
             A subset is a collection of symbols that belongs to a larger set, often used to represent a specific part of that set.
+            </summary>
+        </member>
+        <member name="F:Qhta.Unicode.Models.WritingSystemType.Group">
+            <summary>
+            A group is a collection of writing systems or scripts that share common characteristics, such as historical origin or cultural context.
             </summary>
         </member>
         <member name="T:Qhta.Unicode.Models.WritingSystemTypeEntity">
@@ -5784,6 +5844,77 @@
             <summary>
             Destructs the context and releases all resources used by it.
             </summary>
+        </member>
+        <member name="T:UnicodeCompiler.UnicodePoint">
+            <summary>
+            UnicodePoint represents an entry in UnicodeData.txt, containing the Unicode code point and its description.
+            </summary>
+        </member>
+        <member name="P:UnicodeCompiler.UnicodePoint.Code">
+            <summary>
+            Code is the Unicode code point in hexadecimal format (e.g., "U+1F600").
+            </summary>
+        </member>
+        <member name="P:UnicodeCompiler.UnicodePoint.Description">
+            <summary>
+            Description is the textual description of the Unicode code point.
+            </summary>
+        </member>
+        <member name="M:UnicodeCompiler.UnicodePoint.#ctor(System.String,System.String)">
+            <summary>
+            Initializing constructor for UnicodePoint, taking the code and description as parameters.
+            </summary>
+            <param name="code">The Unicode code point in hexadecimal format (e.g., "U+1F600").</param>
+            <param name="description">The textual description of the Unicode code point.</param>
+        </member>
+        <member name="T:UnicodeCompiler.UnicodeToken">
+            <summary>
+            A single token in Unicode Point compilation, containing the Unicode code and the generated token sequence based on the description.
+            </summary>
+        </member>
+        <member name="P:UnicodeCompiler.UnicodeToken.Code">
+            <summary>
+            Code is the Unicode code point in hexadecimal format (e.g., "U+1F600").
+            </summary>
+        </member>
+        <member name="P:UnicodeCompiler.UnicodeToken.TokenSequence">
+            <summary>
+            TokenSequence is the generated token sequence based on the Unicode point's description.
+            </summary>
+        </member>
+        <member name="M:UnicodeCompiler.UnicodeToken.#ctor(System.String,System.String)">
+            <summary>
+              Initializes a new instance of the <see cref="T:UnicodeCompiler.UnicodeToken"/> class with the specified code and token sequence.
+            </summary>
+            <param name="code">The Unicode character code.</param>
+            <param name="tokenSequence">The token sequence representation.</param>
+        </member>
+        <member name="T:UnicodeCompiler.Compiler">
+            <summary>
+            A compiler of Unicode points that generates token sequences based on their descriptions, following specific rules for grouping words and limiting the length of the token sequence.
+            </summary>
+        </member>
+        <member name="M:UnicodeCompiler.Compiler.Compile(System.Collections.Generic.List{UnicodeCompiler.UnicodePoint})">
+            <summary>
+            Main execution method that takes a list of Unicode points and generates a list of Unicode tokens, where each token contains the Unicode code and the generated token sequence based on the description.
+            </summary>
+            <param name="unicodePoints"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnicodeCompiler.Compiler.GenerateTokenSequence(System.String)">
+            <summary>
+            Generates token sequence from the description of a Unicode point, following specific rules for grouping words (e.g., grouping "WITH" and the following word) and ensuring that the final token sequence does not exceed 255 characters in length.
+            </summary>
+            <param name="description">The description of the Unicode point.</param>
+            <returns>The generated token sequence.</returns>
+        </member>
+        <member name="M:UnicodeCompiler.Compiler.ShouldGroup(System.String,System.String)">
+            <summary>
+            Check for the words that should be grouped together based on specific rules (e.g., "WITH" and the following word should be grouped together).
+            </summary>
+            <param name="word1">The first word to check.</param>
+            <param name="word2">The second word to check.</param>
+            <returns>True if the words should be grouped together; otherwise, false.</returns>
         </member>
         <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
             <summary>

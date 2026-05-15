@@ -17,7 +17,8 @@ public class NamedBlock
     get => Start.ToString() + (!End.Equals(Start) ? ".." + End.ToString() : "");
     set
     {
-      var parts = value.Split("..");
+      value = value.Replace("..", "÷");
+      var parts = value.Split(['÷'], StringSplitOptions.RemoveEmptyEntries);
       Start = new CodePoint(parts[0]);
       End = parts.Length > 1 ? new CodePoint(parts[1]) : Start;
     }

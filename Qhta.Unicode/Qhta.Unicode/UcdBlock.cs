@@ -17,6 +17,6 @@ public class UcdBlock(string name, CodePoint start, CodePoint end) : IEquatable<
   }
 
   public override bool Equals(object? obj) => Equals(obj as UcdBlock);
-  public override int GetHashCode() => HashCode.Combine(Name, Start, End);
+  public override int GetHashCode() => (Name, Start, End).GetHashCode();
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

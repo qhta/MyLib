@@ -209,6 +209,9 @@
         <member name="F:Qhta.Unicode.BlockType.Special">
             <summary>Block with special syntax of description.</summary>
         </member>
+        <member name="F:Qhta.Unicode.BlockType.Block">
+            <summary>Undefined block type.</summary>
+        </member>
         <member name="T:Qhta.Unicode.CategoryIndex">
             <summary>
             An index of codePoints with specific UcdCategory.
@@ -513,34 +516,18 @@
         <member name="M:Qhta.Unicode.CharNameIndex.GetOrCreateShortName(Qhta.Unicode.CharInfo,System.Int32)">
             <summary>
             Create a short name for a character or get it if already exists.
-<<<<<<< HEAD
-            </summary>
-        </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.GetOrCreateShortName(Qhta.Unicode.Tokens,System.Int32)">
-            <summary>
-            Create a short name for a character or get it if already exists.
-            </summary>
-        </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortName(Qhta.Unicode.CharInfo,System.Int32)">
-            <summary>
-            Create a short name for a character info.
-=======
->>>>>>> 2700dffbc7a58be67bd3cc15b1f6088d1371f148
             </summary>
             <param name="charInfo"></param>
             <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
         </member>
-<<<<<<< HEAD
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortName(Qhta.Unicode.CharInfo,Qhta.Unicode.Tokens,System.Int32)">
-            <summary>
-            Create a short name for a character info and a list of token.
-=======
         <member name="M:Qhta.Unicode.CharNameIndex.CreateShortName(Qhta.Unicode.CharInfo,System.Int32)">
             <summary>
             Create a short name for a character.
->>>>>>> 2700dffbc7a58be67bd3cc15b1f6088d1371f148
             </summary>
+            <param name="charInfo"></param>
+            <param name="alternative">Some names can have alternatives</param>
+            <returns></returns>
         </member>
         <member name="M:Qhta.Unicode.CharNameIndex.CreateShortenName(Qhta.Unicode.CharInfo,System.Int32)">
             <summary>
@@ -550,33 +537,15 @@
             <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateLetterName(Qhta.Unicode.Tokens,System.Int32)">
+        <member name="M:Qhta.Unicode.CharNameIndex.CreateShortenName(Qhta.Unicode.CharInfo,System.String,System.Int32)">
             <summary>
             Create a short name for a long character name.
             </summary>
-        </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.GetOrCreateWithModifierName(Qhta.Unicode.Tokens,System.Int32)">
-            <summary>
-            Get or create a short name for a modifier character name.
-            </summary>
-        </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateStartCharName(Qhta.Unicode.Tokens,System.Int32)">
-            <summary>
-            Create a short name for start of character name.
-            </summary>
+            <param name="longName"></param>
+            <param name="charInfo"></param>
+            <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
         </member>
-<<<<<<< HEAD
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateMainCharName(Qhta.Unicode.Tokens,System.Int32)">
-            <summary>
-            Create a short name for a main part of character name.
-            </summary>
-        </member>
-        <member name="M:Qhta.Unicode.CharNameIndex.CreateSimpleCharName(Qhta.Unicode.Tokens,System.Int32)">
-            <summary>
-            Create a short name for a simple character name.
-            </summary>
-=======
         <member name="M:Qhta.Unicode.CharNameIndex.GetOrCreateWithModifierName(Qhta.Unicode.CharInfo,System.String,System.Int32)">
             <summary>
             Get or create a short name for a modifier character name.
@@ -612,7 +581,6 @@
             <param name="longName"></param>
             <param name="alternative">Some names can have alternatives</param>
             <returns></returns>
->>>>>>> 2700dffbc7a58be67bd3cc15b1f6088d1371f148
         </member>
         <member name="M:Qhta.Unicode.CharNameIndex.WordsAbbreviationsComparer.Compare(System.String,System.String)">
             <summary>

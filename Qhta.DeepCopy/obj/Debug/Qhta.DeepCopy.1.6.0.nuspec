@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Qhta.DeepCopy</id>
+    <version>1.6.0</version>
+    <authors>Yarreck Qhta</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <description>Library to create a deep copy of the objects property by property</description>
+    <repository type="git" commit="8dff96d595a563e7fca84e96eecbaef7e66b7f09" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.8">
+        <dependency id="Qhta.TextUtils" version="3.8.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.6.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net6.0">
+        <dependency id="Qhta.TextUtils" version="3.8.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.6.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net8.0">
+        <dependency id="Qhta.TextUtils" version="3.8.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.6.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Qhta.TextUtils" version="3.8.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.TypeUtils" version="1.6.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\net4.8\Qhta.DeepCopy.dll" target="lib\net48\Qhta.DeepCopy.dll" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\net4.8\Qhta.DeepCopy.xml" target="lib\net48\Qhta.DeepCopy.xml" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\net6.0\Qhta.DeepCopy.dll" target="lib\net6.0\Qhta.DeepCopy.dll" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\net6.0\Qhta.DeepCopy.xml" target="lib\net6.0\Qhta.DeepCopy.xml" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\net8.0\Qhta.DeepCopy.dll" target="lib\net8.0\Qhta.DeepCopy.dll" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\net8.0\Qhta.DeepCopy.xml" target="lib\net8.0\Qhta.DeepCopy.xml" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\netstandard2.0\Qhta.DeepCopy.dll" target="lib\netstandard2.0\Qhta.DeepCopy.dll" />
+    <file src="D:\OneDrive\VS\Projects\bin\Debug\netstandard2.0\Qhta.DeepCopy.xml" target="lib\netstandard2.0\Qhta.DeepCopy.xml" />
+  </files>
+</package>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -9,7 +9,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <BaseOutputPath>..\..\bin</BaseOutputPath>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile></DocumentationFile>
 
@@ -17,8 +17,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Qhta.Collections" Version="5.1.0" />
-    <PackageReference Include="Qhta.TextUtils" Version="3.6.0" />
+    <PackageReference Include="Qhta.Collections" Version="5.4.0" />
+    <PackageReference Include="Qhta.DeepCopy" Version="1.5.0" />
+    <PackageReference Include="Qhta.TextUtils" Version="3.8.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <None Include="docs\readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 

@@ -29,4 +29,8 @@ public enum WritingSystemType: byte
   /// A subset is a collection of symbols that belongs to a larger set, often used to represent a specific part of that set.
   /// </summary>
   Subset = 6, // a subset of symbols belonging to a set
+  /// <summary>
+  /// A group is a collection of writing systems or scripts that share common characteristics, such as historical origin or cultural context.
+  /// </summary>
+  Group = 7, // a group of writing systems or scripts that share common characteristics, such as historical origin or cultural context
 }

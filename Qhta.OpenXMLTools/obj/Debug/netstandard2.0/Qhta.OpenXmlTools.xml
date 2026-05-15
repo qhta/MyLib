@@ -143,13 +143,6 @@
             <param name="create">Option to create a <c>SectionProperties</c>, if it does not exist.</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.BodyTools.GetSectionProperties(DocumentFormat.OpenXml.Wordprocessing.Body)">
-            <summary>
-            Gets the section properties of the body.
-            </summary>
-            <param name="body"></param>
-            <returns></returns>
-        </member>
         <member name="M:Qhta.OpenXmlTools.BodyTools.GetSections(DocumentFormat.OpenXml.Wordprocessing.Body)">
             <summary>
             Gets all the sections
@@ -3216,6 +3209,47 @@
             </summary>
             <param name="other"></param>
         </member>
+        <member name="T:Qhta.OpenXmlTools.OnOffTypeTools">
+            <summary>
+            Provides static utility methods for working with <c>OnOffType</c> elements, enabling convenient retrieval of boolean
+            values with support for default options.
+            </summary>
+            <remarks>This class is intended to simplify the handling of <c>OnOffType</c> elements, particularly in
+            scenarios where the element may be null or its value is not explicitly set. The methods in this class help ensure
+            consistent and predictable behavior when interpreting optional or missing values in Open XML documents.</remarks>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OnOffTypeTools.GetValueOrDefault(DocumentFormat.OpenXml.Wordprocessing.OnOffType,System.Boolean)">
+            <summary>
+            Gets the boolean value of an <c>OnOffType</c> element, or a default value if the element is null or does not have a value.
+            </summary>
+            <param name="onOff">The element to get the value from.</param>
+            <param name="defaultValue">The default value to return if the element is null or does not have a value.</param>
+            <returns>The boolean value of the element, or the default value.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OnOffTypeTools.GetValueOrDefault(DocumentFormat.OpenXml.Math.OnOffType,System.Boolean)">
+            <summary>
+            Gets the boolean value of an <c>OnOffType</c> element, or a default value if the element is null or does not have a value.
+            </summary>
+            <param name="onOff">The element to get the value from.</param>
+            <param name="defaultValue">The default value to return if the element is null or does not have a value.</param>
+            <returns>The boolean value of the element, or the default value.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OnOffTypeTools.GetValueOrDefault(DocumentFormat.OpenXml.Office2010.Word.OnOffType,System.Boolean)">
+            <summary>
+            Gets the boolean value of an <c>OnOffType</c> element, or a default value if the element is null or does not have a value.
+            </summary>
+            <param name="onOff">The element to get the value from.</param>
+            <param name="defaultValue">The default value to return if the element is null or does not have a value.</param>
+            <returns>The boolean value of the element, or the default value.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OnOffTypeTools.GetValueOrDefault(DocumentFormat.OpenXml.Office2013.Word.OnOffType,System.Boolean)">
+            <summary>
+            Gets the boolean value of an <c>OnOffType</c> element, or a default value if the element is null or does not have a value.
+            </summary>
+            <param name="onOff">The element to get the value from.</param>
+            <param name="defaultValue">The default value to return if the element is null or does not have a value.</param>
+            <returns>The boolean value of the element, or the default value.</returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.OpenXmlCompositeElementTools">
             <summary>
             Contains tools for working with OpenXml composite elements.
@@ -3990,6 +4024,305 @@
             <param name="element"></param>
             <returns></returns>
         </member>
+        <member name="T:Qhta.OpenXmlTools.OpenXmlStringUtils">
+            <summary>
+            A bunch of string utility methods
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.NumberToText(System.Double)">
+            <summary>
+            Changes a number to literal text using whole part and a rational fraction part.
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.NumberToText(System.Int32)">
+            <summary>
+            Changes a number to literal text.
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.NumberToText(System.Int64)">
+            <summary>
+            Changes a number to literal text.
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.IsLike(System.String,System.String,System.StringComparison)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsLike(System.String,System.StringComparison)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.MatchPatternParts(System.String,System.Collections.Generic.List{System.String},System.StringComparison)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.MatchPatternParts(System.Collections.Generic.List{System.String},System.StringComparison)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.IsLike(System.String,System.String,System.String@,System.StringComparison)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsLike(System.String,System.String@,System.StringComparison)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.MatchPatternParts(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String}@,System.StringComparison)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.MatchPatternParts(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String}@,System.StringComparison)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.IsLikeNumber(System.String,System.String,System.String@,System.Int32@)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsLikeNumber(System.String,System.String@,System.Int32@)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.IsValidUrl(System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsValidUrl"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.ToUpperFirstLetter(System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.ToUpperFirstLetter"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.ToLowerFirstLetter(System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.ToLowerFirstLetter"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.TrimParens(System.String,System.ValueTuple{System.Char,System.Char}[])">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.TrimParens(System.ValueTuple{System.Char,System.Char}[])"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.TrimEnclosings(System.String,System.Char,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.TrimEnclosings(System.Char,System.Char,System.ValueTuple{System.Char,System.Char}[])"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.TrimDblQuotes(System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.TrimDblQuotes"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.SplitBy(System.String,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.SplitBy(System.Char,System.ValueTuple{System.Char,System.Char}[])"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.Find(System.String,System.Int32,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Find(System.Int32,System.Char,System.ValueTuple{System.Char,System.Char}[])"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.FindMatch(System.String,System.Int32,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.FindMatch(System.Int32,System.Char,System.ValueTuple{System.Char,System.Char}[])"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.SubstringUntil(System.String,System.Char,System.Int32)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.SubstringUntil(System.Char,System.Int32)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.SplitSpecial(System.String,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.SplitSpecial(System.Char,System.ValueTuple{System.Char,System.Char}[])"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.SubstringUntil(System.String,System.Char,System.Int32,System.Int32@)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.SubstringUntil(System.Char,System.Int32,System.Int32@)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.FindEndOfSentence(System.String,System.Int32,System.String[])">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.FindEndOfSentence(System.Int32,System.String[])"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.Shorten(System.String,System.Int32)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Shorten(System.Int32)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.Pluralize(System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Pluralize"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.Singularize(System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Singularize"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.DecodeEscapeSeq(System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.DecodeEscapeSeq"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.IsLowercase(System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsLowercase"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.IsUppercase(System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsUppercase"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.IsTitlecase(System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsTitlecase"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.Duplicate(System.String,System.Int32)">
+            <summary>
+            Creates a string by repeating the original string a specified number of times.
+            </summary>
+            <param name="str"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.&lt;M&gt;$F43B2AAF922CCE1112E3D17AC4E662EB">
+            <param name="key"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsLike(System.String,System.StringComparison)">
+            <summary>
+              Checks the similarity of key to pattern. Pattern can contain '*' as wildcard replacing any sequence of remaining
+              characters.
+            </summary>
+            <param name="pattern"></param>
+            <param name="stringComparison"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.MatchPatternParts(System.Collections.Generic.List{System.String},System.StringComparison)">
+            <summary>
+            Checks the similarity of key to pattern parts. Pattern can contain '*' as wildcard replacing any sequence of remaining  
+            characters.
+            </summary>
+            <param name="patternParts">The list of pattern parts to match.</param>
+            <param name="stringComparison">The string comparison method to use.</param>
+            <returns>True if the key matches the pattern parts; otherwise, false.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsLike(System.String,System.String@,System.StringComparison)">
+            <summary>
+              Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining
+              characters.
+              Output <paramref name="wildKey" /> is set to found wildchar replacement in the key.
+              If there are multiple wildchars in the pattern then returned <paramref name="wildKey" /> contains multiple
+              replacements joined with '*' separator.
+            </summary>
+            <param name="pattern"></param>
+            <param name="wildKey"></param>
+            <param name="stringComparison"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.MatchPatternParts(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String}@,System.StringComparison)">
+            <summary>
+            Checks the similarity of key to pattern parts. Pattern can contain '*' as wildcard replacing any sequence of remaining characters.
+            </summary>
+            <param name="patternParts">List of pattern parts to match against the key.</param>
+            <param name="wildKeyParts">List of wildcard parts found in the key.</param>
+            <param name="stringComparison">String comparison type.</param>
+            <returns>True if the key matches the pattern parts, otherwise false.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsLikeNumber(System.String,System.String@,System.Int32@)">
+            <summary>
+            Checks if a key text starts or ends with a number..
+            </summary>
+            <param name="pattern">Pattern text containing '#' ad the beginning or end. The rest is a literal pattern</param>
+            <param name="wildKey">Literal text detected by pattern</param>
+            <param name="wildNum">Number parsed from the wildKey</param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsValidUrl">
+            <summary>
+            Check if URL is valid. Uses Regex.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.ToUpperFirstLetter">
+            <summary>
+            Changes the first letter to uppercase. All others unchanged.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.ToLowerFirstLetter">
+            <summary>
+            Changes the first letter to lowercase. All others unchanged.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.TrimParens(System.ValueTuple{System.Char,System.Char}[])">
+            <summary>
+            Trims parentheses enclosing the text.
+            </summary>
+            <param name="enclosings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.TrimEnclosings(System.Char,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <summary>
+            Changes enclosing parens. Omits included enclosings.
+            </summary>
+            <param name="openParen"></param>
+            <param name="closeParen"></param>
+            <param name="enclosings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.TrimDblQuotes">
+            <summary>
+            Trim double quote characters enclosing the text.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.SplitBy(System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <summary>
+              Splits a text by <paramref name="sep" /> character.
+              Fragments enclosed by <paramref name="enclosings" /> are not splitted.
+            </summary>
+            <param name="sep"></param>
+            <param name="enclosings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Find(System.Int32,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <summary>
+              Searches a text from <paramref name="startNdx" /> position for a <paramref name="sep" /> character.
+              If not found then length of text is returned;
+            </summary>
+            <param name="startNdx"></param>
+            <param name="sep"></param>
+            <param name="enclosings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.FindMatch(System.Int32,System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <summary>
+              Searches a text from <paramref name="startNdx" /> position for a pair of <paramref name="openingSep" /> character.
+              If not found then length of text is returned;
+            </summary>
+            <param name="startNdx"></param>
+            <param name="openingSep"></param>
+            <param name="enclosings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.SubstringUntil(System.Char,System.Int32)">
+            <summary>
+            Gets a substring at a specified position until a specified delimiter is found.
+            </summary>
+            <param name="ch"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.SplitSpecial(System.Char,System.ValueTuple{System.Char,System.Char}[])">
+            <summary>
+              Split text with delimiter omitting quotes
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.SubstringUntil(System.Char,System.Int32,System.Int32@)">
+            <summary>
+            Gets a substring between start and end positions, but untils a specified delimiter is found.
+            </summary>
+            <param name="delimiter"></param>
+            <param name="startPos"></param>
+            <param name="endPos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.FindEndOfSentence(System.Int32,System.String[])">
+            <summary>
+            Find a position of the end of the sentence using dot position which does not ends amy known abbreviation.
+            </summary>
+            <param name="startPos"></param>
+            <param name="abbreviations"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Shorten(System.Int32)">
+            <summary>
+            Returns a string shortended by a specified character count.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Pluralize">
+            <summary>
+            Makes Englush plural form of the noun.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Singularize">
+            <summary>
+            Makes Englush singular form of the noun.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.DecodeEscapeSeq">
+            <summary>
+            Decodes escapes sequences: \\, \t, \r, \n, \s, \u
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsLowercase">
+            <summary>
+            Checks if all letters in the string are lower-case.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsUppercase">
+            <summary>
+            Checks if all letters in the string are upper-case.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlStringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.IsTitlecase">
+            <summary>
+            Checks if the first char is upper-case letter and all other letters are lower-case.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Qhta.OpenXmlTools.OpenXmlTextReader">
             <summary>
             Abstract class for reading OpenXml documents.
@@ -4099,6 +4432,40 @@
             </summary>
             <param name="doc">document which contains relationships</param>
             <param name="docxPath">new path for subdocuments</param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PackageTools.CreateFlatOpcXml(DocumentFormat.OpenXml.Packaging.IPackage)">
+            <summary>
+            Create a Flat OPC XML string from the package.
+            </summary>
+            <param name="package">The package to convert to Flat OPC XML.</param>
+            <returns>A string containing the Flat OPC XML representation of the package.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PackageTools.CreateFlatOpcPart(DocumentFormat.OpenXml.Packaging.IPackagePart,System.Xml.Linq.XNamespace)">
+            <summary>
+            Creates an Open Packaging Conventions (OPC) part element in Flat OPC XML format from the specified package part.
+            </summary>
+            <remarks>If the part's content type is XML, the method attempts to parse and embed the XML content
+            directly. If parsing fails or the content type is not XML, the part's data is embedded as base64-encoded binary
+            data.</remarks>
+            <param name="part">The package part to convert to a Flat OPC XML element. Must provide access to the part's stream and content type.</param>
+            <param name="pkg">The XML namespace to use for Flat OPC elements.</param>
+            <returns>An <see cref="T:System.Xml.Linq.XElement"/> representing the Flat OPC XML element for the specified package part.
+            The element contains either the XML data or the base64-encoded binary data of the part.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PackageTools.GetXmlText(System.Byte[])">
+            <summary>
+            Helper method to read XML text from a byte array, handling potential Byte Order Marks (BOM)
+            and ensuring correct encoding.
+            </summary>
+            <param name="bytes">The byte array containing the XML data.</param>
+            <returns>A string containing the XML text.</returns>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.PackageTools.IsXmlContentType(System.String)">
+            <summary>
+            Helper method to determine if a content type is XML-based by checking if it ends with "/xml" or "+xml".
+            </summary>
+            <param name="contentType">The content type to check.</param>
+            <returns>True if the content type is XML-based; otherwise, false.</returns>
         </member>
         <member name="T:Qhta.OpenXmlTools.ParagraphPropertiesTools">
             <summary>
@@ -5287,6 +5654,11 @@
         <member name="M:Qhta.OpenXmlTools.Range.GetMembers">
             <summary>
             Gets all the member elements in the range.
+            </summary>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.Range.GetElements">
+            <summary>
+            Gets elements of the specified type in the range.
             </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.Range.GetElements``1">
@@ -8547,423 +8919,6 @@
         <member name="M:Qhta.OpenXmlTools.StringTools.ReplaceSymbolEncoding(System.String)">
             <summary>
             Replace characters in a string with a code between F000 and F0DD to corresponding unicode characters according to symbol encoding.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Qhta.OpenXmlTools.StringUtils1">
-            <summary>
-            A bunch of string utility methods
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.TitleCase(System.String)">
-            <summary>
-            Change string to title case. First letter tu upper, rest to lower case.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.CamelCase(System.String)">
-            <summary>
-            Change first letter of each word to upper, rest to lower case.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.SplitCamelCase(System.String)">
-            <summary>
-            Split camel-case string to array of words.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.DeCamelCase(System.String)">
-            <summary>
-            Split camel-case string to words.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.NumberToText(System.Double)">
-            <summary>
-            Changes a number to literal text using whole part and a rational fraction part.
-            </summary>
-            <param name="number"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.NumberToText(System.Int32)">
-            <summary>
-            Changes a number to literal text.
-            </summary>
-            <param name="number"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.NumberToText(System.Int64)">
-            <summary>
-            Changes a number to literal text.
-            </summary>
-            <param name="number"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.Precede(System.String,System.String)">
-            <summary>
-            Precedes a string with a prefix when string is not null.
-            </summary>
-            <param name="str"></param>
-            <param name="prefix"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.Attach(System.String,System.String)">
-            <summary>
-            Attach a suffix to a string if string is not null.
-            </summary>
-            <param name="str"></param>
-            <param name="suffix"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ContainsAt(System.String,System.String,System.Int32)">
-            <summary>
-            Checks if a string contains a substring at a specified position.
-            </summary>
-            <param name="str"></param>
-            <param name="substring"></param>
-            <param name="atIndex"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ContainsAt(System.String,System.String,System.Int32,System.StringComparison)">
-            <summary>
-            Checks if a string contains a substring at a specified position using a specified comparison.
-            </summary>
-            <param name="str"></param>
-            <param name="substring"></param>
-            <param name="atIndex"></param>
-            <param name="comparison"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ContainsBefore(System.String,System.String,System.Int32)">
-            <summary>
-            Checks if a string ends with a substring at a specified position
-            </summary>
-            <param name="str"></param>
-            <param name="substring"></param>
-            <param name="atIndex"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ContainsBefore(System.String,System.String,System.Int32,System.StringComparison)">
-            <summary>
-            Checks if a string contains a substring at a specified position using explicit comparison using a specified comparison.
-            </summary>
-            <param name="str"></param>
-            <param name="substring"></param>
-            <param name="atIndex"></param>
-            <param name="comparison"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsUpper(System.String)">
-            <summary>
-            Checks if a string contains only upper-case letters.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsAscii(System.String)">
-            <summary>
-            Checks if a string contains characters from space to ~.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsUnicode(System.String)">
-            <summary>
-            Checks if a string contains Unicode characters (i.e. with codes greater than 127)
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsLike(System.String,System.String,System.StringComparison)">
-            <summary>
-              Checks the similarity of key to pattern. Pattern can contain '*' as wildcard replacing any sequence of remaining
-              characters.
-            </summary>
-            <param name="key"></param>
-            <param name="pattern"></param>
-            <param name="stringComparison"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsLike(System.String,System.String,System.String@,System.StringComparison)">
-            <summary>
-              Checks the similiarity of key to pattern. Pattern can contain '*' as wildchar replacing any sequence of remaining
-              characters.
-              Output <paramref name="wildKey" /> is set to found wildchar replacement in the key.
-              If there are multiple wildchars in the pattern then returned <paramref name="wildKey" /> contains multiple
-              replacements joined with '*' separator.
-            </summary>
-            <param name="key"></param>
-            <param name="pattern"></param>
-            <param name="wildKey"></param>
-            <param name="stringComparison"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsLikeNumber(System.String,System.String,System.String@,System.Int32@)">
-            <summary>
-            Checks if a key text starts or ends with a number..
-            </summary>
-            <param name="key">Checked text</param>
-            <param name="pattern">Pattern text containing '#' ad the beginning or end. The rest is a literal pattern</param>
-            <param name="wildKey">Literal text detected by pattern</param>
-            <param name="wildNum">Number parsed from the wildKey</param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsValidUrl(System.String)">
-            <summary>
-            Check if URL is valid. Uses Regex.
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ToUpperFirst(System.String)">
-            <summary>
-            Changes the first letter to uppercase. All others unchanged.
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ToLowerFirst(System.String)">
-            <summary>
-            Changes the first letter to lowercase. All others unchanged.
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.TrimParens(System.String,System.ValueTuple{System.Char,System.Char}[])">
-            <summary>
-            Trims parentheses enclosing the text.
-            </summary>
-            <param name="text"></param>
-            <param name="enclosings"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.TrimEnclosings(System.String,System.Char,System.Char,System.ValueTuple{System.Char,System.Char}[])">
-            <summary>
-            Changes enclosing parens. Omits included enclosings.
-            </summary>
-            <param name="text"></param>
-            <param name="openParen"></param>
-            <param name="closeParen"></param>
-            <param name="enclosings"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.TrimDblQuotes(System.String)">
-            <summary>
-            Trim double quote characters enclosing the text.
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.SplitBy(System.String,System.Char,System.ValueTuple{System.Char,System.Char}[])">
-            <summary>
-              Splits a text by <paramref name="sep" /> character.
-              Fragments enclosed by <paramref name="enclosings" /> are not splitted.
-            </summary>
-            <param name="text"></param>
-            <param name="sep"></param>
-            <param name="enclosings"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.Find(System.String,System.Int32,System.Char,System.ValueTuple{System.Char,System.Char}[])">
-            <summary>
-              Searches a text from <paramref name="startNdx" /> position for a <paramref name="sep" /> character.
-              If not found then length of text is returned;
-            </summary>
-            <param name="text"></param>
-            <param name="startNdx"></param>
-            <param name="sep"></param>
-            <param name="enclosings"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.FindMatch(System.String,System.Int32,System.Char,System.ValueTuple{System.Char,System.Char}[])">
-            <summary>
-              Searches a text from <paramref name="startNdx" /> position for a pair of <paramref name="openingSep" /> character.
-              If not found then length of text is returned;
-            </summary>
-            <param name="text"></param>
-            <param name="startNdx"></param>
-            <param name="openingSep"></param>
-            <param name="enclosings"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.SubstringUntil(System.String,System.Char,System.Int32)">
-            <summary>
-            Gets a substring at a specified position until a specified delimiter is found.
-            </summary>
-            <param name="text"></param>
-            <param name="ch"></param>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.SplitSpecial(System.String,System.Char,System.ValueTuple{System.Char,System.Char}[])">
-            <summary>
-              Split text with delimiter omitting quotes
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.SubstringUntil(System.String,System.Char,System.Int32,System.Int32@)">
-            <summary>
-            Gets a substring between start and end positions, but untils a specified delimiter is found.
-            </summary>
-            <param name="text"></param>
-            <param name="delimiter"></param>
-            <param name="startPos"></param>
-            <param name="endPos"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.FindEndOfSentence(System.String,System.Int32,System.String[])">
-            <summary>
-            Find a position of the end of the sentence using dot position which does not ends amy known abbreviation.
-            </summary>
-            <param name="text"></param>
-            <param name="startPos"></param>
-            <param name="abbreviations"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceStart(System.String,System.String,System.String)">
-            <summary>
-            Replaces the beginning of the string when it starts with a specified text.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceStart(System.String,System.String,System.String,System.StringComparison)">
-            <summary>
-            Replaces the beginning of the string when it starts with a specified text. Uses a specific string comparison.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceEnd(System.String,System.String,System.String)">
-            <summary>
-            Replaces the end of the string when it ends with a specified text.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceEnd(System.String,System.String,System.String,System.StringComparison)">
-            <summary>
-            Replaces the end of the string when it ends with a specified text. Uses a specified string comparison.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceFirst(System.String,System.String,System.String)">
-            <summary>
-            Replaces the first occurence of the string searching in a specified text.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceFirst(System.String,System.String,System.String,System.Int32)">
-            <summary>
-            Replaces the first occurence of the string searching in a specified text starting from the specified index.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceFirst(System.String,System.String,System.String,System.Int32,System.Int32)">
-            <summary>
-            Replaces the first occurence of the string searching in a specified text starting from the specified index for the specified characters count.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceFirst(System.String,System.String,System.String,System.StringComparison)">
-            <summary>
-            Replaces the first occurence of the string in a specified text. Uses a specific string comparison.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceFirst(System.String,System.String,System.String,System.Int32,System.StringComparison)">
-            <summary>
-            Replaces the first occurence of the string searching in a specified text starting from the specified index. Uses a specific string comparison.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceFirst(System.String,System.String,System.String,System.Int32,System.Int32,System.StringComparison)">
-            <summary>
-            Replaces the first occurence of the string searching in a specified text starting from the specified index for the specified characters count.
-            Uses a specific string comparison.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceLast(System.String,System.String,System.String)">
-            <summary>
-            Replaces the last occurence of the string searching in a specified text.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceLast(System.String,System.String,System.String,System.Int32)">
-            <summary>
-            Replaces the last occurence of the string searching in a specified text starting from the specified index
-            and continuing towards the begining of the text.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceLast(System.String,System.String,System.String,System.Int32,System.Int32)">
-            <summary>
-            Replaces the last occurence of the string searching in a specified text starting from the specified index
-            and continuing towards the begining of the text for the specified characters count.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceLast(System.String,System.String,System.String,System.StringComparison)">
-            <summary>
-            Replaces the last occurence of the string in a specified text. Uses a specific string comparison.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceLast(System.String,System.String,System.String,System.Int32,System.StringComparison)">
-            <summary>
-            Replaces the first occurence of the string searching in a specified text starting from the specified index
-            and continuing towards the begining of the text. Uses a specific string comparison.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.ReplaceLast(System.String,System.String,System.String,System.Int32,System.Int32,System.StringComparison)">
-            <summary>
-            Replaces the first occurence of the string searching in a specified text starting from the specified index
-            and continuing towards the begining of the text for the specified characters count.
-            Uses a specific string comparison.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.Concat2(System.String,System.String,System.String)">
-            <summary>
-            Concatenates two strings with a separator between them.
-            If any of both is empty of null - the other is returned.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.Shorten(System.String,System.Int32)">
-            <summary>
-            Returns a string shortended by a specified character count.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.Pluralize(System.String)">
-            <summary>
-            Makes Englush plural form of the noun.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.Singularize(System.String)">
-            <summary>
-            Makes Englush singular form of the noun.
-            </summary>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.DecodeEscapeSeq(System.String)">
-            <summary>
-            Decodes escapes sequences: \\, \t, \r, \n, \s, \u
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.Duplicate(System.String,System.Int32)">
-            <summary>
-            Creates a string by repeating the original string a specified number of times.
-            </summary>
-            <param name="str"></param>
-            <param name="count"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsLowercase(System.String)">
-            <summary>
-            Checks if all letters in the string are lower-case.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsUppercase(System.String)">
-            <summary>
-            Checks if all letters in the string are upper-case.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.StringUtils1.IsTitlecase(System.String)">
-            <summary>
-            Checks if the first char is upper-case letter and all other letters are lower-case.
             </summary>
             <param name="str"></param>
             <returns></returns>

@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj": {
-      "version": "1.2.1",
+      "version": "1.2.2",
       "restore": {
         "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj",
         "projectName": "Qhta.Unicode",
@@ -14,8 +14,11 @@
         "outputPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\DOCX Editor SDK\\31.2.12\\ToolboxNuGetPackages"
+        ],
         "configFilePaths": [
-          "D:\\OneDrive\\VS\\Projects\\MyLib\\NuGet.Config",
           "D:\\OneDrive\\VS\\Projects\\NuGet.Config",
           "C:\\Users\\qhta1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
@@ -25,10 +28,11 @@
         ],
         "originalTargetFrameworks": [
           "net8.0",
-          "netstandard2.1"
+          "netstandard2.0"
         ],
         "sources": {
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "D:\\OneDrive\\VS\\Projects\\MyLib\\bin\\Debug": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,9 +41,9 @@
             "targetAlias": "net8.0",
             "projectReferences": {}
           },
-          "netstandard2.1": {
-            "framework": "netstandard2.1",
-            "targetAlias": "netstandard2.1",
+          "netstandard2.0": {
+            "framework": "netstandard2.0",
+            "targetAlias": "netstandard2.0",
             "projectReferences": {}
           }
         },
@@ -53,7 +57,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -62,11 +66,19 @@
           "dependencies": {
             "Qhta.Collections": {
               "target": "Package",
-              "version": "[5.1.0, )"
+              "version": "[5.4.0, )"
+            },
+            "Qhta.DeepCopy": {
+              "target": "Package",
+              "version": "[1.5.0, )"
             },
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.6.0, )"
+              "version": "[3.8.0, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
             }
           },
           "imports": [
@@ -85,19 +97,33 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
         },
-        "netstandard2.1": {
-          "framework": "netstandard2.1",
-          "targetAlias": "netstandard2.1",
+        "netstandard2.0": {
+          "framework": "netstandard2.0",
+          "targetAlias": "netstandard2.0",
           "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
             "Qhta.Collections": {
               "target": "Package",
-              "version": "[5.1.0, )"
+              "version": "[5.4.0, )"
+            },
+            "Qhta.DeepCopy": {
+              "target": "Package",
+              "version": "[1.5.0, )"
             },
             "Qhta.TextUtils": {
               "target": "Package",
-              "version": "[3.6.0, )"
+              "version": "[3.8.0, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
             }
           },
           "imports": [
@@ -111,12 +137,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "NETStandard.Library": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

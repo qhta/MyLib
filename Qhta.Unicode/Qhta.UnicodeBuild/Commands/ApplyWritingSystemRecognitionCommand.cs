@@ -29,7 +29,7 @@ public class ApplyWritingSystemRecognitionCommand : TimeConsumingCommand
     {
       throw new ArgumentException("Argument must be of type SfDataGrid.", nameof(argument));
     }
-    if (!dataGrid.GetSelectedRowsAndColumns(out bool allColumnsSelected, out var selectedColumns, out bool allRowsSelected, out var selectedRows).Any()
+    if (!dataGrid.GetSelectedRowsAndColumns(out bool allColumnsSelected, out GridColumn[] selectedColumns, out bool allRowsSelected,  out object[] selectedRows).Any()
         && !allColumnsSelected && !selectedColumns.Any() && !allRowsSelected && !selectedRows.Any())
     {
       MessageBox.Show(Resources.Strings.NoCodePointsSelected, Resources.Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
