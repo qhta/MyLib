@@ -113,6 +113,25 @@
           }
         }
       },
+      "Qhta.Unicode/1.2.2": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "5.4.0",
+          "Qhta.DeepCopy": "1.5.0",
+          "Qhta.TextUtils": "3.8.0",
+          "System.Net.Http": "4.3.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/Qhta.Unicode.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.Unicode.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "System.ComponentModel.Annotations/5.0.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -278,22 +297,6 @@
             "rid": "win"
           }
         }
-      },
-      "Qhta.Unicode/1.2.2": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Qhta.Collections": "5.4.0",
-          "Qhta.DeepCopy": "1.5.0",
-          "Qhta.TextUtils": "3.8.0",
-          "System.Net.Http": "4.3.4"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.Unicode.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.Unicode.dll": {}
-        }
       }
     },
     "netstandard2.0": {
@@ -430,6 +433,25 @@
         },
         "runtime": {
           "lib/netstandard2.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.Unicode/1.2.2": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "5.4.0",
+          "Qhta.DeepCopy": "1.5.0",
+          "Qhta.TextUtils": "3.8.0",
+          "System.Net.Http": "4.3.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/Qhta.Unicode.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.Unicode.dll": {
             "related": ".xml"
           }
         }
@@ -1309,22 +1331,6 @@
             "related": ".xml"
           }
         }
-      },
-      "Qhta.Unicode/1.2.2": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Qhta.Collections": "5.4.0",
-          "Qhta.DeepCopy": "1.5.0",
-          "Qhta.TextUtils": "3.8.0",
-          "System.Net.Http": "4.3.4"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.Unicode.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.Unicode.dll": {}
-        }
       }
     },
     "netstandard2.1": {
@@ -1446,6 +1452,25 @@
         },
         "runtime": {
           "lib/netstandard2.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.Unicode/1.2.2": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "5.4.0",
+          "Qhta.DeepCopy": "1.5.0",
+          "Qhta.TextUtils": "3.8.0",
+          "System.Net.Http": "4.3.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/Qhta.Unicode.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.Unicode.dll": {
             "related": ".xml"
           }
         }
@@ -2327,22 +2352,6 @@
             "related": ".xml"
           }
         }
-      },
-      "Qhta.Unicode/1.2.2": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Qhta.Collections": "5.4.0",
-          "Qhta.DeepCopy": "1.5.0",
-          "Qhta.TextUtils": "3.8.0",
-          "System.Net.Http": "4.3.4"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.Unicode.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.Unicode.dll": {}
-        }
       }
     },
     "net8.0": {
@@ -2450,6 +2459,25 @@
         },
         "runtime": {
           "lib/net8.0/Qhta.TypeUtils.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Qhta.Unicode/1.2.2": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "5.4.0",
+          "Qhta.DeepCopy": "1.5.0",
+          "Qhta.TextUtils": "3.8.0",
+          "System.Net.Http": "4.3.4"
+        },
+        "compile": {
+          "lib/net8.0/Qhta.Unicode.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Qhta.Unicode.dll": {
             "related": ".xml"
           }
         }
@@ -3272,22 +3300,6 @@
             "related": ".xml"
           }
         }
-      },
-      "Qhta.Unicode/1.2.2": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "Qhta.Collections": "5.4.0",
-          "Qhta.DeepCopy": "1.5.0",
-          "Qhta.TextUtils": "3.8.0",
-          "System.Net.Http": "4.3.4"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.Unicode.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.Unicode.dll": {}
-        }
       }
     }
   },
@@ -3588,6 +3600,21 @@
         "lib/netstandard2.0/Qhta.TypeUtils.xml",
         "qhta.typeutils.1.6.0.nupkg.sha512",
         "qhta.typeutils.nuspec",
+        "readme.md"
+      ]
+    },
+    "Qhta.Unicode/1.2.2": {
+      "sha512": "+kRBoyrnhLE09ltbaPbHkpO51rHskACXNdmL0ygZG3ZaUEPWi3PvQaABSeo17CbPdZB3ZKZXCo3zE+Lgx9fkyw==",
+      "type": "package",
+      "path": "qhta.unicode/1.2.2",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net8.0/Qhta.Unicode.dll",
+        "lib/net8.0/Qhta.Unicode.xml",
+        "lib/netstandard2.0/Qhta.Unicode.dll",
+        "lib/netstandard2.0/Qhta.Unicode.xml",
+        "qhta.unicode.1.2.2.nupkg.sha512",
+        "qhta.unicode.nuspec",
         "readme.md"
       ]
     },
@@ -5845,11 +5872,6 @@
         "system.threading.tasks.4.3.0.nupkg.sha512",
         "system.threading.tasks.nuspec"
       ]
-    },
-    "Qhta.Unicode/1.2.2": {
-      "type": "project",
-      "path": "../Qhta.Unicode/Qhta.Unicode/Qhta.Unicode.csproj",
-      "msbuildProject": "../Qhta.Unicode/Qhta.Unicode/Qhta.Unicode.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5929,38 +5951,22 @@
         "net4.8": {
           "framework": "net48",
           "targetAlias": "net4.8",
-          "projectReferences": {
-            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj": {
-              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj"
-            }
-          }
+          "projectReferences": {}
         },
         "net8.0": {
           "framework": "net8.0",
           "targetAlias": "net8.0",
-          "projectReferences": {
-            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj": {
-              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj"
-            }
-          }
+          "projectReferences": {}
         },
         "netstandard2.0": {
           "framework": "netstandard2.0",
           "targetAlias": "netstandard2.0",
-          "projectReferences": {
-            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj": {
-              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj"
-            }
-          }
+          "projectReferences": {}
         },
         "netstandard2.1": {
           "framework": "netstandard2.1",
           "targetAlias": "netstandard2.1",
-          "projectReferences": {
-            "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj": {
-              "projectPath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.Unicode\\Qhta.Unicode\\Qhta.Unicode.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -5996,6 +6002,10 @@
             "target": "Package",
             "version": "[1.6.0, )"
           },
+          "Qhta.Unicode": {
+            "target": "Package",
+            "version": "[1.2.2, )"
+          },
           "System.ComponentModel.Annotations": {
             "target": "Package",
             "version": "[5.0.0, )"
@@ -6022,6 +6032,10 @@
           "Qhta.TypeUtils": {
             "target": "Package",
             "version": "[1.6.0, )"
+          },
+          "Qhta.Unicode": {
+            "target": "Package",
+            "version": "[1.2.2, )"
           },
           "System.ComponentModel.Annotations": {
             "target": "Package",
@@ -6072,6 +6086,10 @@
             "target": "Package",
             "version": "[1.6.0, )"
           },
+          "Qhta.Unicode": {
+            "target": "Package",
+            "version": "[1.2.2, )"
+          },
           "System.ComponentModel.Annotations": {
             "target": "Package",
             "version": "[5.0.0, )"
@@ -6109,6 +6127,10 @@
           "Qhta.TypeUtils": {
             "target": "Package",
             "version": "[1.6.0, )"
+          },
+          "Qhta.Unicode": {
+            "target": "Package",
+            "version": "[1.2.2, )"
           },
           "System.ComponentModel.Annotations": {
             "target": "Package",

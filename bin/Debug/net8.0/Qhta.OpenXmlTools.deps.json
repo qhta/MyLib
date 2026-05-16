@@ -83,14 +83,6 @@
           }
         }
       },
-      "System.IO.Packaging/8.0.1": {
-        "runtime": {
-          "lib/net8.0/System.IO.Packaging.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.1024.46610"
-          }
-        }
-      },
       "Qhta.Unicode/1.2.2": {
         "dependencies": {
           "Qhta.Collections": "5.4.0",
@@ -98,9 +90,17 @@
           "Qhta.TextUtils": "3.8.0"
         },
         "runtime": {
-          "Qhta.Unicode.dll": {
+          "lib/net8.0/Qhta.Unicode.dll": {
             "assemblyVersion": "1.2.2.0",
             "fileVersion": "1.2.2.0"
+          }
+        }
+      },
+      "System.IO.Packaging/8.0.1": {
+        "runtime": {
+          "lib/net8.0/System.IO.Packaging.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1024.46610"
           }
         }
       }
@@ -154,17 +154,19 @@
       "path": "qhta.typeutils/1.6.0",
       "hashPath": "qhta.typeutils.1.6.0.nupkg.sha512"
     },
+    "Qhta.Unicode/1.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+kRBoyrnhLE09ltbaPbHkpO51rHskACXNdmL0ygZG3ZaUEPWi3PvQaABSeo17CbPdZB3ZKZXCo3zE+Lgx9fkyw==",
+      "path": "qhta.unicode/1.2.2",
+      "hashPath": "qhta.unicode.1.2.2.nupkg.sha512"
+    },
     "System.IO.Packaging/8.0.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-KYkIOAvPexQOLDxPO2g0BVoWInnQhPpkFzRqvNrNrMhVT6kqhVr0zEb6KCHlptLFukxnZrjuMVAnxK7pOGUYrw==",
       "path": "system.io.packaging/8.0.1",
       "hashPath": "system.io.packaging.8.0.1.nupkg.sha512"
-    },
-    "Qhta.Unicode/1.2.2": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

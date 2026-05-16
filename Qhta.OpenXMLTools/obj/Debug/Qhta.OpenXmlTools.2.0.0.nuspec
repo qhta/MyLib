@@ -8,38 +8,38 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>OpenXmlTools is a library for working with OpenXml documents.</description>
-    <repository type="git" commit="8dff96d595a563e7fca84e96eecbaef7e66b7f09" />
+    <repository type="git" commit="13d78444c2c6f9cc2381bda62d24cd213a9a3a6f" />
     <dependencies>
       <group targetFramework=".NETFramework4.8">
-        <dependency id="Qhta.Unicode" version="1.2.2" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml.Framework" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="3.8.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TypeUtils" version="1.6.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Unicode" version="1.2.2" exclude="Build,Analyzers" />
         <dependency id="System.ComponentModel.Annotations" version="5.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net8.0">
-        <dependency id="Qhta.Unicode" version="1.2.2" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml.Framework" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="3.8.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TypeUtils" version="1.6.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Unicode" version="1.2.2" exclude="Build,Analyzers" />
         <dependency id="System.ComponentModel.Annotations" version="5.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Qhta.Unicode" version="1.2.2" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml.Framework" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="3.8.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TypeUtils" version="1.6.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Unicode" version="1.2.2" exclude="Build,Analyzers" />
         <dependency id="System.ComponentModel.Annotations" version="5.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.1">
-        <dependency id="Qhta.Unicode" version="1.2.2" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml.Framework" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="3.8.0" exclude="Build,Analyzers" />
         <dependency id="Qhta.TypeUtils" version="1.6.0" exclude="Build,Analyzers" />
+        <dependency id="Qhta.Unicode" version="1.2.2" exclude="Build,Analyzers" />
         <dependency id="System.ComponentModel.Annotations" version="5.0.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>

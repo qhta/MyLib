@@ -157,6 +157,25 @@
           }
         }
       },
+      "Qhta.Unicode/1.2.2": {
+        "type": "package",
+        "dependencies": {
+          "Qhta.Collections": "5.4.0",
+          "Qhta.DeepCopy": "1.5.0",
+          "Qhta.TextUtils": "3.8.0",
+          "System.Net.Http": "4.3.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/Qhta.Unicode.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Qhta.Unicode.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
         "type": "package",
         "runtimeTargets": {
@@ -1050,22 +1069,6 @@
         "runtime": {
           "bin/placeholder/Qhta.OpenXmlTools.dll": {}
         }
-      },
-      "Qhta.Unicode/1.2.2": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Qhta.Collections": "5.4.0",
-          "Qhta.DeepCopy": "1.5.0",
-          "Qhta.TextUtils": "3.8.0",
-          "System.Net.Http": "4.3.4"
-        },
-        "compile": {
-          "bin/placeholder/Qhta.Unicode.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Qhta.Unicode.dll": {}
-        }
       }
     }
   },
@@ -1391,6 +1394,21 @@
         "lib/netstandard2.0/Qhta.TypeUtils.xml",
         "qhta.typeutils.1.6.0.nupkg.sha512",
         "qhta.typeutils.nuspec",
+        "readme.md"
+      ]
+    },
+    "Qhta.Unicode/1.2.2": {
+      "sha512": "+kRBoyrnhLE09ltbaPbHkpO51rHskACXNdmL0ygZG3ZaUEPWi3PvQaABSeo17CbPdZB3ZKZXCo3zE+Lgx9fkyw==",
+      "type": "package",
+      "path": "qhta.unicode/1.2.2",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net8.0/Qhta.Unicode.dll",
+        "lib/net8.0/Qhta.Unicode.xml",
+        "lib/netstandard2.0/Qhta.Unicode.dll",
+        "lib/netstandard2.0/Qhta.Unicode.xml",
+        "qhta.unicode.1.2.2.nupkg.sha512",
+        "qhta.unicode.nuspec",
         "readme.md"
       ]
     },
@@ -3653,11 +3671,6 @@
       "type": "project",
       "path": "../Qhta.OpenXMLTools/Qhta.OpenXmlTools.csproj",
       "msbuildProject": "../Qhta.OpenXMLTools/Qhta.OpenXmlTools.csproj"
-    },
-    "Qhta.Unicode/1.2.2": {
-      "type": "project",
-      "path": "../Qhta.Unicode/Qhta.Unicode/Qhta.Unicode.csproj",
-      "msbuildProject": "../Qhta.Unicode/Qhta.Unicode/Qhta.Unicode.csproj"
     }
   },
   "projectFileDependencyGroups": {
