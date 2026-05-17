@@ -83,7 +83,7 @@
           }
         }
       },
-      "Qhta.TextUtils/3.8.0": {
+      "Qhta.TextUtils/3.10.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
@@ -407,7 +407,7 @@
           }
         }
       },
-      "Qhta.TextUtils/3.8.0": {
+      "Qhta.TextUtils/3.10.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
@@ -1426,7 +1426,7 @@
           }
         }
       },
-      "Qhta.TextUtils/3.8.0": {
+      "Qhta.TextUtils/3.10.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
@@ -2434,7 +2434,7 @@
           }
         }
       },
-      "Qhta.TextUtils/3.8.0": {
+      "Qhta.TextUtils/3.10.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/Qhta.TextUtils.dll": {
@@ -3561,10 +3561,10 @@
         "qhta.deepcopy.nuspec"
       ]
     },
-    "Qhta.TextUtils/3.8.0": {
-      "sha512": "JovVSjHNgredLwrvsqVyhu1s3KGqlkuq3+v3lPN6ghnjZ7tiRT6jGMNKytuHj8AqIQWzgnekp/lZQv4rI6sntg==",
+    "Qhta.TextUtils/3.10.0": {
+      "sha512": "IhHP4Jh10b0uFD8HuXywAIk2ZMhoxa8bmB+n/B6UxLMf3v6Redr9K+ya7ImUdYJ0LrLx4c/344+3ai78UwlaXA==",
       "type": "package",
-      "path": "qhta.textutils/3.8.0",
+      "path": "qhta.textutils/3.10.0",
       "files": [
         ".nupkg.metadata",
         "lib/net10.0/Qhta.TextUtils.dll",
@@ -3577,13 +3577,13 @@
         "lib/net9.0/Qhta.TextUtils.xml",
         "lib/netstandard2.0/Qhta.TextUtils.dll",
         "lib/netstandard2.0/Qhta.TextUtils.xml",
-        "qhta.textutils.3.8.0.nupkg.sha512",
+        "qhta.textutils.3.10.0.nupkg.sha512",
         "qhta.textutils.nuspec",
         "readme.md"
       ]
     },
     "Qhta.TypeUtils/1.6.0": {
-      "sha512": "hfvaR7aw+pfDSFblFJVPoB0sYgTOw16CB5Z3Omnb6OwXd6iTkrTLB9rvdaTUMWjKOucMfcvPntA7rSEK9+QG7Q==",
+      "sha512": "ztzkKF7A+fxSVMi+TcU2hSJLiCEuoF2M2bcN/5YPXkYp8zTWyeeNVjk9S448/C29l/mpv/FMKzEbsE8SVw7XEw==",
       "type": "package",
       "path": "qhta.typeutils/1.6.0",
       "files": [
@@ -5878,7 +5878,7 @@
     "net4.8": [
       "DocumentFormat.OpenXml >= 3.5.1",
       "DocumentFormat.OpenXml.Framework >= 3.5.1",
-      "Qhta.TextUtils >= 3.8.0",
+      "Qhta.TextUtils >= 3.10.0",
       "Qhta.TypeUtils >= 1.6.0",
       "Qhta.Unicode >= 1.2.2",
       "System.ComponentModel.Annotations >= 5.0.0"
@@ -5886,7 +5886,7 @@
     "net8.0": [
       "DocumentFormat.OpenXml >= 3.5.1",
       "DocumentFormat.OpenXml.Framework >= 3.5.1",
-      "Qhta.TextUtils >= 3.8.0",
+      "Qhta.TextUtils >= 3.10.0",
       "Qhta.TypeUtils >= 1.6.0",
       "Qhta.Unicode >= 1.2.2",
       "System.ComponentModel.Annotations >= 5.0.0"
@@ -5895,7 +5895,7 @@
       "DocumentFormat.OpenXml >= 3.5.1",
       "DocumentFormat.OpenXml.Framework >= 3.5.1",
       "NETStandard.Library >= 2.0.3",
-      "Qhta.TextUtils >= 3.8.0",
+      "Qhta.TextUtils >= 3.10.0",
       "Qhta.TypeUtils >= 1.6.0",
       "Qhta.Unicode >= 1.2.2",
       "System.ComponentModel.Annotations >= 5.0.0"
@@ -5903,7 +5903,7 @@
     "netstandard2.1": [
       "DocumentFormat.OpenXml >= 3.5.1",
       "DocumentFormat.OpenXml.Framework >= 3.5.1",
-      "Qhta.TextUtils >= 3.8.0",
+      "Qhta.TextUtils >= 3.10.0",
       "Qhta.TypeUtils >= 1.6.0",
       "Qhta.Unicode >= 1.2.2",
       "System.ComponentModel.Annotations >= 5.0.0"
@@ -5996,7 +5996,7 @@
           },
           "Qhta.TextUtils": {
             "target": "Package",
-            "version": "[3.8.0, )"
+            "version": "[3.10.0, )"
           },
           "Qhta.TypeUtils": {
             "target": "Package",
@@ -6027,7 +6027,7 @@
           },
           "Qhta.TextUtils": {
             "target": "Package",
-            "version": "[3.8.0, )"
+            "version": "[3.10.0, )"
           },
           "Qhta.TypeUtils": {
             "target": "Package",
@@ -6080,7 +6080,7 @@
           },
           "Qhta.TextUtils": {
             "target": "Package",
-            "version": "[3.8.0, )"
+            "version": "[3.10.0, )"
           },
           "Qhta.TypeUtils": {
             "target": "Package",
@@ -6122,7 +6122,7 @@
           },
           "Qhta.TextUtils": {
             "target": "Package",
-            "version": "[3.8.0, )"
+            "version": "[3.10.0, )"
           },
           "Qhta.TypeUtils": {
             "target": "Package",

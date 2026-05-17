@@ -10,7 +10,7 @@
         "dependencies": {
           "DocumentFormat.OpenXml": "3.5.1",
           "DocumentFormat.OpenXml.Framework": "3.5.1",
-          "Qhta.TextUtils": "3.8.0",
+          "Qhta.TextUtils": "3.9.0",
           "Qhta.TypeUtils": "1.6.0",
           "Qhta.Unicode": "1.2.2"
         },
@@ -47,7 +47,7 @@
       },
       "Qhta.Collections/5.4.0": {
         "dependencies": {
-          "Qhta.TextUtils": "3.8.0"
+          "Qhta.TextUtils": "3.9.0"
         },
         "runtime": {
           "lib/net8.0/Qhta.Collections.dll": {
@@ -64,11 +64,11 @@
           }
         }
       },
-      "Qhta.TextUtils/3.8.0": {
+      "Qhta.TextUtils/3.9.0": {
         "runtime": {
           "lib/net8.0/Qhta.TextUtils.dll": {
-            "assemblyVersion": "3.8.0.0",
-            "fileVersion": "3.8.0.0"
+            "assemblyVersion": "3.9.0.0",
+            "fileVersion": "3.9.0.0"
           }
         }
       },
@@ -87,7 +87,7 @@
         "dependencies": {
           "Qhta.Collections": "5.4.0",
           "Qhta.DeepCopy": "1.5.0",
-          "Qhta.TextUtils": "3.8.0"
+          "Qhta.TextUtils": "3.9.0"
         },
         "runtime": {
           "lib/net8.0/Qhta.Unicode.dll": {
@@ -140,17 +140,17 @@
       "path": "qhta.deepcopy/1.5.0",
       "hashPath": "qhta.deepcopy.1.5.0.nupkg.sha512"
     },
-    "Qhta.TextUtils/3.8.0": {
+    "Qhta.TextUtils/3.9.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-JovVSjHNgredLwrvsqVyhu1s3KGqlkuq3+v3lPN6ghnjZ7tiRT6jGMNKytuHj8AqIQWzgnekp/lZQv4rI6sntg==",
-      "path": "qhta.textutils/3.8.0",
-      "hashPath": "qhta.textutils.3.8.0.nupkg.sha512"
+      "sha512": "sha512-hZ+/F4zlW3AYYPKK3XFLQwkXmXlFW7HFsegQPLhjlE/OsMXReWiWEv3X5coAudArdSExeJXCQ6qncW73+v6UDw==",
+      "path": "qhta.textutils/3.9.0",
+      "hashPath": "qhta.textutils.3.9.0.nupkg.sha512"
     },
     "Qhta.TypeUtils/1.6.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hfvaR7aw+pfDSFblFJVPoB0sYgTOw16CB5Z3Omnb6OwXd6iTkrTLB9rvdaTUMWjKOucMfcvPntA7rSEK9+QG7Q==",
+      "sha512": "sha512-ztzkKF7A+fxSVMi+TcU2hSJLiCEuoF2M2bcN/5YPXkYp8zTWyeeNVjk9S448/C29l/mpv/FMKzEbsE8SVw7XEw==",
       "path": "qhta.typeutils/1.6.0",
       "hashPath": "qhta.typeutils.1.6.0.nupkg.sha512"
     },

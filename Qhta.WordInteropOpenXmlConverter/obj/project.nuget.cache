@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "lpEYoiYoWDA=",
+  "dgSpecHash": "Y9LENJKUDWA=",
   "success": true,
   "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.WordInteropOpenXmlConverter\\Qhta.WordInteropOpenXmlConverter.csproj",
   "expectedPackageFiles": [
@@ -14,7 +14,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\nullableattributes\\1.0.0\\nullableattributes.1.0.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.collections\\5.4.0\\qhta.collections.5.4.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.deepcopy\\1.5.0\\qhta.deepcopy.1.5.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.8.0\\qhta.textutils.3.8.0.nupkg.sha512",
+    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.textutils\\3.10.0\\qhta.textutils.3.10.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.typeutils\\1.6.0\\qhta.typeutils.1.6.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\qhta.unicode\\1.2.2\\qhta.unicode.1.2.2.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
@@ -69,8 +69,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\system.security.cryptography.x509certificates\\4.3.0\\system.security.cryptography.x509certificates.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
-    "C:\\Users\\qhta1\\.nuget\\packages\\qhta.openxmltools\\2.0.0\\qhta.openxmltools.2.0.0.nupkg.sha512"
+    "C:\\Users\\qhta1\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }
