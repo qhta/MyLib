@@ -23,17 +23,16 @@ public static class StringUtils
   /// Extension methods for string. All methods return null if the input string is null.
   /// </summary>
   /// <param name="inputString">String to process.</param>
-  extension(string? inputString)
+  extension(string inputString)
   {
     /// <summary>
     /// Get a substring from the first characters of the string's words.
     /// </summary>
     /// <returns>The acronym of the string.</returns>
-    public string? Acronym()
+    public string Acronym()
     {
-      if (inputString == null)
-        return null;;
-      return new string(inputString.Split([' '], StringSplitOptions.RemoveEmptyEntries).Select(word => word.First()).ToArray());
+      return new string(inputString.Split([' '], StringSplitOptions.RemoveEmptyEntries).Select(word => word.First())
+        .ToArray());
     }
 
     /// <summary>
@@ -41,10 +40,8 @@ public static class StringUtils
     /// </summary>
     /// <param name="allWords">Determines whether all words should be treated separately.</param>
     /// <returns>The string in title case.</returns>
-    public string? TitleCase(bool allWords = false)
+    public string TitleCase(bool allWords = false)
     {
-      if (inputString == null)
-        return null;;
       var chars = inputString.ToCharArray();
       if (allWords)
       {
@@ -79,10 +76,8 @@ public static class StringUtils
     /// Change first letter of each word to upper, rest to lower case.
     /// </summary>
     /// <returns>String with each word in camel case.</returns>
-    public string? CamelCase()
+    public string CamelCase()
     {
-      if (inputString == null)
-        return null;;
       var chars = inputString.ToList();
       var wasLetter = false;
       for (var i = 0; i < chars.Count; i++)
@@ -114,12 +109,14 @@ public static class StringUtils
     {
       if (inputString == null)
         return Array.Empty<string>();
+
       var ss = new List<string>();
       var chars = new List<char>();
       for (var i = 0; i < inputString.Length; i++)
       {
         if (Char.IsUpper(inputString[i]))
-          if (chars.Count > 0 && (!Char.IsUpper(chars.Last()) || (i < inputString.Length - 1 && Char.IsLower(inputString[i + 1]))))
+          if (chars.Count > 0 && (!Char.IsUpper(chars.Last()) ||
+                                  (i < inputString.Length - 1 && Char.IsLower(inputString[i + 1]))))
           {
             var s = new String(chars.ToArray());
             ss.Add(s);
@@ -140,10 +137,8 @@ public static class StringUtils
     /// Split camel-case string to words and return them as a string with words separated by spaces. Words in all upper-case are not changed, but other words are changed to title case.
     /// </summary>
     /// <returns>String with words separated by spaces.</returns>
-    public string? DeCamelCase()
+    public string DeCamelCase()
     {
-      if (inputString == null)
-        return null;;
       var ss = inputString.SplitCamelCase();
       for (var i = 0; i < ss.Length; i++)
         if (ss[i] != ss[i].ToUpper())
@@ -161,7 +156,7 @@ public static class StringUtils
     /// </summary>
     /// <param name="prefix">Prefix to add to the string.</param>
     /// <returns>String with the prefix added, or empty string if input is null.</returns>
-    public string? Precede(string prefix)
+    public string Precede(string prefix)
     {
       return inputString != null ? prefix + inputString : String.Empty;
     }
@@ -171,7 +166,7 @@ public static class StringUtils
     /// </summary>
     /// <param name="suffix">Suffix to add to the string.</param>
     /// <returns>String with the suffix added, or empty string if input is null.</returns>
-    public string? Attach(string suffix)
+    public string Attach(string suffix)
     {
       return inputString != null ? inputString + suffix : String.Empty;
     }
@@ -307,8 +302,7 @@ public static class StringUtils
     /// <param name="pattern">Pattern to match against.</param>
     /// <param name="stringComparison">String comparison type to use.</param>
     /// <returns>True if the key matches the pattern, false otherwise.</returns>
-    public bool IsLike
-      (string pattern, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
+    public bool IsLike(string pattern, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
     {
       if (inputString == null)
         return false;
@@ -356,6 +350,7 @@ public static class StringUtils
       wildKey = null;
       if (inputString == null)
         return false;
+
       var wildcardCount = pattern.Count(c => c == '*');
       if (wildcardCount == 1 && pattern.EndsWith("*"))
       {
@@ -482,8 +477,9 @@ public static class StringUtils
     public bool IsLikeNumber(string pattern, out string? wildKey, out int wildNum)
     {
       wildKey = null;
-      wildNum = 0;  
+      wildNum = 0;
       if (inputString == null) return false;
+
       if (pattern.EndsWith("#") && pattern.StartsWith("#"))
       {
         pattern = pattern.Substring(1, pattern.Length - 2);
@@ -538,9 +534,8 @@ public static class StringUtils
     /// </summary>
     /// <returns>String with the first letter in uppercase.</returns>
     [DebuggerStepThrough]
-    public string? ToUpperFirst()
+    public string ToUpperFirst()
     {
-      if (inputString == null) return null;
       if (string.IsNullOrEmpty(inputString))
         return string.Empty;
 
@@ -554,9 +549,8 @@ public static class StringUtils
     /// </summary>
     /// <returns>String with the first letter in lowercase.</returns>
     [DebuggerStepThrough]
-    public string? ToLowerFirst()
+    public string ToLowerFirst()
     {
-      if (inputString == null) return null;
       if (string.IsNullOrEmpty(inputString))
         return string.Empty;
 
@@ -570,7 +564,7 @@ public static class StringUtils
     /// </summary>
     /// <param name="enclosings">Array of character pairs representing enclosings.</param>
     /// <returns>String with parentheses trimmed.</returns>
-    public string? TrimParens((char open, char close)[]? enclosings = null)
+    public string TrimParens((char open, char close)[]? enclosings = null)
     {
       return inputString.TrimEnclosings('(', ')', enclosings);
     }
@@ -582,10 +576,8 @@ public static class StringUtils
     /// <param name="closeParen">The closing parenthesis character.</param>
     /// <param name="enclosings">Array of character pairs representing enclosings.</param>
     /// <returns>String with specified enclosings trimmed.</returns>
-    public string? TrimEnclosings
-      (char openParen, char closeParen, (char open, char close)[]? enclosings = null)
+    public string TrimEnclosings(char openParen, char closeParen, (char open, char close)[]? enclosings = null)
     {
-      if (inputString == null) return null;
       if (inputString.StartsWith(new String(openParen, 1)) && inputString.EndsWith(new String(closeParen, 1)))
       {
         if (enclosings == null)
@@ -619,9 +611,8 @@ public static class StringUtils
     /// </summary>
     /// <returns>String with double quotes trimmed.</returns>
     [DebuggerStepThrough]
-    public string? TrimDblQuotes()
+    public string TrimDblQuotes()
     {
-      if (inputString == null) return null;
       if (inputString.Length >= 2 && inputString.StartsWith("\"") && inputString.EndsWith("\""))
         return inputString.Substring(1, inputString.Length - 2);
 
@@ -639,7 +630,6 @@ public static class StringUtils
     //[DebuggerStepThrough]
     public string[] SplitBy(char sep, (char open, char close)[] enclosings)
     {
-      if (inputString == null) return Array.Empty<string>();
       var result = new List<string>();
       var priorStart = 0;
       int i;
@@ -675,7 +665,6 @@ public static class StringUtils
     //[DebuggerStepThrough]
     public int Find(int startNdx, char sep, (char open, char close)[] enclosings)
     {
-      if (inputString == null) return -1;
       for (var i = startNdx + 1; i < inputString.Length; i++)
       {
         var ch = inputString[i];
@@ -698,7 +687,6 @@ public static class StringUtils
     /// <returns>The index of the matching closing separator or the length of the text if not found.</returns>
     public int FindMatch(int startNdx, char openingSep, (char open, char close)[] enclosings)
     {
-      if (inputString == null) return -1;
       var (c1, c2) = enclosings.FirstOrDefault(item => item.open == openingSep);
       var closingSep = c2;
 
@@ -721,10 +709,8 @@ public static class StringUtils
     /// <param name="index">The starting index for the search.</param>
     /// <returns>The substring from the starting index until the delimiter is found.</returns>
     [DebuggerStepThrough]
-    public string? SubstringUntil(char ch, int index)
+    public string SubstringUntil(char ch, int index)
     {
-      if (inputString == null)
-        return null;;
       var result = inputString.Substring(index);
       index = result.IndexOf(ch);
       if (index > 0)
@@ -741,8 +727,6 @@ public static class StringUtils
     [DebuggerStepThrough]
     public string[] SplitSpecial(char delimiter, (char Open, char Close)[]? bracesTuples = null)
     {
-      if (inputString == null)
-        return Array.Empty<string>(); 
       var result = new List<string>();
       var sb = new StringBuilder();
       var inQuotes = false;
@@ -798,13 +782,8 @@ public static class StringUtils
     /// <param name="endPos">The ending position of the found substring.</param>
     /// <returns>The substring from the starting position until the delimiter is found.</returns>
     [DebuggerStepThrough]
-    public string? SubstringUntil(char delimiter, int startPos, out int endPos)
+    public string SubstringUntil(char delimiter, int startPos, out int endPos)
     {
-      if (inputString == null)
-      {
-        endPos = 0;
-        return string.Empty;
-      }
       for (var i = startPos; i < inputString.Length; i++)
       {
         var ch = inputString[i];
@@ -826,8 +805,6 @@ public static class StringUtils
     /// <returns>The position of the end of the sentence or -1 if not found.</returns>
     public int FindEndOfSentence(int startPos, string[] abbreviations)
     {
-      if (inputString == null)
-        return -1;
       var ndx = inputString.IndexOf('.', startPos);
       while (ndx >= 0)
       {
@@ -883,9 +860,8 @@ public static class StringUtils
     /// <param name="startString">The string to be replaced at the start.</param>
     /// <param name="replaceString">The string to replace with.</param>
     /// <returns>The modified string if the start matches; otherwise, the original string.</returns>
-    public string? ReplaceStart(string startString, string replaceString)
+    public string ReplaceStart(string startString, string replaceString)
     {
-      if (inputString == null) return null;
       if (inputString.StartsWith(startString))
         return replaceString + inputString.Substring(startString.Length);
 
@@ -899,13 +875,10 @@ public static class StringUtils
     /// <param name="replaceString">The string to replace with.</param>
     /// <param name="comparisonType">The string comparison type to use.</param>
     /// <returns>The modified string if the start matches; otherwise, the original string.</returns>
-    public string? ReplaceStart
-      (string startString, string replaceString, StringComparison comparisonType)
+    public string ReplaceStart(string startString, string replaceString, StringComparison comparisonType)
     {
-      if (inputString == null) return null;
-      if (inputString.StartsWith(startString))
-        if (inputString.StartsWith(startString, comparisonType))
-          return replaceString + inputString.Substring(startString.Length);
+      if (inputString.StartsWith(startString, comparisonType))
+        return replaceString + inputString.Substring(startString.Length);
 
       return inputString;
     }
@@ -916,9 +889,8 @@ public static class StringUtils
     /// <param name="endString">The string to be replaced at the end.</param>
     /// <param name="replaceString">The string to replace with.</param>
     /// <returns>The modified string if the end matches; otherwise, the original string.</returns>  
-    public string? ReplaceEnd(string endString, string replaceString)
+    public string ReplaceEnd(string endString, string replaceString)
     {
-      if (inputString == null) return null;
       if (inputString.EndsWith(endString))
         return inputString.Substring(0, inputString.Length - endString.Length) + replaceString;
 
@@ -932,10 +904,8 @@ public static class StringUtils
     /// <param name="replaceString">The string to replace with.</param>
     /// <param name="comparisonType">The string comparison type to use.</param>
     /// <returns>The modified string if the end matches; otherwise, the original string.</returns>
-    public string? ReplaceEnd
-      (string endString, string replaceString, StringComparison comparisonType)
+    public string ReplaceEnd(string endString, string replaceString, StringComparison comparisonType)
     {
-      if (inputString == null) return null;
       if (inputString.EndsWith(endString, comparisonType))
         return inputString.Substring(0, inputString.Length - endString.Length) + replaceString;
 
@@ -948,9 +918,9 @@ public static class StringUtils
     /// <param name="searchString">The string to search for.</param>
     /// <param name="replaceString">The string to replace with.</param>
     /// <returns>The modified string if the search string is found; otherwise, the original string.</returns>
-    public string? ReplaceFirst(string searchString, string replaceString)
+    public string ReplaceFirst(string searchString, string replaceString)
     {
-      if (inputString == null) return null;
+
       var k = inputString.IndexOf(searchString);
       if (k >= 0)
         return inputString.Substring(0, k) + replaceString + inputString.Substring(k + searchString.Length);
@@ -965,9 +935,8 @@ public static class StringUtils
     /// <param name="replaceString">The string to replace with.</param>
     /// <param name="index">The starting index for the search.</param>
     /// <returns>The modified string if the search string is found; otherwise, the original string.</returns>   
-    public string? ReplaceFirst(string searchString, string replaceString, int index)
+    public string ReplaceFirst(string searchString, string replaceString, int index)
     {
-      if (inputString == null) return null;
       var k = inputString.IndexOf(searchString, index);
       if (k >= 0)
         return inputString.Substring(0, k) + replaceString + inputString.Substring(k + searchString.Length);
@@ -983,9 +952,8 @@ public static class StringUtils
     /// <param name="index">The starting index for the search.</param>
     /// <param name="count">The number of characters to search within.</param>
     /// <returns>The modified string if the search string is found; otherwise, the original string.</returns>
-    public string? ReplaceFirst(string searchString, string replaceString, int index, int count)
+    public string ReplaceFirst(string searchString, string replaceString, int index, int count)
     {
-      if (inputString == null) return null;
       var k = inputString.IndexOf(searchString, index, count, StringComparison.Ordinal);
       if (k >= 0)
         return inputString.Substring(0, k) + replaceString + inputString.Substring(k + searchString.Length);
@@ -1000,10 +968,8 @@ public static class StringUtils
     /// <param name="replaceString">The string to replace with.</param>
     /// <param name="comparisonType">The string comparison type to use.</param>
     /// <returns>The modified string if the search string is found; otherwise, the original string.</returns>
-    public string? ReplaceFirst
-      (string searchString, string replaceString, StringComparison comparisonType)
+    public string ReplaceFirst(string searchString, string replaceString, StringComparison comparisonType)
     {
-      if (inputString == null) return null;
       var k = inputString.IndexOf(searchString, comparisonType);
       if (k >= 0)
         return inputString.Substring(0, k) + replaceString + inputString.Substring(k + searchString.Length);
@@ -1019,10 +985,8 @@ public static class StringUtils
     /// <param name="index">The starting index for the search.</param>
     /// <param name="comparisonType">The string comparison type to use.</param>
     /// <returns>The modified string if the search string is found; otherwise, the original string.</returns>
-    public string? ReplaceFirst
-      (string searchString, string replaceString, int index, StringComparison comparisonType)
+    public string ReplaceFirst(string searchString, string replaceString, int index, StringComparison comparisonType)
     {
-      if (inputString == null) return null;
       var k = inputString.IndexOf(searchString, index, comparisonType);
       if (k >= 0)
         return inputString.Substring(0, k) + replaceString + inputString.Substring(k + searchString.Length);
@@ -1040,10 +1004,9 @@ public static class StringUtils
     /// <param name="count">The number of characters to search within.</param>
     /// <param name="comparisonType">The string comparison type to use.</param>
     /// <returns>The modified string if the search string is found; otherwise, the original string.</returns>
-    public string? ReplaceFirst
+    public string ReplaceFirst
       (string searchString, string replaceString, int index, int count, StringComparison comparisonType)
     {
-      if (inputString == null) return null;
       var k = inputString.IndexOf(searchString, index, count, comparisonType);
       if (k >= 0)
         return inputString.Substring(0, k) + replaceString + inputString.Substring(k + searchString.Length);
@@ -1057,9 +1020,8 @@ public static class StringUtils
     /// <param name="searchString">The string to search for.</param>
     /// <param name="replaceString">The string to replace with.</param>
     /// <returns>The modified string if the search string is found; otherwise, the original string.</returns>
-    public string? ReplaceLast(string searchString, string replaceString)
+    public string ReplaceLast(string searchString, string replaceString)
     {
-      if (inputString == null) return null;
       var k = inputString.LastIndexOf(searchString, StringComparison.Ordinal);
       if (k >= 0)
         return inputString.Substring(0, k) + replaceString + inputString.Substring(k + searchString.Length);
@@ -1075,9 +1037,8 @@ public static class StringUtils
     /// <param name="replaceString">The string to replace with.</param>
     /// <param name="index">The starting index for the search.</param>
     /// <returns>The modified string if the search string is found; otherwise, the original string.</returns>
-    public string? ReplaceLast(string searchString, string replaceString, int index)
+    public string ReplaceLast(string searchString, string replaceString, int index)
     {
-      if (inputString == null) return null;
       var k = inputString.LastIndexOf(searchString, index, StringComparison.Ordinal);
       if (k >= 0)
         return inputString.Substring(0, k) + replaceString + inputString.Substring(k + searchString.Length);
@@ -1094,9 +1055,8 @@ public static class StringUtils
     /// <param name="index">The starting index for the search.</param>
     /// <param name="count">The number of characters to search within.</param>
     /// <returns>The modified string if the search string is found; otherwise, the original string.</returns>
-    public string? ReplaceLast(string searchString, string replaceString, int index, int count)
+    public string ReplaceLast(string searchString, string replaceString, int index, int count)
     {
-      if (inputString == null) return null;
       var k = inputString.LastIndexOf(searchString, index, count, StringComparison.Ordinal);
       if (k >= 0)
         return inputString.Substring(0, k) + replaceString + inputString.Substring(k + searchString.Length);
@@ -1111,10 +1071,8 @@ public static class StringUtils
     /// <param name="replaceString">The string to replace with.</param>
     /// <param name="comparisonType">The string comparison type to use.</param>
     /// <returns>The modified string if the search string is found; otherwise, the original string.</returns>
-    public string? ReplaceLast
-      (string searchString, string replaceString, StringComparison comparisonType)
+    public string ReplaceLast(string searchString, string replaceString, StringComparison comparisonType)
     {
-      if (inputString == null) return null;
       var k = inputString.LastIndexOf(searchString, comparisonType);
       if (k >= 0)
         return inputString.Substring(0, k) + replaceString + inputString.Substring(k + searchString.Length);
@@ -1131,10 +1089,8 @@ public static class StringUtils
     /// <param name="index">The starting index for the search.</param>
     /// <param name="comparisonType">The string comparison type to use.</param>
     /// <returns>The modified string if the search string is found; otherwise, the original string.</returns>
-    public string? ReplaceLast
-      (string searchString, string replaceString, int index, StringComparison comparisonType)
+    public string ReplaceLast(string searchString, string replaceString, int index, StringComparison comparisonType)
     {
-      if (inputString == null) return null;
       var k = inputString.LastIndexOf(searchString, index, comparisonType);
       if (k >= 0)
         return inputString.Substring(0, k) + replaceString + inputString.Substring(k + searchString.Length);
@@ -1153,10 +1109,9 @@ public static class StringUtils
     /// <param name="count">The number of characters to search within.</param>
     /// <param name="comparisonType">The string comparison type to use.</param>
     /// <returns>The modified string if the search string is found; otherwise, the original string.</returns>
-    public string? ReplaceLast
+    public string ReplaceLast
       (string searchString, string replaceString, int index, int count, StringComparison comparisonType)
     {
-      if (inputString == null) return null;
       var k = inputString.LastIndexOf(searchString, index, count, comparisonType);
       if (k >= 0)
         return inputString.Substring(0, k) + replaceString + inputString.Substring(k + searchString.Length);
@@ -1169,9 +1124,8 @@ public static class StringUtils
     /// </summary>
     /// <param name="charCount">The number of characters to remove from the end of the string.</param>
     /// <returns>The shortened string if the input string is not null; otherwise, null.</returns>
-    public string? Shorten(int charCount)
+    public string Shorten(int charCount)
     {
-      if (inputString == null) return null;
       return inputString.Substring(0, inputString.Length - charCount);
     }
 
@@ -1179,9 +1133,8 @@ public static class StringUtils
     /// Makes English plural form of the noun.
     /// </summary>
     /// <returns>The plural form of the noun if the input string is not null; otherwise, null.</returns>
-    public string? Pluralize()
+    public string Pluralize()
     {
-      if (inputString == null) return null;
       if (inputString.EndsWith("y"))
         return inputString.Shorten(1) + "ies";
       if (inputString.EndsWith("s"))
@@ -1196,9 +1149,8 @@ public static class StringUtils
     /// Makes English singular form of the noun.
     /// </summary>
     /// <returns>The singular form of the noun if the input string is not null; otherwise, null.</returns>
-    public string? Singularize()
+    public string Singularize()
     {
-      if (inputString == null) return null;
       if (inputString.EndsWith("ies"))
         return inputString.Shorten(3) + "y";
       if (inputString.EndsWith("ses"))
@@ -1215,11 +1167,8 @@ public static class StringUtils
     /// Decodes escapes sequences: \\, \t, \r, \n, \s, \u
     /// </summary>
     /// <returns>The decoded string if the input string is not null; otherwise, null.</returns>
-    public string? DecodeEscapeSeq()
+    public string DecodeEscapeSeq()
     {
-      if (inputString == null)
-        return null;
-
       int index = 0;
       var sb = new StringBuilder();
       while (index < inputString.Length)
@@ -1239,13 +1188,8 @@ public static class StringUtils
     /// </summary>
     /// <param name="index">The current position in the string. This will be updated to the end of the escape sequence.</param>
     /// <returns>The decoded escape sequence if the input string is not null; otherwise, null.</returns>
-    private string? DecodeEscapeSeq_(ref int index)
+    private string DecodeEscapeSeq_(ref int index)
     {
-      if (inputString == null)
-      {
-        index = 0;
-        return null;
-      }
       char c = inputString[index + 1];
       switch (c)
       {
@@ -1265,29 +1209,29 @@ public static class StringUtils
           index++;
           return "\u00a0";
         case 'u':
-        {
-          index++;
-          ushort num = 0;
-          for (int i = 1; i <= 4; i++)
           {
-            char c2 = inputString[index + i];
-            if (c2 >= '0' && c2 <= '9')
+            index++;
+            ushort num = 0;
+            for (int i = 1; i <= 4; i++)
             {
-              num = (ushort)(num * 16 + (ushort)(c2 - 48));
+              char c2 = inputString[index + i];
+              if (c2 >= '0' && c2 <= '9')
+              {
+                num = (ushort)(num * 16 + (ushort)(c2 - 48));
+              }
+              else if (c2 >= 'A' && c2 <= 'F')
+              {
+                num = (ushort)(num * 16 + (ushort)(c2 - 65) + 10);
+              }
+              else if (c2 >= 'a' && c2 <= 'f')
+              {
+                num = (ushort)(num * 16 + (ushort)(c2 - 97) + 10);
+              }
             }
-            else if (c2 >= 'A' && c2 <= 'F')
-            {
-              num = (ushort)(num * 16 + (ushort)(c2 - 65) + 10);
-            }
-            else if (c2 >= 'a' && c2 <= 'f')
-            {
-              num = (ushort)(num * 16 + (ushort)(c2 - 97) + 10);
-            }
-          }
 
-          index += 4;
-          return new string((char)num, 1);
-        }
+            index += 4;
+            return new string((char)num, 1);
+          }
         default:
           index++;
           return new string(c, 1);
@@ -1299,11 +1243,8 @@ public static class StringUtils
     /// </summary>
     /// <param name="count">The number of times to repeat the string.</param>
     /// <returns>The repeated string if the input string is not null; otherwise, null.</returns>
-    public string? Duplicate(int count)
+    public string Duplicate(int count)
     {
-      if (inputString == null)
-        return null;
-
       var sb = new StringBuilder(inputString.Length * count);
       for (int i = 0; i < count; i++)
         sb.Append(inputString);
@@ -1315,10 +1256,8 @@ public static class StringUtils
     /// </summary>
     /// <param name="trimString">Substring to remove from the end of the string</param>
     /// <returns>Trimmed string if the substring is found at the end, otherwise the original string</returns>
-    public string? TrimEnd(string? trimString)
+    public string TrimEnd(string trimString)
     {
-      if (inputString == null || trimString == null)
-        return inputString;
       if (inputString.EndsWith(trimString))
         return inputString.Substring(0, inputString.Length - trimString.Length);
 
@@ -1330,33 +1269,33 @@ public static class StringUtils
     /// </summary>
     /// <param name="trimString">Substring to remove from the start of the string</param>
     /// <returns>Trimmed string if the substring is found at the start, otherwise the original string</returns>
-    public string? TrimStart(string? trimString)
+    public string TrimStart(string trimString)
     {
-      if (inputString == null || trimString == null)
-        return inputString;
       if (inputString.StartsWith(trimString))
         return inputString.Substring(trimString.Length);
 
       return inputString;
     }
-
-    /// <summary>
-    /// Concatenates two strings with a separator between them.
-    /// If any of both is empty of null - the other is returned.
-    /// </summary>
-    /// <param name="separator">The string to use as a separator.</param>
-    /// <param name="text2">The second string to concatenate.</param>
-    /// <returns>The concatenated string if both strings are not null or empty; otherwise, the non-null string.</returns>
-    public string? Concat2(string separator, string? text2)
-    {
-      if (String.IsNullOrEmpty(inputString))
-        return text2;
-      if (String.IsNullOrEmpty(text2))
-        return inputString;
-
-      return inputString + separator + text2;
-    }
   }
+
+  /// <summary>
+  /// Concatenates two strings with a separator between them.
+  /// If any of both is empty of null - the other is returned.
+  /// </summary>
+  /// <param name="str1">The first string to concatenate.</param>
+  /// <param name="separator">The string to use as a separator.</param>
+  /// <param name="str2">The second string to concatenate.</param>
+  /// <returns>The concatenated string if both strings are not null or empty; otherwise, the non-null string.</returns>
+  public static string? Concat2(string? str1, string? separator, string? str2)
+  {
+    if (String.IsNullOrEmpty(str1))
+      return str2;
+    if (String.IsNullOrEmpty(str2))
+      return str1;
+
+    return str1 + separator + str2;
+  }
+
 
   /// <summary>
   /// Changes a number to literal text using whole part and a rational fraction part.
@@ -1368,7 +1307,7 @@ public static class StringUtils
     var intPart = (Int64)number;
     var frac = number - intPart;
 
-    var result = NumberToText(intPart);
+    var result = intPart.NumberToText();
     if (frac != 0)
     {
       var cents = (int)frac * 100;
@@ -1384,7 +1323,7 @@ public static class StringUtils
   /// <returns>The textual representation of the number.</returns>
   public static string? NumberToText(this int number)
   {
-    return NumberToText((Int64)number);
+    return ((Int64)number).NumberToText();
   }
 
   /// <summary>
@@ -1398,50 +1337,50 @@ public static class StringUtils
       return "zero";
 
     if (number < 0)
-      return "minus " + NumberToText(Math.Abs(number));
+      return "minus " + Math.Abs(number).NumberToText();
 
     var words = "";
 
     // 9223372036854775808
     if (number / 1000000000000000000 > 0)
     {
-      words += NumberToText(number / 1000000000000000000) + " quintillion ";
+      words += (number / 1000000000000000000).NumberToText() + " quintillion ";
       number %= 1000000000000000000;
     }
 
     if (number / 1000000000000000 > 0)
     {
-      words += NumberToText(number / 1000000000000000) + " quadrillion ";
+      words += (number / 1000000000000000).NumberToText() + " quadrillion ";
       number %= 1000000000000000;
     }
 
     if (number / 1000000000000 > 0)
     {
-      words += NumberToText(number / 1000000000000) + " trillion ";
+      words += (number / 1000000000000).NumberToText() + " trillion ";
       number %= 1000000000000;
     }
 
     if (number / 1000000000 > 0)
     {
-      words += NumberToText(number / 1000000000) + " billion ";
+      words += (number / 1000000000).NumberToText() + " billion ";
       number %= 1000000000;
     }
 
     if (number / 1000000 > 0)
     {
-      words += NumberToText(number / 1000000) + " million ";
+      words += (number / 1000000).NumberToText() + " million ";
       number %= 1000000;
     }
 
     if (number / 1000 > 0)
     {
-      words += NumberToText(number / 1000) + " thousand ";
+      words += (number / 1000).NumberToText() + " thousand ";
       number %= 1000;
     }
 
     if (number / 100 > 0)
     {
-      words += NumberToText(number / 100) + " hundred ";
+      words += (number / 100).NumberToText() + " hundred ";
       number %= 100;
     }
 

@@ -4,13 +4,13 @@
         <name>Qhta.TextUtils</name>
     </assembly>
     <members>
-        <member name="T:Qhta.TextUtils.DuplicateAllowingCompararer`1">
+        <member name="T:Qhta.TextUtils.DuplicateAllowingComparer`1">
             <summary>
             List sort comparer allowing duplicates. Normal comparer returns 0 if compared values are equal. This comparer returns 1 in this case.
             </summary>
             <typeparam name="T">Any comparable type (string type preferred)</typeparam>
         </member>
-        <member name="M:Qhta.TextUtils.DuplicateAllowingCompararer`1.Compare(`0,`0)">
+        <member name="M:Qhta.TextUtils.DuplicateAllowingComparer`1.Compare(`0,`0)">
             <summary>
             Main comparison method
             </summary>
@@ -18,7 +18,7 @@
             <param name="y"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.TextUtils.DuplicateAllowingCompararer`1.Equals(`0,`0)">
+        <member name="M:Qhta.TextUtils.DuplicateAllowingComparer`1.Equals(`0,`0)">
             <summary>
             Equality comparer newer shows true.
             </summary>
@@ -26,7 +26,7 @@
             <param name="y"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.TextUtils.DuplicateAllowingCompararer`1.GetHashCode(`0)">
+        <member name="M:Qhta.TextUtils.DuplicateAllowingComparer`1.GetHashCode(`0)">
             <summary>
             GetHashCode metod. Required when Equals defined.
             </summary>
@@ -53,16 +53,16 @@
             <summary>
             Main compare method
             </summary>
-            <param name="x"></param>
-            <param name="y"></param>
+            <param name="str1">First string to compare</param>
+            <param name="str2">Second string to compare</param>
             <returns></returns>
         </member>
         <member name="M:Qhta.TextUtils.StringATergoComparer.Equals(System.String,System.String)">
             <summary>
-            Equality comparer never shows true.
+            Equality comparer never shows true as Compare method returns 1 when strings are equal.
             </summary>
-            <param name="x"></param>
-            <param name="y"></param>
+            <param name="str1">First string to compare</param>
+            <param name="str2">Second string to compare</param>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
@@ -173,20 +173,31 @@
             </summary>
         </member>
         <member name="M:Qhta.TextUtils.StringListUtils.IndexOf(System.Collections.Generic.List{System.String},System.String,System.StringComparison)">
+            <inheritdoc cref="M:Qhta.TextUtils.StringListUtils.&lt;G&gt;$6B45A896A6C9F933DEE1DD9F18059158.IndexOf(System.String,System.StringComparison)"/>
+        </member>
+        <member name="M:Qhta.TextUtils.StringListUtils.IsEqualOrMixed(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.StringComparison)">
+            <inheritdoc cref="M:Qhta.TextUtils.StringListUtils.&lt;G&gt;$6B45A896A6C9F933DEE1DD9F18059158.IsEqualOrMixed(System.Collections.Generic.List{System.String},System.StringComparison)"/>
+        </member>
+        <member name="M:Qhta.TextUtils.StringListUtils.FindInclusions(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.StringComparison)">
+            <inheritdoc cref="M:Qhta.TextUtils.StringListUtils.&lt;G&gt;$6B45A896A6C9F933DEE1DD9F18059158.FindInclusions(System.Collections.Generic.List{System.String},System.StringComparison)"/>
+        </member>
+        <member name="T:Qhta.TextUtils.StringListUtils.&lt;G&gt;$6B45A896A6C9F933DEE1DD9F18059158.&lt;M&gt;$43C56F5AD3CAE09B51F3F12162E1B656">
+            <param name="inputList"></param>
+        </member>
+        <member name="M:Qhta.TextUtils.StringListUtils.&lt;G&gt;$6B45A896A6C9F933DEE1DD9F18059158.IndexOf(System.String,System.StringComparison)">
             <summary>
             Finds a string in a list.
             </summary>
-            <param name="aList"></param>
             <param name="s"></param>
             <param name="comparison"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.TextUtils.StringListUtils.IsEqualOrMixed(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.StringComparison)">
+        <member name="M:Qhta.TextUtils.StringListUtils.&lt;G&gt;$6B45A896A6C9F933DEE1DD9F18059158.IsEqualOrMixed(System.Collections.Generic.List{System.String},System.StringComparison)">
             <summary>
             Checks whether both lists are equal or both contain the same elements in different order.
             </summary>
         </member>
-        <member name="M:Qhta.TextUtils.StringListUtils.FindInclusions(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.StringComparison)">
+        <member name="M:Qhta.TextUtils.StringListUtils.&lt;G&gt;$6B45A896A6C9F933DEE1DD9F18059158.FindInclusions(System.Collections.Generic.List{System.String},System.StringComparison)">
             <summary>
             Checks in which positions the first list contains elements not found in the second list.
             </summary>
@@ -393,7 +404,14 @@
             <inheritdoc cref="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.TrimStart(System.String)"/>
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.Concat2(System.String,System.String,System.String)">
-            <inheritdoc cref="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Concat2(System.String,System.String)"/>
+            <summary>
+            Concatenates two strings with a separator between them.
+            If any of both is empty of null - the other is returned.
+            </summary>
+            <param name="str1">The first string to concatenate.</param>
+            <param name="separator">The string to use as a separator.</param>
+            <param name="str2">The second string to concatenate.</param>
+            <returns>The concatenated string if both strings are not null or empty; otherwise, the non-null string.</returns>
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.NumberToText(System.Double)">
             <summary>
@@ -416,7 +434,7 @@
             <param name="number"></param>
             <returns></returns>
         </member>
-        <member name="T:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.&lt;M&gt;$83DCAEA4A49BE8CF63655AB4D80E7F93">
+        <member name="T:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.&lt;M&gt;$F86C9C51E532AA3BE77437995EA765C5">
             <summary>
             Extension methods for string. All methods return null if the input string is null.
             </summary>
@@ -869,15 +887,6 @@
             </summary>
             <param name="trimString">Substring to remove from the start of the string</param>
             <returns>Trimmed string if the substring is found at the start, otherwise the original string</returns>
-        </member>
-        <member name="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Concat2(System.String,System.String)">
-            <summary>
-            Concatenates two strings with a separator between them.
-            If any of both is empty of null - the other is returned.
-            </summary>
-            <param name="separator">The string to use as a separator.</param>
-            <param name="text2">The second string to concatenate.</param>
-            <returns>The concatenated string if both strings are not null or empty; otherwise, the non-null string.</returns>
         </member>
         <member name="T:Qhta.TextUtils.CharEquivalence">
             <summary>

@@ -1,3 +1,9 @@
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\BuiltInStyleProbes.docx
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.OpenXmlTools.deps.json
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.OpenXmlTools.dll
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.OpenXmlTools.pdb
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.OpenXmlTools.xml
+D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\pl\Qhta.OpenXmlTools.resources.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\Qhta.OpenXmlTools.csproj.AssemblyReference.cache
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\Qhta.OpenXmlTools.StylesStrings.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\Qhta.OpenXmlTools.StylesStrings.pl.resources
@@ -7,12 +13,6 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\Qhta.OpenXmlToo
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\Qhta.OpenXmlTools.AssemblyInfo.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\Qhta.OpenXmlTools.csproj.CoreCompileInputs.cache
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\Qhta.OpenXmlTools.sourcelink.json
-D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\BuiltInStyleProbes.docx
-D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.OpenXmlTools.deps.json
-D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.OpenXmlTools.dll
-D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.OpenXmlTools.pdb
-D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\Qhta.OpenXmlTools.xml
-D:\OneDrive\VS\Projects\MyLib\bin\Debug\net8.0\pl\Qhta.OpenXmlTools.resources.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\pl\Qhta.OpenXmlTools.resources.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\Qhta.OpenXmlTools.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\refint\Qhta.OpenXmlTools.dll

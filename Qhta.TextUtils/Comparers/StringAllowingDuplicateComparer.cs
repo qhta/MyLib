@@ -5,17 +5,12 @@
   /// </summary>
   public static class StringAllowingDuplicateComparer
   {
-    static DuplicateAllowingCompararer<string> instance = new DuplicateAllowingCompararer<string>();
-
     /// <summary>
     /// Singular instance.
     /// </summary>
-    public static DuplicateAllowingCompararer<string> Instance
+    public static DuplicateAllowingComparer<string> Instance
     {
-      get
-      {
-        return instance;
-      }
-    }
+      get;
+    } = new();
   }
 }

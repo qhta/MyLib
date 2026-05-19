@@ -9,22 +9,22 @@ namespace Qhta.TextUtils
   /// </summary>
   public class StringATergoComparer : IComparer<String>, IEqualityComparer<String>
   {
-    HashSet<int> hashes = new HashSet<int>();
+    readonly HashSet<int> hashes = [];
 
     /// <summary>
     /// Main compare method
     /// </summary>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
+    /// <param name="str1">First string to compare</param>
+    /// <param name="str2">Second string to compare</param>
     /// <returns></returns>
-    public int Compare(String? x, String? y)
+    public int Compare(String? str1, String? str2)
     {
-      if (x == null)
-        return (y == null) ? 0 : -1;
-      if (y == null) return 1;
-      x = x.Reverse().ToString()??"";
-      y = y.Reverse().ToString()??"";
-      int result = x.CompareTo(y);
+      if (str1 == null)
+        return (str2 == null) ? 0 : -1;
+      if (str2 == null) return 1;
+      str1 = new string(str1.Reverse().ToArray());
+      str2 = new string(str2.Reverse().ToArray());
+      int result = String.Compare(str1, str2, StringComparison.Ordinal);
       if (result == 0)
         return 1;
       else
@@ -32,13 +32,13 @@ namespace Qhta.TextUtils
     }
 
     /// <summary>
-    /// Equality comparer never shows true.
+    /// Equality comparer never shows true as Compare method returns 1 when strings are equal.
     /// </summary>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
+    /// <param name="str1">First string to compare</param>
+    /// <param name="str2">Second string to compare</param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public bool Equals(string? x, string? y)
+    public bool Equals(string? str1, string? str2)
     {
       throw new NotImplementedException();
     }
@@ -51,9 +51,9 @@ namespace Qhta.TextUtils
     /// <exception cref="NotImplementedException"></exception>
     public int GetHashCode(string? obj)
     {
-      if (obj is string)
+      if (obj is string str)
       {
-        int hash = (obj as string).GetHashCode();
+        int hash = str.GetHashCode();
         while (hashes.Contains(hash))
           hash++;
         hashes.Add(hash);

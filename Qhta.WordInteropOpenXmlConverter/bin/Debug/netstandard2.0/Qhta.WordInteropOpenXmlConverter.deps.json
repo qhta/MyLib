@@ -13,7 +13,7 @@
           "Microsoft.Office.Interop.Word": "15.0.4797.1004",
           "MicrosoftOfficeCore15": "15.0.4420.1017",
           "Qhta.OpenXmlTools": "2.0.0",
-          "Qhta.TextUtils": "3.9.0"
+          "Qhta.TextUtils": "3.11.0"
         },
         "runtime": {
           "Qhta.WordInteropOpenXmlConverter.dll": {}
@@ -72,7 +72,7 @@
       },
       "Qhta.Collections/5.4.0": {
         "dependencies": {
-          "Qhta.TextUtils": "3.9.0"
+          "Qhta.TextUtils": "3.11.0"
         },
         "runtime": {
           "lib/netstandard2.0/Qhta.Collections.dll": {
@@ -89,11 +89,11 @@
           }
         }
       },
-      "Qhta.TextUtils/3.9.0": {
+      "Qhta.TextUtils/3.11.0": {
         "runtime": {
           "lib/netstandard2.0/Qhta.TextUtils.dll": {
-            "assemblyVersion": "3.9.0.0",
-            "fileVersion": "3.9.0.0"
+            "assemblyVersion": "3.11.0.0",
+            "fileVersion": "3.11.0.0"
           }
         }
       },
@@ -113,7 +113,7 @@
         "dependencies": {
           "Qhta.Collections": "5.4.0",
           "Qhta.DeepCopy": "1.5.0",
-          "Qhta.TextUtils": "3.9.0",
+          "Qhta.TextUtils": "3.11.0",
           "System.Net.Http": "4.3.4"
         },
         "runtime": {
@@ -353,7 +353,7 @@
         "dependencies": {
           "DocumentFormat.OpenXml": "3.5.1",
           "DocumentFormat.OpenXml.Framework": "3.5.1",
-          "Qhta.TextUtils": "3.9.0",
+          "Qhta.TextUtils": "3.11.0",
           "Qhta.TypeUtils": "1.6.0",
           "Qhta.Unicode": "1.2.2",
           "System.ComponentModel.Annotations": "5.0.0"
@@ -427,12 +427,12 @@
       "path": "qhta.deepcopy/1.5.0",
       "hashPath": "qhta.deepcopy.1.5.0.nupkg.sha512"
     },
-    "Qhta.TextUtils/3.9.0": {
+    "Qhta.TextUtils/3.11.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hZ+/F4zlW3AYYPKK3XFLQwkXmXlFW7HFsegQPLhjlE/OsMXReWiWEv3X5coAudArdSExeJXCQ6qncW73+v6UDw==",
-      "path": "qhta.textutils/3.9.0",
-      "hashPath": "qhta.textutils.3.9.0.nupkg.sha512"
+      "sha512": "sha512-tFD7cTOzJiE9yODNdaz+51JnH2zN+D3PczOJdYDL3KKNpG4pLxwHc+bIvvs9jrqXRZHMYgJcTacVVLL8bhrHEQ==",
+      "path": "qhta.textutils/3.11.0",
+      "hashPath": "qhta.textutils.3.11.0.nupkg.sha512"
     },
     "Qhta.TypeUtils/1.6.0": {
       "type": "package",

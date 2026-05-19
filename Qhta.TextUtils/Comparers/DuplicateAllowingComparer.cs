@@ -7,9 +7,9 @@ namespace Qhta.TextUtils
   /// List sort comparer allowing duplicates. Normal comparer returns 0 if compared values are equal. This comparer returns 1 in this case.
   /// </summary>
   /// <typeparam name="T">Any comparable type (string type preferred)</typeparam>
-  public class DuplicateAllowingCompararer<T> : IComparer<T>, IEqualityComparer<T> where T : IComparable
+  public class DuplicateAllowingComparer<T> : IComparer<T>, IEqualityComparer<T> where T : IComparable
   {
-    HashSet<int> hashes = new HashSet<int>();
+    readonly HashSet<int> hashes = [];
 
     /// <summary>
     /// Main comparison method
