@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Qhta.WordInteropOpenXmlConverter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77574be4d9714090808099effa2eaac1c649c854")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9fe7e7006930168e32b7f047a41c4aa679cb2388")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.WordInteropOpenXmlConverter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.WordInteropOpenXmlConverter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
