@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v10.0": {
-      "Qhta.TextUtils/3.11.0": {
+      "Qhta.TextUtils/4.2.3": {
         "runtime": {
           "Qhta.TextUtils.dll": {}
         }
@@ -14,7 +14,7 @@
     }
   },
   "libraries": {
-    "Qhta.TextUtils/3.11.0": {
+    "Qhta.TextUtils/4.2.3": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

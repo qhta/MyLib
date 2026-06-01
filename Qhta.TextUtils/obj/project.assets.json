@@ -191,7 +191,7 @@
     "C:\\Users\\qhta1\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "3.11.0",
+    "version": "4.2.3",
     "restore": {
       "projectUniqueName": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.TextUtils\\Qhta.TextUtils.csproj",
       "projectName": "Qhta.TextUtils",

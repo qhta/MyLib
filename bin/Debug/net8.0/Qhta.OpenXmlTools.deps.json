@@ -10,7 +10,7 @@
         "dependencies": {
           "DocumentFormat.OpenXml": "3.5.1",
           "DocumentFormat.OpenXml.Framework": "3.5.1",
-          "Qhta.TextUtils": "3.11.0",
+          "Qhta.TextUtils": "4.2.3",
           "Qhta.TypeUtils": "1.6.0",
           "Qhta.Unicode": "1.2.2"
         },
@@ -47,7 +47,7 @@
       },
       "Qhta.Collections/5.4.0": {
         "dependencies": {
-          "Qhta.TextUtils": "3.11.0"
+          "Qhta.TextUtils": "4.2.3"
         },
         "runtime": {
           "lib/net8.0/Qhta.Collections.dll": {
@@ -64,11 +64,11 @@
           }
         }
       },
-      "Qhta.TextUtils/3.11.0": {
+      "Qhta.TextUtils/4.2.3": {
         "runtime": {
           "lib/net8.0/Qhta.TextUtils.dll": {
-            "assemblyVersion": "3.11.0.0",
-            "fileVersion": "3.11.0.0"
+            "assemblyVersion": "4.2.3.0",
+            "fileVersion": "4.2.3.0"
           }
         }
       },
@@ -87,7 +87,7 @@
         "dependencies": {
           "Qhta.Collections": "5.4.0",
           "Qhta.DeepCopy": "1.5.0",
-          "Qhta.TextUtils": "3.11.0"
+          "Qhta.TextUtils": "4.2.3"
         },
         "runtime": {
           "lib/net8.0/Qhta.Unicode.dll": {
@@ -140,12 +140,12 @@
       "path": "qhta.deepcopy/1.5.0",
       "hashPath": "qhta.deepcopy.1.5.0.nupkg.sha512"
     },
-    "Qhta.TextUtils/3.11.0": {
+    "Qhta.TextUtils/4.2.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-tFD7cTOzJiE9yODNdaz+51JnH2zN+D3PczOJdYDL3KKNpG4pLxwHc+bIvvs9jrqXRZHMYgJcTacVVLL8bhrHEQ==",
-      "path": "qhta.textutils/3.11.0",
-      "hashPath": "qhta.textutils.3.11.0.nupkg.sha512"
+      "sha512": "sha512-5znZHMdYe52PJpRNGwPA/Ay9f09ypdDMaLTaZ2ZuKxkyMzgtqFhpYVqCAblGLV94E8HwBMueb2CixmYFLiht2Q==",
+      "path": "qhta.textutils/4.2.3",
+      "hashPath": "qhta.textutils.4.2.3.nupkg.sha512"
     },
     "Qhta.TypeUtils/1.6.0": {
       "type": "package",

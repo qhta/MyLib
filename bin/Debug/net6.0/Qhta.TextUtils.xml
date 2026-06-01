@@ -238,6 +238,9 @@
             A bunch of string utility methods
             </summary>
         </member>
+        <member name="M:Qhta.TextUtils.StringUtils.Truncate(System.String,System.Int32)">
+            <inheritdoc cref="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Truncate(System.Int32)"/>
+        </member>
         <member name="M:Qhta.TextUtils.StringUtils.Acronym(System.String)">
             <inheritdoc cref="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Acronym"/>
         </member>
@@ -394,6 +397,12 @@
         <member name="M:Qhta.TextUtils.StringUtils.DecodeEscapeSeq_(System.String,System.Int32@)">
             <inheritdoc cref="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.DecodeEscapeSeq_(System.Int32@)"/>
         </member>
+        <member name="M:Qhta.TextUtils.StringUtils.EncodeEscapeSeq(System.String)">
+            <inheritdoc cref="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.EncodeEscapeSeq"/>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.EncodeEscapeSeq_(System.String,System.Int32)">
+            <inheritdoc cref="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.EncodeEscapeSeq_(System.Int32)"/>
+        </member>
         <member name="M:Qhta.TextUtils.StringUtils.Duplicate(System.String,System.Int32)">
             <inheritdoc cref="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Duplicate(System.Int32)"/>
         </member>
@@ -434,11 +443,18 @@
             <param name="number"></param>
             <returns></returns>
         </member>
-        <member name="T:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.&lt;M&gt;$F86C9C51E532AA3BE77437995EA765C5">
+        <member name="T:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.&lt;M&gt;$83DCAEA4A49BE8CF63655AB4D80E7F93">
             <summary>
-            Extension methods for string. All methods return null if the input string is null.
+            Extension methods for string. All methods return empty string if the input string is null.
             </summary>
             <param name="inputString">String to process.</param>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Truncate(System.Int32)">
+            <summary>
+            Creates a string with a specified maximum length. If the input string is longer than the maximum length, it is truncated to fit the maximum length.
+            </summary>
+            <param name="maxLength">The maximum length of the resulting string.</param>
+            <returns>The truncated string if it exceeds the maximum length; otherwise, the original string.</returns>
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Acronym">
             <summary>
@@ -856,7 +872,7 @@
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.DecodeEscapeSeq">
             <summary>
-            Decodes escapes sequences: \\, \t, \r, \n, \s, \u
+            Decodes escape sequences: \\, \a, \t, \r, \n, \s, \u
             </summary>
             <returns>The decoded string if the input string is not null; otherwise, null.</returns>
         </member>
@@ -866,6 +882,19 @@
             </summary>
             <param name="index">The current position in the string. This will be updated to the end of the escape sequence.</param>
             <returns>The decoded escape sequence if the input string is not null; otherwise, null.</returns>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.EncodeEscapeSeq">
+            <summary>
+            Encodes escape sequences: \\, \a, \t, \r, \n, \s, \u
+            </summary>
+            <returns>The encoded string if the input string is not null; otherwise, null.</returns>
+        </member>
+        <member name="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.EncodeEscapeSeq_(System.Int32)">
+            <summary>
+            Helper method for <see cref="M:Qhta.TextUtils.StringUtils.EncodeEscapeSeq(System.String)"/>. Encodes escape sequence at the specified position and moves the position to the end of the sequence.
+            </summary>
+            <param name="index">The current position in the string.</param>
+            <returns>The encoded escape sequence if the input string is not null; otherwise, null.</returns>
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Duplicate(System.Int32)">
             <summary>
