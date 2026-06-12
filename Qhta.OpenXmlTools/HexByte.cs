@@ -11,7 +11,7 @@ public struct HexByte
   /// <summary>
   /// Stored value.
   /// </summary>
-  public int Value { get; set; }
+  public int Value { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Initializes a new instance of the <see cref="HexByte"/> struct with the integer value.

@@ -42,7 +42,7 @@ public record TextOptions
   /// <summary>
   /// 
   /// </summary>
-  public FormattedTextMode Mode { get; set; } = FormattedTextMode.PlainText;
+  public FormattedTextMode Mode { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = FormattedTextMode.PlainText;
 
   /// <summary>
   /// Get the text writer for the current mode.
@@ -289,7 +289,7 @@ public record TextOptions
   /// <summary>
   /// Configured property set of special characters tags.
   /// </summary>
-  public FormattedTextTags Tags { get; set; } = null!;
+  public FormattedTextTags Tags { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = null!;
 
   /// <summary>
   /// Marker to precede a tag.
@@ -343,7 +343,7 @@ public record TextOptions
   /// <summary>
   /// Options to get paragraph text.
   /// </summary>
-  public static TextOptions ParaText { get; set; } = PlainText with
+  public static TextOptions ParaText { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = PlainText with
   {
     IncludeDrawings = true,
     IgnoreDrawingContents = true,
@@ -387,7 +387,7 @@ public record TextOptions
   /// Options to get full text. All non-text elements are replaced with tags.
   /// Html entities are used.
   /// </summary>
-  public static TextOptions FullText { get; set; } = XmlTaggedText with
+  public static TextOptions FullText { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = XmlTaggedText with
   {
     IncludeDrawings = true,
     IncludeOtherMembers = true,
@@ -397,7 +397,7 @@ public record TextOptions
   /// Options to get full text. All non-text elements are replaced with tags.
   /// Html entities are used.
   /// </summary>
-  public static TextOptions FormattedText { get; set; } = XmlTaggedText with
+  public static TextOptions FormattedText { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = XmlTaggedText with
   {
     IncludeDrawings = true,
     IncludeOtherMembers = true,
@@ -407,17 +407,17 @@ public record TextOptions
   ///// <summary>
   ///// Use indenting.
   ///// </summary>
-  //public bool UseIndenting { get; set; } = true;
+  //public bool UseIndenting { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = true;
 
   ///// <summary>
   ///// IndentUnit unit string.
   ///// </summary>
-  //public string IndentUnit { get; set; } = "  ";
+  //public string IndentUnit { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "  ";
 
   ///// <summary>
   ///// The number of indent unit string to insert.
   ///// </summary>
-  //public int IndentLevel { get; set; } = 0;
+  //public int IndentLevel { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = 0;
 
   ///// <summary>
   ///// Get the indent string.
@@ -435,13 +435,13 @@ public record TextOptions
   /// <summary>
   /// Options important for getting text from paragraphs.
   /// </summary>
-  public bool OuterText { get; set; }
+  public bool OuterText { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   #region control characters
   /// <summary>
   /// Tag to mark a new line.
   /// </summary>
-  public string NewLine { get; set; } = "\r\n";
+  public string NewLine { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "\r\n";
 
   /// <summary>
   /// Tag to mark a TabChar
@@ -544,12 +544,12 @@ public record TextOptions
   /// <summary>
   /// Tag to mark other object.
   /// </summary>
-  public string OtherObjectSubstituteTag { get; set; } = "<other>";
+  public string OtherObjectSubstituteTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<other>";
 
   /// <summary>
   /// Ignore empty paragraphs in plain text.
   /// </summary>
-  public bool IgnoreEmptyParagraphs { get; set; }
+  public bool IgnoreEmptyParagraphs { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Tag to insert between paragraphs.
@@ -559,17 +559,17 @@ public record TextOptions
   /// <summary>
   /// Tag to insert between table in plain text.
   /// </summary>
-  public string TableSeparator { get; set; } = "\r\n\r\n";
+  public string TableSeparator { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "\r\n\r\n";
 
   /// <summary>
   /// Tag to insert between table cells in plain text.
   /// </summary>
-  public string TableRowSeparator { get; set; } = "\r\n";
+  public string TableRowSeparator { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "\r\n";
 
   /// <summary>
   /// Tag to insert between table cells in plain text.
   /// </summary>
-  public string TableCellSeparator { get; set; } = "\t";
+  public string TableCellSeparator { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "\t";
   #endregion
 
   #region HTML options
@@ -577,129 +577,129 @@ public record TextOptions
   /// <summary>
   /// Convert text to string using "C" like escape sequences.
   /// </summary>
-  public bool UseEscapeSequences { get; set; } = true;
+  public bool UseEscapeSequences { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = true;
 
   /// <summary>
   /// Convert text to string using control character names.
   /// </summary>
-  public bool UseControlCharNames { get; set; } = true;
+  public bool UseControlCharNames { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = true;
 
   /// <summary>
   /// Convert text to string using separator character names.
   /// Separator characters are characters of category "Zs" (space separators), "Zl" (line separators), and "Zp" (paragraph separators).
   /// Space itself (U+0020) is not included, but governed by UseOtherCharNames option.
   /// </summary>
-  public bool UseSeparatorNames { get; set; } = true;
+  public bool UseSeparatorNames { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = true;
 
   /// <summary>
   /// Convert text to string using dash character names.
   /// </summary>
-  public bool UseDashNames { get; set; } = true;
+  public bool UseDashNames { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = true;
 
   /// <summary>
   /// Convert text to string using format character names.
   /// </summary>
-  public bool UseFormatCharNames { get; set; } = true;
+  public bool UseFormatCharNames { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = true;
 
   /// <summary>
   /// Convert text to string using superscript/subscript character names.
   /// </summary>
-  public bool UseSupSubCharNames { get; set; } = true;
+  public bool UseSupSubCharNames { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = true;
 
   /// <summary>
   /// Convert text to string using roman character names.
   /// </summary>
-  public bool UseRomanCharNames { get; set; } = true;
+  public bool UseRomanCharNames { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = true;
 
   /// <summary>
   /// Convert text to string using other character names.
   /// </summary>
-  public bool UseOtherCharNames { get; set; } = true;
+  public bool UseOtherCharNames { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = true;
 
   /// <summary>
   /// Convert text to string using Ascii letters and digits character codes.
   /// </summary>
-  public bool UseAlphanumericCodes { get; set; } = false;
+  public bool UseAlphanumericCodes { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = false;
 
   /// <summary>
   /// Convert text to string using character functions (where possible).
   /// </summary>
-  public bool UseCharFunctions { get; set; } = false;
+  public bool UseCharFunctions { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = false;
 
   /// <summary>
   /// Convert text to string using Html entities.
   /// </summary>
-  public bool UseHtmlEntities { get; set; }
+  public bool UseHtmlEntities { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Convert Run properties to HTML formatting tags.
   /// </summary>
-  public bool UseHtmlFormatting { get; set; }
+  public bool UseHtmlFormatting { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Tag to start bold formatting.
   /// </summary>
-  public string BoldStartTag { get; set; } = "<b>";
+  public string BoldStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<b>";
 
   /// <summary>
   /// Tag to end bold formatting.
   /// </summary>
-  public string BoldEndTag { get; set; } = "</b>";
+  public string BoldEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</b>";
 
   /// <summary>
   /// Tag to start italic formatting.
   /// </summary>
-  public string ItalicStartTag { get; set; } = "<i>";
+  public string ItalicStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<i>";
 
   /// <summary>
   /// Tag to end italic formatting.
   /// </summary>
-  public string ItalicEndTag { get; set; } = "</i>";
+  public string ItalicEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</i>";
 
   /// <summary>
   /// Tag to start superscript formatting.
   /// </summary>
-  public string SuperscriptStartTag { get; set; } = "<sup>";
+  public string SuperscriptStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<sup>";
 
   /// <summary>
   /// Tag to end superscript formatting.
   /// </summary>
-  public string SuperscriptEndTag { get; set; } = "</sup>";
+  public string SuperscriptEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</sup>";
 
   /// <summary>
   /// Tag to start subscript formatting.
   /// </summary>
-  public string SubscriptStartTag { get; set; } = "<sub>";
+  public string SubscriptStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<sub>";
 
   /// <summary>
   /// Tag to end subscript formatting.
   /// </summary>
-  public string SubscriptEndTag { get; set; } = "</sub>";
+  public string SubscriptEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</sub>";
 
   /// <summary>
   /// Use HTML paragraph tags instead of paragraph separators.
   /// </summary>
-  public bool UseHtmlParagraphs { get; set; }
+  public bool UseHtmlParagraphs { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Tag to start a run.
   /// </summary>
-  public string TextStartTag { get; set; } = "<t>";
+  public string TextStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<t>";
 
   /// <summary>
   /// Tag to end a run.
   /// </summary>
-  public string TextEndTag { get; set; } = "</t>";
+  public string TextEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</t>";
 
   /// <summary>
   /// Tag to start a run.
   /// </summary>
-  public string RunStartTag { get; set; } = "<r>";
+  public string RunStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<r>";
 
   /// <summary>
   /// Tag to end a run.
   /// </summary>
-  public string RunEndTag { get; set; } = "</r>";
+  public string RunEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</r>";
 
   /// <summary>
   /// Tag to start a run.
@@ -709,125 +709,125 @@ public record TextOptions
   /// <summary>
   /// Tag to start a paragraph.
   /// </summary>
-  public string ParagraphStartTag { get; set; } = "<p>";
+  public string ParagraphStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<p>";
 
   /// <summary>
   /// Tag to end a paragraph.
   /// </summary>
-  public string ParagraphEndTag { get; set; } = "</p>";
+  public string ParagraphEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</p>";
   #endregion
 
   #region Table options
   /// <summary>
   /// Use HTML Table tags.
   /// </summary>
-  public bool UseHtmlTables { get; set; }
+  public bool UseHtmlTables { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Include table as TableSubstituteTag.
   /// </summary>
-  public bool IgnoreTableContents { get; set; }
+  public bool IgnoreTableContents { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Tag to represent empty Table.
   /// </summary>
-  public string TableSubstituteTag { get; set; } = "<table/>";
+  public string TableSubstituteTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<table/>";
 
   /// <summary>
   /// Tag to start a Table.
   /// </summary>
-  public string TableStartTag { get; set; } = "<table>";
+  public string TableStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<table>";
 
   /// <summary>
   /// Tag to end a Table.
   /// </summary>
-  public string TableEndTag { get; set; } = "</table>";
+  public string TableEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</table>";
 
   /// <summary>
   /// Tag to start a table row.
   /// </summary>
-  public string TableRowStartTag { get; set; } = "<tr>";
+  public string TableRowStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<tr>";
 
   /// <summary>
   /// Tag to end a table row.
   /// </summary>
-  public string TableRowEndTag { get; set; } = "</tr>";
+  public string TableRowEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</tr>";
 
   /// <summary>
   /// Tag to start a table cell.
   /// </summary>
-  public string TableCellStartTag { get; set; } = "<td>";
+  public string TableCellStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<td>";
 
   /// <summary>
   /// Tag to end a table cell.
   /// </summary>
-  public string TableCellEndTag { get; set; } = "</td>";
+  public string TableCellEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</td>";
   #endregion
 
   /// <summary>
   /// Include formula command text.
   /// </summary>
-  public bool IncludeFieldFormula { get; set; }
+  public bool IncludeFieldFormula { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Include formula result text.
   /// </summary>
-  public bool IncludeFieldResult { get; set; }
+  public bool IncludeFieldResult { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Tag to start a field.
   /// </summary>
-  public string FieldStartTag { get; set; } = "<field>";
+  public string FieldStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<field>";
 
   /// <summary>
   /// Tag to start a field code start.
   /// </summary>
-  public string FieldCodeStart { get; set; } = "<instr>";
+  public string FieldCodeStart { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<instr>";
 
   /// <summary>
   /// Tag to start a field code end.
   /// </summary>
-  public string FieldCodeEnd { get; set; } = "</instr>";
+  public string FieldCodeEnd { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</instr>";
  
   /// <summary>
   /// Tag to separate a field formula command from result.
   /// </summary>
-  public string FieldResultTag { get; set; } = "<result/>";
+  public string FieldResultTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<result/>";
 
   /// <summary>
   /// Tag to end a field formula.
   /// </summary>
-  public string FieldEndTag { get; set; } = "<field/>";
+  public string FieldEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<field/>";
 
   /// <summary>
   /// Tag to start a footnote reference.
   /// </summary>
-  public string FootnoteRefStart { get; set; } = "<footnoteRef ";
+  public string FootnoteRefStart { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<footnoteRef ";
 
   /// <summary>
   /// Tag to end a footnote reference.
   /// </summary>
-  public string FootnoteRefEnd { get; set; } = "/>";
+  public string FootnoteRefEnd { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "/>";
 
   /// <summary>
   /// Tag to start an endnote reference.
   /// </summary>
-  public string EndnoteRefStart { get; set; } = "<endnoteRef ";
+  public string EndnoteRefStart { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<endnoteRef ";
 
   /// <summary>
   /// Tag to end an end note reference.
   /// </summary>
-  public string EndnoteRefEnd { get; set; } = "/>";
+  public string EndnoteRefEnd { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "/>";
 
   /// <summary>
   /// Tag to start a comment reference.
   /// </summary>
-  public string CommentRefStart { get; set; } = "<commentRef ";
+  public string CommentRefStart { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<commentRef ";
 
   /// <summary>
   /// Tag to end a comment reference.
   /// </summary>
-  public string CommentRefEnd { get; set; } = "/>";
+  public string CommentRefEnd { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "/>";
 
   /// <summary>
   /// Tag to mark an annotation reference mark.
@@ -857,22 +857,22 @@ public record TextOptions
   /// <summary>
   /// Include paragraph numbering string at the beginning of paragraph text.
   /// </summary>
-  public bool IncludeParagraphNumbering { get; set; } = false;
+  public bool IncludeParagraphNumbering { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = false;
 
   /// <summary>
   /// Should numbered list be indented on each level.
   /// </summary>
-  public bool IndentNumberingLists { get; set; } = false;
+  public bool IndentNumberingLists { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = false;
 
   /// <summary>
   /// Tag to start a paragraph numbering.
   /// </summary>
-  public string NumberingStartTag { get; set; } = "";
+  public string NumberingStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "";
 
   /// <summary>
   /// Tag to end a paragraph numbering.
   /// </summary>
-  public string NumberingEndTag { get; set; } = "\t";
+  public string NumberingEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "\t";
   #endregion
 
   #region deleted text options
@@ -880,49 +880,49 @@ public record TextOptions
   /// <summary>
   /// Deleted text start tag.
   /// </summary>
-  public string DeletedTextStartTag { get; set; } = "<del>";
+  public string DeletedTextStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<del>";
 
   /// <summary>
   /// Deleted text end tag.
   /// </summary>
-  public string DeletedTextEndTag { get; set; } = "</del>";
+  public string DeletedTextEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</del>";
 
 
   /// <summary>
   /// Deletion start tag.
   /// </summary>
-  public string DeletedInstrStartTag { get; set; } = "<del>";
+  public string DeletedInstrStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<del>";
 
   /// <summary>
   /// Deletion end tag.
   /// </summary>
-  public string DeletedInstrEndTag { get; set; } = "</del>";
+  public string DeletedInstrEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</del>";
   #endregion
   #region embedded object options
   /// <summary>
   /// Include embedded objects in the text. Objects are included as Xml.
   /// </summary>
-  public bool IncludeEmbeddedObjects { get; set; } = false;
+  public bool IncludeEmbeddedObjects { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = false;
 
   /// <summary>
   /// Ignore embedded objects content.
   /// </summary>
-  public bool IgnoreEmbeddedObjectContent { get; set; } = false;
+  public bool IgnoreEmbeddedObjectContent { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = false;
 
   /// <summary>
   /// Tag to replace an object.
   /// </summary>
-  public string EmbeddedObjectSubstituteTag { get; set; } = "<object/>";
+  public string EmbeddedObjectSubstituteTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<object/>";
 
   /// <summary>
   /// Tag to start an object.
   /// </summary>
-  public string EmbeddedObjectStartTag { get; set; } = "<object>";
+  public string EmbeddedObjectStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<object>";
 
   /// <summary>
   /// Tag to end an object.
   /// </summary>
-  public string EmbeddedObjectEndTag { get; set; } = "</object>";
+  public string EmbeddedObjectEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</object>";
 
   #endregion
 
@@ -930,47 +930,47 @@ public record TextOptions
   /// <summary>
   /// Include drawings in the text. Drawings are included as Xml.
   /// </summary>
-  public bool IncludeDrawings { get; set; } = false;
+  public bool IncludeDrawings { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = false;
 
   /// <summary>
   /// Ignore drawings content.
   /// </summary>
-  public bool IgnoreDrawingContents { get; set; } = false;
+  public bool IgnoreDrawingContents { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = false;
 
   /// <summary>
   /// Tag to replace a drawing.
   /// </summary>
-  public string DrawingSubstituteTag { get; set; } = "<drawing/>";
+  public string DrawingSubstituteTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<drawing/>";
 
   /// <summary>
   /// Tag to start a drawing.
   /// </summary>
-  public string DrawingStartTag { get; set; } = "<drawing>";
+  public string DrawingStartTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<drawing>";
 
   /// <summary>
   /// Tag to end a drawing.
   /// </summary>
-  public string DrawingEndTag { get; set; } = "</drawing>";
+  public string DrawingEndTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</drawing>";
 
   /// <summary>
   /// Tag to show blip linked object.
   /// </summary>
-  public string BlipTag { get; set; } = "<blip/>";
+  public string BlipTag { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "<blip/>";
   #endregion
 
   /// <summary>
   /// Include other members of the element.
   /// </summary>
-  public bool IncludeOtherMembers { get; set; }
+  public bool IncludeOtherMembers { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Ignore other members content.
   /// </summary>
-  public bool IgnoreOtherMembersContent { get; set; }
+  public bool IgnoreOtherMembersContent { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Determine if the member properties should be included.
   /// </summary>
-  public bool IncludeMemberProperties { get; set; }
+  public bool IncludeMemberProperties { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
 }

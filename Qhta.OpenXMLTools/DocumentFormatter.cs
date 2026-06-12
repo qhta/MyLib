@@ -12,7 +12,7 @@ public class DocumentFormatter
   /// <summary>
   /// Determines the level of verbosity of the cleaner.
   /// </summary>
-  public int VerboseLevel { get; set; }
+  public int VerboseLevel { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   private Dictionary<string, int> PropertyCounts = new();
 

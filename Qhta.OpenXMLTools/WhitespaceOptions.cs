@@ -84,22 +84,22 @@ public record WhitespaceOptions
   /// <summary>
   /// What to do with whitespaces at the main part of the text.
   /// </summary>
-  public WsMode Mode { get; set; }
+  public WsMode Mode { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// What to do with whitespaces at the start of the text.
   /// </summary>
-  public WsMode Start { get; set; }
+  public WsMode Start { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
 
   /// <summary>
   /// What to do with whitespaces at the end of the text.
   /// </summary>
-  public WsMode End { get; set; }
+  public WsMode End { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// How many spaces to use for a tab.
   /// </summary>
-  public int TabSize { get; set; } = 4;
+  public int TabSize { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = 4;
 
 }

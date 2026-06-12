@@ -13,7 +13,7 @@ public abstract class OpenXmlTextReader
   /// <summary>
   /// Pass the options to the derived class.
   /// </summary>
-  public TextOptions Options { get; set; } = null!;
+  public TextOptions Options { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = null!;
 
   private string buffer = "";
   private int index;

@@ -32,7 +32,7 @@ public class Finder
   /// <summary>
   /// ContextRange for the search.
   /// </summary>
-  public Range ContextRange { get; set; }
+  public Range ContextRange { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Options for get text to search.
@@ -49,17 +49,17 @@ public class Finder
   /// <summary>
   /// PlainText to search for.
   /// </summary>
-  public string? SearchText { get; set; }
+  public string? SearchText { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Determines if the search must consider formatting.
   /// </summary>
-  public bool Format { get; set; }
+  public bool Format { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// SearchText to replace.
   /// </summary>
-  public string? Replacement { get; set; }
+  public string? Replacement { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Realize the search and replace.

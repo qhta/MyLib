@@ -13,41 +13,41 @@ public record TextProperties
   /// <summary>
   /// Type of the script used to select the appropriate font.
   /// </summary>
-  public ScriptType? ScriptType { get; set; }
+  public ScriptType? ScriptType { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Name of the font.
   /// </summary>
-  public string? FontName { get; set; }
+  public string? FontName { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Size of the font.
   /// </summary>
-  public int? FontSize { get; set; }
+  public int? FontSize { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Bold attribute of the text.
   /// </summary>
-  public bool? Bold { get; set; }
+  public bool? Bold { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Italic attribute of the text.
   /// </summary>
-  public bool? Italic { get; set; }
+  public bool? Italic { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// StrikeThrough attribute of the text (0 - none, 1 - single, 2 - double).
   /// </summary>
-  public int? StrikeThrough { get; set; }
+  public int? StrikeThrough { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Underline attribute of the text.
   /// </summary>
-  public DXW.UnderlineValues? Underline { get; set; }
+  public DXW.UnderlineValues? Underline { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 
   /// <summary>
   /// Underline color. Valid if underline attribute is set.
   /// </summary>
-  public DXO13W.Color? UnderlineColor { get; set; }
+  public DXO13W.Color? UnderlineColor { [DebuggerStepThrough] get; [DebuggerStepThrough] set; }
 }
 
