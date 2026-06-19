@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("OpenXmlTools is a library for working with OpenXml documents.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0+f4b390d98d01e5054309eacfb9d5671a6383c593")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0+c1e306d703134671730346baec641fdf146b07d6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.OpenXmlTools")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.OpenXmlTools")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.0.0.0")]
