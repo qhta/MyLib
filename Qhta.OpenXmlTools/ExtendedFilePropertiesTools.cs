@@ -31,273 +31,272 @@ public enum AppType
 /// </summary>
 public static class ExtendedFilePropertiesTools
 {
-
-  /// <summary>
-  /// Checks if the document has extended file properties.
-  /// </summary>
   /// <param name="wordDoc"></param>
-  /// <returns></returns>
-  public static bool HasExtendedFileProperties(this DXPP.WordprocessingDocument wordDoc)
+  extension(DXPP.WordprocessingDocument wordDoc)
   {
-    return wordDoc.ExtendedFilePropertiesPart?.Properties != null;
-  }
-
-  /// <summary>
-  /// Gets the extended file properties of the document. If the document does not have extended file properties,
-  /// they are created.
-  /// </summary>
-  /// <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
-  /// <returns></returns>
-  public static DXEP.Properties GetExtendedFileProperties(this DXPP.WordprocessingDocument wordDoc)
-  {
-    var part = wordDoc.ExtendedFilePropertiesPart ?? wordDoc.AddExtendedFilePropertiesPart();
-    var properties = part.Properties;
-    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-    if (properties == null)
+    /// <summary>
+    /// Checks if the document has extended file properties.
+    /// </summary>
+    /// <returns></returns>
+    public bool HasExtendedFileProperties()
     {
-      properties = new DXEP.Properties();
-      part.Properties = properties;
+      return wordDoc.ExtendedFilePropertiesPart?.Properties != null;
     }
-    return properties;
-  }
 
-  /// <summary>
-  /// Get the count of the extended file properties.
-  /// </summary>
-  /// <param name="extendedFileProperties"></param>
-  /// <param name="filter">specifies if all property names should be counted or non-empty ones</param>
-  /// <returns></returns>
-  public static int Count(this DXEP.Properties extendedFileProperties, ItemFilter filter = ItemFilter.Defined)
-  {
-    if (filter == ItemFilter.All)
-      return PropTypes.Count;
-    return PropTypes.Count(item => extendedFileProperties.GetValue(item.Key) != null);
-  }
-
-  /// <summary>
-  /// Get the names of the extended file properties.
-  /// </summary>
-  /// <param name="extendedFileProperties"></param>
-  /// <param name="filter">specifies if all property names should be listed or non-empty ones</param>
-  /// <returns></returns>
-  public static string[] GetNames(this DXEP.Properties extendedFileProperties, ItemFilter filter = ItemFilter.Defined)
-  {
-    if (filter == ItemFilter.All)
-      return PropTypes.Keys.ToArray();
-    return PropTypes.Where(item => extendedFileProperties.GetValue(item.Key) != null).Select(item => item.Key).ToArray();
-  }
-
-  /// <summary>
-  /// Get the type of property with its name.
-  /// </summary>
-  /// <param name="extendedFileProperties"></param>
-  /// <param name="propertyName"></param>
-  /// <returns></returns>
-  public static Type GetType(this DXEP.Properties extendedFileProperties, string propertyName)
-  {
-    if (PropTypes.TryGetValue(propertyName, out var info))
-      return info.type;
-    throw new ArgumentException($"Property {propertyName} not found");
-  }
-
-  /// <summary>
-  /// Check if the property is volatile.
-  /// </summary>
-  /// <param name="extendedFileProperties"></param>
-  /// <param name="propertyName"></param>
-  /// <returns></returns>
-  public static bool IsVolatile(this DXEP.Properties extendedFileProperties, string propertyName)
-  {
-    if (PropTypes.TryGetValue(propertyName, out var info))
-      return info.isVolatile;
-    throw new ArgumentException($"Property {propertyName} not found");
-  }
-
-  /// <summary>
-  /// Check if the property is volatile.
-  /// </summary>
-  /// <param name="extendedFileProperties"></param>
-  /// <param name="propertyName"></param>
-  /// <param name="appType"></param>
-  /// <returns></returns>
-  public static bool AppliesToApplication(this DXEP.Properties extendedFileProperties, string propertyName, AppType appType)
-  {
-    if (PropTypes.TryGetValue(propertyName, out var info))
-      return (info.appType & appType) != 0;
-    throw new ArgumentException($"Property {propertyName} not found");
-  }
-
-  /// <summary>
-  /// Gets the value of an extended file property.
-  /// </summary>
-  /// <param name="extendedFileProperties"></param>
-  /// <param name="propertyName"></param>
-  /// <returns></returns>
-  public static object? GetValue(this DXEP.Properties extendedFileProperties, string propertyName)
-  {
-    switch (propertyName)
+    /// <summary>
+    /// Gets the extended file properties of the document. If the document does not have extended file properties,
+    /// they are created.
+    /// </summary>
+    /// <returns></returns>
+    public DXEP.Properties GetExtendedFileProperties()
     {
-      case "Application":
-        return extendedFileProperties.GetFirstElementStringValue<DXEP.Application>();
-      case "ApplicationVersion":
-        return extendedFileProperties.GetFirstElementStringValue<DXEP.ApplicationVersion>();
-      case "Characters":
-        return extendedFileProperties.GetFirstElementIntValue<DXEP.Characters>();
-      case "CharactersWithSpaces":
-        return extendedFileProperties.GetFirstElementIntValue<DXEP.CharactersWithSpaces>();
-      case "Company":
-        return extendedFileProperties.GetFirstElementStringValue<DXEP.Company>();
-      case "DigitalSignature":
-        return extendedFileProperties.GetFirstElementVTBlobValue<DXEP.DigitalSignature>()?.ToString();
-      case "DocumentSecurity":
-        var val = extendedFileProperties.GetFirstElementIntValue<DXEP.DocumentSecurity>();
-        if (val is not null)
-          return Enum.ToObject(typeof(DocumentSecurity), val);
-        return null;
-      case "HeadingPairs":
-        return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.HeadingPairs>();
-      case "HiddenSlides":
-        return extendedFileProperties.GetFirstElementIntValue<DXEP.HiddenSlides>();
-      case "HyperlinkBase":
-        return extendedFileProperties.GetFirstElementStringValue<DXEP.HyperlinkBase>();
-      case "HyperlinkList":
-        return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.HyperlinkList>()?.AsString(0, 0);
-      case "HyperlinksChanged":
-        return extendedFileProperties.GetFirstElementBoolValue<DXEP.HyperlinksChanged>();
-      case "Lines":
-        return extendedFileProperties.GetFirstElementIntValue<DXEP.Lines>();
-      case "LinksUpToDate":
-        return extendedFileProperties.GetFirstElementBoolValue<DXEP.LinksUpToDate>();
-      case "Manager":
-        return extendedFileProperties.GetFirstElementStringValue<DXEP.Manager>();
-      case "MultimediaClips":
-        return extendedFileProperties.GetFirstElementIntValue<DXEP.MultimediaClips>();
-      case "Notes":
-        return extendedFileProperties.GetFirstElementIntValue<DXEP.Notes>();
-      case "Pages":
-        return extendedFileProperties.GetFirstElementIntValue<DXEP.Pages>();
-      case "Paragraphs":
-        return extendedFileProperties.GetFirstElementIntValue<DXEP.Paragraphs>();
-      case "PresentationFormat":
-        return extendedFileProperties.GetFirstElementStringValue<DXEP.PresentationFormat>();
-      case "ScaleCrop":
-        return extendedFileProperties.GetFirstElementBoolValue<DXEP.ScaleCrop>();
-      case "SharedDocument":
-        return extendedFileProperties.GetFirstElementBoolValue<DXEP.SharedDocument>();
-      case "Slides":
-        return extendedFileProperties.GetFirstElementIntValue<DXEP.Slides>();
-      case "Template":
-        return extendedFileProperties.GetFirstElementStringValue<DXEP.Template>();
-      case "TitlesOfParts":
-        return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.TitlesOfParts>();
-      case "TotalTime":
-        return extendedFileProperties.GetFirstElementIntValue<DXEP.TotalTime>();
-      case "Words":
-        return extendedFileProperties.GetFirstElementIntValue<DXEP.Words>();
-      default:
-        return null;
+      var part = wordDoc.ExtendedFilePropertiesPart ?? wordDoc.AddExtendedFilePropertiesPart();
+      var properties = part.Properties;
+      // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+      if (properties == null)
+      {
+        properties = new DXEP.Properties();
+        part.Properties = properties;
+      }
+      return properties;
     }
+
   }
 
-  /// <summary>
-  /// Sets the value of an extended file property.
-  /// </summary>
   /// <param name="extendedFileProperties"></param>
-  /// <param name="propertyName"></param>
-  /// <param name="value"></param>
-  public static void SetValue(this DXEP.Properties extendedFileProperties, string propertyName, object? value)
+  extension(DXEP.Properties extendedFileProperties)
   {
-    switch (propertyName)
+    /// <summary>
+    /// Get the count of the extended file properties.
+    /// </summary>
+    /// <param name="filter">specifies if all property names should be counted or non-empty ones</param>
+    /// <returns></returns>
+    public int Count(ItemFilter filter = ItemFilter.Defined)
     {
-      case "Application":
-        extendedFileProperties.SetFirstElementStringValue<DXEP.Application>((string?)value);
-        break;
-      case "ApplicationVersion":
-        extendedFileProperties.SetFirstElementStringValue<DXEP.ApplicationVersion>((string?)value);
-        break;
-      case "Characters":
-        extendedFileProperties.SetFirstElementIntValue<DXEP.Characters>((int?)value);
-        break;
-      case "CharactersWithSpaces":
-        extendedFileProperties.SetFirstElementIntValue<DXEP.CharactersWithSpaces>((int?)value);
-        break;
-      case "Company":
-        extendedFileProperties.SetFirstElementStringValue<DXEP.Company>((string?)value);
-        break;
-      case "DigitalSignature":
-        if (value is string stringValue)
-        {
-          DXVT.VTBlob blob = new(stringValue);
-          extendedFileProperties.SetFirstElementVTBlobValue<DXEP.DigitalSignature>(blob);
-        }
-        else
-          extendedFileProperties.SetFirstElementVTBlobValue<DXEP.DigitalSignature>(null);
-        break;
-      case "DocumentSecurity":
-        if (value is DocumentSecurity documentSecurity)
-          value = Convert.ChangeType(documentSecurity, typeof(int));
-        extendedFileProperties.SetFirstElementIntValue<DXEP.DocumentSecurity>((int?)value);
-        break;
-      case "HeadingPairs":
-        extendedFileProperties.SetFirstElementVTVectorValue<DXEP.HeadingPairs>((DXVT.VTVector?)value);
-        break;
-      case "HiddenSlides":
-        extendedFileProperties.SetFirstElementIntValue<DXEP.HiddenSlides>((int?)value);
-        break;
-      case "HyperlinkBase":
-        extendedFileProperties.SetFirstElementStringValue<DXEP.HyperlinkBase>((string?)value);
-        break;
-      case "HyperlinkList":
-        extendedFileProperties.SetFirstElementVTVectorValue<DXEP.HyperlinkList>((DXVT.VTVector?)value);
-        break;
-      case "HyperlinksChanged":
-        extendedFileProperties.SetFirstElementBoolValue<DXEP.HyperlinksChanged>((bool?)value);
-        break;
-      case "Lines":
-        extendedFileProperties.SetFirstElementIntValue<DXEP.Lines>((int?)value);
-        break;
-      case "LinksUpToDate":
-        extendedFileProperties.SetFirstElementBoolValue<DXEP.LinksUpToDate>((bool?)value);
-        break;
-      case "Manager":
-        extendedFileProperties.SetFirstElementStringValue<DXEP.Manager>((string?)value);
-        break;
-      case "MultimediaClips":
-        extendedFileProperties.SetFirstElementIntValue<DXEP.MultimediaClips>((int?)value);
-        break;
-      case "Notes":
-        extendedFileProperties.SetFirstElementIntValue<DXEP.Notes>((int?)value);
-        break;
-      case "Pages":
-        extendedFileProperties.SetFirstElementIntValue<DXEP.Pages>((int?)value);
-        break;
-      case "Paragraphs":
-        extendedFileProperties.SetFirstElementIntValue<DXEP.Paragraphs>((int?)value);
-        break;
-      case "PresentationFormat":
-        extendedFileProperties.SetFirstElementStringValue<DXEP.PresentationFormat>((string?)value);
-        break;
-      case "ScaleCrop":
-        extendedFileProperties.SetFirstElementBoolValue<DXEP.ScaleCrop>((bool?)value);
-        break;
-      case "SharedDocument":
-        extendedFileProperties.SetFirstElementBoolValue<DXEP.SharedDocument>((bool?)value);
-        break;
-      case "Slides":
-        extendedFileProperties.SetFirstElementIntValue<DXEP.Slides>((int?)value);
-        break;
-      case "Template":
-        extendedFileProperties.SetFirstElementStringValue<DXEP.Template>((string?)value);
-        break;
-      case "TitlesOfParts":
-        extendedFileProperties.SetFirstElementVTVectorValue<DXEP.TitlesOfParts>((DXVT.VTVector?)value);
-        break;
-      case "TotalTime":
-        extendedFileProperties.SetFirstElementIntValue<DXEP.TotalTime>((int?)value);
-        break;
-      case "Words":
-        extendedFileProperties.SetFirstElementIntValue<DXEP.Words>((int?)value);
-        break;
+      if (filter == ItemFilter.All)
+        return PropTypes.Count;
+      return PropTypes.Count(item => extendedFileProperties.GetValue(item.Key) != null);
+    }
+
+    /// <summary>
+    /// Get the names of the extended file properties.
+    /// </summary>
+    /// <param name="filter">specifies if all property names should be listed or non-empty ones</param>
+    /// <returns></returns>
+    public string[] GetNames(ItemFilter filter = ItemFilter.Defined)
+    {
+      if (filter == ItemFilter.All)
+        return PropTypes.Keys.ToArray();
+      return PropTypes.Where(item => extendedFileProperties.GetValue(item.Key) != null).Select(item => item.Key).ToArray();
+    }
+
+    /// <summary>
+    /// Get the type of property with its name.
+    /// </summary>
+    /// <param name="propertyName"></param>
+    /// <returns></returns>
+    public Type GetType(string propertyName)
+    {
+      if (PropTypes.TryGetValue(propertyName, out var info))
+        return info.type;
+      throw new ArgumentException($"Property {propertyName} not found");
+    }
+
+    /// <summary>
+    /// Check if the property is volatile.
+    /// </summary>
+    /// <param name="propertyName"></param>
+    /// <returns></returns>
+    public bool IsVolatile(string propertyName)
+    {
+      if (PropTypes.TryGetValue(propertyName, out var info))
+        return info.isVolatile;
+      throw new ArgumentException($"Property {propertyName} not found");
+    }
+
+    /// <summary>
+    /// Check if the property is volatile.
+    /// </summary>
+    /// <param name="propertyName"></param>
+    /// <param name="appType"></param>
+    /// <returns></returns>
+    public bool AppliesToApplication(string propertyName, AppType appType)
+    {
+      if (PropTypes.TryGetValue(propertyName, out var info))
+        return (info.appType & appType) != 0;
+      throw new ArgumentException($"Property {propertyName} not found");
+    }
+
+    /// <summary>
+    /// Gets the value of an extended file property.
+    /// </summary>
+    /// <param name="propertyName"></param>
+    /// <returns></returns>
+    public object? GetValue(string propertyName)
+    {
+      switch (propertyName)
+      {
+        case "Application":
+          return extendedFileProperties.GetFirstElementStringValue<DXEP.Application>();
+        case "ApplicationVersion":
+          return extendedFileProperties.GetFirstElementStringValue<DXEP.ApplicationVersion>();
+        case "Characters":
+          return extendedFileProperties.GetFirstElementIntValue<DXEP.Characters>();
+        case "CharactersWithSpaces":
+          return extendedFileProperties.GetFirstElementIntValue<DXEP.CharactersWithSpaces>();
+        case "Company":
+          return extendedFileProperties.GetFirstElementStringValue<DXEP.Company>();
+        case "DigitalSignature":
+          return extendedFileProperties.GetFirstElementVTBlobValue<DXEP.DigitalSignature>()?.ToString();
+        case "DocumentSecurity":
+          var val = extendedFileProperties.GetFirstElementIntValue<DXEP.DocumentSecurity>();
+          if (val is not null)
+            return Enum.ToObject(typeof(DocumentSecurity), val);
+          return null;
+        case "HeadingPairs":
+          return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.HeadingPairs>();
+        case "HiddenSlides":
+          return extendedFileProperties.GetFirstElementIntValue<DXEP.HiddenSlides>();
+        case "HyperlinkBase":
+          return extendedFileProperties.GetFirstElementStringValue<DXEP.HyperlinkBase>();
+        case "HyperlinkList":
+          return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.HyperlinkList>()?.AsString(0, 0);
+        case "HyperlinksChanged":
+          return extendedFileProperties.GetFirstElementBoolValue<DXEP.HyperlinksChanged>();
+        case "Lines":
+          return extendedFileProperties.GetFirstElementIntValue<DXEP.Lines>();
+        case "LinksUpToDate":
+          return extendedFileProperties.GetFirstElementBoolValue<DXEP.LinksUpToDate>();
+        case "Manager":
+          return extendedFileProperties.GetFirstElementStringValue<DXEP.Manager>();
+        case "MultimediaClips":
+          return extendedFileProperties.GetFirstElementIntValue<DXEP.MultimediaClips>();
+        case "Notes":
+          return extendedFileProperties.GetFirstElementIntValue<DXEP.Notes>();
+        case "Pages":
+          return extendedFileProperties.GetFirstElementIntValue<DXEP.Pages>();
+        case "Paragraphs":
+          return extendedFileProperties.GetFirstElementIntValue<DXEP.Paragraphs>();
+        case "PresentationFormat":
+          return extendedFileProperties.GetFirstElementStringValue<DXEP.PresentationFormat>();
+        case "ScaleCrop":
+          return extendedFileProperties.GetFirstElementBoolValue<DXEP.ScaleCrop>();
+        case "SharedDocument":
+          return extendedFileProperties.GetFirstElementBoolValue<DXEP.SharedDocument>();
+        case "Slides":
+          return extendedFileProperties.GetFirstElementIntValue<DXEP.Slides>();
+        case "Template":
+          return extendedFileProperties.GetFirstElementStringValue<DXEP.Template>();
+        case "TitlesOfParts":
+          return extendedFileProperties.GetFirstElementVTVectorValue<DXEP.TitlesOfParts>();
+        case "TotalTime":
+          return extendedFileProperties.GetFirstElementIntValue<DXEP.TotalTime>();
+        case "Words":
+          return extendedFileProperties.GetFirstElementIntValue<DXEP.Words>();
+        default:
+          return null;
+      }
+    }
+
+    /// <summary>
+    /// Sets the value of an extended file property.
+    /// </summary>
+    /// <param name="propertyName"></param>
+    /// <param name="value"></param>
+    public void SetValue(string propertyName, object? value)
+    {
+      switch (propertyName)
+      {
+        case "Application":
+          extendedFileProperties.SetFirstElementStringValue<DXEP.Application>((string?)value);
+          break;
+        case "ApplicationVersion":
+          extendedFileProperties.SetFirstElementStringValue<DXEP.ApplicationVersion>((string?)value);
+          break;
+        case "Characters":
+          extendedFileProperties.SetFirstElementIntValue<DXEP.Characters>((int?)value);
+          break;
+        case "CharactersWithSpaces":
+          extendedFileProperties.SetFirstElementIntValue<DXEP.CharactersWithSpaces>((int?)value);
+          break;
+        case "Company":
+          extendedFileProperties.SetFirstElementStringValue<DXEP.Company>((string?)value);
+          break;
+        case "DigitalSignature":
+          if (value is string stringValue)
+          {
+            DXVT.VTBlob blob = new(stringValue);
+            extendedFileProperties.SetFirstElementVTBlobValue<DXEP.DigitalSignature>(blob);
+          }
+          else
+            extendedFileProperties.SetFirstElementVTBlobValue<DXEP.DigitalSignature>(null);
+          break;
+        case "DocumentSecurity":
+          if (value is DocumentSecurity documentSecurity)
+            value = Convert.ChangeType(documentSecurity, typeof(int));
+          extendedFileProperties.SetFirstElementIntValue<DXEP.DocumentSecurity>((int?)value);
+          break;
+        case "HeadingPairs":
+          extendedFileProperties.SetFirstElementVTVectorValue<DXEP.HeadingPairs>((DXVT.VTVector?)value);
+          break;
+        case "HiddenSlides":
+          extendedFileProperties.SetFirstElementIntValue<DXEP.HiddenSlides>((int?)value);
+          break;
+        case "HyperlinkBase":
+          extendedFileProperties.SetFirstElementStringValue<DXEP.HyperlinkBase>((string?)value);
+          break;
+        case "HyperlinkList":
+          extendedFileProperties.SetFirstElementVTVectorValue<DXEP.HyperlinkList>((DXVT.VTVector?)value);
+          break;
+        case "HyperlinksChanged":
+          extendedFileProperties.SetFirstElementBoolValue<DXEP.HyperlinksChanged>((bool?)value);
+          break;
+        case "Lines":
+          extendedFileProperties.SetFirstElementIntValue<DXEP.Lines>((int?)value);
+          break;
+        case "LinksUpToDate":
+          extendedFileProperties.SetFirstElementBoolValue<DXEP.LinksUpToDate>((bool?)value);
+          break;
+        case "Manager":
+          extendedFileProperties.SetFirstElementStringValue<DXEP.Manager>((string?)value);
+          break;
+        case "MultimediaClips":
+          extendedFileProperties.SetFirstElementIntValue<DXEP.MultimediaClips>((int?)value);
+          break;
+        case "Notes":
+          extendedFileProperties.SetFirstElementIntValue<DXEP.Notes>((int?)value);
+          break;
+        case "Pages":
+          extendedFileProperties.SetFirstElementIntValue<DXEP.Pages>((int?)value);
+          break;
+        case "Paragraphs":
+          extendedFileProperties.SetFirstElementIntValue<DXEP.Paragraphs>((int?)value);
+          break;
+        case "PresentationFormat":
+          extendedFileProperties.SetFirstElementStringValue<DXEP.PresentationFormat>((string?)value);
+          break;
+        case "ScaleCrop":
+          extendedFileProperties.SetFirstElementBoolValue<DXEP.ScaleCrop>((bool?)value);
+          break;
+        case "SharedDocument":
+          extendedFileProperties.SetFirstElementBoolValue<DXEP.SharedDocument>((bool?)value);
+          break;
+        case "Slides":
+          extendedFileProperties.SetFirstElementIntValue<DXEP.Slides>((int?)value);
+          break;
+        case "Template":
+          extendedFileProperties.SetFirstElementStringValue<DXEP.Template>((string?)value);
+          break;
+        case "TitlesOfParts":
+          extendedFileProperties.SetFirstElementVTVectorValue<DXEP.TitlesOfParts>((DXVT.VTVector?)value);
+          break;
+        case "TotalTime":
+          extendedFileProperties.SetFirstElementIntValue<DXEP.TotalTime>((int?)value);
+          break;
+        case "Words":
+          extendedFileProperties.SetFirstElementIntValue<DXEP.Words>((int?)value);
+          break;
+      }
     }
   }
 

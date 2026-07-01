@@ -915,74 +915,98 @@
             </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.HasExtendedFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$70F18AC8DBBC88D0F4D69ACDF371D0C7.HasExtendedFileProperties"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetExtendedFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$70F18AC8DBBC88D0F4D69ACDF371D0C7.GetExtendedFileProperties"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.Count(DocumentFormat.OpenXml.ExtendedProperties.Properties,Qhta.OpenXmlTools.ItemFilter)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.Count(Qhta.OpenXmlTools.ItemFilter)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetNames(DocumentFormat.OpenXml.ExtendedProperties.Properties,Qhta.OpenXmlTools.ItemFilter)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.GetNames(Qhta.OpenXmlTools.ItemFilter)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetType(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.GetType(System.String)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.IsVolatile(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.IsVolatile(System.String)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.AppliesToApplication(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String,Qhta.OpenXmlTools.AppType)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.AppliesToApplication(System.String,Qhta.OpenXmlTools.AppType)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetValue(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.GetValue(System.String)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.SetValue(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String,System.Object)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.SetValue(System.String,System.Object)"/>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$70F18AC8DBBC88D0F4D69ACDF371D0C7.&lt;M&gt;$7615E88CCAD5DED7E84CDF625A9785AF">
+            <param name="wordDoc"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$70F18AC8DBBC88D0F4D69ACDF371D0C7.HasExtendedFileProperties">
             <summary>
             Checks if the document has extended file properties.
             </summary>
-            <param name="wordDoc"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetExtendedFileProperties(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$70F18AC8DBBC88D0F4D69ACDF371D0C7.GetExtendedFileProperties">
             <summary>
             Gets the extended file properties of the document. If the document does not have extended file properties,
             they are created.
             </summary>
-            <param name="wordDoc">The WordprocessingDocument to get the properties from.</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.Count(DocumentFormat.OpenXml.ExtendedProperties.Properties,Qhta.OpenXmlTools.ItemFilter)">
+        <member name="T:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.&lt;M&gt;$7D8690B672B7B770B58301FDDA56F6D1">
+            <param name="extendedFileProperties"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.Count(Qhta.OpenXmlTools.ItemFilter)">
             <summary>
             Get the count of the extended file properties.
             </summary>
-            <param name="extendedFileProperties"></param>
             <param name="filter">specifies if all property names should be counted or non-empty ones</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetNames(DocumentFormat.OpenXml.ExtendedProperties.Properties,Qhta.OpenXmlTools.ItemFilter)">
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.GetNames(Qhta.OpenXmlTools.ItemFilter)">
             <summary>
             Get the names of the extended file properties.
             </summary>
-            <param name="extendedFileProperties"></param>
             <param name="filter">specifies if all property names should be listed or non-empty ones</param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetType(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String)">
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.GetType(System.String)">
             <summary>
             Get the type of property with its name.
             </summary>
-            <param name="extendedFileProperties"></param>
             <param name="propertyName"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.IsVolatile(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String)">
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.IsVolatile(System.String)">
             <summary>
             Check if the property is volatile.
             </summary>
-            <param name="extendedFileProperties"></param>
             <param name="propertyName"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.AppliesToApplication(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String,Qhta.OpenXmlTools.AppType)">
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.AppliesToApplication(System.String,Qhta.OpenXmlTools.AppType)">
             <summary>
             Check if the property is volatile.
             </summary>
-            <param name="extendedFileProperties"></param>
             <param name="propertyName"></param>
             <param name="appType"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.GetValue(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String)">
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.GetValue(System.String)">
             <summary>
             Gets the value of an extended file property.
             </summary>
-            <param name="extendedFileProperties"></param>
             <param name="propertyName"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.SetValue(DocumentFormat.OpenXml.ExtendedProperties.Properties,System.String,System.Object)">
+        <member name="M:Qhta.OpenXmlTools.ExtendedFilePropertiesTools.&lt;G&gt;$92EDF1A3B92BB8AF875207B5FE05B406.SetValue(System.String,System.Object)">
             <summary>
             Sets the value of an extended file property.
             </summary>
-            <param name="extendedFileProperties"></param>
             <param name="propertyName"></param>
             <param name="value"></param>
         </member>
