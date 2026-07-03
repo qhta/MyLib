@@ -1111,55 +1111,76 @@
             </summary>
         </member>
         <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.GetFootnotePosition(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.GetFootnotePosition"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.SetFootnotePosition(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.FootnotePositionValues})">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.SetFootnotePosition(System.Nullable{DocumentFormat.OpenXml.Wordprocessing.FootnotePositionValues})"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.GetNumberingFormat(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.GetNumberingFormat"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.SetNumberingFormat(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties,DocumentFormat.OpenXml.Wordprocessing.NumberingFormat)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.SetNumberingFormat(DocumentFormat.OpenXml.Wordprocessing.NumberingFormat)"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.GetNumberingStart(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.GetNumberingStart"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.SetNumberingStart(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties,System.Nullable{System.Int32})">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.SetNumberingStart(System.Nullable{System.Int32})"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.GetNumberingRestart(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties)">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.GetNumberingRestart"/>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.SetNumberingRestart(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.RestartNumberValues})">
+            <inheritdoc cref="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.SetNumberingRestart(System.Nullable{DocumentFormat.OpenXml.Wordprocessing.RestartNumberValues})"/>
+        </member>
+        <member name="T:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.&lt;M&gt;$5D17F9533DEEBB22597DB5621D063A96">
+            <param name="element"></param>
+        </member>
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.GetFootnotePosition">
             <summary>
             Gets the FootnotePosition element value.
             </summary>
-            <param name="element"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.SetFootnotePosition(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.FootnotePositionValues})">
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.SetFootnotePosition(System.Nullable{DocumentFormat.OpenXml.Wordprocessing.FootnotePositionValues})">
             <summary>
             Sets the FootnotePosition element value.
             </summary>
-            <param name="element"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.GetNumberingFormat(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties)">
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.GetNumberingFormat">
             <summary>
             Gets the first NumberingFormat element value
             </summary>
-            <param name="element"></param>
             <returns></returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.SetNumberingFormat(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties,DocumentFormat.OpenXml.Wordprocessing.NumberingFormat)">
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.SetNumberingFormat(DocumentFormat.OpenXml.Wordprocessing.NumberingFormat)">
             <summary>
             Sets the NumberingFormat element value.
             </summary>
-            <param name="element"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.GetNumberingStart(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties)">
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.GetNumberingStart">
             <summary>
             Gets the NumberingStart element value.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.SetNumberingStart(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties,System.Nullable{System.Int32})">
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.SetNumberingStart(System.Nullable{System.Int32})">
             <summary>
             Sets the NumberingStart element value.
             </summary>
-            <param name="element"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.GetNumberingRestart(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties)">
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.GetNumberingRestart">
             <summary>
             Gets the NumberingRestart element value.
             </summary>
         </member>
-        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.SetNumberingRestart(DocumentFormat.OpenXml.Wordprocessing.FootnoteProperties,System.Nullable{DocumentFormat.OpenXml.Wordprocessing.RestartNumberValues})">
+        <member name="M:Qhta.OpenXmlTools.FootnotePropertiesTools.&lt;G&gt;$36A70D521C43A44D50F453B6B86A7904.SetNumberingRestart(System.Nullable{DocumentFormat.OpenXml.Wordprocessing.RestartNumberValues})">
             <summary>
             Sets the NumberingRestart element value.
             </summary>
-            <param name="element"></param>
             <param name="value"></param>
         </member>
         <member name="T:Qhta.OpenXmlTools.FootnoteTools">
