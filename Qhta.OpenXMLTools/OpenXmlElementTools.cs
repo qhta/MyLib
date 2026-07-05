@@ -115,6 +115,19 @@ public static class OpenXmlElementTools
   }
 
   /// <summary>
+  /// Get the root element of the OpenXmlElement.
+  /// </summary>
+  /// <param name="element"></param>
+  /// <returns></returns>
+  public static DX.OpenXmlPartRootElement? GetRootElement(this DX.OpenXmlElement element)
+  {
+    DX.OpenXmlElement current = element;
+    while (current.Parent != null) {
+      current = current.Parent;
+    }
+    return current as DX.OpenXmlPartRootElement;
+  }
+  /// <summary>
   /// Get member elements (without properties) of the OpenXmlElement.
   /// </summary>
   /// <param name="element"></param>
@@ -190,7 +203,6 @@ public static class OpenXmlElementTools
   public static DXPP.OpenXmlPart? GetDocumentPart(this DX.OpenXmlElement? xmlElement)
   {
     var rootElement = GetRootElement(xmlElement);
-    if (rootElement != null)
     {
       return rootElement.OpenXmlPart;
     }
@@ -206,22 +218,6 @@ public static class OpenXmlElementTools
   {
     var part = GetDocumentPart(xmlElement);
     return part?.OpenXmlPackage as DXPP.WordprocessingDocument;
-  }
-
-  /// <summary>
-  /// Recursively get the root element of the OpenXmlElement.
-  /// </summary>
-  /// <param name="xmlElement">Checked source element</param>
-  /// <returns>Returned document part or null</returns>
-  public static DX.OpenXmlPartRootElement? GetRootElement(this DX.OpenXmlElement? xmlElement)
-  {
-    if (xmlElement?.Parent is DX.OpenXmlPartRootElement rootElement)
-    {
-      return rootElement;
-    }
-    if (xmlElement?.Parent != null)
-      return xmlElement.Parent.GetRootElement();
-    return null;
   }
 
   /// <summary>

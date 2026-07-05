@@ -3425,6 +3425,13 @@
             <param name="element"></param>
             <returns></returns>
         </member>
+        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetRootElement(DocumentFormat.OpenXml.OpenXmlElement)">
+            <summary>
+            Get the root element of the OpenXmlElement.
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetMembers(DocumentFormat.OpenXml.OpenXmlCompositeElement)">
             <summary>
             Get member elements (without properties) of the OpenXmlElement.
@@ -3472,13 +3479,6 @@
         <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetWordprocessingDocument(DocumentFormat.OpenXml.OpenXmlElement)">
             <summary>
             Get the <c>WordprocessingDocument</c> of the OpenXmlElement. 
-            </summary>
-            <param name="xmlElement">Checked source element</param>
-            <returns>Returned document part or null</returns>
-        </member>
-        <member name="M:Qhta.OpenXmlTools.OpenXmlElementTools.GetRootElement(DocumentFormat.OpenXml.OpenXmlElement)">
-            <summary>
-            Recursively get the root element of the OpenXmlElement.
             </summary>
             <param name="xmlElement">Checked source element</param>
             <returns>Returned document part or null</returns>
