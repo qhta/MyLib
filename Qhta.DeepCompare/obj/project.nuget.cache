@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KKLsyKN8fkVWLa3Q+4Sod2sop7mUd89Q1pZI2gfP7krOFGH2IVnPxx0H1EPASJYx6BOSGfQGF/E8BLc5jWQwlw==",
+  "dgSpecHash": "OTGVuwmrGdE=",
   "success": true,
-  "projectFilePath": "D:\\VS\\Projects\\MyLib\\Qhta.DeepCompare\\Qhta.DeepCompare.csproj",
+  "projectFilePath": "D:\\OneDrive\\VS\\Projects\\MyLib\\Qhta.DeepCompare\\Qhta.DeepCompare.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qhta1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\qhta1\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",

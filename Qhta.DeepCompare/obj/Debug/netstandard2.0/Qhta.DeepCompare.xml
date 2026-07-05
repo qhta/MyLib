@@ -45,7 +45,16 @@
             Gets the type of the object and if the type is Nullable, returns its baseType
             </summary>
         </member>
-        <member name="M:Qhta.DeepCompare.DeepComparer.IsEqual(System.Object,System.Object,Qhta.DeepCompare.DiffList,System.String,System.String,System.Nullable{System.Int32})">
+        <member name="M:Qhta.DeepCompare.DeepComparer.DeepEquals(System.Object,System.Object)">
+            <summary>
+            Determines whether the specified object is equal to other one.
+            Compares all properties of the objects and returns true if they are equal, false otherwise.
+            </summary>
+            <param name="testObject">First object to compare (tested object)</param>
+            <param name="refObject">Second object to compare (referenced object)</param>
+            <returns>True if objects are equal, false otherwise </returns>
+        </member>
+        <member name="M:Qhta.DeepCompare.DeepComparer.IsEqual(System.Object,System.Object,Qhta.DeepCompare.DiffList,System.String,System.String,System.Nullable{System.Int32},System.Collections.Generic.HashSet{System.ValueTuple{System.Int32,System.Int32}})">
             <summary>
             Determines whether the specified object is equal to other one.
             </summary>
@@ -55,6 +64,7 @@
             <param name="objName">Optional tested object name</param>
             <param name="propName">Optional tested property name</param>
             <param name="index">Optional index of checked objects</param>
+            <param name="visited">Visited pairs of compared objects</param>
         </member>
         <member name="T:Qhta.DeepCompare.Diff">
             <summary>
