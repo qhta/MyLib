@@ -6,6 +6,8 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
+// ReSharper disable ConvertToExtensionBlock
+// ReSharper disable InvokeAsExtensionMember
 
 /// <summary>
 /// Tools for working with OpenXml elements.
@@ -202,9 +204,13 @@ public static class OpenXmlElementTools
   /// <returns>Returned document part or null</returns>
   public static DXPP.OpenXmlPart? GetDocumentPart(this DX.OpenXmlElement? xmlElement)
   {
-    var rootElement = GetRootElement(xmlElement);
+    if (xmlElement != null)
     {
-      return rootElement.OpenXmlPart;
+      var rootElement = GetRootElement(xmlElement);
+      if (rootElement != null)
+      {
+        return rootElement.OpenXmlPart;
+      }
     }
     return null;
   }
