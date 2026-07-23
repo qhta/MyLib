@@ -295,8 +295,6 @@ public static class ParagraphTools
   {
     bool done = false;
     var paraText = paragraph.GetText(TextOptions.ParaText);
-    if (paraText.Contains("Main Document Story"))
-      Debug.Assert(true);
     var formattedText = new FormattedText(paragraph, FormattedTextMode.PlainText);
     var fText = formattedText.GetText();
 
@@ -536,8 +534,6 @@ public static class ParagraphTools
         }
       }
     }
-    if (newParagraph?.GetText() == " <t/>")
-      Debug.Assert(true);
     return newParagraph;
   }
 
@@ -552,8 +548,6 @@ public static class ParagraphTools
   {
     DXW.Paragraph? newParagraph = null;
     var paraText = paragraph.GetText();
-    if (paraText == "Top:  <t/> <t/> <t/><drawing/> Bottom:  <t/> <t/><drawing/>")
-      Debug.Assert(true);
     var isParagraphLevel = member.GetType().IsParagraphMemberType();
     var members = paragraph.GetMembers().ToList();
     foreach (var item in members)
@@ -599,8 +593,6 @@ public static class ParagraphTools
     }
     if (newParagraph?.IsEmptyOrWhiteSpace() == true)
       newParagraph = null;
-    if (newParagraph?.GetText() == " <t/>")
-      Debug.Assert(true);
     return newParagraph;
   }
 

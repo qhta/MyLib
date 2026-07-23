@@ -43,8 +43,6 @@ public class RichTextReader : OpenXmlTextReader
   public string ReadCharStr()
   {
     var str = (char)base.ReadChar();
-    if (str == ' ')
-      Debug.Assert(true);
     if (str == '\\')
     {
       if (Peek() == '\\')
@@ -84,8 +82,6 @@ public class RichTextReader : OpenXmlTextReader
       var charName = sb.ToString();
       if (charName.StartsWith("sup") || charName.StartsWith("sub"))
       {
-        Debug.Assert(true);
-        var param = "";
         if (ch == '{')
         {
           sb.Clear();
@@ -97,7 +93,7 @@ public class RichTextReader : OpenXmlTextReader
               break;
             sb.Append(ch);
           }
-          param = sb.ToString();
+          var param = sb.ToString();
           sb.Clear();
           foreach (var ch1 in param)
           {

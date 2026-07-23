@@ -249,8 +249,6 @@ public static class StringTools
   /// <returns></returns>
   public static string ReplaceSymbolEncoding(this string str)
   {
-    if (str.Length==1)
-      Debug.Assert(true);
     var chars = str.ToCharArray();
     for (int i = 0; i < chars.Length; i++)
     {

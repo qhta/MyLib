@@ -506,8 +506,6 @@ public static class RunTools
     if (run.NextSibling() is DXW.Run nextRun)
     {
       var text = run.GetText(TextOptions.PlainText);
-      if (text.StartsWith("/word"))
-        Debug.Assert(true);
       var nextText = nextRun.GetText(TextOptions.PlainText);
       if (text.TrimEnd() == text && !text.EndsWith("-") && nextText.TrimStart() == text && !nextText.StartsWith("-"))
       {

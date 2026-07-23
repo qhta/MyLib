@@ -35,7 +35,6 @@ public static class OpenXmlCompositeElementTools
           {
             if (paragraph.PreviousSiblingMember() is DXW.Table && paragraph.NextSibling() == null)
             {
-              Debug.Assert(true);
               // Do not remove the last paragraph in the table cell when the table is the previous sibling.
             }
             else
@@ -46,13 +45,11 @@ public static class OpenXmlCompositeElementTools
           }
           else
           {
-            Debug.Assert(true);
             // Do not remove the single paragraph in the table cell.
           }
         }
         else
         {
-          Debug.Assert(true);
           // Do not remove the paragraph when it is not in a table cell.
         }
       }
@@ -182,8 +179,6 @@ public static class OpenXmlCompositeElementTools
         continue;
       var runText = run.GetText(TextOptions.PlainText);
       var nextRunText = nextRun.GetText(TextOptions.PlainText);
-      //if (runText.StartsWith("/word/comments"))
-      //  Debug.Assert(true);
       var runProps = run.RunProperties;
       var nextRunProps = nextRun.RunProperties;
       if (runProps == null && nextRunProps == null)

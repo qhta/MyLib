@@ -137,8 +137,6 @@ public static class TableCellTools
           sb.Append("\r\n");
       }
       var text = sb.ToString();
-      //if (text.Contains("wordprocessingml.endnotes+xml"))
-      //  Debug.Assert(true);
       isLong = text.Length > 500;
     }
     return isLong;

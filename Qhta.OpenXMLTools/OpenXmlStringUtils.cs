@@ -138,8 +138,6 @@ public static class OpenXmlStringUtils
     /// <returns></returns>
     public bool IsLike(string pattern, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
     {
-      if (pattern == "*Extent*" && key.Contains("Extent"))
-        Debug.Assert(true);
       var wildcardCount = pattern.Count(c => c == '*');
       if (wildcardCount == 1 && pattern.EndsWith("*"))
       {
