@@ -358,6 +358,177 @@ namespace Qhta.TextUtils
   }
 
   /// <summary>
+  /// A list of Unicode frequently used character constants.
+  /// </summary>
+  public static class UnicodeChars
+  {
+    /// <summary>
+    /// Non-breaking space character.
+    /// </summary>
+    public const char NoBreakSpace = '\u00A0';
+
+    /// <summary>
+    /// Thin space character.
+    /// </summary>
+    public const char ThinSpace = '\u2009';
+
+    /// <summary>
+    /// Zero-width space character.
+    /// </summary>
+    public const char ZeroWidthSpace = '\u200B';
+
+    /// <summary>
+    /// Zero-width non-joiner character.
+    /// </summary>
+    public const char ZeroWidthNonJoiner = '\u200C';
+
+    /// <summary>
+    /// Zero-width joiner character.
+    /// </summary>
+    public const char ZeroWidthJoiner = '\u200D';
+
+    /// <summary>
+    /// En dash character.
+    /// </summary>
+    public const char EnDash = '\u2013';
+
+    /// <summary>
+    /// Em dash character.
+    /// </summary>
+    public const char EmDash = '\u2014';
+
+    /// <summary>
+    /// Left single quotation mark character.
+    /// </summary>
+    public const char LeftSingleQuote = '\u2018';
+
+    /// <summary>
+    /// Right single quotation mark character.
+    /// </summary>
+    public const char RightSingleQuote = '\u2019';
+
+    /// <summary>
+    /// Left double quotation mark character.
+    /// </summary>
+    public const char LeftDoubleQuote = '\u201C';
+
+    /// <summary>
+    /// Right double quotation mark character.
+    /// </summary>
+    public const char RightDoubleQuote = '\u201D';
+
+    /// <summary>
+    /// Bullet character.
+    /// </summary>
+    public const char Bullet = '\u2022';
+
+    /// <summary>
+    /// Ellipsis character.
+    /// </summary>
+    public const char Ellipsis = '\u2026';
+
+    /// <summary>
+    /// Prime character.
+    /// </summary>
+    public const char Prime = '\u2032';
+
+    /// <summary>
+    /// Double prime character.
+    /// </summary>
+    public const char DoublePrime = '\u2033';
+
+    /// <summary>
+    /// Euro sign character.
+    /// </summary>
+    public const char EuroSign = '\u20AC';
+
+    /// <summary>
+    /// Trade mark sign character.
+    /// </summary>
+    public const char TradeMarkSign = '\u2122';
+
+    /// <summary>
+    /// Minus sign character.
+    /// </summary>
+    public const char MinusSign = '\u2212';
+
+    /// <summary>
+    /// Multiplication sign character.
+    /// </summary>
+    public const char MultiplicationSign = '\u00D7';
+
+    /// <summary>
+    /// Division sign character.
+    /// </summary>
+    public const char DivisionSign = '\u00F7';
+
+    /// <summary>
+    /// Plus-minus sign character.
+    /// </summary>
+    public const char PlusMinusSign = '\u00B1';
+
+    /// <summary>
+    /// Degree sign character.
+    /// </summary>
+    public const char DegreeSign = '\u00B0';
+
+    /// <summary>
+    /// Middle dot character.
+    /// </summary>
+    public const char MiddleDot = '\u00B7';
+
+    /// <summary>
+    /// Section sign character.
+    /// </summary>
+    public const char SectionSign = '\u00A7';
+
+    /// <summary>
+    /// Pilcrow sign character.
+    /// </summary>
+    public const char PilcrowSign = '\u00B6';
+
+    /// <summary>
+    /// Copyright sign character.
+    /// </summary>
+    public const char CopyrightSign = '\u00A9';
+
+    /// <summary>
+    /// Registered sign character.
+    /// </summary>
+    public const char RegisteredSign = '\u00AE';
+
+    /// <summary>
+    /// Left guillemet character.
+    /// </summary>
+    public const char GuillemetLeft = '\u00AB';
+
+    /// <summary>
+    /// Right guillemet character.
+    /// </summary>
+    public const char GuillemetRight = '\u00BB';
+
+    /// <summary>
+    /// Left angle bracket character.
+    /// </summary>
+    public const char AngleBracketLeft = '\u2329';
+
+    /// <summary>
+    /// Right angle bracket character.
+    /// </summary>
+    public const char AngleBracketRight = '\u232A';
+
+    /// <summary>
+    /// Left arrow character.
+    /// </summary>
+    public const char ArrowLeft = '\u2190';
+
+    /// <summary>
+    /// Right arrow character.
+    /// </summary>
+    public const char ArrowRight = '\u2192';
+  }
+
+  /// <summary>
   /// A list of Unicode-based handy methods.
   /// </summary>
   public static class UnicodeUtils

@@ -238,8 +238,8 @@
             A bunch of string utility methods
             </summary>
         </member>
-        <member name="M:Qhta.TextUtils.StringUtils.Truncate(System.String,System.Int32)">
-            <inheritdoc cref="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Truncate(System.Int32)"/>
+        <member name="M:Qhta.TextUtils.StringUtils.Truncate(System.String,System.Int32,System.Boolean,System.Boolean)">
+            <inheritdoc cref="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Truncate(System.Int32,System.Boolean,System.Boolean)"/>
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.Acronym(System.String)">
             <inheritdoc cref="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Acronym"/>
@@ -449,11 +449,13 @@
             </summary>
             <param name="inputString">String to process.</param>
         </member>
-        <member name="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Truncate(System.Int32)">
+        <member name="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Truncate(System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Creates a string with a specified maximum length. If the input string is longer than the maximum length, it is truncated to fit the maximum length.
             </summary>
             <param name="maxLength">The maximum length of the resulting string.</param>
+            <param name="onSpace">Determines whether to truncate on the last space before the maximum length.</param>
+            <param name="addEllipsis">Determines whether to add an ellipsis ("...") to the truncated string.</param>
             <returns>The truncated string if it exceeds the maximum length; otherwise, the original string.</returns>
         </member>
         <member name="M:Qhta.TextUtils.StringUtils.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.Acronym">
@@ -965,6 +967,176 @@
         <member name="F:Qhta.TextUtils.UnicodeBlockSpan.Text">
             <summary>
             Text within a block.
+            </summary>
+        </member>
+        <member name="T:Qhta.TextUtils.UnicodeChars">
+            <summary>
+            A list of Unicode frequently used character constants.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.NoBreakSpace">
+            <summary>
+            Non-breaking space character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.ThinSpace">
+            <summary>
+            Thin space character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.ZeroWidthSpace">
+            <summary>
+            Zero-width space character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.ZeroWidthNonJoiner">
+            <summary>
+            Zero-width non-joiner character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.ZeroWidthJoiner">
+            <summary>
+            Zero-width joiner character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.EnDash">
+            <summary>
+            En dash character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.EmDash">
+            <summary>
+            Em dash character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.LeftSingleQuote">
+            <summary>
+            Left single quotation mark character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.RightSingleQuote">
+            <summary>
+            Right single quotation mark character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.LeftDoubleQuote">
+            <summary>
+            Left double quotation mark character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.RightDoubleQuote">
+            <summary>
+            Right double quotation mark character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.Bullet">
+            <summary>
+            Bullet character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.Ellipsis">
+            <summary>
+            Ellipsis character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.Prime">
+            <summary>
+            Prime character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.DoublePrime">
+            <summary>
+            Double prime character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.EuroSign">
+            <summary>
+            Euro sign character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.TradeMarkSign">
+            <summary>
+            Trade mark sign character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.MinusSign">
+            <summary>
+            Minus sign character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.MultiplicationSign">
+            <summary>
+            Multiplication sign character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.DivisionSign">
+            <summary>
+            Division sign character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.PlusMinusSign">
+            <summary>
+            Plus-minus sign character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.DegreeSign">
+            <summary>
+            Degree sign character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.MiddleDot">
+            <summary>
+            Middle dot character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.SectionSign">
+            <summary>
+            Section sign character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.PilcrowSign">
+            <summary>
+            Pilcrow sign character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.CopyrightSign">
+            <summary>
+            Copyright sign character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.RegisteredSign">
+            <summary>
+            Registered sign character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.GuillemetLeft">
+            <summary>
+            Left guillemet character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.GuillemetRight">
+            <summary>
+            Right guillemet character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.AngleBracketLeft">
+            <summary>
+            Left angle bracket character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.AngleBracketRight">
+            <summary>
+            Right angle bracket character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.ArrowLeft">
+            <summary>
+            Left arrow character.
+            </summary>
+        </member>
+        <member name="F:Qhta.TextUtils.UnicodeChars.ArrowRight">
+            <summary>
+            Right arrow character.
             </summary>
         </member>
         <member name="T:Qhta.TextUtils.UnicodeUtils">

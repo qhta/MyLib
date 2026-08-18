@@ -8,7 +8,7 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>A package of functions to supplement System.Text.</description>
-    <repository type="git" commit="a00be796be5fdf60390353a0bac00214b875f208" />
+    <repository type="git" commit="1643521e69fc19f1a12bfd6cb3df18d6769e3eba" />
     <dependencies>
       <group targetFramework="net10.0" />
       <group targetFramework="net6.0" />

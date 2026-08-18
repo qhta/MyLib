@@ -43,15 +43,29 @@ public static class StringUtils
     /// Creates a string with a specified maximum length. If the input string is longer than the maximum length, it is truncated to fit the maximum length.
     /// </summary>
     /// <param name="maxLength">The maximum length of the resulting string.</param>
+    /// <param name="onSpace">Determines whether to truncate on the last space before the maximum length.</param>
+    /// <param name="addEllipsis">Determines whether to add an ellipsis ("...") to the truncated string.</param>
     /// <returns>The truncated string if it exceeds the maximum length; otherwise, the original string.</returns>
-    public string Truncate(int maxLength)
+    public string Truncate(int maxLength, bool onSpace = false, bool addEllipsis = false)
     {
       if (inputString == null)
         return string.Empty;
+
+      if (addEllipsis && maxLength > 0) maxLength--;
       if (inputString.Length <= maxLength)
         return inputString;
-      return inputString.Substring(0, maxLength);
+      if (onSpace)
+      {
+        var k = inputString.LastIndexOf(' ', maxLength);
+        if (k >= 0)
+        {
+          inputString = inputString.Substring(0, k) + UnicodeChars.Ellipsis;
+          return inputString;
+        }
+      }
+      return inputString.Substring(0, maxLength) + UnicodeChars.Ellipsis;
     }
+
 
     /// <summary>
     /// Get a substring from the first characters of the string's words.
