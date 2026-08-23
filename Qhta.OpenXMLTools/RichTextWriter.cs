@@ -46,27 +46,27 @@ public class RichTextWriter : OpenXmlTextWriter
     if (ctg == UnicodeCategory.SpaceSeparator || ctg == UnicodeCategory.ParagraphSeparator || ctg == UnicodeCategory.LineSeparator)
       WriteSeparatorChar(ch);
     else
-    if (ctg == UnicodeCategory.DashPunctuation || ch == '\u00AD')
-      WriteDashOrHyphen(ch);
-    else
-    if (ctg == UnicodeCategory.Format)
-      WriteFormatChar(ch);
-    else
-    if (ctg == UnicodeCategory.ModifierSymbol || ctg == UnicodeCategory.NonSpacingMark)
-      WriteAccentChar(ch);
-    else
-    if (ctg == UnicodeCategory.Control)
-      WriteControlChar(ch);
-    else
-    if (CharUtils.SupChars.Contains(ch) || CharUtils.SubChars.Contains(ch))
-      WriteSupSubChar(ch);
-    else
-    if (CharUtils.RomanChars.Contains(ch))
-      WriteRomanChar(ch);
-    else
-    {
-      WriteOtherChar(ch);
-    }
+      if (ctg == UnicodeCategory.DashPunctuation || ch == '\u00AD')
+        WriteDashOrHyphen(ch);
+      else
+        if (ctg == UnicodeCategory.Format)
+          WriteFormatChar(ch);
+        else
+          if (ctg == UnicodeCategory.ModifierSymbol || ctg == UnicodeCategory.NonSpacingMark)
+            WriteAccentChar(ch);
+          else
+            if (ctg == UnicodeCategory.Control)
+              WriteControlChar(ch);
+            else
+              if (CharUtils.SupChars.Contains(ch) || CharUtils.SubChars.Contains(ch))
+                WriteSupSubChar(ch);
+              else
+                if (CharUtils.RomanChars.Contains(ch))
+                  WriteRomanChar(ch);
+                else
+                {
+                  WriteOtherChar(ch);
+                }
   }
 
   private bool TryUseCharFunctions(char ch)
@@ -97,10 +97,10 @@ public class RichTextWriter : OpenXmlTextWriter
     if (Options.UseEscapeSequences && CharNames.EscapeMapping.TryGetValue(ch, out var seq))
       WriteControlCharName(seq);
     else
-    if (Options.UseControlCharNames && CharNames.TryGetName(ch, out var controlCharName))
-      WriteControlCharName(controlCharName);
-    else
-      WriteCharHex(ch);
+      if (Options.UseControlCharNames && CharNames.TryGetName(ch, out var controlCharName))
+        WriteControlCharName(controlCharName);
+      else
+        WriteCharHex(ch);
   }
 
   private void WriteSeparatorChar(char ch)
@@ -108,10 +108,10 @@ public class RichTextWriter : OpenXmlTextWriter
     if (ch == ' ')
       WriteOtherChar(ch);
     else
-    if (Options.UseSeparatorNames && CharNames.TryGetName(ch, out var controlCharName))
-      WriteControlCharName(controlCharName);
-    else
-      WriteCharHex(ch);
+      if (Options.UseSeparatorNames && CharNames.TryGetName(ch, out var controlCharName))
+        WriteControlCharName(controlCharName);
+      else
+        WriteCharHex(ch);
   }
 
   private void WriteDashOrHyphen(char ch)
@@ -119,10 +119,10 @@ public class RichTextWriter : OpenXmlTextWriter
     if (ch == '-')
       WriteOtherChar(ch);
     else
-    if (Options.UseDashNames && CharNames.TryGetName(ch, out var controlCharName))
-      WriteControlCharName(controlCharName);
-    else
-      WriteCharHex(ch);
+      if (Options.UseDashNames && CharNames.TryGetName(ch, out var controlCharName))
+        WriteControlCharName(controlCharName);
+      else
+        WriteCharHex(ch);
   }
 
   private void WriteFormatChar(char ch)
@@ -170,10 +170,10 @@ public class RichTextWriter : OpenXmlTextWriter
           WriteSimpleChar(ch);
       }
       else
-      if (CharNames.TryGetName(ch, out var controlCharName))
-        WriteControlCharName(controlCharName);
-      else
-        WriteCharHex(ch);
+        if (CharNames.TryGetName(ch, out var controlCharName))
+          WriteControlCharName(controlCharName);
+        else
+          WriteCharHex(ch);
     }
     else
       WriteSimpleChar(ch);

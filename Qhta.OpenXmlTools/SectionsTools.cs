@@ -14,7 +14,7 @@ public static class SectionsTools
   /// <returns>True if the document has more than one section properties defined</returns>
   public static bool HasSectionProperties(this DXPP.WordprocessingDocument wordDoc)
   {
-    return wordDoc.MainDocumentPart?.Document?.Body?.Descendants<SectionProperties>().Any()==true;
+    return wordDoc.MainDocumentPart?.Document?.Body?.Descendants<SectionProperties>().Any() == true;
   }
 
   /// <summary>
@@ -52,7 +52,7 @@ public static class SectionsTools
   public static SectionRange[] GetSectionRanges(this DXW.Body body)
   {
     var result = new List<SectionRange>();
-    
+
     var sectionProperties = body.Descendants<SectionProperties>().ToArray();
     DX.OpenXmlElement? prevElement = null;
     foreach (var sectPr in sectionProperties)

@@ -1,5 +1,4 @@
-﻿using System;
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
@@ -353,7 +352,7 @@ public static class ParagraphPropertiesTools
   /// <param name="paragraphProperties">Paragraph properties to process</param>
   /// <param name="numberingInstanceId">Value to set</param>
   /// <returns></returns>
-  public static void SetNumbering(this DXW.ParagraphProperties paragraphProperties,int? numberingInstanceId)
+  public static void SetNumbering(this DXW.ParagraphProperties paragraphProperties, int? numberingInstanceId)
   {
     var numberingProperties = paragraphProperties.NumberingProperties;
     if (numberingInstanceId == null)
@@ -587,8 +586,8 @@ public static class ParagraphPropertiesTools
   /// <returns></returns>
   public static void SetTextDirection(this DXW.ParagraphProperties paragraphProperties, DXW.TextDirectionValues? value)
   {
-    paragraphProperties.TextDirection = 
-      value!=null ? new TextDirection { Val = new DX.EnumValue<DXW.TextDirectionValues>(value) } : null;
+    paragraphProperties.TextDirection =
+      value != null ? new TextDirection { Val = new DX.EnumValue<DXW.TextDirectionValues>(value) } : null;
   }
 
   /// <summary>

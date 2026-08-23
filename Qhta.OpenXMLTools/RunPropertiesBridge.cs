@@ -136,7 +136,7 @@ public class RunPropertiesBridge
     get
     {
       var runFonts = BaseElement.GetFirstChild<DXW.RunFonts>();
-      if (runFonts!=null)
+      if (runFonts != null)
       {
         return runFonts.GetHighAnsiFontName();
       }

@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Qhta.TextUtils;
-
 namespace Qhta.OpenXmlTools;
 
 /// <summary>

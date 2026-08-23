@@ -1,7 +1,6 @@
 ﻿using System;
-using DocumentFormat.OpenXml.Wordprocessing;
 
-using Qhta.TextUtils;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
@@ -69,11 +68,11 @@ public class NumberingList(DXW.NumberingInstance instance) : List<DXW.Paragraph>
     if (aLevel.LevelSuffix?.Val?.Value == LevelSuffixValues.Space)
       aText += " ";
     else
-    if (aLevel.LevelSuffix?.Val?.Value == LevelSuffixValues.Tab)
-      aText += options.TabTag;
+      if (aLevel.LevelSuffix?.Val?.Value == LevelSuffixValues.Tab)
+        aText += options.TabTag;
     if (aLevel.LevelSuffix?.Val?.Value != LevelSuffixValues.Nothing)
       aText += options.NumberingEndTag;
-    aText= options.NumberingStartTag + aText;
+    aText = options.NumberingStartTag + aText;
     //if (options.IndentNumberingLists && level!=null)
     //{
     //  var indentStr = options.IndentUnit.Duplicate((int)level) ?? "";
@@ -91,7 +90,7 @@ public class NumberingList(DXW.NumberingInstance instance) : List<DXW.Paragraph>
   public string ToRoman(int number)
   {
     if ((number < 0) || (number > 3999))
-      throw new ArgumentOutOfRangeException(nameof(number),"ToRoman value is out of range");
+      throw new ArgumentOutOfRangeException(nameof(number), "ToRoman value is out of range");
     if (number < 1)
       return "";
     if (number >= 1000) return "M" + ToRoman(number - 1000);

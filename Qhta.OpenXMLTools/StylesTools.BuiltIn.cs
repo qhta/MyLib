@@ -1,9 +1,6 @@
 ﻿using System;
 
-using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Wordprocessing;
-
-using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
 
@@ -40,7 +37,7 @@ public static partial class StylesTools
   }
   private static Dictionary<BuiltinStyles, Style>? BuiltinStyles = null;
 
-  private static readonly Dictionary<BuiltinStyles, (StyleType Type, string Ident, string Name)> KnownStyles = new ()
+  private static readonly Dictionary<BuiltinStyles, (StyleType Type, string Ident, string Name)> KnownStyles = new()
     {
     { OpenXmlTools.BuiltinStyles.Normal, (StyleType.Paragraph, "Normal", "Normal") },
     { OpenXmlTools.BuiltinStyles.Heading1, (StyleType.Paragraph, "Heading1", "Heading 1") },
@@ -479,7 +476,7 @@ public static partial class StylesTools
   }
 
   private static readonly Dictionary<string, BuiltinStyles> _styleNamesDictionary
-    = new (StringComparer.InvariantCultureIgnoreCase)
+    = new(StringComparer.InvariantCultureIgnoreCase)
     {
       { "Outline List 1", OpenXmlTools.BuiltinStyles.OutlineList1 },
       { "Outline List 2", OpenXmlTools.BuiltinStyles.OutlineList2 },

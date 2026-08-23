@@ -27,7 +27,7 @@ public static class NumberingTools
     var abstractNum = numbering.Elements<AbstractNum>().FirstOrDefault(a => a.IsBulleted());
     if (abstractNum == null)
     {
-      var newNumId = numbering.GetNewAbstractNumId(); 
+      var newNumId = numbering.GetNewAbstractNumId();
       abstractNum = new AbstractNum { AbstractNumberId = newNumId };
       abstractNum.SetMultiLevelType(DXW.MultiLevelValues.HybridMultilevel);
       foreach (var symbol in new[] { "•", "◦", "-", "·", "▪", "▫", "▪", "▫", "▪", "▫" })

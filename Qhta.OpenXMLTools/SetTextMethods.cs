@@ -1,13 +1,7 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 using System.Text;
-using System.Xml;
-
-using DocumentFormat.OpenXml.Wordprocessing;
 
 using Qhta.TextUtils;
-using Qhta.TypeUtils;
 
 namespace Qhta.OpenXmlTools;
 /// <summary>
@@ -31,11 +25,11 @@ public static class SetTextMethods
       return true;
     }
     else
-    if (element is DXW.Text runText)
-    {
-      runText.SetTextTo(text, options);
-      return true;
-    }
+      if (element is DXW.Text runText)
+      {
+        runText.SetTextTo(text, options);
+        return true;
+      }
     //using (var parser = new GotTextParser(element, options))
     //{
     //  return parser.ParseText(text);
@@ -352,7 +346,7 @@ public static class SetTextMethods
   {
     if (options == null)
       options = TextOptions.PlainText;
-    var str =options.GetTextReader().Decode(text);
+    var str = options.GetTextReader().Decode(text);
     runText.Text = str;
     return true;
   }

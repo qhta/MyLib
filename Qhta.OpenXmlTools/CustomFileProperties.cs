@@ -126,15 +126,15 @@ public static class CustomFileProperties
       }
     }
     else
-    if (value != null)
-    {
-      var element = VariantTools.CreateVariant(value);
-      var pid = 2;
-      if (customFileProperties.Any())
-        pid = (customFileProperties.Elements<DXCP.CustomDocumentProperty>().Max(item => item.PropertyId) ?? 1) + 1;
-      property = new DXCP.CustomDocumentProperty(element) { FormatId = "{D5CDD505-2E9C-101B-9397-08002B2CF9AE}", PropertyId = pid, Name = propertyName.Trim() };
-      customFileProperties.Append(property);
-    }
+      if (value != null)
+      {
+        var element = VariantTools.CreateVariant(value);
+        var pid = 2;
+        if (customFileProperties.Any())
+          pid = (customFileProperties.Elements<DXCP.CustomDocumentProperty>().Max(item => item.PropertyId) ?? 1) + 1;
+        property = new DXCP.CustomDocumentProperty(element) { FormatId = "{D5CDD505-2E9C-101B-9397-08002B2CF9AE}", PropertyId = pid, Name = propertyName.Trim() };
+        customFileProperties.Append(property);
+      }
   }
 
   /// <summary>

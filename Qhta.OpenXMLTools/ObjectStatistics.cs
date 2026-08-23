@@ -6,7 +6,7 @@ namespace Qhta.OpenXmlTools;
 /// Represents the statistics of Objects.
 /// Each entry in the dictionary represents an object and the number of times it is used.
 /// </summary>
-public class ObjectStatistics: Dictionary<Object, ulong>
+public class ObjectStatistics : Dictionary<Object, ulong>
 {
   /// <summary>
   /// Adds an object count to the statistics.

@@ -1,6 +1,4 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Contains tools for working with underline element.

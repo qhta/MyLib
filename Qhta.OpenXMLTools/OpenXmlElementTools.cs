@@ -1,9 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Xml.XPath;
-
-using DocumentFormat.OpenXml.Spreadsheet;
-using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
 // ReSharper disable ConvertToExtensionBlock
@@ -124,7 +120,8 @@ public static class OpenXmlElementTools
   public static DX.OpenXmlPartRootElement? GetRootElement(this DX.OpenXmlElement element)
   {
     DX.OpenXmlElement current = element;
-    while (current.Parent != null) {
+    while (current.Parent != null)
+    {
       current = current.Parent;
     }
     return current as DX.OpenXmlPartRootElement;
@@ -845,15 +842,15 @@ public static class OpenXmlElementTools
         xmlElement.Append(new ElementType());
     }
     else
-    if (value == false)
-    {
-      if (element != null)
-        element.Val = false;
+      if (value == false)
+      {
+        if (element != null)
+          element.Val = false;
+        else
+          xmlElement.Append(new ElementType { Val = false });
+      }
       else
-        xmlElement.Append(new ElementType { Val = false });
-    }
-    else
-      element?.Remove();
+        element?.Remove();
   }
 
   /// <summary>
@@ -1752,7 +1749,7 @@ public static class OpenXmlElementTools
   /// <typeparam name="T"></typeparam>
   /// <param name="element"></param>
   /// <returns></returns>
-  public static DX.OpenXmlCompositeElement? GetParent<T>(this DX.OpenXmlElement element) 
+  public static DX.OpenXmlCompositeElement? GetParent<T>(this DX.OpenXmlElement element)
     where T : DX.OpenXmlCompositeElement
   {
     return element.Ancestors<T>().FirstOrDefault();

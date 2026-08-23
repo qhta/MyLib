@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Xml.Linq;
 
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
@@ -46,32 +45,32 @@ public static class NumberingExtraTools
           }
         }
         else
-        if (char.IsDigit(ch))
-        {
-          if (wasLetter)
+          if (char.IsDigit(ch))
+          {
+            if (wasLetter)
+            {
+              isNumberingString = false;
+              break;
+            }
+          }
+          else if (isPeriod)
+          {
+            if (wasPeriod)
+            {
+              isNumberingString = false;
+              break;
+            }
+          }
+          else if (ch == ')')
+          {
+            isNumberingString = true;
+            break;
+          }
+          else
           {
             isNumberingString = false;
             break;
           }
-        }
-        else if (isPeriod)
-        {
-          if (wasPeriod)
-          {
-            isNumberingString = false;
-            break;
-          }
-        }
-        else if (ch == ')')
-        {
-          isNumberingString = true;
-          break;
-        }
-        else
-        {
-          isNumberingString = false;
-          break;
-        }
         wasLetter = isLetter;
         wasPeriod = isPeriod;
       }

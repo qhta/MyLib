@@ -1,9 +1,6 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 using DocumentFormat.OpenXml.Wordprocessing;
-
-using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
 
@@ -47,7 +44,7 @@ public static class TableCellTools
   public static bool HasSimpleContent(this DXW.TableCell cell)
   {
     var members = cell.GetMembers().ToList();
-    return members.Count==0 || (members.Count == 1 && members[0] is DXW.Paragraph singleParagraph);
+    return members.Count == 0 || (members.Count == 1 && members[0] is DXW.Paragraph singleParagraph);
   }
 
   /// <summary>

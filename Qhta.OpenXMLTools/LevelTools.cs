@@ -86,7 +86,7 @@ public static class LevelTools
     if (level.IsDecimal())
       return int.TryParse(numberString, out _);
     if (level.IsLowerLetter())
-      return numberString.Length==1 && char.IsLower(numberString.First()) && numberString.First() != 'i';
+      return numberString.Length == 1 && char.IsLower(numberString.First()) && numberString.First() != 'i';
     if (level.IsUpperLetter())
       return numberString.Length == 1 && char.IsUpper(numberString.First()) && numberString.First() != 'I';
     if (level.IsLowerRoman())

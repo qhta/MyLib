@@ -1,7 +1,4 @@
-﻿using System.Text;
-
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using DocumentFormat.OpenXml;
 
 namespace Qhta.OpenXmlTools;
 
@@ -40,7 +37,7 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
   /// <summary>
   /// Gets elements of the specified type in the range.
   /// </summary>
-  public DX.OpenXmlElement[] GetElements() 
+  public DX.OpenXmlElement[] GetElements()
   {
     List<DX.OpenXmlElement> result = new();
     var element = Start;
@@ -127,12 +124,12 @@ public class Range(OpenXmlElement? start, OpenXmlElement? end)
     var element = Start;
     while (element != null)
     {
-      var aText = element.GetText(options with { OuterText = true});
+      var aText = element.GetText(options with { OuterText = true });
       sl.Add(aText);
       if (element == End)
         break;
       element = element.NextSibling();
     }
-    return string.Join("",sl);
+    return string.Join("", sl);
   }
 }

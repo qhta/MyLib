@@ -91,11 +91,11 @@ public static class PackageTools
       //Debug.WriteLine(fieldText);
       if (fieldText.StartsWith("HYPERLINK"))
       {
-        int k = fieldText.IndexOf('"')+1;
-        int l = fieldText.LastIndexOf('"')-k;
-        if (l>0)
+        int k = fieldText.IndexOf('"') + 1;
+        int l = fieldText.LastIndexOf('"') - k;
+        if (l > 0)
         {
-          var targetFileName = fieldText.Substring(k,l);
+          var targetFileName = fieldText.Substring(k, l);
           //if (targetFileName.Length>2 && targetFileName.First()=='"' && targetFileName.Last()=='"')
           //{
           //  targetFileName = targetFileName.Substring(1, targetFileName.Length - 2);
@@ -120,7 +120,7 @@ public static class PackageTools
               //var hostElement = fieldParagraph.Parent;
               var targetUri = new Uri(targetFileName, UriKind.RelativeOrAbsolute);
               var targetRel = doc.MainDocumentPart?.AddExternalRelationship(subdocumentRelType, targetUri);
-              if (targetRel != null) 
+              if (targetRel != null)
                 addedRels.Add(new RelPar(targetRel, fieldParagraph));
               //var subDoc = fieldParagraph.InsertBeforeSelf<SubDocumentReference>(new SubDocumentReference { Id = targetRel.Id });
               //fieldParagraph.Remove();

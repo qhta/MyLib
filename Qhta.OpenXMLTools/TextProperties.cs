@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Represents the properties of a text. These properties are used to format the text.

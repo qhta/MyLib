@@ -1,9 +1,4 @@
-﻿using System;
-using System.Text;
-using DocumentFormat.OpenXml.Wordprocessing;
-
-using Qhta.TextUtils;
-using Qhta.TypeUtils;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
@@ -127,8 +122,8 @@ public static class TableTools
     if (widthElement != null)
     {
       unitValues = widthElement.Type?.Value;
-        if (int.TryParse(widthElement.Width, out var val))
-          return val;
+      if (int.TryParse(widthElement.Width, out var val))
+        return val;
     }
     unitValues = null;
     return null;

@@ -1,9 +1,4 @@
-﻿using System.Text;
-
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Wordprocessing;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Tools for working with OpenXml Wordprocessing plain text element.

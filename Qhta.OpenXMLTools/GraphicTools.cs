@@ -11,7 +11,7 @@ public static partial class GraphicTools
   /// </summary>
   /// <param name="inline"></param>
   /// <returns></returns>
-  public static string? GetAnchorId (this DXDW.Inline inline)
+  public static string? GetAnchorId(this DXDW.Inline inline)
     => inline.AnchorId?.Value;
 
   /// <summary>
@@ -49,7 +49,7 @@ public static partial class GraphicTools
 
     inline.AnchorId = anchor.AnchorId?.Value;
     var anchorDocProperties = anchor.Elements<DXDW.DocProperties>().FirstOrDefault();
-    if (anchorDocProperties != null) 
+    if (anchorDocProperties != null)
       inline.DocProperties = anchorDocProperties.CloneNode(true) as DXDW.DocProperties;
     var extent = anchor.Elements<DXDW.Extent>().FirstOrDefault();
     if (extent != null)
@@ -91,18 +91,18 @@ public static partial class GraphicTools
             {
               ss.Remove(s);
             }
-            else 
-            if (s.StartsWith("margin-"))
-            {
-              ss.Remove(s);
-              break;
-            }
             else
-            if (s.StartsWith("z-index:"))
-            {
-              ss.Remove(s);
-              break;
-            }
+              if (s.StartsWith("margin-"))
+              {
+                ss.Remove(s);
+                break;
+              }
+              else
+                if (s.StartsWith("z-index:"))
+                {
+                  ss.Remove(s);
+                  break;
+                }
           }
           ss.Add("mso-position-horizontal-relative:char;mso-position-vertical-relative:line");
           group.Style = string.Join(";", ss);

@@ -1,11 +1,4 @@
-﻿using System;
-
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Wordprocessing;
-
-using Qhta.TextUtils;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Tools for working with styles in OpenXml documents.

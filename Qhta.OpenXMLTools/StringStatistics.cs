@@ -4,7 +4,7 @@
 /// Represents the statistics of strings.
 /// Each entry in the dictionary represents a string and the number of times it is used.
 /// </summary>
-public class StringStatistics: Dictionary<string, ulong>
+public class StringStatistics : Dictionary<string, ulong>
 {
   /// <summary>
   /// Adds a string count to the statistics.

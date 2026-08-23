@@ -3,8 +3,6 @@
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Wordprocessing;
 
-using Qhta.TextUtils;
-
 namespace Qhta.OpenXmlTools;
 /// <summary>
 /// Tools for working with compatibility settings

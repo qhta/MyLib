@@ -123,7 +123,7 @@ public static partial class StylesTools
                                mainDocumentPart.AddNewPart<DXPP.StyleDefinitionsPart>();
 
     styleDefinitionsPart.Styles ??= (styleDefinitionsPart.Styles = new DXW.Styles());
-    if (buildInStylesFileName!=null)
+    if (buildInStylesFileName != null)
       if (BuiltinStyles == null)
         LoadBuiltinStyles(buildInStylesFileName);
     return styleDefinitionsPart.Styles;

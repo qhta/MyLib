@@ -40,7 +40,7 @@ public static class TableCellPropertiesTools
   /// <param name="color"></param>
   /// <param name="fillPattern"></param>
   /// <param name="fillColor"></param>
-  public static void SetShading (this TableCellProperties cellProperties, ShadingPatternValues? fillPattern, string? color = null,  string? fillColor = null)
+  public static void SetShading(this TableCellProperties cellProperties, ShadingPatternValues? fillPattern, string? color = null, string? fillColor = null)
   {
     if (fillPattern == null)
     {

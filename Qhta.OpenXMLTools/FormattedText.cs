@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Security.Cryptography;
 using System.Text;
 
-using DocumentFormat.OpenXml.Vml.Office;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 using Qhta.TextUtils;

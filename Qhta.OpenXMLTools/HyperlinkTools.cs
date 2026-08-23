@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Contains tools for working with OpenXml Hyperlink elements.
@@ -74,15 +71,15 @@ public static class HyperlinkTools
         hyperlink.Remove();
       }
       else
-      if (hyperlink.NextSibling() is DXW.Hyperlink nextHyperlink && nextHyperlink.GetRel().IsEqual(hyperlink.GetRel()))
-      {
-        var nextHyperlinkText = nextHyperlink.GetText(TextOptions.PlainText);
-        hyperlinkTextTrimmed += nextHyperlinkText;
-        hyperlink.SetText(hyperlinkTextTrimmed);
-        nextHyperlink.Remove();
-      }
-      else
-        hyperlink.SetText(hyperlinkTextTrimmed);
+        if (hyperlink.NextSibling() is DXW.Hyperlink nextHyperlink && nextHyperlink.GetRel().IsEqual(hyperlink.GetRel()))
+        {
+          var nextHyperlinkText = nextHyperlink.GetText(TextOptions.PlainText);
+          hyperlinkTextTrimmed += nextHyperlinkText;
+          hyperlink.SetText(hyperlinkTextTrimmed);
+          nextHyperlink.Remove();
+        }
+        else
+          hyperlink.SetText(hyperlinkTextTrimmed);
       done = true;
     }
     return done;
@@ -105,15 +102,15 @@ public static class HyperlinkTools
         hyperlink.Remove();
       }
       else
-      if (hyperlink.PreviousSiblingMember() is DXW.Hyperlink previousHyperlink && previousHyperlink.GetRel().IsEqual(hyperlink.GetRel()))
-      {
-        var previousHyperlinkText = previousHyperlink.GetText(TextOptions.PlainText);
-        previousHyperlinkText += hyperlinkTextTrimmed;
-        previousHyperlink.SetText(previousHyperlinkText);
-        hyperlink.Remove();
-      }
-      else
-        hyperlink.SetText(hyperlinkTextTrimmed);
+        if (hyperlink.PreviousSiblingMember() is DXW.Hyperlink previousHyperlink && previousHyperlink.GetRel().IsEqual(hyperlink.GetRel()))
+        {
+          var previousHyperlinkText = previousHyperlink.GetText(TextOptions.PlainText);
+          previousHyperlinkText += hyperlinkTextTrimmed;
+          previousHyperlink.SetText(previousHyperlinkText);
+          hyperlink.Remove();
+        }
+        else
+          hyperlink.SetText(hyperlinkTextTrimmed);
       done = true;
     }
     return done;

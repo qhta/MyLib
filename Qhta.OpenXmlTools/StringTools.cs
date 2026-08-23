@@ -1,6 +1,4 @@
 ﻿using System.Net;
-using System.Text;
-using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
 
@@ -38,13 +36,13 @@ public static class StringTools
   /// <param name="indentUnit"></param>
   /// <param name="lineSeparator"></param>
   /// <returns></returns>
-  public static string IndentString(this string str, int startIndent=0, string indentUnit="  ", string lineSeparator = "\r\n")
+  public static string IndentString(this string str, int startIndent = 0, string indentUnit = "  ", string lineSeparator = "\r\n")
   {
     var indentLevel = startIndent;
     var sl = new List<string>();
     var k = 0;
     k = str.IndexOf("><", k);
-    if (k<0)
+    if (k < 0)
       k = str.Length;
     var i = 0;
     while (k < str.Length)
@@ -68,7 +66,7 @@ public static class StringTools
     }
     return string.Join(lineSeparator, sl);
   }
-  
+
   /// <summary>
   /// Get the number of non-whitespace characters at the beginning of the string.
   /// </summary>

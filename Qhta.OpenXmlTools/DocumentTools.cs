@@ -25,7 +25,7 @@ public static partial class DocumentTools
   /// <returns></returns>
   public static DocumentProperties GetDocumentProperties(this DXPP.WordprocessingDocument wordDoc)
   {
-    return new DocumentProperties (wordDoc);
+    return new DocumentProperties(wordDoc);
   }
 
   /// <summary>

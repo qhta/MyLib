@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Text;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.Office2010.PowerPoint;
 
 namespace Qhta.OpenXmlTools;
 
@@ -456,7 +453,7 @@ public record TextOptions
   /// <summary>
   /// Tag to mark a column break.
   /// </summary>
-  public string BreakColumnTag => Tags.BreakColumnTag; 
+  public string BreakColumnTag => Tags.BreakColumnTag;
 
   /// <summary>
   /// Tag to mark a page break.
@@ -482,7 +479,7 @@ public record TextOptions
   /// Tag to mark a PositionalTab.
   /// </summary>
   public string PositionalTabTag => Tags.PositionalTabTag;
-  
+
   /// <summary>
   /// Tag to mark a last rendered page break.
   /// </summary>
@@ -523,7 +520,7 @@ public record TextOptions
   /// </summary>
   public string YearShortTag => Tags.YearShortTag;
 
-    /// <summary>
+  /// <summary>
   /// Tag to mark a FieldChar element with FieldCharType = begin.
   /// </summary>
   public string FieldCharBeginTag => Tags.FieldCharBeginTag;
@@ -788,7 +785,7 @@ public record TextOptions
   /// Tag to start a field code end.
   /// </summary>
   public string FieldCodeEnd { [DebuggerStepThrough] get; [DebuggerStepThrough] set; } = "</instr>";
- 
+
   /// <summary>
   /// Tag to separate a field formula command from result.
   /// </summary>

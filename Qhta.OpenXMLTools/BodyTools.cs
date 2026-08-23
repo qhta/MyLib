@@ -47,13 +47,13 @@ public static class BodyTools
     List<SectionRange> sections = new List<SectionRange>();
     for (int i = 0; i < sectionProps.Count; i++)
     {
-      SectionRange newSection = new SectionRange (sectionProps[i]);
+      SectionRange newSection = new SectionRange(sectionProps[i]);
       if (i == 0)
         newSection.Start = body.Elements().FirstOrDefault();
       else
       {
-        var sectionStart=  sections[i - 1].End?.NextSibling();
-        if (sectionStart!=null)
+        var sectionStart = sections[i - 1].End?.NextSibling();
+        if (sectionStart != null)
           newSection.Start = sectionStart;
       }
       Debug.Assert(newSection.Start != null, "Section start is null");

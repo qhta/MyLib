@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Class to find (and replace) text in a document.

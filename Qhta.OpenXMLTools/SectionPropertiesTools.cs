@@ -86,7 +86,7 @@ public static class SectionPropertiesTools
       if (pageSize != null)
         pageSize.Remove();
     }
-    if (pageSize== null)
+    if (pageSize == null)
     {
       pageSize = new PageSize();
       sectionProperties.Append(pageSize);

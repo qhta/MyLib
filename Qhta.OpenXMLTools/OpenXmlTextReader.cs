@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -22,8 +21,8 @@ public abstract class OpenXmlTextReader
   /// Check if the end of the buffer has been reached.
   /// </summary>
   /// <returns></returns>
-  public bool EOF() => index>=buffer.Length; 
-  
+  public bool EOF() => index >= buffer.Length;
+
   /// <summary>Returns the next available character but does not consume it.</summary>
   public char Peek() => EOF() ? (char)0 : buffer[index];
 
@@ -79,7 +78,7 @@ public abstract class OpenXmlTextReader
   /// </summary>
   /// <param name="str"></param>
   /// <returns></returns>
-  public string Decode (string str)
+  public string Decode(string str)
   {
     buffer = str;
     index = 0;

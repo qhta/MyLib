@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Class to process text in a document.
@@ -42,17 +39,17 @@ public class TextProcessor
           curLength += text.Length;
         }
         else
-        if (curLength + text.Length <= pos + length)
-        {
-          member.SetText(text.Substring(0, pos), TextOptions.FullText);
-          length -= text.Length - pos;
-          pos = 0;
-        }
-        else
-        {
-          member.SetText(text.Substring(0, pos) + text.Substring(pos + length), TextOptions.FullText);
-          break;
-        }
+          if (curLength + text.Length <= pos + length)
+          {
+            member.SetText(text.Substring(0, pos), TextOptions.FullText);
+            length -= text.Length - pos;
+            pos = 0;
+          }
+          else
+          {
+            member.SetText(text.Substring(0, pos) + text.Substring(pos + length), TextOptions.FullText);
+            break;
+          }
       }
     }
   }

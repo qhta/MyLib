@@ -17,13 +17,13 @@ public static class BordersTools
   /// <param name="borderList">Enumeration of source <see cref="BorderType"/> elements</param>
   /// <typeparam name="OpenXmlElementType">Target OpenXml element type. It must be a composite element</typeparam>
   /// <returns>New <typeparamref name="OpenXmlElementType"/> element</returns>
-  public static OpenXmlElementType ToOpenXmlBorders<OpenXmlElementType>(this IEnumerable<BorderType> borderList) 
+  public static OpenXmlElementType ToOpenXmlBorders<OpenXmlElementType>(this IEnumerable<BorderType> borderList)
     where OpenXmlElementType : DX.OpenXmlCompositeElement, new()
   {
     var bordersElement = new OpenXmlElementType();
     foreach (var border in borderList)
     {
-     bordersElement.Append(border);
+      bordersElement.Append(border);
     }
     return bordersElement;
   }
@@ -35,7 +35,7 @@ public static class BordersTools
   /// <returns></returns>
   public static bool IsVisible(this BorderType? border)
   {
-    return border!= null && border.Val?.Value != BorderValues.Nil;
+    return border != null && border.Val?.Value != BorderValues.Nil;
   }
 
   /// <summary>
@@ -68,7 +68,7 @@ public static class BordersTools
     if (!bordersType.Name.EndsWith("Borders"))
       throw new ArgumentException($"The element {bordersElement.GetType().Name} is not a borders element");
     var property = bordersType.GetProperty(typeof(T).Name);
-    if (property==null)
+    if (property == null)
       throw new ArgumentException($"The element {bordersElement.GetType().Name} does not contain a property of type {typeof(T).Name}");
     if (property.GetValue(bordersElement) is BorderType oldBorder)
       oldBorder.Remove();

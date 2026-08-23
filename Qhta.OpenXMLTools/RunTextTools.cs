@@ -14,7 +14,7 @@ public static class RunTextTools
   {
     if (element == null)
       return true;
-    return element.Text.Trim()=="";
+    return element.Text.Trim() == "";
   }
 
   /// <summary>
@@ -28,7 +28,7 @@ public static class RunTextTools
   /// <returns>Next, newly created runText (or null) if split is not available</returns>
   public static DXW.Text? SplitAt(this DXW.Text runText, int index, TextOptions options)
   {
-    
+
     var textValue = runText.Text;
     if (index <= 0 || index >= textValue.Length)
       return null;

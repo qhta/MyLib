@@ -1,6 +1,4 @@
-﻿using DocumentFormat.OpenXml.Office2013.PowerPoint.Roaming;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Provides static utility methods for working with <c>OnOffType</c> elements, enabling convenient retrieval of boolean

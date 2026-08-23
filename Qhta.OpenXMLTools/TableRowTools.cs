@@ -1,8 +1,4 @@
-﻿using System;
-
-using DocumentFormat.OpenXml.Wordprocessing;
-
-using Qhta.TextUtils;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 

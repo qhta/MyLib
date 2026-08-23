@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Qhta.OpenXmlTools;
 
@@ -65,7 +63,7 @@ public abstract class AttributeFormatter
 /// <summary>
 /// Class to format attribute name-value pairs in plain text.
 /// </summary>
-public class PlainAttributeFormatter: AttributeFormatter
+public class PlainAttributeFormatter : AttributeFormatter
 {
   /// <summary>
   /// Method to get the text formatted of several included attributes.
@@ -92,7 +90,7 @@ public class PlainAttributeFormatter: AttributeFormatter
   {
     if (attributeValue.Value == null)
       return string.Empty;
-    return attributeValue.Name + "=" +attributeValue.Value;
+    return attributeValue.Name + "=" + attributeValue.Value;
   }
 
   /// <summary>

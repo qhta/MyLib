@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using Qhta.TypeUtils;
 namespace Qhta.OpenXmlTools;
 
@@ -94,7 +95,7 @@ public static class TestTools
       return Convert.ToDecimal(value).ToString("F", CultureInfo.InvariantCulture);
     }
     var properties = valueType.GetPropertiesByInheritance()
-      .Where(p => p.CanWrite && p.GetCustomAttribute<NotMappedAttribute>()==null).ToArray();
+      .Where(p => p.CanWrite && p.GetCustomAttribute<NotMappedAttribute>() == null).ToArray();
     if (properties.Length > 0)
     {
       var indentStr = new string(' ', indent * 2);
@@ -256,7 +257,8 @@ public static class TestTools
           rsids.RsidRoot = new DXW.RsidRoot { Val = new DX.HexBinaryValue(item) };
         else
           rsids.Append(new DXW.Rsid { Val = new DX.HexBinaryValue(item) });
-      };
+      }
+      ;
     }
     //if (targetType.ImplementsInterfaces(typeof(DX.IEnumValue)))
     //{

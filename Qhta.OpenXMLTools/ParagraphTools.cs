@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Xml;
-
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
@@ -571,25 +567,25 @@ public static class ParagraphTools
         }
       }
       else
-      if (item is DXW.Run run)
-      {
-        var nextSibling = run.NextSibling();
-        var runText = run.GetText(TextOptions.ParaText);
-        var newRun = run.SplitBefore(member);
-        if (newRun != null)
+        if (item is DXW.Run run)
         {
-          newParagraph ??= NewParagraph(paragraph);
-          newParagraph.AppendChild(newRun);
-          while (nextSibling != null)
+          var nextSibling = run.NextSibling();
+          var runText = run.GetText(TextOptions.ParaText);
+          var newRun = run.SplitBefore(member);
+          if (newRun != null)
           {
-            var nextSibling1 = nextSibling.NextSibling();
-            nextSibling.Remove();
-            newParagraph.AppendChild(nextSibling);
-            nextSibling = nextSibling1;
+            newParagraph ??= NewParagraph(paragraph);
+            newParagraph.AppendChild(newRun);
+            while (nextSibling != null)
+            {
+              var nextSibling1 = nextSibling.NextSibling();
+              nextSibling.Remove();
+              newParagraph.AppendChild(nextSibling);
+              nextSibling = nextSibling1;
+            }
+            break;
           }
-          break;
         }
-      }
     }
     if (newParagraph?.IsEmptyOrWhiteSpace() == true)
       newParagraph = null;

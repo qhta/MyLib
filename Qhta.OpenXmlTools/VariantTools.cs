@@ -66,7 +66,7 @@ public static class VariantTools
       case "VTCurrency":
         return Decimal.Parse(((DXVT.VTCurrency)element).InnerText.Replace(",", "."), CultureInfo.InvariantCulture);
       case "VTDecimal":
-        return Decimal.Parse(((DXVT.VTDecimal)element).InnerText.Replace(",","."), CultureInfo.InvariantCulture);
+        return Decimal.Parse(((DXVT.VTDecimal)element).InnerText.Replace(",", "."), CultureInfo.InvariantCulture);
       case "VTError":
         return Int32.Parse(((DXVT.VTError)element).InnerText, NumberStyles.AllowHexSpecifier);
       case "VTClassId":
@@ -709,7 +709,7 @@ public static class VariantTools
   /// <exception cref="InvalidDataException"></exception>
   public static DX.OpenXmlElement CreateVariant(Type valueType, object? value, string? format = null)
   {
-    
+
     if (value == null)
       return new DXVT.VTNull();
     object value1 = value!;
@@ -743,7 +743,7 @@ public static class VariantTools
         return new DXVT.VTDouble(FloatToString(value1, format) ?? value1.ToString()!);
       case nameof(Decimal):
         return new DXVT.VTDecimal(DecimalToString(value1, format) ?? value1.ToString()!);
-       case nameof(Guid):
+      case nameof(Guid):
         if (value is Guid guidVal)
           return new DXVT.VTClassId(guidVal.ToString(format));
         return new DXVT.VTClassId(value?.ToString() ?? String.Empty);

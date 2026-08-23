@@ -1,7 +1,5 @@
 ﻿using System;
 
-using DocumentFormat.OpenXml.Spreadsheet;
-
 namespace Qhta.OpenXmlTools;
 /// <summary>
 /// Manages the properties of a document in a uniform way.
@@ -35,7 +33,7 @@ public class DocumentProperties
   {
     int count = 0;
     if (WordDoc.HasCoreProperties())
-      count+= WordDoc.GetCoreProperties().Count(filter);
+      count += WordDoc.GetCoreProperties().Count(filter);
     if (WordDoc.HasExtendedFileProperties())
       count += WordDoc.GetExtendedFileProperties().Count(filter);
     if (WordDoc.HasCustomFileProperties())

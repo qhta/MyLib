@@ -25,7 +25,7 @@ public static class BookmarkTools
     if (searchFromElement == null)
       searchFromElement = bookmarkEnd;
     var element = searchFromElement.PreviousSiblingMember();
-    while (element!=null)
+    while (element != null)
     {
       if (element is DXW.BookmarkStart bookmarkStart && bookmarkStart.Id?.Value == Id)
         return bookmarkStart;

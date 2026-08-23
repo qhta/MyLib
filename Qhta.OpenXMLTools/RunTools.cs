@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Text;
 
-using DocumentFormat.OpenXml.InkML;
-using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 
@@ -690,7 +688,7 @@ public static class RunTools
               for (int j = i + 1; j < members.Count; j++)
               {
                 var newMember = members[j];
-                if (newMember.Parent!=null)
+                if (newMember.Parent != null)
                   newMember.Remove();
                 newRun.AppendChild(newMember);
               }

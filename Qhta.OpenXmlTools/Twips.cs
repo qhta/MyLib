@@ -54,7 +54,7 @@ public struct Twips
   /// Converts the <see cref="Twips"/> struct to the integer.
   /// </summary>
   /// <param name="Twips"></param>
-  public static implicit operator int?(Twips?Twips)
+  public static implicit operator int?(Twips? Twips)
   {
     return Twips?.Value;
   }

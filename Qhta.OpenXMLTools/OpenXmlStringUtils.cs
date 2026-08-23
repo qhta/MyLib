@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
@@ -735,29 +733,29 @@ public static class OpenXmlStringUtils
           index++;
           return "\u00a0";
         case 'u':
-        {
-          index++;
-          ushort num = 0;
-          for (int i = 1; i <= 4; i++)
           {
-            char c2 = key[index + i];
-            if (c2 >= '0' && c2 <= '9')
+            index++;
+            ushort num = 0;
+            for (int i = 1; i <= 4; i++)
             {
-              num = (ushort)(num * 16 + (ushort)(c2 - 48));
+              char c2 = key[index + i];
+              if (c2 >= '0' && c2 <= '9')
+              {
+                num = (ushort)(num * 16 + (ushort)(c2 - 48));
+              }
+              else if (c2 >= 'A' && c2 <= 'F')
+              {
+                num = (ushort)(num * 16 + (ushort)(c2 - 65) + 10);
+              }
+              else if (c2 >= 'a' && c2 <= 'f')
+              {
+                num = (ushort)(num * 16 + (ushort)(c2 - 97) + 10);
+              }
             }
-            else if (c2 >= 'A' && c2 <= 'F')
-            {
-              num = (ushort)(num * 16 + (ushort)(c2 - 65) + 10);
-            }
-            else if (c2 >= 'a' && c2 <= 'f')
-            {
-              num = (ushort)(num * 16 + (ushort)(c2 - 97) + 10);
-            }
-          }
 
-          index += 4;
-          return new string((char)num, 1);
-        }
+            index += 4;
+            return new string((char)num, 1);
+          }
         default:
           index++;
           return new string(c, 1);
@@ -797,8 +795,8 @@ public static class OpenXmlStringUtils
             return false;
         }
         else
-        if (!Char.IsLetter(ch) || Char.IsUpper(ch))
-          return false;
+          if (!Char.IsLetter(ch) || Char.IsUpper(ch))
+            return false;
       }
       return true;
     }

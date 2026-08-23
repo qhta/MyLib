@@ -1,6 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
-using System.Linq;
 
 namespace Qhta.OpenXmlTools;
 
@@ -170,7 +169,7 @@ public static class ListTools
       return null;
     var level = numbering.ChildElements.OfType<AbstractNum>()
       .FirstOrDefault(item => item.AbstractNumberId?.Value == abstractNumId)?
-      .Elements<Level>().FirstOrDefault(item => item.LevelIndex?.Value == levelNdx-1);
+      .Elements<Level>().FirstOrDefault(item => item.LevelIndex?.Value == levelNdx - 1);
     return level;
   }
 

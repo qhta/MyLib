@@ -1,6 +1,4 @@
-﻿using System;
-
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
@@ -409,17 +407,17 @@ public static class RunPropertiesTools
   {
     if (value == DXW.VerticalPositionValues.Superscript)
       runProperties.VerticalTextAlignment = new DXW.VerticalTextAlignment
-        { Val = DXW.VerticalPositionValues.Superscript };
-    else 
-    if (value == DXW.VerticalPositionValues.Subscript)
-      runProperties.VerticalTextAlignment = new DXW.VerticalTextAlignment
+      { Val = DXW.VerticalPositionValues.Superscript };
+    else
+      if (value == DXW.VerticalPositionValues.Subscript)
+        runProperties.VerticalTextAlignment = new DXW.VerticalTextAlignment
         { Val = DXW.VerticalPositionValues.Subscript };
-    else
-    if (value == DXW.VerticalPositionValues.Baseline)
-      runProperties.VerticalTextAlignment = new DXW.VerticalTextAlignment
-        { Val = DXW.VerticalPositionValues.Baseline };
-    else
-      runProperties.VerticalTextAlignment = null;
+      else
+        if (value == DXW.VerticalPositionValues.Baseline)
+          runProperties.VerticalTextAlignment = new DXW.VerticalTextAlignment
+          { Val = DXW.VerticalPositionValues.Baseline };
+        else
+          runProperties.VerticalTextAlignment = null;
   }
 
   /// <summary>

@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Office2021.Excel.RichValueRefreshIntervals;
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 

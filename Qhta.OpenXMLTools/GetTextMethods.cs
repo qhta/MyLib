@@ -1,7 +1,7 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿using System;
 using System.Text;
-using System;
-using System.Xml.Linq;
+
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Qhta.OpenXmlTools;
 
@@ -97,11 +97,11 @@ public static class GetTextMethods
         return $"<{memberTag}/>";
     }
     else
-    if (options.IncludeOtherMembers)
-    {
-      var memberTag = element.GetType().Name.ToLowerFirstLetter();
-      return $"<{memberTag}/>";
-    }
+      if (options.IncludeOtherMembers)
+      {
+        var memberTag = element.GetType().Name.ToLowerFirstLetter();
+        return $"<{memberTag}/>";
+      }
     return "";
   }
 

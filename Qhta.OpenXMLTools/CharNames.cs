@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
 using Qhta.Collections;
-using Qhta.Unicode;
 
 namespace Qhta.OpenXmlTools;
 

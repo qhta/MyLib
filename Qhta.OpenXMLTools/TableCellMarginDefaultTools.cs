@@ -25,7 +25,8 @@ public static class TableCellMarginDefaultTools
       ? null
       : new DXW.TableCellLeftMargin
       {
-        Width = new DX.Int16Value((short)left), Type = new DX.EnumValue<DXW.TableWidthValues>(DXW.TableWidthValues.Dxa)
+        Width = new DX.Int16Value((short)left),
+        Type = new DX.EnumValue<DXW.TableWidthValues>(DXW.TableWidthValues.Dxa)
       };
     margin.TopMargin = left == null
       ? null

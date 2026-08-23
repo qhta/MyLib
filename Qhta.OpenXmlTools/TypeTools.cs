@@ -1,7 +1,6 @@
 ﻿using System;
 
 using DocumentFormat.OpenXml;
-using Qhta.TextUtils;
 
 namespace Qhta.OpenXmlTools;
 
@@ -264,7 +263,7 @@ public static class TypeTools
   /// </summary>
   /// <param name="enumInstance"></param>
   /// <returns></returns>
-  public static DX.EnumValue<T>? ToEnumValue<T>(this T enumInstance) where T: struct, DX.IEnumValue, DX.IEnumValueFactory<T>
+  public static DX.EnumValue<T>? ToEnumValue<T>(this T enumInstance) where T : struct, DX.IEnumValue, DX.IEnumValueFactory<T>
   {
     return new DX.EnumValue<T>(enumInstance);
   }
@@ -313,7 +312,7 @@ public static class TypeTools
       return openXmlType;
     var propName = propertyName ?? "";
     //  Debug.WriteLine($"TypeTools.ToSystemType({openXmlType}, {propertyName})");
-    if (openXmlType==typeof(DX.HexBinaryValue) && propName.StartsWith("Rsid"))
+    if (openXmlType == typeof(DX.HexBinaryValue) && propName.StartsWith("Rsid"))
       return typeof(HexInt);
     if (openXmlType == typeof(DX.StringValue) && propName.EndsWith("Color.Val"))
       return typeof(HexRGB);
@@ -847,36 +846,36 @@ public static class TypeTools
         onOffType.Val = null;
     }
     else
-    if (openXmlElement is DXW.OnOffOnlyType onOffOnlyType)
-    {
-      if (booleanValue == true)
-        onOffOnlyType.Val = DXW.OnOffOnlyValues.On;
+      if (openXmlElement is DXW.OnOffOnlyType onOffOnlyType)
+      {
+        if (booleanValue == true)
+          onOffOnlyType.Val = DXW.OnOffOnlyValues.On;
+        else
+          if (booleanValue == false)
+            onOffOnlyType.Val = DXW.OnOffOnlyValues.Off;
+          else
+            onOffOnlyType.Val = null;
+      }
       else
-      if (booleanValue == false)
-        onOffOnlyType.Val = DXW.OnOffOnlyValues.Off;
-      else
-        onOffOnlyType.Val = null;
-    }
-    else
-    if (openXmlElement is DXO10W.OnOffType onOffType2)
-    {
-      if (booleanValue == true)
-        onOffType2.Val = DXO10W.OnOffValues.One;
-      if (booleanValue == false)
-        onOffType2.Val = DXO10W.OnOffValues.Zero;
-      else
-        onOffType2.Val = null;
-    }
-    else
-    if (openXmlElement is DXO13W.OnOffType onOffType3)
-    {
-      if (booleanValue != null)
-        onOffType3.Val = new DX.OnOffValue(booleanValue);
-      else
-        onOffType3.Val = null;
-    }
-    else
-      throw new ArgumentException("Object cannot update from boolean", nameof(openXmlElement));
+        if (openXmlElement is DXO10W.OnOffType onOffType2)
+        {
+          if (booleanValue == true)
+            onOffType2.Val = DXO10W.OnOffValues.One;
+          if (booleanValue == false)
+            onOffType2.Val = DXO10W.OnOffValues.Zero;
+          else
+            onOffType2.Val = null;
+        }
+        else
+          if (openXmlElement is DXO13W.OnOffType onOffType3)
+          {
+            if (booleanValue != null)
+              onOffType3.Val = new DX.OnOffValue(booleanValue);
+            else
+              onOffType3.Val = null;
+          }
+          else
+            throw new ArgumentException("Object cannot update from boolean", nameof(openXmlElement));
   }
 
   private static object? OnOffValuesToBoolean(object? value)
@@ -977,12 +976,12 @@ public static class TypeTools
         longHexNumber.Val = new DX.HexBinaryValue(hexIntValue.ToString());
       }
       else
-      if (value is string stringValue)
-      {
-        longHexNumber.Val = new DX.HexBinaryValue(stringValue);
-      }
-      else
-        throw new ArgumentException("Value is not an HexInt nor string", nameof(value));
+        if (value is string stringValue)
+        {
+          longHexNumber.Val = new DX.HexBinaryValue(stringValue);
+        }
+        else
+          throw new ArgumentException("Value is not an HexInt nor string", nameof(value));
     }
     else
       throw new ArgumentException("Object is not of LongHexNumberType type", nameof(openXmlElement));
@@ -1044,17 +1043,17 @@ public static class TypeTools
         stringType.Val = new DX.StringValue(stringValue);
       }
       else
-      if (openXmlElement is DXW.String255Type string255Type)
-      {
-        string255Type.Val = new DX.StringValue(stringValue);
-      }
-      else
-      if (openXmlElement is DXW.String253Type string253Type)
-      {
-        string253Type.Val = new DX.StringValue(stringValue);
-      }
-      else
-        throw new ArgumentException("Element is not of any StringType", nameof(openXmlElement));
+        if (openXmlElement is DXW.String255Type string255Type)
+        {
+          string255Type.Val = new DX.StringValue(stringValue);
+        }
+        else
+          if (openXmlElement is DXW.String253Type string253Type)
+          {
+            string253Type.Val = new DX.StringValue(stringValue);
+          }
+          else
+            throw new ArgumentException("Element is not of any StringType", nameof(openXmlElement));
     }
     throw new ArgumentException("Value is not a string", nameof(value));
   }
@@ -1154,48 +1153,48 @@ public static class TypeTools
         decimalNumberType.Val = new DX.Int32Value(intValue);
       }
       else
-      if (openXmlElement is DXW.UnsignedDecimalNumberType unsignedDecimalNumberType)
-      {
-        unsignedDecimalNumberType.Val = new DX.UInt32Value(Convert.ToUInt32(intValue));
-      }
-      else
-      if (openXmlElement is DXW.UnsignedDecimalNumberMax3Type unsignedDecimalNumberMax3Type)
-      {
-        unsignedDecimalNumberMax3Type.Val = new DX.Int32Value(intValue);
-      }
-      else
-      if (openXmlElement is DXW.UnsignedInt7Type unsignedInt7Type)
-      {
-        unsignedInt7Type.Val = new DX.Int32Value(intValue);
-      }
-      else
-        throw new ArgumentException("Element is not of any DecimalNumber", nameof(openXmlElement));
+        if (openXmlElement is DXW.UnsignedDecimalNumberType unsignedDecimalNumberType)
+        {
+          unsignedDecimalNumberType.Val = new DX.UInt32Value(Convert.ToUInt32(intValue));
+        }
+        else
+          if (openXmlElement is DXW.UnsignedDecimalNumberMax3Type unsignedDecimalNumberMax3Type)
+          {
+            unsignedDecimalNumberMax3Type.Val = new DX.Int32Value(intValue);
+          }
+          else
+            if (openXmlElement is DXW.UnsignedInt7Type unsignedInt7Type)
+            {
+              unsignedInt7Type.Val = new DX.Int32Value(intValue);
+            }
+            else
+              throw new ArgumentException("Element is not of any DecimalNumber", nameof(openXmlElement));
     }
     else
-    if (value is uint uintValue)
-    {
-      if (openXmlElement is DXW.DecimalNumberType decimalNumberType)
+      if (value is uint uintValue)
       {
-        decimalNumberType.Val = new DX.Int32Value(Convert.ToInt32(uintValue));
+        if (openXmlElement is DXW.DecimalNumberType decimalNumberType)
+        {
+          decimalNumberType.Val = new DX.Int32Value(Convert.ToInt32(uintValue));
+        }
+        else
+          if (openXmlElement is DXW.UnsignedDecimalNumberType unsignedDecimalNumberType)
+          {
+            unsignedDecimalNumberType.Val = new DX.UInt32Value(uintValue);
+          }
+          else
+            if (openXmlElement is DXW.UnsignedDecimalNumberMax3Type unsignedDecimalNumberMax3Type)
+            {
+              unsignedDecimalNumberMax3Type.Val = new DX.Int32Value(Convert.ToInt32(uintValue));
+            }
+            else
+              if (openXmlElement is DXW.UnsignedInt7Type unsignedInt7Type)
+              {
+                unsignedInt7Type.Val = new DX.Int32Value(Convert.ToInt32(uintValue));
+              }
+              else
+                throw new ArgumentException("Element is not of any DecimalNumber", nameof(openXmlElement));
       }
-      else
-      if (openXmlElement is DXW.UnsignedDecimalNumberType unsignedDecimalNumberType)
-      {
-        unsignedDecimalNumberType.Val = new DX.UInt32Value(uintValue);
-      }
-      else
-      if (openXmlElement is DXW.UnsignedDecimalNumberMax3Type unsignedDecimalNumberMax3Type)
-      {
-        unsignedDecimalNumberMax3Type.Val = new DX.Int32Value(Convert.ToInt32(uintValue));
-      }
-      else
-      if (openXmlElement is DXW.UnsignedInt7Type unsignedInt7Type)
-      {
-        unsignedInt7Type.Val = new DX.Int32Value(Convert.ToInt32(uintValue));
-      }
-      else
-        throw new ArgumentException("Element is not of any DecimalNumber", nameof(openXmlElement));
-    }
     throw new ArgumentException("Value is not an int", nameof(value));
   }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 
 namespace Qhta.OpenXmlTools;
 
@@ -137,7 +136,7 @@ public class GotTextParser : IDisposable
       }
       else
       {
-        var endPos = text.IndexOf(TextOptions.EscChar+"<", pos);
+        var endPos = text.IndexOf(TextOptions.EscChar + "<", pos);
         if (endPos < 0)
           endPos = text.Length;
         var t = text.Substring(pos, endPos - pos);
