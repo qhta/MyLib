@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Methods for working with properties.

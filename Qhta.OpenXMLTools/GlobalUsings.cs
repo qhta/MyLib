@@ -1,12 +1,15 @@
 // Global using directives
 
+global using System;
 global using System.Collections.Generic;
-
+global using System.ComponentModel.DataAnnotations.Schema;
 global using System.Diagnostics;
 global using System.Globalization;
 global using System.IO.Packaging;
 global using System.Linq;
 global using System.Reflection;
+
+global using Qhta.DiagnosticTools;
 #if NET7_0_OR_GREATER
 global using System.Text.Json;
 #else
@@ -15,6 +18,8 @@ global using System.Text.Json;
 
 //global using Qhta.DeepCompare;
 global using Qhta.OpenXmlTools;
+global using Qhta.TypeUtils;
+
 //global using Qhta.TypeUtils;
 
 global using DX = DocumentFormat.OpenXml;

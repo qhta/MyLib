@@ -8,9 +8,10 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <readme>readme.md</readme>
     <description>OpenXmlTools is a library for working with OpenXml documents.</description>
-    <repository type="git" commit="56f0c74d16daf160310f98fe7d2735a9e27659c4" />
+    <repository type="git" commit="aa208d9e6115ddc4a7c6b0cf6752cb543e2f67b8" />
     <dependencies>
       <group targetFramework=".NETFramework4.8">
+        <dependency id="Qhta.DiagnosticTools" version="1.0.0" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml.Framework" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="4.3.1" exclude="Build,Analyzers" />
@@ -19,6 +20,7 @@
         <dependency id="System.ComponentModel.Annotations" version="5.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework="net8.0">
+        <dependency id="Qhta.DiagnosticTools" version="1.0.0" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml.Framework" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="4.3.1" exclude="Build,Analyzers" />
@@ -27,6 +29,7 @@
         <dependency id="System.ComponentModel.Annotations" version="5.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.0">
+        <dependency id="Qhta.DiagnosticTools" version="1.0.0" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml.Framework" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="4.3.1" exclude="Build,Analyzers" />
@@ -35,6 +38,7 @@
         <dependency id="System.ComponentModel.Annotations" version="5.0.0" exclude="Build,Analyzers" />
       </group>
       <group targetFramework=".NETStandard2.1">
+        <dependency id="Qhta.DiagnosticTools" version="1.0.0" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="DocumentFormat.OpenXml.Framework" version="3.5.1" exclude="Build,Analyzers" />
         <dependency id="Qhta.TextUtils" version="4.3.1" exclude="Build,Analyzers" />

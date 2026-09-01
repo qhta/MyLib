@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// A composite tool for formatting a Wordprocessing document.

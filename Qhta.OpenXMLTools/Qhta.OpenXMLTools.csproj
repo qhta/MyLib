@@ -47,6 +47,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Qhta.DiagnosticTools\Qhta.DiagnosticTools.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="StylesStrings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

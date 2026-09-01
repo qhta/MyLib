@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Attribute name-value pair.

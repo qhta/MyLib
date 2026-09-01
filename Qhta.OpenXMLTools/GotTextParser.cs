@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// This class parses text which was got with PlainText methods for OpenXml elements.

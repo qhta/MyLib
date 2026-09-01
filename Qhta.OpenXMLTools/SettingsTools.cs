@@ -1,6 +1,4 @@
-﻿using System;
-
-using DocumentFormat.OpenXml.CustomXmlSchemaReferences;
+﻿using DocumentFormat.OpenXml.CustomXmlSchemaReferences;
 using DocumentFormat.OpenXml.Math;
 using DocumentFormat.OpenXml.Office2010.Word;
 using DocumentFormat.OpenXml.Office2013.Word;

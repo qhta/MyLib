@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-
-using Qhta.TypeUtils;
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Methods to help with testing.
@@ -95,7 +91,7 @@ public static class TestTools
       return Convert.ToDecimal(value).ToString("F", CultureInfo.InvariantCulture);
     }
     var properties = valueType.GetPropertiesByInheritance()
-      .Where(p => p.CanWrite && p.GetCustomAttribute<NotMappedAttribute>() == null).ToArray();
+      .Where(p => p.CanWrite && p.GetCustomAttributeDiag<NotMappedAttribute>() == null).ToArray();
     if (properties.Length > 0)
     {
       var indentStr = new string(' ', indent * 2);

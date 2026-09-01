@@ -1,6 +1,4 @@
-﻿using System;
-
-using DocumentFormat.OpenXml.Math;
+﻿using DocumentFormat.OpenXml.Math;
 
 namespace Qhta.OpenXmlTools;
 /// <summary>

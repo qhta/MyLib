@@ -1,6 +1,4 @@
-﻿using System;
-
-using DocumentFormat.OpenXml;
+﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 using Qhta.TextUtils;

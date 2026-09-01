@@ -11,6 +11,7 @@
         "dependencies": {
           "DocumentFormat.OpenXml": "3.5.1",
           "DocumentFormat.OpenXml.Framework": "3.5.1",
+          "Qhta.DiagnosticTools": "1.0.0",
           "Qhta.TextUtils": "4.3.1",
           "Qhta.TypeUtils": "1.6.0",
           "Qhta.Unicode": "1.2.2",
@@ -333,6 +334,14 @@
             "fileVersion": "4.6.24705.1"
           }
         }
+      },
+      "Qhta.DiagnosticTools/1.0.0": {
+        "runtime": {
+          "Qhta.DiagnosticTools.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -635,6 +644,11 @@
       "sha512": "sha512-VkUS0kOBcUf3Wwm0TSbrevDDZ6BlM+b/HRiapRFWjM5O0NS0LviG0glKmFK+hhPDd1XFeSdU1GmlLhb2CoVpIw==",
       "path": "system.threading/4.3.0",
       "hashPath": "system.threading.4.3.0.nupkg.sha512"
+    },
+    "Qhta.DiagnosticTools/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

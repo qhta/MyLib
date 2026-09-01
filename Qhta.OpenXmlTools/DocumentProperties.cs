@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Qhta.OpenXmlTools;
+﻿namespace Qhta.OpenXmlTools;
 /// <summary>
 /// Manages the properties of a document in a uniform way.
 /// </summary>
