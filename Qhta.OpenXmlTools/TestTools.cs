@@ -1,4 +1,6 @@
-﻿namespace Qhta.OpenXmlTools;
+﻿using System.Runtime.Serialization;
+
+namespace Qhta.OpenXmlTools;
 
 /// <summary>
 /// Methods to help with testing.
@@ -91,7 +93,7 @@ public static class TestTools
       return Convert.ToDecimal(value).ToString("F", CultureInfo.InvariantCulture);
     }
     var properties = valueType.GetPropertiesByInheritance()
-      .Where(p => p.CanWrite && p.GetCustomAttributeDiag<NotMappedAttribute>() == null).ToArray();
+      .Where(p => p.GetCustomAttributeDiag<DataMemberAttribute>() != null).ToArray();
     if (properties.Length > 0)
     {
       var indentStr = new string(' ', indent * 2);
