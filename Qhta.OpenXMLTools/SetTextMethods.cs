@@ -285,7 +285,7 @@ public static class SetTextMethods
     {
 
       var enumType = type.GetGenericArguments()[0];
-      var enumValues = enumType.GetConstructor([typeof(string)])!.Invoke(new object[] { value });
+      var enumValues = enumType.GetConstructor([typeof(string)])!.Invoke([value]);
       var enumValue = Activator.CreateInstance(type, new object[] { enumValues });
       property.SetValue(element, enumValue);
     }

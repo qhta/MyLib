@@ -258,16 +258,6 @@ public static class TestTools
       }
       ;
     }
-    //if (targetType.ImplementsInterfaces(typeof(DX.IEnumValue)))
-    //{
-    //  Type genericTypeDefinition = typeof(DX.IEnumValueFactory<>);
-
-    //  Type[] typeArguments = { targetType };
-    //  Type constructedType = genericTypeDefinition.MakeGenericType(typeArguments);
-    //  var createMethod = constructedType.GetMethod("Create");
-    //  var enumValue = createMethod!.Invoke(null, [value]);
-    //  return enumValue;
-    //}
 
     if (targetType.IsOpenXmlEnum())
     {

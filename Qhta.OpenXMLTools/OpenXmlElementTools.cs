@@ -1385,7 +1385,7 @@ public static class OpenXmlElementTools
     var valProperty = xmlElement.GetType().GetProperty("Val");
     if (valProperty == null)
       throw new InvalidDataException($"Property Val not found in {xmlElement.GetType()}");
-    var enumValue = typeof(ValType).GetConstructor(Type.EmptyTypes)?.Invoke(null);
+    var enumValue = typeof(ValType).GetConstructor(Type.EmptyTypes)?.InvokeDiag(null);
     typeof(ValType).GetProperty("Val")?.SetValue(enumValue, value);
     valProperty.SetValue(xmlElement, enumValue);
   }
@@ -1400,7 +1400,7 @@ public static class OpenXmlElementTools
     where ElementType : DXW.RelationshipType, new()
   {
     var element = xmlElement.Elements<ElementType>().FirstOrDefault();
-    if (element != null)
+    if (element is not null)
     {
       return element.Id;
     }
