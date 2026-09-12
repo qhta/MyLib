@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -46,16 +47,25 @@ public static class DiagnosticTools
   /// <param name="propertyInfo">The property information to set.</param>
   /// <param name="target">The object on which to set the property value.</param>
   /// <param name="value">The value to set.</param>
-  public static void SetValueDiag(this PropertyInfo propertyInfo, object? target, object? value)
+  public static void SetValueDiag(this PropertyInfo propertyInfo, object? target, object? value, [CallerMemberName] string callerName = "")
   {
-    #if NET8_0_OR_GREATER
+    //Debug.WriteLine($"{propertyInfo}.SetValue({target}, {value}) in {callerName}");
+
+#if NET8_0_OR_GREATER
     propertyInfo.SetValue(target, value, BindingFlags.DoNotWrapExceptions, null, null, CultureInfo.InvariantCulture);
-    #else
+#else
     propertyInfo.SetValue(target, value);
     #endif
   }
 
-  public static object? GetValueDiag(this PropertyInfo propertyInfo, object? target)
+  /// <summary>
+  /// Gets the value of a property using reflection, with the option to not wrap exceptions in a TargetInvocationException.
+  /// </summary>
+  /// <param name="propertyInfo">The property information to get.</param>
+  /// <param name="target">The object from which to get the property value.</param>
+  /// <param name="callerName">The name of the method or property that called this method.</param>
+  /// <returns>The value of the property.</returns>
+  public static object? GetValueDiag(this PropertyInfo propertyInfo, object? target, [CallerMemberName] string callerName = "")
   {
     #if NET8_0_OR_GREATER
     return propertyInfo.GetValue(target, BindingFlags.DoNotWrapExceptions, null, null, CultureInfo.InvariantCulture);
