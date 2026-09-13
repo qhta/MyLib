@@ -10,4 +10,3 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\obj\Debug\net8.0\Qhta.Diagnos
 D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\obj\Debug\net8.0\refint\Qhta.DiagnosticTools.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\obj\Debug\net8.0\Qhta.DiagnosticTools.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\obj\Debug\net8.0\ref\Qhta.DiagnosticTools.dll
-D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\obj\Debug\net8.0\Qhta.Dia.F6923837.Up2Date
