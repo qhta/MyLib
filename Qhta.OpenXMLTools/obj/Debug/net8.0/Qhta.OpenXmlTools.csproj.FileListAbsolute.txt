@@ -26,3 +26,9 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\refint\Qhta.Ope
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\Qhta.OpenXmlTools.xml
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\Qhta.OpenXmlTools.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\net8.0\ref\Qhta.OpenXmlTools.dll
+D:\OneDrive\VS\Projects\DocxDocument\_tempbin\inopenxml\BuiltInStyleProbes.docx
+D:\OneDrive\VS\Projects\DocxDocument\_tempbin\inopenxml\Qhta.OpenXmlTools.deps.json
+D:\OneDrive\VS\Projects\DocxDocument\_tempbin\inopenxml\Qhta.OpenXmlTools.dll
+D:\OneDrive\VS\Projects\DocxDocument\_tempbin\inopenxml\Qhta.OpenXmlTools.pdb
+D:\OneDrive\VS\Projects\DocxDocument\_tempbin\inopenxml\Qhta.OpenXmlTools.xml
+D:\OneDrive\VS\Projects\DocxDocument\_tempbin\inopenxml\pl\Qhta.OpenXmlTools.resources.dll
