@@ -20,8 +20,8 @@ public static class DiagnosticTools
   public static object? InvokeDiag(this MethodInfo methodInfo, object? target, object?[]? parameters = null)
   {
     #if NET8_0_OR_GREATER
-    return methodInfo.Invoke(target, BindingFlags.DoNotWrapExceptions, null, parameters, null);
-#else
+      return methodInfo.Invoke(target, BindingFlags.DoNotWrapExceptions, null, parameters, null);
+    #else
     return methodInfo.Invoke(target, parameters);
     #endif
   }
