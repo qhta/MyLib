@@ -22,7 +22,7 @@ public static class DiagnosticTools
     #if NET8_0_OR_GREATER
       return methodInfo.Invoke(target, BindingFlags.DoNotWrapExceptions, null, parameters, null);
     #else
-    return methodInfo.Invoke(target, parameters);
+      return methodInfo.Invoke(target, parameters);
     #endif
   }
 
