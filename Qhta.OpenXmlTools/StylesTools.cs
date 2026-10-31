@@ -112,13 +112,16 @@ public static partial class StylesTools
   /// Gets the styles from the document. If the document does not have styles element, it is created
   /// </summary>
   /// <param name="wordDoc">The WordprocessingDocument</param>
+  /// <param name="createIfNotExists"></param>
   /// <param name="buildInStylesFileName">Path to a docx with buildIn styles defined and used</param>
   /// <returns>Instance of the styles element</returns>
-  public static DXW.Styles GetStyles(this DXPP.WordprocessingDocument wordDoc, string? buildInStylesFileName = null)
+  public static DXW.Styles? GetStyles(this DXPP.WordprocessingDocument wordDoc, bool createIfNotExists = false, string? buildInStylesFileName = null)
   {
     var mainDocumentPart = wordDoc.GetMainDocumentPart();
-    var styleDefinitionsPart = mainDocumentPart.StyleDefinitionsPart ??
-                               mainDocumentPart.AddNewPart<DXPP.StyleDefinitionsPart>();
+    var styleDefinitionsPart = mainDocumentPart.StyleDefinitionsPart;
+    if (styleDefinitionsPart == null && !createIfNotExists)
+      return null;
+    styleDefinitionsPart = mainDocumentPart.AddNewPart<DXPP.StyleDefinitionsPart>();
 
     styleDefinitionsPart.Styles ??= (styleDefinitionsPart.Styles = new DXW.Styles());
     if (buildInStylesFileName != null)

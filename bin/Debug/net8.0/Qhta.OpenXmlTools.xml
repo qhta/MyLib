@@ -10921,11 +10921,12 @@
             <param name="wordDoc">The WordprocessingDocument</param>
             <returns>True if the document has styles defined</returns>
         </member>
-        <member name="M:Qhta.OpenXmlTools.StylesTools.GetStyles(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.String)">
+        <member name="M:Qhta.OpenXmlTools.StylesTools.GetStyles(DocumentFormat.OpenXml.Packaging.WordprocessingDocument,System.Boolean,System.String)">
             <summary>
             Gets the styles from the document. If the document does not have styles element, it is created
             </summary>
             <param name="wordDoc">The WordprocessingDocument</param>
+            <param name="createIfNotExists"></param>
             <param name="buildInStylesFileName">Path to a docx with buildIn styles defined and used</param>
             <returns>Instance of the styles element</returns>
         </member>
