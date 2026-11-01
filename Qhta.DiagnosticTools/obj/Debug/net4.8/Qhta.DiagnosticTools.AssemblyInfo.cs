@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Qhta.DiagnosticTools")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2428689a3762adee6498ba68242e11534470f21")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+89f5c0300115cd75de769f5b76d949b069f47176")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qhta.DiagnosticTools")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qhta.DiagnosticTools")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
