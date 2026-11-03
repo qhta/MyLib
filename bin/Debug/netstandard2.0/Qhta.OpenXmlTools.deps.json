@@ -10,7 +10,6 @@
       "Qhta.OpenXmlTools/2.0": {
         "dependencies": {
           "DocumentFormat.OpenXml": "3.5.1",
-          "DocumentFormat.OpenXml.Framework": "3.5.1",
           "Qhta.DiagnosticTools": "1.0.0",
           "Qhta.TextUtils": "4.3.1",
           "Qhta.TypeUtils": "1.6.0",

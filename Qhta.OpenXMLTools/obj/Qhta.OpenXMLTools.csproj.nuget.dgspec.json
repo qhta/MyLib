@@ -180,10 +180,6 @@
               "target": "Package",
               "version": "[3.5.1, )"
             },
-            "DocumentFormat.OpenXml.Framework": {
-              "target": "Package",
-              "version": "[3.5.1, )"
-            },
             "Qhta.TextUtils": {
               "target": "Package",
               "version": "[4.3.1, )"
@@ -208,10 +204,6 @@
           "targetAlias": "net8.0",
           "dependencies": {
             "DocumentFormat.OpenXml": {
-              "target": "Package",
-              "version": "[3.5.1, )"
-            },
-            "DocumentFormat.OpenXml.Framework": {
               "target": "Package",
               "version": "[3.5.1, )"
             },
@@ -258,10 +250,6 @@
               "target": "Package",
               "version": "[3.5.1, )"
             },
-            "DocumentFormat.OpenXml.Framework": {
-              "target": "Package",
-              "version": "[3.5.1, )"
-            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
@@ -303,10 +291,6 @@
           "targetAlias": "netstandard2.1",
           "dependencies": {
             "DocumentFormat.OpenXml": {
-              "target": "Package",
-              "version": "[3.5.1, )"
-            },
-            "DocumentFormat.OpenXml.Framework": {
               "target": "Package",
               "version": "[3.5.1, )"
             },

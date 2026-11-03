@@ -5923,7 +5923,6 @@
   "projectFileDependencyGroups": {
     "net4.8": [
       "DocumentFormat.OpenXml >= 3.5.1",
-      "DocumentFormat.OpenXml.Framework >= 3.5.1",
       "Qhta.DiagnosticTools >= 1.0.0",
       "Qhta.TextUtils >= 4.3.1",
       "Qhta.TypeUtils >= 1.6.0",
@@ -5932,7 +5931,6 @@
     ],
     "net8.0": [
       "DocumentFormat.OpenXml >= 3.5.1",
-      "DocumentFormat.OpenXml.Framework >= 3.5.1",
       "Qhta.DiagnosticTools >= 1.0.0",
       "Qhta.TextUtils >= 4.3.1",
       "Qhta.TypeUtils >= 1.6.0",
@@ -5941,7 +5939,6 @@
     ],
     "netstandard2.0": [
       "DocumentFormat.OpenXml >= 3.5.1",
-      "DocumentFormat.OpenXml.Framework >= 3.5.1",
       "NETStandard.Library >= 2.0.3",
       "Qhta.DiagnosticTools >= 1.0.0",
       "Qhta.TextUtils >= 4.3.1",
@@ -5951,7 +5948,6 @@
     ],
     "netstandard2.1": [
       "DocumentFormat.OpenXml >= 3.5.1",
-      "DocumentFormat.OpenXml.Framework >= 3.5.1",
       "Qhta.DiagnosticTools >= 1.0.0",
       "Qhta.TextUtils >= 4.3.1",
       "Qhta.TypeUtils >= 1.6.0",
@@ -6056,10 +6052,6 @@
             "target": "Package",
             "version": "[3.5.1, )"
           },
-          "DocumentFormat.OpenXml.Framework": {
-            "target": "Package",
-            "version": "[3.5.1, )"
-          },
           "Qhta.TextUtils": {
             "target": "Package",
             "version": "[4.3.1, )"
@@ -6084,10 +6076,6 @@
         "targetAlias": "net8.0",
         "dependencies": {
           "DocumentFormat.OpenXml": {
-            "target": "Package",
-            "version": "[3.5.1, )"
-          },
-          "DocumentFormat.OpenXml.Framework": {
             "target": "Package",
             "version": "[3.5.1, )"
           },
@@ -6134,10 +6122,6 @@
             "target": "Package",
             "version": "[3.5.1, )"
           },
-          "DocumentFormat.OpenXml.Framework": {
-            "target": "Package",
-            "version": "[3.5.1, )"
-          },
           "NETStandard.Library": {
             "suppressParent": "All",
             "target": "Package",
@@ -6179,10 +6163,6 @@
         "targetAlias": "netstandard2.1",
         "dependencies": {
           "DocumentFormat.OpenXml": {
-            "target": "Package",
-            "version": "[3.5.1, )"
-          },
-          "DocumentFormat.OpenXml.Framework": {
             "target": "Package",
             "version": "[3.5.1, )"
           },
