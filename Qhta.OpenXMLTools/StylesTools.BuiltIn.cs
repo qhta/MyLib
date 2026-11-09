@@ -20,18 +20,20 @@ public static partial class StylesTools
   private static void LoadBuiltinStyles(this DXPP.WordprocessingDocument wordDoc)
   {
     BuiltinStyles = new Dictionary<BuiltinStyles, Style>();
-    foreach (var style in wordDoc.GetStyles().Elements<Style>())
-    {
-      var styleName = style.StyleName?.Val?.Value!;
-      if (StyleNamesDictionary.TryGetValue(styleName, out var builtinStyle))
+    var wordDocStyles = wordDoc.GetStyles();
+    if (wordDocStyles != null)
+      foreach (var style in wordDocStyles.Elements<Style>())
       {
-        BuiltinStyles.Add(builtinStyle, (Style)style.CloneNode(true));
+        var styleName = style.StyleName?.Val?.Value!;
+        if (StyleNamesDictionary.TryGetValue(styleName, out var builtinStyle))
+        {
+          BuiltinStyles.Add(builtinStyle, (Style)style.CloneNode(true));
+        }
+        else
+        {
+          Console.WriteLine($"Unknown style: {styleName}");
+        }
       }
-      else
-      {
-        Console.WriteLine($"Unknown style: {styleName}");
-      }
-    }
   }
   private static Dictionary<BuiltinStyles, Style>? BuiltinStyles = null;
 
