@@ -9,8 +9,6 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.Op
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.OpenXmlTools.StylesStrings.pl.resources
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.OpenXmlTools.csproj.GenerateResource.cache
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.OpenXmlTools.GeneratedMSBuildEditorConfig.editorconfig
-D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.OpenXmlTools.AssemblyInfoInputs.cache
-D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.OpenXmlTools.AssemblyInfo.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.OpenXmlTools.csproj.CoreCompileInputs.cache
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\Qhta.OpenXmlTools.sourcelink.json
 D:\OneDrive\VS\Projects\MyLib\Qhta.OpenXMLTools\obj\Debug\netstandard2.1\pl\Qhta.OpenXmlTools.resources.dll

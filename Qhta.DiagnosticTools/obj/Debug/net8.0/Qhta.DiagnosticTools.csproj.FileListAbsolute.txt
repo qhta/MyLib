@@ -8,8 +8,6 @@ D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\bin\Debug\net8.0\Qhta.Diagnos
 D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\bin\Debug\net8.0\Qhta.DiagnosticTools.dll
 D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\bin\Debug\net8.0\Qhta.DiagnosticTools.pdb
 D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\obj\Debug\net8.0\Qhta.DiagnosticTools.GeneratedMSBuildEditorConfig.editorconfig
-D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\obj\Debug\net8.0\Qhta.DiagnosticTools.AssemblyInfoInputs.cache
-D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\obj\Debug\net8.0\Qhta.DiagnosticTools.AssemblyInfo.cs
 D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\obj\Debug\net8.0\Qhta.DiagnosticTools.csproj.CoreCompileInputs.cache
 D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\obj\Debug\net8.0\Qhta.DiagnosticTools.sourcelink.json
 D:\OneDrive\VS\Projects\MyLib\Qhta.DiagnosticTools\obj\Debug\net8.0\Qhta.DiagnosticTools.dll
